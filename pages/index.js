@@ -1,13 +1,11 @@
 import Head from 'next/head'
+import { async } from 'regenerator-runtime';
 import { PostCard, PostWidget, Category } from '../components';
 
-const posts = [
-  {title : "React Testing", excerpt: "Learn React testing"},
-  {title : "Tailwind Testing", excerpt: "Learn React testing"},
-  {title : "Graphql Testing", excerpt: "Learn React testing"},
-];
+import { getPosts } from '../services';
 
-export default function Home() {
+
+export default function Home({posts}) {
   return (
     <div className="container mx-auto px-10 mb-8">
       <Head>
@@ -31,4 +29,12 @@ export default function Home() {
 
     </div>
   )
+}
+
+
+export async function getStaticProps(){
+  const posts = (await getPosts() || []);
+  return {
+    props: {posts}
+  }
 }
