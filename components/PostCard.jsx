@@ -4,7 +4,6 @@ import moment from "moment";
 import Link from "next/link";
 
 const PostCard = ({ post }) => {
-  console.log(post.authors[0].photo.url);
   return (
     <div className="bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 md-8 mb-12 lg:md-14">
       <div
@@ -17,10 +16,7 @@ const PostCard = ({ post }) => {
           className="object-top absolute h-80 w-full object-cover shadow-lg rounded-t-lg lg:rouded-lg"
         />
       </div>
-      <h1
-        className="transition duration-800 pt-4 text-center mb-8 cursor-pointer 
-      hover:text-red-600 text-3xl font-semibold"
-      >
+      <h1 className="transition duration-800 pt-4 text-center mb-8 cursor-pointer hover:text-red-600 text-3xl font-semibold">
         <Link href={`/post/${post.slug}`}>{post.title}</Link>
       </h1>
       <div className="block lg:flex text-center items-center justify-center mb-8 w-full">
