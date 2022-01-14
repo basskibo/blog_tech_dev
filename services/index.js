@@ -84,8 +84,7 @@ export const getCategories = async () => {
       }
     }
   `;
-  console.log(query);
+
   const result = await request(graphqlAPI, query);
-  console.log("CAT", result);
   return result.categories;
 };
