@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { async } from "regenerator-runtime";
-import { PostCard, PostWidget, Category } from "../components";
+import { PostCard, PostWidget, Categories } from "../components";
 
 import { getPosts } from "../services";
 
@@ -20,7 +20,7 @@ export default function Home({ posts }) {
         <div className="lg:col-span-4 col-span-1">
           <div className="lg:sticky relative top-8">
             <PostWidget />
-            <Category />
+            <Categories />
           </div>
         </div>
       </div>

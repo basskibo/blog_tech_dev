@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { Popover, Transition } from "@headlessui/react";
+
 import Link from "next/link";
 
 const categories = [
