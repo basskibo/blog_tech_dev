@@ -9,13 +9,12 @@ const PostWidget = ({ categories, slug }) => {
 
   useEffect(() => {
     if (slug) {
+      console.log("$@!$!@$!@$!@$@%!%%");
       getSimiliarPosts(categories, slug).then((result) =>
         setRelatedPosts(result)
       );
     } else {
-      getRecentPosts(categories, slug).then((result) =>
-        setRelatedPosts(result)
-      );
+      getRecentPosts().then((result) => setRelatedPosts(result));
     }
   }, [slug]);
 

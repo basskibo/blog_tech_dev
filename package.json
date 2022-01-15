@@ -8,6 +8,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.3",
+    "@heroicons/react": "^1.0.5",
     "graphql": "^16.2.0",
     "graphql-request": "^3.7.0",
     "html-react-parser": "^1.4.5",
