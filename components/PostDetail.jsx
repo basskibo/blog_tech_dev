@@ -1,6 +1,8 @@
 import React from "react";
 import moment from "moment";
 import Chip from "@mui/material/Chip";
+import Divider from "@mui/material/Divider";
+import { Link } from "next/link";
 
 const PostDetail = ({ post }) => {
   const getContentFragment = (index, text, obj, type) => {
@@ -147,13 +149,25 @@ const PostDetail = ({ post }) => {
         })}
       </div>
       <div>
-        <Chip
-          label="JavaScript"
-          variant="outlined"
-          className="text-white mr-2"
-        />{" "}
-        <Chip label="AWS" variant="outlined" className="text-white mr-2" />{" "}
-        <Chip label="Nodejs" variant="outlined" className="text-white mr-2" />
+        <Divider
+          className="text-white border-white"
+          light={true}
+          sx={{ bgcolor: "#ffff" }}
+          style={{
+            border: "none",
+            height: 1,
+            marginBottom: 20,
+          }}
+        ></Divider>
+        {post.categories.map((category) => (
+          // <Link href={`/post/${category.slug}`}>
+          <Chip
+            label={category.name}
+            variant="outlined"
+            className="text-white mr-2"
+          />
+          // </Link>
+        ))}
       </div>
     </div>
   );

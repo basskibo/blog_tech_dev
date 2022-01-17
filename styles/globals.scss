@@ -54,6 +54,14 @@ body {
   }
 }
 
+.MuiDivider-root {
+  color: #20b2aa;
+}
+
+.MuiDivider-root:hover {
+  color: #2e8b57;
+}
+
 a {
   color: inherit;
   text-decoration: none;
