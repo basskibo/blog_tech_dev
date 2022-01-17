@@ -9,7 +9,6 @@ const PostWidget = ({ categories, slug }) => {
 
   useEffect(() => {
     if (slug) {
-      console.log("$@!$!@$!@$!@$@%!%%");
       getSimiliarPosts(categories, slug).then((result) =>
         setRelatedPosts(result)
       );
@@ -24,27 +23,31 @@ const PostWidget = ({ categories, slug }) => {
         {slug ? "Related Posts" : "Recent Posts"}
       </h3>
       {relatedPosts.map((post) => (
-        <div key={post.title} className="flex items-center w-full mb-4">
+        <div key={post.title} className="flex items-center w-full mb-4 ">
           <div className="w-16 flex-none">
             <img
               alt={post.title}
-              height="60px"
-              width="60px"
-              className="allign-middle rounded-full"
+              height="30px"
+              width="30px"
+              className="inline-block h-12 w-12 rounded-full ring-2 ring-orange-600"
               src={post.featuredImage.url}
             ></img>
           </div>
-          <div className="flex-grow ml-4">
+          <div className="flex-grow ml-2 ">
             <p className="dark:text-slate-400 font-xs">
               {moment(post.createdAt).format("MMMM DD, YYYY")}
             </p>
-            <Link
-              href={`/post/${post.slug}`}
-              key={post.title}
-              className="text-md"
-            >
-              {post.title}
-            </Link>
+            <span className="hover:cursor-pointer hover:underline-offset-1	 focus-within:shadow-lg">
+              <Link
+                href={`/post/${post.slug}`}
+                key={post.title}
+                className=" text-md "
+              >
+                <span className="dark:text-white hover:text-slate-400">
+                  {post.title}
+                </span>
+              </Link>
+            </span>
           </div>
         </div>
       ))}
