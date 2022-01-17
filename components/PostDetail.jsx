@@ -3,9 +3,6 @@ import moment from "moment";
 const PostDetail = ({ post }) => {
   const getContentFragment = (index, text, obj, type) => {
     let modifiedText = text;
-    // console.log("_____________________");
-    // console.log(text);
-    // console.log(type);
     if (obj) {
       if (obj.bold) {
         modifiedText = <b key={index}>{text}</b>;
@@ -111,7 +108,8 @@ const PostDetail = ({ post }) => {
               alt={post.author.name}
               height="30px"
               width="30px"
-              className="align-middle rounded-full"
+              // className="align-middle rounded-full"
+              className="inline-block h-12 w-12 rounded-full ring-2 ring-orange-600"
               src={post.author.photo.url}
             />
             <p className="inline align-middle text-gray-400 ml-2 text-lg">
@@ -122,7 +120,7 @@ const PostDetail = ({ post }) => {
             {/* <p className="align-middle mr-2">Publish: </p> */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 inline mr-2 text-pink-500"
+              className="h-6 w-6 inline mr-2 text-orange-600"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

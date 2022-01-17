@@ -96,11 +96,11 @@ export const getSimiliarPosts = async (categories, slug) => {
   console.log("FETCJING categories FOR POST SLUG, ", categories);
 
   const query = gql`
-    query MyQuery {
+    query GetSimiliarPosts($slug: String!, $categories: [String!]) {
       posts(
         where: {
-          slug_not: "$slug"
-          AND: { categories_some: { slug_in: "$categories" } }
+          slug_not: $slug
+          AND: { categories_some: { slug_in: $categories } }
         }
       ) {
         title
@@ -113,25 +113,8 @@ export const getSimiliarPosts = async (categories, slug) => {
     }
   `;
 
-  // const query = gql`
-  //   query GetPostDetails($slug: String!, $categories: [String!]) {
-  //     posts(
-  //       where: {
-  //         slug_not: $slug
-  //         AND: { categories_some: { slug_in: $categories } }
-  //       }
-  //       last: 3
-  //     ) {
-  //       title
-  //       featuredImage {
-  //         url
-  //       }
-  //       createdAt
-  //       slug
-  //     }
-  //   }
-  // `;
   const result = await request(graphqlAPI, query, { slug, categories });
+  console.log(query);
   return result.posts;
 };
 
