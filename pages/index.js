@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { async } from "regenerator-runtime";
-import { PostCard, PostWidget, Categories } from "../components";
+import { PostCard, PostWidget, Categories, Pagination } from "../components";
 
 import { getPosts } from "../services";
 
@@ -16,6 +16,7 @@ export default function Home({ posts }) {
           {posts.map((post, index) => (
             <PostCard post={post.node} key={post.title} />
           ))}
+          <Pagination />
         </div>
         <div className="lg:col-span-4 col-span-1">
           <div className="lg:sticky relative top-8">
