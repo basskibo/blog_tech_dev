@@ -52,7 +52,7 @@ body {
   &.page-item {
     &.active {
       button {
-        background-color: green;
+        background-color: rgb(186, 224, 48);
         border-color: green;
       }
     }
@@ -78,6 +78,10 @@ body {
       width: 60px;
     }
   }
+}
+
+.MuiPaginationItem-text {
+  color: #ffff;
 }
 
 .MuiDivider-root {
