@@ -2,10 +2,11 @@ import { request, gql } from "graphql-request";
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT;
 
-export const getPosts = async () => {
+export const getPosts = async (last) => {
+  console.log(last);
   const query = gql`
-    query MyQuery {
-      postsConnection {
+    query GetPosts($last: Int) {
+      postsConnection(last: $last, stage: PUBLISHED) {
         edges {
           node {
             createdAt
