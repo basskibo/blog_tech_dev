@@ -12,7 +12,7 @@ import {
 
 const PostDetails = ({ post }) => {
   return (
-    <div className="container mx-auto px-10 mb-8">
+    <div className="container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 lg:rounded-lg p-0 lg:p-0 ">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="col-span-1 lg:col-span-8">
           <PostDetail post={post} />

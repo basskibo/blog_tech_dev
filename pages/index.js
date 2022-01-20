@@ -19,7 +19,7 @@ export default function Home({ posts }) {
   }, []);
 
   return (
-    <div className="container mx-auto px-10 mb-8">
+    <div className="container mx-auto lg:px-10 sm:px-0 xs:px-0  mb-8 ">
       <Head>
         <title>IguDev Tech Blog</title>
         <link rel="icon" href="/favicon.ico" />

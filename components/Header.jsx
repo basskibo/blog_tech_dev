@@ -6,8 +6,8 @@ import Button from "@mui/material/Button";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
-  { name: "Blog", href: "#", current: false },
-  { name: "Categories", href: "#", current: false },
+  { name: "Blog", href: "/", current: false },
+
   { name: "Projects", href: "#", current: false },
   { name: "About", href: "#", current: false },
 ];
@@ -21,10 +21,7 @@ const categories = [
 ];
 const Header = () => {
   return (
-    <Disclosure
-      as="nav"
-      className="bg-gray-800 dark:bg-slate-900 lg:mb-10 lg:pt-3"
-    >
+    <Disclosure as="nav" className="bg-slate-900 lg:mb-10 lg:pt-3">
       {({ open }) => (
         <>
           <div className=" max-w-10xl mx-auto px-2 sm:px-6 lg:px-8">

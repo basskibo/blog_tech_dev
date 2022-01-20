@@ -75,8 +75,8 @@ const CommentsForm = ({ slug }) => {
     });
   };
   return (
-    <div className="bg-white dark:bg-slate-900 shadow-lg rounded-lg p-8 pb-12 mb-8">
-      <h3 className="text-xl mb-8 text-gray-800 dark:text-white font-semibold border-b pb-4">
+    <div className="bg-slate-900 shadow-lg rounded-lg p-8 pb-12 mb-8">
+      <h3 className="text-xl mb-8 text-white font-semibold border-b pb-4">
         Leave you comment
       </h3>
 
@@ -112,7 +112,7 @@ const CommentsForm = ({ slug }) => {
             id="storeData"
             name="storeData"
           />
-          <label className="dark:text-white pl-2 text-sm" htmlFor="storeData">
+          <label className="text-white pl-2 text-sm" htmlFor="storeData">
             Remember my name and email for next time I comment
           </label>
         </div>
