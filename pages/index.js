@@ -1,10 +1,23 @@
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { async } from "regenerator-runtime";
 import { PostCard, PostWidget, Categories, Pagination } from "../components";
-
+const numberPerPage = 1;
 import { getPosts } from "../services";
 
 export default function Home({ posts }) {
+  const [numberOfPages, setnumberOfPages] = useState(0);
+  const postNum = posts.length;
+  const [numberOfPosts, setNumberOfPosts] = useState(postNum);
+  const [pageNumber, setpageNumber] = useState(1);
+
+  useEffect(() => {
+    const offset = (pageNumber - 1) * numberPerPage + 1;
+    const calculatedPages = Math.ceil(posts.length / numberPerPage);
+    setnumberOfPages(calculatedPages);
+    setpageNumber(offset);
+  }, []);
+
   return (
     <div className="container mx-auto px-10 mb-8">
       <Head>
@@ -16,7 +29,11 @@ export default function Home({ posts }) {
           {posts.map((post, index) => (
             <PostCard post={post.node} key={post.title} />
           ))}
-          <Pagination />
+          <Pagination
+            pageNumber={pageNumber}
+            numberOfPosts={numberOfPosts}
+            numberOfPages={numberOfPages}
+          />
         </div>
         <div className="lg:col-span-4 col-span-1">
           <div className="lg:sticky relative top-8">
@@ -30,7 +47,7 @@ export default function Home({ posts }) {
 }
 
 export async function getStaticProps() {
-  const posts = (await getPosts()) || [];
+  const posts = (await getPosts(numberPerPage)) || [];
   return {
     props: { posts },
   };
