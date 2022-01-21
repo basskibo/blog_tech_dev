@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Switch } from "@headlessui/react";
 
 const style = {
   position: "absolute",
@@ -18,12 +19,9 @@ import { submitComment } from "../services";
 const CommentsForm = ({ slug }) => {
   const [error, setError] = useState(false);
   const [localStorage, setLocalStorage] = useState(null);
-  const [submitedSucc, setSubmitedSucc] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [checked, setEnabled] = useState(false);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const commentEl = useRef();
   const nameEl = useRef();
   const emailEl = useRef();
@@ -37,15 +35,14 @@ const CommentsForm = ({ slug }) => {
   const handleCommentSubmition = () => {
     console.log("Handling button click!!");
     setError(false);
-    setSubmitedSucc(false);
+    setShowSuccessMessage(false);
     const { value: comment } = commentEl.current;
     const { value: name } = nameEl.current;
     const { value: email } = emailEl.current;
-    const { checked: storeData } = storeDataEl.current;
 
     if (!comment || !name || !email) {
       setError(true);
-      handleOpen();
+
       return;
     }
     const commentObj = {
@@ -55,7 +52,7 @@ const CommentsForm = ({ slug }) => {
       slug,
     };
 
-    if (storeData) {
+    if (checked) {
       window.localStorage.setItem("email", email);
       window.localStorage.setItem("name", name);
     } else {
@@ -65,8 +62,12 @@ const CommentsForm = ({ slug }) => {
 
     submitComment(commentObj).then((res) => {
       setShowSuccessMessage(true);
-      setSubmitedSucc(true);
-      handleOpen();
+      commentEl.current.value = "";
+      emailEl.current.value = "";
+      nameEl.current.value = "";
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 10000);
     });
   };
   return (
@@ -99,50 +100,45 @@ const CommentsForm = ({ slug }) => {
           name="comment"
         ></textarea>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4 ml-1">
+      <div className="grid grid-cols-1 lg:grid-cols-2  mb-4 ml-1">
         <div>
-          <input
+          <Switch
+            checked={checked}
+            onChange={setEnabled}
             ref={storeDataEl}
-            type="checkbox"
-            id="storeData"
-            name="storeData"
-          />
-          <label className="text-white pl-2 text-sm" htmlFor="storeData">
+            className={`${
+              checked ? "bg-sky-800" : "bg-slate-400"
+            } relative inline-flex items-center h-4 rounded-full w-11`}
+          >
+            <span className="sr-only">Enable notifications</span>
+            <span
+              className={`${
+                checked ? "translate-x-6" : "translate-x-1"
+              } inline-block w-3 h-3  bg-white rounded-full`}
+            />
+          </Switch>
+          <label className="text-white pl-2 text-sm w-full" htmlFor="storeData">
             Remember my name and email for next time I comment
           </label>
         </div>
       </div>
-      {error && <p className="text-xs text-red-500">All fields are required</p>}
+      {error && (
+        <p className="text-lg text-red-500">*All fields are required</p>
+      )}
+      {showSuccessMessage && (
+        <p className="text-lg text-green-500">
+          Your comment was successfully submitted , please wait while admin
+          approves it.
+        </p>
+      )}
       <div className="mt-8">
-        <button>Submit</button>
-        {/* <Button
-          variant="outlined"
-          color="success"
-          onClick={handleCommentSubmition}
-        >
-          Submit comment
-        </Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography
-              id="modal-modal-title"
-              variant="h5"
-              component="h2"
-              style={submitedSucc ? { color: "green" } : { color: "red" }}
-            >
-              {submitedSucc ? "Success!" : "Failed!"}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Your comment was successfully submitted , please wait while admin
-              approves it.
-            </Typography>
-          </Box>
-        </Modal> */}
+        <button onClick={handleCommentSubmition}>
+          <a class="inline-flex">
+            <span class="h-12 flex items-center mt-3 justify-center uppercase font-semibold px-5 border-2 border-sky-800 text-slate-400 hover:bg-sky-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out">
+              Submit
+            </span>
+          </a>
+        </button>
       </div>
     </div>
   );
