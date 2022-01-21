@@ -60,7 +60,7 @@ const PostCard = ({ post }) => {
       <div className="text-center lg:mt-5">
         <Link href={`/post/${post.slug}`}>
           <a class="inline-flex">
-            <span class="h-12 flex items-center mt-3 justify-center rounded-full uppercase font-semibold px-5 border-2 border-sky-800 text-slate-400 hover:bg-sky-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out">
+            <span class="h-12 flex items-center mt-3 justify-center  uppercase font-semibold px-5 border-2 border-sky-800 text-slate-400 hover:bg-sky-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out">
               Continue reading
             </span>
           </a>
