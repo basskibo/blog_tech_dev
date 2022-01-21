@@ -20,7 +20,7 @@ const categories = [
 ];
 const Header = () => {
   return (
-    <Disclosure as="nav" className="bg-slate-900 lg:mb-10 lg:pt-3">
+    <Disclosure as="nav" className="bg-slate-900  text-white lg:mb-10 lg:pt-3">
       {({ open }) => (
         <>
           <div className=" max-w-10xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -74,13 +74,39 @@ const Header = () => {
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 xs:hidden">
+                <div className="text-center">
+                  <Link href={`/`}>
+                    <a class="inline-flex">
+                      <span class="h-9 mb-3 flex items-center mt-3 justify-center  font-semibold px-5 border-2 border-sky-800 text-slate-400 hover:bg-sky-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out">
+                        Sign in
+                        <span className="ml-2">
+                          <svg
+                            class="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                            ></path>
+                          </svg>
+                        </span>
+                      </span>
+                    </a>
+                  </Link>
+                </div>
                 {/* <Button
                   variant="outlined"
                   endIcon={<LoginIcon className="h-6 w-6" aria-hidden="true" />}
                 >
                   Login
                 </Button> */}
+
                 {/* <button class="bg-gradient-to-r from-cyan-500 to-blue-500 transition-colors rounded-[8px] px-[15px] py-[4px] text-white mr-2">
                   Sign in
                   <svg
@@ -200,26 +226,3 @@ const Header = () => {
 };
 
 export default Header;
-
-{
-  /* // <div className="container mx-auto px-10 mb-8">
-    //   <div className="border-b w-full inline-block border-orange-400 py-8">
-    //     <div className="md:float-left block">
-    //       <Link href="/">
-    //         <span className="cursor-pointer font-bold text-4xl text-white">
-    //           IguTech Blog
-    //         </span>
-    //       </Link>
-    //     </div>
-    //     <div className="hidden md:float-left md:contents">
-    //       {categories.map((category) => (
-    //         <Link key={category.slug} href={`/category/${category.slug}`}>
-    //           <span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
-    //             {category.name}
-    //           </span>
-    //         </Link>
-    //       ))}
-    //     </div>
-    //   </div>
-    // </div> */
-}
