@@ -2,7 +2,6 @@ import React, { useContext, Fragment } from "react";
 import Link from "next/link";
 import { Disclosure, Menu, Popover, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon, LoginIcon } from "@heroicons/react/outline";
-import Button from "@mui/material/Button";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -76,12 +75,12 @@ const Header = () => {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <Button
+                {/* <Button
                   variant="outlined"
                   endIcon={<LoginIcon className="h-6 w-6" aria-hidden="true" />}
                 >
                   Login
-                </Button>
+                </Button> */}
                 {/* <button class="bg-gradient-to-r from-cyan-500 to-blue-500 transition-colors rounded-[8px] px-[15px] py-[4px] text-white mr-2">
                   Sign in
                   <svg
