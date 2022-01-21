@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import Button from "@mui/material/Button";
+
 import Link from "next/link";
 
 const PostCard = ({ post }) => {
@@ -13,10 +13,10 @@ const PostCard = ({ post }) => {
         <img
           src={post.featuredImage.url}
           alt={post.title}
-          className="object-top absolute h-80 w-full object-cover shadow-lg rounded-t-lg lg:rouded-lg"
+          className="object-top absolute h-80 w-full object-cover shadow-lg lg:rounded-t-lg "
         />
       </div>
-      <h1 className="transition duration-800 pt-4   text-center mb-8 cursor-pointer hover:text-red-600 text-3xl  text-white font-semibold">
+      <h1 className="transition duration-800 pt-4   text-center mb-8 cursor-pointer hover:text-sky-800 text-3xl  text-white font-semibold">
         <Link href={`/post/${post.slug}`}>{post.title}</Link>
       </h1>
       <div className="block lg:flex text-center items-center justify-center mb-8 w-full">
@@ -59,13 +59,11 @@ const PostCard = ({ post }) => {
 
       <div className="text-center lg:mt-5">
         <Link href={`/post/${post.slug}`}>
-          {/* <button class="trasition duration-300 bg-transparent hover:bg-red-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded">
-            Continue reading */}
-          {/* </button> */}
-          {/* <span className="transition  duration-500 transform hover:-translate-y-1 inline-block bg-transparent text-lg font-medium rounded-full text-white px-8 py-2 mt-3 cursor-pointer">
-            Continue reading
-          </span> */}
-          <Button variant="outlined"> Continue reading</Button>
+          <a class="inline-flex">
+            <span class="h-12 flex items-center mt-3 justify-center rounded-full uppercase font-semibold px-5 border-2 border-sky-800 text-slate-400 hover:bg-sky-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out">
+              Continue reading
+            </span>
+          </a>
         </Link>
       </div>
     </div>

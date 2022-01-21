@@ -1,10 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -119,7 +114,8 @@ const CommentsForm = ({ slug }) => {
       </div>
       {error && <p className="text-xs text-red-500">All fields are required</p>}
       <div className="mt-8">
-        <Button
+        <button>Submit</button>
+        {/* <Button
           variant="outlined"
           color="success"
           onClick={handleCommentSubmition}
@@ -146,7 +142,7 @@ const CommentsForm = ({ slug }) => {
               approves it.
             </Typography>
           </Box>
-        </Modal>
+        </Modal> */}
       </div>
     </div>
   );

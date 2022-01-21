@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Chip from "@mui/material/Chip";
+import CategoryChip from "./CategoryChip";
 
 import { getCategories } from "../services";
 
@@ -16,16 +16,16 @@ const Categories = () => {
       <h3 className="text-xl mb-8 font-semibold border-b pb-4 text-white">
         Categories
       </h3>
-      {categories.map((category) => (
+      <CategoryChip categories={categories} />
+      {/* {categories.map((category) => (
         <Link key={category.slug} href={`/category/${category.name}`}>
-          <Chip
-            label={category.name}
-            color="primary"
-            variant="outlined"
-            className="text-slate-400 bg-slate-900  lg:m-1 sm:m-1 xs:ml-4 xs:mb-6 first:ml-0 "
-          ></Chip>
+          <a class="inline-flex" href>
+            <span class=" flex items-center m-2 justify-center rounded-full text-sm px-3 border-2 border-sky-800 text-slate-400 hover:bg-sky-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out">
+              {category.name}
+            </span>
+          </a>
         </Link>
-      ))}
+      ))} */}
     </div>
   );
 };

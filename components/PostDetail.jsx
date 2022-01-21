@@ -1,7 +1,6 @@
 import React from "react";
 import moment from "moment";
-import Chip from "@mui/material/Chip";
-import Divider from "@mui/material/Divider";
+import CategoryChip from "./CategoryChip";
 import { Link } from "next/link";
 
 const PostDetail = ({ post }) => {
@@ -137,31 +136,11 @@ const PostDetail = ({ post }) => {
         })}
       </div>
       <div className="mb-4 lg:mb-0 w-full lg:w-auto lg:mr-8 sm:mr-3">
-        {/* <Divider
-          className="text-white border-white"
-          light={true}
-          sx={{ bgcolor: "#ffff" }}
-          style={{
-            border: "none",
-            height: 1,
-            marginBottom: 20,
-          }}
-        ></Divider> */}
         <p className="border-b pb-5 pt-5 mb-4 align-middle text-center text-white">
           {" "}
-          {/* Categories{" "} */}
         </p>
         <span className="pt-5 mt-5 ">
-          {post.categories.map((category) => (
-            // <Link href={`/post/${category.slug}`}>
-            <Chip
-              label={category.name}
-              variant="outlined"
-              color="primary"
-              className="text-slate-400 bg-slate-900  lg:m-1 sm:m-1 xs:ml-4 xs:mb-6 first:ml-1 "
-            />
-            // </Link>
-          ))}
+          <CategoryChip categories={post.categories} />
         </span>
       </div>
     </div>

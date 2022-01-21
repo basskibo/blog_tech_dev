@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import parse from "html-react-parser";
-import Paginations from "@mui/material/Pagination";
-import PaginationItem from "@mui/material/PaginationItem";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Stack from "@mui/material/Stack";
 
 import { getComments } from "../services";
 const Comment = ({ slug }) => {
@@ -18,7 +12,7 @@ const Comment = ({ slug }) => {
     <div>
       {" "}
       {comments.length > 0 && (
-        <div className="bg-white bg-slate-900  shadow-lg rounded-lg p-8 pb-12 mb-8">
+        <div className="bg-slate-900  shadow-lg rounded-lg p-8 pb-12 mb-8">
           <h3 className="text-xl mb-8 text-white font-semibold border-b pb-4">
             {comments.length} Comments
           </h3>
@@ -34,7 +28,8 @@ const Comment = ({ slug }) => {
               <p className="text-slate-400">{comment.comment} </p>
             </div>
           ))}
-          <Stack spacing={3}>
+
+          {/* <Stack spacing={3}>
             <Paginations
               count={5}
               defaultPage={1}
@@ -54,7 +49,7 @@ const Comment = ({ slug }) => {
               )}
               style={{ color: "#ffff" }}
             />
-          </Stack>
+          </Stack> */}
         </div>
       )}
     </div>
