@@ -1,5 +1,8 @@
 import React from "react";
 import moment from "moment";
+import CategoryChip from "./CategoryChip";
+import { Link } from "next/link";
+
 const PostDetail = ({ post }) => {
   const getContentFragment = (index, text, obj, type) => {
     let modifiedText = text;
@@ -20,10 +23,7 @@ const PostDetail = ({ post }) => {
     switch (type) {
       case "heading-three":
         return (
-          <h3
-            key={index}
-            className="text-xl dark:text-white font-semibold mb-4"
-          >
+          <h3 key={index} className="lg:text-xl text-white font-semibold mb-4">
             {modifiedText.map((item, i) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -31,7 +31,7 @@ const PostDetail = ({ post }) => {
         );
       case "paragraph":
         return (
-          <p key={index} className="mb-8 text-size-sm dark:text-slate-400">
+          <p key={index} className="mb-8 lg:text-size-sm text-slate-400">
             {modifiedText.map((item, i) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -39,10 +39,7 @@ const PostDetail = ({ post }) => {
         );
       case "heading-one":
         return (
-          <h1
-            key={index}
-            className="text-2xl font-semibold dark:text-white mb-4"
-          >
+          <h1 key={index} className="lg:text-2xl font-semibold text-white mb-4">
             {modifiedText.map((item, i) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -50,10 +47,7 @@ const PostDetail = ({ post }) => {
         );
       case "heading-two":
         return (
-          <h2
-            key={index}
-            className="text-2xl dark:text-white font-semibold mb-4"
-          >
+          <h2 key={index} className="lg:text-2xl text-white font-semibold mb-4">
             {modifiedText.map((item, i) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -62,10 +56,7 @@ const PostDetail = ({ post }) => {
 
       case "heading-four":
         return (
-          <h4
-            key={index}
-            className="text-lg dark:text-white font-semibold mb-4"
-          >
+          <h4 key={index} className="lg:text-lg text-white font-semibold mb-4">
             {modifiedText.map((item, i) => (
               <React.Fragment key={i}>{item}</React.Fragment>
             ))}
@@ -87,9 +78,9 @@ const PostDetail = ({ post }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 shadow-lg rounded-lg lg:p-8 pb-12 mb-8">
-      <div className="flex justify-center mb-8 w-full">
-        <h1 className="text-3xl text-semibold dark:text-white font-bold">
+    <div className="bg-slate-900 shadow-lg lg:rounded-lg lg:p-8 pb-12 mb-8 lg:mt-5 sm:mt-10 xs:mt-10">
+      <div className="flex justify-center mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0">
+        <h1 className="lg:text-3xl text-xl  text-semibold text-white font-bold">
           {post.title}
         </h1>
       </div>
@@ -101,7 +92,7 @@ const PostDetail = ({ post }) => {
         />
       </div>
       <div className="px-4 lg:px-0">
-        <div className="flex justify-center text-gray-400 mb-6 mt-6 w-full">
+        <div className="flex justify-center text-slate-400 mb-6 mt-6 w-full">
           <div className="flex items-center  mb-4 lg:mb-0 w-full lg:w-auto mr-8">
             {/* <p className="align-middle lg:mr-2">Author: </p> */}
             <img
@@ -112,7 +103,7 @@ const PostDetail = ({ post }) => {
               className="inline-block h-12 w-12 rounded-full ring-2 ring-orange-600"
               src={post.author.photo.url}
             />
-            <p className="inline align-middle text-gray-400 ml-2 text-lg">
+            <p className="inline align-middle text-slate-400 ml-2 lg:text-lg sm:text-md">
               {post.author.name}
             </p>
           </div>
@@ -132,7 +123,7 @@ const PostDetail = ({ post }) => {
                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
               />
             </svg>
-            <span className="align-middle text-gray-400">
+            <span className="align-middle text-slate-400 lg:text-lg">
               {moment(post.createdAt).format("MMM DD, YYYY")}
             </span>
           </div>
@@ -143,6 +134,14 @@ const PostDetail = ({ post }) => {
           );
           return getContentFragment(index, children, typeObj, typeObj.type);
         })}
+      </div>
+      <div className="mb-4 lg:mb-0 w-full lg:w-auto lg:mr-8 sm:mr-3">
+        <p className="border-b pb-5 pt-5 mb-4 align-middle text-center text-white">
+          {" "}
+        </p>
+        <span className="pt-5 mt-5 ">
+          <CategoryChip categories={post.categories} />
+        </span>
       </div>
     </div>
   );
