@@ -1,13 +1,16 @@
 {
   "name": "blog_tech_dev",
   "private": true,
-  "scripts": { 
+  "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build_out": "next build && next export"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
     "graphql": "^16.2.0",

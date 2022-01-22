@@ -17,7 +17,7 @@ body {
     //background: linear-gradient(to right bottom, #6d327c, #485DA6, #00a1ba, #01b18e, #32b37b);
     // background: "h-14 bg-gradient-to-r from-sky-500 to-indigo-500";
     // background-image: url("../public/images/b6.jpg");
-    background-color: #141516a6;
+    background-color: #141516b2;
     position: fixed;
     left: 0;
     top: 0;
@@ -44,6 +44,32 @@ body {
   }
 }
 
+.paginationItemStyle {
+  margin-left: 5px;
+  .page-link {
+    color: #fff;
+  }
+  &.page-item {
+    &.active {
+      button {
+        background-color: rgb(186, 224, 48);
+        border-color: green;
+      }
+    }
+  }
+}
+
+.paginationLinkStyle {
+  background-color: #b90000;
+  border-radius: 5px;
+  &:hover {
+    background-color: #772e2e;
+  }
+  &:active {
+    background-color: #772e2e;
+  }
+}
+
 .react-multi-carousel-list {
   & .arrow-btn {
     transition: width 300ms ease;
@@ -52,6 +78,18 @@ body {
       width: 60px;
     }
   }
+}
+
+.MuiPaginationItem-text {
+  color: #ffff;
+}
+
+.MuiDivider-root {
+  color: #20b2aa;
+}
+
+.MuiDivider-root:hover {
+  color: #2e8b57;
 }
 
 a {
