@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import Pagination from "./Pagination";
 
 import { getComments } from "../services";
 const Comment = ({ slug }) => {
@@ -12,7 +13,7 @@ const Comment = ({ slug }) => {
     <div>
       {" "}
       {comments.length > 0 && (
-        <div className="bg-slate-900  shadow-lg rounded-lg p-8 pb-12 mb-8">
+        <div className="bg-slate-900  shadow-lg rounded-lg p-8 pb-4 mb-8">
           <h3 className="text-xl mb-8 text-white font-semibold border-b pb-4">
             {comments.length} Comments
           </h3>
@@ -29,27 +30,7 @@ const Comment = ({ slug }) => {
             </div>
           ))}
 
-          {/* <Stack spacing={3}>
-            <Paginations
-              count={5}
-              defaultPage={1}
-              variant="outlined"
-              color="primary"
-              // className={" w-full"}
-              style={{ color: "#ffff" }}
-              renderItem={(item) => (
-                <PaginationItem
-                  className="text-slate-400 bg-slate-900  lg:m-1 sm:m-1 xs:ml-4 xs:mb-6 first:ml-1 "
-                  components={{
-                    previous: ArrowBackIcon,
-                    next: ArrowForwardIcon,
-                  }}
-                  {...item}
-                />
-              )}
-              style={{ color: "#ffff" }}
-            />
-          </Stack> */}
+          <Pagination numberOfPosts={comments.length} />
         </div>
       )}
     </div>
