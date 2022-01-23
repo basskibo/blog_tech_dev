@@ -162,33 +162,28 @@ export const getComments = async (slug) => {
 export const getPostsWithCategory = async (slug) => {
   console.log("getPostsWithCategory SLUG, ", slug);
   const query = gql`
-  query getPostsWithCategory() {
-    categories(where: {slug: "js"}) {
-      id
-      post {
-        slug
-        title
-        excerpt
-        author {
-          name
-          photo {
+    query getPostsWithCategory($slug: String!) {
+      categories(where: { slug: $slug }) {
+        id
+        post {
+          slug
+          title
+          excerpt
+          author {
+            name
+            photo {
+              url
+            }
+          }
+          createdAt
+          featuredImage {
             url
           }
         }
-        createdAt
-        featuredImage {
-          url
-        }
       }
     }
-  }
-  
-  
-  
   `;
 
   const results = await request(graphqlAPI, query, { slug });
-  // console.log("CATEGIRUES POSTS");
-  // console.log(results.categories[0].post);
   return results.categories[0].post;
 };
