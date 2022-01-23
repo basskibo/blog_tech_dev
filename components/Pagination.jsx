@@ -93,37 +93,10 @@ export default function Pagination({
           </div>
         </div>
       ) : (
-        // <div className=" bg-slate-900 max rounded-lg p-8  mb-12 ">
-        //   <div>
-        //     {/* <ul class="flex pl-0  rounded my-2  "> */}
-        //     <ul class="h-10 grid grid-cols-8 gap-0 content-center justify-center ">
-        //       <li class=" py-2 px-3 leading-tight bg-slate-900 border border-sky-800 text-slate-400  ml-1 rounded-lg hover:bg-sky-800 hover:text-white">
-
-        //       </li>
-        //       <li class="relative block py-2 px-3 leading-tight bg-slate-900 border border-sky-800 text-slate-400 rounded-lg ml-1 hover:bg-sky-800 hover:text-white">
-
-        //       </li>
-        //       <li class=" px-6 py-2  bg-slate-900 border border-sky-800 text-slate-400 rounded-lg ml-1 hover:bg-sky-800 hover:text-white">
-        //         <a class="page-link" href="#" className="">
-        //           1
-        //         </a>
-        //       </li>
-        //       <li class="relative block py-2 px-3 leading-tight bg-slate-900 border border-sky-800 text-slate-400 rounded-lg ml-1 hover:bg-sky-800 hover:text-white">
-        //         <a class="page-link" href="#">
-        //           2
-        //         </a>
-        //       </li>
-
-        //       <li class="relative block py-2 px-3 leading-tight bg-slate-900 border border-sky-800 text-slate-400  ml-1 rounded-lg hover:bg-sky-800 hover:text-white">
-
-        //       </li>
-        //       <li class="relative block py-2 px-3 leading-tight bg-slate-900 border rounded-lg border-sky-800 text-slate-400  ml-1  hover:bg-sky-800 hover:text-white">
-
-        //       </li>
-        //     </ul>
-        //   </div>
-        // </div>
-        <span></span>
+        <div className="container bg-sky-800 text-slate-400 items-center p-5 text-semibold">
+          {" "}
+          <span>There is nothing to show! </span>
+        </div>
       )}
     </div>
   );
