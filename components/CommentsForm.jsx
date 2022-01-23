@@ -133,9 +133,23 @@ const CommentsForm = ({ slug }) => {
       )}
       <div className="mt-8">
         <button onClick={handleCommentSubmition}>
-          <a class="inline-flex">
-            <span class="h-12 flex items-center mt-3 justify-center uppercase font-semibold px-5 border-2 border-sky-800 text-slate-400 hover:bg-sky-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out">
+          <a class="inline-flex  hover:text-sky-800 hover:cursor-pointer text-slate-400 hover:text-semibold">
+            <span class="h-12 flex items-center mt-3 justify-center uppercase font-semibold px-5 border-2 border-sky-800">
               Submit
+            </span>
+            <span class="h-12 flex items-center mt-3 justify-center uppercase font-semibold px-2 border-2 border-sky-800 ">
+              <svg
+                class="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
             </span>
           </a>
         </button>
