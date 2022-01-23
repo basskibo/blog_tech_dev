@@ -10,3 +10,4 @@ export { default as CommentsForm } from "./CommentsForm";
 export { default as Pagination } from "./Pagination";
 export { default as Footer } from "./Footer";
 export { default as DisclocureButton } from "./DisclocureButton";
+export { default as BlogScreen } from "./BlogScreen";
