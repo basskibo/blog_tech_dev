@@ -8,7 +8,6 @@ const navigation = [
 	{ name: "Home", href: "/", current: true },
 	{ name: "Blog", href: "/", current: false },
 
-
 	{ name: "Projects", href: "#", current: false },
 	{ name: "About", href: "#", current: false },
 ]
@@ -78,7 +77,7 @@ const Header = () => {
 								</div>
 							</div>
 							<div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 xs:hidden'>
-								<div className='text-center'>
+								<div className='text-center hidden lg:inline'>
 									<Link href={`/`}>
 										<a class='inline-flex'>
 											<span class='h-9 mb-3 flex items-center mt-3 justify-center  font-semibold px-5 border-2 border-sky-800 text-slate-400 hover:bg-sky-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out'>
