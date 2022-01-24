@@ -2,6 +2,16 @@ import React from "react"
 import moment from "moment"
 import CategoryChip from "./CategoryChip"
 import { Link } from "next/link"
+import {
+	EmailShareButton,
+	EmailIcon,
+	FacebookShareButton,
+	FacebookIcon,
+	TwitterShareButton,
+	TwitterIcon,
+	RedditShareButton,
+	RedditIcon,
+} from "react-share"
 
 const PostDetail = ({ post }) => {
 	const getContentFragment = (index, text, obj, type) => {
@@ -84,11 +94,11 @@ const PostDetail = ({ post }) => {
 					{post.title}
 				</h1>
 			</div>
-			<div className='relative overflow-hidden shadow-md md-6  h-1/4 w-full'>
+			<div className='relative overflow-hidden shadow-md md-6  aspect-square '>
 				<img
 					src={post.featuredImage.url}
 					alt={post.title}
-					className=' object-contain  h-full w-full '
+					className=' object-cover h-full w-full '
 				/>
 			</div>
 			<div className='px-4 lg:px-0'>
@@ -126,6 +136,36 @@ const PostDetail = ({ post }) => {
 						<span className='align-middle text-slate-400 lg:text-lg'>
 							{moment(post.createdAt).format("MMM DD, YYYY")}
 						</span>
+					</div>
+
+					<div className='flex items-center lg:text-lg mb-4 lg:mb-0 w-full lg:w-auto lg:mr-8 sm:mr-3 text-slate-400'>
+						<span className='mr-2'>Share: </span>
+						<FacebookShareButton
+							className='mr-2'
+							quote={"This is only a test"}
+							url={`https://igutech.vercel.app/post/${post.slug}`}
+							hashtag={"#iguana #iguanadevelopment"}
+						>
+							<FacebookIcon size={32} rounded={true} />
+						</FacebookShareButton>
+						<TwitterShareButton
+							className='mr-2'
+							url={`https://igutech.vercel.app/post/${post.slug}`}
+						>
+							<TwitterIcon size={32} rounded={true} />
+						</TwitterShareButton>
+						<EmailShareButton
+							className='mr-2'
+							url={`https://igutech.vercel.app/post/${post.slug}`}
+						>
+							<EmailIcon size={32} rounded={true} />
+						</EmailShareButton>
+						<RedditShareButton
+							className='mr-2'
+							url={`https://igutech.vercel.app/post/${post.slug}`}
+						>
+							<RedditIcon size={32} rounded={true} />
+						</RedditShareButton>
 					</div>
 				</div>
 				{post.content.raw.children.map((typeObj, index) => {
