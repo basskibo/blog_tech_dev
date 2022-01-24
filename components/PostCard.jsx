@@ -22,18 +22,18 @@ const PostCard = ({ post }) => {
 						alt={post.author.name}
 						height='20px'
 						width='20px'
-						className='inline-block h-12 w-12 rounded-full ring-2 ring-orange-600'
+						className='inline-block h-8 w-8 rounded-full ring-2 ring-orange-600'
 						// className="align-middle rounded-full"
 						src={post.author.photo.url}
 					/>
-					<p className='inline align-middle text-slate-400 ml-2 text-lg'>
+					<p className='inline align-middle text-slate-400 ml-2 lg:text-lg'>
 						{post.author.name}
 					</p>
 				</div>
 				<div className='font-medium text-slate-400'>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
-						className='h-6 w-6 inline mr-2 text-blue-600'
+						className='h-6 w-6 inline mr-2 text-sky-800'
 						fill='none'
 						viewBox='0 0 24 24'
 						stroke='currentColor'
@@ -45,7 +45,7 @@ const PostCard = ({ post }) => {
 							d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
 						/>
 					</svg>
-					<span className='align-middle'>
+					<span className='align-middle text-slate-400 lg:text-lg'>
 						{moment(post.createdAt).format("MMM DD, YYYY")}
 					</span>
 				</div>
