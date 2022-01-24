@@ -56,6 +56,7 @@ export default function Home({ posts }) {
 			</div>
 		</div>
 	)
+
 }
 
 export async function getStaticProps() {
