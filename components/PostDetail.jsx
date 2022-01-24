@@ -84,11 +84,11 @@ const PostDetail = ({ post }) => {
 					{post.title}
 				</h1>
 			</div>
-			<div className='relative overflow-hidden shadow-md md-6 lg:h-96'>
+			<div className='relative overflow-hidden shadow-md md-6  h-1/4 w-full'>
 				<img
 					src={post.featuredImage.url}
 					alt={post.title}
-					className='object-top object-cover h-full w-full '
+					className=' object-contain  h-full w-full '
 				/>
 			</div>
 			<div className='px-4 lg:px-0'>
@@ -100,7 +100,7 @@ const PostDetail = ({ post }) => {
 							height='30px'
 							width='30px'
 							// className="align-middle rounded-full"
-							className='inline-block h-12 w-12 rounded-full ring-2 ring-orange-600'
+							className='inline-block h-8 w-8 rounded-full ring-2 ring-orange-600'
 							src={post.author.photo.url}
 						/>
 						<p className='inline align-middle text-slate-400 ml-2 lg:text-lg sm:text-md'>
@@ -111,7 +111,7 @@ const PostDetail = ({ post }) => {
 						{/* <p className="align-middle mr-2">Publish: </p> */}
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
-							className='h-6 w-6 inline mr-2 text-orange-600'
+							className='h-6 w-6 inline mr-2 text-sky-800'
 							fill='none'
 							viewBox='0 0 24 24'
 							stroke='currentColor'
