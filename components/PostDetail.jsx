@@ -133,13 +133,16 @@ const PostDetail = ({ post }) => {
 								d='M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'
 							/>
 						</svg>
-						<span className='align-middle text-slate-400 lg:text-lg'>
+						<span className='align-middle text-slate-400 lg:text-lg hidden lg:inline'>
 							{moment(post.createdAt).format("MMM DD, YYYY")}
+						</span>
+						<span className='align-middle text-slate-400 lg:text-lg lg:hidden sm:inline'>
+							{moment(post.createdAt).format("DD.MM.YYYY")}
 						</span>
 					</div>
 
-					<div className='flex items-center lg:text-lg mb-4 lg:mb-0 w-full lg:w-auto lg:mr-8 sm:mr-3 text-slate-400'>
-						<span className='mr-2'>Share: </span>
+					<div className='flex items-center lg:text-lg mb-4 lg:mb-0 w-full lg:w-auto lg:mr-8 sm:mr-1 ml-5 text-slate-400'>
+						<span className='mr-2 hidden lg:inline'>Share: </span>
 						<FacebookShareButton
 							className='mr-2'
 							quote={"This is only a test"}
@@ -155,13 +158,13 @@ const PostDetail = ({ post }) => {
 							<TwitterIcon size={32} rounded={true} />
 						</TwitterShareButton>
 						<EmailShareButton
-							className='mr-2'
+							className='mr-2 hidden lg:inline'
 							url={`https://igutech.vercel.app/post/${post.slug}`}
 						>
 							<EmailIcon size={32} rounded={true} />
 						</EmailShareButton>
 						<RedditShareButton
-							className='mr-2'
+							className='mr-2 hidden lg:inline'
 							url={`https://igutech.vercel.app/post/${post.slug}`}
 						>
 							<RedditIcon size={32} rounded={true} />
