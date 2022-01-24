@@ -6,97 +6,123 @@
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
-  &:before {
-    content: "";
-    content: "";
-    width: 100%;
-    height: 100vh;
-    //background: linear-gradient(to right bottom, #6d327c, #485DA6, #00a1ba, #01b18e, #32b37b);
-    // background: "h-14 bg-gradient-to-r from-sky-500 to-indigo-500";
-    // background-image: url("../public/images/b6.jpg");
-    background-color: #141516b2;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: -1;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+	padding: 0;
+	margin: 0;
+	font-family: "Montserrat", sans-serif;
+	&:before {
+		content: "";
+		content: "";
+		width: 100%;
+		height: 100vh;
+
+		// background: "h-14 bg-gradient-to-r from-sky-500 to-indigo-500";
+		// background-image: url("../public/images/b4.jpg");
+		// background-color: #141516b2;
+		// background: #2c3e50; /* fallback for old browsers */
+
+		background: #525252; /* fallback for old browsers */
+		background: -webkit-linear-gradient(
+			to right,
+			#1c487cb8,
+			#525252
+		); /* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(
+			to right,
+			#1c487cb8,
+			#525252
+		); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+		// background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+
+		// background-color: #71233e;
+		// background-image: linear-gradient(225deg, #71233e 0%, #784ba0 50%, #2b86c5 100%);
+
+		// background: rgb(14, 10, 46);
+		// background: linear-gradient(
+		// 	0deg,
+		// 	rgba(14, 10, 46, 1) 0%,
+		// 	rgba(89, 94, 105, 0.9556197478991597) 45%,
+		// 	rgba(38, 46, 71, 1) 82%
+		// );
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: -1;
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
 }
 
 .text-shadow {
-  text-shadow: 0px 2px 0px rgb(0 0 0 / 30%);
+	text-shadow: 0px 2px 0px rgb(0 0 0 / 30%);
 }
 
 .adjacent-post {
-  & .arrow-btn {
-    transition: width 300ms ease;
-    width: 50px;
-  }
-  &:hover {
-    & .arrow-btn {
-      width: 60px;
-    }
-  }
+	& .arrow-btn {
+		transition: width 300ms ease;
+		width: 50px;
+	}
+	&:hover {
+		& .arrow-btn {
+			width: 60px;
+		}
+	}
 }
 
 .paginationItemStyle {
-  margin-left: 5px;
-  .page-link {
-    color: #fff;
-  }
-  &.page-item {
-    &.active {
-      button {
-        background-color: rgb(186, 224, 48);
-        border-color: green;
-      }
-    }
-  }
+	margin-left: 5px;
+	.page-link {
+		color: #fff;
+	}
+	&.page-item {
+		&.active {
+			button {
+				background-color: rgb(186, 224, 48);
+				border-color: green;
+			}
+		}
+	}
 }
 
 .paginationLinkStyle {
-  background-color: #b90000;
-  border-radius: 5px;
-  &:hover {
-    background-color: #772e2e;
-  }
-  &:active {
-    background-color: #772e2e;
-  }
+	background-color: #b90000;
+	border-radius: 5px;
+	&:hover {
+		background-color: #772e2e;
+	}
+	&:active {
+		background-color: #772e2e;
+	}
 }
 
 .react-multi-carousel-list {
-  & .arrow-btn {
-    transition: width 300ms ease;
-    width: 50px;
-    &:hover {
-      width: 60px;
-    }
-  }
+	& .arrow-btn {
+		transition: width 300ms ease;
+		width: 50px;
+		&:hover {
+			width: 60px;
+		}
+	}
 }
 
 .MuiPaginationItem-text {
-  color: #ffff;
+	color: #ffff;
 }
 
 .MuiDivider-root {
-  color: #20b2aa;
+	color: #20b2aa;
 }
 
 .MuiDivider-root:hover {
-  color: #2e8b57;
+	color: #2e8b57;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
