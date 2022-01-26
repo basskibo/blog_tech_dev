@@ -19,7 +19,7 @@ export default function Home({ posts }) {
 	}, [])
 
 	return (
-		<div className='flex mx-auto lg:px-10 sm:px-0 xs:px-0  mb-8  scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100'>
+		<div className=' mx-5 lg:px-10 sm:px-0 xs:px-0  mb-8  scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100'>
 			<Head>
 				<meta property='og:url' content='https://test.knjigaprica.com' />
 				<meta property='og:type' content='site' />
@@ -36,8 +36,8 @@ export default function Home({ posts }) {
 				<title>IguDev Tech Blog</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<div className='flex flex-row '>
-				<div className='basis-3/4 mr-10'>
+			<div className='flex lg:flex-row sm:flex-sol'>
+				<div className='lg:basis-3/4 sm:basis-1 lg:mr-10 sm:5'>
 					{posts.map((post, index) => (
 						<PostCard post={post.node} key={post.title} />
 					))}
@@ -47,7 +47,7 @@ export default function Home({ posts }) {
 						numberOfPages={numberOfPages}
 					/>
 				</div>
-				<div className='basis-1/4 '>
+				<div className='lg:basis-1/4  sm:basis-4/4'>
 					<div className='sticky relative top-8'>
 						<PostWidget />
 						<Categories />
