@@ -94,7 +94,7 @@ const PostDetail = ({ post }) => {
 					{post.title}
 				</h1>
 			</div>
-			<div className='relative overflow-hidden shadow-md md-6  aspect-square '>
+			<div className='relative overflow-hidden shadow-md md-6  aspect-square h-auto'>
 				<img
 					src={post.featuredImage.url}
 					alt={post.title}
