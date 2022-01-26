@@ -4,6 +4,8 @@ import moment from "moment";
 import Link from "next/link";
 
 const PostCard = ({ post }) => {
+  console.log("############ POST #######");
+  console.log(post);
   return (
     <div className="bg-slate-900 shadow-lg   first:mt-5 lg:mt-5 sm:mt-10 lg:rounded-lg p-0 lg:p-0 lg:pb-7 pb-12 md-8 mb-12 lg:md-14">
       <div
@@ -11,7 +13,7 @@ const PostCard = ({ post }) => {
         alt="image"
       >
         <img
-          src={post.featuredImage.url}
+          src={post.featuredImage}
           alt={post.title}
           className="object-cover absolute h-80 w-full object-cover shadow-lg lg:rounded-t-lg "
         />
@@ -22,16 +24,16 @@ const PostCard = ({ post }) => {
         </h1>
         <div className="block lg:flex text-center items-center justify-center mb-8 w-full">
           <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8">
-            <img
-              alt={post.author.name}
+            {/* <img
+              alt={post.author}
               height="20px"
               width="20px"
               className="inline-block h-8 w-8 rounded-full ring-2 ring-orange-600"
               // className="align-middle rounded-full"
               src={post.author.photo.url}
-            />
+            /> */}
             <p className="inline align-middle text-slate-400 ml-2 lg:text-lg">
-              {post.author.name}
+              {post.author}
             </p>
           </div>
           <div className="font-medium text-slate-400">
@@ -50,7 +52,7 @@ const PostCard = ({ post }) => {
               />
             </svg>
             <span className="align-middle text-slate-400 lg:text-lg">
-              {moment(post.createdAt).format("MMM DD, YYYY")}
+              {moment(post.publishedAt).format("MMM DD, YYYY")}
             </span>
           </div>
         </div>
