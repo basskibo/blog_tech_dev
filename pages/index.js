@@ -19,7 +19,7 @@ export default function Home({ posts }) {
 	}, [])
 
 	return (
-		<div className='container mx-auto lg:px-10 sm:px-0 xs:px-0  mb-8 bg-gradient-to-tr	'>
+		<div className='flex mx-auto lg:px-10 sm:px-0 xs:px-0  mb-8  scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100'>
 			<Head>
 				<meta property='og:url' content='https://test.knjigaprica.com' />
 				<meta property='og:type' content='site' />
@@ -36,8 +36,8 @@ export default function Home({ posts }) {
 				<title>IguDev Tech Blog</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<div className='grid grid-cols-1 lg:grid-cols-12 gap-12'>
-				<div className='lg:col-span-8 col-span-1'>
+			<div className='flex flex-row '>
+				<div className='basis-3/4 mr-10'>
 					{posts.map((post, index) => (
 						<PostCard post={post.node} key={post.title} />
 					))}
@@ -47,8 +47,8 @@ export default function Home({ posts }) {
 						numberOfPages={numberOfPages}
 					/>
 				</div>
-				<div className='lg:col-span-4 col-span-1'>
-					<div className='lg:sticky relative top-8'>
+				<div className='basis-1/4 '>
+					<div className='sticky relative top-8'>
 						<PostWidget />
 						<Categories />
 					</div>
@@ -56,7 +56,6 @@ export default function Home({ posts }) {
 			</div>
 		</div>
 	)
-
 }
 
 export async function getStaticProps() {

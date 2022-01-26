@@ -90,7 +90,7 @@ const PostDetail = ({ post }) => {
 	return (
 		<div className='bg-slate-900 shadow-lg lg:rounded-lg lg:p-8 pb-12 mb-8 lg:mt-5 sm:mt-10 xs:mt-10'>
 			<div className='flex justify-center mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
-				<h1 className='lg:text-3xl text-xl  text-semibold text-white font-bold'>
+				<h1 className='lg:text-5xl text-xl lg:mb-5 text-semibold text-white font-bold'>
 					{post.title}
 				</h1>
 			</div>
