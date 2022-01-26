@@ -20,17 +20,17 @@ body {
 		// background-color: #141516b2;
 		// background: #2c3e50; /* fallback for old browsers */
 
-		background: #525252; /* fallback for old browsers */
-		background: -webkit-linear-gradient(
-			to right,
-			#1c487cb8,
-			#525252
-		); /* Chrome 10-25, Safari 5.1-6 */
-		background: linear-gradient(
-			to right,
-			#1c487cb8,
-			#525252
-		); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		// background: #525252; /* fallback for old browsers */
+		// background: -webkit-linear-gradient(
+		// 	to right,
+		// 	#1c487cb8,
+		// 	#525252
+		// ); /* Chrome 10-25, Safari 5.1-6 */
+		// background: linear-gradient(
+		// 	to right,
+		// 	#1c487cb8,
+		// 	#525252
+		// ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 		// background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
 
@@ -44,6 +44,7 @@ body {
 		// 	rgba(89, 94, 105, 0.9556197478991597) 45%,
 		// 	rgba(38, 46, 71, 1) 82%
 		// );
+		background-color: rgb(15 23 42);
 		position: fixed;
 		left: 0;
 		top: 0;
