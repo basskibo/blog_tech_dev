@@ -19,7 +19,7 @@ export default function Home({ posts }) {
 	}, [])
 
 	return (
-		<div className='container mx-auto lg:px-10 sm:px-0 xs:px-0  mb-8 bg-gradient-to-tr	'>
+		<div className='container mx-auto  sm:px-0 xs:px-0  mb-8 bg-gradient-to-tr'>
 			<Head>
 				<meta property='og:url' content='https://test.knjigaprica.com' />
 				<meta property='og:type' content='site' />
@@ -56,7 +56,6 @@ export default function Home({ posts }) {
 			</div>
 		</div>
 	)
-
 }
 
 export async function getStaticProps() {

@@ -21,7 +21,10 @@ const categories = [
 ]
 const Header = () => {
 	return (
-		<Disclosure as='nav' className='bg-slate-900  text-white lg:mb-10 lg:pt-3'>
+		<Disclosure
+			as='nav'
+			className='bg-slate-800  border-b-2 border-slate-400 lg:pb-3 text-white lg:mb-10 lg:pt-3'
+		>
 			{({ open }) => (
 				<>
 					<div className=' max-w-10xl mx-auto px-2 sm:px-6 lg:px-8'>
