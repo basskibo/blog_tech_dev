@@ -1,7 +1,7 @@
 import React from "react"
 import moment from "moment"
 import CategoryChip from "./CategoryChip"
-import { Link } from "next/link"
+
 import {
 	EmailShareButton,
 	EmailIcon,
@@ -88,9 +88,9 @@ const PostDetail = ({ post }) => {
 	}
 
 	return (
-		<div className='bg-slate-900 shadow-lg lg:rounded-lg lg:p-8 pb-12 mb-8 lg:mt-5 sm:mt-10 xs:mt-10'>
+		<div className='bg-slate-900 shadow-lg lg:rounded-lg lg:p-0 pb-12 mb-8 lg:mt-5 sm:mt-10 xs:mt-10'>
 			<div className='flex justify-center mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
-				<h1 className='lg:text-3xl text-xl  text-semibold text-white font-bold'>
+				<h1 className='lg:text-5xl text-xl lg:mb-5 text-semibold text-white font-bold'>
 					{post.title}
 				</h1>
 			</div>
@@ -104,7 +104,6 @@ const PostDetail = ({ post }) => {
 			<div className='px-4 lg:px-0'>
 				<div className='flex justify-center text-slate-400 mb-6 mt-6 w-full'>
 					<div className='flex items-center  mb-4 lg:mb-0 w-full lg:w-auto mr-8'>
-						{/* <p className="align-middle lg:mr-2">Author: </p> */}
 						<img
 							alt={post.author.name}
 							height='30px'
