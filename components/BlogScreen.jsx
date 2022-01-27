@@ -3,8 +3,6 @@ import { PostCard, PostWidget, Categories, Pagination } from "../components";
 const numberPerPage = 1;
 
 const BlogScreen = ({ posts }) => {
-  console.log("#>$>>>>>>>>>");
-  console.log(posts);
   const [numberOfPages, setnumberOfPages] = useState(0);
   const postNum = posts.length;
   const [numberOfPosts, setNumberOfPosts] = useState(postNum);
