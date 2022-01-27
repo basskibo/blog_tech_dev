@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import Head from "next/head"
 import { async } from "regenerator-runtime"
 import { PostCard, PostWidget, Categories, Pagination, BlogScreen } from "../components"
+import Accent from "../components/custom/Accent"
 const numberPerPage = 1
 // import { getPosts } from "../services";
 import fs from "fs"
@@ -24,7 +25,7 @@ export default function Home({ posts }) {
 	}, [])
 
 	return (
-		<div className='container mx-auto sm:px-5 sm:mx-5 xs:px-5 lg:px-5 mb-8 bg-gradient-to-tr text-slate-400'>
+		<div className='container mx-auto sm:px-5 sm:mx-5 xs:px-5'>
 			<Head>
 				<meta property='og:url' content='https://igutech.vercel.app' />
 				<meta property='og:type' content='site' />
@@ -42,8 +43,8 @@ export default function Home({ posts }) {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div className='text-center mt-10 mb-10  text-white'>
-				<h1 class='font-extrabold text-transparent text-6xl bg-clip-text bg-gradient-to-r from-teal-300	 to-sky-800'>
-					Welcome to Tech blog
+				<h1 class=' text-center'>
+					<Accent className='font-extrabold text-6xl'>Welcome to Tech blog</Accent>
 				</h1>
 				<p>THIS SHOULD BE INDEX</p>
 			</div>

@@ -33,17 +33,22 @@ const BlogScreen = ({ posts }) => {
 
 			<div class='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-14 '>
 				{posts.map((post, index) => (
-					<div class='w-full   text-white rounded-md border border-gray-300 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'>
-						<img src={post.data.featuredImage}></img>
+					<div class='w-full   text-white rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'>
+						<div className='relative'>
+							<img src={post.data.featuredImage}></img>
+						</div>
 						<div className='p-2 my-3 ml-3'>
-							<h1 className='text-xl font-semibold'>{post.data.title}</h1>
-							<p className='mt-5 text-slate-400'>{post.data.excerpt}</p>
+							<h1 className='text-xl font-semibold'>
+								{" "}
+								<Accent>{post.data.title}</Accent>
+							</h1>
 							<p className='mt-5 text-slate-400'>
 								{" "}
 								<span className='align-middle text-slate-200 lg:text-lg hidden lg:inline'>
-									{moment(post.createdAt).format("MMMM DD, YYYY")}
+									{moment(post.data.publishedAt).format("MMMM DD, YYYY")}
 								</span>
 							</p>
+							<p className='mt-5 text-slate-400'>{post.data.excerpt}</p>
 						</div>
 					</div>
 				))}
