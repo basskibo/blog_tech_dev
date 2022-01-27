@@ -1,7 +1,11 @@
 import React from "react";
 // import moment from "moment"
 // import CategoryChip from "./CategoryChip"
-
+// const readingTime = require("reading-time");
+// const stats = readingTime(
+//   "$$51 5125 21 51258125 218 5y2185 128h5 129h59 125h12958 h21h hfhadfuiahfuashfsuahfusaihfaiushfusahfuisahfhsuahfusahu fs  hsaufhuashu hf uhfash fh sfhs ahfuhuashf uhas"
+// );
+// console.log(stats);
 // import {
 // 	EmailShareButton,
 // 	EmailIcon,

@@ -7,13 +7,8 @@ import path from "path";
 import matter from "gray-matter";
 import Image from "next/image";
 import Link from "next/link";
-// const blog = () => {
-//   return <div></div>;
-// };
-const blog = ({ posts }) => {
-  console.log("POSTS!!!!!");
-  console.log(posts);
 
+const blog = ({ posts }) => {
   return <BlogScreen posts={posts} />;
 };
 
@@ -28,9 +23,8 @@ export const getStaticProps = async () => {
     );
 
     const { data: postData } = matter(markdownWithMeta);
-
     const data = { ...postData, slug: filename.split(".")[0] };
-    console.log(data);
+
     return {
       data,
     };

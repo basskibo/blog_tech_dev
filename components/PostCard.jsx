@@ -4,8 +4,6 @@ import moment from "moment";
 import Link from "next/link";
 
 const PostCard = ({ post }) => {
-  console.log("############ POST #######");
-  console.log(post);
   return (
     <div className="bg-slate-900 shadow-lg   first:mt-5 lg:mt-5 sm:mt-10 lg:rounded-lg p-0 lg:p-0 lg:pb-7 pb-12 md-8 mb-12 lg:md-14">
       <div

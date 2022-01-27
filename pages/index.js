@@ -63,11 +63,8 @@ export const getStaticProps = async () => {
       path.join("posts/blog", filename),
       "utf-8"
     );
-
     const { data: postData } = matter(markdownWithMeta);
-
     const data = { ...postData, slug: filename.split(".")[0] };
-    console.log(data);
     return {
       data,
     };
