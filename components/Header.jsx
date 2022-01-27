@@ -6,9 +6,9 @@ import DisclocureButton from "./DisclocureButton";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
-  { name: "Blog", href: "/", current: false },
+  { name: "Blog", href: "/routes/blog", current: false },
 
-  { name: "Projects", href: "#", current: false },
+  { name: "Projects", href: "/routes/projects", current: false },
   { name: "About", href: "/routes/aboutme", current: false },
 ];
 

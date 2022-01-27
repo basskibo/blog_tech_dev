@@ -2,21 +2,42 @@ import React from "react";
 import { BlogScreen } from "../../components";
 // import { getPosts } from "../../services/index";
 const numberPerPage = 1;
-
-const blog = () => {
-  return <div></div>;
-};
-// const blog = ({ posts }) => {
-//   console.log(posts);
-
-//   return <BlogScreen posts={posts} />;
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import Image from "next/image";
+import Link from "next/link";
+// const blog = () => {
+//   return <div></div>;
 // };
+const blog = ({ posts }) => {
+  console.log("POSTS!!!!!");
+  console.log(posts);
+
+  return <BlogScreen posts={posts} />;
+};
 
 export default blog;
-// export async function getStaticProps() {
-//   const posts = (await getPosts(numberPerPage)) || [];
-//   console.log(posts);
-//   return {
-//     props: { posts },
-//   };
-// }
+
+export const getStaticProps = async () => {
+  const files = fs.readdirSync(path.join("posts/blog"));
+  const posts = files.map((filename) => {
+    const markdownWithMeta = fs.readFileSync(
+      path.join("posts/blog", filename),
+      "utf-8"
+    );
+
+    const { data: postData } = matter(markdownWithMeta);
+
+    const data = { ...postData, slug: filename.split(".")[0] };
+    console.log(data);
+    return {
+      data,
+    };
+  });
+  return {
+    props: {
+      posts,
+    },
+  };
+};

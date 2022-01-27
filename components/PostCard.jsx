@@ -52,7 +52,7 @@ const PostCard = ({ post }) => {
               />
             </svg>
             <span className="align-middle text-slate-400 lg:text-lg">
-              {moment(post.publishedAt).format("MMM DD, YYYY")}
+              {moment(post.createdAt).format("MMM DD, YYYY")}
             </span>
           </div>
         </div>
