@@ -19,7 +19,7 @@ import {
 // const PostDetails = ({ post }) => {
 const PostDetails = ({ data, mdxSource }) => {
 	console.log("!!!!! POST DETAILS!!!")
-	console.log(data)
+
 	return (
 		<div className='container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 lg:rounded-lg p-0 lg:p-0 text-slate-400'>
 			<div className='grid grid-cols-1 lg:grid-cols-12 gap-12'>
