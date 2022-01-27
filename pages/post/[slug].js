@@ -17,16 +17,16 @@ import {
 } from "../../components"
 
 // const PostDetails = ({ post }) => {
-const PostDetails = ({ postData, mdxSource }) => {
+const PostDetails = ({ data, mdxSource }) => {
 	console.log("!!!!! POST DETAILS!!!")
-	console.log(postData)
+	console.log(data)
 	return (
 		<div className='container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 lg:rounded-lg p-0 lg:p-0 text-slate-400'>
 			<div className='grid grid-cols-1 lg:grid-cols-12 gap-12'>
 				<div className='col-span-1 lg:col-span-8'>
-					{/* <MDXRemote {...mdxSource} components={{ PostDetail }} /> */}
+					<PostDetail post={data} />
+					<MDXRemote {...mdxSource} components={{ PostDetail }} />
 
-					<PostDetail post={postData.data} />
 					{/* <Author author={post.author} /> */}
 					{/* <CommentsForm slug={post.slug} /> */}
 					{/* <Comments slug={post.slug} /> */}
@@ -70,6 +70,7 @@ export default PostDetails
 // }
 
 export const getStaticProps = async ({ params: { slug } }) => {
+	console.log("#########")
 	const markdownWithMeta = fs.readFileSync(
 		path.join("posts/blog", slug + ".mdx"),
 		"utf-8"
@@ -78,6 +79,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
 	let { content, data } = matter(markdownWithMeta)
 	data = { ...data, slug }
 	const mdxSource = await serialize(content)
+	console.log(data)
+
 	return {
 		props: {
 			data,
