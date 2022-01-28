@@ -3,6 +3,9 @@ import moment from "moment"
 import { PostCard, PostWidget, Categories, Pagination, CategoryChip } from "../components"
 import Accent from "./custom/Accent"
 const numberPerPage = 1
+import LazyLoad from "react-lazyload"
+
+import { LazyLoadImage } from "react-lazy-load-image-component"
 
 const BlogScreen = ({ posts }) => {
 	const [numberOfPages, setnumberOfPages] = useState(0)
@@ -38,7 +41,18 @@ const BlogScreen = ({ posts }) => {
 					>
 						<a href={`/post/${post.data.slug}`}>
 							<div className='relative overflow-hidden '>
-								<img src={post.data.featuredImage} />
+								<LazyLoadImage
+									alt={post.data.title}
+									src={post.data.featuredImage}
+									effect='blur'
+									// placeholder={"<div classname='h-46'><Text</div>"}
+									placeholderSrc={post.data.featuredImage}
+									height={post.data.featuredImage.height}
+									width={post.data.featuredImage.width}
+								/>
+								{/* <LazyLoad height={200}>
+									<img src={post.data.featuredImage} />
+								</LazyLoad> */}
 
 								<div className='absolute w-full py-2 bottom-0 inset-x-0  text-white text-s text-center leading-4'>
 									<CategoryChip

@@ -1,8 +1,10 @@
-import React, { useContext, Fragment } from "react"
+import React, { useContext, useEffect, Fragment } from "react"
 import Link from "next/link"
 import { Disclosure, Menu, Popover, Transition } from "@headlessui/react"
 import { BellIcon, MenuIcon, XIcon, LoginIcon } from "@heroicons/react/outline"
 import DisclocureButton from "./DisclocureButton"
+import ActiveLink from "./custom/ActiveLink"
+import { useRouter } from "next/router"
 
 const navigation = [
 	{ name: "Home", href: "/", current: true },
@@ -15,11 +17,22 @@ const navigation = [
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ")
 }
-const categories = [
-	{ name: "JS", slug: "js" },
-	{ name: "AWS", slug: "aws" },
-]
-const Header = () => {
+
+const Header = ({ href }) => {
+	console.log(href)
+	const router = useRouter()
+	console.log(router.pathname)
+	const style = {
+		marginRight: 10,
+		color: router.asPath === href ? "red" : "black",
+	}
+
+	const handleClick = (e) => {
+		console.log(e)
+		e.preventDefault()
+		router.push(href)
+	}
+
 	return (
 		<div className='sticky top-0 z-50 absolute bg-slate-800'>
 			<Disclosure
@@ -60,19 +73,9 @@ const Header = () => {
 										<div className='flex space-x-4'>
 											{/* <DisclocureButton /> */}
 											{navigation.map((item) => (
-												<a
-													key={item.name}
-													href={item.href}
-													className={classNames(
-														item.current
-															? "bg-gray-900 text-white"
-															: "text-gray-300 hover:bg-gray-700 hover:text-white",
-														"px-3 py-2 rounded-md text-sm font-medium"
-													)}
-													aria-current={item.current ? "page" : undefined}
-												>
+												<ActiveLink key={item.name} href={item.href}>
 													{item.name}
-												</a>
+												</ActiveLink>
 											))}
 										</div>
 									</div>
@@ -182,20 +185,9 @@ const Header = () => {
 						<Disclosure.Panel className='sm:hidden'>
 							<div className='px-2 pt-2 pb-3 space-y-1'>
 								{navigation.map((item) => (
-									<Disclosure.Button
-										key={item.name}
-										as='a'
-										href={item.href}
-										className={classNames(
-											item.current
-												? "bg-gray-900 text-white"
-												: "text-gray-300 hover:bg-gray-700 hover:text-white",
-											"block px-3 py-2 rounded-md text-base font-medium"
-										)}
-										aria-current={item.current ? "page" : undefined}
-									>
+									<ActiveLink key={item.name} href={item.href}>
 										{item.name}
-									</Disclosure.Button>
+									</ActiveLink>
 								))}
 							</div>
 						</Disclosure.Panel>
