@@ -18,12 +18,6 @@ import {
 } from "react-share"
 
 const PostDetail = ({ post }) => {
-	// return (
-	// 	<div className='text-white'>
-	// 		<h1>TEST!@!!@@@</h1>
-	// 	</div>
-	// )
-
 	// const PostDetail = ({ post }) => {
 	// 	const getContentFragment = (index, text, obj, type) => {
 	// 		let modifiedText = text
@@ -179,7 +173,6 @@ const PostDetail = ({ post }) => {
 							<RedditIcon size={32} rounded='true' />
 						</RedditShareButton>
 					</div>{" "}
-					*/}
 				</div>
 			</div>
 
