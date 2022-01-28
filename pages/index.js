@@ -43,7 +43,7 @@ export default function Home({ posts }) {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<div className='text-center mt-10 mb-10  text-white'>
-				<h1 class=' text-center'>
+				<h1 className=' text-center'>
 					<Accent className='font-extrabold text-6xl'>Welcome to Tech blog</Accent>
 				</h1>
 				<p>THIS SHOULD BE INDEX</p>
