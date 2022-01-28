@@ -4,8 +4,6 @@ import React from "react"
 // type AccentType = React.ComponentPropsWithoutRef<"span">
 
 const Accent = ({ children, className }) => {
-	console.log(children)
-	console.log(className)
 	return (
 		<span
 			className={cslx(
