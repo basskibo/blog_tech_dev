@@ -21,7 +21,7 @@ const BlogScreen = ({ posts }) => {
 		<div className='container mx-auto my-14 px-3 sm:px-2 xs:px-3 lg:px-3 bg-gradient-to-tr text-slate-400'>
 			{/* <div className='container mx-auto my-14 sm:px-0 xs:px-0 lg:px-5 bg-gradient-to-tr text-slate-400'> */}
 			<div className='my-10'>
-				<h1 class='mb-5'>
+				<h1 className='mb-5'>
 					<Accent className='font-extrabold text-6xl'>Blog</Accent>
 				</h1>
 				<p className='display-4'>
@@ -30,19 +30,19 @@ const BlogScreen = ({ posts }) => {
 				</p>
 			</div>
 
-			<div class='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-14 '>
+			<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-14 '>
 				{posts.map((post, index) => (
-					<div class='w-full   text-white rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'>
+					<div className='w-full   text-white rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'>
 						<a href={`/post/${post.data.slug}`}>
-							<div class='relative overflow-hidden '>
+							<div className='relative overflow-hidden '>
 								{/* <img
 									src='https://www.w3schools.com/howto/img_avatar2.png'
 									alt='Avatar'
-									class='object-cover w-full h-full'
+									className='object-cover w-full h-full'
 								/> */}
 								<img src={post.data.featuredImage} />
 
-								<div class='absolute w-full py-2 bottom-0 inset-x-0  text-white text-s text-center leading-4'>
+								<div className='absolute w-full py-2 bottom-0 inset-x-0  text-white text-s text-center leading-4'>
 									<CategoryChip
 										className='bg-gray-400'
 										categories={post.data.tags}

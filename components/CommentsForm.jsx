@@ -131,13 +131,13 @@ const CommentsForm = ({ slug }) => {
 			)}
 			<div className='mt-8'>
 				<button onClick={handleCommentSubmition}>
-					<a class='inline-flex  hover:text-sky-800 hover:cursor-pointer text-slate-400 hover:text-semibold'>
-						<span class='h-12 flex items-center mt-3 justify-center uppercase font-semibold px-5 border-2 border-sky-800'>
+					<a className='inline-flex  hover:text-sky-800 hover:cursor-pointer text-slate-400 hover:text-semibold'>
+						<span className='h-12 flex items-center mt-3 justify-center uppercase font-semibold px-5 border-2 border-sky-800'>
 							Submit
 						</span>
-						<span class='h-12 flex items-center mt-3 justify-center uppercase font-semibold px-2 border-2 border-sky-800 '>
+						<span className='h-12 flex items-center mt-3 justify-center uppercase font-semibold px-2 border-2 border-sky-800 '>
 							<svg
-								class='w-6 h-6'
+								className='w-6 h-6'
 								fill='currentColor'
 								viewBox='0 0 20 20'
 								xmlns='http://www.w3.org/2000/svg'
