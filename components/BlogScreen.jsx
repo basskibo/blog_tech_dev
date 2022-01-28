@@ -32,14 +32,12 @@ const BlogScreen = ({ posts }) => {
 
 			<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-14 '>
 				{posts.map((post, index) => (
-					<div className='w-full   text-white rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'>
+					<div
+						key={post.data.slug}
+						className='w-full  text-white rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'
+					>
 						<a href={`/post/${post.data.slug}`}>
 							<div className='relative overflow-hidden '>
-								{/* <img
-									src='https://www.w3schools.com/howto/img_avatar2.png'
-									alt='Avatar'
-									className='object-cover w-full h-full'
-								/> */}
 								<img src={post.data.featuredImage} />
 
 								<div className='absolute w-full py-2 bottom-0 inset-x-0  text-white text-s text-center leading-4'>
