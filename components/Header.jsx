@@ -19,9 +19,7 @@ function classNames(...classes) {
 }
 
 const Header = ({ href }) => {
-	console.log(href)
 	const router = useRouter()
-	console.log(router.pathname)
 	const style = {
 		marginRight: 10,
 		color: router.asPath === href ? "red" : "black",
