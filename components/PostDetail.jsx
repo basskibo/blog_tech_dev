@@ -18,9 +18,6 @@ import {
 } from "react-share"
 
 const PostDetail = ({ post }) => {
-	console.log("##########>>>>>>>")
-	console.log(post)
-
 	// return (
 	// 	<div className='text-white'>
 	// 		<h1>TEST!@!!@@@</h1>

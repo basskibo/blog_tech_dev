@@ -18,7 +18,7 @@ const BlogScreen = ({ posts }) => {
 	}, [])
 
 	return (
-		<div className='container mx-auto my-14 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
+		<div className='container mx-auto my-14 px-3 sm:px-2 xs:px-3 lg:px-3 bg-gradient-to-tr text-slate-400'>
 			{/* <div className='container mx-auto my-14 sm:px-0 xs:px-0 lg:px-5 bg-gradient-to-tr text-slate-400'> */}
 			<div className='my-10'>
 				<h1 class='mb-5'>
