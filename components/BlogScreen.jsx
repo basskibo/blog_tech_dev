@@ -4,6 +4,8 @@ import { PostCard, PostWidget, Categories, Pagination, CategoryChip } from "../c
 import Accent from "./custom/Accent"
 const numberPerPage = 1
 import LazyLoad from "react-lazyload"
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
+import "react-loading-skeleton/dist/skeleton.css"
 
 import { LazyLoadImage } from "react-lazy-load-image-component"
 
@@ -35,50 +37,7 @@ const BlogScreen = ({ posts }) => {
 
 			<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-14 '>
 				{posts.map((post, index) => (
-					<div
-						key={post.data.slug}
-						className='w-full  text-white rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'
-					>
-						<a href={`/post/${post.data.slug}`}>
-							<div className='relative overflow-hidden '>
-								<LazyLoadImage
-									alt={post.data.title}
-									src={post.data.featuredImage}
-									effect='blur'
-									// placeholder={"<div classname='h-46'><Text</div>"}
-									placeholderSrc={post.data.featuredImage}
-									height={post.data.featuredImage.height}
-									width={post.data.featuredImage.width}
-								/>
-								{/* <LazyLoad height={200}>
-									<img src={post.data.featuredImage} />
-								</LazyLoad> */}
-
-								<div className='absolute w-full py-2 bottom-0 inset-x-0  text-white text-s text-center leading-4'>
-									<CategoryChip
-										className='bg-gray-400'
-										categories={post.data.tags}
-									/>
-								</div>
-							</div>
-							{/* <div className='relative'>
-								<img src={post.data.featuredImage}></img>
-							</div> */}
-							<div className='p-2 my-3 ml-3'>
-								<h1 className='text-xl font-semibold'>
-									{" "}
-									<Accent>{post.data.title}</Accent>
-								</h1>
-								<p className='mt-5 text-slate-400'>
-									{" "}
-									<span className='align-middle text-slate-200 lg:text-lg hidden lg:inline'>
-										{moment(post.data.publishedAt).format("MMMM DD, YYYY")}
-									</span>
-								</p>
-								<p className='mt-5 text-slate-400'>{post.data.excerpt}</p>
-							</div>
-						</a>
-					</div>
+					<PostCard post={post.data} />
 				))}
 			</div>
 		</div>

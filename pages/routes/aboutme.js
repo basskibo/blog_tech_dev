@@ -3,7 +3,7 @@ import Accent from "../../components/custom/Accent"
 
 const Bio = () => {
 	return (
-		<div className='container mx-auto my-14 sm:px-0 xs:px-0 lg:px-5 bg-gradient-to-tr text-slate-400'>
+		<div className='container mx-auto px-3 my-14 sm:px-0 xs:px-0 lg:px-5 bg-gradient-to-tr text-slate-400'>
 			<div className='my-10'>
 				<h1 className=' mb-7'>
 					<Accent className='font-extrabold text-6xl'>About me</Accent>
