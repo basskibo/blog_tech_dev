@@ -1,5 +1,5 @@
 ---
-title: "Ovo je kibov primer"
+title: "Kibov primer main"
 excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus."
 featuredImage: "/images/tailwind.jpg"
 publishedAt: "2020-03-16T05:35:07.322Z"
@@ -17,9 +17,24 @@ tags: [{ slug: "next", name: "nextjs" }, { slug: "js", name: "javascript" }]
 
 Kako ce se <Accent>izrenderovati</Accent> to je **pitanje** ?
 
-<img src='/images/tailwind.jpg' height='12' width='20' className='my-5' />
 Kako ce se to je **pitanje** ?
 
 ## blab blab
 
 npm
+
+```js
+import React from "react";
+import Header from "./Header";
+import Footer from "./Footer";
+
+const Layout = ({ children }) => (
+   <>
+      <Header />
+      {children}
+      <Footer />
+   </>
+);
+
+export default Layout;
+```
