@@ -15,6 +15,10 @@ import Image from "next/image";
 const ResponsiveImage = (props) => (
    <Image alt={props.alt} layout='responsive' {...props} />
 );
+
+const parseLanguageByClass = (className) => {
+   return className.split("-")[1];
+};
 const components = {
    h1: ({ children }) => (
       <h1 className='text-white text-4xl font-bold my-5'> {children}</h1>
@@ -29,9 +33,9 @@ const components = {
    img: ResponsiveImage,
    p: ({ children }) => <p className='my-5'>{children}</p>,
 
-   code: ({ children, language }) => (
+   code: ({ children, className }) => (
       <SyntaxHighlighter
-         language={language}
+         language={parseLanguageByClass(className)}
          style={a11yDark}
          wrapLines={true}
          showLineNumbers={true}
@@ -41,6 +45,26 @@ const components = {
    ),
 };
 
+// const components = { wrapper: Wrapper };
+// function Wrapper({ children }) {
+//    console.log(JSON.stringify(children));
+//    const titles = React.Children.toArray(children)
+//       .filter((child) => child.props.mdxType === "h1")
+//       .map((child) => child.props.children);
+
+//    return (
+//       <main>
+//          Table of contents:
+//          <ul className='text-white'>
+//             {titles.map((title) => (
+//                <li className='text-white'>{title} </li>
+//             ))}
+//          </ul>
+//          <hr />
+//          {children}
+//       </main>
+//    );
+// }
 import { Categories, PostWidget } from "../../components";
 
 const PostDetails = ({ data, mdxSource }) => {
