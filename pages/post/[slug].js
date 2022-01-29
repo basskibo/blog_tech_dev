@@ -29,10 +29,11 @@ const components = {
    img: ResponsiveImage,
    p: ({ children }) => <p className='my-5'>{children}</p>,
 
-   code: ({ children }) => (
+   code: ({ children, language }) => (
       <SyntaxHighlighter
-         language='jsx'
+         language={language}
          style={a11yDark}
+         wrapLines={true}
          showLineNumbers={true}
          showInlineLineNumbers={true}>
          {children}
