@@ -4,50 +4,38 @@ import { MDXRemote } from "next-mdx-remote";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-// import SyntaxHighlighter from "react-syntax-highlighter" and  import prism theme
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import {
+   PostDetail,
+   PostBody,
+   PostWidget,
+   CategoryChip,
+} from "../../components/";
 
-import { PostDetail, PostBody, MdxComponents } from "../../components/";
-import Accent from "../../components/custom/Accent";
+import MdxComponents from "../../components/MdxComponents";
+
 import Image from "next/image";
 
 const ResponsiveImage = (props) => (
    <Image alt={props.alt} layout='responsive' {...props} />
 );
-// const parseLanguageByClass = (className) => {
-//   return className.split("-")[1];
-// };
 
-// const components = {
-//    h1: ({ children }) => (
-//       <h1 className='text-white text-4xl font-bold my-5'> {children}</h1>
-//    ),
-//    h2: ({ children }) => (
-//       <h2 className='text-white text-2xl font-bold my-5'> {children}</h2>
-//    ),
-//    h3: ({ children }) => (
-//       <h3 className='text-white text-xl font-bold my-5'> {children}</h3>
-//    ),
-//    Accent: ({ children }) => <Accent>{children}</Accent>,
-//    img: ResponsiveImage,
-//    p: ({ children }) => <p className='my-5'>{children}</p>,
+const parseLanguageByClass = (className) => {
+   return className.split("-")[1];
+};
 
-//    code: ({ children, className }) => (
-//       <SyntaxHighlighter
-//          language={parseLanguageByClass(className)}
-//          style={a11yDark}
-//          wrapLines={true}
-//          showLineNumbers={true}
-//          showInlineLineNumbers={true}>
-//          {children}
-//       </SyntaxHighlighter>
-//    ),
-// };
+const components = {
+   h1: MdxComponents.h1,
+   h2: MdxComponents.h2,
+   h3: MdxComponents.h3,
+   img: MdxComponents.img,
+   p: MdxComponents.p,
+   code: MdxComponents.code,
+   Accent: MdxComponents.Accent,
+   TestComponent: MdxComponents.TestComponent,
+};
 
 // const components = { wrapper: Wrapper };
 // function Wrapper({ children }) {
-//    console.log(JSON.stringify(children));
 //    const titles = React.Children.toArray(children)
 //       .filter((child) => child.props.mdxType === "h1")
 //       .map((child) => child.props.children);
@@ -65,62 +53,47 @@ const ResponsiveImage = (props) => (
 //       </main>
 //    );
 // }
-import { Categories, PostWidget } from "../../components";
+// const components = {
+//    //  h1: MdxComponents.h1,
+//    //  h1: MdxComponents.h1,
+//    TestComponent: dynamic(() => import("../../components/TestComponent")),
+// };
 
 const PostDetails = ({ data, mdxSource }) => {
    return (
       <div className='container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 px-3 lg:rounded-lg p-0 lg:p-0 text-slate-400'>
          <div className='grid grid-cols-1 lg:grid-cols-12 gap-12'>
-            <div className='col-span-1 lg:col-span-8'>
-               {/* <PostDetail post={data} /> */}
+            <div className='col-span-1 lg:col-span-9'>
+               <PostDetail post={data} />
 
-               <MDXRemote
-                  {...mdxSource}
-                  components={{ ...MdxComponents }}
-                  lazy
-               />
+               <MDXRemote {...mdxSource} components={{ ...components }} lazy />
 
+               <div className='mb-4 lg:mb-0 w-full lg:w-auto lg:mr-8 sm:mr-3'>
+                  <p className='border-b pb-5 pt-5 mb-4 align-middle text-center text-white'>
+                     {" "}
+                  </p>
+                  <span className='pt-5 mt-5 '>
+                     <CategoryChip categories={data.tags} />
+                  </span>
+               </div>
                {/* <Author author={post.author} /> */}
                {/* <CommentsForm slug={post.slug} /> */}
                {/* <Comments slug={post.slug} /> */}
             </div>
-            <div className='col-span-1 lg:col-span-4'>
-               <div className='relative top-8'>
-                  <PostWidget
-                  // slug={post.slug}
-                  // categories={post.categories.map((category) => category.slug)}
-                  />
-                  {/* <Categories /> */}
-               </div>
+            <div className='sticky absolute col-span-1 lg:col-span-3'>
+               <h2>Table of Content</h2>
+               <ul>
+                  <li>Coffee</li>
+                  <li>Tea</li>
+                  <li>Milk</li>
+               </ul>
             </div>
          </div>
       </div>
    );
-   // return (
-
-   // );
 };
 
 export default PostDetails;
-
-// export async function getStaticProps({ params }) {
-//   const data = await getPostDetails(params.slug);
-//   return {
-//     props: { post: data },
-//   };
-// }
-
-// export async function getStaticPaths() {
-//   console.log("$$$$### getStaticPaths ");
-//   const posts = await getPosts();
-
-//   const bla = {
-//     paths: posts.map(({ node: { slug } }) => ({ params: { slug } })),
-//     fallback: false,
-//   };
-//   console.log(JSON.stringify(bla));
-//   return bla;
-// }
 
 export const getStaticProps = async ({ params: { slug } }) => {
    const markdownWithMeta = fs.readFileSync(
