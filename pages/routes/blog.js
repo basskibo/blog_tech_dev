@@ -18,7 +18,7 @@ const blog = ({ posts }) => {
    return (
       <div>
          {posts.length < 1 ? (
-            <div className='container mx-auto my-14 px-3 sm:px-2 xs:px-3 lg:px-3 bg-gradient-to-tr text-slate-400'>
+            <div className='container mx-auto my-14 px-5 sm:px-2 xs:px-3 lg:px-3 bg-gradient-to-tr text-slate-400'>
                <div className='my-10'>
                   <h1 className='mb-5'>
                      <Accent className='font-extrabold text-6xl'>Blog</Accent>
