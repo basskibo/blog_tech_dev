@@ -99,7 +99,7 @@ const PostDetail = ({ post }) => {
                {post.title}
             </h1>
          </div>
-         <div className='relative overflow-hidden shadow-md md-6 h-56  '>
+         <div className='relative overflow-hidden shadow-md md-6 h-80  '>
             <img
                src={post.featuredImage}
                alt={post.title}
