@@ -1,8 +1,10 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import Accent from "./custom/Accent";
-import TestComponent from "./TestComponent";
+import Accent from "./Accent";
+import TestComponent from "../TestComponent";
 import Image from "next/image";
+
+import slugify from "slugify";
 
 const ResponsiveImage = (props) => (
    <Image alt={props.alt} layout='responsive' {...props} />
@@ -21,11 +23,28 @@ export default {
    },
    h2: ({ children }) => {
       return (
-         <h2 className='text-white text-2xl font-bold my-5'> {children}</h2>
+         <a
+            id={slugify(children, {
+               lower: true,
+               strict: true,
+            })}>
+            <h2 className='text-white text-3xl font-bold my-5'> {children}</h2>
+         </a>
       );
    },
    h3: ({ children }) => {
-      return <h3 className='text-white text-xl font-bold my-5'> {children}</h3>;
+      return (
+         <a
+            id={slugify(children, {
+               lower: true,
+               strict: true,
+            })}>
+            <h3 className='text-white text-xl font-semi-bold my-5'>
+               {" "}
+               {children}
+            </h3>
+         </a>
+      );
    },
    Accent: ({ children }) => {
       return <Accent>{children}</Accent>;
