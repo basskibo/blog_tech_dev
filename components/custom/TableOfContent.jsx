@@ -14,6 +14,7 @@ const TableOfContent = ({ toc }) => {
 					<>
 						<li className='my-1 text-slate-400' key={Math.random()}>
 							<AnchorLink
+								key={Math.random()}
 								offset={() => anchorOffset}
 								href={item.link}
 								className='font-medium text-lg font-semibold hover:cursor-pointer hover:text-white hover:underline'
@@ -24,6 +25,7 @@ const TableOfContent = ({ toc }) => {
 						{item.subheading.map((subhead, index) => (
 							<li className='pl-5 text-slate-500' key={Math.random()}>
 								<AnchorLink
+									key={Math.random()}
 									offset={() => anchorOffset}
 									href={subhead.link}
 									className='font- pr-5 hover:text-white'

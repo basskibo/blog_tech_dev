@@ -44,7 +44,8 @@ function getTableOfContents(content) {
 				link: `#${headingLink}`,
 			}
 			if (headingType === "h3") {
-				let lastEl = tableOfContents.at(-1)
+				// let lastEl = tableOfContents.at(-1) // vercel does not support .at method currently
+				let lastEl = tableOfContents[tableOfContents.length - 1]
 				if (lastElType === "h2") {
 					tableOfContents.pop()
 					lastEl.subheading.push(head)
