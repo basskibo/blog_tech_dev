@@ -36,7 +36,7 @@ const Header = ({ href }) => {
       <div className='sticky top-0 z-50 absolute bg-slate-800'>
          <Disclosure
             as='nav'
-            className=' border-b-2 border-slate-400 lg:pb-1 text-white lg:mb-3 lg:pt-1'>
+            className=' border-b-2 border-slate-400 lg:pb-1 text-white  lg:pt-1'>
             {({ open }) => (
                <>
                   <div className=' max-w-10xl mx-auto px-2 sm:px-6 lg:px-8'>
