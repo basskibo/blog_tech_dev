@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react"
 import Head from "next/head"
-import { async } from "regenerator-runtime"
-import { PostCard, PostWidget, Categories, Pagination, BlogScreen } from "../components"
 import Accent from "../components/custom/Accent"
-const numberPerPage = 1
-// import { getPosts } from "../services";
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
@@ -12,17 +8,17 @@ import Image from "next/image"
 import Link from "next/link"
 
 export default function Home({ posts }) {
-	const [numberOfPages, setnumberOfPages] = useState(0)
-	const postNum = posts.length
-	const [numberOfPosts, setNumberOfPosts] = useState(postNum)
-	const [pageNumber, setpageNumber] = useState(1)
-	// console.log(posts);
-	useEffect(() => {
-		const offset = (pageNumber - 1) * numberPerPage + 1
-		const calculatedPages = Math.ceil(posts.length / numberPerPage)
-		setnumberOfPages(calculatedPages)
-		setpageNumber(offset)
-	}, [])
+	// const [numberOfPages, setnumberOfPages] = useState(0)
+	// const postNum = posts.length
+	// const [numberOfPosts, setNumberOfPosts] = useState(postNum)
+	// const [pageNumber, setpageNumber] = useState(1)
+	// // console.log(posts);
+	// useEffect(() => {
+	// 	const offset = (pageNumber - 1) * numberPerPage + 1
+	// 	const calculatedPages = Math.ceil(posts.length / numberPerPage)
+	// 	setnumberOfPages(calculatedPages)
+	// 	setpageNumber(offset)
+	// }, [])
 
 	return (
 		<div className='container mx-auto sm:px-5 sm:mx-5 xs:px-5'>
@@ -48,8 +44,6 @@ export default function Home({ posts }) {
 				</h1>
 				<p>THIS SHOULD BE INDEX</p>
 			</div>
-
-			{/* <BlogScreen posts={posts} /> */}
 		</div>
 	)
 }
