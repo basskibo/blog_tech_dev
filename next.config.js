@@ -23,7 +23,7 @@ module.exports = {
 		return config
 	},
 	images: {
-		domains: [""],
+		domains: ["tailwindui.com"],
 	},
 	eslint: {
 		dirs: ["pages", "components", "posts", "services"], // Only run ESLint on the 'pages' and 'utils' directories during production builds (next build)
