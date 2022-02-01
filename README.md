@@ -36,6 +36,7 @@ You can visit development on [this link](https://igutech.vercel.app/) for more d
 ## Deploy on Netlify (production)
 
 You can visit production on [this link](https://igutech.netlify.app/) for more details.
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/823b8994-fab4-49f3-8568-6611c68f1b76/deploy-status)](https://app.netlify.com/sites/igutech/deploys)
 
 # Run tests with Cypress
