@@ -10,17 +10,17 @@ import "react-loading-skeleton/dist/skeleton.css"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 
 const BlogScreen = ({ posts }) => {
-	const [numberOfPages, setnumberOfPages] = useState(0)
-	const postNum = posts.length
-	const [numberOfPosts, setNumberOfPosts] = useState(postNum)
-	const [pageNumber, setpageNumber] = useState(1)
+	// const [numberOfPages, setnumberOfPages] = useState(0)
+	// const postNum = posts.length
+	// const [numberOfPosts, setNumberOfPosts] = useState(postNum)
+	// const [pageNumber, setpageNumber] = useState(1)
 
-	useEffect(() => {
-		const offset = (pageNumber - 1) * numberPerPage + 1
-		const calculatedPages = Math.ceil(posts.length / numberPerPage)
-		setnumberOfPages(calculatedPages)
-		setpageNumber(offset)
-	}, [])
+	// useEffect(() => {
+	// 	const offset = (pageNumber - 1) * numberPerPage + 1
+	// 	const calculatedPages = Math.ceil(posts.length / numberPerPage)
+	// 	setnumberOfPages(calculatedPages)
+	// 	setpageNumber(offset)
+	// }, [])
 
 	return (
 		<div className='container mx-auto my-14 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
