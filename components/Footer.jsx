@@ -1,50 +1,94 @@
-import React from "react"
+import React from "react";
 
 const Footer = () => {
-	return (
-		<div className='w-full bg-slate-800 border-t border-slate-400 text-white  relative bottom-0'>
-			{" "}
-			<div className='xl:px-40 pb-7 lg:px-20 md:px-10 sm:px-5 px-10'>
-				<div className='w-full pt-12 flex flex-col sm:flex-row space-y-2  justify-start'>
-					<div className='w-full sm:w-1/5 pr-6 flex flex-col space-y-1'>
-						<div className='w-24'>
-							<svg viewBox='0 0 128 128'>
-								<path
-									d='M64.004 25.602c-17.067 0-27.73 8.53-32 25.597 6.398-8.531 13.867-11.73 22.398-9.597 4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602-6.399 8.536-13.867 11.735-22.399 9.602-4.87-1.215-8.347-4.746-12.207-8.66-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66 6.274 6.367 13.536 13.738 29.395 13.738 17.066 0 27.73-8.53 32-25.597-6.399 8.531-13.867 11.73-22.399 9.597-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0'
-									fill='#38b2ac'
-								></path>
-							</svg>
-						</div>
+   return (
+      <footer class='text-gray-400 bg-slate-900 body-font border-t border-slate-800'>
+         <div class='container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col'>
+            <a class='flex title-font font-medium items-center md:justify-start justify-center text-white'>
+               <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='none'
+                  stroke='currentColor'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  stroke-width='2'
+                  class='w-10 h-10 text-white p-2 bg-indigo-500 rounded-full'
+                  viewBox='0 0 24 24'>
+                  <path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'></path>
+               </svg>
+               <span class='ml-3 text-xl'>Tailblocks</span>
+            </a>
+            <p class='text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4'>
+               © 2020 Tailblocks —
+               <a
+                  href='https://twitter.com/knyttneve'
+                  class='text-gray-500 ml-1'
+                  target='_blank'
+                  rel='noopener noreferrer'>
+                  @knyttneve
+               </a>
+            </p>
+            <span class='inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start'>
+               <a class='text-gray-400'>
+                  <svg
+                     fill='currentColor'
+                     stroke-linecap='round'
+                     stroke-linejoin='round'
+                     stroke-width='2'
+                     class='w-5 h-5'
+                     viewBox='0 0 24 24'>
+                     <path d='M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z'></path>
+                  </svg>
+               </a>
+               <a class='ml-3 text-gray-400'>
+                  <svg
+                     fill='currentColor'
+                     stroke-linecap='round'
+                     stroke-linejoin='round'
+                     stroke-width='2'
+                     class='w-5 h-5'
+                     viewBox='0 0 24 24'>
+                     <path d='M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z'></path>
+                  </svg>
+               </a>
+               <a class='ml-3 text-gray-400'>
+                  <svg
+                     fill='none'
+                     stroke='currentColor'
+                     stroke-linecap='round'
+                     stroke-linejoin='round'
+                     stroke-width='2'
+                     class='w-5 h-5'
+                     viewBox='0 0 24 24'>
+                     <rect
+                        width='20'
+                        height='20'
+                        x='2'
+                        y='2'
+                        rx='5'
+                        ry='5'></rect>
+                     <path d='M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01'></path>
+                  </svg>
+               </a>
+               <a class='ml-3 text-gray-400'>
+                  <svg
+                     fill='currentColor'
+                     stroke='currentColor'
+                     stroke-linecap='round'
+                     stroke-linejoin='round'
+                     stroke-width='0'
+                     class='w-5 h-5'
+                     viewBox='0 0 24 24'>
+                     <path
+                        stroke='none'
+                        d='M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z'></path>
+                     <circle cx='4' cy='4' r='2' stroke='none'></circle>
+                  </svg>
+               </a>
+            </span>
+         </div>
+      </footer>
+   );
+};
 
-						{/* <p className="opacity-60">
-              Iguana Development, Novi Sad 21000, Serbia.
-            </p> */}
-					</div>
-					<div className='w-full sm:w-1/5 flex flex-col space-y-4'>
-						<a className='opacity-60'>About</a>
-
-						<a className='opacity-60'>Portofolio</a>
-						<a className='opacity-60'>Contact</a>
-					</div>
-					<div className='w-full sm:w-1/5 flex flex-col space-y-4'>
-						<a className='opacity-60'>Privacy Policy</a>
-						<a className='opacity-60'>Terms of Service</a>
-					</div>
-					<div className='w-full sm:w-1/5 pt-6 flex items-end mb-1'>
-						<div className='flex flex-row space-x-4'>
-							<i className='fab fa-facebook-f'></i>
-							<i className='fab fa-twitter'></i>
-							<i className='fab fa-instagram'></i>
-							<i className='fab fa-google'></i>
-						</div>
-					</div>
-				</div>
-				<div className='opacity-60 pt-2'>
-					<p>© 2022 Iguana Development International.</p>
-				</div>
-			</div>
-		</div>
-	)
-}
-
-export default Footer
+export default Footer;
