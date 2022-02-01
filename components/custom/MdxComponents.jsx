@@ -3,7 +3,6 @@ import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import Accent from "./Accent";
 import TestComponent from "../TestComponent";
 import Image from "next/image";
-
 import slugify from "slugify";
 
 const ResponsiveImage = (props) => (
