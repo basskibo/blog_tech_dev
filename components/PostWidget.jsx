@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from "react"
 import moment from "moment"
-
 import Link from "next/link"
-import { getRecentPosts, getSimiliarPosts } from "../services"
 
 const PostWidget = ({ categories, slug }) => {
-	const [relatedPosts, setRelatedPosts] = useState([])
+	// const [relatedPosts, setRelatedPosts] = useState([])
 
-	useEffect(() => {
-		if (slug) {
-			getSimiliarPosts(categories, slug).then((result) => setRelatedPosts(result))
-		} else {
-			getRecentPosts().then((result) => setRelatedPosts(result))
-		}
-	}, [slug])
+	// useEffect(() => {
+	// 	if (slug) {
+	// 		getSimiliarPosts(categories, slug).then((result) => setRelatedPosts(result))
+	// 	} else {
+	// 		getRecentPosts().then((result) => setRelatedPosts(result))
+	// 	}
+	// }, [slug])
 
 	return (
 		<div className='bg-slate-900 border border-sky-900 shadow-lg lg:mt-5 sm:mt-3 xs:mt-3  rounded-lg p-8 mb-8'>
 			<h3 className='text-xl mb-8 font-semibold border-b pb-4 text-white'>
-				{slug ? "Related Posts" : "Recent Posts"}
+				Posts you may like{/* {slug ? "Related Posts" : "Recent Posts"} */}
 			</h3>
-			{relatedPosts.map((post) => (
+			{/* {relatedPosts.map((post) => (
 				<div key={post.title} className='flex items-center w-full mb-4 '>
 					<div className='w-16 flex-none'>
 						<img
@@ -48,7 +46,7 @@ const PostWidget = ({ categories, slug }) => {
 						</span>
 					</div>
 				</div>
-			))}
+			))} */}
 		</div>
 	)
 }

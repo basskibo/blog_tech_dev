@@ -13,7 +13,7 @@ const PostCard = ({ post }) => {
 		>
 			<a href={`/post/${post.slug}`}>
 				<div className='relative overflow-hidden '>
-					<img src={post.featuredImage} />
+					<img alt={post.featuredImage} src={post.featuredImage} />
 
 					<div className='absolute w-full py-2 bottom-0 inset-x-0  text-white text-s text-center leading-4'>
 						{/* <CategoryChip className='bg-gray-400' categories={post.tags} /> */}
