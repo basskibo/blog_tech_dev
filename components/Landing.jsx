@@ -1,79 +1,82 @@
 import React from "react";
 import Accent from "../components/custom/Accent";
+import ActiveLink from "../components/custom/ActiveLink";
+import DeathStar from "../public/images/dt_star.svg";
+import DeathStarAnakin from "../public/images/ds.png";
+import { FeatureLanding } from "./";
+import Image from "next/image";
 
 const Landing = () => {
+   const handleClick = (e) => {
+      console.log(e);
+      e.preventDefault();
+      router.push(href);
+   };
    return (
-      <div className='px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20'>
-         <div className='flex flex-col items-center justify-between w-full mb-10 lg:flex-row'>
-            <div className='mb-16 lg:mb-0 lg:max-w-lg lg:pr-5'>
-               <div className='max-w-xl mb-6'>
-                  <h2 className='font-sans text-3xl font-bold tracking-tight text-slate-400 sm:text-4xl sm:leading-none max-w-lg mb-6'>
-                     Hello there
-                     <br className='hidden md:block' />
-                     you can call me{" "}
-                     <Accent className='text-5xl'> Bojan </Accent>
-                  </h2>
-                  <p className='text-slate-400 text-base md:text-lg'>
-                     Sed ut perspiciatis unde omnis iste natus error sit
-                     voluptatem accusantium doloremque laudantium, totam rem
-                     aperiam, eaque ipsa quae. explicabo.
-                  </p>
+      <div className='bg-gradient-to-r from-purple-900 to-indigo-900 '>
+         <main className='h-full flex py-10 items-center px-6 lg:px-32 text-white relative overflow-hidden'>
+            <section className='w-full  xl:w-8/12'>
+               <span className='font-bold uppercase tracking-widest'>
+                  Part of Iguana Dev
+               </span>
+               <h1 className='text-3xl lg:text-5xl font-bold mb-2 text-pink-500'>
+                  Welcome
+                  <br />
+                  My name is Bojan{" "}
+               </h1>
+               <p className='font-bold mb-1 w-full'>Welcome to my site</p>
+               <p>
+                  Lorem ipsum dolor sit amet...Officia et incididunt nulla
+                  reprehenderit velit ut incididunt labore esse pariatur
+                  consequat eiusmod incididunt. Enim laboris velit qui laborum
+                  aliquip. In labore labore nulla nostrud magna anim tempor et
+                  qui pariatur Lorem. Qui id enim non eiusmod deserunt labore.
+               </p>
+               <div className='mt-5 lg:mt-7'>
+                  <ActiveLink
+                     href='/routes/blog'
+                     name='blog'
+                     className='mt-5 border border-slate-400 p-3 shadow-lg shadow-slate-600
+                  hover:shadow-slate-800 hover:cursor-pointer'>
+                     Read blog
+                  </ActiveLink>
+                  <ActiveLink
+                     href='/routes/projects'
+                     className='mt-5 border border-slate-400 p-3 shadow-lg shadow-slate-600 ml-5
+                  hover:shadow-slate-800 hover:cursor-pointer'>
+                     Checkout my projects
+                  </ActiveLink>
                </div>
-               <div className='flex items-center space-x-3'>
-                  <a
-                     href='/'
-                     className='w-32 transition duration-300 hover:shadow-lg'>
-                     <img
-                        src='https://kitwind.io/assets/kometa/app-store.png'
-                        className='object-cover object-top w-full h-auto mx-auto'
-                        alt=''
-                     />
-                  </a>
-                  <a
-                     href='/'
-                     className='w-32 transition duration-300 hover:shadow-lg'>
-                     <img
-                        src='https://kitwind.io/assets/kometa/google-play.png'
-                        className='object-cover object-top w-full h-auto mx-auto'
-                        alt=''
-                     />
-                  </a>
-               </div>
-            </div>
-            <div className='flex items-center justify-center lg:w-1/2'>
-               <div className='w-2/5'>
-                  <img
-                     className='object-cover'
-                     src='https://kitwind.io/assets/kometa/one-girl-phone.png'
-                     alt=''
-                  />
-               </div>
-               <div className='w-5/12 -ml-16 lg:-ml-16 rotate-12'>
-                  <img
-                     className='object-cover'
-                     src='https://kitwind.io/assets/kometa/two-girls-phone.png'
-                     alt=''
-                  />
-               </div>
-            </div>
-         </div>
+            </section>
+            {/* <Image
+               className='relative'
+               src={DeathStarAnakin}
+               alt='Death star pic'
+            /> */}
+            <DeathStar className='md:h-64 lg:h-96 w-80' />
+         </main>
+         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>
+            <path
+               fill='#0f172a'
+               fillOpacity='1'
+               d='M0,160L30,165.3C60,171,120,181,180,176C240,171,300,149,360,138.7C420,128,480,128,540,154.7C600,181,660,235,720,234.7C780,235,840,181,900,176C960,171,1020,213,1080,224C1140,235,1200,213,1260,218.7C1320,224,1380,256,1410,272L1440,288L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z'></path>
+         </svg>
          <a
-            href='#'
+            href='#sectionFeature'
             aria-label='Scroll down'
-            className='flex animate-bounce items-center justify-center w-12 h-12 mx-auto text-slate-400 
-			hover:text-sky-8 hover:border-deep-purple-accent-400 duration-300
-			 transform  hover:shadow hover:scale-110'>
+            className='absolute bottom-2 text-white left-1/2 -translate-x-1/2 md:bottom-10 rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'>
             <svg
-               class='w-6 h-6'
+               className='w-6 h-6'
                fill='currentColor'
                viewBox='0 0 20 20'
                xmlns='http://www.w3.org/2000/svg'>
                <path
-                  fill-rule='evenodd'
+                  fillRule='evenodd'
                   d='M15.707 4.293a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 011.414-1.414L10 8.586l4.293-4.293a1 1 0 011.414 0zm0 6a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 14.586l4.293-4.293a1 1 0 011.414 0z'
-                  clip-rule='evenodd'></path>
+                  clipRule='evenodd'></path>
             </svg>
          </a>
+         <FeatureLanding />
       </div>
    );
 };

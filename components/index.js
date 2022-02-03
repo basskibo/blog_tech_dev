@@ -16,3 +16,4 @@ export { default as Landing } from "./Landing";
 
 export { default as Accent } from "./custom/Accent";
 export { default as TableOfContent } from "./custom/TableOfContent";
+export { default as FeatureLanding } from "./FeatureLanding";
