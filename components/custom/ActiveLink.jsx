@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import clsx from "clsx";
 
-function ActiveLink({ children, href }) {
+function ActiveLink({ children, href, className }) {
    const router = useRouter();
    const style = {
       marginRight: 10,
@@ -20,6 +20,7 @@ function ActiveLink({ children, href }) {
          style={style}
          className={clsx(
             "font-semibold",
+            className ? className : "",
             router.asPath === href
                ? " underline decoration-dotted decoration-2	decoration-slate-400 underline-offset-8 "
                : "text-white"

@@ -22,7 +22,8 @@ export default function Home({ posts }) {
    // }, [])
 
    return (
-      <div className='container mx-auto sm:px-5 sm:mx-5 xs:px-5'>
+      // <div className='container mx-auto sm:px-5 sm:mx-5 xs:px-5'>
+      <div>
          <Head>
             <meta property='og:url' content='https://igutech.vercel.app' />
             <meta property='og:type' content='site' />
@@ -39,9 +40,9 @@ export default function Home({ posts }) {
             <title>IguDev Tech Blog</title>
             <link rel='icon' href='/favicon.ico' />
          </Head>
-         <div className='text-center mt-10 mb-10  text-white'>
-            <Landing />
-         </div>
+         {/* <div className='text-center mt-10 mb-10  text-white'> */}
+         <Landing />
+         {/* </div> */}
       </div>
    );
 }
