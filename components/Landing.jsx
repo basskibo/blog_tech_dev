@@ -1,8 +1,8 @@
 import React from "react";
 import Accent from "../components/custom/Accent";
 import ActiveLink from "../components/custom/ActiveLink";
-import DeathStar from "../public/images/dt_star.svg";
-import DeathStarAnakin from "../public/images/ds.png";
+// import DeathStar from "../public/images/dt_star.svg";
+// import DeathStarAnakin from "../public/images/ds.png";
 import { FeatureLanding } from "./";
 import Image from "next/image";
 
@@ -53,7 +53,7 @@ const Landing = () => {
                src={DeathStarAnakin}
                alt='Death star pic'
             /> */}
-            <DeathStar className='md:h-64 lg:h-96 w-80' />
+            {/* <DeathStar className='md:h-64 lg:h-96 w-80' /> */}
          </main>
          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>
             <path
