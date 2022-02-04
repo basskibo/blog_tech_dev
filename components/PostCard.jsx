@@ -1,12 +1,13 @@
 import React from "react";
 import moment from "moment";
 import { CategoryChip } from "./CategoryChip";
+import ReadTime from "./ReadTime";
 import Accent from "./custom/Accent";
 import Link from "next/link";
 import Image from "next/image";
 
 const PostCard = ({ post }) => {
-   console.log(post.tags);
+   console.log(post);
    return (
       <div
          key={post.slug}
@@ -29,15 +30,18 @@ const PostCard = ({ post }) => {
             {/* <div className='relative'>
 				<img src={post.featuredImage}></img>
 			</div> */}
-            <div className='p-2 my-3 ml-3'>
+            <div className='px-3 my-3 '>
                <h1 className='text-lg font-semibold'> {post.title}</h1>
-               <p className='mt-5 text-slate-400'>
+               <div className='mt-3 text-slate-400 '>
                   {" "}
-                  <span className='align-middle text-slate-400 lg:text-md hidden lg:inline'>
+                  <ReadTime> {post}</ReadTime>
+                  <p className='align-middle font-bold text-slate-400 mt-1'>
                      {moment(post.publishedAt).format("MMMM DD, YYYY")}
-                  </span>
-               </p>
-               <p className='mt-5 text-slate-400'>{post.excerpt}</p>
+                  </p>
+                  <p className='mt-1 text-slate-400 text-sm italic'>
+                     {post.excerpt}
+                  </p>
+               </div>
             </div>
          </a>
       </div>
