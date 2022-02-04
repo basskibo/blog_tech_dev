@@ -18,3 +18,4 @@ export { default as Accent } from "./custom/Accent";
 export { default as TableOfContent } from "./custom/TableOfContent";
 export { default as TechnologyStack } from "./custom/TechnologyStack";
 export { default as FeatureLanding } from "./FeatureLanding";
+export { default as ReadTime } from "./ReadTime";
