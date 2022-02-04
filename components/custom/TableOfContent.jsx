@@ -1,6 +1,4 @@
 import React from "react";
-
-import Link from "next/link";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);

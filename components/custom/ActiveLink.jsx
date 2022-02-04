@@ -22,7 +22,7 @@ function ActiveLink({ children, href, className }) {
             "font-semibold",
             className ? className : "",
             router.asPath === href
-               ? " underline decoration-dotted decoration-2	decoration-slate-400 underline-offset-8 "
+               ? "text-lime-500 underline decoration-dotted decoration-2	decoration-sky-400 underline-offset-4 "
                : "text-white"
          )}>
          {children}
