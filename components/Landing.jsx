@@ -16,24 +16,24 @@ const Landing = () => {
    };
    return (
       <div className='bg-gradient-to-r from-purple-900 to-indigo-900 '>
-         <main className='h-full flex py-10 items-center px-6 lg:px-32 text-white relative overflow-hidden'>
+         <main className='h-full flex py-10  px-6 lg:px-32 text-white '>
             <section className='w-full  xl:w-10/12'>
-               <span className='font-bold uppercase tracking-widest'>
+               <span className='font-bold uppercase tracking-widest sm:text-xl xs:text-lg lg:text-5xl'>
                   Part of Iguana Dev
                </span>
-               <h1 className='text-3xl lg:text-5xl font-bold mb-2 '>
+               <h1 className=' sm:text-xl xs:text-lg lg:text-5xl font-bold mb-2 '>
                   Welcome
                   <br />
                   <Accent>My name is Bojan </Accent>
                </h1>
                <p className='font-bold mb-1 w-full'>Welcome to my site</p>
-               <p>
+               <p className='text-sm sm:text-md xs:text-sm lg:text-2xl'>
                   Lorem ipsum dolor sit amet...Officia et incididunt nulla
                   reprehenderit velit ut incididunt labore esse pariatur
                   consequat eiusmod incididunt. Enim laboris velit qui laborum
                   aliquip.
                </p>
-               <div className='mt-5 lg:mt-7 inline-grid xl:grid-cols-2 sm:grid-cols-1 gap-2'>
+               <div className='mt-5 lg:mt-7 inline-grid xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-2xl'>
                   <ActiveLink
                      href='/routes/blog'
                      name='blog'
