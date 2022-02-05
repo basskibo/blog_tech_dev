@@ -7,7 +7,7 @@ const Bio = () => {
    return (
       <div className='container mx-auto my-14 px-3 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
          <div className='my-10'>
-            <div className='bg-slate-800 px-5 py-3 mb-5'>
+            <div className=' px-5 py-3 mb-10 border-b border-gray-400'>
                <h1 className='mb-5'>
                   <Accent className='font-extrabold text-6xl'>About</Accent>
                </h1>
@@ -21,18 +21,6 @@ const Bio = () => {
                   excepteur in elit qui irure sit aliquip. Dolore adipisicing
                   laborum sunt fugiat enim occaecat reprehenderit cupidatat
                   irure laborum et id dolore.
-                  {/* ● Technical Senior software developer (cloud) with 6+ years of
-               experience ● JavaScript frameworks (like Nodejs, Express, Sails,
-               Kraken, Hapi, AngularJS(1.x), React, Nextjs ), HTML, CSS. ● JSON,
-               jQuery, MVC, Bootstrap,Material, Tailwind ● Databases: MongoDB,
-               Redis, PostgreSQL, query language (Graphql) ● Amazon Web Services
-               : EC2, S3, EFS, Route53, SNS, IOT Core, IOT Analytics, IOT device
-               management, DynamoDB, CloudWatch ● Protocols and Messaging
-               brokers: HTTP, MQTT, Websockets, RabbitMQ and Kafka ● Web
-               Tools/Monitoring/Technologies: Nginx, Redmine, Zabbix, Apache ●
-               System Software Programming ● Hybrid Mobile Application
-               development using Ionic and React native ● Payment service
-               providers: Stripe, Asseco NestPay ● Software Development Process */}
                </p>
                <TechnologyStack />
             </div>
