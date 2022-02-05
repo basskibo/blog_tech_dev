@@ -2,11 +2,9 @@ import React from "react";
 import moment from "moment";
 import CategoryChip from "./CategoryChip";
 import Image from "next/image";
-// const readingTime = require("reading-time");
-// const stats = readingTime(
-//   "$$51 5125 21 51258125 218 5y2185 128h5 129h59 125h12958 h21h hfhadfuiahfuashfsuahfusaihfaiushfusahfuisahfhsuahfusahu fs  hsaufhuashu hf uhfash fh sfhs ahfuhuashf uhas"
-// );
-// console.log(stats);
+
+import constants from "../lib/constants";
+
 import {
    EmailShareButton,
    EmailIcon,
@@ -19,80 +17,6 @@ import {
 } from "react-share";
 
 const PostDetail = ({ post }) => {
-   // const PostDetail = ({ post }) => {
-   // 	const getContentFragment = (index, text, obj, type) => {
-   // 		let modifiedText = text
-   // 		if (obj) {
-   // 			if (obj.bold) {
-   // 				modifiedText = <b key={index}>{text}</b>
-   // 			}
-
-   // 			if (obj.italic) {
-   // 				modifiedText = <em key={index}>{text}</em>
-   // 			}
-
-   // 			if (obj.underline) {
-   // 				modifiedText = <u key={index}>{text}</u>
-   // 			}
-   // 		}
-
-   // 		switch (type) {
-   // 			case "heading-three":
-   // 				return (
-   // 					<h3 key={index} className='lg:text-xl text-white font-semibold mb-4'>
-   // 						{modifiedText.map((item, i) => (
-   // 							<React.Fragment key={i}>{item}</React.Fragment>
-   // 						))}
-   // 					</h3>
-   // 				)
-   // 			case "paragraph":
-   // 				return (
-   // 					<p key={index} className='mb-8 lg:text-size-sm text-slate-400'>
-   // 						{modifiedText.map((item, i) => (
-   // 							<React.Fragment key={i}>{item}</React.Fragment>
-   // 						))}
-   // 					</p>
-   // 				)
-   // 			case "heading-one":
-   // 				return (
-   // 					<h1 key={index} className='lg:text-2xl font-semibold text-white mb-4'>
-   // 						{modifiedText.map((item, i) => (
-   // 							<React.Fragment key={i}>{item}</React.Fragment>
-   // 						))}
-   // 					</h1>
-   // 				)
-   // 			case "heading-two":
-   // 				return (
-   // 					<h2 key={index} className='lg:text-2xl text-white font-semibold mb-4'>
-   // 						{modifiedText.map((item, i) => (
-   // 							<React.Fragment key={i}>{item}</React.Fragment>
-   // 						))}
-   // 					</h2>
-   // 				)
-
-   // 			case "heading-four":
-   // 				return (
-   // 					<h4 key={index} className='lg:text-lg text-white font-semibold mb-4'>
-   // 						{modifiedText.map((item, i) => (
-   // 							<React.Fragment key={i}>{item}</React.Fragment>
-   // 						))}
-   // 					</h4>
-   // 				)
-   // 			case "image":
-   // 				return (
-   // 					<img
-   // 						key={index}
-   // 						alt={obj.title}
-   // 						height={obj.height}
-   // 						width={obj.width}
-   // 						src={obj.src}
-   // 					/>
-   // 				)
-   // 			default:
-   // 				return modifiedText
-   // 		}
-   // 	}
-
    return (
       <div className='container mx-auto px-5 bg-slate-900 shadow-lg lg:rounded-lg lg:p-0 pb-12 mb-8 lg:mt-5 sm:mt-10 xs:mt-10'>
          <div className='flex justify-center mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
@@ -101,9 +25,13 @@ const PostDetail = ({ post }) => {
             </h1>
          </div>
          <div className='relative overflow-hidden shadow-md md-6 h-80  '>
-            <img
+            <Image
                src={post.featuredImage}
                alt={post.title}
+               blurDataURL={constants.imageBlogURI}
+               placeholder='blur'
+               layout='fill'
+               priority
                className=' object-cover h-full w-full '
             />
          </div>
