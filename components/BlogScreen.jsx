@@ -21,6 +21,8 @@ const BlogScreen = ({ posts }) => {
    // 	setnumberOfPages(calculatedPages)
    // 	setpageNumber(offset)
    // }, [])
+   console.log("########");
+   // console.log(posts[0].props.data);
 
    return (
       <div className='container mx-auto my-14 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
@@ -37,7 +39,7 @@ const BlogScreen = ({ posts }) => {
 
          <div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'>
             {posts.map((post, index) => (
-               <PostCard key={post.data.slug} post={post.data} />
+               <PostCard key={post.props.data.slug} post={post.props} />
             ))}
          </div>
       </div>
