@@ -2,6 +2,7 @@ import { FaBeer } from "react-icons/fa";
 import Accent from "../../components/custom/Accent";
 import TechnologyStack from "../../components/custom/TechnologyStack";
 import Image from "next/image";
+import Link from "next/link";
 
 const Bio = () => {
    return (
@@ -21,6 +22,27 @@ const Bio = () => {
                   excepteur in elit qui irure sit aliquip. Dolore adipisicing
                   laborum sunt fugiat enim occaecat reprehenderit cupidatat
                   irure laborum et id dolore.
+               </p>
+               <p className='mb-10'>
+                  If you like what I do, please feel free to donate whatever
+                  amount you like. Possible options are{" "}
+                  <a
+                     href='https://www.buymeacoffee.com/basskibo'
+                     target='_blank'
+                     className='text-lime-500 underline decoration-dotted decoration-2	decoration-sky-400 underline-offset-4 '>
+                     Buy me a coffee{" "}
+                  </a>
+                  or
+                  <a
+                     href='https://www.patreon.com/bePatron?u=67759634'
+                     data-patreon-widget-type='become-patron-button'
+                     className='text-lime-500 underline decoration-dotted decoration-2	decoration-sky-400 underline-offset-4 '>
+                     {" "}
+                     Become a Patron!
+                  </a>
+                  <script
+                     async
+                     src='https://c6.patreon.com/becomePatronButton.bundle.js'></script>
                </p>
                <TechnologyStack />
             </div>
