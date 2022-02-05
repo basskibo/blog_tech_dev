@@ -14,7 +14,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 const loading = true;
 
 const blog = ({ posts }) => {
-   const blogData = posts[0];
    return (
       <div>
          {posts.length < 1 ? (
@@ -30,36 +29,6 @@ const blog = ({ posts }) => {
                </div>
 
                <div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-14 '>
-                  <Skeleton
-                     baseColor='#202020'
-                     highlightColor='#444'
-                     count={5}
-                  />
-                  <Skeleton
-                     baseColor='#202020'
-                     highlightColor='#444'
-                     count={5}
-                  />
-                  <Skeleton
-                     baseColor='#202020'
-                     highlightColor='#444'
-                     count={5}
-                  />
-                  <Skeleton
-                     baseColor='#202020'
-                     highlightColor='#444'
-                     count={5}
-                  />
-                  <Skeleton
-                     baseColor='#202020'
-                     highlightColor='#444'
-                     count={5}
-                  />
-                  <Skeleton
-                     baseColor='#202020'
-                     highlightColor='#444'
-                     count={5}
-                  />
                   <Skeleton
                      baseColor='#202020'
                      highlightColor='#444'
@@ -94,11 +63,15 @@ export const getStaticProps = async () => {
          "utf-8"
       );
 
-      let { data } = matter(markdownWithMeta);
+      let { content, data } = matter(markdownWithMeta);
       data = { ...data, slug: filename.split(".")[0] };
+      // const mdxSource = await serialize(content);
 
       return {
-         data,
+         props: {
+            data,
+            content,
+         },
       };
    });
    return {

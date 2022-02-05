@@ -7,16 +7,15 @@ import Link from "next/link";
 import Image from "next/image";
 
 const PostCard = ({ post }) => {
-   console.log(post);
    return (
       <div
-         key={post.slug}
+         key={post.data.slug}
          className='w-full  text-white rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'>
-         <a href={`/post/${post.slug}`}>
+         <a href={`/post/${post.data.slug}`}>
             <div className='relative overflow-hidden h-56'>
                <Image
-                  alt={post.featuredImage}
-                  src={post.featuredImage}
+                  alt={post.data.featuredImage}
+                  src={post.data.featuredImage}
                   blurDataURL='data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7'
                   placeholder='blur'
                   layout='fill'
@@ -31,15 +30,15 @@ const PostCard = ({ post }) => {
 				<img src={post.featuredImage}></img>
 			</div> */}
             <div className='px-3 my-3 '>
-               <h1 className='text-lg font-semibold'> {post.title}</h1>
+               <h1 className='text-lg font-semibold'> {post.data.title}</h1>
                <div className='mt-3 text-slate-400 '>
                   {" "}
                   <ReadTime> {post}</ReadTime>
                   <p className='align-middle font-bold text-slate-400 mt-1'>
-                     {moment(post.publishedAt).format("MMMM DD, YYYY")}
+                     {moment(post.data.publishedAt).format("MMMM DD, YYYY")}
                   </p>
                   <p className='mt-1 text-slate-400 text-sm italic'>
-                     {post.excerpt}
+                     {post.data.excerpt}
                   </p>
                </div>
             </div>
