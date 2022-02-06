@@ -6,6 +6,7 @@ import DeathStar from "../public/images/dt_star.svg";
 import { FeatureLanding } from "./";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 
+import { SiGithub, SiLinkedin } from "react-icons/si";
 import Image from "next/image";
 
 const Landing = () => {
@@ -15,16 +16,18 @@ const Landing = () => {
       router.push(href);
    };
    return (
-      <div className='bg-gradient-to-r from-purple-900 to-indigo-900 '>
-         <main className='h-full flex py-10  px-6 lg:px-32 text-white '>
+      // <div className='bg-gradient-to-r from-purple-900 to-indigo-900 '>
+      <div className='bg-gradient-to-r from-lime-800 to-teal-600 '>
+         <main className='h-full flex py-10  px-6 lg:px-32 text-slate-200 '>
             <section className='w-full  xl:w-10/12'>
                <span className='font-bold uppercase tracking-widest sm:text-xl xs:text-lg lg:text-xl'>
                   Part of Iguana
                </span>
-               <h1 className=' sm:text-xl xs:text-lg lg:text-3xl font-bold mb-2 '>
+               <h1 className=' sm:text-xl xs:text-lg lg:text-5xl font-bold mb-2 '>
                   Welcome
                   <br />
-                  <Accent>My name is Bojan </Accent>
+                  {/* <Accent>My name is Bojan </Accent> */}
+                  My name is <span className='text-white'>Bojan</span>
                </h1>
                <p className='font-bold mb-1 w-full'>Welcome to my site</p>
                <p className='text-sm sm:text-md xs:text-sm lg:text-md'>
@@ -37,16 +40,33 @@ const Landing = () => {
                   <ActiveLink
                      href='/routes/blog'
                      name='blog'
-                     className='mt-5  border border-slate-400 p-3 shadow-lg shadow-slate-600
+                     className='mt-5  border border-slate-400 p-3 shadow-lg shadow-neutral-800
                   hover:shadow-slate-800 hover:cursor-pointer'>
-                     <Accent>Read blog</Accent>
+                     Read blog
                   </ActiveLink>
                   <ActiveLink
                      href='/routes/projects'
-                     className='mt-5 border  border-slate-400 p-3 shadow-lg shadow-slate-600
+                     className='mt-5 border  border-slate-400 p-3 shadow-lg shadow-neutral-800
                   hover:shadow-slate-800 hover:cursor-pointer'>
-                     <Accent>Checkout my projects</Accent>
+                     Checkout my projects
                   </ActiveLink>
+               </div>
+               <div className='mt-5 lg:mt-7 flex gap-x-4'>
+                  <a
+                     className='inline-flex text-lg text-slate-400 hover:underline hover:text-white'
+                     href='https://github.com/basskibo/'
+                     target='_blank'
+                     rel='noreferrer'>
+                     <SiGithub className='mr-2 h-6 w-6' /> basskibo
+                  </a>
+
+                  <a
+                     className='inline-flex text-lg text-slate-400 hover:underline hover:text-white'
+                     href='https://linkedin.com/in/bojan-jagetic-972203106'
+                     target='_blank'
+                     rel='noreferrer'>
+                     <SiLinkedin className='mr-2 h-6 w-6' /> Bojan Jagetic
+                  </a>
                </div>
             </section>
             {/* <Image
@@ -58,9 +78,9 @@ const Landing = () => {
          </main>
          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>
             <path
-               fill='#0f172a'
+               fill='#171717'
                fillOpacity='1'
-               d='M0,160L30,165.3C60,171,120,181,180,176C240,171,300,149,360,138.7C420,128,480,128,540,154.7C600,181,660,235,720,234.7C780,235,840,181,900,176C960,171,1020,213,1080,224C1140,235,1200,213,1260,218.7C1320,224,1380,256,1410,272L1440,288L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z'></path>
+               d='M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'></path>
          </svg>
          <AnchorLink
             href='#sectionFeature'

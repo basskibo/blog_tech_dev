@@ -28,6 +28,10 @@ const Libaries = () => {
             <Skeleton baseColor='#202020' highlightColor='#444' count={5} />
             <Skeleton baseColor='#202020' highlightColor='#444' count={5} />
             <Skeleton baseColor='#202020' highlightColor='#444' count={5} />
+            <Skeleton baseColor='#202020' highlightColor='#444' count={5} />
+            <Skeleton baseColor='#202020' highlightColor='#444' count={5} />
+            <Skeleton baseColor='#202020' highlightColor='#444' count={5} />
+            <Skeleton baseColor='#202020' highlightColor='#444' count={5} />
          </div>
       </div>
       // </div>

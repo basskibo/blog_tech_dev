@@ -4,7 +4,7 @@ const FeatureLanding = () => {
    return (
       <div>
          <section
-            className='text-slate-400 body-font bg-slate-900'
+            className='text-slate-400 body-font bg-neutral-900'
             id='sectionFeature'>
             <div className='container px-5 py-24 mx-auto'>
                <h1 className='sm:text-3xl text-2xl font-medium title-font text-center text-white mb-20'>
