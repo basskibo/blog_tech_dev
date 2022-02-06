@@ -29,6 +29,7 @@ const Bio = () => {
                   <a
                      href='https://www.buymeacoffee.com/basskibo'
                      target='_blank'
+                     rel='noreferrer'
                      className='text-lime-500 underline decoration-dotted decoration-2	decoration-sky-400 underline-offset-4 '>
                      Buy me a coffee{" "}
                   </a>
