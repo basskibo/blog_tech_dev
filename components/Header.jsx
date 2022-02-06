@@ -27,16 +27,15 @@ const Header = ({ href }) => {
    };
 
    const handleClick = (e) => {
-      console.log(e);
       e.preventDefault();
       router.push(href);
    };
 
    return (
-      <div className='sticky top-0 z-50 absolute bg-slate-800'>
+      <div className='sticky top-0 z-50 absolute bg-neutral-800'>
          <Disclosure
             as='nav'
-            className=' border-b-2 border-slate-400 lg:pb-1 text-white  lg:pt-1'>
+            className=' border-b border-slate-400 lg:pb-1 text-white  lg:pt-1'>
             {({ open }) => (
                <>
                   <div className=' max-w-10xl mx-auto px-2 sm:px-6 lg:px-8'>
@@ -90,7 +89,7 @@ const Header = ({ href }) => {
                            <div className='text-center hidden lg:inline'>
                               <Link href={`/`}>
                                  <a className='inline-flex'>
-                                    <span className='h-9 mb-3 flex items-center mt-3 justify-center  font-semibold px-5 border-2 border-sky-800 text-slate-400 hover:bg-sky-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out'>
+                                    <span className='h-9 mb-3 flex items-center mt-3 justify-center  font-semibold px-5 border-2 border-lime-800 text-slate-400 hover:bg-sky-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out'>
                                        Get started
                                        <span className='ml-2'>
                                           <svg

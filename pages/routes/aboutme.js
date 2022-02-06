@@ -46,6 +46,12 @@ const Bio = () => {
                </p>
                <TechnologyStack />
             </div>
+            <h1 className='mb-3'>
+               <Accent className='text-3xl font-semibold'>
+                  {" "}
+                  Work Timeline
+               </Accent>{" "}
+            </h1>
 
             <div className='grid gap-6 row-gap-10 lg:grid-cols-2'>
                <ol className='relative border-l border-gray-200 dark:border-gray-700'>

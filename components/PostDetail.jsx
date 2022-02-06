@@ -18,13 +18,13 @@ import {
 
 const PostDetail = ({ post }) => {
    return (
-      <div className='container mx-auto px-5 bg-slate-900 shadow-lg lg:rounded-lg lg:p-0 pb-12 mb-8 lg:mt-5 sm:mt-10 xs:mt-10'>
+      <div className='container mx-auto px-5 shadow-lg lg:rounded-lg lg:p-0 pb-12 mb-8 lg:mt-5 sm:mt-10 xs:mt-10'>
          <div className='flex justify-center mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
             <h1 className='lg:text-5xl text-xl lg:mb-5 text-semibold text-white font-bold'>
                {post.title}
             </h1>
          </div>
-         <div className='relative overflow-hidden shadow-md md-6 h-80  '>
+         <div className='relative  md-6 h-80  '>
             <Image
                src={post.featuredImage}
                alt={post.title}
