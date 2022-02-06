@@ -24,6 +24,7 @@ const Footer = () => {
                   href='https://twitter.com/knyttneve'
                   className='text-gray-500 ml-1'
                   target='_blank'
+                  rel='noreferrer'
                   rel='noopener noreferrer'>
                   @knyttneve
                </a>
