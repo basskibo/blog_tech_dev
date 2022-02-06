@@ -15,7 +15,6 @@ const parseLanguageByClass = (className) => {
 
 export default {
    h1: ({ children }) => {
-      console.log(children);
       return (
          <h1 className='text-white text-4xl font-bold my-5'> {children}</h1>
       );
