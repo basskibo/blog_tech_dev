@@ -17,7 +17,9 @@ const TechnologyStack = () => {
          </h2>
          <span className='flex'>
             {BEtechArray.map((tech, index) => (
-               <div className='h-12 mb-3 gap-5 text-white text-3xl xs:text-2xl mr-3'>
+               <div
+                  className='h-12 mb-3 gap-5 text-white text-3xl xs:text-2xl mr-3'
+                  key={tech.name}>
                   <tech.icon data-tip data-for={tech.name} />
 
                   <ReactTooltip
@@ -36,7 +38,9 @@ const TechnologyStack = () => {
          </h2>
          <span className='flex'>
             {FEtechArray.map((tech, index) => (
-               <div className='h-12 mb-3 gap-5 text-white text-3xl xs:text-2xl mr-3'>
+               <div
+                  className='h-12 mb-3 gap-5 text-white text-3xl xs:text-2xl mr-3'
+                  key={tech.name}>
                   <tech.icon data-tip data-for={tech.name} />
 
                   <ReactTooltip
@@ -52,7 +56,9 @@ const TechnologyStack = () => {
          <h2 className='mb-3'> IDEs and OS I preffer and mostly use :</h2>
          <span className='flex'>
             {ideOstechArray.map((tech, index) => (
-               <div className='h-12 mb-3 gap-5 text-white text-3xl xs:text-2xl mr-3'>
+               <div
+                  className='h-12 mb-3 gap-5 text-20 text-3xl xs:text-2xl mr-3'
+                  key={tech.name}>
                   <tech.icon data-tip data-for={tech.name} />
 
                   <ReactTooltip
