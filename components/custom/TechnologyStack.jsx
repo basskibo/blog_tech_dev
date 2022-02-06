@@ -57,7 +57,7 @@ const TechnologyStack = () => {
          <span className='flex'>
             {ideOstechArray.map((tech, index) => (
                <div
-                  className='h-12 mb-3 gap-5 text-20 text-3xl xs:text-2xl mr-3'
+                  className='h-12 mb-3 gap-5 text-white text-3xl xs:text-2xl mr-3'
                   key={tech.name}>
                   <tech.icon data-tip data-for={tech.name} />
 
