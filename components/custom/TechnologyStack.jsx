@@ -25,7 +25,7 @@ const TechnologyStack = () => {
                   <ReactTooltip
                      id={tech.name}
                      type='dark'
-                     className='absolute bg-neutral-700'>
+                     className=' bg-neutral-700'>
                      <h1>Name: {tech.name}</h1>
                      <p>Descripton: {tech.desc}</p>
                   </ReactTooltip>
