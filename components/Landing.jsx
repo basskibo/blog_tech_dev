@@ -35,16 +35,16 @@ const Landing = () => {
                <p className='font-bold mb-1 w-full block lg:hidden text-sm'>
                   Writing code is my obsession as well as constant
                   self-improvement, I have developed many web applications and
-                  platforms from scratch in my spare time (when I'm not coding).
-                  Accustomed to using extensive tech stack because I love
-                  challenging and complex projects.
+                  platforms from scratch in my spare time (when I&apos;m not
+                  coding). Accustomed to using extensive tech stack because I
+                  love challenging and complex projects.
                </p>
                <p className='font-bold mb-1 w-full hidden lg:block'>
                   Writing code is my obsession as well as constant
                   self-improvement, I have developed many web applications and
-                  platforms from scratch in my spare time (when I'm not coding).
-                  Accustomed to using extensive tech stack because I love
-                  challenging and complex projects.
+                  platforms from scratch in my spare time (when I&apos;m not
+                  coding). Accustomed to using extensive tech stack because I
+                  love challenging and complex projects.
                </p>
 
                <div className='mt-5 lg:mt-7 inline-grid xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
