@@ -52,7 +52,7 @@ const Bio = () => {
             <h1 className='mb-5'>
                <Accent className='text-3xl font-semibold'>
                   {" "}
-                  Work Timeline
+                  Curriculum vitae
                </Accent>{" "}
             </h1>
 
