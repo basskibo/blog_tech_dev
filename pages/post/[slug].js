@@ -74,6 +74,7 @@ const components = {
    h3: MdxComponents.h3,
    img: MdxComponents.img,
    p: MdxComponents.p,
+   a: MdxComponents.a,
    code: MdxComponents.code,
    Accent: MdxComponents.Accent,
    TestComponent: MdxComponents.TestComponent,
