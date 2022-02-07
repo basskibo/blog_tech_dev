@@ -33,14 +33,16 @@ const Bio = () => {
                      href='https://www.buymeacoffee.com/basskibo'
                      target='_blank'
                      rel='noreferrer'
-                     className='text-lime-500 underline decoration-dotted decoration-2	decoration-sky-400 underline-offset-4 '>
+                     className='text-lime-500 underline decoration-dotted decoration-2	decoration-sky-400
+                      underline-offset-4 link link-underline link-underline-black hover:no-underline '>
                      <Accent>Buy me a coffee </Accent>
                   </a>
                   or
                   <a
                      href='https://www.patreon.com/bePatron?u=67759634'
                      data-patreon-widget-type='become-patron-button'
-                     className='text-lime-500 underline decoration-dotted decoration-2	decoration-sky-400 underline-offset-4 '>
+                     className='text-lime-500 underline decoration-dotted decoration-2	decoration-sky-400 underline-offset-4 
+                     link link-underline link-underline-black hover:no-underline'>
                      {" "}
                      <Accent>Become a Patron! </Accent>
                   </a>
