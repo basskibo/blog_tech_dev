@@ -3,6 +3,7 @@ import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import Accent from "./Accent";
 import TestComponent from "../TestComponent";
 import Image from "next/image";
+
 import slugify from "slugify";
 
 const ResponsiveImage = (props) => (
@@ -64,9 +65,20 @@ export default {
          </SyntaxHighlighter>
       );
    },
-   a: ({ children, className }) => {
+   a: ({ children, className, href }) => {
+      console.log(">>>>>>>>>>>>");
       console.log(children);
-      console.log(className);
+      console.log(href);
+      return (
+         <a
+            className='my-3 hover:cursor-pointer text-lime-500 underline decoration-dotted decoration-2
+            	decoration-sky-400 underline-offset-4 link link-underline link-underline-black hover:no-underline'
+            href={href}
+            target='_blank'
+            rel='noreferrer'>
+            {children}
+         </a>
+      );
    },
    TestComponent: TestComponent,
 };
