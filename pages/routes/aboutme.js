@@ -44,9 +44,6 @@ const Bio = () => {
                      {" "}
                      <Accent>Become a Patron! </Accent>
                   </a>
-                  <script
-                     async
-                     src='https://c6.patreon.com/becomePatronButton.bundle.js'></script>
                </p>
                <TechnologyStack />
             </div>
