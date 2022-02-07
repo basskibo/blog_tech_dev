@@ -11,7 +11,6 @@ import Image from "next/image";
 
 const Landing = () => {
    const handleClick = (e) => {
-      console.log(e);
       e.preventDefault();
       router.push(href);
    };
@@ -53,7 +52,7 @@ const Landing = () => {
                </div>
                <div className='mt-5 lg:mt-7 flex gap-x-4'>
                   <a
-                     className='inline-flex text-lg text-slate-400 hover:underline hover:text-white'
+                     className='inline-flex text-lg text-slate-400 hover:underline link link-underline link-underline-black hover:no-underline'
                      href='https://github.com/basskibo/'
                      target='_blank'
                      rel='noreferrer'>
@@ -61,7 +60,7 @@ const Landing = () => {
                   </a>
 
                   <a
-                     className='inline-flex text-lg text-slate-400 hover:underline hover:text-white'
+                     className='inline-flex text-lg text-slate-400 hover:underline link link-underline link-underline-black hover:no-underline'
                      href='https://linkedin.com/in/bojan-jagetic-972203106'
                      target='_blank'
                      rel='noreferrer'>

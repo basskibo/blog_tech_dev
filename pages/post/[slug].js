@@ -80,7 +80,6 @@ const components = {
 };
 
 const PostDetails = ({ data, mdxSource, toc }) => {
-   console.log(toc);
    return (
       <div className='container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 px-5 lg:rounded-lg p-0  text-slate-400'>
          <div className='grid grid-cols-1 lg:grid-cols-12 gap-x-12'>

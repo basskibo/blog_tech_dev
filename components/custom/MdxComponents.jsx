@@ -64,5 +64,9 @@ export default {
          </SyntaxHighlighter>
       );
    },
+   a: ({ children, className }) => {
+      console.log(children);
+      console.log(className);
+   },
    TestComponent: TestComponent,
 };
