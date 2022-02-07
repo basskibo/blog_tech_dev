@@ -34,7 +34,7 @@ const Bio = () => {
                      target='_blank'
                      rel='noreferrer'
                      className='text-lime-500 underline decoration-dotted decoration-2	decoration-sky-400
-                      underline-offset-4 link link-underline link-underline-black hover:no-underline '>
+                      underline-offset-4 link link-underline link-underline-black hover:no-underline hover:cursor-ne-resize '>
                      <Accent>Buy me a coffee </Accent>
                   </a>
                   or
@@ -42,7 +42,7 @@ const Bio = () => {
                      href='https://www.patreon.com/bePatron?u=67759634'
                      data-patreon-widget-type='become-patron-button'
                      className='text-lime-500 underline decoration-dotted decoration-2	decoration-sky-400 underline-offset-4 
-                     link link-underline link-underline-black hover:no-underline'>
+                     link link-underline link-underline-black hover:no-underline hover:cursor-ne-resize'>
                      {" "}
                      <Accent>Become a Patron! </Accent>
                   </a>
