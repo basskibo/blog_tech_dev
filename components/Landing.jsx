@@ -16,43 +16,55 @@ const Landing = () => {
    };
    return (
       // <div className='bg-gradient-to-r from-purple-900 to-indigo-900 '>
-      <div className='bg-gradient-to-r from-lime-800 to-teal-600 '>
-         <main className='h-full flex py-10  px-6 lg:px-32 text-slate-200 '>
-            <section className='w-full  xl:w-10/12'>
-               <span className='font-bold uppercase tracking-widest sm:text-xl xs:text-lg lg:text-xl'>
+      // <div className='bg-gradient-to-r from-amber-800 to-lime-900 '>
+      <div className='bg-teal-900 '>
+         <main className='h-full flex py-3 md:py-2 xl:py-12 lg:py-10  px-6 lg:px-32 text-slate-200 '>
+            <section className='w-full xl:mx-10 xl:w-10/12'>
+               {/* <span className='font-bold border p-1 mb-2 border-lime-600 uppercase tracking-widest sm:text-xl xs:text-lg lg:text-xl'>
                   Part of Iguana
-               </span>
+               </span> */}
                <h1 className=' sm:text-xl xs:text-lg lg:text-5xl font-bold mb-2 '>
-                  Welcome
+                  Hello there,
                   <br />
                   {/* <Accent>My name is Bojan </Accent> */}
-                  My name is <span className='text-white'>Bojan</span>
+                  <Accent className='text-2xl sm:text-3xl lg:text-6xl'>
+                     {" "}
+                     My name is Bojan{" "}
+                  </Accent>
                </h1>
-               <p className='font-bold mb-1 w-full'>Welcome to my site</p>
-               <p className='text-sm sm:text-md xs:text-sm lg:text-md'>
-                  Lorem ipsum dolor sit amet...Officia et incididunt nulla
-                  reprehenderit velit ut incididunt labore esse pariatur
-                  consequat eiusmod incididunt. Enim laboris velit qui laborum
-                  aliquip.
+               <p className='font-bold mb-1 w-full block lg:hidden text-sm'>
+                  Writing code is my obsession as well as constant
+                  self-improvement, I have developed many web applications and
+                  platforms from scratch in my spare time (when I'm not coding).
+                  Accustomed to using extensive tech stack because I love
+                  challenging and complex projects.
                </p>
+               <p className='font-bold mb-1 w-full hidden lg:block'>
+                  Writing code is my obsession as well as constant
+                  self-improvement, I have developed many web applications and
+                  platforms from scratch in my spare time (when I'm not coding).
+                  Accustomed to using extensive tech stack because I love
+                  challenging and complex projects.
+               </p>
+
                <div className='mt-5 lg:mt-7 inline-grid xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
                   <ActiveLink
                      href='/routes/blog'
                      name='blog'
-                     className='mt-5  border border-slate-400 p-3 shadow-lg shadow-neutral-800
+                     className='mt-5 bg-neutral-800 border border-slate-400 p-3 shadow-lg shadow-neutral-800
                   hover:shadow-slate-800 hover:cursor-pointer'>
-                     Read blog
+                     <Accent>Read blog </Accent>
                   </ActiveLink>
                   <ActiveLink
                      href='/routes/projects'
-                     className='mt-5 border  border-slate-400 p-3 shadow-lg shadow-neutral-800
+                     className='mt-5 border bg-neutral-800 border-slate-400 p-3 shadow-lg shadow-neutral-800
                   hover:shadow-slate-800 hover:cursor-pointer'>
-                     Checkout my projects
+                     <Accent>Checkout my projects</Accent>
                   </ActiveLink>
                </div>
                <div className='mt-5 lg:mt-7 flex gap-x-4'>
                   <a
-                     className='inline-flex text-lg text-slate-400 hover:underline link link-underline link-underline-black hover:no-underline'
+                     className='inline-flex text-lg text-slate-300 hover:underline link link-underline link-underline-black hover:no-underline'
                      href='https://github.com/basskibo/'
                      target='_blank'
                      rel='noreferrer'>
@@ -60,11 +72,13 @@ const Landing = () => {
                   </a>
 
                   <a
-                     className='inline-flex text-lg text-slate-400 hover:underline link link-underline link-underline-black hover:no-underline'
+                     className='inline-flex text-lg text-slate-300 hover:underline link link-underline link-underline-black hover:no-underline'
                      href='https://linkedin.com/in/bojan-jagetic-972203106'
                      target='_blank'
                      rel='noreferrer'>
-                     <SiLinkedin className='mr-2 h-6 w-6' /> Bojan Jagetic
+                     <SiLinkedin className='mr-2 h-6 w-6' />
+                     <span className='hidden lg:block'>Bojan Jagetic</span>
+                     <span className='lg:hidden lg'>B.Jagetic</span>
                   </a>
                </div>
             </section>
