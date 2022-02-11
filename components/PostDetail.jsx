@@ -18,6 +18,7 @@ import {
 } from "react-share"
 
 const PostDetail = ({ post, content }) => {
+	console.log(post)
 	return (
 		<div className=' mx-auto  lg:rounded-lg lg:p-0 lg:mt-5 sm:mt-10 xs:mt-10'>
 			<div className='flex justify-center mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
@@ -42,7 +43,7 @@ const PostDetail = ({ post, content }) => {
 						<p className='text-slate-400 ml-2 lg:text-md sm:text-sm'>
 							Writen on{" "}
 							<span className='font-semibold'>
-								{moment(post.createdAt).format("MMMM DD, YYYY")}
+								{moment(post.publishedAt).format("MMMM DD, YYYY")}
 							</span>{" "}
 							by <span className='font-semibold'>{post.author}</span>
 						</p>
