@@ -2,7 +2,7 @@ import React from "react"
 import Accent from "../components/custom/Accent"
 import ActiveLink from "../components/custom/ActiveLink"
 import DeathStar from "../public/images/dt_star.svg"
-// import DeathStarAnakin from "../public/images/ds.png";
+import DeathStarAnakin from "../public/images/launch.svg"
 import { FeatureLanding } from "./"
 import AnchorLink from "react-anchor-link-smooth-scroll"
 
@@ -84,12 +84,9 @@ const Landing = () => {
 						</a>
 					</div>
 				</section>
-				{/* <Image
-               className='relative'
-               src={DeathStarAnakin}
-               alt='Death star pic'
-            /> */}
+				{/* <Image className='relative' src={DeathStarAnakin} alt='Death star pic' /> */}
 				<DeathStar className='md:h-64 lg:h-96 w-80' />
+				{/* <DeathStarAnakin className='md:h-64 lg:h-full w-ful' /> */}
 			</main>
 			<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>
 				<path
