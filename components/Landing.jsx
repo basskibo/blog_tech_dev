@@ -101,7 +101,7 @@ const Landing = () => {
 			<AnchorLink
 				href='#sectionFeature'
 				aria-label='Scroll down'
-				className='absolute bottom-0 text-white left-1/2 -translate-x-1/2 md:bottom-10 rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'
+				className='hidden lg:block absolute bottom-0 text-white left-1/2 -translate-x-1/2 md:bottom-10 rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'
 			>
 				<svg
 					className='w-6 h-6'
