@@ -10,6 +10,49 @@ import MdxComponents from "../../components/custom/MdxComponents"
 import TableOfContent from "../../components/custom/TableOfContent"
 import { ReadTime } from "../../components"
 
+function getTableOfContents(content) {
+	const regexp = new RegExp(/^(### |## )(.*)\n/, "gm")
+	const headings = [...content.matchAll(regexp)]
+
+	let tableOfContents = []
+
+	let lastElType
+	if (headings.length) {
+		headings.forEach((heading) => {
+			const headingText = heading[2].trim()
+			const headingType = heading[1].trim() === "##" ? "h2" : "h3"
+			const headingLink = slugify(headingText, {
+				lower: true,
+				strict: true,
+			})
+
+			lastElType = headingType
+			const head = {
+				title: headingType === "h2" ? headingText : `${headingText}`,
+				headerType: headingType,
+				subheading: [],
+				link: `#${headingLink}`,
+			}
+			if (headingType === "h3") {
+				// let lastEl = tableOfContents.at(-1) // vercel does not support .at method currently
+				let lastEl = tableOfContents[tableOfContents.length - 1]
+				if (lastElType === "h2") {
+					tableOfContents.pop()
+					lastEl.subheading.push(head)
+					tableOfContents.push(lastEl)
+				} else {
+					tableOfContents.pop()
+					lastEl.subheading.push(head)
+					tableOfContents.push(lastEl)
+				}
+			} else {
+				tableOfContents.push(head)
+			}
+		})
+	}
+	return tableOfContents
+}
+
 const components = {
 	h1: MdxComponents.h1,
 	h2: MdxComponents.h2,
@@ -22,7 +65,7 @@ const components = {
 	TestComponent: MdxComponents.TestComponent,
 }
 
-const LibaryDetails = ({ data, mdxSource }) => {
+const LibaryDetails = ({ data, mdxSource, toc }) => {
 	return (
 		<div className='container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 px-5 mb-10 lg:rounded-lg p-0  text-slate-400'>
 			<div className='grid grid-cols-1 lg:grid-cols-12 gap-x-12'>
@@ -50,7 +93,7 @@ const LibaryDetails = ({ data, mdxSource }) => {
 					<MDXRemote {...mdxSource} components={{ ...components }} lazy />
 				</div>
 				<div className='hidden lg:block col-span-1 lg:col-span-3 place-content-center'>
-					{/* <TableOfContent toc={toc} /> */}
+					<TableOfContent toc={toc} />
 				</div>
 			</div>
 		</div>
@@ -68,7 +111,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 	let { content, data } = matter(markdownWithMeta)
 
 	data = { ...data, slug }
-	// const toc = getTableOfContents(content)
+	const toc = getTableOfContents(content)
 
 	const mdxSource = await serialize(content)
 
@@ -76,7 +119,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 		props: {
 			data,
 			mdxSource,
-			// toc,
+			toc,
 		},
 	}
 }
