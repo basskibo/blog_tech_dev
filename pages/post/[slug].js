@@ -10,16 +10,6 @@ import { PostDetail, PostBody, PostWidget, CategoryChip } from "../../components
 import MdxComponents from "../../components/custom/MdxComponents"
 import TableOfContent from "../../components/custom/TableOfContent"
 
-import Image from "next/image"
-
-const ResponsiveImage = (props) => (
-	<Image alt={props.alt} layout='responsive' {...props} />
-)
-
-const parseLanguageByClass = (className) => {
-	return className.split("-")[1]
-}
-
 function getTableOfContents(content) {
 	const regexp = new RegExp(/^(### |## )(.*)\n/, "gm")
 	const headings = [...content.matchAll(regexp)]
