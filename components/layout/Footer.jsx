@@ -64,6 +64,7 @@ const Footer = () => {
 							className='ml-3 text-gray-400 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
 							href={medium.href}
 							target='_blank'
+							rel='noreferrer'
 							key={medium.name}
 						>
 							<medium.icon className='text-lg' data-tip data-for={medium.name} />

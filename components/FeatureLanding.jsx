@@ -113,7 +113,7 @@ const FeatureLanding = () => {
 									My latest tweet
 								</h2>
 								<blockquote
-									class='twitter-tweet'
+									className='twitter-tweet'
 									data-dnt='true'
 									data-theme='dark'
 								>
