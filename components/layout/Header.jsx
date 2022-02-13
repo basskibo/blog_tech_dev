@@ -2,8 +2,8 @@ import React, { useContext, useEffect, Fragment } from "react"
 import Link from "next/link"
 import { Disclosure, Menu, Popover, Transition } from "@headlessui/react"
 import { BellIcon, MenuIcon, XIcon, LoginIcon } from "@heroicons/react/outline"
-import DisclocureButton from "./DisclocureButton"
-import ActiveLink from "./custom/ActiveLink"
+import DisclocureButton from "../DisclocureButton"
+import ActiveLink from "../custom/ActiveLink"
 import { useRouter } from "next/router"
 
 const navigation = [

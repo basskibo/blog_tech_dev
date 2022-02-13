@@ -74,7 +74,7 @@ const Landing = () => {
 
 						<a
 							className='inline-flex text-lg text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
-							href='https://linkedin.com/in/Bojan Jagetic-jagetic-972203106'
+							href='https://linkedin.com/in/bojan-jagetic-972203106'
 							target='_blank'
 							rel='noreferrer'
 						>
