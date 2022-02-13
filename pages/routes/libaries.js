@@ -20,7 +20,7 @@ const Libaries = ({ libaries }) => {
 				</p>
 				<input
 					className='w-full my-3 bg-neutral-900  px-3 py-2 rounded-md
-					border border-slate-600 focus:border-sky-400'
+					border border-slate-600 focus:border-lime-600'
 					placeholder='Search...'
 				></input>
 			</div>

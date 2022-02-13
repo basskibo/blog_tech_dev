@@ -6,7 +6,6 @@ import cslx from "clsx"
 
 const ReadTime = ({ children, className }) => {
 	const stats = readingTime(JSON.stringify(children[1]))
-	console.log("Reading time is ....", stats)
 	return (
 		<p className={cslx(className, "inline-flex mt-1")}>
 			<IoTimeOutline className='h-full mt-0.5' />{" "}

@@ -22,7 +22,7 @@ const BlogScreen = ({ posts }) => {
 				</p>
 				<input
 					className='w-full my-3 bg-neutral-900  px-3 py-2 rounded-md
-					border border-slate-600 focus:border-sky-400'
+					border border-slate-600 focus:border-lime-600'
 					placeholder='Search...'
 				></input>
 			</div>
@@ -35,28 +35,5 @@ const BlogScreen = ({ posts }) => {
 		</div>
 	)
 }
-
-// {
-/* <div className="container mx-auto sm:px-0 xs:px-0 lg:px-5 mb-8 bg-gradient-to-tr">
-<div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-  <div className="lg:col-span-8 col-span-1">
-    {posts.map((post, index) => (
-      <PostCard post={post.data} key={post.title} />
-    ))}
-    <Pagination
-      pageNumber={pageNumber}
-      numberOfPosts={numberOfPosts}
-      numberOfPages={numberOfPages}
-    />
-  </div>
-  <div className="lg:col-span-4 col-span-1">
-    <div className="top-8">
-      <PostWidget />
-      <Categories />
-    </div>
-  </div>
-</div>
-</div> */
-// }
 
 export default BlogScreen

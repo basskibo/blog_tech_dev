@@ -56,7 +56,7 @@ export default {
 				language={parseLanguageByClass(className)}
 				style={a11yDark}
 				wrapLines={true}
-				showLineNumbers={true}
+				showLineNumbers={false}
 				showInlineLineNumbers={true}
 			>
 				{children}
@@ -64,12 +64,9 @@ export default {
 		)
 	},
 	a: ({ children, className, href }) => {
-		console.log(">>>>>>>>>>>>")
-		console.log(children)
-		console.log(href)
 		return (
 			<a
-				className='my-3 hover:cursor-pointer text-lime-500 underline decoration-dotted decoration-2
+				className='my-3 hover:cursor-ne-resize text-lime-500 underline decoration-dotted decoration-2
             	decoration-sky-400 underline-offset-4 link link-underline link-underline-black hover:no-underline'
 				href={href}
 				target='_blank'
