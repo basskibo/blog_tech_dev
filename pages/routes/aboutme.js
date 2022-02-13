@@ -6,6 +6,7 @@ import Link from "next/link"
 import { SiPatreon, SiBuymeacoffee } from "react-icons/si"
 import cvImage from "../../public/images/cv.jpg"
 import constants from "../../lib/constants"
+
 const Bio = () => {
 	return (
 		<div className='container mx-auto my-10 px-3 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
