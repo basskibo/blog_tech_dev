@@ -13,6 +13,7 @@ export { default as DisclocureButton } from "./DisclocureButton"
 export { default as BlogScreen } from "./BlogScreen"
 export { default as PostBody } from "./PostBody"
 export { default as Landing } from "./Landing"
+export { default as SvgWave } from "./layout/SvgWave"
 
 export { default as Accent } from "./custom/Accent"
 export { default as TableOfContent } from "./custom/TableOfContent"

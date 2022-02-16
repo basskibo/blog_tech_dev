@@ -5,7 +5,7 @@ import DeathStar from "../public/images/dt_star.svg"
 import DeathStarAnakin from "../public/images/launch.svg"
 import { FeatureLanding } from "./"
 import AnchorLink from "react-anchor-link-smooth-scroll"
-
+import SvgWave from "./layout/SvgWave"
 import { SiGithub, SiLinkedin } from "react-icons/si"
 import Image from "next/image"
 
@@ -17,54 +17,59 @@ const Landing = () => {
 	return (
 		// <div className='bg-gradient-to-r from-purple-900 to-indigo-900 '>
 		// <div className='bg-gradient-to-r from-amber-800 to-lime-900 '>
-		<div className='bg-teal-900 '>
-			<main className='h-full flex py-3 md:py-2 xl:py-12 lg:py-10  px-6 lg:px-32 text-slate-200 '>
-				<section className='w-full xl:mx-10 xl:w-10/12'>
-					{/* <span className='font-bold border p-1 mb-2 border-lime-600 uppercase tracking-widest sm:text-xl xs:text-lg lg:text-xl'>
-                  Part of Iguana
-               </span> */}
-					<h1 className=' sm:text-xl xs:text-lg lg:text-5xl font-bold mb-2 '>
+		<div className=''>
+			<div className='h-screen text-slate-200  mx-5 pack-train'>
+				<div
+					className='grid place-items-left place-content-center gap-1 h-screen
+				lg:mx-80 '
+				>
+					<h1
+						className=' text-3xl xs:text-2xl lg:text-5xl  font-bold mb-2
+					 '
+					>
 						Hello there,
 						<br />
-						{/* <Accent>My name is Bojan Jagetic </Accent> */}
-						<Accent className='text-2xl sm:text-3xl lg:text-6xl'>
-							{" "}
+						<Accent className='text-3xl sm:text-3xl lg:text-6xl '>
 							My name is Bojan{" "}
 						</Accent>
 					</h1>
-					<p className='font-bold mb-1 w-full block lg:hidden text-sm'>
+					<p className='font-bold mb-1 lg:hidden text-lg lg:text-3xl'>
 						Writing code is my obsession as well as constant self-improvement, I
 						have developed many web applications and platforms from scratch in my
 						spare time (when I&apos;m not coding). Accustomed to using extensive
 						tech stack because I love challenging and complex projects.
 					</p>
-					<p className='font-bold mb-1 w-full hidden lg:block'>
+					<p className='font-bold mb-1  hidden lg:block text-lg'>
 						Writing code is my obsession as well as constant self-improvement, I
 						have developed many web applications and platforms from scratch in my
 						spare time (when I&apos;m not coding). Accustomed to using extensive
 						tech stack because I love challenging and complex projects.
 					</p>
+					{/* <DeathStar className='md:h-64 lg:h-96 w-80' /> */}
 
-					<div className='mt-5 lg:mt-7 inline-grid xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
+					<div className='mt-5  lg:mt-7 inline-grid xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
 						<ActiveLink
 							href='/routes/blog'
 							name='blog'
-							className='mt-5 bg-neutral-800 border border-slate-400 p-3 shadow-lg shadow-neutral-800
-                  hover:shadow-slate-800 hover:cursor-pointer'
+							className='mt-5  rounded-md  p-3 shadow-md  shadow-neutral-800
+                  hover:shadow-slate-800 hover:cursor-pointer text-center text-white  border border-lime-500
+				  '
 						>
-							<Accent>Read blog </Accent>
+							Read blog
 						</ActiveLink>
 						<ActiveLink
-							href='/routes/projects'
-							className='mt-5 border bg-neutral-800 border-slate-400 p-3 shadow-lg shadow-neutral-800
-                  hover:shadow-slate-800 hover:cursor-pointer'
+							href='/routes/aboutme'
+							className='mt-5  rounded-md  p-3 shadow-md shadow-neutral-800
+                  hover:shadow-slate-800 hover:cursor-pointer text-center  border border-lime-500'
 						>
-							<Accent>Checkout my projects</Accent>
+							Check my bio
 						</ActiveLink>
 					</div>
+
 					<div className='mt-5 lg:mt-7 flex gap-x-4'>
 						<a
-							className='inline-flex text-lg text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
+							className='inline-flex  text-lg text-slate-300 hover:underline link link-underline link-underline-black
+							 hover:cursor-ne-resize'
 							href='https://github.com/basskibo/'
 							target='_blank'
 							rel='noreferrer'
@@ -83,22 +88,13 @@ const Landing = () => {
 							<span className='lg:hidden lg'>B.Jagetic</span>
 						</a>
 					</div>
-				</section>
-				{/* <Image className='relative' src={DeathStarAnakin} alt='Death star pic' /> */}
-				<DeathStar className='md:h-64 lg:h-96 w-80' />
-				{/* <DeathStarAnakin className='md:h-64 lg:h-full w-ful' /> */}
-			</main>
-			<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>
-				<path
-					fill='#171717'
-					fillOpacity='1'
-					d='M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'
-				></path>
-			</svg>
+				</div>
+			</div>
+
 			<AnchorLink
 				href='#sectionFeature'
 				aria-label='Scroll down'
-				className='hidden lg:block absolute bottom-0 text-white left-1/2 -translate-x-1/2 md:bottom-10 rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'
+				className=' absolute bottom-0 text-white left-1/2 -translate-x-1/2 md:bottom-10 rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'
 			>
 				<svg
 					className='w-6 h-6'
@@ -113,6 +109,8 @@ const Landing = () => {
 					></path>
 				</svg>
 			</AnchorLink>
+			<SvgWave />
+
 			<FeatureLanding />
 		</div>
 	)

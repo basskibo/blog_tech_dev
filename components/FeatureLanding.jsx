@@ -1,9 +1,9 @@
 import React from "react"
-
+import { SiTwitter } from "react-icons/si"
 const FeatureLanding = () => {
 	return (
 		<div>
-			<section className='text-slate-400 body-font bg-neutral-900' id='sectionFeature'>
+			<section className='text-slate-400 body-font bg-teal-900' id='sectionFeature'>
 				<div className='container px-5 py-24 mx-auto'>
 					<h1 className='sm:text-3xl text-2xl font-medium title-font text-center text-white mb-20'>
 						Raw Denim Heirloom Man Braid
@@ -12,7 +12,7 @@ const FeatureLanding = () => {
 					</h1>
 					<div className='flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6'>
 						<div className='p-4 md:w-1/3 flex'>
-							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 mb-4 flex-shrink-0'>
+							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-blue-500 mb-4 flex-shrink-0'>
 								<svg
 									fill='none'
 									stroke='currentColor'
@@ -52,7 +52,7 @@ const FeatureLanding = () => {
 							</div>
 						</div>
 						<div className='p-4 md:w-1/3 flex'>
-							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 mb-4 flex-shrink-0'>
+							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-blue-500 mb-4 flex-shrink-0'>
 								<svg
 									fill='none'
 									stroke='currentColor'
@@ -94,25 +94,27 @@ const FeatureLanding = () => {
 							</div>
 						</div>
 						<div className='p-4 md:w-1/3 flex'>
-							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 mb-4 flex-shrink-0'>
-								<svg
-									fill='none'
-									stroke='currentColor'
-									strokeLinecap='round'
-									strokeLinejoin='round'
-									strokeWidth='2'
-									className='w-6 h-6'
-									viewBox='0 0 24 24'
-								>
-									<path d='M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2'></path>
-									<circle cx='12' cy='7' r='4'></circle>
-								</svg>
+							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-blue-500 mb-4 flex-shrink-0'>
+								<SiTwitter />
 							</div>
 							<div className='flex-grow pl-6'>
 								<h2 className='text-white text-lg title-font font-semibold mb-2'>
-									My latest tweet
+									My featured tweet
 								</h2>
-								<blockquote
+								<a
+									className='twitter-timeline'
+									data-theme='dark'
+									data-tweet-limit='1'
+									href='https://twitter.com/basskibo1'
+								>
+									Tweets by @Basskibo1
+								</a>{" "}
+								<script
+									async
+									src='https://platform.twitter.com/widgets.js'
+									charset='utf-8'
+								></script>
+								{/* <blockquote
 									className='twitter-tweet'
 									data-dnt='true'
 									data-theme='dark'
@@ -137,7 +139,7 @@ const FeatureLanding = () => {
 									async
 									src='https://platform.twitter.com/widgets.js'
 									charset='utf-8'
-								></script>
+								></script> */}
 								{/* <blockquote
 									class='twitter-tweet'
 									data-lang='en'
