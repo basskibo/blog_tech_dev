@@ -6,21 +6,21 @@ import Accent from "../custom/Accent"
 const waysToReachMe = [
 	{ name: "gmail", description: "test", externalLink: false, icon: SiGmail },
 	{
-		name: "SiTwitter",
+		name: "Twitter",
 		description: "test",
 		externalLink: true,
 		href: "https://twitter.com/basskibo1",
 		icon: SiTwitter,
 	},
 	{
-		name: "SiGithub",
+		name: "Github",
 		description: "test",
 		href: "https://github.com/basskibo",
 		externalLink: true,
 		icon: SiGithub,
 	},
 	{
-		name: "SiLinkedin",
+		name: "Linkedin",
 		description: "test",
 		externalLink: true,
 		href: "https://linkedin.com/in/bojan-jagetic-972203106",

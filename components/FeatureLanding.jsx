@@ -4,7 +4,7 @@ const FeatureLanding = () => {
 	return (
 		<div>
 			<section className='text-slate-400 body-font bg-teal-900' id='sectionFeature'>
-				<div className='container px-5 py-24 mx-auto'>
+				<div className='container px-5 py-5 mx-auto'>
 					<h1 className='sm:text-3xl text-2xl font-medium title-font text-center text-white mb-20'>
 						Raw Denim Heirloom Man Braid
 						<br className='hidden sm:block' />
@@ -112,7 +112,7 @@ const FeatureLanding = () => {
 								<script
 									async
 									src='https://platform.twitter.com/widgets.js'
-									charset='utf-8'
+									charSet='utf-8'
 								></script>
 								{/* <blockquote
 									className='twitter-tweet'
@@ -138,7 +138,7 @@ const FeatureLanding = () => {
 								<script
 									async
 									src='https://platform.twitter.com/widgets.js'
-									charset='utf-8'
+									charSet='utf-8'
 								></script> */}
 								{/* <blockquote
 									class='twitter-tweet'
@@ -165,7 +165,7 @@ const FeatureLanding = () => {
 								<script
 									async
 									src='https://platform.twitter.com/widgets.js'
-									charset='utf-8'
+									charSet='utf-8'
 								></script> */}
 								{/* <p className='leading-relaxed text-base'>
                            Blue bottle crucifix vinyl post-ironic four dollar
