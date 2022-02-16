@@ -8,6 +8,8 @@ import AnchorLink from "react-anchor-link-smooth-scroll"
 import SvgWave from "./layout/SvgWave"
 import { SiGithub, SiLinkedin } from "react-icons/si"
 import Image from "next/image"
+import heroGr from "../public/images/hero.svg"
+console.log(heroGr)
 
 const Landing = () => {
 	const handleClick = (e) => {
@@ -18,10 +20,10 @@ const Landing = () => {
 		// <div className='bg-gradient-to-r from-purple-900 to-indigo-900 '>
 		// <div className='bg-gradient-to-r from-amber-800 to-lime-900 '>
 		<div className=''>
-			<div className='h-screen text-slate-200  mx-5 pack-train'>
+			<div className=' text-slate-200 px-5  hero-bg '>
 				<div
 					className='grid place-items-left place-content-center gap-1 h-screen
-				lg:mx-80 '
+					mx-auto lg:max-w-4xl sm:max-w-xl'
 				>
 					<h1
 						className=' text-3xl xs:text-2xl lg:text-5xl  font-bold mb-2
@@ -29,44 +31,46 @@ const Landing = () => {
 					>
 						Hello there,
 						<br />
-						<Accent className='text-3xl sm:text-3xl lg:text-6xl '>
-							My name is Bojan{" "}
-						</Accent>
+						<span className='text-3xl sm:text-3xl lg:text-6xl '>
+							My name is <Accent>Bojan </Accent>
+						</span>
 					</h1>
-					<p className='font-bold mb-1 lg:hidden text-lg lg:text-3xl'>
-						Writing code is my obsession as well as constant self-improvement, I
-						have developed many web applications and platforms from scratch in my
-						spare time (when I&apos;m not coding). Accustomed to using extensive
-						tech stack because I love challenging and complex projects.
-					</p>
-					<p className='font-bold mb-1  hidden lg:block text-lg'>
-						Writing code is my obsession as well as constant self-improvement, I
-						have developed many web applications and platforms from scratch in my
-						spare time (when I&apos;m not coding). Accustomed to using extensive
-						tech stack because I love challenging and complex projects.
-					</p>
-					{/* <DeathStar className='md:h-64 lg:h-96 w-80' /> */}
+					<div className='lg:mt-5'>
+						<p className='font-bold mb-1 lg:hidden text-md xs:text-md'>
+							Writing code is my obsession as well as constant self-improvement, I
+							have developed many web applications and platforms from scratch in my
+							spare time (when I&apos;m not coding). Accustomed to using extensive
+							tech stack because I love challenging and complex projects.
+						</p>
+						<p className='font-bold mb-1  hidden lg:block text-lg'>
+							Writing code is my obsession as well as constant self-improvement, I
+							have developed many web applications and platforms from scratch in my
+							spare time (when I&apos;m not coding). Accustomed to using extensive
+							tech stack because I love challenging and complex projects.
+						</p>
+					</div>
 
-					<div className='mt-5  lg:mt-7 inline-grid xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
+					<div className='mt-7  lg:mt-10  xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
 						<ActiveLink
 							href='/routes/blog'
 							name='blog'
-							className='mt-5  rounded-md  p-3 shadow-md  shadow-neutral-800
-                  hover:shadow-slate-800 hover:cursor-pointer text-center text-white  border border-lime-500
+							className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-700
+                  hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500
+				 
 				  '
 						>
 							Read blog
 						</ActiveLink>
 						<ActiveLink
 							href='/routes/aboutme'
-							className='mt-5  rounded-md  p-3 shadow-md shadow-neutral-800
-                  hover:shadow-slate-800 hover:cursor-pointer text-center  border border-lime-500'
+							className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-700
+							hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500'
 						>
 							Check my bio
 						</ActiveLink>
 					</div>
 
-					<div className='mt-5 lg:mt-7 flex gap-x-4'>
+					<div className='mt-7 lg:mt-10 flex gap-x-4'>
 						<a
 							className='inline-flex  text-lg text-slate-300 hover:underline link link-underline link-underline-black
 							 hover:cursor-ne-resize'
@@ -85,7 +89,7 @@ const Landing = () => {
 						>
 							<SiLinkedin className='mr-2 h-6 w-6' />
 							<span className='hidden lg:block'>Bojan Jagetic</span>
-							<span className='lg:hidden lg'>B.Jagetic</span>
+							<span className='lg:hidden '>B.Jagetic</span>
 						</a>
 					</div>
 				</div>
@@ -94,7 +98,7 @@ const Landing = () => {
 			<AnchorLink
 				href='#sectionFeature'
 				aria-label='Scroll down'
-				className=' absolute bottom-0 text-white left-1/2 -translate-x-1/2 md:bottom-10 rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'
+				className=' absolute bottom-5 text-white left-1/2 -translate-x-1/2 md:bottom-5 rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'
 			>
 				<svg
 					className='w-6 h-6'
