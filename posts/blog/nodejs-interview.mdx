@@ -1,6 +1,6 @@
 ---
-title: "Node.js Technical Interview Cheatcode"
-excerpt: "If you have beem preparing for the technical interview for Node.js developer position make sure that you are ready."
+title: "Node.js Developer Technical Interview (Basic)"
+excerpt: "If you have beem preparing for the technical interview for Node.js developer position make double check that you are ready."
 featuredImage: "/images/nodejs.jpg"
 publishedAt: "2022-02-12T05:35:07.322Z"
 author: "Bojan Jagetic"
@@ -8,22 +8,190 @@ tags:
    [
       { slug: "nodejs", name: "nodejs" },
       { slug: "js", name: "javascript" },
-      { slug: "cheatcode", name: "cheatcode" },
+      { slug: "interview", name: "interview" },
+      { slug: "qa", name: "Q&A" },
    ]
 ---
 
-## What is Node.js and for what is it used?
+## Introduction
 
-Node.js is an open-source, cross-platform JavaScript runtime environment and library to run web applications outside the client’s browser. It is used to create server-side web applications.
+Every job change requires at least some effort. Have you ever been in situation that you cannot remember some basics at the moment, but you are sure you know it? Do not worry, we all have been there. It is good
+practice to remind ourselves from time to time about things we know but have lost our minds by absorbing a mountain of new information. So I won't bother you anymore, lets dive into <a href="https://nodejs.org/en/about"> <Accent className="font-bold">Node.js</Accent> </a>
 
-Node.js is perfect for data-intensive applications as it uses an asynchronous, event-driven model. You can use I/O intensive web applications like video streaming sites. You can also use it for developing: Real-time web applications, Network applications, General-purpose applications, and Distributed systems.
+## What is Node.js ?
 
-## Why use Node.js?
+Node.js is an open-source, cross-platform JavaScript runtime environment and library that runs on the Chrome’s V8 JavaScript engine (which is written in c++ and is highly performant ) and allows you to create and run server-side web applications outside and independent of the client’s browser. It is written in <Accent>C, C++, Javascript </Accent>.
+Node uses event-driven, non-blocking I/O model which makes it lightweight and pretty fast. It is using single threaded event loop architecture to handle many concurrent clients.
 
-Node.js makes building scalable network programs easy. Some of its advantages include:
+Node.js is perfect for data-intensive applications as it uses an asynchronous, event-driven model, as well as for large scale application development, single page applications,APIs, social media applications, streaming sites, etc.
 
-It is generally fast
-It rarely blocks
-It offers a unified programming language and data type
-Everything is asynchronous
-It yields great concurrency
+### What are major benefits of using Node.js ?
+
+Nodejs has a handful of advantages but we will list only the most prominent ones:
+
+<ul>
+	<li>It is really fast, being built on V8 engine makes it very fest code execution</li>
+	<li>It is Asynchronous, Node.js server never waits API to return response so it makes it async </li>
+	<li>It is highly scalable,capable to handle a huge number of concurrent connections and support both vertical and horizontal scaling</li>
+	<li>Huge community, great deal of modules so we don't have to invent hot water</li>
+ 	<li>There is no buffering in Node.JS application it simply output the data in chunks</li>
+ 	<li>Last but not least, it is free (Open source)</li>
+
+</ul>
+
+### How many types of API functions are there in Node.js?
+
+There is two types of API functions:
+
+<ul>
+	<li><b>Synchronous</b> - which are blocking functions, means that functions will make system wait for a response and it will block main loop</li>
+	<li><b>Asynchronous </b> -which are non-blocking functions, means that it will make request and continue with execution, it will not make system wait for a response</li>
+
+</ul>
+
+### What is node REPL?
+
+The REPL <b>R</b>ead-<b>E</b>val-<b>P</b>rint-<b>L</b>oop in Node.js represents interactive shell which reads code user entered, evaluate results interpreting line of code, prints results and looping until user send quit signal.
+
+### What is NPM?
+
+<a href='https://npmjs.org'>NPM </a> represents two things: 1.) it is and online repository
+for the publishing of open-source Node.js projects 2.) it is command line utility which allows
+user to interact with packages and manipulate with them, which means it is used for package
+installation, version management, etc.
+
+## How does Node.js work ?
+
+### Why is Node.js single-threaded?
+
+Node.js was created explicitly as an experiment in async processing. This was to try a new theory of doing async processing on a single thread over the existing thread-based implementation of scaling via different frameworks.
+
+<b>Important to note</b>, Node.js is single-threaded but under the hood it is using libuv
+which is responsible for spawning many threads.
+
+### Blocking vs Non-blocking I/O ?
+
+As in official Node.js <a href="https://nodejs.org/en/docs/guides/blocking-vs-non-blocking/">documentation</a> says:
+
+<TestComponent>
+	Blocking is when the execution of additional JavaScript in the Node.js process must
+	wait until a non-JavaScript operation completes. This happens because the event loop is
+	unable to continue running JavaScript while a blocking operation is occurring. In
+	Node.js, JavaScript that exhibits poor performance due to being CPU intensive rather
+	than waiting on a non-JavaScript operation, such as I/O, isn't typically referred to as
+	blocking. Synchronous methods in the Node.js standard library that use libuv are the
+	most commonly used.All of the I/O methods in the Node.js standard library provide
+	asynchronous versions, which are non-blocking , and accept callback functions. Some
+	methods also have blocking counterparts, which have names that end with Sync.
+</TestComponent>
+
+When comparing codes, you can see the difference,for example <b>blocking code:</b>
+
+```js
+const fs = require('fs');
+const data = fs.readFileSync('/file.md');
+}
+```
+
+on the other hand below you can see <b>non-blocking code:</b>
+
+```js
+const fs = require('fs');
+fs.readFile('/file.md', (err, data) => {
+  if (err) throw err;
+});
+}
+```
+
+### What is event loop ?
+
+Event loop is an endless loop, which waits for tasks, executes them and then sleeps until it receives more tasks. The event loop executes tasks from the event queue only when the call stack is empty i.e. there is no ongoing task. The event loop allows us to use callbacks and promises.
+The event loop allows Node.js to perform non-blocking I/O operations despite the fact that JavaScript is single-threaded. It is done by assigning operations to the operating system whenever and wherever possible.
+
+<img src='/../public/images/event_loop.webp' alt='event loop' />
+
+So when an async function needs to be executed(or I/O) the main thread sends it to a different thread allowing v8 to keep executing the main code. Event loop involves different phases with specific tasks such as timers, pending callbacks, idle or prepare, poll, check, close callbacks with different FIFO queues. Also in between iterations it checks for async I/O or timers and shuts down cleanly if there aren't any.
+
+### What is libuv?
+
+We said earlier that Node.js is single-threaded, but how may we create multiple workers to load of thread if they are not thread ? Answer is libuv, which is special libary built (in the beginning) specially for Node.
+It is build in C language, uses system kernel which has multiple threads. Specifically, node do not use more than one thread, but libuv is, libuv spawns workers who are in fact threads
+
+### Concurrency and Throughput
+
+JavaScript execution in Node.js is single threaded, so concurrency refers to the event loop's capacity to execute JavaScript callback functions after completing other work. Any code that is expected to run in a concurrent manner must allow the event loop to continue running as non-JavaScript operations, like I/O, are occurring.
+This is because libuv sets up a thread pool to handle such concurrency. How many threads will be there in the thread pool depends upon the number of cores but you can override this.
+
+## What is fork in node JS?
+
+Although NodeJS is a single-threaded JavaScript runtime, it can create multiple subprocesses that run separately from each other, allowing you to divide and run your application script from different NodeJS instances.
+
+The child process will have its own memory and runtime instance, so you need to have additional resources to allocate for each child process.
+
+The NodeJS fork() method is a built-in function of the child_process module that allows you to create a child process that’s connected to the main process currently running your code.
+
+The fork() method accepts the following three parameters:
+
+A module path string for a JavaScript file to execute on the child process (required)
+An array of string to pass as the child process arguments
+The options object that you want to pass to the child process
+
+## What is middleware?
+
+Middleware comes in between your request and business logic. It is mainly used to capture logs and enable rate limit, routing, authentication, basically whatever that is not a part of business logic. There are third-party middleware also such as body-parser and you can write your own middleware for a specific use case.
+
+## Describe the exit codes of Node.js?
+
+Exit codes give us an idea of how a process got terminated/the reason behind termination.
+
+<ul>
+	<li>
+		Uncaught fatal exception - (code - 1) - There has been an exception that is not
+		handled{" "}
+	</li>
+	<li>Unused - (code - 2) - This is reserved by bash</li>
+	<li>
+		Fatal Error - (code - 5) - There has been an error in V8 with stderr output of the
+		description
+	</li>
+	<li>
+		Internal Exception handler Run-time failure - (code - 7) - There has been an
+		exception when bootstrapping function was called
+	</li>
+	<li>
+		Internal JavaScript Evaluation Failure - (code - 4) - There has been an exception
+		when the bootstrapping process failed to return function value when evaluated.
+	</li>
+</ul>
+
+### What is an Event Emitter in Node.js?
+
+EventEmitter is a Node.js class that includes all the objects that are basically capable of emitting events. This can be done by attaching named events that are emitted by the object using an eventEmitter.on() function. Thus whenever this object throws an even the attached functions are invoked synchronously.
+
+```js
+const EventEmitter = require("events")
+class MyEmitter extends EventEmitter {}
+const myEmitter = new MyEmitter()
+myEmitter.on("event", () => {
+	console.log("an event occurred!")
+})
+myEmitter.emit("event")
+```
+
+## What is cluster?
+
+Node.js applications run on a single processor, which means that by default they don’t take advantage of a multiple-core system. Cluster mode is used to start up multiple node.js processes thereby having multiple instances of the event loop. When we start using cluster in a nodejs app behind the scene multiple node.js processes are created but there is also a parent process called the cluster manager which is responsible for monitoring the health of the individual instances of our application.
+
+### Worker threads vs Clusters?
+
+Cluster:
+
+There is one process on each CPU with an IPC to communicate.
+In case we want to have multiple servers accepting HTTP requests via a single port, clusters can be helpful.
+The processes are spawned in each CPU thus will have separate memory and node instance which further will lead to memory issues.
+Worker threads:
+
+There is only one process in total with multiple threads.
+Each thread has one Node instance (one event loop, one JS engine) with most of the APIs accessible.
+Shares memory with other threads (e.g. SharedArrayBuffer)
+This can be used for CPU-intensive tasks like processing data or accessing the file system since NodeJS is single-threaded, synchronous tasks can be made more efficient leveraging the worker's threads.

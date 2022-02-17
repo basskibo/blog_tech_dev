@@ -7,7 +7,6 @@ import constants from "../lib/constants"
 import SocialNetworkShare from "./custom/SocialNetworkShare"
 
 const PostDetail = ({ post, content }) => {
-	console.log(post)
 	return (
 		<div className=' mx-auto  lg:rounded-lg lg:p-0 lg:mt-5 sm:mt-10 xs:mt-10'>
 			<div className='flex justify-center mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>

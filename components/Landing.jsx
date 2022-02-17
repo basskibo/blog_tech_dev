@@ -1,15 +1,12 @@
 import React from "react"
 import Accent from "../components/custom/Accent"
 import ActiveLink from "../components/custom/ActiveLink"
-import DeathStar from "../public/images/dt_star.svg"
-import DeathStarAnakin from "../public/images/launch.svg"
+// import DeathStar from "../public/images/dt_star.svg"
+// import DeathStarAnakin from "../public/images/launch.svg"
 import { FeatureLanding } from "./"
 import AnchorLink from "react-anchor-link-smooth-scroll"
 import SvgWave from "./layout/SvgWave"
 import { SiGithub, SiLinkedin } from "react-icons/si"
-import Image from "next/image"
-import heroGr from "../public/images/hero.svg"
-console.log(heroGr)
 
 const Landing = () => {
 	const handleClick = (e) => {
@@ -98,7 +95,7 @@ const Landing = () => {
 			<AnchorLink
 				href='#sectionFeature'
 				aria-label='Scroll down'
-				className=' absolute bottom-5 text-white left-1/2 -translate-x-1/2 md:bottom-5 rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'
+				className=' absolute hidden md:inline bottom-5 text-white left-1/2 -translate-x-1/2 md:bottom-5 rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'
 			>
 				<svg
 					className='w-6 h-6'

@@ -59,10 +59,14 @@ const components = {
 	h3: MdxComponents.h3,
 	img: MdxComponents.img,
 	p: MdxComponents.p,
+	b: MdxComponents.b,
 	a: MdxComponents.a,
 	code: MdxComponents.code,
 	Accent: MdxComponents.Accent,
 	TestComponent: MdxComponents.TestComponent,
+	NextUIBUtton: MdxComponents.NextUIBUtton,
+	ul: MdxComponents.ul,
+	test: MdxComponents.test,
 }
 
 const PostDetails = ({ data, mdxSource, toc }) => {
