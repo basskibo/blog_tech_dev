@@ -1,16 +1,9 @@
-export default function TestComponent({ name = "world" }) {
-   return (
-      <>
-         <div>Hello, {name}!</div>
-         <style jsx>{`
-            div {
-               background-color: #111;
-               border-radius: 0.5em;
-               color: #fff;
-               margin-bottom: 1.5em;
-               padding: 0.5em 0.75em;
-            }
-         `}</style>
-      </>
-   );
+export default function TestComponent({ children }) {
+	return (
+		<div className='prose lg:max-w-full'>
+			<blockquote className='mt-0 mb-4'>
+				<p className='text-slate-400 mt-0'>{children}</p>
+			</blockquote>
+		</div>
+	)
 }

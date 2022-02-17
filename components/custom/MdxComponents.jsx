@@ -3,11 +3,15 @@ import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism"
 import Accent from "./Accent"
 import TestComponent from "../TestComponent"
 import Image from "next/image"
+import { Button, Collapse, Text } from "@nextui-org/react"
 
 import slugify from "slugify"
 
 const ResponsiveImage = (props) => (
-	<Image alt={props.alt} layout='responsive' {...props} />
+	<div>
+		<Image alt={props.alt} layout='responsive' width={12} height={5} {...props} />
+		<p className='text-center'>Figure- {props.alt}</p>
+	</div>
 )
 
 const parseLanguageByClass = (className) => {
@@ -49,6 +53,9 @@ export default {
 	p: ({ children }) => {
 		return <p className='my-5'>{children}</p>
 	},
+	b: ({ children }) => {
+		return <span className='font-bold'>{children}</span>
+	},
 
 	code: ({ children, className }) => {
 		return (
@@ -76,5 +83,22 @@ export default {
 			</a>
 		)
 	},
+	ul: ({ children, className }) => {
+		return (
+			<ul className='list-disc ml-10'>
+				<li>{children}</li>
+			</ul>
+		)
+	},
 	TestComponent: TestComponent,
+	NextUIBUtton: ({ children, className, href }) => {
+		return <Button>Click me</Button>
+	},
+	test: ({ children }) => {
+		return (
+			<blockquote className='mt-0 mb-4'>
+				<p className='text-slate-400 mt-0'>{children}</p>
+			</blockquote>
+		)
+	},
 }
