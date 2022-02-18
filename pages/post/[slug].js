@@ -5,7 +5,7 @@ import fs from "fs"
 import path from "path"
 import slugify from "slugify"
 import matter from "gray-matter"
-import { PostDetail, PostBody, PostWidget, CategoryChip } from "../../components/"
+import { PostDetail, PostWidget, CategoryChip } from "../../components/"
 
 import MdxComponents from "../../components/custom/MdxComponents"
 import TableOfContent from "../../components/custom/TableOfContent"
@@ -67,6 +67,8 @@ const components = {
 	NextUIBUtton: MdxComponents.NextUIBUtton,
 	ul: MdxComponents.ul,
 	test: MdxComponents.test,
+	// CloudinaryContext: MdxComponents.CloudinaryContext,
+	ReactPlayer: MdxComponents.ReactPlayer,
 }
 
 const PostDetails = ({ data, mdxSource, toc }) => {
@@ -88,7 +90,7 @@ const PostDetails = ({ data, mdxSource, toc }) => {
 					{/* <CommentsForm slug={post.slug} /> */}
 					{/* <Comments slug={post.slug} /> */}
 				</div>
-				<div className='hidden lg:block col-span-1 lg:col-span-3 place-content-center'>
+				<div className='hidden lg:block col-span-3 lg:col-span-3 place-content-center'>
 					<TableOfContent toc={toc} />
 				</div>
 			</div>

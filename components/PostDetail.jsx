@@ -14,7 +14,7 @@ const PostDetail = ({ post, content }) => {
 					{post.title}
 				</h1>
 			</div>
-			<div className='relative  md-6 h-80  '>
+			<div className='relative  md-6 h-96  '>
 				<Image
 					src={post.featuredImage}
 					alt={post.title}
@@ -22,7 +22,7 @@ const PostDetail = ({ post, content }) => {
 					placeholder='blur'
 					layout='fill'
 					priority
-					className=' object-cover h-full w-full '
+					className=' object-cover h-full w-full rounded-lg'
 				/>
 			</div>
 			<div className='lg:px-0 prose'>

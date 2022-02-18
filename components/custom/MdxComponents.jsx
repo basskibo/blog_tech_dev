@@ -4,6 +4,9 @@ import Accent from "./Accent"
 import TestComponent from "../TestComponent"
 import Image from "next/image"
 import { Button, Collapse, Text } from "@nextui-org/react"
+import constants from "../../lib/constants"
+import { buildUrl } from "cloudinary-build-url"
+import ReactPlayer from "react-player"
 
 import slugify from "slugify"
 
@@ -13,6 +16,51 @@ const ResponsiveImage = (props) => (
 		<p className='text-center'>Figure- {props.alt}</p>
 	</div>
 )
+const VideoContext = (props) => (
+	<div>
+		<ReactPlayer
+			url={props.url}
+			playing={true}
+			width='100%'
+			height='60%'
+			muted={true}
+		/>
+		<p className='text-center'>Figure- {props.alt}</p>
+	</div>
+)
+
+const CloudinaryContextImage = (props) => {
+	const url = buildUrl(props.src, {
+		cloud: {
+			cloudName: "dr1sm5gnj",
+		},
+		// transformations: {
+		// 	effect: "blur:1000",
+		// 	quality: 1,
+		// },
+	})
+
+	console.log(url)
+	return (
+		// <Image alt={props.alt} layout='responsive' width={1000} height={750} {...props} />
+		<div className='my-2'>
+			{" "}
+			<Image
+				alt={props.alt}
+				layout='responsive'
+				width={12}
+				height={8}
+				src={url}
+				unoptimized={false}
+				blurDataURL={constants.imageBlogURI}
+				placeholder='blur'
+			/>
+			<p className='grid place-items-center place-content-center mt-1 italic'>
+				{props.text}
+			</p>
+		</div>
+	)
+}
 
 const parseLanguageByClass = (className) => {
 	return className.split("-")[1]
@@ -49,7 +97,9 @@ export default {
 	Accent: ({ children }) => {
 		return <Accent>{children}</Accent>
 	},
-	img: ResponsiveImage,
+	img: CloudinaryContextImage,
+	CloudinaryContext: CloudinaryContextImage,
+	ReactPlayer: VideoContext,
 	p: ({ children }) => {
 		return <p className='my-5'>{children}</p>
 	},
@@ -84,11 +134,7 @@ export default {
 		)
 	},
 	ul: ({ children, className }) => {
-		return (
-			<ul className='list-disc ml-10'>
-				<li>{children}</li>
-			</ul>
-		)
+		return <ul className='list-disc ml-10'>{children}</ul>
 	},
 	TestComponent: TestComponent,
 	NextUIBUtton: ({ children, className, href }) => {
