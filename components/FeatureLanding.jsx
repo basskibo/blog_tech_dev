@@ -8,6 +8,7 @@ const FeatureLanding = () => {
 					<h1 className='sm:text-3xl text-2xl font-medium title-font text-center text-white mb-20'>
 						My activity on social network
 						<br className='hidden sm:block' />
+						at least some of
 					</h1>
 					<div className='flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6'>
 						<div className='p-4 md:w-1/3 flex'>
@@ -46,8 +47,8 @@ const FeatureLanding = () => {
 									src='https://www.linkedin.com/embed/feed/update/urn:li:share:6757995941825011712'
 									height='80%'
 									width='100%'
-									frameborder='0'
-									allowfullscreen=''
+									frameBorder='0'
+									allowFullScreen=''
 									title='Featured post'
 								></iframe>
 							</div>
