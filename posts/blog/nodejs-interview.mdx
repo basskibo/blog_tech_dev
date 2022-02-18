@@ -1,7 +1,7 @@
 ---
 title: "Node.js Developer Technical Interview (Basic)"
-excerpt: "If you have beem preparing for the technical interview for Node.js developer position make double check that you are ready."
-featuredImage: "/images/nodejs.jpg"
+excerpt: "If you have beem preparing for the technical interview for Node.js developer position or you just want to affirm your Node.js knowledge feel free to read and refresh your memory (or learn something new)."
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127897/igutech/nodejs_zqmmvh.jpg"
 publishedAt: "2022-02-12T05:35:07.322Z"
 author: "Bojan Jagetic"
 tags:
@@ -69,7 +69,7 @@ Node.js was created explicitly as an experiment in async processing. This was to
 <b>Important to note</b>, Node.js is single-threaded but under the hood it is using libuv
 which is responsible for spawning many threads.
 
-### Blocking vs Non-blocking I/O ?
+### Blocking vs Non-blocking I/O
 
 As in official Node.js <a href="https://nodejs.org/en/docs/guides/blocking-vs-non-blocking/">documentation</a> says:
 
@@ -89,7 +89,7 @@ When comparing codes, you can see the difference,for example <b>blocking code:</
 
 ```js
 const fs = require('fs');
-const data = fs.readFileSync('/file.md');
+const data = fs.readFileSync('/test.md');
 }
 ```
 
@@ -97,7 +97,7 @@ on the other hand below you can see <b>non-blocking code:</b>
 
 ```js
 const fs = require('fs');
-fs.readFile('/file.md', (err, data) => {
+fs.readFile('/test.md', (err, data) => {
   if (err) throw err;
 });
 }
@@ -108,9 +108,16 @@ fs.readFile('/file.md', (err, data) => {
 Event loop is an endless loop, which waits for tasks, executes them and then sleeps until it receives more tasks. The event loop executes tasks from the event queue only when the call stack is empty i.e. there is no ongoing task. The event loop allows us to use callbacks and promises.
 The event loop allows Node.js to perform non-blocking I/O operations despite the fact that JavaScript is single-threaded. It is done by assigning operations to the operating system whenever and wherever possible.
 
-<img src='/../public/images/event_loop.webp' alt='event loop' />
+<ReactPlayer
+	url='https://res.cloudinary.com/dr1sm5gnj/video/upload/v1645137136/igutech/Event_nawrqm.mp4'
+	alt='Representation of event loop'
+/>
 
-So when an async function needs to be executed(or I/O) the main thread sends it to a different thread allowing v8 to keep executing the main code. Event loop involves different phases with specific tasks such as timers, pending callbacks, idle or prepare, poll, check, close callbacks with different FIFO queues. Also in between iterations it checks for async I/O or timers and shuts down cleanly if there aren't any.
+So when an async function needs to be executed(or I/O) the main thread sends it to a different
+thread allowing v8 to keep executing the main code. Event loop involves different phases with
+specific tasks such as timers, pending callbacks, idle or prepare, poll, check, close callbacks
+with different FIFO queues. Also in between iterations it checks for async I/O or timers and
+shuts down cleanly if there aren't any.
 
 ### What is libuv?
 
@@ -185,13 +192,43 @@ Node.js applications run on a single processor, which means that by default they
 ### Worker threads vs Clusters?
 
 Cluster:
-
+Clustering is a way to load-balance incoming requests to your nodejs server over several copies of that server.
 There is one process on each CPU with an IPC to communicate.
 In case we want to have multiple servers accepting HTTP requests via a single port, clusters can be helpful.
 The processes are spawned in each CPU thus will have separate memory and node instance which further will lead to memory issues.
+
 Worker threads:
+
+Worker threads are a way for a single nodejs process to offload long-running functions to a separate thread, to avoid blocking its own main loop.
 
 There is only one process in total with multiple threads.
 Each thread has one Node instance (one event loop, one JS engine) with most of the APIs accessible.
 Shares memory with other threads (e.g. SharedArrayBuffer)
 This can be used for CPU-intensive tasks like processing data or accessing the file system since NodeJS is single-threaded, synchronous tasks can be made more efficient leveraging the worker's threads.
+
+## Encryption vs Encoding vs Hashing
+
+### Encoding :
+
+In the Encoding method, data is transformed from one form to another. The main aim of encoding is to transform data into a form that is readable by most of the systems or that can be used by any external process.
+It can’t be used for securing data, various publicly available algorithms are used for encoding.
+
+Encoding can be used for reducing the size of audio and video files. Each audio and video file format has a corresponding coder-decoder (codec) program that is used to code it into the appropriate format and then decodes for playback.
+
+Example: ASCII, BASE64, UNICODE
+
+### Encryption :
+
+Encryption in encoding technique in which message is encoded by using encryption algorithm in such a way that only authorized personnel can access the message or information.
+
+It is a special type of encoding that is used for transferring private data, for example sending a combination of username and password over the internet for email login.
+
+In encryption, data to be encrypted(called plain-text) is transformed using an encryption algorithm like AES encryption or RSA encryption using a secret key called cipher. The encrypted data is called cipher-text, and finally, the secret key can be used by the intended recipient to convert it back to plain-text.
+
+### Hashing :
+
+In hashing, data is converted to the hash using some hashing function, which can be any number generated from string or text. Various hashing algorithms are MD5, SHA256. Data once hashed is non-reversible.
+
+## Git merge vs rebase
+
+Reading the official Git manual it states that rebase “reapplies commits on top of another base branch”, whereas merge “joins two or more development histories together”. In other words, the key difference between merge and rebase is that while merge preserves history as it happened, rebase rewrites it.

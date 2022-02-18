@@ -23,8 +23,9 @@ const blog = ({ posts }) => {
 							<Accent className='font-extrabold text-6xl'>Blog</Accent>
 						</h1>
 						<p className='display-4'>
-							Thoughts, mental models, and tutorials about all kind of web
-							development, devOps and hybrid mobile applications .
+							In order not to wander in the dark (as I did with some things) until
+							I found a solution, I wrote some things so that one day some unknown
+							hero might be helped.
 						</p>
 					</div>
 

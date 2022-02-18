@@ -5,3 +5,5 @@ const PostDetail = ({ children }) => {
 		</div>
 	)
 }
+
+export default PostDetail
