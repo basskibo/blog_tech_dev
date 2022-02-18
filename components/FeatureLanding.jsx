@@ -1,96 +1,55 @@
 import React from "react"
-import { SiTwitter } from "react-icons/si"
+import { SiTwitter, SiGithub } from "react-icons/si"
 const FeatureLanding = () => {
 	return (
 		<div>
 			<section className='text-slate-400 body-font bg-teal-900' id='sectionFeature'>
 				<div className='container px-5 py-5 mx-auto'>
 					<h1 className='sm:text-3xl text-2xl font-medium title-font text-center text-white mb-20'>
-						Raw Denim Heirloom Man Braid
+						My activity on social network
 						<br className='hidden sm:block' />
-						Selfies Wayfarers
 					</h1>
 					<div className='flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6'>
 						<div className='p-4 md:w-1/3 flex'>
 							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-blue-500 mb-4 flex-shrink-0'>
-								<svg
-									fill='none'
-									stroke='currentColor'
-									strokeLinecap='round'
-									strokeLinejoin='round'
-									strokeWidth='2'
-									className='w-6 h-6'
-									viewBox='0 0 24 24'
-								>
-									<path d='M22 12h-4l-3 9L9 3l-3 9H2'></path>
-								</svg>
+								<SiGithub />
 							</div>
 							<div className='flex-grow pl-6'>
 								<h2 className='text-white text-lg title-font font-semibold mb-2'>
-									Shooting Stars
+									Check Github repository
 								</h2>
-								<p className='leading-relaxed text-base'>
-									Blue bottle crucifix vinyl post-ironic four dollar toast vegan
-									taxidermy. Gastropub indxgo juice poutine, ramps microdosing
-									banh mi pug VHS try-hard ugh iceland kickstarter tumblr
-									live-edge tilde.
+								<p className='leading-relaxed text-base mb-2'>
+									Look up for more details on Github for this porfolio/blog
+									website, which you are looking at currently
 								</p>
-								<a className='mt-3 text-blue-500 inline-flex items-center'>
-									Learn More
-									<svg
-										fill='none'
-										stroke='currentColor'
-										strokeLinecap='round'
-										strokeLinejoin='round'
-										strokeWidth='2'
-										className='w-4 h-4 ml-2'
-										viewBox='0 0 24 24'
-									>
-										<path d='M5 12h14M12 5l7 7-7 7'></path>
-									</svg>
-								</a>
+								<span className='max-w-32'>
+									<object
+										type='image/svg+xml'
+										data='https://gh-card.dev/repos/basskibo/blog_tech_dev.svg?link_target=_blank'
+									></object>
+								</span>
 							</div>
 						</div>
 						<div className='p-4 md:w-1/3 flex'>
 							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-blue-500 mb-4 flex-shrink-0'>
-								<svg
-									fill='none'
-									stroke='currentColor'
-									strokeLinecap='round'
-									strokeLinejoin='round'
-									strokeWidth='2'
-									className='w-6 h-6'
-									viewBox='0 0 24 24'
-								>
-									<circle cx='6' cy='6' r='3'></circle>
-									<circle cx='6' cy='18' r='3'></circle>
-									<path d='M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12'></path>
-								</svg>
+								<SiGithub />
 							</div>
 							<div className='flex-grow pl-6'>
 								<h2 className='text-white text-lg title-font font-semibold mb-2'>
-									The Catalyzer
+									My LinkedIn featured post
 								</h2>
-								<p className='leading-relaxed text-base'>
-									Blue bottle crucifix vinyl post-ironic four dollar toast vegan
-									taxidermy. Gastropub indxgo juice poutine, ramps microdosing
-									banh mi pug VHS try-hard ugh iceland kickstarter tumblr
-									live-edge tilde.
-								</p>
-								<a className='mt-3 text-blue-500 inline-flex items-center'>
-									Learn More
-									<svg
-										fill='none'
-										stroke='currentColor'
-										strokeLinecap='round'
-										strokeLinejoin='round'
-										strokeWidth='2'
-										className='w-4 h-4 ml-2'
-										viewBox='0 0 24 24'
-									>
-										<path d='M5 12h14M12 5l7 7-7 7'></path>
-									</svg>
-								</a>
+								{/* <p className='leading-relaxed text-base mb-2'>
+									Aute aliqua proident sunt magna occaecat ullamco deserunt.Eu
+									enim ex fugiat eiusmod qui et ut.
+								</p> */}
+								<iframe
+									src='https://www.linkedin.com/embed/feed/update/urn:li:share:6757995941825011712'
+									height='80%'
+									width='100%'
+									frameborder='0'
+									allowfullscreen=''
+									title='Featured post'
+								></iframe>
 							</div>
 						</div>
 						<div className='p-4 md:w-1/3 flex'>
