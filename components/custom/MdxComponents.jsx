@@ -78,7 +78,9 @@ export default {
 					strict: true,
 				})}
 			>
-				<h2 className='text-white text-2xl font-bold my-5'> {children}</h2>
+				<h2 className='text-white text-3xl font-bold my-5'>
+					<Accent>{children}</Accent>
+				</h2>
 			</a>
 		)
 	},
@@ -90,7 +92,7 @@ export default {
 					strict: true,
 				})}
 			>
-				<h3 className='text-white text-xl font-semi-bold my-5'> {children}</h3>
+				<h3 className='text-white text-xl font-semi-bold my-5'>{children} </h3>
 			</a>
 		)
 	},
