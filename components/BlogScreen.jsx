@@ -28,7 +28,7 @@ const BlogScreen = ({ posts }) => {
 				></input>
 			</div>
 
-			<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'>
+			<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 lg:gap-4'>
 				{posts.map((post, index) => (
 					<PostCard className='' key={post.props.data.slug} post={post.props} />
 				))}
