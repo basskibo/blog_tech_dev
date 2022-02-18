@@ -108,10 +108,7 @@ fs.readFile('/test.md', (err, data) => {
 Event loop is an endless loop, which waits for tasks, executes them and then sleeps until it receives more tasks. The event loop executes tasks from the event queue only when the call stack is empty i.e. there is no ongoing task. The event loop allows us to use callbacks and promises.
 The event loop allows Node.js to perform non-blocking I/O operations despite the fact that JavaScript is single-threaded. It is done by assigning operations to the operating system whenever and wherever possible.
 
-<ReactPlayer
-	url='https://res.cloudinary.com/dr1sm5gnj/video/upload/v1645137136/igutech/Event_nawrqm.mp4'
-	alt='Representation of event loop'
-/>
+<img src='v1645182872/igutech/Event_2_whn6nw.jpg' text='Representation of event loop' />
 
 So when an async function needs to be executed(or I/O) the main thread sends it to a different
 thread allowing v8 to keep executing the main code. Event loop involves different phases with

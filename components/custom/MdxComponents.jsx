@@ -21,6 +21,7 @@ const VideoContext = (props) => (
 		<ReactPlayer
 			url={props.url}
 			playing={true}
+			loop={true}
 			width='100%'
 			height='60%'
 			muted={true}
