@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-	experimental: {
-		runtime: "nodejs",
-	},
+	// experimental: {
+	// 	runtime: "nodejs",
+	// },
 	reactStrictMode: true,
 	// experimental: { esmExternals: true },
 	pageExtensions: ["md", "mdx", "tsx", "ts", "jsx", "js"],
