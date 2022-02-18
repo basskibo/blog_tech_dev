@@ -37,3 +37,89 @@ Some of the best practics for implmenting REST API are following:
 ## Scaling
 
 Scalability describes systems ability to be elastic, not just grow as it is usually said.
+
+## Encryption vs Encoding vs Hashing
+
+### Encoding
+
+In the Encoding method, data is transformed from one form to another. The main aim of encoding is to transform data into a form that is readable by most of the systems or that can be used by any external process.
+It can’t be used for securing data, various publicly available algorithms are used for encoding.
+
+Encoding can be used for reducing the size of audio and video files. Each audio and video file format has a corresponding coder-decoder (codec) program that is used to code it into the appropriate format and then decodes for playback.
+
+Example: ASCII, BASE64, UNICODE
+
+### Encryption
+
+Encryption in encoding technique in which message is encoded by using encryption algorithm in such a way that only authorized personnel can access the message or information.
+
+It is a special type of encoding that is used for transferring private data, for example sending a combination of username and password over the internet for email login.
+
+In encryption, data to be encrypted(called plain-text) is transformed using an encryption algorithm like AES encryption or RSA encryption using a secret key called cipher. The encrypted data is called cipher-text, and finally, the secret key can be used by the intended recipient to convert it back to plain-text.
+
+### Hashing
+
+In hashing, data is converted to the hash using some hashing function, which can be any number generated from string or text. Various hashing algorithms are MD5, SHA256. Data once hashed is non-reversible.
+
+## Git
+
+### Merge vs Rebase
+
+Reading the official Git manual it states that rebase “reapplies commits on top of another base branch”, whereas merge “joins two or more development histories together”. In other words, the key difference between merge and rebase is that while merge preserves history as it happened, rebase rewrites it.
+
+## JavaScript Variables
+
+Variables are used to store data values. For example, a variable may be used to store a user’s email address, or their name. In JavaScript, a variable can contain any types of data, such as a string, a true or false boolean, an object, or a number.
+Before the ES6 specification was released, there was one way to declare a variable in JavaScript: var. The var keyword can be used to declare a variable that is accessible throughout a program, and can be changed.
+
+### Var, Let, and Const Variables
+
+There are three different keywords used to declare a variable in JavaScript. These are: var, let, and const.
+
+Here is a table that breaks down the differences between these three types of variables:
+
+Keyword Variable Scope Reassign? Redeclare? Hoist?
+var Function Yes Yes Yes
+const Block Yes No No
+let Block No No No
+The following are general rules of thumb for using these types of variables:
+
+Use const as much as possible, unless you need to redeclare or hoist a variable.
+Use let if you are working with loops.
+Only use var if:
+You are working on legacy code,
+You need a variable that you can redeclare, or
+You need a variable accessible everywhere in the program (i.e., globally).
+If you’re interested in learning more about these variable types, check out our tutorial on how to use the JavaScript let variable here.
+
+### Scope
+
+Scope is used to refer to where a variable can be accessed within a program. There are two scopes in JavaScript: global scope, which is where a variable is declared outside a block of code; and local scope, which is where a variable is declared inside a block of code
+
+### Hoisting Variables
+
+In JavaScript, a variable can be declared after it has been used, which means that you can use a variable before it has been declared. This behavior is referred to as hoisting.
+
+## 10 Common Software Architecture Patterns
+
+For more details about every pattern noted below, check this <a href="https://nix-united.com/blog/10-common-software-architectural-patterns-part-1/" >link</a>
+
+Pattern #1: Layered architecture
+
+Pattern #2: Client-server
+
+Pattern #3: Master-slave
+
+Pattern #4: Pipe-filter
+
+Pattern #5: Broker
+
+Pattern #6: Peer-to-peer (P2P)
+
+Pattern #7: Event-bus pattern
+
+Pattern #8: Model-View-Controller (MVC)
+
+Pattern #9: Blackboard
+
+Pattern #10: Interpreter
