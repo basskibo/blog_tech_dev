@@ -24,14 +24,14 @@ const FeatureLanding = () => {
 									website, which you are looking at currently
 								</p>
 								<span className='max-w-32'>
-									<object
+									{/* <object
 										type='image/svg+xml'
 										data='https://gh-card.dev/repos/basskibo/blog_tech_dev.svg?link_target=_blank'
-									></object>
+									></object> */}
 								</span>
 							</div>
 						</div>
-						<div className='p-4 md:w-1/3 flex'>
+						<div className='p-4 md:w-1/3 sm:w-1/1 flex'>
 							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-blue-500 mb-4 flex-shrink-0'>
 								<SiGithub />
 							</div>
@@ -45,7 +45,7 @@ const FeatureLanding = () => {
 								</p> */}
 								<iframe
 									src='https://www.linkedin.com/embed/feed/update/urn:li:share:6757995941825011712'
-									height='80%'
+									height='600'
 									width='100%'
 									frameBorder='0'
 									allowFullScreen=''
@@ -53,7 +53,7 @@ const FeatureLanding = () => {
 								></iframe>
 							</div>
 						</div>
-						<div className='p-4 md:w-1/3 flex'>
+						<div className='p-4 md:w-1/3 sm:w-1/1 mb-5 flex'>
 							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-blue-500 mb-4 flex-shrink-0'>
 								<SiTwitter />
 							</div>
