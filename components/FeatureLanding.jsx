@@ -24,10 +24,12 @@ const FeatureLanding = () => {
 									website, which you are looking at currently
 								</p>
 								<span className='max-w-32'>
-									{/* <object
-										type='image/svg+xml'
-										data='https://gh-card.dev/repos/basskibo/blog_tech_dev.svg?link_target=_blank'
-									></object> */}
+									<script
+										async
+										defer
+										data-website-id='95427dfa-efb8-48b8-ba5d-55d4d0e06cac'
+										src='https://blogtech-umami.herokuapp.com/umami.js'
+									></script>
 								</span>
 							</div>
 						</div>

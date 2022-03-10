@@ -57,8 +57,17 @@ const Footer = () => {
 						@basskibo
 					</a>
 				</p>
+
 				<span className='inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start'>
-					<p className='text-md'>Reach me at: </p>
+					<a
+						className='ml-7 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize'
+						href='https://blogtech-umami.herokuapp.com/share/Xm9ryuRc/blogtech'
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						Site Statistics
+					</a>
+					{/* <p className='text-md'>Reach me at: </p> */}
 					{waysToReachMe.map((medium, index) => (
 						<a
 							className='ml-3 text-gray-400 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
