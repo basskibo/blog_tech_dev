@@ -44,9 +44,49 @@ Scope is used to refer to where a variable can be accessed within a program. The
 
 In JavaScript, a variable can be declared after it has been used, which means that you can use a variable before it has been declared. This behavior is referred to as hoisting.
 
+## Object
+
+The Object class represents one of JavaScript's data types. It is used to store various keyed collections and more complex entities. Objects can be created using the Object() constructor
+
+```javascript
+let o = new Object({ name: "John", age: 20 })
+```
+
+## Functions
+
+### Optional parameters
+
+Default function parameters allow named parameters to be initialized with default values if no value or undefined is passed.
+
+```js
+function multiply(a, b = 1) {
+	return a * b
+}
+
+console.log(multiply(5, 2)) // expected output: 10
+
+console.log(multiply(5)) // expected output: 5
+```
+
 ## JavaScript design patterns
 
 A pattern is a reusable solution that can be applied to commonly occurring problems in software design - in our case - in writing JavaScript web applications.
 Another way of looking at patterns are as templates for how we solve problems - ones which can be used in quite a few different situations.
 
 In order to dive deep into JS Patterns, I highly recommend you to read <a href="https://www.patterns.dev/posts/classic-design-patterns/#whatisapattern" >Learning JavaScript Design Patterns </a>
+
+## JavaScript algorithms
+
+<a href='https://www.thatjsdude.com/interview/js1.html'> algorithms </a>
+
+or <a href="https://dev.to/shijiezhou/top-10-javascript-patterns-every-developers-like-168p" > here</a>
+
+## Software design patterns
+
+Read all about design patterns <a href="https://en.wikipedia.org/wiki/Software_design_pattern" > on Wiki</a>
+
+## JavaScript trick questions
+
+You can find it <a href="https://dmitripavlutin.com/simple-but-tricky-javascript-interview-questions/" > here </a>
+You can find it <a href="https://www.toptal.com/javascript/interview-questions" > here </a>
+You can find it <a href="https://www.fullstack.cafe/interview-questions/javascript" > here </a>

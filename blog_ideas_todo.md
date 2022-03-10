@@ -1,0 +1,3 @@
+-  set vs array
+-  google Matrix and geocoding
+-  seting up umami https://hassancorrigan.com/blog/host-your-own-analytics-service-for-free-with-umami/
