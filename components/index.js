@@ -15,6 +15,7 @@ export { default as PostBody } from "./PostBody"
 export { default as Landing } from "./Landing"
 export { default as SvgWave } from "./layout/SvgWave"
 
+export { default as SpotifyCard } from "./custom/SpotifyCard"
 export { default as Accent } from "./custom/Accent"
 export { default as TableOfContent } from "./custom/TableOfContent"
 export { default as TechnologyStack } from "./custom/TechnologyStack"

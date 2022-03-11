@@ -6,7 +6,7 @@ const LibaryCard = ({ libary }) => {
 	return (
 		<div
 			key={libary.slug}
-			className='w-full  text-white rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'
+			className='w-full py-3 px-2 text-white rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'
 		>
 			<a href={`/libary/${libary.slug}`}>
 				<div className='px-3 my-3 '>
