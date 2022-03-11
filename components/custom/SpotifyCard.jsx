@@ -55,7 +55,7 @@ const SpotifyCard = () => {
 						{song?.isPlaying ? `Artist: ${song.artist}` : "Spotify"}
 					</p>
 					<p className='font-dark text-sm text-semibold'>
-						{song?.isPlaying ? `Album: ${song.album}` : "Spotify"}
+						{song?.isPlaying ? `Album: ${song.album}` : ""}
 					</p>
 				</div>
 				<div className='absolute right-1.5 bottom-1.5'>
