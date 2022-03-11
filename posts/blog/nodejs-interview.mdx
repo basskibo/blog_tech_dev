@@ -18,14 +18,14 @@ tags:
 Every job change requires at least some effort. Have you ever been in situation that you cannot remember some basics at the moment, but you are sure you know it? Do not worry, we all have been there. It is good
 practice to remind ourselves from time to time about things we know but have lost our minds by absorbing a mountain of new information. So I won't bother you anymore, lets dive into <a href="https://nodejs.org/en/about"> <Accent className="font-bold">Node.js</Accent> </a>
 
-## What is Node.js ?
+## What is Node.js
 
 Node.js is an open-source, cross-platform JavaScript runtime environment and library that runs on the Chrome’s V8 JavaScript engine (which is written in c++ and is highly performant ) and allows you to create and run server-side web applications outside and independent of the client’s browser. It is written in <Accent>C, C++, Javascript </Accent>.
 Node uses event-driven, non-blocking I/O model which makes it lightweight and pretty fast. It is using single threaded event loop architecture to handle many concurrent clients.
 
 Node.js is perfect for data-intensive applications as it uses an asynchronous, event-driven model, as well as for large scale application development, single page applications,APIs, social media applications, streaming sites, etc.
 
-### What are major benefits of using Node.js ?
+### What are major benefits of using Node.js
 
 Nodejs has a handful of advantages but we will list only the most prominent ones:
 
@@ -39,7 +39,7 @@ Nodejs has a handful of advantages but we will list only the most prominent ones
 
 </ul>
 
-### How many types of API functions are there in Node.js?
+### How many types of API functions are there in Node.js
 
 There is two types of API functions:
 
@@ -49,20 +49,20 @@ There is two types of API functions:
 
 </ul>
 
-### What is node REPL?
+### What is node REPL
 
 The REPL <b>R</b>ead-<b>E</b>val-<b>P</b>rint-<b>L</b>oop in Node.js represents interactive shell which reads code user entered, evaluate results interpreting line of code, prints results and looping until user send quit signal.
 
-### What is NPM?
+### What is NPM
 
 <a href='https://npmjs.org'>NPM </a> represents two things: 1.) it is and online repository
 for the publishing of open-source Node.js projects 2.) it is command line utility which allows
 user to interact with packages and manipulate with them, which means it is used for package
 installation, version management, etc.
 
-## How does Node.js work ?
+## How does Node.js work
 
-### Why is Node.js single-threaded?
+### Why is Node.js single-threaded
 
 Node.js was created explicitly as an experiment in async processing. This was to try a new theory of doing async processing on a single thread over the existing thread-based implementation of scaling via different frameworks.
 
@@ -103,7 +103,7 @@ fs.readFile('/test.md', (err, data) => {
 }
 ```
 
-### What is event loop ?
+### What is event loop
 
 Event loop is an endless loop, which waits for tasks, executes them and then sleeps until it receives more tasks. The event loop executes tasks from the event queue only when the call stack is empty i.e. there is no ongoing task. The event loop allows us to use callbacks and promises.
 The event loop allows Node.js to perform non-blocking I/O operations despite the fact that JavaScript is single-threaded. It is done by assigning operations to the operating system whenever and wherever possible.
@@ -116,7 +116,7 @@ specific tasks such as timers, pending callbacks, idle or prepare, poll, check, 
 with different FIFO queues. Also in between iterations it checks for async I/O or timers and
 shuts down cleanly if there aren't any.
 
-### What is libuv?
+### What is libuv
 
 We said earlier that Node.js is single-threaded, but how may we create multiple workers to load of thread if they are not thread ? Answer is libuv, which is special libary built (in the beginning) specially for Node.
 It is build in C language, uses system kernel which has multiple threads. Specifically, node do not use more than one thread, but libuv is, libuv spawns workers who are in fact threads
@@ -128,7 +128,7 @@ This is because libuv sets up a thread pool to handle such concurrency. How many
 
 ## Fork and Cluster
 
-### What is fork in node JS?
+### What is fork in node JS
 
 Although NodeJS is a single-threaded JavaScript runtime, it can create multiple subprocesses that run separately from each other, allowing you to divide and run your application script from different NodeJS instances.
 
@@ -142,11 +142,11 @@ A module path string for a JavaScript file to execute on the child process (requ
 An array of string to pass as the child process arguments
 The options object that you want to pass to the child process
 
-### What is cluster?
+### What is cluster
 
 Node.js applications run on a single processor, which means that by default they don’t take advantage of a multiple-core system. Cluster mode is used to start up multiple node.js processes thereby having multiple instances of the event loop. When we start using cluster in a nodejs app behind the scene multiple node.js processes are created but there is also a parent process called the cluster manager which is responsible for monitoring the health of the individual instances of our application.
 
-### Worker threads vs Clusters?
+### Worker threads vs Clusters
 
 Cluster:
 Clustering is a way to load-balance incoming requests to your nodejs server over several copies of that server.
@@ -163,11 +163,11 @@ Each thread has one Node instance (one event loop, one JS engine) with most of t
 Shares memory with other threads (e.g. SharedArrayBuffer)
 This can be used for CPU-intensive tasks like processing data or accessing the file system since NodeJS is single-threaded, synchronous tasks can be made more efficient leveraging the worker's threads.
 
-## What is middleware?
+## What is middleware
 
 Middleware comes in between your request and business logic. It is mainly used to capture logs and enable rate limit, routing, authentication, basically whatever that is not a part of business logic. There are third-party middleware also such as body-parser and you can write your own middleware for a specific use case.
 
-## Describe the exit codes of Node.js?
+## Describe the exit codes of Node.js
 
 Exit codes give us an idea of how a process got terminated/the reason behind termination.
 
@@ -191,7 +191,7 @@ Exit codes give us an idea of how a process got terminated/the reason behind ter
 	</li>
 </ul>
 
-### What is an Event Emitter in Node.js?
+### What is an Event Emitter in Node.js
 
 EventEmitter is a Node.js class that includes all the objects that are basically capable of emitting events. This can be done by attaching named events that are emitted by the object using an eventEmitter.on() function. Thus whenever this object throws an even the attached functions are invoked synchronously.
 
@@ -204,9 +204,3 @@ myEmitter.on("event", () => {
 })
 myEmitter.emit("event")
 ```
-
-## Design Patterns
-
-Find more info <a href="https://blog.logrocket.com/design-patterns-in-node-js/"> on this link </a>
-
-

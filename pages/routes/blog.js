@@ -6,9 +6,6 @@ const numberPerPage = 1
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
-import Image from "next/image"
-import Link from "next/link"
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
 
 import "react-loading-skeleton/dist/skeleton.css"
 const loading = true
@@ -27,12 +24,6 @@ const blog = ({ posts }) => {
 							I found a solution, I wrote some things so that one day some unknown
 							hero might be helped.
 						</p>
-					</div>
-
-					<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-14 '>
-						<Skeleton baseColor='#202020' highlightColor='#444' count={5} />
-						<Skeleton baseColor='#202020' highlightColor='#444' count={5} />
-						<Skeleton baseColor='#202020' highlightColor='#444' count={5} />
 					</div>
 				</div>
 			) : (

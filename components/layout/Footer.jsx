@@ -2,6 +2,7 @@ import React from "react"
 import { SiGmail, SiTwitter, SiLinkedin, SiGithub } from "react-icons/si"
 import ReactTooltip from "react-tooltip"
 import Accent from "../custom/Accent"
+import SpotifyCard from "../custom/SpotifyCard"
 
 const waysToReachMe = [
 	{ name: "gmail", description: "test", externalLink: false, icon: SiGmail },
@@ -29,7 +30,7 @@ const waysToReachMe = [
 ]
 const Footer = () => {
 	return (
-		<footer className='text-gray-400 bg-neutral-800 body-font border-t border-slate-800'>
+		<footer className='text-gray-400 bg-neutral-900 body-font border-t border-slate-800'>
 			<div className='container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col'>
 				<a className='flex title-font font-medium items-center md:justify-start justify-center text-white'>
 					<svg
@@ -46,7 +47,7 @@ const Footer = () => {
 					</svg>
 					<span className='ml-3 text-xl'>Tailblocks</span>
 				</a>
-				<p className='text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4'>
+				<p className='text-sm text-gray-400 sm:ml-4 sm:pl-4  sm:border-gray-800 sm:py-2 sm:mt-0 mt-4'>
 					© 2022 Bojan Jagetic —
 					<a
 						href='https://github.com/basskibo'
@@ -58,19 +59,33 @@ const Footer = () => {
 					</a>
 				</p>
 
+				<span className='inline-flex sm:ml-auto mx-5 sm:mt-0 mt-4 justify-center sm:justify-start'>
+					<SpotifyCard />
+				</span>
 				<span className='inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start'>
+					{/* <p className='text-md'>Reach me at: </p> */}
+
 					<a
-						className='ml-7 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize'
+						className='mr-5 lg:mr-10 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize
+					items-right md:justify-right justify-right'
 						href='https://blogtech-umami.herokuapp.com/share/Xm9ryuRc/blogtech'
 						target='_blank'
 						rel='noopener noreferrer'
 					>
 						Site Statistics
 					</a>
-					{/* <p className='text-md'>Reach me at: </p> */}
+					<a
+						className='mr-5 lg:mr-10 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize
+					items-right md:justify-right justify-right'
+						href='https://github.com/basskibo/blog_tech_dev'
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						Source Code
+					</a>
 					{waysToReachMe.map((medium, index) => (
 						<a
-							className='ml-3 text-gray-400 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
+							className='ml-4 text-gray-400 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
 							href={medium.href}
 							target='_blank'
 							rel='noreferrer'
@@ -90,16 +105,6 @@ const Footer = () => {
 							</ReactTooltip>
 						</a>
 					))}
-
-					{/* <a className='ml-3 text-gray-400'>
-						<SiTwitter />
-					</a>
-					<a className='ml-3 text-gray-400'>
-						<SiGithub />
-					</a>
-					<a className='ml-3 text-gray-400'>
-						<SiLinkedin />
-					</a> */}
 				</span>
 			</div>
 		</footer>

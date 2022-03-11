@@ -1,8 +1,7 @@
 import React from "react"
 import Accent from "../components/custom/Accent"
 import ActiveLink from "../components/custom/ActiveLink"
-// import DeathStar from "../public/images/dt_star.svg"
-// import DeathStarAnakin from "../public/images/launch.svg"
+
 import { FeatureLanding } from "./"
 import AnchorLink from "react-anchor-link-smooth-scroll"
 import SvgWave from "./layout/SvgWave"
