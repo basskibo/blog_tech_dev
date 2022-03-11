@@ -68,7 +68,7 @@ const Footer = () => {
 					<a
 						className='mr-5 lg:mr-10 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize
 					items-right md:justify-right justify-right'
-						href='https://blogtech-umami.herokuapp.com/share/Xm9ryuRc/blogtech'
+						href='https://blogtech-umami.herokuapp.com/share/9QUfQNmS/blogtech_vercel'
 						target='_blank'
 						rel='noopener noreferrer'
 					>
