@@ -23,14 +23,6 @@ const FeatureLanding = () => {
 									Look up for more details on Github for this porfolio/blog
 									website, which you are looking at currently
 								</p>
-								<span className='max-w-32'>
-									<script
-										async
-										defer
-										data-website-id='95427dfa-efb8-48b8-ba5d-55d4d0e06cac'
-										src='https://blogtech-umami.herokuapp.com/umami.js'
-									></script>
-								</span>
 							</div>
 						</div>
 						<div className='p-4 md:w-1/3 sm:w-1/1 flex'>

@@ -39,6 +39,12 @@ export default function Home({ posts }) {
 				<meta property='fb:app_id' content='3881343925425006' />
 				<title>IguDev Tech Blog</title>
 				<link rel='icon' href='/favicon.ico' />
+				<script
+					async
+					defer
+					data-website-id='450f4336-3ad9-4ab9-8bd2-f4961ec74b8d'
+					src='https://blogtech-umami.herokuapp.com/umami.js'
+				></script>
 			</Head>
 			{/* <div className='text-center mt-10 mb-10  text-white'> */}
 			<Landing />
