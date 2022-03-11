@@ -2,6 +2,7 @@
 import querystring from "querystring"
 import axios from "axios"
 
+console.log(process.env.BASE_URL)
 const {
 	SPOTIFY_CLIENT_ID: client_id,
 	SPOTIFY_CLIENT_SECRET: client_secret,
