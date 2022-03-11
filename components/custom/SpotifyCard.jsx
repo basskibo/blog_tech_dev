@@ -3,7 +3,7 @@ import axios from "axios"
 import { SiSpotify } from "react-icons/si"
 
 const fetchCurent = async () => {
-	const result = await axios("http://localhost:3000/api/spotify", {
+	const result = await axios(`${process.env.BASE_URL}/api/spotify`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
