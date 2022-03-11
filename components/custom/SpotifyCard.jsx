@@ -24,7 +24,7 @@ const SpotifyCard = () => {
 		<div className='text-slate-400'>
 			<a
 				target='_blank'
-				rel='noopener noreferer'
+				rel='noreferrer'
 				href={
 					song?.isPlaying
 						? song.songUrl
@@ -62,12 +62,6 @@ const SpotifyCard = () => {
 					<SiSpotify size={20} color={"#1ED760"} />
 				</div>
 			</a>
-			{/* Currently playing -
-			<p>
-				{song.title} - {song.album}
-			</p>
-			<p>{song.artist}</p>
-			<img src={song.albumImageUrl} /> */}
 		</div>
 	)
 }
