@@ -1,5 +1,8 @@
 import React from "react"
 import { SiTwitter, SiGithub } from "react-icons/si"
+import SpotifyCard from "../components/custom/SpotifyCard"
+import GithubCard from "../components/custom/GithubCard"
+
 const FeatureLanding = () => {
 	return (
 		<div>
@@ -19,10 +22,12 @@ const FeatureLanding = () => {
 								<h2 className='text-white text-lg title-font font-semibold mb-2'>
 									Check Github repository
 								</h2>
-								<p className='leading-relaxed text-base mb-2'>
-									Look up for more details on Github for this porfolio/blog
-									website, which you are looking at currently
+								<p className='text-slate-400 my-3'>
+									Spotify is one of my must have applications in order to work
+									properly. I made custom spotify card so you can see what I am
+									currently listening to,
 								</p>
+								<SpotifyCard />
 							</div>
 						</div>
 						<div className='p-4 md:w-1/3 sm:w-1/1 flex'>
@@ -33,18 +38,16 @@ const FeatureLanding = () => {
 								<h2 className='text-white text-lg title-font font-semibold mb-2'>
 									My LinkedIn featured post
 								</h2>
-								{/* <p className='leading-relaxed text-base mb-2'>
-									Aute aliqua proident sunt magna occaecat ullamco deserunt.Eu
-									enim ex fugiat eiusmod qui et ut.
-								</p> */}
-								<iframe
-									src='https://www.linkedin.com/embed/feed/update/urn:li:share:6757995941825011712'
-									height='600'
-									width='100%'
-									frameBorder='0'
-									allowFullScreen=''
-									title='Featured post'
-								></iframe>
+
+								<GithubCard />
+								<div
+									// className='h-20 w-full'
+									id='github-card'
+									data-username='basskibo'
+									data-max-repos='3'
+									data-sort-by='stars'
+									data-header-text='Most starred repositories'
+								></div>
 							</div>
 						</div>
 						<div className='p-4 md:w-1/3 sm:w-1/1 mb-5 flex'>

@@ -7,7 +7,8 @@
     "start_build": "next build && next start",
     "start": "next start",
     "lint": "next lint",
-    "build_out": "next build && next export"
+    "build_out": "next build && next export",
+    "test": "$(npm bin)/cypress open"
   },
   "dependencies": {
     "@cloudinary/react": "^1.1.0",
@@ -56,6 +57,7 @@
     "@babel/core": "^7.16.12",
     "@tailwindcss/typography": "^0.5.1",
     "autoprefixer": "^10.4.2",
+    "cypress": "^9.5.1",
     "eslint": "8.6.0",
     "eslint-config-next": "12.0.8",
     "next-mdx-remote": "^3.0.8",

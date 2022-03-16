@@ -23,7 +23,7 @@ const SpotifyCard = () => {
 	}, [])
 
 	return (
-		<div className='text-slate-400'>
+		<div className='text-slate-400 bg-neutral-900'>
 			<a
 				target='_blank'
 				rel='noreferrer'
@@ -32,12 +32,12 @@ const SpotifyCard = () => {
 						? song.songUrl
 						: "https://open.spotify.com/user/4g1ztvqi3z5mf0uqx87bz9exk"
 				}
-				className='relative flex w-50 items-center space-x-4 rounded-md border p-5 transition-shadow hover:shadow-md'
+				className='relative flex w-50 items-center space-x-4 rounded-md border p-3 transition-shadow hover:shadow-md'
 			>
 				<div className='w-18'>
 					{song?.isPlaying ? (
 						<img
-							className='w-16 shadow-sm'
+							className='w-12 shadow-sm'
 							src={song?.albumImageUrl}
 							alt={song?.album}
 						/>
@@ -47,20 +47,20 @@ const SpotifyCard = () => {
 				</div>
 
 				<div className='flex-1'>
-					<p className='component text-sm'>
+					<p className='component text-xs'>
 						{song?.isPlaying ? "Currently listening:" : ""}
 					</p>
-					<p className='component font-bold text-lg'>
+					<p className='component font-bold text-md w-44 truncate'>
 						{song?.isPlaying ? `${song.title}` : "Not Listening"}
 					</p>
 					<p className='font-dark text-sm text-semibold'>
 						{song?.isPlaying ? `Artist: ${song.artist}` : "Spotify"}
 					</p>
-					<p className='font-dark text-sm text-semibold'>
+					<p className='font-dark text-xs text-semibold truncate'>
 						{song?.isPlaying ? `Album: ${song.album}` : ""}
 					</p>
 				</div>
-				<div className='absolute right-1.5 bottom-1.5'>
+				<div className='absolute right-1.5 top-1.5'>
 					<SiSpotify size={20} color={"#1ED760"} />
 				</div>
 			</a>
