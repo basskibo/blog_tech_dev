@@ -2,7 +2,7 @@ import React from "react"
 import { SiGmail, SiTwitter, SiLinkedin, SiGithub } from "react-icons/si"
 import ReactTooltip from "react-tooltip"
 import Accent from "../custom/Accent"
-import SpotifyCard from "../custom/SpotifyCard"
+// import SpotifyCard from "../custom/SpotifyCard"
 
 const waysToReachMe = [
 	{ name: "gmail", description: "test", externalLink: false, icon: SiGmail },
@@ -30,7 +30,7 @@ const waysToReachMe = [
 ]
 const Footer = () => {
 	return (
-		<footer className='text-gray-400 bg-neutral-900 body-font border-t border-slate-800'>
+		<footer className='text-gray-400 bg-neutral-900 body-font border-t border-neutral-700'>
 			<div className='container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col'>
 				<a className='flex title-font font-medium items-center md:justify-start justify-center text-white'>
 					<svg
@@ -59,9 +59,9 @@ const Footer = () => {
 					</a>
 				</p>
 
-				<span className='inline-flex sm:ml-auto mx-5 sm:mt-0 mt-4 justify-center sm:justify-start'>
+				{/* <span className='inline-flex sm:ml-auto mx-5 sm:mt-0 mt-4 justify-center sm:justify-start'>
 					<SpotifyCard />
-				</span>
+				</span> */}
 				<span className='inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start'>
 					{/* <p className='text-md'>Reach me at: </p> */}
 

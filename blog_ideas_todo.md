@@ -1,12 +1,5 @@
 -  set vs array
 -  google Matrix and geocoding
 -  seting up umami https://hassancorrigan.com/blog/host-your-own-analytics-service-for-free-with-umami/
-   AQCW3o8jXeXQOKZiI6rugASkRnpg3TFcPSEnU_Xd1TdMlaJQhLqL8d9m4GtKvz1JsXy6-TsE_9tEI5ZrOqWBZEIl7XFGHA-GSN9WsWoly533DjcgCPROjs_N-ttplQ4V8yHFU9YnqJy8y3gktTcbT0t3iLJFAEbcFSCoLQSNSe9BYLzeHQzbAqZ2hO4oV5_dfbTxnk_u
 
-M2E5ZDQ0MDE3NWYwNGVlMjlhNmJmMGFjZWZkMGM2NjM6MWY3OWIzNmIxMTFmNDM2Nzg4ODY5YjQ4MDEyZjY1OGI=
-
-curl -H "Authorization: Basic M2E5ZDQ0MDE3NWYwNGVlMjlhNmJmMGFjZWZkMGM2NjM6MWY3OWIzNmIxMTFmNDM2Nzg4ODY5YjQ4MDEyZjY1OGI"
--d grant_type=authorization_code -d code=AQCW3o8jXeXQOKZiI6rugASkRnpg3TFcPSEnU_Xd1TdMlaJQhLqL8d9m4GtKvz1JsXy6-TsE_9tEI5ZrOqWBZEIl7XFGHA-GSN9WsWoly533DjcgCPROjs_N-ttplQ4V8yHFU9YnqJy8y3gktTcbT0t3iLJFAEbcFSCoLQSNSe9BYLzeHQzbAqZ2hO4oV5_dfbTxnk_u -d redirect_uri=http%3A
-%2F%2Flocalhost:3000 https://accounts.spotify.com/api/token
-
-rfrsh AQAjpuzkeTrIqv-awAUpJC1awS00hloU27o87XR78inGz8dy5NOwni8QPkyazGqj9uz5QogGxYts6S3JlLY7TRdw4yuM3a89voqKmgVkAD6qJv0RK8wW1pfRBJVW75xL83o
+https://www.apimatic.io/blog/2018/11/how-to-create-sdks-for-your-api-in-less-than-a-minute/

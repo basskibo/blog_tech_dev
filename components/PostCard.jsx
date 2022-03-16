@@ -30,6 +30,7 @@ const PostCard = ({ post }) => {
 					<div className='mt-3 text-slate-400 '>
 						{" "}
 						<ReadTime> {post}</ReadTime>
+						<ReadTime> {post}</ReadTime>
 						<p className='align-middle font-bold text-slate-400 mt-1'>
 							{moment(post.data.publishedAt).format("MMMM DD, YYYY")}
 						</p>

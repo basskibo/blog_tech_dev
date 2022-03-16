@@ -2,7 +2,6 @@
 import querystring from "querystring"
 import axios from "axios"
 
-console.log(process.env.BASE_URL)
 const {
 	SPOTIFY_CLIENT_ID: client_id,
 	SPOTIFY_CLIENT_SECRET: client_secret,
@@ -14,8 +13,6 @@ const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-pla
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`
 
 const getAccessToken = async () => {
-	console.log("getAccessToken")
-
 	const response = await axios.post(
 		TOKEN_ENDPOINT,
 		querystring.stringify({
@@ -30,15 +27,11 @@ const getAccessToken = async () => {
 		}
 	)
 
-	console.log(response.data)
-
 	return response.data
 }
 
 export const getNowPlaying = async () => {
-	console.log("getNowPlaying")
 	const { access_token } = await getAccessToken()
-	console.log(access_token)
 	return axios.get(NOW_PLAYING_ENDPOINT, {
 		headers: {
 			Authorization: `Bearer ${access_token}`,
@@ -48,7 +41,6 @@ export const getNowPlaying = async () => {
 
 export default async (_, res) => {
 	const response = await getNowPlaying()
-	console.log(response.data)
 	if (
 		response.status === 204 ||
 		response.status > 400 ||
