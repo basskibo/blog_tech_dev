@@ -15,7 +15,6 @@ const BlogScreen = ({ posts }) => {
 	const [foundPosts, setFoundPosts] = useState(posts)
 	const handleSearchChange = (e) => {
 		e.preventDefault()
-		const postsToInclude = []
 		setSearch(e.target.value.toLowerCase())
 		const filteredData = posts.filter((el) => {
 			//if no input the return the original
@@ -27,11 +26,10 @@ const BlogScreen = ({ posts }) => {
 			}
 			//return the item which contains the user input
 			else {
-				debugger
 				const includes =
 					data.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
 					data.excerpt.toLowerCase().includes(e.target.value.toLowerCase())
-				console.log("includes : ", includes)
+				console.log(includes)
 				return includes
 			}
 		})
