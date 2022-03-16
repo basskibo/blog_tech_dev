@@ -1,7 +1,6 @@
 import React from "react"
 import Accent from "../components/custom/Accent"
 import ActiveLink from "../components/custom/ActiveLink"
-
 import { FeatureLanding } from "./"
 import AnchorLink from "react-anchor-link-smooth-scroll"
 import SvgWave from "./layout/SvgWave"
@@ -28,7 +27,7 @@ const Landing = () => {
 						Hello there,
 						<br />
 						<span className='text-3xl sm:text-3xl lg:text-6xl '>
-							My name is <Accent>Bojan </Accent>
+							My name is <Accent>Bojan</Accent>
 						</span>
 					</h1>
 					<div className='lg:mt-5'>
@@ -50,6 +49,7 @@ const Landing = () => {
 						<ActiveLink
 							href='/routes/blog'
 							name='blog'
+							id='rb_button'
 							className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-700
                   hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500
 				 
@@ -59,6 +59,7 @@ const Landing = () => {
 						</ActiveLink>
 						<ActiveLink
 							href='/routes/aboutme'
+							id='am_button'
 							className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-700
 							hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500'
 						>
