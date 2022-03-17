@@ -9,11 +9,11 @@ import constants from "../../lib/constants"
 
 const Bio = () => {
 	return (
-		<div className='container mx-auto my-10 px-3 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
+		<div className='container mx-auto my-10 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
 			<div className='my-5 lg:my-10'>
-				<div className=' px-3 lg:px-5 py-3 mb-10 border-b border-gray-400'>
+				<div className='  lg:px-0 py-3 mb-10 border-b border-gray-400'>
 					<h1 className='mb-5'>
-						<Accent className='font-extrabold text-6xl'>About</Accent>
+						<Accent className='font-extrabold text-5xl'>About</Accent>
 					</h1>
 					<p className='mb-5'>
 						Adipisicing sunt veniam do non consequat commodo sint nisi aliquip ad

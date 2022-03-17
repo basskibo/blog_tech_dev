@@ -3,6 +3,7 @@ import moment from "moment"
 import { PostCard, Categories, Pagination, CategoryChip } from "../components"
 import Accent from "./custom/Accent"
 const numberPerPage = 1
+import { MdSearch } from "react-icons/md"
 
 import "react-loading-skeleton/dist/skeleton.css"
 import _ from "underscore"
@@ -86,21 +87,24 @@ const BlogScreen = ({ posts }) => {
 		<div className='container mx-auto lg:my-14 my-5 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
 			<div className='my-8'>
 				<h1 className='mb-5'>
-					<Accent className='font-extrabold text-6xl'>Blog</Accent>
+					<Accent className='font-extrabold text-5xl'>Blog</Accent>
 				</h1>
-				<p className='display-4'>
+				<p className='display-4 '>
 					In order not to wander in the dark (as I did with some things) until I
 					found a solution, I wrote some things so that one day some unknown hero
 					might be helped.
 				</p>
+				{/* <MdSearch /> */}
 				<input
-					className='w-full my-3 bg-neutral-900  px-3 py-2 rounded-md
-					border border-slate-600 focus:border-lime-600'
+					className='w-full lg:w-4/4 my-3 bg-neutral-900  px-3 py-2 rounded-md
+					border border-slate-600 focus:border-lime-600 flex-grow focus:outline-none cursor-text'
 					placeholder='Search...'
 					value={search}
+					type='search'
 					onChange={handleSearchChange}
-				></input>
-				<div className='mt-1 mb-5'>
+				/>
+
+				<div className='mt-1 mb-7 lg:mb-10 lg:w-4/4'>
 					{chips ? (
 						chips.map((category) => (
 							<span key={category.slug}>

@@ -12,7 +12,7 @@ const Libaries = ({ libaries }) => {
 		<div className='container mx-auto my-14 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
 			<div className='my-8'>
 				<h1 className='mb-5'>
-					<Accent className='font-extrabold text-6xl'>Libary</Accent>
+					<Accent className='font-extrabold text-5xl'>Libary</Accent>
 				</h1>
 				<p className='display-4'>
 					Here you can find some of my simple libaries and repositories which are

@@ -7,7 +7,7 @@ const Projects = () => {
 		<div className='container mx-auto my-10 px-3 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
 			<div className='my-10'>
 				<h1 className='mb-5'>
-					<Accent className='font-extrabold text-6xl'>Projects</Accent>
+					<Accent className='font-extrabold text-5xl'>Projects</Accent>
 				</h1>
 				<p className='display-4 '>Showcase of my works on my projects</p>
 				<p className=''>
