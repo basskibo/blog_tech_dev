@@ -3,24 +3,71 @@ import moment from "moment"
 import { PostCard, Categories, Pagination, CategoryChip } from "../components"
 import Accent from "./custom/Accent"
 const numberPerPage = 1
-import LazyLoad from "react-lazyload"
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
+
 import "react-loading-skeleton/dist/skeleton.css"
+import _ from "underscore"
+import clsx from "clsx"
 
-import { LazyLoadImage } from "react-lazy-load-image-component"
+const getCategories = (posts) => {
+	try {
+		const categories = []
+		posts.forEach((post) => {
+			const postCategory = post.props.data.tags
+			categories.push(postCategory)
+		})
+		const flatenedArr = categories.flat()
+		function getUniqueListBy(arr, key) {
+			return [...new Map(arr.map((item) => [item[key], item])).values()]
+		}
 
+		const unique = getUniqueListBy(flatenedArr, "name")
+
+		return unique
+	} catch (e) {
+		throw new Error(`Error parsing category: ${e.message}`)
+	}
+}
 const BlogScreen = ({ posts }) => {
-	const [chips, setchips] = useState([{ name: "test" }, { name: "test2" }])
+	const [chips, setchips] = useState(getCategories(posts))
 	const [search, setSearch] = useState(null)
 	const [foundPosts, setFoundPosts] = useState(posts)
+
+	const handleCategoryClick = (e) => {
+		e.preventDefault()
+		const selected = e.target.innerText
+		if (selected === search) {
+			setSearch(null)
+			setFoundPosts(posts)
+			return
+		}
+		setSearch(selected)
+		setFoundPosts([])
+		const postsWithCategory = []
+
+		posts.filter((el, index) => {
+			//if no input the return the original
+			const data = el.props.data
+			if (search === "") {
+				postsWithCategory.push(posts[index])
+			} else {
+				//return the item which contains the user input
+				data.tags.forEach((tag) => {
+					if (tag.name === selected) {
+						postsWithCategory.push(posts[index])
+					}
+				})
+				// const includes =
+			}
+		})
+
+		setFoundPosts(postsWithCategory)
+	}
 	const handleSearchChange = (e) => {
 		e.preventDefault()
 		setSearch(e.target.value.toLowerCase())
 		const filteredData = posts.filter((el) => {
 			//if no input the return the original
-
 			const data = el.props.data
-			console.log(data)
 			if (search === "") {
 				return data
 			}
@@ -29,16 +76,14 @@ const BlogScreen = ({ posts }) => {
 				const includes =
 					data.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
 					data.excerpt.toLowerCase().includes(e.target.value.toLowerCase())
-				console.log(includes)
 				return includes
 			}
 		})
 		setFoundPosts(filteredData)
-		console.log(filteredData)
 	}
 
 	return (
-		<div className='container mx-auto my-14 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
+		<div className='container mx-auto lg:my-14 my-5 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
 			<div className='my-8'>
 				<h1 className='mb-5'>
 					<Accent className='font-extrabold text-6xl'>Blog</Accent>
@@ -52,9 +97,36 @@ const BlogScreen = ({ posts }) => {
 					className='w-full my-3 bg-neutral-900  px-3 py-2 rounded-md
 					border border-slate-600 focus:border-lime-600'
 					placeholder='Search...'
+					value={search}
 					onChange={handleSearchChange}
 				></input>
-				<CategoryChip categories={chips} />
+				<div className='mt-1 mb-5'>
+					{chips ? (
+						chips.map((category) => (
+							<span key={category.slug}>
+								<a
+									className='inline-flex'
+									disabled={true}
+									onClick={handleCategoryClick}
+								>
+									<span
+										className={clsx(
+											"flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border-1 border-teal-800 bg-slate-500 hover:bg-teal-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out",
+											"" ? "" : "",
+											search === category.name
+												? " underline decoration-solid decoration-2	decoration-lime-400 text-lime-400 underline-offset-4 "
+												: "text-white"
+										)}
+									>
+										{category.name}
+									</span>
+								</a>
+							</span>
+						))
+					) : (
+						<></>
+					)}
+				</div>
 			</div>
 
 			<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'>

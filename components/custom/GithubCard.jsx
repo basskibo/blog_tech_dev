@@ -11,7 +11,6 @@ const GithubCard = () => {
 		console.log(profileFetched)
 		setProfile(profileFetched.data)
 	}, [])
-	console.log("#$$$$$$$$$$$$$$$$$$$$$")
 	return <div>TEst</div>
 }
 
