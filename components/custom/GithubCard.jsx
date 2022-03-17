@@ -35,11 +35,14 @@ const GithubCard = () => {
 	}, [])
 
 	return (
-		<div className='container border-lime-700 bg-neutral-800 p-2'>
+		<div className='container border-lime-700 bg-neutral-800 p-5'>
 			{profile ? (
 				<div>
-					<p className='text-white text-lg'>{profile.login}</p>
-					<img src={profile.avatar_url} className='w-full h-40' />
+					<p className='text-white font-extrabold text-xl mb-3'>@{profile.login}</p>
+					<img
+						src={profile.avatar_url}
+						className='w-full h-40 border border-gray-400'
+					/>
 					<div className='  mt-1'>
 						<FiUsers className='h-full mt-0.1 inline-flex' />{" "}
 						<span className='mx-3'>
