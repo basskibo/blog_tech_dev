@@ -51,7 +51,8 @@
     "remark": "^14.0.2",
     "remark-mdx": "^2.0.0-rc.2",
     "sass": "^1.47.0",
-    "slugify": "^1.6.5"
+    "slugify": "^1.6.5",
+    "underscore": "^1.13.2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.12",
