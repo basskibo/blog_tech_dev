@@ -1,5 +1,5 @@
 import React from "react"
-import { SiTwitter, SiGithub } from "react-icons/si"
+import { SiTwitter, SiGithub, SiSpotify } from "react-icons/si"
 import SpotifyCard from "../components/custom/SpotifyCard"
 import GithubCard from "../components/custom/GithubCard"
 
@@ -14,13 +14,13 @@ const FeatureLanding = () => {
 						at least some of
 					</h1>
 					<div className='flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6'>
-						<div className='p-4 md:w-1/3 flex'>
-							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-blue-500 mb-4 flex-shrink-0'>
-								<SiGithub />
+						<div className='p-4 md:w-1/1 lg:w-1/3 flex'>
+							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-lime-500 mb-4 flex-shrink-0'>
+								<SiSpotify />
 							</div>
 							<div className='flex-grow pl-6'>
 								<h2 className='text-white text-lg title-font font-semibold mb-2'>
-									Check Github repository
+									Currently listening on spotify
 								</h2>
 								<p className='text-slate-400 my-3'>
 									Spotify is one of my must have applications in order to work
@@ -30,27 +30,19 @@ const FeatureLanding = () => {
 								<SpotifyCard />
 							</div>
 						</div>
-						<div className='p-4 md:w-1/3 sm:w-1/1 flex'>
+						<div className='p-4 md:w-1/1 lg:w-1/3 flex'>
 							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-blue-500 mb-4 flex-shrink-0'>
 								<SiGithub />
 							</div>
 							<div className='flex-grow pl-6'>
 								<h2 className='text-white text-lg title-font font-semibold mb-2'>
-									My LinkedIn featured post
+									My Github profile
 								</h2>
 
 								<GithubCard />
-								<div
-									// className='h-20 w-full'
-									id='github-card'
-									data-username='basskibo'
-									data-max-repos='3'
-									data-sort-by='stars'
-									data-header-text='Most starred repositories'
-								></div>
 							</div>
 						</div>
-						<div className='p-4 md:w-1/3 sm:w-1/1 mb-5 flex'>
+						<div className='p-4 md:w-1/1 lg:w-1/3 flex'>
 							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-blue-500 mb-4 flex-shrink-0'>
 								<SiTwitter />
 							</div>

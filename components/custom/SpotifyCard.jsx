@@ -23,7 +23,7 @@ const SpotifyCard = () => {
 	}, [])
 
 	return (
-		<div className='text-slate-400 bg-neutral-900'>
+		<div className='text-slate-400 bg-neutral-900 w-7/8'>
 			<a
 				target='_blank'
 				rel='noreferrer'
