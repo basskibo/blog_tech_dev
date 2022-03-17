@@ -7,7 +7,7 @@ const FeatureLanding = () => {
 	return (
 		<div>
 			<section className='text-slate-400 body-font bg-teal-900' id='sectionFeature'>
-				<div className='container px-5 py-5 mx-auto'>
+				<div className='container px-5 pb-5 mx-auto'>
 					<h1 className='sm:text-3xl text-2xl font-medium title-font text-center text-white mb-20'>
 						My activity on social network
 						<br className='hidden sm:block' />
