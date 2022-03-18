@@ -38,6 +38,10 @@ const FeatureLanding = () => {
 								<h2 className='text-white text-lg title-font font-semibold mb-2'>
 									My Github profile
 								</h2>
+								<p className='my-3'>
+									Here you can find some basic information about my github
+									profile
+								</p>
 
 								<GithubCard />
 							</div>
