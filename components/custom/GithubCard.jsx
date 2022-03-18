@@ -11,14 +11,27 @@ const GithubCard = () => {
 
 		const fetchData = async () => {
 			try {
-				const response = await axios.get("https://api.github.com/users/basskibo", {
-					headers: {
-						Authorization: "token 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",
-					},
-				})
+				const profileInLocaleStorage = localStorage.getItem("profile")
+				console.log(profileInLocaleStorage)
+				let profileFetched
+				if (!profileInLocaleStorage) {
+					const response = await axios.get(
+						"https://api.github.com/users/basskibo"
+						// , {
+						// 	headers: {
+						// 		Authorization: "token 6888b5336f1fbc75edb8de9961846462e0e1c218",
+						// 	},
+						// }
+					)
+					localStorage.setItem("profile", JSON.stringify(response.data))
 
-				const profileFetched = response.data
-				console.log(profileFetched)
+					console.log(response)
+					profileFetched = response.data
+					console.log(profileFetched)
+				} else {
+					profileFetched = JSON.parse(profileInLocaleStorage)
+					console.log("postoji vec")
+				}
 				setProfile(profileFetched)
 			} catch (error) {
 				console.log("error", error)
@@ -35,7 +48,7 @@ const GithubCard = () => {
 	}, [])
 
 	return (
-		<div className='container border-lime-700 bg-neutral-800 p-5'>
+		<div className='container  border bg-neutral-800 p-5 rounded-lg'>
 			{profile ? (
 				<div>
 					<p className='text-white font-extrabold text-xl mb-3'>@{profile.login}</p>
