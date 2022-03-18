@@ -23,7 +23,7 @@ const SpotifyCard = () => {
 	}, [])
 
 	return (
-		<div className='text-slate-400 bg-neutral-900 w-7/8'>
+		<div className='text-slate-400 bg-neutral-900 border border-neutral-600 rounded-lg w-7/8'>
 			<a
 				target='_blank'
 				rel='noreferrer'
@@ -32,7 +32,7 @@ const SpotifyCard = () => {
 						? song.songUrl
 						: "https://open.spotify.com/user/4g1ztvqi3z5mf0uqx87bz9exk"
 				}
-				className='relative flex w-50 items-center space-x-4 rounded-md border p-3 transition-shadow hover:shadow-md'
+				className='relative flex w-50 items-center space-x-4    p-3 transition-shadow hover:shadow-md'
 			>
 				<div className='w-18'>
 					{song?.isPlaying ? (

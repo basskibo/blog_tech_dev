@@ -31,7 +31,7 @@ const FeatureLanding = () => {
 							</div>
 						</div>
 						<div className='p-4 md:w-1/1 lg:w-1/3 flex'>
-							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-blue-500 mb-4 flex-shrink-0'>
+							<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-white mb-4 flex-shrink-0'>
 								<SiGithub />
 							</div>
 							<div className='flex-grow pl-6'>
