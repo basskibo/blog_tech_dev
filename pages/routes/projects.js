@@ -1,5 +1,6 @@
 import Accent from "../../components/custom/Accent"
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton"
+import { motion } from "framer-motion"
 
 import "react-loading-skeleton/dist/skeleton.css"
 const Projects = () => {
@@ -14,25 +15,37 @@ const Projects = () => {
 					This projects consists of backend, frontend and devops parts{" "}
 				</p>
 			</div>
+			<h1 className='title'>Wubba Lubba Dub Dub!</h1>
+			{/* <iframe
+				style='border: 1px solid rgba(0, 0, 0, 0.1)'
+				width='640'
+				height='480'
+				src='https://framer.com/embed/Smart-Components--azBkgRvY174PZLDhxFuX/Kz5wfC2Wk?highlights=0'
+				allowfullscreen
+			></iframe> */}
 
 			{/* <div className='grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-14 '>
 				<div className='bg-sky-800 h-56 '>
 					<h3>Title</h3>01
 				</div> */}
-			<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-14 '>
-				<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
-				<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
-				<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
-				<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
-				<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
-				<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
-				<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
-				<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
-				<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
-				<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
-				<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
-			</div>
+			<motion.div animate={{ y: [190, 0, 0] }} transition={{ duration: 2 }}>
+				<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-14 '>
+					<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
+					<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
+					<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
+					<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
+					<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
+					<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
+					<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
+					<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
+					<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
+					<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
+					<Skeleton baseColor='#202020' highlightColor='#444' count={6} />
+				</div>
+				\
+			</motion.div>
 		</div>
+
 		// </div>
 	)
 }

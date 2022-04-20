@@ -2,11 +2,34 @@ import React from "react"
 import { SiTwitter, SiGithub, SiSpotify } from "react-icons/si"
 import SpotifyCard from "../components/custom/SpotifyCard"
 import GithubCard from "../components/custom/GithubCard"
+import { motion, LayoutGroup } from "framer-motion"
+
+const cardVariants = {
+	offscreen: {
+		y: 300,
+	},
+	onscreen: {
+		y: 0,
+		rotate: 0,
+		transition: {
+			type: "spring",
+			bounce: 0.4,
+			duration: 1,
+		},
+	},
+}
 
 const FeatureLanding = () => {
 	return (
 		<div>
+			{/* <motion.div
+				initial='offscreen'
+				whileInView='onscreen'
+				viewport={{ once: true, amount: 0.8 }}
+				transition={{ duration: 2 }}
+			> */}
 			<section className='text-slate-400 body-font bg-teal-900' id='sectionFeature'>
+				{/* <motion.div variants={cardVariants}> */}
 				<div className='container px-5 pb-5 mx-auto'>
 					<h1 className='sm:text-3xl text-2xl font-medium title-font text-center text-white mb-20'>
 						My activity on social network
@@ -62,16 +85,18 @@ const FeatureLanding = () => {
 								>
 									Tweets by @Basskibo1
 								</a>{" "}
-								<script
-									async
-									src='https://platform.twitter.com/widgets.js'
-									charSet='utf-8'
-								></script>
+								{/* <script
+											async
+											src='https://platform.twitter.com/widgets.js'
+											charSet='utf-8'
+										></script> */}
 							</div>
 						</div>
 					</div>
 				</div>
+				{/* </motion.div> */}
 			</section>
+			{/* </motion.div> */}
 		</div>
 	)
 }

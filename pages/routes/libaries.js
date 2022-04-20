@@ -6,6 +6,7 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 import { getLibaryFiles } from "../../services/indexv2"
+import MotionComponent from "../../components/custom/MotionComponent"
 
 const Libaries = ({ libaries }) => {
 	return (
@@ -24,13 +25,14 @@ const Libaries = ({ libaries }) => {
 					placeholder='Search...'
 				></input>
 			</div>
-
-			<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'>
-				{libaries.map((libary, index) => (
-					// <PostCard className='' key={post.props.data.slug} post={post.props} />
-					<LibaryCard libary={libary.props.data} key={libary.props.data.slug} />
-				))}
-			</div>
+			<MotionComponent>
+				<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'>
+					{libaries.map((libary, index) => (
+						// <PostCard className='' key={post.props.data.slug} post={post.props} />
+						<LibaryCard libary={libary.props.data} key={libary.props.data.slug} />
+					))}
+				</div>
+			</MotionComponent>
 		</div>
 	)
 }

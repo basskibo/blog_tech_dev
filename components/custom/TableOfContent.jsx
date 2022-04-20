@@ -15,7 +15,7 @@ const TableOfContent = ({ toc }) => {
 								key={item.link}
 								offset={() => anchorOffset}
 								href={item.link}
-								className='font-medium text-md lg:text-lg font-semibold hover:cursor-pointer hover:text-white hover:underline'
+								className='font-medium text-md lg:text-md font-semibold hover:cursor-pointer hover:text-white hover:underline'
 							>
 								{index + 1}. {item.title}
 							</AnchorLink>
@@ -26,9 +26,9 @@ const TableOfContent = ({ toc }) => {
 									key={Math.random()}
 									offset={() => anchorOffset}
 									href={subhead.link}
-									className='font-medium text-sm lg:text-md pr-5 hover:text-white'
+									className='font-medium text-sm lg:text-sm pr-5 hover:text-white'
 								>
-									-{subhead.title}
+									{subhead.title}
 								</AnchorLink>
 							</li>
 						))}
