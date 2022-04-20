@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { SiSpotify } from "react-icons/si"
+import Accent from "./Accent"
 
 const fetchCurent = async () => {
 	const url = `/api/spotify`
@@ -50,8 +51,8 @@ const SpotifyCard = () => {
 					<p className='component text-xs'>
 						{song?.isPlaying ? "Currently listening:" : ""}
 					</p>
-					<p className='component font-bold text-md w-44 truncate'>
-						{song?.isPlaying ? `${song.title}` : "Not Listening"}
+					<p className='component font-bold text-md w-48 lg:w-72 truncate'>
+						{song?.isPlaying ? <Accent>{song.title}</Accent> : "Not Listening"}
 					</p>
 					<p className='font-dark text-sm text-semibold'>
 						{song?.isPlaying ? `Artist: ${song.artist}` : "Spotify"}

@@ -64,7 +64,6 @@ const components = {
 	code: MdxComponents.code,
 	Accent: MdxComponents.Accent,
 	TestComponent: MdxComponents.TestComponent,
-	NextUIBUtton: MdxComponents.NextUIBUtton,
 	ul: MdxComponents.ul,
 	test: MdxComponents.test,
 	// CloudinaryContext: MdxComponents.CloudinaryContext,

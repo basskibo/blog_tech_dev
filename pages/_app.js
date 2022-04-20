@@ -5,6 +5,7 @@ import { Layout } from "../components"
 import "tailwindcss/tailwind.css"
 import "../styles/globals.scss"
 import * as ga from "../lib/analytics"
+import { motion, MotionConfig, AnimatePresence } from "framer-motion"
 
 function IguanaDevelopmentTech({ Component, pageProps }) {
 	const router = useRouter()
@@ -23,7 +24,17 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 
 	return (
 		<Layout>
-			<Component {...pageProps} />
+			<MotionConfig transition={{ duration: 0.5 }} reducedMotion='user'>
+				{/* <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}> */}
+				<motion.div
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.5 }}
+				>
+					{" "}
+					<Component {...pageProps} />{" "}
+				</motion.div>
+			</MotionConfig>
 		</Layout>
 	)
 }

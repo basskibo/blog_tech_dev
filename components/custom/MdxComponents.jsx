@@ -3,7 +3,6 @@ import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism"
 import Accent from "./Accent"
 import TestComponent from "../TestComponent"
 import Image from "next/image"
-import { Button, Collapse, Text } from "@nextui-org/react"
 import constants from "../../lib/constants"
 import { buildUrl } from "cloudinary-build-url"
 import ReactPlayer from "react-player"
@@ -139,9 +138,7 @@ export default {
 		return <ul className='list-disc ml-10'>{children}</ul>
 	},
 	TestComponent: TestComponent,
-	NextUIBUtton: ({ children, className, href }) => {
-		return <Button>Click me</Button>
-	},
+
 	test: ({ children }) => {
 		return (
 			<blockquote className='mt-0 mb-4'>
