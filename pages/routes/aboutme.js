@@ -10,12 +10,15 @@ import MotionComponent from "../../components/custom/MotionComponent"
 
 const Bio = () => {
 	return (
-		<div className='container mx-auto my-10 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
-			<div className='my-5 lg:my-10'>
+<div className='container mx-auto lg:my-14 my-5 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
+
+			<div className='my-8 '>
+
 				<h1 className='mb-5'>
 					<Accent className='font-extrabold text-5xl'>About</Accent>
 				</h1>
 				<MotionComponent>
+
 					<div className='  lg:px-0 py-3 mb-10 border-b border-gray-400'>
 						<p className='mb-5'>
 							Adipisicing sunt veniam do non consequat commodo sint nisi aliquip ad
@@ -53,11 +56,12 @@ const Bio = () => {
 						</p>
 						<TechnologyStack />
 					</div>
-				</MotionComponent>
+					</MotionComponent>
 				<h1 className='mb-5'>
 					<Accent className='text-3xl font-semibold'> Curriculum vitae</Accent>{" "}
 				</h1>
 				<MotionComponent>
+
 					<div className='grid gap-6 row-gap-10 lg:grid-cols-2'>
 						<ol className='relative border-l border-gray-200 dark:border-gray-700'>
 							<li className='ml-4 mb-10'>
@@ -70,7 +74,7 @@ const Bio = () => {
 								</h3>
 								<h2 className='py-1'>Full stack developer, DevOps </h2>
 
-								<p className='text-base font-normal text-gray-500 dark:text-gray-400'>
+								<div className='text-base font-normal text-gray-500 dark:text-gray-400'>
 									<ul className='list-disc pl-5'>
 										<li>
 											Project: Developing flexible, secure, highly available
@@ -97,7 +101,7 @@ const Bio = () => {
 											Jenkins, Zabbix , Ansible, NFS/EFS
 										</li>
 									</ul>
-								</p>
+								</div>
 							</li>
 							<li className='ml-4 mb-10'>
 								<div className='absolute w-3 h-3 bg-gray-200 rounded-full -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700'></div>
@@ -109,7 +113,7 @@ const Bio = () => {
 								</h3>
 								<h2 className='py-1'>CEO, Full stack developer </h2>
 
-								<p className='text-base mb-4  font-normal text-gray-500 dark:text-gray-400'>
+								<div className='text-base mb-4  font-normal text-gray-500 dark:text-gray-400'>
 									<ul className='list-disc pl-5'>
 										<li>
 											{" "}
@@ -127,7 +131,7 @@ const Bio = () => {
 											Websockets (socket.io), AngularJS, AWS EC2, AWS S3
 										</li>
 									</ul>
-								</p>
+								</div>
 								<a
 									href='#'
 									className='inline-flex items-center py-2  px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'
@@ -157,7 +161,7 @@ const Bio = () => {
 								</h3>
 								<h2 className='py-1'>Full stack developer </h2>
 
-								<p className='text-base font-normal text-gray-500 dark:text-gray-400'>
+								<div className='text-base font-normal text-gray-500 dark:text-gray-400'>
 									<ul className='list-disc pl-5'>
 										<li>
 											{" "}
@@ -175,7 +179,7 @@ const Bio = () => {
 											Websockets (socket.io), AngularJS, AWS EC2, AWS S3
 										</li>
 									</ul>
-								</p>
+								</div>
 							</li>
 							<li className='mb-10 ml-4'>
 								<div className='absolute w-3 h-3 bg-gray-200 rounded-full -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700'></div>
@@ -188,7 +192,7 @@ const Bio = () => {
 								<h2 className='py-1'>
 									Full stack developer, hybrid mobile development{" "}
 								</h2>
-								<p className='mb-4 text-base font-normal text-gray-500 dark:text-gray-400'>
+								<div className='mb-4 text-base font-normal text-gray-500 dark:text-gray-400'>
 									<ul className='list-disc pl-5'>
 										<li>
 											Project: Software solution specialized in managing
@@ -209,7 +213,7 @@ const Bio = () => {
 											KrakenJs, React Native, Sencha, Sencha Touch, PostgresQL
 										</li>
 									</ul>
-								</p>
+								</div>
 							</li>
 						</ol>
 
@@ -224,9 +228,13 @@ const Bio = () => {
 							/>
 						</div>
 					</div>
-				</MotionComponent>
+					</MotionComponent>
+
+
 			</div>
+
 		</div>
+
 	)
 }
 

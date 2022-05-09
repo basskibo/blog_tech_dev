@@ -72,6 +72,11 @@ body {
 	background-size: cover;
 }
 
+.landing-section-bg {
+	height: 100vh;
+	background: linear-gradient(-45deg, rgba(229,93,135,.7), rgba(95,195,228,.7)), url(https://picsum.photos/g/2000/1200?image=443) center center / cover no-repeat;
+}
+
 .adjacent-post {
 	& .arrow-btn {
 		transition: width 300ms ease;
