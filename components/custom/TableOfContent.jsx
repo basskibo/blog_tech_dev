@@ -15,7 +15,7 @@ const TableOfContent = ({ toc }) => {
 								key={item.link}
 								offset={() => anchorOffset}
 								href={item.link}
-								className='font-medium text-md lg:text-md font-semibold hover:cursor-pointer hover:text-white hover:underline'
+								className='font-medium text-md lg:text-md hover:cursor-pointer hover:text-white hover:underline'
 							>
 								{index + 1}. {item.title}
 							</AnchorLink>

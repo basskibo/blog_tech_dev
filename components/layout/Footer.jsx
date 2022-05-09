@@ -92,13 +92,8 @@ const Footer = () => {
 							key={medium.name}
 						>
 							<medium.icon className='text-lg' data-tip data-for={medium.name} />
-							<ReactTooltip
-								id={medium.name}
-								type='dark'
-								effect='solid'
-								data-offset="{'top': 20, 'left': 10}"
-								className=' bg-neutral-900 border border-slate-400 mt-10'
-							>
+							<ReactTooltip id={medium.name} type='dark' className=' bg-neutral-700'>
+
 								<h1>
 									You can find me on <Accent>{medium.name}</Accent>
 								</h1>
