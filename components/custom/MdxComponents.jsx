@@ -1,7 +1,7 @@
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism"
 import Accent from "./Accent"
-import TestComponent from "../TestComponent"
+import QouteComponent from "../QouteComponent"
 import Image from "next/image"
 import constants from "../../lib/constants"
 import { buildUrl } from "cloudinary-build-url"
@@ -62,6 +62,7 @@ const CloudinaryContextImage = (props) => {
 }
 
 const parseLanguageByClass = (className) => {
+	console.log(className)
 	return className.split("-")[1]
 }
 
@@ -137,7 +138,7 @@ export default {
 	ul: ({ children, className }) => {
 		return <ul className='list-disc ml-10'>{children}</ul>
 	},
-	TestComponent: TestComponent,
+	QouteComponent: QouteComponent,
 
 	test: ({ children }) => {
 		return (

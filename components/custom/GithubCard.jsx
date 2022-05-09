@@ -3,6 +3,7 @@ import axios from "axios"
 import { FiUsers, FiMapPin } from "react-icons/fi"
 import { RiGitRepositoryCommitsLine, RiGitRepositoryPrivateLine } from "react-icons/ri"
 import { SiGithub } from "react-icons/si"
+import Image from "next/image"
 
 const GithubCard = () => {
 	const [profile, setProfile] = useState(null)
@@ -51,10 +52,15 @@ const GithubCard = () => {
 						<p className='text-white font-extrabold text-xl mb-3 inline-flex'>
 							{/* <SiGithub className='' />  */}@{profile.login}
 						</p>
-						<img
+						<div>
+						<img alt="profile avatar"
+						// layout="fill"
+							// width="50" height="50"
 							src={profile.avatar_url}
 							className='w-full h-40 border border-gray-400'
 						/>
+						</div>
+					
 						<div className='  mt-1'>
 							<FiUsers className='h-full mt-0.1 inline-flex' />{" "}
 							<span className='mx-3'>
