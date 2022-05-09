@@ -63,7 +63,7 @@ const components = {
 	a: MdxComponents.a,
 	code: MdxComponents.code,
 	Accent: MdxComponents.Accent,
-	TestComponent: MdxComponents.TestComponent,
+	QouteComponent: MdxComponents.QouteComponent,
 	ul: MdxComponents.ul,
 	test: MdxComponents.test,
 	// CloudinaryContext: MdxComponents.CloudinaryContext,
@@ -89,9 +89,9 @@ const PostDetails = ({ data, mdxSource, toc }) => {
 					{/* <CommentsForm slug={post.slug} /> */}
 					{/* <Comments slug={post.slug} /> */}
 				</div>
-				<div className='hidden lg:block col-span-3 lg:col-span-3 place-content-center'>
+				{/* <div className='hidden lg:block col-span-3 lg:col-span-3 place-content-center'>
 					<TableOfContent toc={toc} />
-				</div>
+				</div> */}
 			</div>
 		</div>
 	)

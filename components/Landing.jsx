@@ -73,7 +73,6 @@ const Landing = () => {
                         rel='noreferrer'>
                         <SiGithub className='mr-2 h-6 w-6' /> basskibo
                      </a>
-
                      <a
                         id='lnk-linkedin-button'
                         className='inline-flex text-lg text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'

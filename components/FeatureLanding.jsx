@@ -21,14 +21,14 @@ const cardVariants = {
 
 const FeatureLanding = () => {
 	return (
-		<div>
+		<div id='sectionFeature'>
 			{/* <motion.div
 				initial='offscreen'
 				whileInView='onscreen'
 				viewport={{ once: true, amount: 0.8 }}
 				transition={{ duration: 2 }}
 			> */}
-			<section className='text-slate-400 body-font bg-teal-900' id='sectionFeature'>
+			<section className='text-slate-400 body-font bg-teal-900' >
 				{/* <motion.div variants={cardVariants}> */}
 				<div className='container px-5 pb-5 mx-auto'>
 					<h1 className='sm:text-3xl text-2xl font-medium title-font text-center text-white mb-20'>
