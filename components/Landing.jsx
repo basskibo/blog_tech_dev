@@ -1,8 +1,8 @@
 import React from "react";
 import Accent from "../components/custom/Accent";
 import ActiveLink from "../components/custom/ActiveLink";
-import { FeatureLanding } from "./";
-import { FeaturedPosts } from "./FeaturedPosts";
+import { FeatureLanding, FeaturedPosts, HighlightPost } from "./";
+// import { FeaturedPosts } from "./FeaturedPosts";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import SvgWave from "./layout/SvgWave";
 import { SiGithub, SiLinkedin } from "react-icons/si";
@@ -114,6 +114,7 @@ const Landing = () => {
                   d='M0,192L48,197.3C96,203,192,213,288,224C384,235,480,245,576,240C672,235,768,213,864,176C960,139,1056,85,1152,90.7C1248,96,1344,160,1392,192L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'></path>
             </svg>
          </div>
+         <HighlightPost />
          {/* <FeaturedPosts /> */}
       </div>
    );
