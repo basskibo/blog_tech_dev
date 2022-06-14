@@ -9,10 +9,9 @@ featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127896/ig
 author: "Teodora Jagetic"
 tags:
    [
-      { slug: "next", name: "nextjs" },
       { slug: "js", name: "javascript" },
       { slug: "git", name: "git" },
-      { slug: "arch", name: "architecture" },
+
       { slug: "dp", name: "dessign-pattern" },
    ]
 ---
@@ -68,37 +67,36 @@ In encryption, data to be encrypted(called plain-text) is transformed using an e
 
 In hashing, data is converted to the hash using some hashing function, which can be any number generated from string or text. Various hashing algorithms are MD5, SHA256. Data once hashed is non-reversible.
 
+## Authentication vs. Authorization
+
+Simply put, authentication is the process of verifying who someone is, whereas authorization is the process of verifying what specific applications, files, and data a user has access to.
+
+### Authentication
+
+Authentication is the act of validating that users are whom they claim to be. This is the first step in any security process.
+
+Complete an authentication process with:
+
+-  Passwords. Usernames and passwords are the most common authentication factors. If a user enters the correct data, the system assumes the identity is valid and grants access.
+-  One-time pins. Grant access for only one session or transaction.
+-  Authentication apps. Generate security codes via an outside party that grants access.
+-  Biometrics. A user presents a fingerprint or eye scan to gain access to the system.
+
+   In some instances, systems require the successful verification of more than one factor before granting access. This multi-factor authentication (MFA) requirement is often deployed to increase security beyond what passwords alone can provide.
+
+### Authorization
+
+Authorization in system security is the process of giving the user permission to access a specific resource or function. This term is often used interchangeably with access control or client privilege.
+
+Giving someone permission to download a particular file on a server or providing individual users with administrative access to an application are good examples of authorization.
+
+In secure environments, authorization must always follow authentication. Users should first prove that their identities are genuine before an organization’s administrators grant them access to the requested resources.
+
 ## Git
 
 ### Merge vs Rebase
 
 Reading the official Git manual it states that rebase “reapplies commits on top of another base branch”, whereas merge “joins two or more development histories together”. In other words, the key difference between merge and rebase is that while merge preserves history as it happened, rebase rewrites it.
-
-## 10 Common Software Architecture Patterns
-
-For more details about every pattern noted below, check this <a href="https://nix-united.com/blog/10-common-software-architectural-patterns-part-1/" >link</a>
-
-Pattern #1: Layered architecture
-
-Pattern #2: Client-server
-
-Pattern #3: Master-slave
-
-Pattern #4: Pipe-filter
-
-Pattern #5: Broker
-
-Pattern #6: Peer-to-peer (P2P)
-
-Pattern #7: Event-bus pattern
-
-Pattern #8: Model-View-Controller (MVC)
-
-Pattern #9: Blackboard
-
-Pattern #10: Interpreter
-
-## Data models
 
 ### Entity–relationship model
 
@@ -122,4 +120,10 @@ Find more info <a href="https://blog.logrocket.com/design-patterns-in-node-js/">
 
 <a href='https://www.linkedin.com/pulse/scalability-design-principles-lars-larsson/'>
 	Scalability Design Principles
+</a>
+
+## Polling vs SSE vs WebSocket
+
+<a href='https://codeburst.io/polling-vs-sse-vs-websocket-how-to-choose-the-right-one-1859e4e13bd9'>
+	check here
 </a>

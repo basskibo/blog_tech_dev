@@ -6,10 +6,13 @@ import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
 import { getLibaryFiles } from "../../services/indexv2"
+import MotionComponent from "../../components/custom/MotionComponent"
 
 const Libaries = ({ libaries }) => {
 	return (
-		<div className='container mx-auto my-14 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
+		<MotionComponent>
+
+<div className='container mx-auto lg:my-14 my-5 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
 			<div className='my-8'>
 				<h1 className='mb-5'>
 					<Accent className='font-extrabold text-5xl'>Libary</Accent>
@@ -24,14 +27,15 @@ const Libaries = ({ libaries }) => {
 					placeholder='Search...'
 				></input>
 			</div>
-
-			<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'>
-				{libaries.map((libary, index) => (
-					// <PostCard className='' key={post.props.data.slug} post={post.props} />
-					<LibaryCard libary={libary.props.data} key={libary.props.data.slug} />
-				))}
-			</div>
+				<div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'>
+					{libaries.map((libary, index) => (
+						// <PostCard className='' key={post.props.data.slug} post={post.props} />
+						<LibaryCard libary={libary.props.data} key={libary.props.data.slug} />
+					))}
+				</div>
 		</div>
+		</MotionComponent>
+
 	)
 }
 export default Libaries

@@ -90,3 +90,54 @@ Read all about design patterns <a href="https://en.wikipedia.org/wiki/Software_d
 You can find it <a href="https://dmitripavlutin.com/simple-but-tricky-javascript-interview-questions/" > here </a>
 You can find it <a href="https://www.toptal.com/javascript/interview-questions" > here </a>
 You can find it <a href="https://www.fullstack.cafe/interview-questions/javascript" > here </a>
+
+## What are decorators and how are they used
+
+Decorators are the way of wrapping one piece of code with another or apply a wrapper around a function in JavaScript. Decorators are the design pattern that allows behavior to be added to an individual object, either statically or dynamically without affecting the behavior of other objects from the same class <a href="https://www.geeksforgeeks.org/what-are-decorators-and-how-are-they-used-in-javascript/#:~:text=Decorators%20are%20the%20way%20of,objects%20from%20the%20same%20class.">see more</a>
+
+## Closures
+
+A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function's scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.
+
+### Lexical scoping
+
+```js
+function init() {
+	var name = "Mozilla" // name is a local variable created by init
+	function displayName() {
+		// displayName() is the inner function, a closure
+		alert(name) // use variable declared in the parent function
+	}
+	displayName()
+}
+init()
+```
+
+<b>init()</b> creates a local variable called name and a function called displayName(). The
+displayName() function is an inner function that is defined inside init() and is available
+only within the body of the init() function. Note that the displayName() function has no local
+variables of its own. However, since inner functions have access to the variables of outer
+functions, displayName() can access the variable name declared in the parent function, init().
+
+Run the code using this JSFiddle link and notice that the alert() statement within the displayName() function successfully displays the value of the name variable, which is declared in its parent function. This is an example of lexical scoping, which describes how a parser resolves variable names when functions are nested. The word lexical refers to the fact that lexical scoping uses the location where a variable is declared within the source code to determine where that variable is available. Nested functions have access to variables declared in their outer scope.
+
+### Closure
+
+```js
+function makeFunc() {
+	var name = "Mozilla"
+	function displayName() {
+		alert(name)
+	}
+	return displayName
+}
+
+var myFunc = makeFunc()
+myFunc()
+```
+
+Running this code has exactly the same effect as the previous example of the init() function above. What's different (and interesting) is that the displayName() inner function is returned from the outer function before being executed.
+
+At first glance, it might seem unintuitive that this code still works. In some programming languages, the local variables within a function exist for just the duration of that function's execution. Once makeFunc() finishes executing, you might expect that the name variable would no longer be accessible. However, because the code still works as expected, this is obviously not the case in JavaScript.
+
+The reason is that functions in JavaScript form closures. A closure is the combination of a function and the lexical environment within which that function was declared. This environment consists of any local variables that were in-scope at the time the closure was created. In this case, myFunc is a reference to the instance of the function displayName that is created when makeFunc is run. The instance of displayName maintains a reference to its lexical environment, within which the variable name exists. For this reason, when myFunc is invoked, the variable name remains available for use, and "Mozilla" is passed to alert

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("example to-do app", () => {
+describe("Landing page", () => {
 	beforeEach(() => {
 		// Cypress starts out with a blank slate for each test
 		// so we must tell it to visit our website with the `cy.visit()` command.
@@ -23,32 +23,44 @@ describe("example to-do app", () => {
 	it("displays welcoming message", () => {
 		cy.get("h1 .text-3xl").first().should("have.text", "My name is Bojan")
 	})
-	it("displays read blog button", () => {
-		cy.get("a ")
-			.should("have.class", "font-semibold mt-5 px-5")
-			.and("have.attr", "href")
+	it("displays  Read blog  button", () => {
+		cy.get("#rb_button").should("include.text", "Read blog")
+	})
+	it("displays  See my bio  button", () => {
+		cy.get("#am_button").should("include.text", "See my bio")
 	})
 
-	it("displays see my bio button", () => {
-		cy.contains("a", "#").should("have.attr", "href", "/routes/blog")
+	it("displays external Github button", () => {
+		cy.get("#lnk-github-button").should("contain", "a")
+		cy.get("#lnk-github-button").should("include.text", "basskibo")
+	})
+
+	it("displays external Linkedin button", () => {
+		cy.get("#lnk-linkedin-button").should("contain", "a")
+		cy.get("#lnk-linkedin-button").should("include.text", "Bojan Jagetic")
 	})
 
 	it("there is no empty anchor tags", () => {
 		// cy.contains("a", "/routes/blog")
 		cy.contains("a", "#").should("not.have.attr", "href", "#undefined")
 	})
-	// it("cy.location() - get window.location", () => {
-	// 	// https://on.cypress.io/location
-	// 	cy.location().should((location) => {
-	// 		expect(location.hash).to.be.empty
-	// 		expect(location.href).to.eq("http://localhost:3000/")
-	// 		expect(location.host).to.eq("example.cypress.io")
-	// 		expect(location.hostname).to.eq("example.cypress.io")
-	// 		expect(location.origin).to.eq("https://example.cypress.io")
-	// 		expect(location.pathname).to.eq("/commands/location")
-	// 		expect(location.port).to.eq("")
-	// 		expect(location.protocol).to.eq("https:")
-	// 		expect(location.search).to.be.empty
-	// 	})
-	// })
+	it("clicking on anchor should go to next chapter", () => {
+		cy.get("#btn-anchor-linkg").click("topLeft")
+
+		// cy.contains("a", "/routes/blog")
+		// cy.contains("a", "#").should("not.have.attr", "href", "#undefined")
+	})
+	it("window.location() - get window.location", () => {
+		cy.location().should((location) => {
+			expect(location.hash).to.be.empty
+			expect(location.href).to.eq("http://localhost:3000/")
+			expect(location.host).to.eq("localhost:3000")
+			// expect(location.hostname).to.eq("example.cypress.io")
+			// expect(location.origin).to.eq("https://example.cypress.io")
+			expect(location.pathname).to.eq("/")
+			expect(location.port).to.eq("3000")
+			expect(location.protocol).to.eq("http:")
+			expect(location.search).to.be.empty
+		})
+	})
 })
