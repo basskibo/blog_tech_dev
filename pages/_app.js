@@ -16,25 +16,14 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 			ga.pageview(url)
 		}
 		router.events.on("routeChangeComplete", handleRouteChange)
-		console.log("ROUTER!!!!!")
 		return () => {
 			router.events.off("routeChangeComplete", handleRouteChange)
 		}
 	}, [router.events])
 
 	return (
-		<Layout>
-			<MotionConfig transition={{ duration: 0.5 }} reducedMotion='user'>
-				{/* <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}> */}
-				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ duration: 0.5 }}
-				>
-					{" "}
-					<Component {...pageProps} />{" "}
-				</motion.div>
-			</MotionConfig>
+		<Layout>		
+			<Component {...pageProps} />{" "}
 		</Layout>
 	)
 }

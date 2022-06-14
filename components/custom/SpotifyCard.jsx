@@ -33,7 +33,7 @@ const SpotifyCard = () => {
 						? song.songUrl
 						: "https://open.spotify.com/user/4g1ztvqi3z5mf0uqx87bz9exk"
 				}
-				className='relative flex w-50 items-center space-x-4    p-3 transition-shadow hover:shadow-md'
+				className='relative flex  items-center space-x-2 py-4 pl-2 transition-shadow hover:shadow-md'
 			>
 				<div className='w-18'>
 					{song?.isPlaying ? (

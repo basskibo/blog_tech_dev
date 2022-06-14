@@ -37,7 +37,7 @@ export default function Home({ posts }) {
 					content='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
 				/>
 				<meta property='fb:app_id' content='3881343925425006' />
-				<title>IguDev Tech Blog</title>
+				<title>Bojan Jagetic</title>
 				<link rel='icon' href='/favicon.ico' />
 				<script
 					async

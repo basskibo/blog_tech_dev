@@ -4,7 +4,7 @@ import { PostCard, Categories, Pagination, CategoryChip } from "../components"
 import Accent from "./custom/Accent"
 const numberPerPage = 1
 
-import MotionComponent from "./custom/MotionComponent"
+// import MotionComponent from "./custom/MotionComponent"
 import "react-loading-skeleton/dist/skeleton.css"
 import _ from "underscore"
 import clsx from "clsx"
@@ -83,18 +83,10 @@ const BlogScreen = ({ posts }) => {
 		setFoundPosts(filteredData)
 	}
 
-	const variants = {
-		visible: (index) => ({
-			opacity: 1,
-			transition: {
-				delay: index * 1.3,
-			},
-		}),
-		hidden: { opacity: 0 },
-	}
+
 
 	return (
-		<MotionComponent>
+		// <MotionComponent>
 
 		<div className='container mx-auto lg:my-14 my-5 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
 
@@ -149,7 +141,7 @@ const BlogScreen = ({ posts }) => {
 
 			</div>
 
-				<div className='lg:px-5 grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'>
+				<div className='lg:px-5 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'>
 					{foundPosts.map((post, index) => (
 						// <motion.div
 						// 	animate='visible'
@@ -163,7 +155,7 @@ const BlogScreen = ({ posts }) => {
 
 
 		</div>
-		</MotionComponent>
+		// </MotionComponent>
 
 	)
 }
