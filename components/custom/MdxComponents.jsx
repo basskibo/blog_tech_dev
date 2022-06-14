@@ -46,6 +46,9 @@ const CloudinaryContextImage = (props) => {
       // },
    });
 
+   console.log("SLIKA OVDE>!!!!!!")
+   console.log(props)
+
    return (
       // <Image alt={props.alt} layout='responsive' width={1000} height={750} {...props} />
       <div className='my-2'>
@@ -129,6 +132,8 @@ export default {
       );
    },
    a: ({ children, className, href }) => {
+      console.log("A BEING CALLED!!!!")
+      console.log(children)
       return (
          <a
             className='my-3 hover:cursor-ne-resize text-lime-500 underline decoration-dotted decoration-2

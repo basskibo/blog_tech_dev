@@ -57,14 +57,14 @@ const components = {
 	h1: MdxComponents.h1,
 	h2: MdxComponents.h2,
 	h3: MdxComponents.h3,
-	img: MdxComponents.img,
+	CloudinaryImage: MdxComponents.img,
 	p: MdxComponents.p,
 	b: MdxComponents.b,
-	a: MdxComponents.a,
+	Link: MdxComponents.a,
 	code: MdxComponents.code,
 	Accent: MdxComponents.Accent,
 	QouteComponent: MdxComponents.QouteComponent,
-	ul: MdxComponents.ul,
+	List: MdxComponents.ul,
 	test: MdxComponents.test,
 	// CloudinaryContext: MdxComponents.CloudinaryContext,
 	ReactPlayer: MdxComponents.ReactPlayer,
@@ -89,9 +89,9 @@ const PostDetails = ({ data, mdxSource, toc }) => {
 					{/* <CommentsForm slug={post.slug} /> */}
 					{/* <Comments slug={post.slug} /> */}
 				</div>
-				{/* <div className='hidden lg:block col-span-3 lg:col-span-3 place-content-center'>
+				<div className='hidden lg:block col-span-3 lg:col-span-3 place-content-center'>
 					<TableOfContent toc={toc} />
-				</div> */}
+				</div>
 			</div>
 		</div>
 	)
