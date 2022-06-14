@@ -43,7 +43,7 @@ const SocialNetworkSHare = ({ post }) => {
 			<LinkedinShareButton
 				title={post.title}
 				summary={post.excerpt}
-				source='IguTech'
+				source={`https://igutech.vercel.app/post/${post.slug}`}
 				className='mr-3 '
 				url={`https://igutech.vercel.app/post/${post.slug}`}
 			>

@@ -17,7 +17,7 @@ tags:
 ## Introduction
 
 Every job change requires at least some effort. Have you ever been in situation that you cannot remember some basics at the moment, but you are sure you know it? Do not worry, we all have been there. It is good
-practice to remind ourselves from time to time about things we know but have lost our minds by absorbing a mountain of new information. So I won't bother you anymore, lets dive into <a href="https://nodejs.org/en/about"> <Accent className="font-bold">Node.js</Accent> </a>
+practice to remind ourselves from time to time about things we know but have lost our minds by absorbing a mountain of new information. So I won't bother you anymore, lets dive into <Link href="https://nodejs.org/en/about"> <Accent className="font-bold">Node.js</Accent> </Link>
 
 ## What is Node.js
 
@@ -30,7 +30,7 @@ Node.js is perfect for data-intensive applications as it uses an asynchronous, e
 
 Nodejs has a handful of advantages but we will list only the most prominent ones:
 
-<ul>
+<List>
 	<li>It is really fast, being built on V8 engine makes it very fest code execution</li>
 	<li>It is Asynchronous, Node.js server never waits API to return response so it makes it async </li>
 	<li>It is highly scalable,capable to handle a huge number of concurrent connections and support both vertical and horizontal scaling</li>
@@ -38,17 +38,17 @@ Nodejs has a handful of advantages but we will list only the most prominent ones
  	<li>There is no buffering in Node.JS application it simply output the data in chunks</li>
  	<li>Last but not least, it is free (Open source)</li>
 
-</ul>
+</List>
 
 ### How many types of API functions are there in Node.js
 
 There is two types of API functions:
 
-<ul>
+<List>
 	<li><b>Synchronous</b> - which are blocking functions, means that functions will make system wait for a response and it will block main loop</li>
 	<li><b>Asynchronous </b> -which are non-blocking functions, means that it will make request and continue with execution, it will not make system wait for a response</li>
 
-</ul>
+</List>
 
 ### What is node REPL
 
@@ -56,7 +56,7 @@ The REPL <b>R</b>ead-<b>E</b>val-<b>P</b>rint-<b>L</b>oop in Node.js represents 
 
 ### What is NPM
 
-<a href='https://npmjs.org'>NPM </a> represents two things: 1.) it is and online repository
+<Link href='https://npmjs.org'>NPM </Link> represents two things: 1.) it is and online repository
 for the publishing of open-source Node.js projects 2.) it is command line utility which allows
 user to interact with packages and manipulate with them, which means it is used for package
 installation, version management, etc.
@@ -74,7 +74,7 @@ which is responsible for spawning many threads.
 
 As in official Node.js <a href="https://nodejs.org/en/docs/guides/blocking-vs-non-blocking/">documentation</a> says:
 
-<TestComponent>
+<QouteComponent>
 	Blocking is when the execution of additional JavaScript in the Node.js process must
 	wait until a non-JavaScript operation completes. This happens because the event loop is
 	unable to continue running JavaScript while a blocking operation is occurring. In
@@ -84,7 +84,7 @@ As in official Node.js <a href="https://nodejs.org/en/docs/guides/blocking-vs-no
 	most commonly used.All of the I/O methods in the Node.js standard library provide
 	asynchronous versions, which are non-blocking , and accept callback functions. Some
 	methods also have blocking counterparts, which have names that end with Sync.
-</TestComponent>
+</QouteComponent>
 
 When comparing codes, you can see the difference,for example <b>blocking code:</b>
 
@@ -109,7 +109,7 @@ fs.readFile('/test.md', (err, data) => {
 Event loop is an endless loop, which waits for tasks, executes them and then sleeps until it receives more tasks. The event loop executes tasks from the event queue only when the call stack is empty i.e. there is no ongoing task. The event loop allows us to use callbacks and promises.
 The event loop allows Node.js to perform non-blocking I/O operations despite the fact that JavaScript is single-threaded. It is done by assigning operations to the operating system whenever and wherever possible.
 
-<img src='v1645182872/igutech/Event_2_whn6nw.jpg' text='Representation of event loop' />
+<CloudinaryImage src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645182872/igutech/Event_2_whn6nw.jpg' text='Representation of event loop' alt='Representation of event loop' />
 
 So when an async function needs to be executed(or I/O) the main thread sends it to a different
 thread allowing v8 to keep executing the main code. Event loop involves different phases with

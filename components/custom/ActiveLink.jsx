@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import clsx from "clsx"
 
-function ActiveLink({ children, href, className }) {
+function ActiveLink({ children, href, className, id }) {
 	const router = useRouter()
 	const style = {
 		marginRight: 10,
@@ -15,6 +15,7 @@ function ActiveLink({ children, href, className }) {
 
 	return (
 		<a
+			id={id}
 			href={href}
 			onClick={handleClick}
 			style={style}

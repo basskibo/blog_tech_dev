@@ -30,7 +30,7 @@ const waysToReachMe = [
 ]
 const Footer = () => {
 	return (
-		<footer className='text-gray-400 bg-neutral-900 body-font border-t border-neutral-700 '>
+		<footer className='text-gray-400 bg-neutral-900 body-font border-t border-neutral-800 '>
 			<div className='container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col'>
 				<a className='flex title-font font-medium items-center md:justify-start justify-center text-white'>
 					<svg
@@ -92,13 +92,8 @@ const Footer = () => {
 							key={medium.name}
 						>
 							<medium.icon className='text-lg' data-tip data-for={medium.name} />
-							<ReactTooltip
-								id={medium.name}
-								type='dark'
-								effect='solid'
-								data-offset="{'top': 20, 'left': 10}"
-								className=' bg-neutral-900 border border-slate-400 mt-10'
-							>
+							<ReactTooltip id={medium.name} type='dark' className=' bg-neutral-700'>
+
 								<h1>
 									You can find me on <Accent>{medium.name}</Accent>
 								</h1>

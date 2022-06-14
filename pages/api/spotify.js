@@ -39,7 +39,7 @@ export const getNowPlaying = async () => {
 	})
 }
 
-export default async (_, res) => {
+const spotifyApi =  async (_, res) => {
 	const response = await getNowPlaying()
 	if (
 		response.status === 204 ||
@@ -60,3 +60,5 @@ export default async (_, res) => {
 
 	res.status(200).json(data)
 }
+
+export default spotifyApi

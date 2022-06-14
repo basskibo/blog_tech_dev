@@ -62,7 +62,7 @@ const components = {
 	a: MdxComponents.a,
 	code: MdxComponents.code,
 	Accent: MdxComponents.Accent,
-	TestComponent: MdxComponents.TestComponent,
+	QouteComponent: MdxComponents.QouteComponent,
 }
 
 const LibaryDetails = ({ data, mdxSource, toc }) => {
