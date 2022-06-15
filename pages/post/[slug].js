@@ -65,8 +65,8 @@ const components = {
 	Accent: MdxComponents.Accent,
 	QouteComponent: MdxComponents.QouteComponent,
 	List: MdxComponents.ul,
+	GithubCard: MdxComponents.GithubCard,
 	test: MdxComponents.test,
-	// CloudinaryContext: MdxComponents.CloudinaryContext,
 	ReactPlayer: MdxComponents.ReactPlayer,
 }
 

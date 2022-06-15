@@ -1,6 +1,6 @@
 import React from "react"
 import moment from "moment"
-import { CategoryChip } from "./CategoryChip"
+import CategoryChip from "./CategoryChip"
 import ReadTime from "./ReadTime"
 import Accent from "./custom/Accent"
 import Link from "next/link"
@@ -8,6 +8,7 @@ import Image from "next/image"
 import constants from "../lib/constants"
 
 const PostCard = ({ post }) => {
+	console.log(post)
 	return (
 		<div
 			key={post.data.slug}
@@ -22,7 +23,9 @@ const PostCard = ({ post }) => {
 						placeholder='blur'
 						layout='fill'
 					/>
-					<div className='absolute w-full py-2 bottom-0 inset-x-0  text-white text-s text-center leading-4'></div>
+					<div className='absolute w-full pt-0 bottom-0 inset-x-0  text-white text-s text-center leading-4'>
+							<CategoryChip className="my-0" categories={post.data.tags} />
+					</div>
 				</div>
 
 				<div className='px-3 my-3 '>
@@ -37,8 +40,10 @@ const PostCard = ({ post }) => {
 						<p className='mt-1 text-slate-400 text-sm italic'>
 							{post.data.excerpt}
 						</p>
+					
 					</div>
 				</div>
+				
 			</a>
 		</div>
 	)

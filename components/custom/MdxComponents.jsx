@@ -157,4 +157,15 @@ export default {
          </blockquote>
       );
    },
+   GithubCard: ({ children}) => {
+      console.log(children);
+      return (
+         <div>
+            {{children}}
+                     {/* <div class="github-card" data-github="basskibo/ubuntu_os_upgrade" data-width="400" data-height="153" data-theme="default"></div>
+         <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script> */}
+         </div>
+
+      );
+   }
 };
