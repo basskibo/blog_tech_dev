@@ -30,7 +30,7 @@ export default function Home({ posts }) {
             <meta property='og:title' content='Start your journey' />
             <meta
                property='og:description'
-               content='Everything you need to know about Development.'
+               content='Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away.'
             />
             <meta
                property='og:image'
