@@ -7,7 +7,7 @@ import {
 } from "react-icons/ri";
 import { SiGithub } from "react-icons/si";
 import { IoStarOutline } from "react-icons/io5";
-import { GoStar, GoPerson, GoEye, GoRepoForked } from "react-icons/go";
+import { GoStar, GoPerson, GoOrganization, GoEye, GoRepoForked } from "react-icons/go";
 import Image from "next/image";
 import moment from "moment";
 
@@ -54,12 +54,12 @@ const GithubCardProfile = ({ children }) => {
    }, []);
 
    return (
-      <div className='container mt-3 lg:mt-10 rounded-lg w-1/1 lg:w-1/2 '>
+      <div className='container mt-3 lg:mt-10  w-1/1  lg:w-2/3'>
          <p className='my-3'>
             You can check the code directly in the github repository
          </p>
          {repository ? (
-            <div className='border border-neutral-600 bg-neutral-800'>
+            <div className='border border-neutral-600 rounded-lg bg-neutral-800'>
                <a href={repository.html_url} target='_blank' rel='noreferrer'>
                   <p className='text-cyan-500 font-extrabold text-2xl inline-flex p-3'>
                      {/* <SiGithub className='' />  */}
@@ -78,7 +78,7 @@ const GithubCardProfile = ({ children }) => {
                      {/* <FiMapPin className='h-full mt-0.1 inline-flex' />{" "} */}
                      <span className='italic'>{repository.description}</span>
                   </div>
-                  <div className='grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 p-2'>
+                  <div className='grid xl:grid-cols-2 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 p-2'>
                      <span className='mr-3'>
                         <GoStar className='h-full mt-0.1 inline-flex' /> Stars:{" "}
                         <b>{repository.stargazers_count}</b>
@@ -92,7 +92,7 @@ const GithubCardProfile = ({ children }) => {
                         Watchers: <b>{repository.watchers}</b>
                      </span>
                      <span>
-                        <GoPerson className='h-full mt-0.1 inline-flex' />{" "}
+                        <GoOrganization className='h-full mt-0.1 inline-flex' />{" "}
                         Subscribers: <b>{repository.subscribers_count}</b>
                      </span>
                   </div>
@@ -100,9 +100,9 @@ const GithubCardProfile = ({ children }) => {
                      <span className=''>
                         Language: <b> {repository.language}</b>
                      </span>
-                     <span className=''>
+                     <span className='italic'>
                         Updated{" "}
-                        <b> {moment(repository.updated_at).fromNow()}</b>
+                         {moment(repository.updated_at).fromNow()}
                      </span>
                   </div>
 
