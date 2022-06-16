@@ -14,7 +14,9 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
    const title = pageProps.data
       ? `BJ | ${pageProps.data.title}`
       : "Bojan Jagetic";
-   const ogUrl = `https://igutech.vercel.app/api/og-image?name=${title}&stage=adopt`;
+   const ogUrl = pageProps.data
+      ? pageProps.data.featuredImage
+      : "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127896/igutech/undersstanding_mnfh3n.jpg";
    useEffect(() => {
       const handleRouteChange = (url) => {
          console.log(url);
