@@ -31,6 +31,14 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
          <NextHead>
             <title>{title}</title>
             <meta property='og:image' content={ogUrl} />
+            <meta
+               property='og:description'
+               content={
+                  pageProps.data
+                     ? pageProps.data.excerpt
+                     : "Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away "
+               }
+            />
          </NextHead>
          <Layout>
             <Component {...pageProps} />
