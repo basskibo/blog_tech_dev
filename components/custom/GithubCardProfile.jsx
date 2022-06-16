@@ -8,7 +8,6 @@ import {
 import { SiGithub } from "react-icons/si";
 
 const GithubCardProfile = () => {
-   debugger;
    const [profile, setProfile] = useState(null);
 
    useEffect(() => {
@@ -27,7 +26,6 @@ const GithubCardProfile = () => {
                   // 	},
                   // }
                );
-               debugger;
                localStorage.setItem("profile", JSON.stringify(response.data));
                profileFetched = response.data;
             } else {
