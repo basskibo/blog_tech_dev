@@ -39,21 +39,23 @@ Special Function: `useEffect`
 
 ```tsx
 export default function CSRPage() {
-	const [dateTime, setDateTime] = React.useState<string>()
+   const [dateTime, setDateTime] = React.useState<string>();
 
-	React.useEffect(() => {
-		axios
-			.get("https://worldtimeapi.org/api/ip")
-			.then((res) => {
-				setDateTime(res.data.datetime)
-			})
-			.catch((error) => console.error(error))
-	}, [])
+   React.useEffect(() => {
+      axios
+         .get("https://worldtimeapi.org/api/ip")
+         .then((res) => {
+            setDateTime(res.data.datetime);
+         })
+         .catch((error) => console.error(error));
+   }, []);
 
-	return (
-		<main>
-			<TimeSection dateTime={dateTime} />
-		</main>
-	)
+   return (
+      <main>
+         <TimeSection dateTime={dateTime} />
+      </main>
+   );
 }
 ```
+
+<GithubCardRepo>basskibo/ubuntu_starter_essentials</GithubCardRepo>

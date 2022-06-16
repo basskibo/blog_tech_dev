@@ -2,7 +2,6 @@ import React from "react"
 import Link from "next/link"
 
 const CategoryChip = ({ categories }) => {
-	console.log(categories)
 	return (
 		<div className='my-2'>
 			{categories ? (

@@ -8,7 +8,6 @@ import Image from "next/image"
 import constants from "../lib/constants"
 
 const PostCard = ({ post }) => {
-	console.log(post)
 	return (
 		<div
 			key={post.data.slug}

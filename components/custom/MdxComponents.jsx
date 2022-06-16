@@ -2,6 +2,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import Accent from "./Accent";
 import QouteComponent from "../QouteComponent";
+import GithubCardRepo from "./GithubCardRepo";
 import Image from "next/image";
 import constants from "../../lib/constants";
 import { buildUrl } from "cloudinary-build-url";
@@ -45,9 +46,6 @@ const CloudinaryContextImage = (props) => {
       // 	quality: 1,
       // },
    });
-
-   console.log("SLIKA OVDE>!!!!!!")
-   console.log(props)
 
    return (
       // <Image alt={props.alt} layout='responsive' width={1000} height={750} {...props} />
@@ -132,8 +130,8 @@ export default {
       );
    },
    a: ({ children, className, href }) => {
-      console.log("A BEING CALLED!!!!")
-      console.log(children)
+      console.log("A BEING CALLED!!!!");
+      console.log(children);
       return (
          <a
             className='my-3 hover:cursor-ne-resize text-lime-500 underline decoration-dotted decoration-2
@@ -157,15 +155,5 @@ export default {
          </blockquote>
       );
    },
-   GithubCard: ({ children}) => {
-      console.log(children);
-      return (
-         <div>
-            {{children}}
-                     {/* <div class="github-card" data-github="basskibo/ubuntu_os_upgrade" data-width="400" data-height="153" data-theme="default"></div>
-         <script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script> */}
-         </div>
-
-      );
-   }
+   GithubCardRepo: GithubCardRepo,
 };

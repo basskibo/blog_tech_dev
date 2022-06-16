@@ -18,7 +18,8 @@ export { default as Landing } from "./Landing";
 export { default as SvgWave } from "./layout/SvgWave";
 
 export { default as SpotifyCard } from "./custom/SpotifyCard";
-export { default as GithubCard } from "./custom/GithubCard";
+export { default as GithubCardProfile } from "./custom/GithubCardProfile";
+export { default as GithubCardRepo } from "./custom/GithubCardRepo";
 export { default as Accent } from "./custom/Accent";
 export { default as TableOfContent } from "./custom/TableOfContent";
 export { default as TechnologyStack } from "./custom/TechnologyStack";
