@@ -5,7 +5,6 @@ import Accent from "./Accent"
 
 const fetchCurent = async () => {
 	const url = `/api/spotify`
-	console.log(url)
 	const result = await axios(url, {
 		method: "GET",
 		headers: {
