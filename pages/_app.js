@@ -11,6 +11,10 @@ import NextHead from "next/head";
 
 function IguanaDevelopmentTech({ Component, pageProps }) {
    const router = useRouter();
+   const title = pageProps.data
+      ? `BJ | ${pageProps.data.title}`
+      : "Bojan Jagetic";
+   const ogUrl = `https://igutech.vercel.app/api/og-image?name=${title}&stage=adopt`;
    useEffect(() => {
       const handleRouteChange = (url) => {
          console.log(url);
@@ -25,11 +29,8 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
    return (
       <>
          <NextHead>
-            <title>
-               {pageProps.data
-                  ? `BJ | ${pageProps.data.title}`
-                  : "Bojan Jagetic"}
-            </title>
+            <title>{title}</title>
+            <meta property='og:image' content={ogUrl} />
          </NextHead>
          <Layout>
             <Component {...pageProps} />
