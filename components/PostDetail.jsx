@@ -5,6 +5,7 @@ import Image from "next/image";
 import ReadTime from "./ReadTime";
 import constants from "../lib/constants";
 import SocialNetworkShare from "./custom/SocialNetworkShare";
+import LastChangedFile from "./custom/LastChangedFile";
 
 const PostDetail = ({ post, content }) => {
    return (
@@ -38,7 +39,9 @@ const PostDetail = ({ post, content }) => {
                      </span>{" "}
                      by <span className='font-semibold'>{post.author}</span>
                   </p>
+                  <LastChangedFile fileName={`${post.slug}.mdx`} type='blog' />
                </div>
+
                <ReadTime className='sm:flex-1 mb-4 w-full lg:w-auto mr-8 ml-2 lg:text-md sm:text-sm'>
                   {content.compiledSource}
                </ReadTime>

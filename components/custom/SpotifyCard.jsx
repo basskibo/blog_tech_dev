@@ -11,7 +11,6 @@ const fetchCurent = async () => {
 			"Content-Type": "application/json",
 		},
 	})
-	console.log(result.data)
 	return result.data
 }
 

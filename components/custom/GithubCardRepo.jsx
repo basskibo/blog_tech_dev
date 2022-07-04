@@ -1,27 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FiUsers, FiMapPin } from "react-icons/fi";
-import {
-   RiGitRepositoryCommitsLine,
-   RiGitRepositoryPrivateLine,
-} from "react-icons/ri";
-import { SiGithub } from "react-icons/si";
-import { IoStarOutline } from "react-icons/io5";
-import { GoStar, GoPerson, GoOrganization, GoEye, GoRepoForked } from "react-icons/go";
-import Image from "next/image";
+import { GoStar, GoOrganization, GoEye, GoRepoForked } from "react-icons/go";
 import moment from "moment";
 
 const GithubCardProfile = ({ children }) => {
-   console.log(children);
    const [repository, setRepository] = useState(null);
 
    useEffect(() => {
       const url = `https://api.github.com/repos/${children}`;
       const fetchData = async () => {
          try {
-            // const profileInLocaleStorage = localStorage.getItem("profile");
-            // let profileFetched;
-            // if (!profileInLocaleStorage) {
             const response = await axios.get(
                url
                // , {
@@ -30,27 +18,14 @@ const GithubCardProfile = ({ children }) => {
                // 	},
                // }
             );
-            console.log("response");
-            console.log(response);
-            // localStorage.setItem("profile", JSON.stringify(response.data));
-            // profileFetched = response.data;
-            console.log(response);
-            // } else {
-            //    profileFetched = JSON.parse(profileInLocaleStorage);
-            // }
+
             setRepository(response.data);
          } catch (error) {
             console.log("error", error);
          }
       };
 
-      //   const existingRepo = window.localStorage.getItem("github_profile");
-
-      //   if (!existingProfile) {
       fetchData();
-      //   } else {
-      //      setProfile(existingProfile);
-      //   }
    }, []);
 
    return (
@@ -101,8 +76,7 @@ const GithubCardProfile = ({ children }) => {
                         Language: <b> {repository.language}</b>
                      </span>
                      <span className='italic'>
-                        Updated{" "}
-                         {moment(repository.updated_at).fromNow()}
+                        Updated {moment(repository.updated_at).fromNow()}
                      </span>
                   </div>
 
