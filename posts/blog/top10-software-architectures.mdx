@@ -7,75 +7,82 @@ banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "August 4, 2021"
 featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1648038409/igutech/software-architecture_ygnkun.jpg"
 author: "Bojan Jagetic"
-tags: [{ slug: "arch", name: "architecture" }, { slug: "dp", name: "dessign-pattern" }]
+tags:
+   [
+      { slug: "arch", name: "architecture" },
+      { slug: "design-pattern", name: "design pattern" },
+   ]
 ---
 
 ## Introduction
 
-Software architecture patterns plays crucial role in granting ability to system to scale over the time by user's demand gets a significant amount
-
-Just keep **looking**
+Software architecture patterns plays crucial role in granting ability to system to scale over the time by user numbers and demand.
+A large part of the failure of a project or business can be attributed to the wrong choice of architecture pattern.
 
 ## What is an Architectural Pattern?
 
 Definition of Architectural pattern according to Wikipedia,
 
 <QouteComponent>
-	An architectural pattern is a general, reusable solution to a commonly occurring
-	problem in software architecture within a given context. Architectural patterns are
-	similar to software design pattern but have a broader scope.
+   An architectural pattern is a general, reusable solution to a commonly
+   occurring problem in software architecture within a given context.
+   Architectural patterns are similar to software design pattern but have a
+   broader scope.
 </QouteComponent>
-In this article, I will be briefly explaining the following 10 common architectural patterns
-with their usage, pros and cons.
 
 ## Most Popular Software Architectural Patterns
 
-For more details about every pattern noted below, check this <Link href="https://nix-united.com/blog/10-common-software-architectural-patterns-part-1/" >link</Link>
+Every project has its own needs and idea, that means that you should not use some architectural pattern only because its the most popular, choose it by your needs.
+We will go through just a few and I will try to explain in a little more detail what they are for,
+how to use them and what are the advantages and disadvantages
 
-### #1 Layered architecture
+Ten of the <b>most popular and used</b> software architectural patterns are following
+
+### 1. Layered architecture
 
 This pattern can be used to structure programs that can be decomposed into groups of subtasks, each of which is at a particular level of abstraction. Each layer provides services to the next higher layer.
 The most commonly found 4 layers of a general information system are as follows.
-Presentation layer (also known as UI layer)
-Application layer (also known as service layer)
-Business logic layer (also known as domain layer)
-Data access layer (also known as persistence layer)
+Presentation layer ( UI layer)
+Application layer ( service layer)
+Business logic layer ( domain layer)
+Data access layer ( persistence layer)
 Usage
 General desktop applications.
 E commerce web applications.
 
-### #2: Client-server
-Laborum anim aliquip labore exercitation duis ullamco voluptate irure anim tempor. Anim mollit ex est quis aliquip. Sit eu ad laboris ipsum labore esse id eu. Ad elit do adipisicing Lorem cupidatat pariatur aute cupidatat id pariatur dolore quis. Consequat irure reprehenderit anim velit non dolor velit nostrud labore pariatur id minim reprehenderit minim.
-
-### #3: Master-slave
+### 2. Client-server
 
 Laborum anim aliquip labore exercitation duis ullamco voluptate irure anim tempor. Anim mollit ex est quis aliquip. Sit eu ad laboris ipsum labore esse id eu. Ad elit do adipisicing Lorem cupidatat pariatur aute cupidatat id pariatur dolore quis. Consequat irure reprehenderit anim velit non dolor velit nostrud labore pariatur id minim reprehenderit minim.
 
-### #4: Pipe-filter
+### 3. Master-slave
 
 Laborum anim aliquip labore exercitation duis ullamco voluptate irure anim tempor. Anim mollit ex est quis aliquip. Sit eu ad laboris ipsum labore esse id eu. Ad elit do adipisicing Lorem cupidatat pariatur aute cupidatat id pariatur dolore quis. Consequat irure reprehenderit anim velit non dolor velit nostrud labore pariatur id minim reprehenderit minim.
 
-### #5: Broker
+### 4. Pipe-filter
 
 Laborum anim aliquip labore exercitation duis ullamco voluptate irure anim tempor. Anim mollit ex est quis aliquip. Sit eu ad laboris ipsum labore esse id eu. Ad elit do adipisicing Lorem cupidatat pariatur aute cupidatat id pariatur dolore quis. Consequat irure reprehenderit anim velit non dolor velit nostrud labore pariatur id minim reprehenderit minim.
 
-### #6: Peer-to-peer (P2P)
+### 5. Broker
 
 Laborum anim aliquip labore exercitation duis ullamco voluptate irure anim tempor. Anim mollit ex est quis aliquip. Sit eu ad laboris ipsum labore esse id eu. Ad elit do adipisicing Lorem cupidatat pariatur aute cupidatat id pariatur dolore quis. Consequat irure reprehenderit anim velit non dolor velit nostrud labore pariatur id minim reprehenderit minim.
 
-### #7: Event-bus pattern
+### 6. Peer-to-peer (P2P)
 
 Laborum anim aliquip labore exercitation duis ullamco voluptate irure anim tempor. Anim mollit ex est quis aliquip. Sit eu ad laboris ipsum labore esse id eu. Ad elit do adipisicing Lorem cupidatat pariatur aute cupidatat id pariatur dolore quis. Consequat irure reprehenderit anim velit non dolor velit nostrud labore pariatur id minim reprehenderit minim.
 
-### #8: Model-View-Controller (MVC)
+### 7. Event-bus pattern
 
 Laborum anim aliquip labore exercitation duis ullamco voluptate irure anim tempor. Anim mollit ex est quis aliquip. Sit eu ad laboris ipsum labore esse id eu. Ad elit do adipisicing Lorem cupidatat pariatur aute cupidatat id pariatur dolore quis. Consequat irure reprehenderit anim velit non dolor velit nostrud labore pariatur id minim reprehenderit minim.
 
-### #9: Blackboard
+### 8. Model-View-Controller (MVC)
 
 Laborum anim aliquip labore exercitation duis ullamco voluptate irure anim tempor. Anim mollit ex est quis aliquip. Sit eu ad laboris ipsum labore esse id eu. Ad elit do adipisicing Lorem cupidatat pariatur aute cupidatat id pariatur dolore quis. Consequat irure reprehenderit anim velit non dolor velit nostrud labore pariatur id minim reprehenderit minim.
 
-### #10: Interpreter
+### 9. Blackboard
+
+Laborum anim aliquip labore exercitation duis ullamco voluptate irure anim tempor. Anim mollit ex est quis aliquip. Sit eu ad laboris ipsum labore esse id eu. Ad elit do adipisicing Lorem cupidatat pariatur aute cupidatat id pariatur dolore quis. Consequat irure reprehenderit anim velit non dolor velit nostrud labore pariatur id minim reprehenderit minim.
+
+### 10. Interpreter
 
 Laborum anim aliquip labore exercitation duis ullamco voluptate irure anim tempor. Anim mollit ex est quis aliquip. Sit eu ad laboris ipsum labore esse id eu. Ad elit do adipisicing Lorem cupidatat pariatur aute cupidatat id pariatur dolore quis. Consequat irure reprehenderit anim velit non dolor velit nostrud labore pariatur id minim reprehenderit minim.
 
@@ -101,4 +108,6 @@ Find more info <Link href="https://blog.logrocket.com/design-patterns-in-node-js
 
 ## Scalability Design Principles
 
-<Link href='https://www.linkedin.com/pulse/scalability-design-principles-lars-larsson/'>Scalability Design Principles</Link>
+<Link href='https://www.linkedin.com/pulse/scalability-design-principles-lars-larsson/'>
+   Scalability Design Principles
+</Link>
