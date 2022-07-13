@@ -16,6 +16,8 @@ export { default as HighlightPost } from "./HighlightPost";
 export { default as PostBody } from "./PostBody";
 export { default as Landing } from "./Landing";
 export { default as SvgWave } from "./layout/SvgWave";
+export { default as FeatureLanding } from "./FeatureLanding";
+export { default as ReadTime } from "./ReadTime";
 
 export { default as SpotifyCard } from "./custom/SpotifyCard";
 export { default as GithubCardProfile } from "./custom/GithubCardProfile";
@@ -24,5 +26,4 @@ export { default as Accent } from "./custom/Accent";
 export { default as TableOfContent } from "./custom/TableOfContent";
 export { default as TechnologyStack } from "./custom/TechnologyStack";
 export { default as MotionComponent } from "./custom/MotionComponent";
-export { default as FeatureLanding } from "./FeatureLanding";
-export { default as ReadTime } from "./ReadTime";
+export { default as LastChangedFile } from "./custom/LastChangedFile";
