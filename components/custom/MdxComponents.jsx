@@ -111,7 +111,7 @@ export default {
    CloudinaryContext: CloudinaryContextImage,
    ReactPlayer: VideoContext,
    p: ({ children }) => {
-      return <p className='my-5'>{children}</p>;
+      return <p className='my-5 ml-5'>{children}</p>;
    },
    b: ({ children }) => {
       return <span className='font-bold'>{children}</span>;
