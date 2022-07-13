@@ -11,9 +11,7 @@ import NextHead from "next/head";
 
 function IguanaDevelopmentTech({ Component, pageProps }) {
    const router = useRouter();
-   const title = pageProps.data
-      ? `BJ | ${pageProps.data.title}`
-      : "Bojan Jagetic";
+   const title = pageProps.data ? `${pageProps.data.title}` : "Bojan Jagetic";
    const ogUrl = pageProps.data
       ? pageProps.data.featuredImage
       : "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127896/igutech/undersstanding_mnfh3n.jpg";

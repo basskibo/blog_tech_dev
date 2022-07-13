@@ -71,7 +71,6 @@ const components = {
    GithubCardRepo: MdxComponents.GithubCardRepo,
 };
 
-console.log(components);
 
 const PostDetails = ({ data, mdxSource, toc }) => {
    return (
