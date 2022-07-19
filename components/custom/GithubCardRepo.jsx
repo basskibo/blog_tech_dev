@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { GoStar, GoOrganization, GoEye, GoRepoForked } from "react-icons/go";
+import { SiGithub } from "react-icons/si";
 import moment from "moment";
 
 const GithubCardProfile = ({ children }) => {
@@ -34,9 +35,14 @@ const GithubCardProfile = ({ children }) => {
             You can check the code directly in the github repository
          </p>
          {repository ? (
-            <div className='border border-neutral-600 rounded-lg bg-neutral-800'>
+            <div className='border border-neutral-600 rounded bg-neutral-800'>
                <a href={repository.html_url} target='_blank' rel='noreferrer'>
-                  <p className='text-cyan-500 font-extrabold text-2xl inline-flex p-3'>
+                  <div class='relative ...'>
+                     <div class='absolute h-32 w-32 -left-2 -top-2 ...'>
+                        <SiGithub className='' />
+                     </div>
+                  </div>
+                  <p className='text-blue-500 font-bold text-xl inline-flex p-3'>
                      {/* <SiGithub className='' />  */}
                      {repository.name}
                   </p>
@@ -51,9 +57,31 @@ const GithubCardProfile = ({ children }) => {
                   </div> */}
                   <div className=' p-2'>
                      {/* <FiMapPin className='h-full mt-0.1 inline-flex' />{" "} */}
-                     <span className='italic'>{repository.description}</span>
+                     <span className='font-normal'>
+                        {repository.description}
+                     </span>
                   </div>
-                  <div className='grid xl:grid-cols-2 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 p-2'>
+                  <div
+                     className='grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2
+                   sm:grid-cols-2 gap-1 p-2'>
+                     <span className=''>
+                        <GoStar className='h-full mt-0.1 inline-flex' />
+                        <b>{repository.stargazers_count}</b>
+                     </span>
+                     <span className=''>
+                        <GoRepoForked className='h-full mt-0.1 inline-flex' />{" "}
+                        <b>{repository.forks_count}</b>
+                     </span>
+                     <span className=''>
+                        <GoEye className='h-full mt-0.1 inline-flex' />{" "}
+                        <b>{repository.watchers}</b>
+                     </span>
+                     <span>
+                        <GoOrganization className='h-full mt-0.1 inline-flex' />{" "}
+                        <b>{repository.subscribers_count}</b>
+                     </span>
+                  </div>
+                  {/* <div className='grid xl:grid-cols-2 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 p-2'>
                      <span className='mr-3'>
                         <GoStar className='h-full mt-0.1 inline-flex' /> Stars:{" "}
                         <b>{repository.stargazers_count}</b>
@@ -70,7 +98,7 @@ const GithubCardProfile = ({ children }) => {
                         <GoOrganization className='h-full mt-0.1 inline-flex' />{" "}
                         Subscribers: <b>{repository.subscribers_count}</b>
                      </span>
-                  </div>
+                  </div> */}
                   <div className='grid  lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 p-2'>
                      <span className=''>
                         Language: <b> {repository.language}</b>
@@ -79,6 +107,11 @@ const GithubCardProfile = ({ children }) => {
                         Updated {moment(repository.updated_at).fromNow()}
                      </span>
                   </div>
+                  {/* <div class='relative h-32 w-32 ...'>
+                     <div class=' bottom-0 right-0 h-16 w-16 ...'>
+                        <SiGithub />{" "}
+                     </div>
+                  </div> */}
 
                   {/* <div className='  mt-1'>
                      <RiGitRepositoryCommitsLine className='h-full mt-0.1 inline-flex' />{" "}

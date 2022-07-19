@@ -1,6 +1,6 @@
 import React from "react";
 import Accent from "./custom/Accent";
-import ActiveLink from "./custom/ActiveLink"
+import ActiveLink from "./custom/ActiveLink";
 
 const FeaturedPosts = () => {
    return (
@@ -23,22 +23,22 @@ const FeaturedPosts = () => {
                            labore reprehenderit ullamco sit sit pariatur ea
                            irure cillum.
                         </p>
-                          <div className='lg:hidden block'>
-                     <div className='mt-7  lg:mt-10  xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
-                     <ActiveLink
-                        href='/post/nodejs-interview'
-                        name='blog'
-                        id='rb_button'
-                        className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-700
+                        <div className='lg:hidden block'>
+                           <div className='mt-7  lg:mt-10  xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
+                              <ActiveLink
+                                 href='/post/nodejs-interview'
+                                 name='blog'
+                                 id='rb_button'
+                                 className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-700
                   hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500'>
-                        Smash that interview
-                     </ActiveLink>
-               
-                  </div>                     </div>
+                                 Smash that interview
+                              </ActiveLink>
+                           </div>
+                        </div>
                      </div>
                   </div>
                   <div className='p-4 md:w-1/1 lg:w-2/4 flex-auto'>
-                     <div className='relative hidden lg:block'>
+                     <div className='relative hidden lg:block '>
                         <div
                            className='mx-3 rounded-lg transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97]
 					  hover:cursor-pointer transition duration-100 animate-shadow'>
@@ -52,7 +52,7 @@ const FeaturedPosts = () => {
                                  <div className='font-bold text-xl mb-2'>
                                     Post 1
                                  </div>
-                                 <p className='text-gray-700 text-base'>
+                                 <p className='text-slate-400 text-base'>
                                     Lorem ipsum dolor sit amet, consectetur
                                     adipisicing elit. Voluptatibus quia, nulla!
                                     Maiores et perferendis eaque, exercitationem
@@ -75,9 +75,9 @@ const FeaturedPosts = () => {
                         <div
                            className='md:ml-20  absolute bottom-4  rotate-12  bg-neutral-900 rounded-lg transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97]
 					  hover:cursor-pointer transition duration-100 animate-shadow'>
-                           <div className='max-w-sm rounded overflow-hidden shadow-lg border border-slate-600 '>
+                           <div className='max-w-sm rounded-lg overflow-hidden shadow-lg border border-slate-600 '>
                               <img
-                                 className='w-24 lg:w-full h-24 lg:h-48 '
+                                 className='w-full lg:w-full h-48 lg:h-48 '
                                  src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127896/igutech/node_interview_fpwmwe.jpg'
                                  alt='Sunset in the mountains'
                               />
@@ -85,7 +85,7 @@ const FeaturedPosts = () => {
                                  <div className='font-bold text-xl mb-2'>
                                     POst 2
                                  </div>
-                                 <p className='text-gray-700 text-base'>
+                                 <p className='text-slate-400 text-base'>
                                     Lorem ipsum dolor sit amet, consectetur
                                     adipisicing elit. Voluptatibus quia, nulla!
                                     Maiores et perferendis eaque, exercitationem
@@ -94,10 +94,10 @@ const FeaturedPosts = () => {
                               </div>
                               <div className='px-6 pt-4 pb-2'>
                                  <span className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>
-                                    #photography
+                                    #nodejs
                                  </span>
                                  <span className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>
-                                    #travel
+                                    #inerview
                                  </span>
                                  <span className='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>
                                     #winter
@@ -106,7 +106,6 @@ const FeaturedPosts = () => {
                            </div>
                         </div>
                      </div>
-                   
                   </div>
                </div>
             </div>

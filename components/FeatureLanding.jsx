@@ -12,7 +12,7 @@ const FeatureLanding = () => {
 				viewport={{ once: true, amount: 0.8 }}
 				transition={{ duration: 2 }}
 			> */}
-         <section className='text-slate-400 body-font bg-teal-900'>
+         <section className='text-slate-400 body-font bg-teal-900 backdrop-filter backdrop-blur-lg bg-opacity-60'>
             {/* <motion.div variants={cardVariants}> */}
             <div className='container px-5 pb-5 mx-auto'>
                <h1 className='sm:text-3xl text-2xl font-medium title-font text-center text-white mb-20'>
