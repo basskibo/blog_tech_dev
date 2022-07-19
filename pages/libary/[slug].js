@@ -74,7 +74,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
             <div className='col-span-1 lg:col-span-9'>
                {/* <PostDetail post={data} content={mdxSource} /> */}
                <div className=' my-10 '>
-                  <h1 className='text-5xl text-white font-semibold'>
+                  <h1 className='text-5xl sm:text-2xl break-words text-white font-semibold'>
                      {" "}
                      {data.title}
                   </h1>
@@ -97,7 +97,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
                               </span>
                            </p>
                         </div>
-                        <ReadTime className='sm:flex-1 mb-4 w-full lg:w-auto mr-8 ml-2 lg:text-md sm:text-sm'>
+                        <ReadTime className='sm:flex-1 mb-4  lg:w-auto mr-8 ml-2 lg:text-md sm:text-sm'>
                            {mdxSource.compiledSource}
                         </ReadTime>
                         <blockquote className='mt-0 mb-4'>
