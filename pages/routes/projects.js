@@ -1,7 +1,7 @@
 import Accent from "../../components/custom/Accent";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { motion } from "framer-motion";
-import { GithubCard } from "github-user-repo-card";
+// import { GithubCard } from "github-user-repo-card";
 
 import "react-loading-skeleton/dist/skeleton.css";
 const Projects = () => {
@@ -16,7 +16,7 @@ const Projects = () => {
                This projects consists of backend, frontend and devops parts{" "}
             </p>
          </div>
-         <GithubCard />
+         {/* <GithubCard /> */}
          {/* <iframe
 				style='border: 1px solid rgba(0, 0, 0, 0.1)'
 				width='640'

@@ -37,8 +37,8 @@ const GithubCardProfile = ({ children }) => {
          {repository ? (
             <div className='border border-neutral-600 rounded bg-neutral-800'>
                <a href={repository.html_url} target='_blank' rel='noreferrer'>
-                  <div class='relative ...'>
-                     <div class='absolute h-32 w-32 -left-2 -top-2 ...'>
+                  <div className='relative ...'>
+                     <div className='absolute h-32 w-32 -left-2 -top-2 ...'>
                         <SiGithub className='' />
                      </div>
                   </div>
