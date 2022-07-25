@@ -12,14 +12,14 @@ tags: [{ slug: "next", name: "nextjs" }, { slug: "js", name: "javascript" }]
 
 ## Introduction
 
-When I started to learn Next.js, I got overwhelmed with the list of abbreviations that looks similar, I didn't know what it is and what is the difference. It is quite confusing because when using Create React App, we usually only use 1 strategy to fetch data from API which is using `useEffect`.
+When I started to learn <Adjusted>Next.js</Adjusted>, I got overwhelmed with the list of abbreviations that looks similar, I didn't know what it is and what is the difference. It is quite confusing because when using Create React App, we usually only use 1 strategy to fetch data from API which is using `useEffect`.
 
 Next.js has many data fetching strategies. Although initially Next.js was well known to be a Server-Side Rendering Framework, it turns out that Next.js has 4 methods of Data Fetching. Here is the short explanation each so you get familiar with the abbreviation of CSR, SSR, SSG, ISR.
 
 -  CSR - Client-Side Rendering, this is the usual kind of data fetching using `useEffect`, it will fetch the data from the API every single page request on the **client-side** (after the page is rendered, then the function will run).
--  SSR - Server-Side Rendering, will run a **special function** to fetch data from API every page request on the **server-side** (before the page is loaded, that special function will run first, creating a delay, then after that, it will serve the page)**.**
--  SSG - Static Site Generation, will run a **special function** to fetch data **once** when that page builds.
--  ISR – Incremental Static Regeneration, this is a new thing, shortly put, a combination of SSG, and SSR, where it served statically, but at a **certain time and certain condition** that page will rebuild and fetch the data from the API again.
+-  SSR - Server-Side Rendering, will run a <test>special function</test> to fetch data from API every page request on the <Adjusted>server-side</Adjusted> (before the page is loaded, that special function will run first, creating a delay, then after that, it will serve the page)**.**
+-  SSG - Static Site Generation, will run a **special function** to fetch data <Adjusted>once</Adjusted> when that page builds.
+-  ISR – Incremental Static Regeneration, this is a new thing, shortly put, a combination of SSG, and SSR, where it served statically, but at a <Adjusted>certain time</Adjusted> and certain condition\*\* that page will rebuild and fetch the data from the API again.
 
 Don't worry if you didn't get that, because I will be explaining it thoroughly, just familiarize the words first.
 
@@ -34,28 +34,5 @@ This code example will fetch a date-time from an API using axios, then render it
 Special Function: `useEffect`
 
 [Demo Site](https://next-render.theodorusclarence.com/render/csr)
-
-### Usage
-
-```tsx
-export default function CSRPage() {
-   const [dateTime, setDateTime] = React.useState<string>();
-
-   React.useEffect(() => {
-      axios
-         .get("https://worldtimeapi.org/api/ip")
-         .then((res) => {
-            setDateTime(res.data.datetime);
-         })
-         .catch((error) => console.error(error));
-   }, []);
-
-   return (
-      <main>
-         <TimeSection dateTime={dateTime} />
-      </main>
-   );
-}
-```
 
 <GithubCardRepo>basskibo/crypto_scrapper</GithubCardRepo>
