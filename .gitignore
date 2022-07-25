@@ -38,3 +38,8 @@ yarn-error.log*
 .history
 .nextjs
 .vscode
+# Sentry
+.sentryclirc
+
+# Sentry
+.sentryclirc
