@@ -107,6 +107,15 @@ export default {
    Accent: ({ children }) => {
       return <Accent>{children}</Accent>;
    },
+   Adjusted: ({ children }) => {
+      return (
+         <code
+            className='bg-neutral-800 text-bold border-rounder-lg px-2 py-1 mx-1 font-mono 
+         hover:underline decoration-indigo-500 border border-neutral-700 rounded-sm'>
+            <Accent>{children}</Accent>
+         </code>
+      );
+   },
    img: CloudinaryContextImage,
    CloudinaryContext: CloudinaryContextImage,
    ReactPlayer: VideoContext,
@@ -116,7 +125,6 @@ export default {
    b: ({ children }) => {
       return <span className='font-bold'>{children}</span>;
    },
-
    code: ({ children, className }) => {
       return (
          <SyntaxHighlighter
