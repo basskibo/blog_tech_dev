@@ -60,6 +60,7 @@ const components = {
    CloudinaryImage: MdxComponents.img,
    p: MdxComponents.p,
    b: MdxComponents.b,
+   Adjusted: MdxComponents.Adjusted,
    Link: MdxComponents.a,
    code: MdxComponents.code,
    Accent: MdxComponents.Accent,
@@ -70,7 +71,6 @@ const components = {
    ReactPlayer: MdxComponents.ReactPlayer,
    GithubCardRepo: MdxComponents.GithubCardRepo,
 };
-
 
 const PostDetails = ({ data, mdxSource, toc }) => {
    return (

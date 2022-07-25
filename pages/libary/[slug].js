@@ -62,7 +62,9 @@ const components = {
    p: MdxComponents.p,
    a: MdxComponents.a,
    code: MdxComponents.code,
+   b: MdxComponents.b,
    Accent: MdxComponents.Accent,
+   Adjusted: MdxComponents.Adjusted,
    QouteComponent: MdxComponents.QouteComponent,
    GithubCardRepo: MdxComponents.GithubCardRepo,
 };
