@@ -10,7 +10,8 @@ const NewsLetter = () => {
                </h3>
 
                <p className='text-xl text-white mt-4'>
-                  Get the best news on weelky basis! Join now and don't miss it.
+                  Get the best news on weelky basis! Join now and do not miss
+                  it.
                </p>
             </div>
 
@@ -28,7 +29,7 @@ const NewsLetter = () => {
                </div>
 
                <p className='text-white mt-2 text-sm'>
-                  We care about your data in our{" "}
+                  We care about your data in our
                   <a href='#' className='underline'>
                      privacy policy
                   </a>
