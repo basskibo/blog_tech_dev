@@ -2,6 +2,7 @@ import React from "react";
 import { SiGmail, SiTwitter, SiLinkedin, SiGithub } from "react-icons/si";
 import ReactTooltip from "react-tooltip";
 import Accent from "../custom/Accent";
+import NewsLetter from "../NewsLetter";
 // import SpotifyCard from "../custom/SpotifyCard"
 
 const waysToReachMe = [
@@ -56,6 +57,8 @@ const Footer = () => {
                   @basskibo
                </a>
             </p>
+
+            <NewsLetter />
 
             {/* <span className='inline-flex sm:ml-auto mx-5 sm:mt-0 mt-4 justify-center sm:justify-start'>
 					<SpotifyCard />

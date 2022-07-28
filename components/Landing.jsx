@@ -5,9 +5,9 @@ import { FeatureLanding, FeaturedPosts, HighlightPost } from "./";
 // import { FeaturedPosts } from "./FeaturedPosts";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import SvgWave from "./layout/SvgWave";
-import { SiGithub, SiLinkedin } from "react-icons/si";
-import { motion, MotionConfig, AnimatePresence } from "framer-motion";
+import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
 import MotionComponent from "./custom/MotionComponent";
+import NewsLetter from "./NewsLetter";
 
 const Landing = () => {
    const handleClick = (e) => {
@@ -39,7 +39,7 @@ const Landing = () => {
                         I&apos;m not coding). Accustomed to using extensive tech
                         stack because I love challenging and complex projects.
                      </p>
-                     <p className='font-bold mb-1  hidden lg:block text-lg'>
+                     <p className='font-bold mb-1  hidden lg:block text-md'>
                         Writing code is my obsession as well as constant
                         self-improvement, I have developed many web applications
                         and platforms from scratch in my spare time (when
@@ -66,23 +66,32 @@ const Landing = () => {
                   </div>
                   <div className='mt-7 lg:mt-10 flex gap-x-4'>
                      <a
+                        id='lnk-linkedin-button'
+                        className='inline-flex text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
+                        href='https://linkedin.com/in/bojan-jagetic-972203106'
+                        target='_blank'
+                        rel='noreferrer'>
+                        <SiLinkedin className='mr-1 h-4 w-4' />
+                        <span className='hidden lg:block'>Bojan Jagetic</span>
+                        <span className='lg:hidden '>B.Jagetic</span>
+                     </a>
+                     <a
                         id='lnk-github-button'
-                        className='inline-flex  text-lg text-slate-300 hover:underline link link-underline link-underline-black
+                        className='inline-flex  text-sm text-slate-300 hover:underline link link-underline link-underline-black
 							 hover:cursor-ne-resize'
                         href='https://github.com/basskibo/'
                         target='_blank'
                         rel='noreferrer'>
-                        <SiGithub className='mr-2 h-6 w-6' /> basskibo
+                        <SiGithub className='mr-1 h-4 w-4' /> basskibo
                      </a>
                      <a
-                        id='lnk-linkedin-button'
-                        className='inline-flex text-lg text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
-                        href='https://linkedin.com/in/bojan-jagetic-972203106'
+                        id='lnk-twitter-button'
+                        className='inline-flex text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
+                        href='https://twitter.com/basskibo1'
                         target='_blank'
                         rel='noreferrer'>
-                        <SiLinkedin className='mr-2 h-6 w-6' />
-                        <span className='hidden lg:block'>Bojan Jagetic</span>
-                        <span className='lg:hidden '>B.Jagetic</span>
+                        <SiTwitter className='mr-1 h-4 w-4 ' />
+                        <span className=' lg:block'>basskibo1</span>
                      </a>
                   </div>
                </div>
@@ -117,6 +126,7 @@ const Landing = () => {
          </div>
          {/* <HighlightPost /> */}
          <FeaturedPosts />
+         <NewsLetter />
       </div>
    );
 };
