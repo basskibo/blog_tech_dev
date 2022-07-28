@@ -116,7 +116,7 @@ const Landing = () => {
             </svg>
          </div>
          {/* <HighlightPost /> */}
-         {/* <FeaturedPosts /> */}
+         <FeaturedPosts />
       </div>
    );
 };
