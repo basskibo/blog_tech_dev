@@ -126,7 +126,11 @@ const Landing = () => {
          </div>
          {/* <HighlightPost /> */}
          <FeaturedPosts />
-         <NewsLetter />
+         <div></div>
+         <SvgWave />
+         <div className='bg-teal-900 pb-10'>
+            <NewsLetter />
+         </div>
       </div>
    );
 };
