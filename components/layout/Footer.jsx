@@ -2,8 +2,6 @@ import React from "react";
 import { SiGmail, SiTwitter, SiLinkedin, SiGithub } from "react-icons/si";
 import ReactTooltip from "react-tooltip";
 import Accent from "../custom/Accent";
-import NewsLetter from "../NewsLetter";
-// import SpotifyCard from "../custom/SpotifyCard"
 
 const waysToReachMe = [
    { name: "gmail", description: "test", externalLink: false, icon: SiGmail },
@@ -65,16 +63,16 @@ const Footer = () => {
                {/* <p className='text-md'>Reach me at: </p> */}
 
                <a
-                  className='mr-5 lg:mr-10 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize
-					items-right md:justify-right justify-right'
+                  className='mr-5 lg:mr-5 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize
+					items-right md:justify-right justify-right text-sm'
                   href='https://blogtech-umami.herokuapp.com/share/9QUfQNmS/blogtech_vercel'
                   target='_blank'
                   rel='noopener noreferrer'>
                   Site Statistics
                </a>
                <a
-                  className='mr-5 lg:mr-10 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize
-					items-right md:justify-right justify-right'
+                  className='mr-5 lg:mr-5 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize
+					items-right md:justify-right justify-right text-sm'
                   href='https://github.com/basskibo/blog_tech_dev'
                   target='_blank'
                   rel='noopener noreferrer'>
@@ -92,12 +90,14 @@ const Footer = () => {
                         data-tip
                         data-for={medium.name}
                      />
-                     {/* <ReactTooltip id={medium.name} type='dark' className=' bg-neutral-700'>
-
-								<h1>
-									You can find me on <Accent>{medium.name}</Accent>
-								</h1>
-							</ReactTooltip> */}
+                     <ReactTooltip
+                        id={medium.name}
+                        type='dark'
+                        className=' bg-neutral-700'>
+                        <h1>
+                           You can find me on <Accent>{medium.name}</Accent>
+                        </h1>
+                     </ReactTooltip>
                   </a>
                ))}
             </span>
