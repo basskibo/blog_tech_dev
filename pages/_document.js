@@ -29,10 +29,8 @@ class MyDocument extends Document {
                             `,
                   }}
                />
-            </Head>
-            <head>
                <style>{loader}</style>
-            </head>
+            </Head>
             <body>
                <div id={"globalLoader"}>
                   <div className='loader'>
