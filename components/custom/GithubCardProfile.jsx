@@ -47,11 +47,15 @@ const GithubCardProfile = () => {
    }, []);
 
    return (
-      <div className='container  border border-neutral-600 bg-neutral-800 p-5 rounded-lg'>
+      <div
+         className='container  border border-neutral-600 p-5 rounded-lg'
+         style={{ backgroundColor: "#22272E", color: "#768390" }}>
          {profile ? (
             <div>
                <a href={profile.html_url} target='_blank' rel='noreferrer'>
-                  <p className='text-white font-extrabold text-xl mb-3 inline-flex'>
+                  <p
+                     className=' font-extrabold text-xl mb-3 inline-flex'
+                     style={{ color: "#539BF5" }}>
                      {/* <SiGithub className='' />  */}@{profile.login}
                   </p>
                   <div>

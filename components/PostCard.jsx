@@ -11,7 +11,8 @@ const PostCard = ({ post }) => {
    return (
       <div
          key={post.data.slug}
-         className='w-full  text-white rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'>
+         // style={{ backgroundColor: "#22272E" }}
+         className='w-full  text-white rounded-md border shadow-lg shadow-neutral-800 border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'>
          <a href={`/post/${post.data.slug}`}>
             <div className='relative overflow-hidden h-64 lg:h-72'>
                <Image

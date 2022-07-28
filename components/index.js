@@ -18,6 +18,7 @@ export { default as Landing } from "./Landing";
 export { default as SvgWave } from "./layout/SvgWave";
 export { default as FeatureLanding } from "./FeatureLanding";
 export { default as ReadTime } from "./ReadTime";
+export { default as NewsLetter } from "./NewsLetter";
 
 export { default as SpotifyCard } from "./custom/SpotifyCard";
 export { default as GithubCardProfile } from "./custom/GithubCardProfile";
