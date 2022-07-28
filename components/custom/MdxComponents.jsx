@@ -85,7 +85,7 @@ export default {
                lower: true,
                strict: true,
             })}>
-            <h2 className='text-white text-3xl font-bold my-5'>
+            <h2 className='text-white text-2xl font-bold my-5'>
                <Accent>{children}</Accent>
             </h2>
          </a>

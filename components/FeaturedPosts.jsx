@@ -4,7 +4,7 @@ import Accent from "./custom/Accent";
 const FeaturedPosts = () => {
    return (
       <div>
-         {/* <section className='text-slate-400 body-font'>
+         <section className='text-slate-400 body-font'>
             <div className='container px-5 pb-5 mx-auto my-10'>
                <div className='flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6 '>
                   <div className='p-4 md:w-1/1 lg:w-2/4 flex-auto'>
@@ -25,7 +25,7 @@ const FeaturedPosts = () => {
                      </div>
                   </div>
                   <div className='p-4 md:w-1/1 lg:w-2/4 flex-auto'>
-                     <div className='relative'>
+                     <div className=''>
                         <div
                            class='  mx-5 rounded-lg transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97]
 					  hover:cursor-pointer transition duration-100 animate-shadow'>
@@ -59,7 +59,7 @@ const FeaturedPosts = () => {
                               </div>
                            </div>
                         </div>
-                        <div
+                        {/* <div
                            class='md:ml-28 absolute bottom-4  rotate-12  bg-neutral-900 rounded-lg transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97]
 					  hover:cursor-pointer transition duration-100 animate-shadow'>
                            <div class='max-w-sm rounded overflow-hidden shadow-lg border border-slate-600 '>
@@ -91,12 +91,12 @@ const FeaturedPosts = () => {
                                  </span>
                               </div>
                            </div>
-                        </div>
+                        </div> */}
                      </div>
                   </div>
                </div>
             </div>
-         </section> */}
+         </section>
       </div>
    );
 };
