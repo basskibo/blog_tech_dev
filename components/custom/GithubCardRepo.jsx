@@ -96,7 +96,7 @@ const GithubCardProfile = ({ children }) => {
                         {repository.description}
                      </span>
                   </div>
-                  <div
+                  {/* <div
                      className='grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2
                    sm:grid-cols-2 m-0 p-2 w-1/3'>
                      <span className=''>
@@ -111,7 +111,7 @@ const GithubCardProfile = ({ children }) => {
                         <GoOrganization className='h-full mt-0.1 inline-flex' />{" "}
                         <b>{repository.subscribers_count}</b>
                      </span>
-                  </div>
+                  </div> */}
                   <div className='flex flex-row p-2  mt-2'>
                      <div
                         className='w-3 h-3 mt-1.5 mr-2 rounded-full '
