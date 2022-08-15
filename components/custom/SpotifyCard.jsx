@@ -19,11 +19,11 @@ const SpotifyCard = () => {
    const [seconds, setSeconds] = useState(1000);
 
    useEffect(() => {
-      const interval = setInterval(() => {
-         fetchCurent().then((result) => setSong(result));
-         setSeconds(15000);
-      }, seconds);
-      return () => clearInterval(interval);
+      // const interval = setInterval(() => {
+      fetchCurent().then((result) => setSong(result));
+      // setSeconds(15000);
+      // }, seconds);
+      // return () => clearInterval(interval);
    }, []);
 
    return (
