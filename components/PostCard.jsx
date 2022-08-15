@@ -11,8 +11,7 @@ const PostCard = ({ post }) => {
    return (
       <div
          key={post.data.slug}
-         // style={{ backgroundColor: "#22272E" }}
-         className='w-full  text-white rounded-md border shadow-lg shadow-neutral-800 border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'>
+         className='w-full  text-white rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow'>
          <a href={`/post/${post.data.slug}`}>
             <div className='relative overflow-hidden h-64 lg:h-72'>
                <Image
@@ -29,17 +28,21 @@ const PostCard = ({ post }) => {
 
             <div className='px-3 my-3 '>
                <h1 className='text-lg font-semibold'> {post.data.title}</h1>
-               <div className='mt-3 text-slate-400 '>
+               <div className='mt-3 text-slate-400 flex-row '>
                   {" "}
-                  <ReadTime> {post}</ReadTime>
-                  <ReadTime> {post}</ReadTime>
-                  <p className='align-middle font-bold text-slate-400 mt-1'>
-                     {moment(post.data.publishedAt).format("MMMM DD, YYYY")}
-                  </p>
-                  <p className='mt-1 text-slate-400 text-sm italic'>
-                     {post.data.excerpt}
-                  </p>
+                  <div className='basis-1/2'>
+                     <ReadTime> {post}</ReadTime>
+                  </div>
+                  <div className='basis-1/2'>
+                     <p className='align-middle font-bold text-slate-400 mt-1'>
+                        {moment(post.data.publishedAt).format("MMMM DD, YYYY")}
+                     </p>
+                  </div>
                </div>
+
+               <p className='mt-1 text-slate-400 text-sm italic'>
+                  {post.data.excerpt}
+               </p>
             </div>
          </a>
       </div>
