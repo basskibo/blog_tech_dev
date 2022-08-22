@@ -7,7 +7,7 @@ const NewsLetter = () => {
          <div className=' lg:w-2/3  mx-auto relative border bg-neutral-900 border-neutral-700 grid grid-cols-1 lg:grid-cols-2 gap-10  p-10 lg:p-[60px] rounded-2xl'>
             <div>
                <h3 className='text-white text-4xl font-semibold'>
-                  <Accent> Sign up for our newsletter</Accent>
+                  <Accent> Sign up for newsletter</Accent>
                </h3>
 
                <p className='text-sm text-white mt-4'>
@@ -32,7 +32,9 @@ const NewsLetter = () => {
                      type='search'
                      // onChange={handleSearchChange}
                   />
-                  <button className='bg-neutral-800 hover:bg-cyan-600 text-white py-3 px-5 rounded-lg font-semibold ml-4 border-4 border-white'>
+                  <button
+                     className='w-full ml-2 lg:w-1/4 my-3 rounded-md  shadow-md  shadow-neutral-700
+                  hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500'>
                      Subscribe
                   </button>
                </div>
