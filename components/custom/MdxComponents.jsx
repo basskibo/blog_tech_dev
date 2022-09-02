@@ -120,7 +120,7 @@ export default {
    CloudinaryContext: CloudinaryContextImage,
    ReactPlayer: VideoContext,
    p: ({ children }) => {
-      return <p className='my-5 ml-5 text-sm'>{children}</p>;
+      return <p className='my-5 ml-2 text-sm'>{children}</p>;
    },
    b: ({ children }) => {
       return <span className='font-bold'>{children}</span>;
@@ -149,8 +149,11 @@ export default {
          </a>
       );
    },
-   ul: ({ children, className }) => {
-      return <ul className='list-disc ml-10'>{children}</ul>;
+   ulSm: ({ children, className }) => {
+      return <ul className='grid grid-cols-2 list-disc ml-10'>{children}</ul>;
+   },
+   ulLg: ({ children, className }) => {
+      return <ul className=' list-disc ml-10'>{children}</ul>;
    },
    QouteComponent: QouteComponent,
 

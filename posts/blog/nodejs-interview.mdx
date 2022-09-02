@@ -28,7 +28,7 @@ Node.js is perfect for data-intensive applications as it uses an asynchronous, e
 
 Nodejs has a handful of advantages but we will list only the most prominent ones:
 
-<List>
+<LgList>
 	<li>It is really fast, being built on V8 engine makes it very fest code execution</li>
 	<li>It is Asynchronous, Node.js server never waits API to return response so it makes it async </li>
 	<li>It is highly scalable,capable to handle a huge number of concurrent connections and support both vertical and horizontal scaling</li>
@@ -36,17 +36,17 @@ Nodejs has a handful of advantages but we will list only the most prominent ones
  	<li>There is no buffering in Node.JS application it simply output the data in chunks</li>
  	<li>Last but not least, it is free (Open source)</li>
 
-</List>
+</LgList>
 
 ### How many types of API functions are there in Node.js
 
 There is two types of API functions:
 
-<List>
+<LgList>
 	<li><b>Synchronous</b> - which are blocking functions, means that functions will make system wait for a response and it will block main loop</li>
 	<li><b>Asynchronous </b> -which are non-blocking functions, means that it will make request and continue with execution, it will not make system wait for a response</li>
 
-</List>
+</LgList>
 
 ### What is node REPL
 
@@ -54,10 +54,10 @@ The REPL <b>R</b>ead-<b>E</b>val-<b>P</b>rint-<b>L</b>oop in Node.js represents 
 
 ### What is NPM
 
-<Link href='https://npmjs.org'>NPM </Link> represents two things: 1.) it is and online repository
-for the publishing of open-source Node.js projects 2.) it is command line utility which allows
-user to interact with packages and manipulate with them, which means it is used for package
-installation, version management, etc.
+<Link href='https://npmjs.org'>NPM </Link> represents two things: 1.) it is and online
+repository for the publishing of open-source Node.js projects 2.) it is command line
+utility which allows user to interact with packages and manipulate with them, which
+means it is used for package installation, version management, etc.
 
 ## How does Node.js work
 
@@ -65,23 +65,25 @@ installation, version management, etc.
 
 Node.js was created explicitly as an experiment in async processing. This was to try a new theory of doing async processing on a single thread over the existing thread-based implementation of scaling via different frameworks.
 
-<b>Important to note</b>, Node.js is single-threaded but under the hood it is using libuv
-which is responsible for spawning many threads.
+<b>Important to note</b>, Node.js is single-threaded but under the hood it is
+using libuv which is responsible for spawning many threads.
 
 ### Blocking vs Non-blocking I/O
 
 As in official Node.js <a href="https://nodejs.org/en/docs/guides/blocking-vs-non-blocking/">documentation</a> says:
 
 <QouteComponent>
-	Blocking is when the execution of additional JavaScript in the Node.js process must
-	wait until a non-JavaScript operation completes. This happens because the event loop is
-	unable to continue running JavaScript while a blocking operation is occurring. In
-	Node.js, JavaScript that exhibits poor performance due to being CPU intensive rather
-	than waiting on a non-JavaScript operation, such as I/O, isn't typically referred to as
-	blocking. Synchronous methods in the Node.js standard library that use libuv are the
-	most commonly used.All of the I/O methods in the Node.js standard library provide
-	asynchronous versions, which are non-blocking , and accept callback functions. Some
-	methods also have blocking counterparts, which have names that end with Sync.
+   Blocking is when the execution of additional JavaScript in the Node.js
+   process must wait until a non-JavaScript operation completes. This happens
+   because the event loop is unable to continue running JavaScript while a
+   blocking operation is occurring. In Node.js, JavaScript that exhibits poor
+   performance due to being CPU intensive rather than waiting on a
+   non-JavaScript operation, such as I/O, isn't typically referred to as
+   blocking. Synchronous methods in the Node.js standard library that use libuv
+   are the most commonly used.All of the I/O methods in the Node.js standard
+   library provide asynchronous versions, which are non-blocking , and accept
+   callback functions. Some methods also have blocking counterparts, which have
+   names that end with Sync.
 </QouteComponent>
 
 When comparing codes, you can see the difference,for example <b>blocking code:</b>
@@ -107,7 +109,11 @@ fs.readFile('/test.md', (err, data) => {
 Event loop is an endless loop, which waits for tasks, executes them and then sleeps until it receives more tasks. The event loop executes tasks from the event queue only when the call stack is empty i.e. there is no ongoing task. The event loop allows us to use callbacks and promises.
 The event loop allows Node.js to perform non-blocking I/O operations despite the fact that JavaScript is single-threaded. It is done by assigning operations to the operating system whenever and wherever possible.
 
-<CloudinaryImage src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645182872/igutech/Event_2_whn6nw.jpg' text='Representation of event loop' alt='Representation of event loop' />
+<CloudinaryImage
+   src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645182872/igutech/Event_2_whn6nw.jpg'
+   text='Representation of event loop'
+   alt='Representation of event loop'
+/>
 
 So when an async function needs to be executed(or I/O) the main thread sends it to a different
 thread allowing v8 to keep executing the main code. Event loop involves different phases with
@@ -170,36 +176,40 @@ Middleware comes in between your request and business logic. It is mainly used t
 
 Exit codes give us an idea of how a process got terminated/the reason behind termination.
 
-<List>
-	<li>
-		Uncaught fatal exception - (code - 1) - There has been an exception that is not
-		handled{" "}
-	</li>
-	<li>Unused - (code - 2) - This is reserved by bash</li>
-	<li>
-		Fatal Error - (code - 5) - There has been an error in V8 with stderr output of the
-		description
-	</li>
-	<li>
-		Internal Exception handler Run-time failure - (code - 7) - There has been an
-		exception when bootstrapping function was called
-	</li>
-	<li>
-		Internal JavaScript Evaluation Failure - (code - 4) - There has been an exception
-		when the bootstrapping process failed to return function value when evaluated.
-	</li>
-</List>
+<LgList>
+   <li>
+      Uncaught fatal exception - (code - 1) - There has been an exception that
+      is not handled
+   </li>
+   <li>
+   Unused - (code - 2) - This is reserved by Bash for builtin misuse {""}
+   </li>
+   <li>
+      Fatal Error - (code - 5) - There has been an error in V8 with stderr
+      output of the description
+   </li>
+      <li>
+      Internal JavaScript Evaluation Failure - (code - 4) - There has been an
+      exception when the bootstrapping process failed to return function value
+      when evaluated.
+   </li>
+   <li>
+      Internal Exception handler Run-time failure - (code - 7) - There has been
+      an exception when bootstrapping function was called
+   </li>
+
+</LgList>
 
 ### What is an Event Emitter in Node.js
 
 EventEmitter is a Node.js class that includes all the objects that are basically capable of emitting events. This can be done by attaching named events that are emitted by the object using an eventEmitter.on() function. Thus whenever this object throws an even the attached functions are invoked synchronously.
 
 ```js
-const EventEmitter = require("events")
+const EventEmitter = require("events");
 class MyEmitter extends EventEmitter {}
-const myEmitter = new MyEmitter()
+const myEmitter = new MyEmitter();
 myEmitter.on("event", () => {
-	console.log("an event occurred!")
-})
-myEmitter.emit("event")
+   console.log("an event occurred!");
+});
+myEmitter.emit("event");
 ```
