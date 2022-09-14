@@ -61,6 +61,7 @@ const components = {
    h2: MdxComponents.h2,
    h3: MdxComponents.h3,
    img: MdxComponents.img,
+   CloudinaryImage: MdxComponents.img,
    p: MdxComponents.p,
    a: MdxComponents.a,
    code: MdxComponents.code,
@@ -88,7 +89,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
             <div className='col-span-1 lg:col-span-9'>
                {/* <PostDetail post={data} content={mdxSource} /> */}
                <div className=' my-10 '>
-                  <h1 className='text-3xl lg:text-4xl break-words text-white font-semibold'>
+                  <h1 className='lg:text-4xl text-2xl lg:my-5 text-semibold text-white font-bold break-words'>
                      {" "}
                      {data.title}
                   </h1>
