@@ -23,10 +23,10 @@ const Bio = () => {
                   years. Developed JSON RESTfull API services for new web/
                   hybrid mobile apps , including OAuth, users profiles,
                   messages, friendship and etc(Node.js, express, socket).
-                  Skilled in JavaScript, NodeJS, Express, Sails.js, React,
-                  AngularJS, MongoDB, Redis, Docker, MQTT brokers, RabbitMQ,
-                  Jenkins, etc.. Programming is my passion and I tend to learn
-                  everyday new things and new technologies.
+                  Skilled in JavaScript, NodeJS, Express, Sails.js, React, React
+                  native, NextJs, AngularJS, MongoDB, Redis, Docker, MQTT
+                  brokers, RabbitMQ, Jenkins, etc.. Programming is my passion
+                  and I tend to learn everyday new things and new technologies.
                </p>
                <p className='mb-10'>
                   If you like what I do,in order to be updated with latest posts
