@@ -26,8 +26,11 @@ export default function Home({ posts }) {
       <div>
          <Head>
             <meta property='og:url' content='https://igutech.vercel.app' />
-            <meta property='og:type' content='site' />
-            <meta property='og:title' content='Start your journey' />
+            <meta property='og:type' content='website' />
+            <meta property='og:title' content='Bojan Jagetic Blog' />
+            <meta property="og:site_name" content="Blogtech" />
+            <meta property="og:locale" content="en_US" />
+
             <meta
                property='og:description'
                content='Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away.'

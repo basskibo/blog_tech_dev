@@ -1,7 +1,7 @@
 ---
 title: "JavaScript Overview"
 excerpt: "My personal favorite! Today, with JavaScript you can do whatever you imagine, possibilities are limitless. Just by knowing JavaScript you can make the whole platform (JS = Backend + Frontend + Mobile) all by yourself"
-featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645178807/igutech/pankaj-patel-1IW4HQuauSU-unsplash_cfqcs3.jpg"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/q_60/v1645178807/igutech/pankaj-patel-1IW4HQuauSU-unsplash_cfqcs3.jpg"
 publishedAt: "2020-03-16T05:35:07.322Z"
 author: "Bojan Jagetic"
 tags: [{ slug: "next", name: "nextjs" }, { slug: "js", name: "javascript" }]
@@ -11,7 +11,7 @@ tags: [{ slug: "next", name: "nextjs" }, { slug: "js", name: "javascript" }]
 
 JavaScript is a dynamic computer programming language. It is lightweight and most commonly used as a part of web pages, whose implementations allow client-side script to interact with the user and make dynamic pages. It is an interpreted programming language with object-oriented capabilities.
 
-## What are Variables?
+## What are Variables
 
 Variables are used to store data values. For example, a variable may be used to store a user’s email address, or their name. In JavaScript, a variable can contain any types of data, such as a string, a true or false boolean, an object, or a number.
 Before the ES6 specification was released, there was one way to declare a variable in JavaScript: var. The var keyword can be used to declare a variable that is accessible throughout a program, and can be changed.
@@ -97,6 +97,12 @@ Decorators are the way of wrapping one piece of code with another or apply a wra
 
 ## Closures
 
+According to <Link href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures">developer mozilla</Link> documentation for closures,
+
+<QouteComponent>
+A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function's scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.
+</QouteComponent>
+
 A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function's scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.
 
 ### Lexical scoping
@@ -141,3 +147,7 @@ Running this code has exactly the same effect as the previous example of the ini
 At first glance, it might seem unintuitive that this code still works. In some programming languages, the local variables within a function exist for just the duration of that function's execution. Once makeFunc() finishes executing, you might expect that the name variable would no longer be accessible. However, because the code still works as expected, this is obviously not the case in JavaScript.
 
 The reason is that functions in JavaScript form closures. A closure is the combination of a function and the lexical environment within which that function was declared. This environment consists of any local variables that were in-scope at the time the closure was created. In this case, myFunc is a reference to the instance of the function displayName that is created when makeFunc is run. The instance of displayName maintains a reference to its lexical environment, within which the variable name exists. For this reason, when myFunc is invoked, the variable name remains available for use, and "Mozilla" is passed to alert
+
+
+
+<Link href="https://www.freecodecamp.org/news/prepare-for-react-technical-interviews/">REACT INTERVIEW JS </Link>
