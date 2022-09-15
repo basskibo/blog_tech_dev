@@ -31,7 +31,7 @@ const LastChangedFile = (args) => {
    }, []);
 
    return (
-      <div className='text-slate-400 ml-2 lg:text-md sm:text-sm'>
+      <div className='text-slate-400  lg:text-md sm:text-sm'>
          {lastTimeChanged ? (
             <p className=''>
                Last updated {moment(lastTimeChanged).format("DD.MM.YYYY")}.

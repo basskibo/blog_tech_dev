@@ -31,8 +31,8 @@ const SocialNetworkSHare = ({ post, type }) => {
             // hashtag={"#iguana #iguanadevelopment"}
          >
             <SiFacebook
-               className='hover:text-blue-700'
-               size={24}
+               className='hover:text-blue-700 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
+               size={22}
                rounded='true'
             />
          </FacebookShareButton>
@@ -44,8 +44,8 @@ const SocialNetworkSHare = ({ post, type }) => {
             hashtag={post.tags}
             url={`https://igutech.vercel.app/${type}/${post.slug}`}>
             <SiTwitter
-               className='hover:text-sky-400'
-               size={24}
+               className='hover:text-sky-400 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
+               size={22}
                rounded='true'
             />
          </TwitterShareButton>
@@ -57,8 +57,8 @@ const SocialNetworkSHare = ({ post, type }) => {
             imageUrl={post.featuredImage}
             url={`https://igutech.vercel.app/${type}/${post.slug}`}>
             <SiLinkedin
-               className='hover:text-blue-500'
-               size={24}
+               className='hover:text-blue-500 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
+               size={22}
                rounded='true'
             />
          </LinkedinShareButton>
@@ -70,30 +70,30 @@ const SocialNetworkSHare = ({ post, type }) => {
             media={post.featuredImage}
             url={`https://igutech.vercel.app/${type}/${post.slug}`}>
             <SiReddit
-               className='hover:text-orange-700'
-               size={24}
+               className='hover:text-orange-700 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
+               size={22}
                rounded='true'
             />
          </RedditShareButton>
-         <ViberShareButton
+         {/* <ViberShareButton
             className='mr-3'
             title={post.title}
             media={post.featuredImage}
             url={`https://igutech.vercel.app/${type}/${post.slug}`}>
             <SiViber
-               className='hover:text-violet-700'
-               size={24}
+               className='hover:text-violet-700 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
+               size={22}
                rounded='true'
             />
-         </ViberShareButton>
+         </ViberShareButton> */}
          <TelegramShareButton
             className='mr-3'
             title={post.title}
             media={post.featuredImage}
             url={`https://igutech.vercel.app/${type}/${post.slug}`}>
             <SiTelegram
-               className='hover:text-sky-700'
-               size={24}
+               className='hover:text-sky-700 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
+               size={22}
                rounded='true'
             />
          </TelegramShareButton>

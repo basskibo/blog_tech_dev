@@ -6,10 +6,12 @@ import fs from "fs";
 import path from "path";
 import slugify from "slugify";
 import matter from "gray-matter";
+import ReactTooltip from "react-tooltip";
 import MdxComponents from "../../components/custom/MdxComponents";
 import TableOfContent from "../../components/custom/TableOfContent";
 import ReadTime from "../../components/ReadTime";
 import SocialNetworkShare from "../../components/custom/SocialNetworkShare";
+import constants from "../../lib/constants";
 
 function getTableOfContents(content) {
    const regexp = new RegExp(/^(### |## )(.*)\n/, "gm");
@@ -71,6 +73,16 @@ const components = {
 };
 
 const LibaryDetails = ({ data, mdxSource, toc }) => {
+   console.log(data);
+   data.technologies.forEach((tech) => {
+      console.log(tech);
+      React.createElement(
+         tech,
+         { className: "some-class" },
+         <div className='some-class'>some content</div>
+      );
+   });
+
    return (
       <div className='container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 px-5 md:px-10 mb-10 lg:rounded-lg p-0  text-slate-400'>
          <div className='grid grid-cols-1 lg:grid-cols-12 gap-x-12'>
@@ -82,9 +94,9 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
                      {data.title}
                   </h1>
                   <div className='lg:px-0 prose'>
-                     <div className=' text-slate-400 mb-6 my-6 w-full'>
-                        <div className='flex-1  mb-2 w-full lg:w-auto mr-8'>
-                           <p className='text-slate-400 ml-2 lg:text-md sm:text-sm'>
+                     <div className=' text-slate-400  my-6 w-full mb-2 lg:ml-2 mr-8'>
+                        <div className='flex-1  mb-2 w-full lg:w-auto '>
+                           <p className='text-slate-400  lg:text-md sm:text-sm'>
                               Writen on{" "}
                               <span className='font-semibold hidden lg:inline'>
                                  {moment(data.publishedAt).format(
@@ -100,17 +112,30 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
                               </span>
                            </p>
                         </div>
-                        <ReadTime className='sm:flex-1 mb-4  lg:w-auto mr-8 ml-2 lg:text-md sm:text-sm'>
-                           {mdxSource.compiledSource}
-                        </ReadTime>
+                        <span className='flex mb-2'>
+                           <ReadTime className=' w-28  flex-initial    lg:text-md sm:text-sm'>
+                              {mdxSource.compiledSource}
+                           </ReadTime>
+                           <div
+                              className='w-1 h-1 mt-3 mr-6 rounded-full flex-initial'
+                              style={{ backgroundColor: "#FFF" }}></div>
+                           {/* <span className='mr-2 text-white'>
+                              Technology stack used:{" "}
+                           </span> */}
+                           {data.technologies.map((Tech, index) =>
+                              constants.generateIcon(Tech)
+                           )}
+                        </span>
+
                         <blockquote className='mt-0 mb-4'>
                            <p className='text-slate-400 mt-0'>
                               {data.description}
                            </p>
                         </blockquote>
 
-                        <div className='sm:flex-1 mb-4 lg:mb-0 w-full lg:w-auto mr-8 ml-2'>
+                        <div className='flex flex-inline mb-2'>
                            {/* <span className='lg:text-lg sm:text-md mr-3 p-0'>Share: </span> */}
+                           <span className='mr-2 text-white'>Share:</span>
                            <SocialNetworkShare post={data} type='libary' />
                         </div>
                      </div>
