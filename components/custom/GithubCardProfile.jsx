@@ -7,6 +7,20 @@ import {
 } from "react-icons/ri";
 import { SiGithub } from "react-icons/si";
 
+// var faunadb = require('faunadb')
+// var q = faunadb.query
+
+
+// var client = new faunadb.Client({
+//    secret: 'fnAEv9TEr6AAzYAxoH-Xle-mLq0DbIWVdJT4BjEK',
+//    domain: 'db.fauna.com',
+//    // NOTE: Use the correct domain for your database's Region Group.
+//    port: 443,
+//    scheme: 'https',
+//    keepAlive: false,
+
+//  })
+
 const GithubCardProfile = () => {
    const [profile, setProfile] = useState(null);
 
@@ -15,6 +29,16 @@ const GithubCardProfile = () => {
 
       const fetchData = async () => {
          try {
+        
+            // var createP = client.query(
+            //    q.Create(
+            //      q.Collection('test'),
+            //      { data: { testField: 'testValue' } }
+            //    )
+            //  )
+            //  createP.then(function(response) {
+            //    console.log(response.ref); // Logs the ref to the console.
+            //  })
             const profileInLocaleStorage = localStorage.getItem("profile");
             let profileFetched;
             if (!profileInLocaleStorage) {

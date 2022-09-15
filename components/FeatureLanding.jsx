@@ -3,6 +3,7 @@ import { SiTwitter, SiGithub, SiSpotify } from "react-icons/si";
 import { IoMdInfinite } from "react-icons/io";
 import SpotifyCard from "../components/custom/SpotifyCard";
 import GithubCardProfile from "../components/custom/GithubCardProfile";
+import Accent from "./custom/Accent";
 
 const FeatureLanding = () => {
    return (
@@ -13,13 +14,13 @@ const FeatureLanding = () => {
 				viewport={{ once: true, amount: 0.8 }}
 				transition={{ duration: 2 }}
 			> */}
-         <section className='text-slate-400 body-font bg-teal-900 '>
+         <section className='text-slate-300 body-font bg-teal-900 '>
             {/* <motion.div variants={cardVariants}> */}
             <div className='container px-5 pb-5 mx-auto'>
-               <h1 className='sm:text-3xl text-2xl font-medium title-font text-center text-white mb-20'>
-                  My activity on social network
+               <h1 className='text-xl font font-bold tracking-tight text-gray-900 sm:text-4xl mb-10'>
+                  <Accent>My activity on social network </Accent>
                   <br className='hidden sm:block' />
-                  at least some of
+                  at least some of it
                </h1>
                <div className='flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6'>
                   <div className='p-2 md:w-1/1 lg:w-1/3 flex'>
@@ -30,7 +31,7 @@ const FeatureLanding = () => {
                         <h2 className='text-white text-lg title-font font-semibold mb-2'>
                            Currently listening on spotify
                         </h2>
-                        <p className='text-slate-400 my-3'>
+                        <p className=' my-3 text-sm'>
                            Spotify is one of my must have applications in order
                            to work properly. I made custom spotify card so you
                            can see what I am currently listening to,
@@ -46,7 +47,7 @@ const FeatureLanding = () => {
                         <h2 className='text-white text-lg title-font font-semibold mb-2'>
                            My Github profile
                         </h2>
-                        <p className='my-3'>
+                        <p className='my-3 text-sm'>
                            Here you can find some basic information about my
                            github profile
                         </p>
@@ -62,7 +63,7 @@ const FeatureLanding = () => {
                         <h2 className='text-white text-lg title-font font-semibold mb-2'>
                            My deaily.dev stats
                         </h2>
-                        <p className='my-3'>
+                        <p className='my-3 text-sm'>
                            In order to be up-to-date with all the newest things
                            going on in dev world, I use{" "}
                            <a

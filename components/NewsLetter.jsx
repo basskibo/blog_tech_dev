@@ -25,7 +25,7 @@ const NewsLetter = () => {
                      className='px-4 w-full bg-neutral-900 rounded-md border-gray-300 ring ring-gray-500 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                   /> */}
                   <input
-                     className='w-full lg:w-4/4 my-3 bg-neutral-900  px-3 py-2 rounded-md
+                     className=' w-4/4 my-3 bg-neutral-900  px-3 py-2 rounded-md
 					border border-slate-600 focus:border-lime-600 flex-grow focus:outline-none cursor-text'
                      placeholder='Enter your email'
                      value={""}
@@ -33,7 +33,7 @@ const NewsLetter = () => {
                      // onChange={handleSearchChange}
                   />
                   <button
-                     className='w-full ml-2 lg:w-1/4 my-3 rounded-md  shadow-md  shadow-neutral-700
+                     className=' ml-2  w-4/4 my-3 rounded-md  shadow-md  shadow-neutral-700
                   hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500'>
                      Subscribe
                   </button>
