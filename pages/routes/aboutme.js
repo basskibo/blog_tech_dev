@@ -65,7 +65,25 @@ const Bio = () => {
                   <li className='ml-4 mb-10'>
                      <div className='absolute w-3 h-3 bg-gray-200 rounded-full -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700'></div>
                      <time className='mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500'>
-                        March 2017 ~ Present
+                        October 2022 ~ Present
+                     </time>
+                     <h3 className='text-xl font-semibold text-gray-500 dark:text-white'>
+                        CodeMeUp
+                     </h3>
+                     <h2 className='py-1'>Full stack developer, DevOps </h2>
+
+                     <div className='text-base font-normal text-gray-500 dark:text-gray-400'>
+                        <ul className='list-disc pl-5'>
+                           <li>TBA</li>
+                           <li>TBA</li>
+                           <li>TBA</li>
+                        </ul>
+                     </div>
+                  </li>{" "}
+                  <li className='ml-4 mb-10'>
+                     <div className='absolute w-3 h-3 bg-gray-200 rounded-full -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700'></div>
+                     <time className='mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500'>
+                        March 2017 ~ October 2022
                      </time>
                      <h3 className='text-xl font-semibold text-gray-500 dark:text-white'>
                         OBLO Living / RT-RK

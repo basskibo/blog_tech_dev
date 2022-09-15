@@ -28,8 +28,8 @@ const PostDetail = ({ post, content }) => {
          </div>
          <div className='lg:px-0 prose 2xl:text-md xl:text-sm'>
             <div className=' text-slate-400 mb-6 my-6 w-full'>
-               <div className='flex-1  mb-2 w-full lg:w-auto mr-8'>
-                  <p className='text-slate-400 ml-2 '>
+               <div className='flex-1  mb-2 w-full lg:w-auto '>
+                  <p className='text-slate-400  '>
                      Writen on{" "}
                      <span className='font-semibold hidden lg:inline'>
                         {moment(post.publishedAt).format("MMMM DD, YYYY")}
@@ -42,15 +42,17 @@ const PostDetail = ({ post, content }) => {
                   <LastChangedFile fileName={`${post.slug}.mdx`} type='blog' />
                </div>
 
-               <ReadTime className='sm:flex-1 mb-4 lg:w-auto mr-8 ml-2 2xl:text-md xl:text-sm'>
+               <ReadTime className='sm:flex-1 mb-4 lg:w-auto  2xl:text-md xl:text-sm'>
                   {content.compiledSource}
                </ReadTime>
                <blockquote className='mt-0 mb-4'>
                   <p className='text-slate-400 mt-0'>{post.excerpt}</p>
                </blockquote>
 
-               <div className='sm:flex-1 mb-4 lg:mb-0 w-full lg:w-auto mr-8 ml-2'>
+               <div className='flex flex-inline mb-2'>
                   {/* <span className='lg:text-lg sm:text-md mr-3 p-0'>Share: </span> */}
+                  <span className='mr-2 font-semibold'>Share:</span>
+
                   <SocialNetworkShare post={post} type={"post"} />
                </div>
             </div>
