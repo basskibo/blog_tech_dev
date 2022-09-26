@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { PostCard, Categories, Pagination, CategoryChip } from "../components";
 import Accent from "./custom/Accent";
+import { DropdownMenu } from "../components";
 const numberPerPage = 1;
 
 // import MotionComponent from "./custom/MotionComponent"
@@ -102,6 +103,7 @@ const BlogScreen = ({ posts }) => {
                some unknown hero might be helped.
             </p>
             {/* <MdSearch /> */}
+            <div className="flex gap-1">
             <input
                className='w-full lg:w-4/4 my-3 bg-neutral-900  px-3 py-2 rounded-md
 					border border-slate-600 focus:border-lime-600 flex-grow focus:outline-none cursor-text'
@@ -110,6 +112,8 @@ const BlogScreen = ({ posts }) => {
                type='search'
                onChange={handleSearchChange}
             />
+            </div>
+  
 
             <div className='mt-1 mb-7 lg:mb-10 lg:w-4/4'>
                {chips ? (
@@ -136,6 +140,10 @@ const BlogScreen = ({ posts }) => {
                   <></>
                )}
             </div>
+         </div>
+         <div className='mt-1 mb-5 lg:mb-5 lg:w-full '>
+            <DropdownMenu />
+
          </div>
 
          <div className='lg:px-5 grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'>

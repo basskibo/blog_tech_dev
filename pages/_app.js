@@ -36,6 +36,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
          <NextHead>
             <title>{title}</title>
             <meta property='og:image' content={ogUrl} />
+            <meta name="theme-color" content="#317EFB"/>
             <meta
                property='og:description'
                content={

@@ -28,7 +28,7 @@ const FeaturedPosts = () => {
                               <ActiveLink
                                  href='/post/nodejs-interview'
                                  name='blog'
-                                 id='rb_button'
+                                 id='hp_button'
                                  className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-700
                   hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500'>
                                  Smash that interview

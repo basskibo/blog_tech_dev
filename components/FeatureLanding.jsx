@@ -81,6 +81,7 @@ const FeatureLanding = () => {
                            <img
                               src='https://api.daily.dev/devcards/cf2aab07c11a46d283d5794c5e2f23c9.png?r=979'
                               width='350'
+                              height='200'
                               alt="Bojan Jagetic's Dev Card"
                            />
                         </a>

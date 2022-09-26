@@ -33,7 +33,7 @@ const Header = ({ href }) => {
    };
 
    return (
-      <div className='sticky top-0 z-50 absolute bg-neutral-700 backdrop-filter backdrop-blur-lg bg-opacity-30 '>
+      <div className='sticky top-0 z-50 absolute bg-neutral-500 backdrop-filter backdrop-blur-lg bg-opacity-30 '>
          <Disclosure
             as='nav'
             className=' border-b border-neutral-500 lg:pb-1 text-white  lg:pt-1'>
