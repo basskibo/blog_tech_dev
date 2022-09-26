@@ -28,3 +28,4 @@ export { default as TableOfContent } from "./custom/TableOfContent";
 export { default as TechnologyStack } from "./custom/TechnologyStack";
 export { default as MotionComponent } from "./custom/MotionComponent";
 export { default as LastChangedFile } from "./custom/LastChangedFile";
+export { default as DropdownMenu } from "./custom/DropdownMenu";
