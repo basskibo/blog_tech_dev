@@ -71,6 +71,8 @@ const components = {
    test: MdxComponents.test,
    ReactPlayer: MdxComponents.ReactPlayer,
    GithubCardRepo: MdxComponents.GithubCardRepo,
+   NewLine: MdxComponents.NewLine,
+   Iframe: MdxComponents.Iframe,
 };
 
 const PostDetails = ({ data, mdxSource, toc }) => {

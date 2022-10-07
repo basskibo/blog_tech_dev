@@ -110,7 +110,7 @@ export default {
    Adjusted: ({ children }) => {
       return (
          <code
-            className='bg-neutral-800 text-bold border-rounder-lg px-2 py-1 mx-1 font-mono 
+            className='bg-neutral-800 text-bold border-rounder-lg px-2 py-1 mr-1  font-mono 
          hover:underline decoration-indigo-500 border border-neutral-700 rounded-sm'>
             <Accent>{children}</Accent>
          </code>
@@ -165,4 +165,18 @@ export default {
       );
    },
    GithubCardRepo: GithubCardRepo,
+   NewLine: ({}) => {
+      return <div className="my-5">{" "}</div>
+   },
+   Iframe: ({children, className}) => {
+      return (
+      <iframe src="https://codesandbox.io/embed/js-class-example-24bl6t?fontsize=14&hidenavigation=1&theme=dark"
+         // className="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+         className="w-full h-96"
+         title="JS Class example "
+         allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+         sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+    ></iframe>
+   )
+   }
 };

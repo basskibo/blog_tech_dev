@@ -1,0 +1,138 @@
+---
+title: "Javascript Class fundamentals"
+publishedAt: "2022-10-06"
+excerpt: "In object-oriented programming, a class is an extensible program-code-template for creating objects, providing initial values for state (member variables) and implementations of behavior (member functions or methods)."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1665055007/igutech/sam-mgrdichian-MiyP6ezrPfw-unsplash_xxszws.jpg"
+author: "Bojan Jagetic"
+tags: [{ slug: "js", name: "javascript" }]
+---
+
+
+## Introduction
+
+Classes are template used for creating objects, encapsulating data with code to work on that data.
+Class in Javascript is built on prototype but also it has some syntax that are not shared with ES5 class-like semantic.
+In the modern JavaScript, there’s a more advanced “class” construct, that introduces great new features which are useful for object-oriented programming.
+<NewLine/>
+
+## Defining JS class
+Class can be regarded as a type of <Adjusted>function</Adjusted>, but instead of keyword function, which we normally use for initiate a function, we will use keyword <Adjusted>class</Adjusted> and the properties are assigned inside <Adjusted>constructor</Adjusted> method.
+
+
+
+```js
+class MyClass {
+  // class methods
+  constructor() { ... }
+  method1() { ... }
+  method2() { ... }
+  method3() { ... }
+  ...
+}
+
+```
+
+
+
+## constructor()
+
+The <Adjusted>constructor()</Adjusted> method is a special method for creating and initializing objects created within a class. Class can have only one constructor per class, 
+so you will not be able to add multiple constructors to one Class and in case you do you will get SyntaxError.
+This method will be called automatically when a class is initiated and it strictly needs to be named "constructor". In case you dont define constructor,
+ Javascript will automatically add invisible and empty constructor method. 
+
+
+```js
+class User {
+  constructor(firstName, lastName, age) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+}
+
+```
+
+## extends
+
+The <Adjusted>extends</Adjusted> keyword is used to create a child class of another or parent class. This means that child class will inherit all methods from parent class.
+This is useful for code reusability because reusing properties and methods of an already existing class can be really helpfull and we do not duplicate code unnseccarry.
+
+
+```js
+class Student extends User {
+  constructor(firstName, lastName, age, monthlySallary, user_class, grade) {
+    super(firstName, lastName, age, monthlySallary);
+    this.class = user_class;
+    this.grade = grade;
+  }
+}
+
+```
+
+## static
+
+The <Adjusted>static</Adjusted> keyword define static methods for classes which are called directly on the class and not on the instance.
+In order to call static method we do not need to create instance of the class in order to call static method as in case above.
+
+
+
+```js
+class Car {
+  constructor(brand) {
+    this.carname = brand;
+  }
+  static hello() {  // static method
+    return "Hello!!";
+  }
+}
+
+mycar = new Car("Ford");
+
+//Call 'hello()' on the class Car and NOT mycar
+Car.hello();
+
+```
+
+## super
+
+The <Adjusted>super</Adjusted> keyword is used to call the constructor of the parent class in order to access parent properties and methods which are 
+defined in constructor of the parent class. In order to understand better concept of the "inheritance" in Object oriented programming you can read this
+<Link href="https://viktor-kukurba.medium.com/object-oriented-programming-in-javascript-2-inheritance-447368f57a26"> great article </Link>
+
+``` js
+class Car {
+  constructor(brand) {
+    this.carname = brand;
+  }
+  present() {
+    return 'I have a ' + this.carname;
+  }
+}
+
+class Model extends Car {
+  constructor(brand, mod) {
+    super(brand);
+    this.model = mod;
+  }
+  show() {
+    return this.present() + ', it is a ' + this.model;
+  }
+}
+
+mycar = new Model("Ford", "Mustang");
+document.getElementById("demo").innerHTML = mycar.show();
+```
+## Class fields
+### Private class
+### Public class
+
+
+## Class project Example
+
+### About 
+
+### Code example
+<Iframe></Iframe>
