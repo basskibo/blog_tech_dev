@@ -3,6 +3,7 @@ import cvImage from "../public/images/cv.jpg";
 import constants from "../lib/constants";
 import Accent from "../components/custom/Accent";
 import Image from "next/image";
+import TechnologyStack from "../components/custom/TechnologyStack";
 
 const CV = () => {
   return (
@@ -20,7 +21,7 @@ const CV = () => {
           <time className='mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500'>
              October 2022 ~ Present
           </time>
-          <h3 className='text-xl font-semibold text-gray-500 dark:text-white'>
+          <h3 className='text-xl font-semibold text-slate-400 dark:text-white'>
              CodeMeUp
           </h3>
           <h2 className='py-1'>Full stack developer, DevOps </h2>
@@ -30,7 +31,19 @@ const CV = () => {
                 <li>TBA</li>
                 <li>TBA</li>
                 <li>TBA</li>
+                <li className='font-semibold'>
+                Technologies used on this project
+                </li>
+                <div className='flex mb-2 gap-1'>
+                    {constants.generateIcon('SiReact')}
+                    {constants.generateIcon('SiTypescript')}
+                    {/* {constants.generateIcon('SiJavascript')} */}
+                    {constants.generateIcon('SiNestjs')}
+                    {constants.generateIcon('SiFirebase')}
+                </div>
              </ul>
+         
+        
           </div>
        </li>{" "}
        <li className='ml-4 mb-10'>
@@ -38,7 +51,7 @@ const CV = () => {
           <time className='mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500'>
              March 2017 ~ October 2022
           </time>
-          <h3 className='text-xl font-semibold text-gray-500 dark:text-white'>
+          <h3 className='text-xl font-semibold text-slate-400 dark:text-white'>
              OBLO Living / RT-RK
           </h3>
           <h2 className='py-1'>Full stack developer, DevOps </h2>
@@ -72,7 +85,22 @@ const CV = () => {
                    Kafka, AWS services , Jenkins, Zabbix , Ansible,
                    NFS/EFS
                 </li>
+                <li className='font-semibold'>
+                Technologies used on this project
+                </li>
+                <div className='flex mb-2 gap-1'>
+                    {constants.generateIcon('SiNodedotjs')}
+                    {constants.generateIcon('SiExpress')}
+                    {constants.generateIcon('SiMongodb')}
+                    {constants.generateIcon('SiRedis')}
+                    {constants.generateIcon('SiDocker')}
+                    {constants.generateIcon('SiRabbitmq')}
+                    {constants.generateIcon('SiAngularjs')}
+                    {constants.generateIcon('SiJenkins')}
+                    {constants.generateIcon('SiAmazonaws')}
+                </div>
              </ul>
+            
           </div>
        </li>
        <li className='ml-4 mb-10'>
@@ -80,7 +108,7 @@ const CV = () => {
           <time className='mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500'>
              March 2016 ~ October 2017
           </time>
-          <h3 className='text-xl font-semibold text-gray-500 dark:text-white'>
+          <h3 className='text-xl font-semibold text-slate-400 dark:text-white'>
              Iguana Development
           </h3>
           <h2 className='py-1'>CEO, Full stack developer </h2>
@@ -105,6 +133,18 @@ const CV = () => {
                    , Websockets (socket.io), AngularJS, AWS EC2, AWS
                    S3
                 </li>
+                <li className='font-semibold'>
+                Technologies used on this project
+                </li>
+                <div className='flex mb-2 gap-1'>
+                    {constants.generateIcon('SiNodedotjs')}
+                    {constants.generateIcon('SiExpress')}
+                    {constants.generateIcon('SiMongodb')}
+                    {constants.generateIcon('SiRedis')}
+                    {constants.generateIcon('SiAngularjs')}
+                    {constants.generateIcon('SiHeroku')}
+                
+                </div>
              </ul>
           </div>
           <a
@@ -128,7 +168,7 @@ const CV = () => {
           <time className='mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500'>
              June 2016 ~ Oct March 2017
           </time>
-          <h3 className='text-xl font-semibold text-gray-500 dark:text-white'>
+          <h3 className='text-xl font-semibold text-slate-400 dark:text-white'>
              Ploush GmbH
           </h3>
           <h2 className='py-1'>Full stack developer </h2>
@@ -153,6 +193,18 @@ const CV = () => {
                    , Websockets (socket.io), AngularJS, AWS EC2, AWS
                    S3
                 </li>
+                <li className='font-semibold'>
+                Technologies used on this project
+                </li>
+                <div className='flex mb-2 gap-1'>
+                    {constants.generateIcon('SiNodedotjs')}
+                    {constants.generateIcon('SiMongodb')}
+                    {constants.generateIcon('SiRedis')}
+                    {constants.generateIcon('SiSocketdotio')}
+                    {constants.generateIcon('SiAngularjs')}
+                    {constants.generateIcon('SiAmazonaws')}
+                
+                </div>
              </ul>
           </div>
        </li>
@@ -189,6 +241,16 @@ const CV = () => {
                    Technologies: Nodejs, KrakenJs, React Native,
                    Sencha, Sencha Touch, PostgresQL
                 </li>
+                <li className='font-semibold'>
+                Technologies used on this project
+                </li>
+                <div className='flex mb-2 gap-1'>
+                    {constants.generateIcon('SiNodedotjs')}
+                    {constants.generateIcon('SiPostgresql')}
+                    {constants.generateIcon('SiSencha')}
+                    {constants.generateIcon('SiIonic')}
+                
+                </div>
              </ul>
           </div>
        </li>
