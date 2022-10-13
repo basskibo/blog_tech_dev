@@ -128,8 +128,8 @@ const Landing = () => {
          {/* <HighlightPost /> */}
          <FeaturedPosts />
          <div></div>
-         <SvgWave />
-         <div className='bg-teal-900 pb-10'>
+         {/* <SvgWave /> */}
+         <div className=' py-10'>
             <NewsLetter />
          </div>
       </div>
