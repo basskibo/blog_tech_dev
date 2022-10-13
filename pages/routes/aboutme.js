@@ -50,9 +50,6 @@ const Bio = () => {
                </p>
                <TechnologyStack />
             </div>
-            {/* </MotionComponent> */}
-         //TODO: CV component
-            {/* </MotionComponent> */}
             <CV/>
          </div>
       </div>
