@@ -4,6 +4,7 @@ import TechnologyStack from "../../components/custom/TechnologyStack";
 import Link from "next/link";
 import { SiPatreon, SiBuymeacoffee } from "react-icons/si";
 import CV from "../../components/CV";
+import { Education } from "../../components";
 import MotionComponent from "../../components/custom/MotionComponent";
 
 const Bio = () => {
@@ -51,6 +52,7 @@ const Bio = () => {
                <TechnologyStack />
             </div>
             <CV/>
+            <Education/>
          </div>
       </div>
    );
