@@ -27,7 +27,7 @@ const PostCard = ({ post }) => {
                   layout='fill'
                   className={clsx(post.data.inPreparation ? "blur-sm" : "blur-none")}
                />
-                <div  className={clsx(post.data.inPreparation ? " bg-yellow-500 origin-top float-right mt-9 mr-9 w-72 text-center " : "block-hidden")} style={{transform:"translateX(50%) rotate(45deg)"}} >
+                <div  className={clsx(post.data.inPreparation ? " bg-gradient-to-r from-lime-500 to-teal-600 origin-top float-right mt-9 mr-9 w-72 text-center text-slate-200" : "block-hidden")} style={{transform:"translateX(50%) rotate(45deg)"}} >
                     <div className="text-sm p-1">Comming soon</div>
 
                 </div>
