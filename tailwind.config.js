@@ -25,5 +25,5 @@ module.exports = {
 	//        // => @media (min-width: 1536px) { ... }
 	//     },
 	//  },
-	plugins: [require("@tailwindcss/typography")],
+	plugins: [require("@tailwindcss/typography"),     require('autoprefixer')],
 }
