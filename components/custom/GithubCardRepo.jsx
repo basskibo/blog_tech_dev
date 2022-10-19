@@ -33,7 +33,6 @@ const GithubCardProfile = ({ children }) => {
    }, []);
 
    const setLanguageColor = (language) => {
-      console.log(">?>>>>>>>>", language);
       switch (language) {
          case "TypeScript":
             return { backgroundColor: "#3178c6" };
@@ -53,7 +52,7 @@ const GithubCardProfile = ({ children }) => {
    return (
       <div className='container mt-3 lg:mt-10  w-1/1  lg:w-2/3'>
          <p className='my-3'>
-            You can check the code directly in the github repository
+            You can check the code directly in the GitHub repository
          </p>
          {repository ? (
             <div
