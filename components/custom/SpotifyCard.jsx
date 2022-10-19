@@ -57,7 +57,7 @@ const SpotifyCard = () => {
                   {song?.isPlaying ? (
                      <Accent>{song.title}</Accent>
                   ) : (
-                     "Not Listening"
+                     "Currently not listening"
                   )}
                </p>
                <p className='font-dark text-sm text-semibold'>
