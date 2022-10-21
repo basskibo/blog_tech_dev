@@ -2,7 +2,8 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import Accent from "./Accent";
 import QouteComponent from "../QouteComponent";
-import GithubCardRepo from "./GithubCardRepo";
+import { GithubCard } from "github-user-repo-card";
+
 import Image from "next/image";
 import constants from "../../lib/constants";
 import { buildUrl } from "cloudinary-build-url";
@@ -164,7 +165,21 @@ export default {
          </blockquote>
       );
    },
-   GithubCardRepo: GithubCardRepo,
+   GithubCardRepo: ({children}) => {
+      
+      const splitted=  children.split('/')
+      const username = splitted[0], repo = splitted[1];
+      console.log(">>>>>>>", username)
+      console.log(">>>>>>>", repo)
+
+      return(
+       <div className=''>
+         <p className="py-5">Checkout repository <b>{children}</b> on Github directly</p>
+         <GithubCard  name={username || "basskibo"} type="repo" repository={repo} width="700" height="200"/>
+
+       </div>
+      )
+      },
    NewLine: ({}) => {
       return <div className="my-5">{" "}</div>
    },

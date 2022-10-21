@@ -9,6 +9,7 @@ import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
 import MotionComponent from "./custom/MotionComponent";
 import NewsLetter from "./NewsLetter";
 
+
 const Landing = () => {
    const handleClick = (e) => {
       e.preventDefault();
@@ -18,7 +19,7 @@ const Landing = () => {
       // <div className='bg-gradient-to-r from-purple-900 to-indigo-900 '>
       // <div className='bg-gradient-to-r from-amber-800 to-lime-900 '>
       <div className=''>
-         <div className=' text-slate-200 md:px-10 px-5  hero-bg '>
+         <div className=' text-slate-200 md:px-10 px-5 hero-bg '>
             {/* <MotionComponent> */}
             <div
                className='grid place-items-left place-content-center gap-1 h-screen
