@@ -4,7 +4,7 @@ import ActiveLink from "./custom/ActiveLink";
 
 const FeaturedPosts = () => {
    return (
-      <div className='relative bg-neutral-900 overflow-hidden'>
+      <div className='relative bg-neutral-900 overflow-hidden hero-bg'>
          <div className='pt-16 pb-40 sm:pt-24 sm:pb-20 lg:pt-40 lg:pb-48'>
             <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
                <div className='sm:max-w-lg'>
