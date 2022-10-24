@@ -51,8 +51,8 @@ const Bio = () => {
                </p>
                <TechnologyStack />
             </div>
-            <CV/>
-            <Education/>
+            <CV />
+            {/* <Education/> */}
          </div>
       </div>
    );

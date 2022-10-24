@@ -71,9 +71,11 @@ const components = {
    Link: MdxComponents.a,
    b: MdxComponents.b,
    Accent: MdxComponents.Accent,
+   NewLine: MdxComponents.NewLine,
    Adjusted: MdxComponents.Adjusted,
    QouteComponent: MdxComponents.QouteComponent,
    GithubCardRepo: MdxComponents.GithubCardRepo,
+   GithubCardRepository: MdxComponents.GithubCardRepository
 };
 
 const LibaryDetails = ({ data, mdxSource, toc }) => {
