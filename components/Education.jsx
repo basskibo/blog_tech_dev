@@ -19,7 +19,7 @@ const Education = () => {
        <li className='ml-4 mb-10'>
           <div className='absolute w-3 h-3 bg-gray-200 rounded-full -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700'></div>
           <time className='mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500'>
-             TBA
+          {/* 2013-Present	University of Novi Sad, Faculty of Technical Sciences in Novi Sad, Department of Electrical Engineering and Computer */}
           </time>
           <h3 className='text-xl font-semibold text-slate-400 dark:text-white'>
              TBA
