@@ -13,6 +13,7 @@ import ReadTime from "../../components/ReadTime";
 import SocialNetworkShare from "../../components/custom/SocialNetworkShare";
 import constants from "../../lib/constants";
 
+
 function getTableOfContents(content) {
    const regexp = new RegExp(/^(### |## )(.*)\n/, "gm");
    const headings = [...content.matchAll(regexp)];
@@ -65,23 +66,27 @@ const components = {
    p: MdxComponents.p,
    a: MdxComponents.a,
    code: MdxComponents.code,
+   LgList: MdxComponents.ulLg,
+   SmList: MdxComponents.ulSm,
+   Link: MdxComponents.a,
    b: MdxComponents.b,
    Accent: MdxComponents.Accent,
+   NewLine: MdxComponents.NewLine,
    Adjusted: MdxComponents.Adjusted,
    QouteComponent: MdxComponents.QouteComponent,
    GithubCardRepo: MdxComponents.GithubCardRepo,
+   GithubCardRepository: MdxComponents.GithubCardRepository
 };
 
 const LibaryDetails = ({ data, mdxSource, toc }) => {
-   console.log(data);
-   data.technologies.forEach((tech) => {
-      console.log(tech);
-      React.createElement(
-         tech,
-         { className: "some-class" },
-         <div className='some-class'>some content</div>
-      );
-   });
+   // data.technologies.forEach((tech) => {
+   //    console.log(tech);
+   //    React.createElement(
+   //       tech,
+   //       { className: "some-class" },
+   //       <div className='some-class'>some content</div>
+   //    );
+   // });
 
    return (
       <div className='container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 px-5 md:px-10 mb-10 lg:rounded-lg p-0  text-slate-400'>
@@ -166,7 +171,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
    data = { ...data, slug };
    const toc = getTableOfContents(content);
-
+   console.log(toc)
    const mdxSource = await serialize(content);
 
    return {

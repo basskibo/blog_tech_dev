@@ -9,6 +9,7 @@ import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
 import MotionComponent from "./custom/MotionComponent";
 import NewsLetter from "./NewsLetter";
 
+
 const Landing = () => {
    const handleClick = (e) => {
       e.preventDefault();
@@ -18,7 +19,7 @@ const Landing = () => {
       // <div className='bg-gradient-to-r from-purple-900 to-indigo-900 '>
       // <div className='bg-gradient-to-r from-amber-800 to-lime-900 '>
       <div className=''>
-         <div className=' text-slate-200 md:px-10 px-5  hero-bg '>
+         <div className=' text-slate-200 md:px-10 px-5 hero-bg '>
             {/* <MotionComponent> */}
             <div
                className='grid place-items-left place-content-center gap-1 h-screen
@@ -47,20 +48,32 @@ const Landing = () => {
                      because I love challenging and complex projects.
                   </p>
                </div>
+               
                <div className='mt-7  lg:mt-10  xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
+               {/* <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-lime-500 to-teal-700 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                  <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                        Green to blue
+                  </span>
+               </button>
+               <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group 
+               hover:animate-bounce bg-gradient-to-br from-lime-500 to-teal-700 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                  <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                        Green to blue
+                  </span>
+               </button> */}
                   <ActiveLink
                      href='/routes/blog'
                      name='blog'
                      id='rb_button'
-                     className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-700
-                  hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500'>
+                     className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-800
+                  hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500 '>
                      Read blog
                   </ActiveLink>
                   <ActiveLink
                      href='/routes/aboutme'
                      id='am_button'
-                     className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-700
-							hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500'>
+                     className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-800
+							hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500 '>
                      See my bio
                   </ActiveLink>
                </div>
