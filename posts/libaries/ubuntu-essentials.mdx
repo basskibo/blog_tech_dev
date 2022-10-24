@@ -5,57 +5,152 @@ description: "Simple bash script for setting up fresh Ubuntu install"
 englishOnly: "true"
 technologies: ["SiGnubash"]
 author: "Bojan Jagetic"
-
+inPreparation: false
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 tags: [{ slug: "next", name: "nextjs" }, { slug: "js", name: "javascript" }]
 ---
 
 ## Introduction
 
-When I started to learn Next.js, I got overwhelmed with the list of abbreviations that looks similar, I didn't know what it is and what is the difference. It is quite confusing because when using Create React App, we usually only use 1 strategy to fetch data from API which is using `useEffect`.
+After every new OS reinstallation you have to do the boring part and install everything from scratch. I have been in situation where I was installing
+new Ubuntu environment multiple times per year, so I made myself easier and made a bash script which can do this for me.
 
-Next.js has many data fetching strategies. Although initially Next.js was well known to be a Server-Side Rendering Framework, it turns out that Next.js has 4 methods of Data Fetching. Here is the short explanation each so you get familiar with the abbreviation of CSR, SSR, SSG, ISR.
+## What this bash script do
 
--  CSR - Client-Side Rendering, this is the usual kind of data fetching using `useEffect`, it will fetch the data from the API every single page request on the **client-side** (after the page is rendered, then the function will run).
--  SSR - Server-Side Rendering, will run a **special function** to fetch data from API every page request on the **server-side** (before the page is loaded, that special function will run first, creating a delay, then after that, it will serve the page)**.**
--  SSG - Static Site Generation, will run a **special function** to fetch data **once** when that page builds.
--  ISR – Incremental Static Regeneration, this is a new thing, shortly put, a combination of SSG, and SSR, where it served statically, but at a **certain time and certain condition** that page will rebuild and fetch the data from the API again.
+Basically this script is used for installing applications and services, which I normally use, most of the applications and services are for Developers but it can be opted out if you do not 
+want something to be installed. In the script there are blocks of installation commands divided by category, so first utilities and prerequired stuff will be installed.
+For example if we have some project on github, which is needed to be downloaded like zsh and ohmyzsh, it is prerequired to install git first so if you want to change script have that in mind.
 
-Don't worry if you didn't get that, because I will be explaining it thoroughly, just familiarize the words first.
+## Applications and services available
+As mentioned above, there are different categories so it is easier to organize, in this current version of the script there are 5 categories.
+For the some less know application and services I added link so you can read first before installation and check if you want to use it, I personally think that are great stuff but you dont need to use it if you dont want.
 
----
+### Utility
 
-I mentioned before that there is a special function that will run when using a specific data fetching method. Keep that in mind as I will show you what is that special function.
+<SmList>
+   <li>curl </li>
+   <li>Git </li>
+   <li><Link href="https://terminator-gtk3.readthedocs.io/en/latest/">Terminator</Link> </li>
+   <li>htop </li>
+   <li>unzip </li>
+   <li><Link href="https://www.zsh.org/">zsh</Link> </li>
+   <li><Link href="https://ohmyz.sh/">OhMyZsh</Link> </li>
+</SmList>
 
-This code example will fetch a date-time from an API using axios, then render it on the page. It is useful to see the date-time so we can truly know when the API is hit.
+### GNome shell and tweaks
+<SmList>
+   <li>chrome-gnome-shell</li>
+   <li>chrome-gnome-tweaks</li>
+   <li><Link href="https://albertlauncher.github.io/">Albert</Link> </li>
+   <li><Link href="https://github.com/vinceliuice/WhiteSur-gtk-theme">*BigSure OSX theme\**</Link> </li>
+</SmList>
 
-## Client-Side Rendering (CSR)
 
-Special Function: `useEffect`
+### Productivity & Social
+<SmList>
+   <li>Firefox</li>
+   <li><Link href="https://www.taskade.com/spaces/4e4fLuGxvxa7pr1M">Taskade</Link> </li>
+   <li><Link href="https://www.cacher.io/">Cacher</Link> </li>
+   <li><Link href="https://telegram.org/">*Telegram\**</Link></li>
+   <li><Link href="https://discord.com/">*Discord\**</Link></li>
+   <li><Link href="https://www.skype.com/en/">*Skype\**</Link></li>
+   <li><Link href="https://www.microsoft.com/en/microsoft-teams/log-in">*Microsoft Teams\**</Link></li>
+   <li><Link href="https://slack.com/">*Slack\**</Link></li>
+   <li><Link href="https://www.rocket.chat/">*Rocket Chat\**</Link></li>
+   <li><Link href="https://konversation.kde.org/">*Konversation\**</Link></li>
+   <li><Link href="https://www.flock.com/">*Flock Chat\**</Link></li>
+</SmList>
 
-[Demo Site](https://next-render.theodorusclarence.com/render/csr)
 
-### Usage
+### Development
 
-```tsx
-export default function CSRPage() {
-   const [dateTime, setDateTime] = React.useState<string>();
+<SmList>
+   <li>NodeJS</li>
+   <li>npm</li>
+   <li>*MongoDB\**</li>
+      <li><Link href="https://robomongo.org/">*Robo3T (Robo Mongo)\**</Link> </li>
+      <li>*Redis\**</li>
+      <li><Link href="https://resp.app/">*Redis Desktop Manager\**</Link> </li>
+      <li><Link href="https://www.docker.com/">*Docker\**</Link></li>
+   <li><Link href="https://code.visualstudio.com/">Visual Studio Code</Link> </li>
+   <li><Link href="https://www.postman.com/">Postman</Link></li>
+   <li>TypeScript</li>
+   <li>npx</li>
+   <li><Link href="https://albertlauncher.github.io/">Sublime Text</Link> </li>
+      <li><Link href=" https://www.beekeeperstudio.io/">Beekeper Studio</Link> </li>
+</SmList>
 
-   React.useEffect(() => {
-      axios
-         .get("https://worldtimeapi.org/api/ip")
-         .then((res) => {
-            setDateTime(res.data.datetime);
-         })
-         .catch((error) => console.error(error));
-   }, []);
+### Entertainment
+<SmList>
+   <li><Link href="https://www.spotify.com/">Spotify</Link></li>
+   <li><Link href="https://snapcraft.io/install/orange-app/ubuntu">Orange-app - SoundCloud Client</Link></li>
+   <li><Link href="https://www.musixmatch.com/">Musixmatch </Link> </li>
+</SmList>
 
-   return (
-      <main>
-         <TimeSection dateTime={dateTime} />
-      </main>
-   );
-}
+*All applications and services with <Adjusted> * </Adjusted> are optional and can be skipped*
+
+## Script breakdown
+
+
+As already mentioned, script is sorted by the category and dependency. We can split installation to three types: 
+<LgList>
+   <li> Straight-forward installation </li>
+   <li> Optional installation </li>
+   <li> Multi select installation </li>
+</LgList>
+
+### Straight-forward installation
+
+Installation of applications and services are pretty straight-forward, most of the installations are from <Adjusted>snap</Adjusted>, some are from <Adjusted>apt</Adjusted> and the rest is from original build source.
+It looks something like this:
+
+```bash
+sudo snap install curl
+sudo apt-get install git -y
 ```
 
-<GithubCardRepo>basskibo/ubuntu_starter_essentials</GithubCardRepo>
+### Optional installation
+
+In this type use is opted with the prompt to choose wheather to install or not specific application using classic linux options <Adjusted>y/N</Adjusted>
+
+```bash
+echo "Do you want to install MongoDB? [Y,n]"
+read mongoInput
+if [[ $mongoInput == "Y" || $mongoInput == "y" ]]; then
+        echo "MongoDB will be installed with Mongo3T ..."
+        # Install MongoDB
+        echo "${RED}Starting MongoDB installation${NC}"
+        wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+        echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+        sudo apt-get update
+        sudo apt-get install -y mongodb-org
+        sudo snap install robo3t-snap
+else
+        echo "Skipping MongoDB installation..."
+fi
+```
+
+### Multi-select installation
+
+Multi-select installation present installation of multi or none applications from the list of proposed applications. This is used for communication and social apps due to everybody is using different app for every day communication or more ofter combination of many social apps so there is option to choose which you want to install.
+```bash
+names=(telegram-desktop discord skype teams slack rocketchat-desktop konversation flock-chat)
+selected=()
+PS3='Choose which communication application you want (e.g. 1 2 to install telegram and discord)? : '
+select name in "${names[@]}" ; do
+    for reply in $REPLY ; do
+        selected+=(${names[reply - 1]})
+    done
+    [[ $selected ]] && break
+done
+echo Selected: "${selected[@]}"
+
+for t in ${selected[@]}
+do
+   echo "Installing $t"
+   sudo snap install $t
+done
+```
+
+
+<GithubCardRepository>basskibo/ubuntu_starter_essentials</GithubCardRepository>

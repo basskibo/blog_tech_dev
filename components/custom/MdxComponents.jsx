@@ -2,7 +2,8 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import Accent from "./Accent";
 import QouteComponent from "../QouteComponent";
-import GithubCardRepo from "./GithubCardRepo";
+import { GithubCard } from "github-user-repo-card";
+import GithubCardRepository from "./GithubCardRepo";
 import Image from "next/image";
 import constants from "../../lib/constants";
 import { buildUrl } from "cloudinary-build-url";
@@ -110,7 +111,7 @@ export default {
    Adjusted: ({ children }) => {
       return (
          <code
-            className='bg-neutral-800 text-bold border-rounder-lg px-2 py-1 mr-1  font-mono 
+            className='bg-neutral-800 text-bold border-rounder-lg px-1  mr-1  font-mono 
          hover:underline decoration-indigo-500 border border-neutral-700 rounded-sm'>
             <Accent>{children}</Accent>
          </code>
@@ -120,7 +121,7 @@ export default {
    CloudinaryContext: CloudinaryContextImage,
    ReactPlayer: VideoContext,
    p: ({ children }) => {
-      return <p className='my-5 ml-2 text-md'>{children}</p>;
+      return <p className='my-5 ml-2 text-md leading-relaxed      '>{children}</p>;
    },
    b: ({ children }) => {
       return <span className='font-bold'>{children}</span>;
@@ -164,7 +165,18 @@ export default {
          </blockquote>
       );
    },
-   GithubCardRepo: GithubCardRepo,
+   GithubCardRepo: ({children}) => {
+      const splitted=  children.split('/')
+      const username = splitted[0], repo = splitted[1];
+      return(
+       <div className=''>
+         <p className="py-5">Checkout repository <b>{children}</b> on Github directly</p>
+         <GithubCard  name={username || "basskibo"} type="repo" repository={repo} width="700" height="200"/>
+
+       </div>
+      )
+      },
+      GithubCardRepository: GithubCardRepository,
    NewLine: ({}) => {
       return <div className="my-5">{" "}</div>
    },
