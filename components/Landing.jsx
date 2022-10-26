@@ -64,14 +64,14 @@ const Landing = () => {
                      name='blog'
                      id='rb_button'
                      className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-800
-               hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-lime-600 hover:shadow-neutral-500 '>
+               hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-[#ff0080] hover:shadow-neutral-500 '>
                      Read blog
                   </ActiveLink>
                   <ActiveLink
                      href='/routes/aboutme'
                      id='am_button'
                      className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-800
-							hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-lime-600 hover:shadow-neutral-500 '>
+							hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-[#ff0080] hover:shadow-neutral-500 '>
                      See my bio
                   </ActiveLink>
                </div>

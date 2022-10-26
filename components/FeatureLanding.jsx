@@ -55,7 +55,7 @@ const FeatureLanding = () => {
                            Here you can find some basic information about my
                            GitHub profile as well as seeing my{" "}
                            <a
-                              className='my-3 hover:cursor-ne-resize text-lime-500 underline decoration-dotted decoration-2
+                              className='my-3 hover:cursor-ne-resize text-[#ff0080] underline decoration-dotted decoration-2
                               decoration-sky-400 underline-offset-4 link link-underline link-underline-black hover:no-underline'
                               href='https://www.bojanjagetic.com/libary/github-card-npm-component'
                               target='_blank'
@@ -88,7 +88,7 @@ const FeatureLanding = () => {
                            going on in dev world, I use{" "}
                            <a
                               href='https://daily.dev/'
-                              className='my-3 hover:cursor-ne-resize text-lime-500 underline decoration-dotted decoration-2
+                              className='my-3 hover:cursor-ne-resize text-[#ff0080] underline decoration-dotted decoration-2
             	decoration-sky-400 underline-offset-4 link link-underline link-underline-black hover:no-underline'
                               target='_blank'
                               rel='noreferrer'>

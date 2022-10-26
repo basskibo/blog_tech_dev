@@ -17,7 +17,7 @@ const LibaryCard = ({ libary }) => {
          <a href={`/libary/${libary.slug}`}>
             {libary.inPreparation ? (
                <div
-                  className=' bg-gradient-to-r from-[#7928ca] to-[#ff0080] origin-top float-right mt-6 mr-6 w-36 text-center text-neutral-900 font-semibold'
+                  className=' bg-gradient-to-r from-[#7928ca] to-[#ff0080] origin-top float-right mt-6 mr-6 w-36 text-center text-neutral-700 font-semibold'
                   style={{ transform: "translateX(54%) rotate(50deg)" }}>
                   <div className='text-xs py-1'>Comming soon</div>
                </div>
