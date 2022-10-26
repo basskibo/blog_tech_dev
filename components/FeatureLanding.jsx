@@ -17,7 +17,8 @@ const FeatureLanding = () => {
             <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
                <div className='sm:max-w-lg'>
                   <h1 className='text-xl font font-bold tracking-tight text-white sm:text-4xl'>
-                     My activity on <Accent>social networks</Accent>
+                     My activity on social networks
+                     {/* <Accent>social networks</Accent> */}
                   </h1>
                   {/* <p className='mt-4 text-md text-slate-400'>
                      Dive into the sea of interesting topics and technologies.
