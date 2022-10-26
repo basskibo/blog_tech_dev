@@ -5,6 +5,7 @@ import { BellIcon, MenuIcon, XIcon, LoginIcon } from "@heroicons/react/outline";
 import DisclocureButton from "../DisclocureButton";
 import ActiveLink from "../custom/ActiveLink";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const navigation = [
    { name: "Home", href: "/", current: true },
@@ -52,7 +53,7 @@ const Header = ({ href }) => {
                                  />
                               ) : (
                                  <MenuIcon
-                                    className='block h-6 w-6'
+                                    className='block h-6 w-6 text-[#ff0080]'
                                     aria-hidden='true'
                                  />
                               )}
@@ -63,13 +64,14 @@ const Header = ({ href }) => {
                               <a href='/'>
                                  <img
                                     className='block lg:hidden h-8 w-auto '
-                                    src='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
-                                    alt='Workflow'
+                                    src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1666821240/igutech/logo/logo_jibobs.webp'
+                                    alt='Jagetic'
                                  />
                                  <img
                                     className='hidden lg:block h-8 w-auto animate-pulse'
-                                    src='https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg'
-                                    alt='Workflow'
+                                    src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1666821292/igutech/logo/logo-no-background_dbpm3q.svg'
+                                    // src='https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg'
+                                    alt='Jagetic'
                                  />
                               </a>
                            </div>

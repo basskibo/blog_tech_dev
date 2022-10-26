@@ -8,6 +8,7 @@ import SvgWave from "./layout/SvgWave";
 import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
 import MotionComponent from "./custom/MotionComponent";
 import NewsLetter from "./NewsLetter";
+import { TypeAnimation } from "react-type-animation";
 
 const Landing = () => {
    const handleClick = (e) => {
@@ -26,7 +27,26 @@ const Landing = () => {
                   Hello there,
                   <br />
                   <span className='text-3xl sm:text-3xl lg:text-6xl '>
-                     My name is <Accent>Bojan</Accent>
+                     My name is{" "}
+                     <Accent>
+                        <TypeAnimation
+                           sequence={[
+                              700,
+                              "Jagetic", // Types 'One'
+                              2000, // Waits 1s
+                              "Bojan Jagetic", // Deletes 'One' and types 'Two'
+                              () => {
+                                 console.log("Done typing!"); // Place optional callbacks anywhere in the array
+                              },
+                           ]}
+                           wrapper='Accent'
+                           cursor={true}
+                           speed={20}
+                           repeat={0}
+                           // className='text-transparent bg-clip-text bg-gradient-to-r from-[#7928ca] to-[#ff0080] mb-5'
+                           style={{ fontSize: "1em" }}
+                        />
+                     </Accent>
                   </span>
                </h1>
 

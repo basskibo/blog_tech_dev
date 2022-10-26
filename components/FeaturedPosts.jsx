@@ -9,7 +9,7 @@ const FeaturedPosts = () => (
          <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
             <div className='sm:max-w-lg'>
                <h1 className='text-xl font font-bold tracking-tight text-white sm:text-4xl'>
-                  Popular <Accent>blog posts</Accent>
+                  Popular <Accent> posts</Accent>
                   {/* Popular posts */}
                </h1>
                <p className='mt-4 text-md text-slate-400'>
@@ -20,8 +20,8 @@ const FeaturedPosts = () => (
             </div>
             <div className='flex gap-6 flex-col md:flex-row mt-10'>
                <a
-                  className='transform hover:scale-[1.01] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-[#7928ca] to-[#ff0080]'
-                  href='post/javascript-className-fundamentals'>
+                  className='transform hover:scale-[1.02] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-[#7928ca] to-[#ff0080]'
+                  href='post/javascript-class-fundamentals'>
                   <div className='flex flex-col justify-between h-full bg-neutral-900  rounded-lg p-4'>
                      <div className='flex flex-col md:flex-row justify-between'>
                         <h4 className='text-lg md:text-lg font-medium mb-6 sm:mb-10 w-full text-gray-900 dark:text-gray-100 tracking-tight'>
@@ -37,7 +37,7 @@ const FeaturedPosts = () => (
                   </div>
                </a>
                <a
-                  className='transform hover:scale-[1.01] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-[#6EE7B7] via-[#3B82F6] to-[#9333EA]'
+                  className='transform hover:scale-[1.02] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-b p-1 from-[#ff0080]  to-[#7928ca]'
                   href='/post/nodejs-interview'>
                   <div className='flex flex-col justify-between h-full bg-neutral-900  rounded-lg p-4'>
                      <div className='flex flex-col md:flex-row justify-between'>
@@ -54,7 +54,7 @@ const FeaturedPosts = () => (
                   </div>
                </a>
                <a
-                  className='transform hover:scale-[1.01] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-lime-500 via-[#b5d855] to-teal-700'
+                  className='transform hover:scale-[1.02] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-[#ff0080] to-[#7928ca]'
                   href='/post/databases-simple'>
                   <div className='flex flex-col justify-between h-full bg-neutral-900  rounded-lg p-4'>
                      <div className='flex flex-col md:flex-row justify-between'>
