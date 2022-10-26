@@ -1,42 +1,41 @@
-import React, {useState, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import Accent from "./custom/Accent";
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, Transition } from "@headlessui/react";
 
 const NewsLetter = () => {
    let [isOpen, setIsOpen] = useState(false);
    const [email, setemail] = useState("");
-   const [validationError, setValidationError ] = useState(false);
+   const [validationError, setValidationError] = useState(false);
 
    function closeModal() {
-      setemail("")
-      setIsOpen(false)
+      setemail("");
+      setIsOpen(false);
    }
- 
+
    function openModal() {
-      let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
-      if(regex.test(email)){
-         setIsOpen(true)
-         setValidationError(false)
-          console.log("mejl je dobar")
-      }else{
-         console.log("mejl nije dobar")
-         setValidationError(true)
+      let regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+      if (regex.test(email)) {
+         setIsOpen(true);
+         setValidationError(false);
+         console.log("mejl je dobar");
+      } else {
+         console.log("mejl nije dobar");
+         setValidationError(true);
       }
    }
 
    function handleChange(e) {
-      console.log(e.target.value)
-      setemail(e.target.value)
+      console.log(e.target.value);
+      setemail(e.target.value);
       // setIsOpen(true)
-    }
- 
+   }
 
    return (
       <div className=' '>
          <div className=' xl:w-2/3 md:w-3/3 sm:w-3/3 mx-auto relative border bg-neutral-900 border-neutral-700 grid grid-cols-1 lg:grid-cols-2 gap-10  p-10 lg:p-[60px] rounded-2xl'>
             <div>
                <h3 className='text-white text-4xl font-semibold'>
-                  <Accent> Sign up for newsletter</Accent>
+                  Sign up for <Accent> newsletter</Accent>
                </h3>
 
                <p className='text-sm text-white mt-4'>
@@ -63,7 +62,7 @@ const NewsLetter = () => {
                      // onChange={handleSearchChange}
                   />
                   <button
-                     type="button"
+                     type='button'
                      onClick={openModal}
                      disabled={!email}
                      className=' ml-2 p-2 w-4/4 my-3 rounded-md  shadow-md  shadow-neutral-700
@@ -72,68 +71,69 @@ const NewsLetter = () => {
                   </button>
                </div>
 
-                  {validationError ? <p className='text-red-700 mt-2 font-semibold  text-md'>
-                  Email format is wrong, please try again
-               </p> :<></>}
-              
+               {validationError ? (
+                  <p className='text-red-700 mt-2 font-semibold  text-md'>
+                     Email format is wrong, please try again
+                  </p>
+               ) : (
+                  <></>
+               )}
             </div>
          </div>
          <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md	" />
-          </Transition.Child>
+            <Dialog as='div' className='relative z-10' onClose={closeModal}>
+               <Transition.Child
+                  as={Fragment}
+                  enter='ease-out duration-300'
+                  enterFrom='opacity-0'
+                  enterTo='opacity-100'
+                  leave='ease-in duration-200'
+                  leaveFrom='opacity-100'
+                  leaveTo='opacity-0'>
+                  <div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md	' />
+               </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-neutral-900  border border-neutral-700 p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-white"
-                  >
-                    Subscription successful
-                  </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-slate-400">
-                      Your subscription has been successfully submitted for email <b>{email}</b>. We strive to fight against data and privacy abuse, so please confirm your email. 
-                    </p>
-                  </div>
+               <div className='fixed inset-0 overflow-y-auto'>
+                  <div className='flex min-h-full items-center justify-center p-4 text-center'>
+                     <Transition.Child
+                        as={Fragment}
+                        enter='ease-out duration-300'
+                        enterFrom='opacity-0 scale-95'
+                        enterTo='opacity-100 scale-100'
+                        leave='ease-in duration-200'
+                        leaveFrom='opacity-100 scale-100'
+                        leaveTo='opacity-0 scale-95'>
+                        <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-neutral-900  border border-neutral-700 p-6 text-left align-middle shadow-xl transition-all'>
+                           <Dialog.Title
+                              as='h3'
+                              className='text-lg font-medium leading-6 text-white'>
+                              Subscription successful
+                           </Dialog.Title>
+                           <div className='mt-2'>
+                              <p className='text-sm text-slate-400'>
+                                 Your subscription has been successfully
+                                 submitted for email <b>{email}</b>. We strive
+                                 to fight against data and privacy abuse, so
+                                 please confirm your email.
+                              </p>
+                           </div>
 
-                  <div className="mt-4">
-                     <span className="bg-gradient-to-r p-[2px]  from-[#7928ca] to-[#ff0080]">
-                     <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-neutral-900 text-sm text-white p-3"
-                      onClick={closeModal}
-                    >
-                      Got it, thanks!
-                    </button>
-                     </span>
-                 
+                           <div className='mt-4'>
+                              <span className='bg-gradient-to-r p-[2px]  from-[#7928ca] to-[#ff0080]'>
+                                 <button
+                                    type='button'
+                                    className='inline-flex justify-center rounded-md border border-transparent bg-neutral-900 text-sm text-white p-3'
+                                    onClick={closeModal}>
+                                    Got it, thanks!
+                                 </button>
+                              </span>
+                           </div>
+                        </Dialog.Panel>
+                     </Transition.Child>
                   </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
+               </div>
+            </Dialog>
+         </Transition>
       </div>
    );
 };
