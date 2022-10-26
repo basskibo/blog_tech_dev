@@ -31,8 +31,8 @@ const NewsLetter = () => {
    }
 
    return (
-      <div className=' '>
-         <div className=' xl:w-2/3 md:w-3/3 sm:w-3/3 mx-auto relative border bg-neutral-900 border-neutral-700 grid grid-cols-1 lg:grid-cols-2 gap-10  p-10 lg:p-[60px] rounded-2xl'>
+      <div className='bg-neutral-900 pb-10'>
+         <div className=' xl:w-2/3 md:w-3/3 sm:w-3/3 mx-auto relative border bg-neutral-900 border-neutral-700 grid grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
             <div>
                <h3 className='text-white text-4xl font-semibold'>
                   Sign up for <Accent> newsletter</Accent>
@@ -54,7 +54,7 @@ const NewsLetter = () => {
                   /> */}
                   <input
                      className=' w-4/4 my-3 bg-neutral-900 text-white  px-3 py-2 rounded-md
-					border border-slate-600 focus:border-lime-600 flex-grow focus:outline-none cursor-text'
+					border border-slate-600 focus:border-[#7928ca] flex-grow focus:outline-none cursor-text'
                      placeholder='Enter your email'
                      value={email}
                      onChange={handleChange}
@@ -65,8 +65,8 @@ const NewsLetter = () => {
                      type='button'
                      onClick={openModal}
                      disabled={!email}
-                     className=' ml-2 p-2 w-4/4 my-3 rounded-md  shadow-md  shadow-neutral-700
-                  hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500'>
+                     className=' ml-2 p-2 w-4/4 my-3 rounded-md  shadow-sm  shadow-neutral-700
+                  hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'>
                      Subscribe
                   </button>
                </div>
