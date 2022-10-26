@@ -68,7 +68,11 @@ const SpotifyCard = () => {
                </p>
             </div>
             <div className='absolute right-1.5 top-1.5'>
-               <SiSpotify size={20} color={"#1ED760"} />
+               {song?.isPlaying ? (
+                  <SiSpotify size={20} color={"#1ED760"} />
+               ) : (
+                  <></>
+               )}
             </div>
          </a>
       </div>

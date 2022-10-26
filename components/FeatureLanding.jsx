@@ -10,25 +10,25 @@ import Accent from "./custom/Accent";
 
 const FeatureLanding = () => {
    return (
-      <div id='sectionFeature'>
-         {/* <motion.div
-				initial='offscreen'
-				whileInView='onscreen'
-				viewport={{ once: true, amount: 0.8 }}
-				transition={{ duration: 2 }}
-			> */}
-         <section className='text-slate-300 body-font bg-teal-900 '>
-            {/* <motion.div variants={cardVariants}> */}
-            <div className='container px-5 pb-5 mx-auto'>
-               <h1 className='text-xl font font-bold tracking-tight text-white sm:text-4xl mb-20'>
-                  {/* <Accent>My activity on social networks </Accent> */}
-                  My activity on social networks
-                  {/* <br className='hidden sm:block' />
-                  at least some of it */}
-               </h1>
-               <div className='flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6'>
-                  <div className='p-2  md:w-1/1 xl:w-2/6 flex'>
-                     <div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-lime-500 mb-4 flex-shrink-0'>
+      <div
+         id='sectionFeature'
+         className='relative bg-neutral-900 overflow-hidden '>
+         <div className='pt-16 pb-40 sm:pt-24 sm:pb-20 lg:pt-20 lg:pb-32'>
+            <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
+               <div className='sm:max-w-lg'>
+                  <h1 className='text-xl font font-bold tracking-tight text-white sm:text-4xl'>
+                     My activity on <Accent>social networks</Accent>
+                  </h1>
+                  {/* <p className='mt-4 text-md text-slate-400'>
+                     Dive into the sea of interesting topics and technologies.
+                     There is a number of topics I tried to cover, so please be
+                     my guest and checkout, I hope there is something for
+                     everyone
+                  </p> */}
+               </div>
+               <div className='flex gap-6 flex-col md:flex-row mt-10'>
+                  <div className=''>
+                     <div className='items-center justify-center rounded-full bg-neutral-900 text-lime-500 p-1 text-3xl'>
                         <SiSpotify />
                      </div>
                      <div className='flex-grow pl-2 pt-2'>
@@ -43,8 +43,8 @@ const FeatureLanding = () => {
                         <SpotifyCard />
                      </div>
                   </div>
-                  <div className='p-2  md:w-1/1 xl:w-2/6 flex'>
-                     <div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-white mb-4 flex-shrink-0'>
+                  <div className=''>
+                     <div className='items-center justify-center rounded-full bg-neutral-900 text-white p-1 text-3xl'>
                         <SiGithub />
                      </div>
                      <div className='flex-grow pl-2 pt-2'>
@@ -70,13 +70,13 @@ const FeatureLanding = () => {
                               name='basskibo'
                               type='user'
                               repository='blogtech_dev'
-                              height={478}
+                              // height={478}
                            />
                         </div>
                      </div>
                   </div>
-                  <div className='p-2  md:w-1/1 xl:w-2/6 flex'>
-                     <div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-neutral-300 mb-4 flex-shrink-0'>
+                  <div className=''>
+                     <div className='items-left justify-left rounded-full bg-neutral-900 text-gray-400 p-1 text-3xl'>
                         <IoMdInfinite />
                      </div>
                      <div className='flex-grow pl-2 pt-2'>
@@ -100,28 +100,15 @@ const FeatureLanding = () => {
                         <a href='https://app.daily.dev/basskibo'>
                            <img
                               src='https://api.daily.dev/devcards/cf2aab07c11a46d283d5794c5e2f23c9.png?r=979'
-                              width='350'
+                              width='300'
                               alt="Bojan Jagetic's Dev Card"
                            />
                         </a>
-                        {/* <a
-                           className='twitter-timeline'
-                           data-theme='dark'
-                           data-tweet-limit='1'
-                           href='https://twitter.com/basskibo1'>
-                           Tweets by @Basskibo1
-                        </a>{" "}
-                        <script
-                           async
-                           src='https://platform.twitter.com/widgets.js'
-                           charSet='utf-8'></script> */}
                      </div>
                   </div>
                </div>
             </div>
-            {/* </motion.div> */}
-         </section>
-         {/* </motion.div> */}
+         </div>
       </div>
    );
 };

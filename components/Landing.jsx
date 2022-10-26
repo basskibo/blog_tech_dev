@@ -9,17 +9,15 @@ import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
 import MotionComponent from "./custom/MotionComponent";
 import NewsLetter from "./NewsLetter";
 
-
 const Landing = () => {
    const handleClick = (e) => {
       e.preventDefault();
       router.push(href);
    };
    return (
-      // <div className='bg-gradient-to-r from-purple-900 to-indigo-900 '>
-      // <div className='bg-gradient-to-r from-amber-800 to-lime-900 '>
-      <div className=''>
-         <div className=' text-slate-200 md:px-10 px-5 hero-bg '>
+      <div className='bg-gradient-to-b from-neutral-900  to-[#7928ca] '>
+         {/* <div className=''> */}
+         <div className=' text-slate-200 md:px-10 px-5  '>
             {/* <MotionComponent> */}
             <div
                className='grid place-items-left place-content-center gap-1 h-screen
@@ -48,9 +46,9 @@ const Landing = () => {
                      because I love challenging and complex projects.
                   </p>
                </div>
-               
+
                <div className='mt-7  lg:mt-10  xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
-               {/* <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-lime-500 to-teal-700 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                  {/* <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-lime-500 to-teal-700 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
                   <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                         Green to blue
                   </span>
@@ -66,14 +64,14 @@ const Landing = () => {
                      name='blog'
                      id='rb_button'
                      className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-800
-                  hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500 '>
+               hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-lime-600 hover:shadow-neutral-500 '>
                      Read blog
                   </ActiveLink>
                   <ActiveLink
                      href='/routes/aboutme'
                      id='am_button'
                      className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-800
-							hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500 '>
+							hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-lime-600 hover:shadow-neutral-500 '>
                      See my bio
                   </ActiveLink>
                </div>
@@ -127,24 +125,12 @@ const Landing = () => {
                   clipRule='evenodd'></path>
             </svg>
          </AnchorLink>
-         <SvgWave />
+         {/* <SvgWave /> */}
          <FeatureLanding />
 
-         <div className='bg-teal-900'>
-            <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'>
-               <path
-                  fill='#171717'
-                  fillOpacity='1'
-                  d='M0,192L48,197.3C96,203,192,213,288,224C384,235,480,245,576,240C672,235,768,213,864,176C960,139,1056,85,1152,90.7C1248,96,1344,160,1392,192L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'></path>
-            </svg>
-         </div>
-         {/* <HighlightPost /> */}
          <FeaturedPosts />
-         <div></div>
-         {/* <SvgWave /> */}
-         <div className=' py-10'>
-            <NewsLetter />
-         </div>
+
+         <NewsLetter />
       </div>
    );
 };

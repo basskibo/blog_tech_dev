@@ -8,9 +8,9 @@ const ReadTime = ({ children, className }) => {
    const stats = readingTime(JSON.stringify(children[1]));
    return (
       <p className={cslx(className, "inline-flex mt-1")}>
-         <IoTimeOutline className='h-full mt-0.7 text-lg' />{" "}
-         <span className='ml-2'>
-            <Accent className='text-md'>{stats.text}</Accent>
+         <IoTimeOutline className='h-full mt-0.5 text-lg' />{" "}
+         <span className='ml-2 pb-1'>
+            <Accent className='text-md font-medium'>{stats.text}</Accent>
          </span>
       </p>
    );
