@@ -9,9 +9,7 @@ const ReadTime = ({ children, className }) => {
    return (
       <p className={cslx(className, "inline-flex mt-1")}>
          <IoTimeOutline className='h-full mt-0.5 text-lg' />{" "}
-         <span className='ml-2 pb-1'>
-            <Accent className='text-md font-medium'>{stats.text}</Accent>
-         </span>
+         <span className='ml-2 pb-1'>{stats.text}</span>
       </p>
    );
 };
