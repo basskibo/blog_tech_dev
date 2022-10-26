@@ -41,7 +41,7 @@ const Landing = () => {
                            ]}
                            wrapper='Accent'
                            cursor={true}
-                           speed={20}
+                           speed={25}
                            repeat={0}
                            // className='text-transparent bg-clip-text bg-gradient-to-r from-[#7928ca] to-[#ff0080] mb-5'
                            style={{ fontSize: "1em" }}
