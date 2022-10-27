@@ -3,26 +3,18 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["referentialIntegrity"]
 }
+
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
-  referentialIntegrity = "prisma"
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+model Widget {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+model PageViews {
+  name String? @unique
+  views Int  @default(sequence(increment: 2))
 }

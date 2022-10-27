@@ -12,6 +12,22 @@ import TableOfContent from "../../components/custom/TableOfContent";
 import ReadTime from "../../components/ReadTime";
 import SocialNetworkShare from "../../components/custom/SocialNetworkShare";
 import constants from "../../lib/constants";
+import axios from "axios";
+
+
+const fetchCurent = async (post) => {
+   const url = `/api/views`;
+   const result = await axios(url, {
+      method: "GET",
+      params: post,
+      headers: {
+         "Content-Type": "application/json",
+      },
+   });
+
+   return result.data;
+};
+
 
 
 function getTableOfContents(content) {
@@ -79,15 +95,7 @@ const components = {
 };
 
 const LibaryDetails = ({ data, mdxSource, toc }) => {
-   // data.technologies.forEach((tech) => {
-   //    console.log(tech);
-   //    React.createElement(
-   //       tech,
-   //       { className: "some-class" },
-   //       <div className='some-class'>some content</div>
-   //    );
-   // });
-
+   fetchCurent({ data })
    return (
       <div className='container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 px-5 md:px-10 mb-10 lg:rounded-lg p-0  text-slate-400'>
          <div className='grid grid-cols-1 lg:grid-cols-12 gap-x-12'>
