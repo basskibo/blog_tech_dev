@@ -13,20 +13,7 @@ import ReadTime from "../../components/ReadTime";
 import SocialNetworkShare from "../../components/custom/SocialNetworkShare";
 import constants from "../../lib/constants";
 import axios from "axios";
-
-
-const fetchCurent = async (post) => {
-   const url = `/api/views`;
-   const result = await axios(url, {
-      method: "GET",
-      params: post,
-      headers: {
-         "Content-Type": "application/json",
-      },
-   });
-
-   return result.data;
-};
+import { HiOutlineEye } from "react-icons/hi";
 
 
 
@@ -95,7 +82,6 @@ const components = {
 };
 
 const LibaryDetails = ({ data, mdxSource, toc }) => {
-   fetchCurent({ data })
    return (
       <div className='container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 px-5 md:px-10 mb-10 lg:rounded-lg p-0  text-slate-400'>
          <div className='grid grid-cols-1 lg:grid-cols-12 gap-x-12'>
@@ -126,9 +112,15 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
                            </p>
                         </div>
                         <span className='flex mb-2'>
-                           <ReadTime className=' w-28  flex-initial    lg:text-md sm:text-sm'>
+                           <ReadTime className=' w-28  flex-initial  lg:text-md sm:text-sm'>
                               {mdxSource.compiledSource}
                            </ReadTime>
+                           <div className=' w-28  flex-initial   lg:text-md sm:text-sm'>
+                              <p className="inline-flex mt-1">
+                                 <HiOutlineEye className='h-full mt-0.5 text-lg' />{" "}
+                                 <span className='ml-2 pb-1'>{data.views} views</span>
+                              </p>
+                           </div>
                            <div
                               className='w-1 h-1 mt-3 mr-6 rounded-full flex-initial'
                               style={{ backgroundColor: "#FFF" }}></div>
@@ -179,9 +171,25 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
    data = { ...data, slug };
    const toc = getTableOfContents(content);
-   console.log(toc)
+   console.log(process.env.ENVIRONMENT)
    const mdxSource = await serialize(content);
+   let views = 1122020;
+   if (process.env.ENVIRONMENT !== "dev") {
+      const url = `https://bojanjagetic.com/api/views`;
+      const result = await axios(url, {
+         method: "GET",
+         params: { title: data.title },
+         headers: {
+            "Content-Type": "application/json",
+         },
+      });
 
+      console.log(result.data)
+      views = result.data.views;
+   }
+
+   data = { ...data, views }
+   console.log(data)
    return {
       props: {
          data,

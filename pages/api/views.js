@@ -2,12 +2,15 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const postView = async (post) => {
+const postView = async (req, res) => {
+    let result;
     try {
-        const data = JSON.parse(post.query.data)
-        const title = data.title;
-        // await prisma.PageViews.create({ data: { name: title } })
-        const res = await prisma.PageViews.update(
+        if (!req.query.title) {
+            prisma.$disconnect();
+            return res.status(404).send('Post Title is missing.');
+        }
+        const title = req.query.title;
+        result = await prisma.PageViews.update(
             {
                 data: {
                     views: {
@@ -22,7 +25,7 @@ const postView = async (post) => {
         console.error("error executing query:", err);
     } finally {
         prisma.$disconnect();
-        return true
+        return res.status(200).send(result);
     }
 };
 
