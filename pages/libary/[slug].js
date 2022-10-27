@@ -173,7 +173,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
    const toc = getTableOfContents(content);
    console.log(process.env.ENVIRONMENT)
    const mdxSource = await serialize(content);
-   let views = 1122020;
+   let views = 11220;
    if (process.env.ENVIRONMENT !== "dev") {
       const url = `https://bojanjagetic.com/api/views`;
       const result = await axios(url, {

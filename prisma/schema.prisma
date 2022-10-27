@@ -15,6 +15,6 @@ model Widget {
 }
 
 model PageViews {
-  name String? @unique
+  name String @unique
   views Int  @default(sequence(increment: 2))
 }
