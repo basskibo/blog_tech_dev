@@ -173,23 +173,21 @@ export const getStaticProps = async ({ params: { slug } }) => {
    const toc = getTableOfContents(content);
    console.log(process.env.ENVIRONMENT)
    const mdxSource = await serialize(content);
-   let views = 11220;
-   if (process.env.ENVIRONMENT !== "dev") {
-      const url = `https://bojanjagetic.com/api/views`;
-      const result = await axios(url, {
-         method: "GET",
-         params: { title: data.title },
-         headers: {
-            "Content-Type": "application/json",
-         },
-      });
+   // let views = 11220;
+   // if (process.env.ENVIRONMENT !== "dev") {
+   //    const url = `https://bojanjagetic.com/api/views`;
+   //    const result = await axios(url, {
+   //       method: "GET",
+   //       params: { title: data.title },
+   //       headers: {
+   //          "Content-Type": "application/json",
+   //       },
+   //    });
 
-      console.log(result.data)
-      views = result.data.views;
-   }
-
-   data = { ...data, views }
-   console.log(data)
+   //    console.log(result.data)
+   //    views = result.data.views;
+   // }
+   // data = { ...data, views }
    return {
       props: {
          data,
