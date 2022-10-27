@@ -32,7 +32,7 @@ const NewsLetter = () => {
 
    return (
       <div className='bg-neutral-900 pb-10'>
-         <div className=' xl:w-2/3 md:w-3/3 sm:w-3/3 mx-auto relative border bg-neutral-900 border-neutral-700 grid grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
+         <div className=' xl:w-2/3 md:w-3/3 sm:w-3/3 sm:mx-2 sm:px-3 mx-auto relative border bg-neutral-900 border-neutral-700 grid grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
             <div>
                <h3 className='text-white text-4xl font-semibold'>
                   Sign up for <Accent> newsletter</Accent>
