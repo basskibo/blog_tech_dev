@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
 import moment from "moment";
@@ -14,6 +14,7 @@ import SocialNetworkShare from "../../components/custom/SocialNetworkShare";
 import constants from "../../lib/constants";
 import axios from "axios";
 import { HiOutlineEye } from "react-icons/hi";
+
 
 
 
@@ -82,6 +83,32 @@ const components = {
 };
 
 const LibaryDetails = ({ data, mdxSource, toc }) => {
+   const [views, setviews] = useState(11220);
+
+   useEffect(() => {
+      // const interval = setInterval(() => {
+      getViews(data)
+      // setSeconds(15000);
+      // }, seconds);
+      // return () => clearInterval(interval);
+   }, []);
+   const getViews = async (data) => {
+      // if (process.env.ENVIRONMENT !== "dev") {
+      console.log("fetching api views")
+      const url = `https://bojanjagetic.com/api/views`;
+      // const url = `http://localhost:3000/api/views`;
+      const result = await axios(url, {
+         method: "GET",
+         params: { title: data.title },
+         headers: {
+            "Content-Type": "application/json",
+         },
+      });
+
+      console.log(result.data)
+      setviews(result.data.views);
+   }
+
    return (
       <div className='container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 px-5 md:px-10 mb-10 lg:rounded-lg p-0  text-slate-400'>
          <div className='grid grid-cols-1 lg:grid-cols-12 gap-x-12'>
@@ -118,7 +145,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
                            <div className=' w-28  flex-initial   lg:text-md sm:text-sm'>
                               <p className="inline-flex mt-1">
                                  <HiOutlineEye className='h-full mt-0.5 text-lg' />{" "}
-                                 <span className='ml-2 pb-1'>{data.views} views</span>
+                                 <span className='ml-2 pb-1'>{views} views</span>
                               </p>
                            </div>
                            <div
@@ -173,23 +200,9 @@ export const getStaticProps = async ({ params: { slug } }) => {
    const toc = getTableOfContents(content);
    console.log(process.env.ENVIRONMENT)
    const mdxSource = await serialize(content);
-   let views = 11220;
-   console.log(process.env.ENVIRONMENT)
-   // if (process.env.ENVIRONMENT !== "dev") {
-   console.log("fetching api views")
-   const url = `https://bojanjagetic.com/api/views`;
-   const result = await axios(url, {
-      method: "GET",
-      params: { title: data.title },
-      headers: {
-         "Content-Type": "application/json",
-      },
-   });
 
-   console.log(result.data)
-   views = result.data.views;
    // }
-   data = { ...data, views }
+   // data = { ...data, views }
    return {
       props: {
          data,
