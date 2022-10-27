@@ -95,7 +95,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
    const getViews = async (data) => {
       // if (process.env.ENVIRONMENT !== "dev") {
       console.log("fetching api views")
-      const url = `https://bojanjagetic.com/api/views`;
+      const url = `/api/views`;
       // const url = `http://localhost:3000/api/views`;
       const result = await axios(url, {
          method: "GET",
