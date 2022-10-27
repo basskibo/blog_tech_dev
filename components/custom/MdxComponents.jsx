@@ -121,7 +121,9 @@ export default {
    CloudinaryContext: CloudinaryContextImage,
    ReactPlayer: VideoContext,
    p: ({ children }) => {
-      return <p className='my-5 ml-2 text-md leading-relaxed      '>{children}</p>;
+      return (
+         <p className='my-5 ml-2 text-md leading-relaxed      '>{children}</p>
+      );
    },
    b: ({ children }) => {
       return <span className='font-bold'>{children}</span>;
@@ -141,7 +143,7 @@ export default {
    a: ({ children, className, href }) => {
       return (
          <a
-            className='my-3 hover:cursor-ne-resize text-lime-500 underline decoration-dotted decoration-2
+            className='my-3 hover:cursor-ne-resize text-[#ff0080] underline decoration-dotted decoration-2
             	decoration-sky-400 underline-offset-4 link link-underline link-underline-black hover:no-underline'
             href={href}
             target='_blank'
@@ -165,30 +167,38 @@ export default {
          </blockquote>
       );
    },
-   GithubCardRepo: ({children}) => {
-      const splitted=  children.split('/')
-      const username = splitted[0], repo = splitted[1];
-      return(
-       <div className=''>
-         <p className="py-5">Checkout repository <b>{children}</b> on Github directly</p>
-         <GithubCard  name={username || "basskibo"} type="repo" repository={repo} width="700" height="200"/>
-
-       </div>
-      )
-      },
-      GithubCardRepository: GithubCardRepository,
-   NewLine: ({}) => {
-      return <div className="my-5">{" "}</div>
-   },
-   Iframe: ({children, className}) => {
+   GithubCardRepo: ({ children }) => {
+      const splitted = children.split("/");
+      const username = splitted[0],
+         repo = splitted[1];
       return (
-      <iframe src="https://codesandbox.io/embed/js-class-example-24bl6t?fontsize=14&hidenavigation=1&theme=dark"
-         // className="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-         className="w-full h-96"
-         title="JS Class example "
-         allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-         sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-    ></iframe>
-   )
-   }
+         <div className=''>
+            <p className='py-5'>
+               Checkout repository <b>{children}</b> on Github directly
+            </p>
+            <GithubCard
+               name={username || "basskibo"}
+               type='repo'
+               repository={repo}
+               width='700'
+               height='200'
+            />
+         </div>
+      );
+   },
+   GithubCardRepository: GithubCardRepository,
+   NewLine: ({}) => {
+      return <div className='my-5'> </div>;
+   },
+   Iframe: ({ children, className }) => {
+      return (
+         <iframe
+            src='https://codesandbox.io/embed/js-class-example-24bl6t?fontsize=14&hidenavigation=1&theme=dark'
+            // className="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+            className='w-full h-96'
+            title='JS Class example '
+            allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
+            sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts'></iframe>
+      );
+   },
 };
