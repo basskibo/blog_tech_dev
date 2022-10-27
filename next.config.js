@@ -46,7 +46,7 @@ module.exports = {
       return [
          {
             source: '/api/views',
-            destination: 'https://www.bojanjagetic.com/api/views',
+            destination: 'http://localhost:3000',
          },
       ]
    },
