@@ -174,7 +174,9 @@ export const getStaticProps = async ({ params: { slug } }) => {
    console.log(process.env.ENVIRONMENT)
    const mdxSource = await serialize(content);
    let views = 11220;
+   console.log(process.env.ENVIRONMENT)
    if (process.env.ENVIRONMENT !== "dev") {
+      console.log("fetching api views")
       const url = `https://bojanjagetic.com/api/views`;
       const result = await axios(url, {
          method: "GET",
