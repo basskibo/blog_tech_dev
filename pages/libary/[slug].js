@@ -107,7 +107,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
 
       console.log(result.data)
       setviews(result.data.views);
-   }l
+   }
 
    return (
       <div className='container mx-auto sm:mt-15 lg:mt-5 sm:mt-10 px-5 md:px-10 mb-10 lg:rounded-lg p-0  text-slate-400'>
