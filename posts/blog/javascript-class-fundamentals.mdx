@@ -128,12 +128,93 @@ document.getElementById("demo").innerHTML = mycar.show();
 ```
 ## Class fields
 ### Private class
-### Public class
+Class fields are public by default, but private class members can be created by using a hash # prefix. The privacy encapsulation of these class features is enforced by JavaScript itself.
 
+JavaScript, being a dynamic language, is able to perform this compile-time check because of the special hash identifier syntax, making it different from normal properties on the syntax level.
+
+```javascript
+class PrivateClass {
+    #confidental;
+
+    constructor() {
+        this.#confidental = 5;
+        delete this.#confidental; // Syntax error
+        this.#uknownFeild = 10; // Syntax error
+    }
+}
+
+const instance = new PrivateClass();
+instance.#confidental == 10; // Syntax error
+```
+### Public class
+As mentioned above, by default properties in Javascript class are public.
+Both static and instance public fields are writable, enumerable, and configurable properties so you are able to call it outside declaration and class.
+
+```javascript
+class ClassWithInstance {
+    someInstance = 'this is instance';
+}
+
+class ClassWithStatic {
+    static someStatic = 'this is static';
+}
+
+class ClassWithPublicMethod {
+    publicMethod() {
+        return 'This is public method';
+    }
+}
+
+console.log(ClassWithInstance.someStatic); // Output: this is static
+console.log(Object.hasOwn(ClassWithStatic, 'someStatic')); // Output: true
+const instance = new ClassWithInstance();
+console.log(instance.someInstance); // Output: this is instance
+
+
+```
+
+## Class in Typescript
+
+As traditional Javascript uses functions and prototype-based inheritance, for programmers used to object oriented approach can be a little bit confusing and akward.
+From ECMAScript 6 Javascript introduced so you can use object-oriented approach as well in Javascript. Typescript allow developers to use it and compile down to Javascript and it will be
+compatible to every popular browser and platform without having to think about next version of Javascript.
+
+```javascript
+class Animal {
+    public name: string; //public field
+    #species: string; //private field
+    constructor(animalName: string, species: string) {
+        this.name = animalName;
+        this.#species = species;
+    }
+    move(distance: number = 0) {
+        console.log(`Animal moved ${distance}m.`);
+    }
+}
+
+class Dog extends Animal {
+    constructor(name: string) {
+        super(name);
+    }
+    bark() {
+        console.log("Woof! ");
+    }
+}
+
+let simba = new Dog("Simba the dog");
+let bonnie: Animal = new Dog("Bonnie");
+
+simba.move(); // Output: Animal moved 0m.
+simba.bark(); // Output: Woof!
+tom.bonnie(34); // Output: Animal moved 34m.
+new Animal("Horse").species; // Property 'species' is private and only accessible within class 'Animal'.
+
+```
 
 ## Class project Example
-
-### About 
+### About
+This is a little example on how you can use classes in Javascript, it is on <Link href="https://codesandbox.io/"> codesandbox </Link> so you can try it, test it and change it in order to better
+get the concept and usability of the class.
 
 ### Code example
 <Iframe></Iframe>
