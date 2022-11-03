@@ -195,7 +195,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   data = { ...data, slug }
   const toc = getTableOfContents(content)
-  console.log(process.env.ENVIRONMENT)
+  // console.log(process.env.ENVIRONMENT)
   const mdxSource = await serialize(content)
 
   // }

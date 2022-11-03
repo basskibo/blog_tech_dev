@@ -1,39 +1,24 @@
-import React, { useContext, useEffect, Fragment } from "react";
-import Link from "next/link";
-import { Disclosure, Menu, Popover, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon, LoginIcon } from "@heroicons/react/outline";
-import DisclocureButton from "../DisclocureButton";
-import ActiveLink from "../custom/ActiveLink";
-import { useRouter } from "next/router";
-import Image from "next/image";
+import React from 'react'
+import { Disclosure } from '@headlessui/react'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
+import ActiveLink from '../custom/ActiveLink'
 
 const navigation = [
-   { name: "Home", href: "/", current: true },
-   { name: "Blog", href: "/routes/blog", current: false },
+  { name: 'Home', href: '/', current: true },
+  { name: 'Blog', href: '/routes/blog', current: false },
 
-   // { name: "Projects", href: "/routes/projects", current: false },
-   // { name: "Courses", href: "/routes/courses", current: false },
-   { name: "Libary", href: "/routes/libaries", current: false },
-   { name: "About Me", href: "/routes/aboutme", current: false },
-];
+  // { name: "Projects", href: "/routes/projects", current: false },
+  // { name: "Courses", href: "/routes/courses", current: false },
+  { name: 'Libary', href: '/routes/libaries', current: false },
+  { name: 'About Me', href: '/routes/aboutme', current: false }
+]
 
-function classNames(...classes) {
-   return classes.filter(Boolean).join(" ");
-}
+// function classNames (...classes) {
+//   return classes.filter(Boolean).join(' ')
+// }
 
 const Header = ({ href }) => {
-   const router = useRouter();
-   const style = {
-      marginRight: 10,
-      color: router.asPath === href ? "red" : "black",
-   };
-
-   const handleClick = (e) => {
-      e.preventDefault();
-      router.push(href);
-   };
-
-   return (
+  return (
       <div className='sticky top-0 z-50 absolute bg-neutral-700 backdrop-filter backdrop-blur-lg bg-opacity-30 '>
          <Disclosure
             as='nav'
@@ -43,20 +28,22 @@ const Header = ({ href }) => {
                   <div className=' max-w-10xl w-full  px-2 sm:px-6 lg:px-8'>
                      <div className='relative flex items-center justify-between h-16'>
                         <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
-                           {/* Mobile menu button*/}
-                           <Disclosure.Button className='inline-flex absolute items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white absolute'>
+                           {/* Mobile menu button */}
+                           <Disclosure.Button className='inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white absolute'>
                               <span className='sr-only'>Open main menu</span>
-                              {open ? (
+                              {open
+                                ? (
                                  <XIcon
                                     className='block h-6 w-6'
                                     aria-hidden='true'
                                  />
-                              ) : (
+                                  )
+                                : (
                                  <MenuIcon
                                     className='block h-6 w-6 text-[#ff0080]'
                                     aria-hidden='true'
                                  />
-                              )}
+                                  )}
                            </Disclosure.Button>
                         </div>
                         <div className='flex-1 flex items-center justify-center sm:items-stretch sm:justify-start'>
@@ -106,13 +93,13 @@ const Header = ({ href }) => {
                                                 strokeLinejoin='round'
                                                 strokeWidth='2'
                                                 d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1'></path>
-                                          </svg>   
+                                          </svg>
                                        </span>
                                     </span>
                                  </a>
                               </Link>
                            </div> */}
-                           {/* 
+                           {/*
                            <button
                               type='button'
                               className='bg-gray-800 p-1 rounded-full text-gray-400 ml-2 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'>
@@ -203,7 +190,7 @@ const Header = ({ href }) => {
             )}
          </Disclosure>
       </div>
-   );
-};
+  )
+}
 
-export default Header;
+export default Header

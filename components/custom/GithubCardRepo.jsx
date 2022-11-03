@@ -1,55 +1,55 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { GoRepo, GoOrganization, GoEye, GoRepoForked } from "react-icons/go";
-import { AiOutlineStar } from "react-icons/ai";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { GoRepo, GoOrganization, GoEye, GoRepoForked } from 'react-icons/go'
+import { AiOutlineStar } from 'react-icons/ai'
 
-import { SiGithub } from "react-icons/si";
-import moment from "moment";
+import { SiGithub } from 'react-icons/si'
+import moment from 'moment'
 
 const GithubCardProfile = ({ children }) => {
-   const [repository, setRepository] = useState(null);
+  const [repository, setRepository] = useState(null)
 
-   useEffect(() => {
-      const url = `https://api.github.com/repos/${children}`;
-      const fetchData = async () => {
-         try {
-            const response = await axios.get(
-               url
-               // , {
-               // 	headers: {
-               // 		Authorization: "token 6888b5336f1fbc75edb8de9961846462e0e1c218",
-               // 	},
-               // }
-            );
+  useEffect(() => {
+    const url = `https://api.github.com/repos/${children}`
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          url
+          // , {
+          // 	headers: {
+          // 		Authorization: "token 6888b5336f1fbc75edb8de9961846462e0e1c218",
+          // 	},
+          // }
+        )
 
-            console.log(response.data);
-            setRepository(response.data);
-         } catch (error) {
-            console.log("error", error);
-         }
-      };
-
-      fetchData();
-   }, []);
-
-   const setLanguageColor = (language) => {
-      switch (language) {
-         case "TypeScript":
-            return { backgroundColor: "#3178c6" };
-         case "Shell":
-            return { backgroundColor: "#89e051" };
-         case "JavaScript":
-            return { backgroundColor: "#f1e05a" };
-         case "HTML":
-            return { backgroundColor: "#e34c26" };
-         case "CSS":
-            return { backgroundColor: "#563d7c" };
-         case "Java":
-            return { backgroundColor: "#b07219" };
+        console.log(response.data)
+        setRepository(response.data)
+      } catch (error) {
+        console.log('error', error)
       }
-   };
+    }
 
-   return (
+    fetchData()
+  }, [])
+
+  const setLanguageColor = (language) => {
+    switch (language) {
+      case 'TypeScript':
+        return { backgroundColor: '#3178c6' }
+      case 'Shell':
+        return { backgroundColor: '#89e051' }
+      case 'JavaScript':
+        return { backgroundColor: '#f1e05a' }
+      case 'HTML':
+        return { backgroundColor: '#e34c26' }
+      case 'CSS':
+        return { backgroundColor: '#563d7c' }
+      case 'Java':
+        return { backgroundColor: '#b07219' }
+    }
+  }
+
+  return (
       <div className='container mt-3 lg:mt-10  w-1/1  lg:w-2/3'>
          <p className='my-3'>
             You can check the code directly in the GitHub repository
@@ -57,7 +57,7 @@ const GithubCardProfile = ({ children }) => {
          {repository ? (
             <div
                className='border border-neutral-600 rounded-lg  p-3 '
-               style={{ backgroundColor: "#22272E", color: "#768390" }}>
+               style={{ backgroundColor: '#22272E', color: '#768390' }}>
                <a href={repository.html_url} target='_blank' rel='noreferrer'>
                   {/* <div className='relative ...'>
                      <div className='absolute h-32 w-32 -left-0 -top-0 ...'>
@@ -71,7 +71,7 @@ const GithubCardProfile = ({ children }) => {
                      <div>
                         <p
                            className=' font-bold text-xl  py-4 pl-2'
-                           style={{ color: "#539BF5" }}>
+                           style={{ color: '#539BF5' }}>
                            {/* <SiGithub className='' />  */}
                            {repository.name}
                         </p>
@@ -117,14 +117,16 @@ const GithubCardProfile = ({ children }) => {
                         style={setLanguageColor(repository.language)}></div>
 
                      <div className='ml-0 mr-3'>{repository.language}</div>
-                     {repository.stargazers_count > 0 ? (
+                     {repository.stargazers_count > 0
+                       ? (
                         <div className=''>
                            <AiOutlineStar className='h-4 mt-0.1 inline-flex' />
                            <b>{repository.stargazers_count}</b>
                         </div>
-                     ) : (
+                         )
+                       : (
                         <></>
-                     )}
+                         )}
                   </div>
                   {/* <div className='grid xl:grid-cols-2 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 p-2'>
                      <span className='mr-3'>
@@ -171,7 +173,7 @@ const GithubCardProfile = ({ children }) => {
             <></>
          )}
       </div>
-   );
-};
+  )
+}
 
-export default GithubCardProfile;
+export default GithubCardProfile

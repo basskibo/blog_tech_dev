@@ -1,27 +1,21 @@
-import React from "react";
+import React from 'react'
 import {
-   SiFacebook,
-   SiTwitter,
-   SiLinkedin,
-   SiReddit,
-   SiTelegram,
-   SiViber,
-} from "react-icons/si";
+  SiFacebook,
+  SiTwitter,
+  SiLinkedin,
+  SiReddit,
+  SiTelegram
+} from 'react-icons/si'
 import {
-   TelegramShareButton,
-   EmailIcon,
-   FacebookShareButton,
-   FacebookIcon,
-   TwitterShareButton,
-   LinkedinShareButton,
-   ViberShareButton,
-   TwitterIcon,
-   RedditShareButton,
-   RedditIcon,
-} from "react-share";
+  TelegramShareButton,
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  RedditShareButton
+} from 'react-share'
 
 const SocialNetworkSHare = ({ post, type }) => {
-   return (
+  return (
       <div>
          <FacebookShareButton
             className='mr-3 '
@@ -98,7 +92,7 @@ const SocialNetworkSHare = ({ post, type }) => {
             />
          </TelegramShareButton>
       </div>
-   );
-};
+  )
+}
 
-export default SocialNetworkSHare;
+export default SocialNetworkSHare
