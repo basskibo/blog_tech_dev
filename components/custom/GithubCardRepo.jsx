@@ -1,10 +1,8 @@
+/* eslint-disable multiline-ternary */
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { GoRepo, GoOrganization, GoEye, GoRepoForked } from 'react-icons/go'
+import { GoRepo } from 'react-icons/go'
 import { AiOutlineStar } from 'react-icons/ai'
-
-import { SiGithub } from 'react-icons/si'
-import moment from 'moment'
 
 const GithubCardProfile = ({ children }) => {
   const [repository, setRepository] = useState(null)
@@ -16,9 +14,9 @@ const GithubCardProfile = ({ children }) => {
         const response = await axios.get(
           url
           // , {
-          // 	headers: {
-          // 		Authorization: "token 6888b5336f1fbc75edb8de9961846462e0e1c218",
-          // 	},
+          // headers: {
+          // Authorization: "token 6888b5336f1fbc75edb8de9961846462e0e1c218",
+          // },
           // }
         )
 
@@ -128,45 +126,6 @@ const GithubCardProfile = ({ children }) => {
                         <></>
                          )}
                   </div>
-                  {/* <div className='grid xl:grid-cols-2 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 p-2'>
-                     <span className='mr-3'>
-                        <GoStar className='h-full mt-0.1 inline-flex' /> Stars:{" "}
-                        <b>{repository.stargazers_count}</b>
-                     </span>
-                     <span className='mr-3'>
-                        <GoRepoForked className='h-full mt-0.1 inline-flex' />{" "}
-                        Forks: <b>{repository.forks_count}</b>
-                     </span>
-                     <span className='mr-3'>
-                        <GoEye className='h-full mt-0.1 inline-flex' />{" "}
-                        Watchers: <b>{repository.watchers}</b>
-                     </span>
-                     <span>
-                        <GoOrganization className='h-full mt-0.1 inline-flex' />{" "}
-                        Subscribers: <b>{repository.subscribers_count}</b>
-                     </span>
-                  </div> */}
-                  {/* <div className='grid  lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 p-2'> */}
-
-                  {/* <div class='relative h-32 w-32 ...'>
-                     <div class=' bottom-0 right-0 h-16 w-16 ...'>
-                        <SiGithub />{" "}
-                     </div>
-                  </div> */}
-
-                  {/* <div className='  mt-1'>
-                     <RiGitRepositoryCommitsLine className='h-full mt-0.1 inline-flex' />{" "}
-                     <span className='mx-3'>
-                        Public repositories <b>{profile.public_repos}</b>
-                     </span>
-                  </div>
-                  <div className='  mt-1'>
-                     <RiGitRepositoryPrivateLine className='h-full mt-0.1 inline-flex' />{" "}
-                     <span className='mx-3'>
-                        Private repositories{" "}
-                        <b>{profile.total_private_repos || 6}</b>
-                     </span>
-                  </div> */}
                </a>
             </div>
          ) : (

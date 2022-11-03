@@ -1,3 +1,4 @@
+import React from 'react'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 
@@ -44,7 +45,7 @@ function ActiveLink ({ children, href, className, id }) {
            'font-semibold',
            className || '',
            test(router)
-             ? ' underline decoration-solid decoration-2	decoration-[#ff0080] underline-offset-4 '
+             ? ' underline decoration-solid decoration-2decoration-[#ff0080] underline-offset-4 '
              : 'text-white'
          )}>
          {children}
