@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { FiUsers, FiMapPin } from 'react-icons/fi'

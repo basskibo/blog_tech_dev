@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ComponentDidMount } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { SiSpotify } from 'react-icons/si'
 import Accent from './Accent'
@@ -16,7 +16,7 @@ const fetchCurent = async () => {
 
 const SpotifyCard = () => {
   const [song, setSong] = useState({})
-  const [seconds, setSeconds] = useState(1000)
+  // const [seconds, setSeconds] = useState(1000)
 
   useEffect(() => {
     // const interval = setInterval(() => {

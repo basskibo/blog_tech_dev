@@ -1,3 +1,4 @@
+import React from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import Accent from './Accent'
@@ -11,18 +12,18 @@ import ReactPlayer from 'react-player'
 
 import slugify from 'slugify'
 
-const ResponsiveImage = (props) => (
-   <div>
-      <Image
-         alt={props.alt}
-         layout='responsive'
-         width={12}
-         height={5}
-         {...props}
-      />
-      <p className='text-center'>Figure- {props.alt}</p>
-   </div>
-)
+// const ResponsiveImage = (props) => (
+//    <div>
+//       <Image
+//          alt={props.alt}
+//          layout='responsive'
+//          width={12}
+//          height={5}
+//          {...props}
+//       />
+//       <p className='text-center'>Figure- {props.alt}</p>
+//    </div>
+// )
 const VideoContext = (props) => (
    <div>
       <ReactPlayer
@@ -43,8 +44,8 @@ const CloudinaryContextImage = (props) => {
       cloudName: 'dr1sm5gnj'
     }
     // transformations: {
-    // 	effect: "blur:1000",
-    // 	quality: 1,
+    // effect: "blur:1000",
+    // quality: 1,
     // },
   })
 
@@ -144,7 +145,7 @@ export default {
     return (
          <a
             className='my-3 hover:cursor-ne-resize text-[#ff0080] underline decoration-dotted decoration-2
-            	decoration-sky-400 underline-offset-4 link link-underline link-underline-black hover:no-underline'
+            decoration-sky-400 underline-offset-4 link link-underline link-underline-black hover:no-underline'
             href={href}
             target='_blank'
             rel='noreferrer'>
@@ -187,7 +188,7 @@ export default {
     )
   },
   GithubCardRepository,
-  NewLine: ({}) => {
+  NewLine: () => {
     return <div className='my-5'> </div>
   },
   Iframe: ({ children, className }) => {

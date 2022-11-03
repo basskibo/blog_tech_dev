@@ -1,19 +1,16 @@
+/* eslint-disable no-tabs */
 import React from 'react'
-import { motion, LayoutGroup } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const cardVariants = {
   offscreen: {
     y: 30
-	  },
-	  onscreen: {
+  },
+  onscreen: {
     y: 0,
 
-    transition: {
-		  type: 'spring',
-		  bounce: 0.4,
-		  duration: 1
-    }
-	  }
+    transition: { type: 'spring', bounce: 0.4, duration: 1 }
+  }
 }
 const MotionComponent = ({ children }) => {
   return (

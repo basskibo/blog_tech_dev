@@ -1,7 +1,8 @@
+/* eslint-disable no-tabs */
 import React from 'react'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
+// const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 const anchorOffset = 75
 const TableOfContent = ({ toc }) => {
   return (
