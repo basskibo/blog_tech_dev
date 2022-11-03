@@ -1,19 +1,19 @@
-import React from "react"
+import React from 'react'
 
-import constants from "../../lib/constants"
-import ReactTooltip from "react-tooltip"
+import constants from '../../lib/constants'
+import ReactTooltip from 'react-tooltip'
 
-const BEtechArray = constants.BEtechArray,
-	FEtechArray = constants.FEtechArray,
-	ideOstechArray = constants.ideOstechArray
+const BEtechArray = constants.BEtechArray
+const FEtechArray = constants.FEtechArray
+const ideOstechArray = constants.ideOstechArray
 
 const TechnologyStack = () => {
-	return (
+  return (
 		<div>
-			{" "}
+			{' '}
 			<h2 className='mb-3'>
-				{" "}
-				Backend frameworks and services I preffer and mostly use{" "}
+				{' '}
+				Backend frameworks and services I preffer and mostly use{' '}
 			</h2>
 			<span className='flex'>
 				{BEtechArray.map((tech, index) => (
@@ -31,7 +31,7 @@ const TechnologyStack = () => {
 				))}
 			</span>
 			<h2 className='mb-3'>
-				{" "}
+				{' '}
 				Frontend and hybrid mobile frameworks I preffer and mostly use :
 			</h2>
 			<span className='flex'>
@@ -74,7 +74,7 @@ const TechnologyStack = () => {
 				))}
 			</span>
 		</div>
-	)
+  )
 }
 
 export default TechnologyStack

@@ -1,14 +1,13 @@
-import React from "react";
-import moment from "moment";
-import CategoryChip from "./CategoryChip";
-import Image from "next/image";
-import ReadTime from "./ReadTime";
-import constants from "../lib/constants";
-import SocialNetworkShare from "./custom/SocialNetworkShare";
-import LastChangedFile from "./custom/LastChangedFile";
+import React from 'react'
+import moment from 'moment'
+import Image from 'next/image'
+import ReadTime from './ReadTime'
+import constants from '../lib/constants'
+import SocialNetworkShare from './custom/SocialNetworkShare'
+import LastChangedFile from './custom/LastChangedFile'
 
 const PostDetail = ({ post, content }) => {
-   return (
+  return (
       <div className=' mx-auto  lg:rounded-lg lg:p-0 lg:mt-5 sm:mt-10 xs:mt-10'>
          <div className='flex justify-center mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
             <h1 className='lg:text-4xl text-xl lg:my-5 text-semibold text-white font-bold'>
@@ -30,13 +29,13 @@ const PostDetail = ({ post, content }) => {
             <div className=' text-slate-400 mb-6 my-6 w-full'>
                <div className='flex-1  mb-2 w-full lg:w-auto '>
                   <p className='text-slate-400  '>
-                     Writen on{" "}
+                     Writen on{' '}
                      <span className='font-semibold hidden lg:inline'>
-                        {moment(post.publishedAt).format("MMMM DD, YYYY")}
-                     </span>{" "}
+                        {moment(post.publishedAt).format('MMMM DD, YYYY')}
+                     </span>{' '}
                      <span className='font-semibold lg:hidden inline'>
-                        {moment(post.publishedAt).format("DD.MM.YYYY")}
-                     </span>{" "}
+                        {moment(post.publishedAt).format('DD.MM.YYYY')}
+                     </span>{' '}
                      by <span className='font-semibold'>{post.author}</span>
                   </p>
                   <LastChangedFile fileName={`${post.slug}.mdx`} type='blog' />
@@ -53,12 +52,12 @@ const PostDetail = ({ post, content }) => {
                   {/* <span className='lg:text-lg sm:text-md mr-3 p-0'>Share: </span> */}
                   <span className='mr-2 font-semibold'>Share:</span>
 
-                  <SocialNetworkShare post={post} type={"post"} />
+                  <SocialNetworkShare post={post} type={'post'} />
                </div>
             </div>
          </div>
       </div>
-   );
-};
+  )
+}
 
-export default PostDetail;
+export default PostDetail

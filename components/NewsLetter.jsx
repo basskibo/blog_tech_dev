@@ -1,36 +1,34 @@
-import React, { useState, Fragment } from "react";
-import Accent from "./custom/Accent";
-import { Dialog, Transition } from "@headlessui/react";
+import React, { useState, Fragment } from 'react'
+import Accent from './custom/Accent'
+import { Dialog, Transition } from '@headlessui/react'
 
 const NewsLetter = () => {
-   let [isOpen, setIsOpen] = useState(false);
-   const [email, setemail] = useState("");
-   const [validationError, setValidationError] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
+  const [email, setemail] = useState('')
+  const [validationError, setValidationError] = useState(false)
 
-   function closeModal() {
-      setemail("");
-      setIsOpen(false);
-   }
+  function closeModal () {
+    setemail('')
+    setIsOpen(false)
+  }
 
-   function openModal() {
-      let regex = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
-      if (regex.test(email)) {
-         setIsOpen(true);
-         setValidationError(false);
-         console.log("mejl je dobar");
-      } else {
-         console.log("mejl nije dobar");
-         setValidationError(true);
-      }
-   }
+  function openModal () {
+    const regex = /[a-z0-9]+@[a-z]+.[a-z]{2,3}/
+    if (regex.test(email)) {
+      setIsOpen(true)
+      setValidationError(false)
+    } else {
+      setValidationError(true)
+    }
+  }
 
-   function handleChange(e) {
-      console.log(e.target.value);
-      setemail(e.target.value);
-      // setIsOpen(true)
-   }
+  function handleChange (e) {
+    console.log(e.target.value)
+    setemail(e.target.value)
+    // setIsOpen(true)
+  }
 
-   return (
+  return (
       <div className='bg-neutral-900 pb-10'>
          <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
             <div className=' grid place-items-left place-content-center sm:mx-2 sm:px-3 mx-auto relative border bg-neutral-900 border-neutral-700  grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
@@ -54,8 +52,7 @@ const NewsLetter = () => {
                      className='px-4 w-full bg-neutral-900 rounded-md border-gray-300 ring ring-gray-500 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                   /> */}
                      <input
-                        className=' w-4/4 my-3 bg-neutral-900 text-white  px-3 py-2 rounded-md
-					border border-slate-600 focus:border-[#7928ca] flex-grow focus:outline-none cursor-text'
+                        className='w-4/4 sm:w-3/4 my-3 bg-neutral-900 text-white  px-3 py-2 rounded-md border border-slate-600 focus:border-[#7928ca] flex-grow focus:outline-none cursor-text'
                         placeholder='Enter your email'
                         value={email}
                         onChange={handleChange}
@@ -72,13 +69,15 @@ const NewsLetter = () => {
                      </button>
                   </div>
 
-                  {validationError ? (
+                  {validationError
+                    ? (
                      <p className='text-red-700 mt-2 font-semibold  text-md'>
                         Email format is wrong, please try again
                      </p>
-                  ) : (
+                      )
+                    : (
                      <></>
-                  )}
+                      )}
                </div>
             </div>
             <Transition appear show={isOpen} as={Fragment}>
@@ -91,7 +90,7 @@ const NewsLetter = () => {
                      leave='ease-in duration-200'
                      leaveFrom='opacity-100'
                      leaveTo='opacity-0'>
-                     <div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md	' />
+                     <div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md' />
                   </Transition.Child>
 
                   <div className='fixed inset-0 overflow-y-auto'>
@@ -137,7 +136,7 @@ const NewsLetter = () => {
             </Transition>
          </div>
       </div>
-   );
-};
+  )
+}
 
-export default NewsLetter;
+export default NewsLetter

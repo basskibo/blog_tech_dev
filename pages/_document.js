@@ -1,13 +1,14 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
-import loader from "../src/loader";
+/* eslint-disable react/react-in-jsx-scope */
+import Document, { Html, Head, Main, NextScript } from 'next/document'
+import loader from '../src/loader'
 class MyDocument extends Document {
-   static async getInitialProps(ctx) {
-      const initialProps = await Document.getInitialProps(ctx);
-      return { ...initialProps };
-   }
+  static async getInitialProps (ctx) {
+    const initialProps = await Document.getInitialProps(ctx)
+    return { ...initialProps }
+  }
 
-   render() {
-      return (
+  render () {
+    return (
          <Html lang="en">
             <Head>
                <script
@@ -16,7 +17,7 @@ class MyDocument extends Document {
                />
                <script
                   dangerouslySetInnerHTML={{
-                     __html: `
+                    __html: `
                                 window.dataLayer = window.dataLayer || [];
                                 function gtag(){dataLayer.push(arguments);}
                                 gtag('js', new Date());
@@ -26,20 +27,20 @@ class MyDocument extends Document {
                                 )} , {
                                 page_path: window.location.pathname,
                                 });
-                            `,
+                            `
                   }}
                />
                <style>{loader}</style>
             </Head>
             <body>
-               <div id={"globalLoader"}>
+               <div id={'globalLoader'}>
                   <div className='loader'>
                      <div className='face'>
                         <div className='circle'></div>
                      </div>
                      <div className='face'>
                         <div className='circle'></div>
-                     </div>{" "}
+                     </div>{' '}
                      <div className='face'>
                         <div className='circle'></div>
                      </div>
@@ -57,8 +58,8 @@ class MyDocument extends Document {
                <NextScript />
             </body>
          </Html>
-      );
-   }
+    )
+  }
 }
 
-export default MyDocument;
+export default MyDocument

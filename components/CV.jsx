@@ -1,18 +1,17 @@
 import React from 'react'
-import cvImage from "../public/images/cv.jpg";
-import constants from "../lib/constants";
-import Accent from "../components/custom/Accent";
-import Image from "next/image";
-import TechnologyStack from "../components/custom/TechnologyStack";
+import cvImage from '../public/images/cv.jpg'
+import constants from '../lib/constants'
+import Accent from '../components/custom/Accent'
+import Image from 'next/image'
 
 const CV = () => {
   return (
-    <div> 
+    <div>
         <h1 className='mb-5'>
             <Accent className='text-3xl font-semibold'>
-                {" "}
+                {' '}
                 Curriculum vitae
-            </Accent>{" "}
+            </Accent>{' '}
         </h1>
  <div className='grid gap-6 row-gap-10 lg:grid-cols-2'>
     <ol className='relative border-l border-gray-200 dark:border-gray-700'>
@@ -42,10 +41,9 @@ const CV = () => {
                     {constants.generateIcon('SiFirebase')}
                 </div>
              </ul>
-         
-        
+
           </div>
-       </li>{" "}
+       </li>{' '}
        <li className='ml-4 mb-10'>
           <div className='absolute w-3 h-3 bg-gray-200 rounded-full -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700'></div>
           <time className='mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500'>
@@ -100,7 +98,6 @@ const CV = () => {
                     {constants.generateIcon('SiAmazonaws')}
                 </div>
              </ul>
-            
           </div>
        </li>
        <li className='ml-4 mb-10'>
@@ -116,7 +113,7 @@ const CV = () => {
           <div className='text-base mb-4  font-normal text-gray-500 dark:text-gray-400'>
              <ul className='list-disc pl-5'>
                 <li>
-                   {" "}
+                   {' '}
                    Project: Mass multiplayer event entertainment
                    platform
                 </li>
@@ -143,13 +140,13 @@ const CV = () => {
                     {constants.generateIcon('SiRedis')}
                     {constants.generateIcon('SiAngularjs')}
                     {constants.generateIcon('SiHeroku')}
-                
+
                 </div>
              </ul>
           </div>
           {/* <a
              href='#'
-             
+
              className='pointer-events-none inline-flex items-center py-2  px-4 text-sm font-medium text-gray-900 bg-gray-400 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'>
              See project{" "}
              <svg
@@ -177,7 +174,7 @@ const CV = () => {
           <div className='text-base font-normal text-gray-500 dark:text-gray-400'>
              <ul className='list-disc pl-5'>
                 <li>
-                   {" "}
+                   {' '}
                    Project: Mass multiplayer event entertainment
                    platform
                 </li>
@@ -204,7 +201,7 @@ const CV = () => {
                     {constants.generateIcon('SiSocketdotio')}
                     {constants.generateIcon('SiAngularjs')}
                     {constants.generateIcon('SiAmazonaws')}
-                
+
                 </div>
              </ul>
           </div>
@@ -218,14 +215,14 @@ const CV = () => {
              Greensoft Ltd
           </h3>
           <h2 className='py-1'>
-             Full stack developer, hybrid mobile development{" "}
+             Full stack developer, hybrid mobile development{' '}
           </h2>
           <div className='mb-4 text-base font-normal text-gray-500 dark:text-gray-400'>
              <ul className='list-disc pl-5'>
                 <li>
                    Project: Software solution specialized in managing
                    agriculture production processes and all types of
-                   lands, Mobile agro solutions{" "}
+                   lands, Mobile agro solutions{' '}
                 </li>
                 <li>
                    Description: Develop, maintain and support
@@ -250,7 +247,7 @@ const CV = () => {
                     {constants.generateIcon('SiPostgresql')}
                     {constants.generateIcon('SiSencha')}
                     {constants.generateIcon('SiIonic')}
-                
+
                 </div>
              </ul>
           </div>
