@@ -1,9 +1,9 @@
-import React from "react";
-import Accent from "./custom/Accent";
-import ActiveLink from "./custom/ActiveLink";
+import React from 'react'
+import Accent from './custom/Accent'
+import ActiveLink from './custom/ActiveLink'
 
 const FeaturedPosts = () => {
-   return (
+  return (
       <div>
          <section className='text-slate-400 body-font'>
             <div className='container px-5 pb-5 mx-auto my-10'>
@@ -41,7 +41,7 @@ const FeaturedPosts = () => {
                      <div className='relative hidden lg:block '>
                         <div
                            className='mx-3 rounded-lg transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97]
-					  hover:cursor-pointer transition duration-100 animate-shadow'>
+hover:cursor-pointer transition duration-100 animate-shadow'>
                            <div className='max-w-sm rounded overflow-hidden shadow-lg border border-slate-600 '>
                               <img
                                  className='w-full h-48'
@@ -74,7 +74,7 @@ const FeaturedPosts = () => {
                         </div>
                         <div
                            className='md:ml-20  absolute bottom-4  rotate-12  bg-neutral-900 rounded-lg transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97]
-					  hover:cursor-pointer transition duration-100 animate-shadow'>
+hover:cursor-pointer transition duration-100 animate-shadow'>
                            <div className='max-w-sm rounded-lg overflow-hidden shadow-lg border border-slate-600 '>
                               <img
                                  className='w-full lg:w-full h-48 lg:h-48 '
@@ -111,7 +111,7 @@ const FeaturedPosts = () => {
             </div>
          </section>
       </div>
-   );
-};
+  )
+}
 
-export default FeaturedPosts;
+export default FeaturedPosts

@@ -1,10 +1,11 @@
-import React from "react"
-import AnchorLink from "react-anchor-link-smooth-scroll"
+/* eslint-disable no-tabs */
+import React from 'react'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
+// const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 const anchorOffset = 75
 const TableOfContent = ({ toc }) => {
-	return (
+  return (
 		<div className='md:my-5 lg:my-10 ml-5 lg:ml-7 mb-5 sticky top-20 md:top-30 lg:top-40'>
 			<h1 className='text-white text-xl font-bold mb-3'>Table of content</h1>
 			<ul>
@@ -36,7 +37,7 @@ const TableOfContent = ({ toc }) => {
 				))}
 			</ul>
 		</div>
-	)
+  )
 }
 
 export default TableOfContent

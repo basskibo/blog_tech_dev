@@ -1,40 +1,40 @@
-import React from "react";
-import { SiGmail, SiTwitter, SiLinkedin, SiGithub } from "react-icons/si";
-import ReactTooltip from "react-tooltip";
-import Accent from "../custom/Accent";
+import React from 'react'
+import { SiGmail, SiTwitter, SiLinkedin, SiGithub } from 'react-icons/si'
+import ReactTooltip from 'react-tooltip'
+import Accent from '../custom/Accent'
 
 const waysToReachMe = [
-   { name: "gmail", description: "test", externalLink: false, icon: SiGmail },
-   {
-      name: "Twitter",
-      description: "test",
-      externalLink: true,
-      href: "https://twitter.com/basskibo1",
-      icon: SiTwitter,
-   },
-   {
-      name: "Github",
-      description: "test",
-      href: "https://github.com/basskibo",
-      externalLink: true,
-      icon: SiGithub,
-   },
-   {
-      name: "Linkedin",
-      description: "test",
-      externalLink: true,
-      href: "https://linkedin.com/in/bojan-jagetic-972203106",
-      icon: SiLinkedin,
-   },
-];
+  { name: 'gmail', description: 'test', externalLink: false, icon: SiGmail },
+  {
+    name: 'Twitter',
+    description: 'test',
+    externalLink: true,
+    href: 'https://twitter.com/basskibo1',
+    icon: SiTwitter
+  },
+  {
+    name: 'Github',
+    description: 'test',
+    href: 'https://github.com/basskibo',
+    externalLink: true,
+    icon: SiGithub
+  },
+  {
+    name: 'Linkedin',
+    description: 'test',
+    externalLink: true,
+    href: 'https://linkedin.com/in/bojan-jagetic-972203106',
+    icon: SiLinkedin
+  }
+]
 const Footer = () => {
-   return (
+  return (
       <footer className='text-gray-400 bg-neutral-900 body-font border-t border-neutral-800 '>
-         <div className='container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col'>
+         <div className='container px-5 py-4 lg:py-8 mx-auto flex items-center sm:flex-row flex-col'>
              <div className='flex-shrink-0 flex items-center'>
                  <a href='/'>
                      <img
-                         className='block lg:hidden h-8 w-auto '
+                         className='block lg:hidden h-6 w-auto '
                          src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1666821240/igutech/logo/logo_jibobs.webp'
                          alt='Jagetic'
                      />
@@ -57,23 +57,19 @@ const Footer = () => {
                </a>
             </p>
 
-            {/* <span className='inline-flex sm:ml-auto mx-5 sm:mt-0 mt-4 justify-center sm:justify-start'>
-					<SpotifyCard />
-				</span> */}
+            {/* <span className='inline-flex sm:ml-auto mx-5 sm:mt-0 mt-4 justify-center sm:justify-start'><SpotifyCard /></span> */}
             <span className='inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start'>
                {/* <p className='text-md'>Reach me at: </p> */}
 
                <a
-                  className='mr-5 lg:mr-5 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize
-					items-right md:justify-right justify-right text-sm'
+                  className='mr-3 lg:mr-5  text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize items-right md:justify-right justify-right text-xs lg:text-sm'
                   href='https://blogtech-umami.herokuapp.com/share/kCnjGOHv/bojan_jagetic'
                   target='_blank'
                   rel='noopener noreferrer'>
                   Site Statistics
                </a>
                <a
-                  className='mr-5 lg:mr-5 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize
-					items-right md:justify-right justify-right text-sm'
+                  className='mr-5 lg:mr-5 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize items-right md:justify-right justify-right text-xs lg:text-sm'
                   href='https://github.com/basskibo/blog_tech_dev'
                   target='_blank'
                   rel='noopener noreferrer'>
@@ -87,7 +83,7 @@ const Footer = () => {
                      rel='noreferrer'
                      key={medium.name}>
                      <medium.icon
-                        className='text-lg'
+                        className='text-md lg:text-lg'
                         data-tip
                         data-for={medium.name}
                      />
@@ -104,7 +100,7 @@ const Footer = () => {
             </span>
          </div>
       </footer>
-   );
-};
+  )
+}
 
-export default Footer;
+export default Footer
