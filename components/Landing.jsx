@@ -1,50 +1,46 @@
-import React from "react";
-import Accent from "../components/custom/Accent";
-import ActiveLink from "../components/custom/ActiveLink";
-import { FeatureLanding, FeaturedPosts, HighlightPost } from "./";
-// import { FeaturedPosts } from "./FeaturedPosts";
-import AnchorLink from "react-anchor-link-smooth-scroll";
-import SvgWave from "./layout/SvgWave";
-import { SiGithub, SiLinkedin, SiTwitter } from "react-icons/si";
-import MotionComponent from "./custom/MotionComponent";
-import NewsLetter from "./NewsLetter";
-import { TypeAnimation } from "react-type-animation";
+import React from 'react'
+import Accent from '../components/custom/Accent'
+import ActiveLink from '../components/custom/ActiveLink'
+import { FeatureLanding, FeaturedPosts } from './'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
+import { SiGithub, SiLinkedin, SiTwitter } from 'react-icons/si'
+import NewsLetter from './NewsLetter'
+import { TypeAnimation } from 'react-type-animation'
 
 const Landing = () => {
-   const handleClick = (e) => {
-      e.preventDefault();
-      router.push(href);
-   };
-   return (
+//   const handleClick = (e) => {
+//     e.preventDefault()
+//     router.push(href)
+//   }
+  return (
       <div className='bg-gradient-to-b from-neutral-900  to-[#7928ca] '>
          {/* <div className=''> */}
          <div className=' text-slate-200 md:px-10 px-5  '>
             {/* <MotionComponent> */}
             <div
-               className='grid place-items-left place-content-center gap-1 h-screen
-					mx-auto lg:max-w-4xl sm:max-w-xl'>
+               className='grid place-items-left place-content-center gap-1 h-screen mx-auto lg:max-w-4xl sm:max-w-xl'>
                <h1 className=' text-3xl xs:text-2xl lg:text-5xl  font-bold mb-2'>
                   Hello there,
                   <br />
                   <span className='text-3xl sm:text-3xl lg:text-6xl '>
-                     My name is{" "}
+                     My name is{' '}
                      <Accent>
                         <TypeAnimation
                            sequence={[
-                              700,
-                              "Jagetic", // Types 'One'
-                              2000, // Waits 1s
-                              "Bojan Jagetic", // Deletes 'One' and types 'Two'
-                              () => {
-                                 console.log("Done typing!"); // Place optional callbacks anywhere in the array
-                              },
+                             700,
+                             'Jagetic', // Types 'One'
+                             2000, // Waits 1s
+                             'Bojan Jagetic', // Deletes 'One' and types 'Two'
+                             () => {
+                               console.log('Done typing!') // Place optional callbacks anywhere in the array
+                             }
                            ]}
                            wrapper='Accent'
                            cursor={true}
                            speed={25}
                            repeat={0}
                            // className='text-transparent bg-clip-text bg-gradient-to-r from-[#7928ca] to-[#ff0080] mb-5'
-                           style={{ fontSize: "1em" }}
+                           style={{ fontSize: '1em' }}
                         />
                      </Accent>
                   </span>
@@ -73,7 +69,7 @@ const Landing = () => {
                         Green to blue
                   </span>
                </button>
-               <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group 
+               <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group
                hover:animate-bounce bg-gradient-to-br from-lime-500 to-teal-700 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
                   <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                         Green to blue
@@ -90,8 +86,7 @@ const Landing = () => {
                   <ActiveLink
                      href='/routes/aboutme'
                      id='am_button'
-                     className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-800
-							hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-[#ff0080] hover:shadow-neutral-500 '>
+                     className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-800 hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-[#ff0080] hover:shadow-neutral-500 '>
                      See my bio
                   </ActiveLink>
                </div>
@@ -108,8 +103,7 @@ const Landing = () => {
                   </a>
                   <a
                      id='lnk-github-button'
-                     className='inline-flex  text-sm text-slate-300 hover:underline link link-underline link-underline-black
-							 hover:cursor-ne-resize'
+                     className='inline-flex  text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
                      href='https://github.com/basskibo/'
                      target='_blank'
                      rel='noreferrer'>
@@ -132,7 +126,7 @@ const Landing = () => {
             id='btn-anchor-linkg'
             href='#sectionFeature'
             aria-label='Scroll down'
-            className=' absolute hidden md:inline bottom-5 text-white left-1/2 -translate-x-1/2 md:bottom-5 
+            className=' absolute hidden md:inline bottom-5 text-white left-1/2 -translate-x-1/2 md:bottom-5
             rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'>
             <svg
                className='w-6 h-6'
@@ -147,12 +141,10 @@ const Landing = () => {
          </AnchorLink>
          {/* <SvgWave /> */}
          <FeatureLanding />
-
          <FeaturedPosts />
-
          <NewsLetter />
       </div>
-   );
-};
+  )
+}
 
-export default Landing;
+export default Landing

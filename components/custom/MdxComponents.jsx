@@ -1,28 +1,29 @@
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { a11yDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import Accent from "./Accent";
-import QouteComponent from "../QouteComponent";
-import { GithubCard } from "github-user-repo-card";
-import GithubCardRepository from "./GithubCardRepo";
-import Image from "next/image";
-import constants from "../../lib/constants";
-import { buildUrl } from "cloudinary-build-url";
-import ReactPlayer from "react-player";
+import React from 'react'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import Accent from './Accent'
+import QouteComponent from '../QouteComponent'
+import { GithubCard } from 'github-user-repo-card'
+import GithubCardRepository from './GithubCardRepo'
+import Image from 'next/image'
+import constants from '../../lib/constants'
+import { buildUrl } from 'cloudinary-build-url'
+import ReactPlayer from 'react-player'
 
-import slugify from "slugify";
+import slugify from 'slugify'
 
-const ResponsiveImage = (props) => (
-   <div>
-      <Image
-         alt={props.alt}
-         layout='responsive'
-         width={12}
-         height={5}
-         {...props}
-      />
-      <p className='text-center'>Figure- {props.alt}</p>
-   </div>
-);
+// const ResponsiveImage = (props) => (
+//    <div>
+//       <Image
+//          alt={props.alt}
+//          layout='responsive'
+//          width={12}
+//          height={5}
+//          {...props}
+//       />
+//       <p className='text-center'>Figure- {props.alt}</p>
+//    </div>
+// )
 const VideoContext = (props) => (
    <div>
       <ReactPlayer
@@ -35,23 +36,23 @@ const VideoContext = (props) => (
       />
       <p className='text-center'>Figure- {props.alt}</p>
    </div>
-);
+)
 
 const CloudinaryContextImage = (props) => {
-   const url = buildUrl(props.src, {
-      cloud: {
-         cloudName: "dr1sm5gnj",
-      },
-      // transformations: {
-      // 	effect: "blur:1000",
-      // 	quality: 1,
-      // },
-   });
+  const url = buildUrl(props.src, {
+    cloud: {
+      cloudName: 'dr1sm5gnj'
+    }
+    // transformations: {
+    // effect: "blur:1000",
+    // quality: 1,
+    // },
+  })
 
-   return (
+  return (
       // <Image alt={props.alt} layout='responsive' width={1000} height={750} {...props} />
       <div className='my-2'>
-         {" "}
+         {' '}
          <Image
             alt={props.alt}
             layout='responsive'
@@ -66,70 +67,70 @@ const CloudinaryContextImage = (props) => {
             {props.text}
          </p>
       </div>
-   );
-};
+  )
+}
 
 const parseLanguageByClass = (className) => {
-   return className ? className.split("-")[1] : "js";
-};
+  return className ? className.split('-')[1] : 'js'
+}
 
 export default {
-   h1: ({ children }) => {
-      return (
+  h1: ({ children }) => {
+    return (
          <h1 className='text-white text-3xl font-bold my-5'> {children}</h1>
-      );
-   },
-   h2: ({ children }) => {
-      return (
+    )
+  },
+  h2: ({ children }) => {
+    return (
          <a
             id={slugify(children, {
-               lower: true,
-               strict: true,
+              lower: true,
+              strict: true
             })}>
             <h2 className='text-white text-2xl font-bold my-5'>
                <Accent>{children}</Accent>
             </h2>
          </a>
-      );
-   },
-   h3: ({ children }) => {
-      return (
+    )
+  },
+  h3: ({ children }) => {
+    return (
          <a
             id={slugify(children, {
-               lower: true,
-               strict: true,
+              lower: true,
+              strict: true
             })}>
             <h3 className='text-white text-xl font-semi-bold my-5'>
-               {children}{" "}
+               {children}{' '}
             </h3>
          </a>
-      );
-   },
-   Accent: ({ children }) => {
-      return <Accent>{children}</Accent>;
-   },
-   Adjusted: ({ children }) => {
-      return (
+    )
+  },
+  Accent: ({ children }) => {
+    return <Accent>{children}</Accent>
+  },
+  Adjusted: ({ children }) => {
+    return (
          <code
-            className='bg-neutral-800 text-bold border-rounder-lg px-1  mr-1  font-mono 
+            className='bg-neutral-800 text-bold border-rounder-lg px-1  mr-1  font-mono
          hover:underline decoration-indigo-500 border border-neutral-700 rounded-sm'>
             <Accent>{children}</Accent>
          </code>
-      );
-   },
-   img: CloudinaryContextImage,
-   CloudinaryContext: CloudinaryContextImage,
-   ReactPlayer: VideoContext,
-   p: ({ children }) => {
-      return (
+    )
+  },
+  img: CloudinaryContextImage,
+  CloudinaryContext: CloudinaryContextImage,
+  ReactPlayer: VideoContext,
+  p: ({ children }) => {
+    return (
          <p className='my-5 ml-2 text-md leading-relaxed      '>{children}</p>
-      );
-   },
-   b: ({ children }) => {
-      return <span className='font-bold'>{children}</span>;
-   },
-   code: ({ children, className }) => {
-      return (
+    )
+  },
+  b: ({ children }) => {
+    return <span className='font-bold'>{children}</span>
+  },
+  code: ({ children, className }) => {
+    return (
          <SyntaxHighlighter
             language={parseLanguageByClass(className)}
             style={a11yDark}
@@ -138,60 +139,60 @@ export default {
             showInlineLineNumbers={true}>
             {children}
          </SyntaxHighlighter>
-      );
-   },
-   a: ({ children, className, href }) => {
-      return (
+    )
+  },
+  a: ({ children, className, href }) => {
+    return (
          <a
             className='my-3 hover:cursor-ne-resize text-[#ff0080] underline decoration-dotted decoration-2
-            	decoration-sky-400 underline-offset-4 link link-underline link-underline-black hover:no-underline'
+            decoration-sky-400 underline-offset-4 link link-underline link-underline-black hover:no-underline'
             href={href}
             target='_blank'
             rel='noreferrer'>
             {children}
          </a>
-      );
-   },
-   ulSm: ({ children, className }) => {
-      return <ul className='grid grid-cols-2 list-disc ml-10'>{children}</ul>;
-   },
-   ulLg: ({ children, className }) => {
-      return <ul className=' list-disc ml-10'>{children}</ul>;
-   },
-   QouteComponent: QouteComponent,
+    )
+  },
+  ulSm: ({ children, className }) => {
+    return <ul className='grid grid-cols-2 list-disc ml-10'>{children}</ul>
+  },
+  ulLg: ({ children, className }) => {
+    return <ul className=' list-disc ml-10'>{children}</ul>
+  },
+  QouteComponent,
 
-   test: ({ children }) => {
-      return (
+  test: ({ children }) => {
+    return (
          <blockquote className='mt-0 mb-4'>
             <p className='text-slate-400 mt-0'>{children}</p>
          </blockquote>
-      );
-   },
-   GithubCardRepo: ({ children }) => {
-      const splitted = children.split("/");
-      const username = splitted[0],
-         repo = splitted[1];
-      return (
+    )
+  },
+  GithubCardRepo: ({ children }) => {
+    const splitted = children.split('/')
+    const username = splitted[0]
+    const repo = splitted[1]
+    return (
          <div className=''>
             <p className='py-5'>
                Checkout repository <b>{children}</b> on Github directly
             </p>
             <GithubCard
-               name={username || "basskibo"}
+               name={username || 'basskibo'}
                type='repo'
                repository={repo}
                width='700'
                height='200'
             />
          </div>
-      );
-   },
-   GithubCardRepository: GithubCardRepository,
-   NewLine: ({}) => {
-      return <div className='my-5'> </div>;
-   },
-   Iframe: ({ children, className }) => {
-      return (
+    )
+  },
+  GithubCardRepository,
+  NewLine: () => {
+    return <div className='my-5'> </div>
+  },
+  Iframe: ({ children, className }) => {
+    return (
          <iframe
             src='https://codesandbox.io/embed/js-class-example-24bl6t?fontsize=14&hidenavigation=1&theme=dark'
             // className="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
@@ -199,6 +200,6 @@ export default {
             title='JS Class example '
             allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
             sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts'></iframe>
-      );
-   },
-};
+    )
+  }
+}

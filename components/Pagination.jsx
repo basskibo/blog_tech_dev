@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react"
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable no-tabs */
+import React from 'react'
 
-export default function Pagination({ numberOfPosts, pageNumber, numberOfPages }) {
-	return (
+export default function Pagination ({ numberOfPosts, pageNumber, numberOfPages }) {
+  return (
 		<div>
-			{numberOfPosts > 0 ? (
+			{numberOfPosts > 0
+			  ? (
 				<div className=' bg-transparent max rounded-lg p-8  mb-2 '>
 					<div className='flex justify-center ...'>
 						<div className='py-2 px-3 leading-tight bg-slate-900 border border-sky-800 text-slate-400 rounded-lg ml-1 hover:bg-sky-800 hover:text-white hover:cursor-pointer'>
@@ -23,7 +26,7 @@ export default function Pagination({ numberOfPosts, pageNumber, numberOfPages })
 									></path>
 								</svg>
 							</a>
-						</div>{" "}
+						</div>{' '}
 						<div className='py-2 px-3 leading-tight bg-slate-900 border border-sky-800 text-slate-400 rounded-lg ml-1 hover:bg-sky-800 hover:text-white hover:cursor-pointer'>
 							<a className='page-link' href='#'>
 								<svg
@@ -39,16 +42,16 @@ export default function Pagination({ numberOfPosts, pageNumber, numberOfPages })
 									></path>
 								</svg>
 							</a>
-						</div>{" "}
+						</div>{' '}
 						<div className='py-2 px-3 leading-tight bg-slate-900 border border-sky-800 text-slate-400 rounded-lg ml-1 hover:bg-sky-800 hover:text-white hover:cursor-pointer'>
 							1
-						</div>{" "}
+						</div>{' '}
 						<div className='py-2 px-3 leading-tight bg-slate-900 border border-sky-800 text-slate-400 rounded-lg ml-1 hover:bg-sky-800 hover:text-white hover:cursor-pointer'>
 							2
-						</div>{" "}
+						</div>{' '}
 						<div className='py-2 px-3 leading-tight bg-slate-900 border border-sky-800 text-slate-400 rounded-lg ml-1 hover:bg-sky-800 hover:text-white hover:cursor-pointer'>
 							3
-						</div>{" "}
+						</div>{' '}
 						<div className='py-2 px-3 leading-tight bg-slate-900 border border-sky-800 text-slate-400 rounded-lg ml-1 hover:bg-sky-800 hover:text-white hover:cursor-pointer'>
 							<a className='page-link' href='#'>
 								<svg
@@ -64,7 +67,7 @@ export default function Pagination({ numberOfPosts, pageNumber, numberOfPages })
 									></path>
 								</svg>
 							</a>
-						</div>{" "}
+						</div>{' '}
 						<div className='py-2 px-3 leading-tight bg-slate-900 border border-sky-800 text-slate-400 rounded-lg ml-1 hover:bg-sky-800 hover:text-white hover:cursor-pointer'>
 							<a className='page-link' href='#'>
 								<svg
@@ -85,15 +88,16 @@ export default function Pagination({ numberOfPosts, pageNumber, numberOfPages })
 									></path>
 								</svg>
 							</a>
-						</div>{" "}
+						</div>{' '}
 					</div>
 				</div>
-			) : (
+			    )
+			  : (
 				<div className='container bg-sky-800 text-slate-400 items-center p-5 text-semibold'>
-					{" "}
+					{' '}
 					<span>There is nothing to show! </span>
 				</div>
-			)}
+			    )}
 		</div>
-	)
+  )
 }
