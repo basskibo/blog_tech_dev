@@ -141,9 +141,7 @@ const Landing = () => {
          </AnchorLink>
          {/* <SvgWave /> */}
          <FeatureLanding />
-
          <FeaturedPosts />
-
          <NewsLetter />
       </div>
   )
