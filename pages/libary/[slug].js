@@ -15,8 +15,9 @@ import constants from '../../lib/constants'
 import axios from 'axios'
 import { HiOutlineEye } from 'react-icons/hi'
 
-function getTableOfContents(content) {
-  const regexp = new RegExp(/^(### |## )(.*)\n/, 'gm')
+function getTableOfContents (content) {
+  const reg = /^(### |## )(.*)\n/
+  const regexp = new RegExp(reg, 'gm')
   const headings = [...content.matchAll(regexp)]
 
   const tableOfContents = []
@@ -28,7 +29,7 @@ function getTableOfContents(content) {
       const headingType = heading[1].trim() === '##' ? 'h2' : 'h3'
       const headingLink = slugify(headingText, {
         lower: true,
-        strict: true,
+        strict: true
       })
 
       lastElType = headingType
@@ -36,7 +37,7 @@ function getTableOfContents(content) {
         title: headingType === 'h2' ? headingText : `${headingText}`,
         headerType: headingType,
         subheading: [],
-        link: `#${headingLink}`,
+        link: `#${headingLink}`
       }
       if (headingType === 'h3') {
         // let lastEl = tableOfContents.at(-1) // vercel does not support .at method currently
@@ -98,8 +99,8 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
       method: 'GET',
       params: { title: data.title },
       headers: {
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json'
+      }
     })
 
     console.log(result.data)
@@ -181,7 +182,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
          </div>
       </div>
   )
-};
+}
 
 export default LibaryDetails
 
