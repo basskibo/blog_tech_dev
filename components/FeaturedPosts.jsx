@@ -2,8 +2,8 @@ import React from 'react'
 import { HiOutlineEye } from 'react-icons/hi'
 
 const FeaturedPosts = () => (
-   <div className='relative bg-neutral-900 overflow-hidden '>
-      <div className='pt-16 pb-40 sm:pt-24 sm:pb-20 lg:pt-20 lg:pb-32'>
+   <div className='relative bg-neutral-900 overflow-hidden md:p-5'>
+      <div className='pt-16 pb-40 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-32'>
          <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
             <div className='sm:max-w-lg'>
                <h1 className='text-xl font font-bold tracking-tight text-white sm:text-4xl'>

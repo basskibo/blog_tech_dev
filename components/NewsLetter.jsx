@@ -29,7 +29,7 @@ const NewsLetter = () => {
   }
 
   return (
-      <div className='bg-neutral-900 pb-10'>
+      <div className='bg-neutral-900 pb-10 md:p-5'>
          <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
             <div className=' grid place-items-left place-content-center sm:mx-2 sm:px-3 mx-auto relative border bg-neutral-900 border-neutral-700  grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
                <div>
@@ -45,14 +45,14 @@ const NewsLetter = () => {
                </div>
 
                <div>
-                  <div className='flex items-stretch'>
+                  <div className=' items-stretch grid'>
                      {/* <input
                      type='email'
                      placeholder='Enter your email'
                      className='px-4 w-full bg-neutral-900 rounded-md border-gray-300 ring ring-gray-500 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                   /> */}
                      <input
-                        className='w-4/4 sm:w-3/4 my-3 bg-neutral-900 text-white  px-3 py-2 rounded-md border border-slate-600 focus:border-[#7928ca] flex-grow focus:outline-none cursor-text'
+                        className='w-4/4 lg:w-3/4 my-3 bg-neutral-900 text-white  px-3 py-2 rounded-md border border-slate-600 focus:border-[#7928ca] flex-grow focus:outline-none cursor-text'
                         placeholder='Enter your email'
                         value={email}
                         onChange={handleChange}
@@ -63,7 +63,7 @@ const NewsLetter = () => {
                         type='button'
                         onClick={openModal}
                         disabled={!email}
-                        className=' ml-2 p-2 w-4/4 my-3 rounded-md  shadow-sm  shadow-neutral-700
+                        className=' ml-0 xs:ml-0 p-2 w-4/4 my-3 lg:w-1/4 rounded-md  shadow-sm  shadow-neutral-700
                   hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'>
                         Subscribe
                      </button>
