@@ -5,13 +5,13 @@ const prisma = new PrismaClient()
 const createSubscriber = async (req, res) => {
   let result
   console.log('>>>>>>>>>>>>>>>')
-  console.log(req.query)
+  console.log(req.body)
   try {
-    if (!req.query.email) {
+    if (!req.body.email) {
       prisma.$disconnect()
       return res.status(404).send('Post Title is missing.')
     }
-    const email = req.query.email
+    const email = req.body.email
     result = await prisma.Subscribers.create(
       {
         data: {
