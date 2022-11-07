@@ -36,8 +36,8 @@ const NewsLetter = () => {
     const url = '/api/subscribers'
     // const url = `http://localhost:3000/api/views`;
     const result = await axios(url, {
-      method: 'GET',
-      params: { email: subEmail },
+      method: 'POST',
+      data: { email: subEmail },
       headers: {
         'Content-Type': 'application/json'
       }
