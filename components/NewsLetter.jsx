@@ -2,6 +2,7 @@ import React, { useState, Fragment } from 'react'
 import Accent from './custom/Accent'
 import { Dialog, Transition } from '@headlessui/react'
 import { MdWavingHand } from 'react-icons/md'
+import axios from 'axios'
 
 const NewsLetter = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -17,6 +18,7 @@ const NewsLetter = () => {
     const regex = /[a-z0-9]+@[a-z]+.[a-z]{2,3}/
     if (regex.test(email)) {
       setIsOpen(true)
+      saveSubscriber(email)
       setValidationError(false)
     } else {
       setValidationError(true)
@@ -29,6 +31,16 @@ const NewsLetter = () => {
     // setIsOpen(true)
   }
 
+  const saveSubscriber = async (subEmail) => {
+    const url = '/api/subscribers'
+    await axios(url, {
+      method: 'POST',
+      data: { email: subEmail },
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+  }
   return (
       <div className='bg-neutral-900 pb-10 md:p-5'>
          <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
