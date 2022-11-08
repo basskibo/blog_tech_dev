@@ -1,11 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { PostCard } from '../components'
 import Accent from './custom/Accent'
-
-// import MotionComponent from "./custom/MotionComponent"
 import 'react-loading-skeleton/dist/skeleton.css'
 import clsx from 'clsx'
-// const numberPerPage = 1
 
 const getCategories = (posts) => {
   try {
@@ -28,6 +25,21 @@ const BlogScreen = ({ posts }) => {
   const [chips] = useState(getCategories(posts))
   const [search, setSearch] = useState('')
   const [foundPosts, setFoundPosts] = useState(posts)
+  // const [featuredPost, setfeaturedPost] = useState(null)
+
+  useEffect(() => {
+    console.log('looking for featured post')
+    // findFeaturedPost()
+  }, [])
+
+  // const findFeaturedPost = () => {
+  //   posts.forEach(post => {
+  //     const { data } = post.props
+  //     if (data.featuredPost) {
+  //       setfeaturedPost(data)
+  //     }
+  //   })
+  // }
 
   const handleCategoryClick = (e) => {
     e.preventDefault()
@@ -84,6 +96,22 @@ const BlogScreen = ({ posts }) => {
 
   return (
       <div className='container mx-auto lg:my-14 my-5 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
+         {/* {featuredPost
+           ? (
+                  <div className='w-full bg-slate-400 h-72'>
+                  <Image
+                  src={featuredPost.featuredImage}
+                     width={1200}
+                     height={400}
+                     style={{
+                       maxWidth: '100%',
+                       height: 'auto'
+                     }}></Image>
+               </div>
+             )
+           : (
+                  <></>
+             )} */}
          <div className='my-8 lg:px-5'>
             <h1 className='mb-5'>
                <Accent className='font-extrabold text-5xl'>Blog</Accent>

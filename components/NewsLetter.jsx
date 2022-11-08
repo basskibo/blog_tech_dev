@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from 'react'
 import Accent from './custom/Accent'
 import { Dialog, Transition } from '@headlessui/react'
+import { MdWavingHand } from 'react-icons/md'
 
 const NewsLetter = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -63,7 +64,7 @@ const NewsLetter = () => {
                         type='button'
                         onClick={openModal}
                         disabled={!email}
-                        className=' ml-0 xs:ml-0 p-2 w-4/4 my-3 lg:w-1/4 rounded-md  shadow-sm  shadow-neutral-700
+                        className='transform hover:scale-[1.02] transition-all md:w-1/4 ml-0 xs:ml-0 p-2 w-4/4 my-3 lg:w-1/4 rounded-md  shadow-sm  shadow-neutral-700
                   hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'>
                         Subscribe
                      </button>
@@ -78,6 +79,21 @@ const NewsLetter = () => {
                     : (
                      <></>
                       )}
+               </div>
+               <div>
+                  <h3 className='text-white text-4xl font-semibold'>
+                         Get in touch
+                  </h3>
+
+                  <p className='text-sm text-white mt-4'>
+                     <Accent className='font-bold'>Dont be shy</Accent>, if you have some great idea or project you wish to get done feel free to contact me
+                  </p>
+                  <a className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
+            hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'
+                  href="mailto:jagetic.bojan@gmail.com">
+                     <span className='basis-3/4 md:text-sm '>Say hello</span>
+                     <MdWavingHand className='text-xl mx-1 px-0 basis-1/4 text-amber-400' />
+                  </a>
                </div>
             </div>
             <Transition appear show={isOpen} as={Fragment}>

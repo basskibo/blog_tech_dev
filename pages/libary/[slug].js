@@ -81,7 +81,7 @@ const components = {
 }
 
 const LibaryDetails = ({ data, mdxSource, toc }) => {
-  const [views, setviews] = useState(11220)
+  const [views, setviews] = useState(0)
 
   useEffect(() => {
     // const interval = setInterval(() => {
