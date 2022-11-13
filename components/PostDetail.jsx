@@ -7,6 +7,10 @@ import SocialNetworkShare from './custom/SocialNetworkShare'
 import LastChangedFile from './custom/LastChangedFile'
 
 const PostDetail = ({ post, content }) => {
+  const generateCreditImageUrl = () => {
+    return `https://unsplash.com/@${post.imageCreditUsername}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText`
+  }
+
   return (
       <div className=' mx-auto  lg:rounded-lg lg:p-0 lg:mt-5 sm:mt-10 xs:mt-10'>
          <div className='flex justify-center mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
@@ -14,8 +18,8 @@ const PostDetail = ({ post, content }) => {
                {post.title}
             </h1>
          </div>
-         <div className='relative  md-6 h-96  '>
-            <Image
+         <div className='relative overflow-hidden  md-6 h-96'>
+         <Image
                src={post.featuredImage}
                alt={post.title}
                blurDataURL={constants.imageBlogURI}
@@ -24,7 +28,16 @@ const PostDetail = ({ post, content }) => {
                priority
                className=' object-cover h-full w-full rounded-lg'
             />
+            <div className='absolute w-full  bottom-0 inset-x-0  text-white font- float-right text-xs md:text-xs text-right leading-4 py-2 px-4 flex flex-row-reverse '>
+               <div className=' backdrop-filter backdrop-blur-3xl p-2'>
+               Photo by <a href={generateCreditImageUrl()} target="_blank" rel='noreferrer'>
+                  {post.imageCreditUser}</a> on <a target="_blank" rel='noreferrer' href="https://unsplash.com/s/photos/blog?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+               </div>
+            </div>
          </div>
+         {/* <div className='relative  md-6 h-96  '>
+
+         </div> */}
          <div className='lg:px-0 prose 2xl:text-md xl:text-sm'>
             <div className=' text-slate-400 mb-6 my-6 w-full'>
                <div className='flex-1  mb-2 w-full lg:w-auto '>
