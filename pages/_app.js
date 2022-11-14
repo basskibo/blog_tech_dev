@@ -98,7 +98,7 @@ function IguanaDevelopmentTech ({ Component, pageProps }) {
             />
             <meta name='description' content={description} />
          </NextHead>
-         <Layout>
+         <Layout className='safe-top safe-left safe-right safe-bottom'>
             <Component {...pageProps} />
          </Layout>
       </>

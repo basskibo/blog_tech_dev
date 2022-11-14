@@ -8,7 +8,6 @@ const fetcher = url => axios.get(url).then(res => res.data)
 
 const SpotifyCard = () => {
   const { data, error } = useSWR('api/spotify', fetcher)
-  console.log(data)
   if (error) {
     // TODO Make notification dialog popup
     console.log(error)

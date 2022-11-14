@@ -1,7 +1,8 @@
-import React from 'react'
-import { HiOutlineEye } from 'react-icons/hi'
+import React, { } from 'react'
+// import axios from 'axios'
+import { BsEye } from 'react-icons/bs'
 
-const FeaturedPosts = () => (
+const FeaturedPosts = () => /*   const [views, setviews] = useState(0) */ /*   useEffect(() => { */ /*     // const interval = setInterval(() => { */ /*     getViews({ title: 'javascript-class-fundamentals' }) */ /*     // setSeconds(15000); */ /*     // }, seconds); */ /*     // return () => clearInterval(interval); */ /*   }, []) */ /*   const getViews = async (data) => { */ /*     // if (process.env.ENVIRONMENT !== "dev") { */ /*     console.log('fetching api views') */ /*     const url = '/api/views' */ /*     // const url = `http://localhost:3000/api/views`; */ /*     const result = await axios(url, { */ /*       method: 'GET', */ /*       params: { title: data.title }, */ /*       headers: { */ /*         'Content-Type': 'application/json' */ /*       } */ /*     }) */ /*     console.log(result.data) */ /*     //  setviews(result.data.views) */ /*   } */ (
    <div className='relative bg-neutral-900 overflow-hidden md:p-5'>
       <div className='pt-16 pb-40 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-32'>
          <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
@@ -28,9 +29,9 @@ const FeaturedPosts = () => (
                         </h4>
                      </div>
                      <div className='flex items-center text-gray-800 dark:text-gray-200 capsize'>
-                        <HiOutlineEye className='text-xl' />
-                        <span className='ml-2 align-baseline capsize'>
-                           10,250
+                        <BsEye className='text-lg' />
+                        <span className='ml-2 text-sm align-baseline capsize'>
+                           250 views
                         </span>
                      </div>
                   </div>
@@ -45,9 +46,9 @@ const FeaturedPosts = () => (
                         </h4>
                      </div>
                      <div className='flex items-center text-gray-800 dark:text-gray-200 capsize'>
-                        <HiOutlineEye className='text-xl' />
-                        <span className='ml-2 align-baseline capsize'>
-                           13,325
+                     <BsEye className='text-lg' />
+                        <span className='ml-2 text-sm align-baseline capsize'>
+                           325 views
                         </span>
                      </div>
                   </div>
@@ -62,9 +63,9 @@ const FeaturedPosts = () => (
                         </h4>
                      </div>
                      <div className='flex items-center text-gray-800 dark:text-gray-200 capsize'>
-                        <HiOutlineEye className='text-xl' />
-                        <span className='ml-2 align-baseline capsize'>
-                           8,326
+                     <BsEye className='text-lg' />
+                        <span className='ml-2 text-sm align-baseline capsize'>
+                           256 views
                         </span>
                      </div>
                   </div>
@@ -74,5 +75,4 @@ const FeaturedPosts = () => (
       </div>
    </div>
 )
-
 export default FeaturedPosts

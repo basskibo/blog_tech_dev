@@ -40,7 +40,7 @@ module.exports = {
     ]
   },
   eslint: {
-    dirs: ['pages', 'components', 'posts', 'services'] // Only run ESLint on the 'pages' and 'utils' directories during production builds (next build)
+    dirs: ['pages', 'components', 'posts', 'services'] // Only run ESLint on the 'pages', 'components', 'posts' and 'services' directories during production builds (next build)
   },
   async rewrites () {
     return [

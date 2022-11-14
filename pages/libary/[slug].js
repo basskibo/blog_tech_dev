@@ -13,7 +13,7 @@ import ReadTime from '../../components/ReadTime'
 import SocialNetworkShare from '../../components/custom/SocialNetworkShare'
 import constants from '../../lib/constants'
 import axios from 'axios'
-import { HiOutlineEye } from 'react-icons/hi'
+import { BsEye } from 'react-icons/bs'
 
 function getTableOfContents (content) {
   const reg = /^(### |## )(.*)\n/
@@ -142,7 +142,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
                            </ReadTime>
                            <div className=' w-28  flex-initial   lg:text-md sm:text-sm'>
                               <p className="inline-flex mt-1">
-                                 <HiOutlineEye className='h-full mt-0.5 text-lg' />{' '}
+                                 <BsEye className='h-full mt-0.5 text-lg' />{' '}
                                  <span className='ml-2 pb-1'>{views} views</span>
                               </p>
                            </div>
