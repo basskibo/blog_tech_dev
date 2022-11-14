@@ -19,12 +19,12 @@ const Landing = () => {
             {/* <MotionComponent> */}
             <div
                className='grid place-items-left place-content-center gap-1 h-screen mx-auto lg:max-w-4xl sm:max-w-xl'>
-               <h1 className=' text-3xl xs:text-2xl lg:text-5xl  font-bold mb-2'>
+               <h1 className=' text-2xl xs:text-2xl lg:text-5xl  font-bold mb-2'>
                   Hello there,
                   <br />
-                  <span className='text-3xl sm:text-3xl lg:text-6xl '>
+                  <span className='text-2xl sm:text-2xl lg:text-6xl '>
                      My name is{' '}
-                     <Accent>
+                     <Accent className=''>
                         <TypeAnimation
                            sequence={[
                              700,
@@ -39,7 +39,7 @@ const Landing = () => {
                            cursor={true}
                            speed={25}
                            repeat={0}
-                           // className='text-transparent bg-clip-text bg-gradient-to-r from-[#7928ca] to-[#ff0080] mb-5'
+                           className='break-words'
                            style={{ fontSize: '1em' }}
                         />
                      </Accent>
