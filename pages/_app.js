@@ -24,7 +24,6 @@ const handleTitle = (router) => {
   let title = 'Bojan Jagetic'
   try {
     const splittedTitle = router.route.split('/')
-    console.log(splittedTitle)
     if (splittedTitle[2]) {
       switch (splittedTitle[2]) {
         case 'libaries':
@@ -57,9 +56,21 @@ function IguanaDevelopmentTech ({ Component, pageProps }) {
     ? pageProps.data.featuredImage
     : 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127896/igutech/undersstanding_mnfh3n.jpg'
 
-  const description = pageProps.data
-    ? pageProps.data.excerpt
-    : 'Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away '
+  const postDescription = () => {
+    if (pageProps.data) {
+      const props = pageProps.data
+      if (props.excerpt) {
+        return props.excerpt
+      } else if (props.description) {
+        return props.description
+      }
+    }
+    return 'Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away'
+  }
+  const description = postDescription()
+  // pageProps.data
+  //   ? postDescription()
+  //   : 'Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away'
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
