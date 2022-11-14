@@ -10,7 +10,8 @@
     "build_out": "next build && next export",
     "test": "$(npm bin)/cypress open",
     "prepare": "husky install",
-    "precommit": ""
+    "precommit": "",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@cloudinary/react": "^1.1.0",
@@ -40,6 +41,7 @@
     "moment": "^2.29.1",
     "next": "^12.2.4-canary.9",
     "next-api-og-image": "^4.0.1",
+    "next-sitemap": "^3.1.31",
     "querystring": "^0.2.1",
     "react": "^17.0.2",
     "react-anchor-link-smooth-scroll": "^1.0.12",
