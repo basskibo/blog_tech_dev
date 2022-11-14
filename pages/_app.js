@@ -57,6 +57,10 @@ function IguanaDevelopmentTech ({ Component, pageProps }) {
     ? pageProps.data.featuredImage
     : 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127896/igutech/undersstanding_mnfh3n.jpg'
 
+  const description = pageProps.data
+    ? pageProps.data.excerpt
+    : 'Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away '
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const loader = document.getElementById('globalLoader')
@@ -79,12 +83,9 @@ function IguanaDevelopmentTech ({ Component, pageProps }) {
             <meta property='og:image' content={ogUrl} />
             <meta
                property='og:description'
-               content={
-                  pageProps.data
-                    ? pageProps.data.excerpt
-                    : 'Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away '
-               }
+               content={description}
             />
+            <meta name='description' content={description} />
          </NextHead>
          <Layout>
             <Component {...pageProps} />
