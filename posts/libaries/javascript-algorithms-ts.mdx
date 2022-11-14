@@ -18,7 +18,6 @@ I hope I will add more in near future but for now it was just a good excercise.
 
 ## Fibonnaci numbers
 
-### About 
 This is well known algorithm if not the best known because everybody was doing it at least once. <Link href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonnaci numbers</Link> or sequence is a 
 sequence of numbers that is calculated by adding values of two preceding numbers, 
 also known as golden ratio which can be found in nature. <NewLine/>
@@ -33,7 +32,7 @@ F(n) = F(n-2) + F(n-1)
 
 So if we want to calculate Fibonacci number for 3 result will be <Adjusted> F(1) + F(2) = 1 + 1 = 2 </Adjusted> as we got already Fibonacci for 1 and 2 which is 1 and 1.
 
-### Solution
+### Fibonnaci Solution
 
 My solution is:
 
@@ -52,12 +51,11 @@ export const calculateFibonacci = (n: number): number => {
 
 ## Calculate century
 
-### About
 This is really simple one, if you want it to be simple. The point of the algorithm is that you are provided year and you have to return in which century it belongs.
 For me easiest solution was to divide year by 100 and then use <Adjusted>Math.ceil</Adjusted> to get century.
 <Link href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil">Math.ceil</Link> is great for this solution because it will round number to greater than or equal to a given number.
 
-### Solution
+### Century Solution
 Solution is pretty simple, it took only 2 lines of code. 
 
 ```javascript
@@ -69,14 +67,11 @@ export const century = (year: number) => {
 
 
 ## Palindrome
-
-
-### About
 What is Palindrome?
 
 <QouteComponent>a word, phrase, or sequence that reads the same backwards as forwards, e.g. madam or nurses run.</QouteComponent>
 So basically you are given a word and you need to check wheather it is palindrome.
-### Solution
+### Palindrome Solution
 Solution for this one is also very trivial, you just need to loop through the word from the behind and check if it match with the given word.
 
 ```javascript
@@ -93,9 +88,8 @@ export const isPalindrom = (inputString: string): boolean => {
 ```
 
 ## First duplicate
-### About
 You are given array of numbers and you have to return first number that is duplicate. Array provided can be of size <Adjusted> n </Adjusted> so this means that we can have array with million of elements.
-### Solution
+### First duplicate Solution
 When we measure performance as well, in the million sized array, <Adjusted>for</Adjusted> loop can be an issue. <Adjusted>While</Adjusted> can be as well even though it is faster than for loop. 
 Best solution I found is to create <Adjusted>Set</Adjusted> and loop over array of numbers, check if we have it in Set if not add it. So we will use <Adjusted>Set.has()</Adjusted>  instead of having dual loop and if we have it in set 
 we return it.
