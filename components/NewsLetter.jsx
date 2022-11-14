@@ -2,6 +2,7 @@ import React, { useState, Fragment } from 'react'
 import Accent from './custom/Accent'
 import { Dialog, Transition } from '@headlessui/react'
 import { MdWavingHand } from 'react-icons/md'
+import { SiHashnode } from 'react-icons/si'
 import axios from 'axios'
 
 const NewsLetter = () => {
@@ -43,8 +44,39 @@ const NewsLetter = () => {
   }
   return (
       <div className='bg-neutral-900 pb-10 md:p-5'>
-         <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
-            <div className=' grid place-items-left place-content-center sm:mx-2 sm:px-3 mx-auto relative border bg-neutral-900 border-neutral-700  grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
+         <div className='relative max-w-7xl mx-auto sm:px-4 lg:px-0 sm:static'>
+            <div className=' grid place-items-left place-content-center xs:mx-2 xs:px-3 mx-auto relative border bg-neutral-900 border-neutral-700  grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
+
+               <div>
+                  <h3 className='text-white text-4xl font-semibold'>
+                         Get in touch
+                  </h3>
+
+                  <p className='text-sm text-white mt-4'>
+                     <Accent className='font-bold'>Dont be shy</Accent>, if you have some great idea or project you wish to get done feel free to contact me
+                  </p>
+                  <a className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
+            hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'
+                  href="mailto:jagetic.bojan@gmail.com">
+                     <span className='basis-3/4 md:text-sm '>Say hello</span>
+                     <MdWavingHand className='text-xl mx-1 px-0 basis-1/4 text-amber-400' />
+                  </a>
+               </div>
+               <div>
+                  <h3 className='text-white text-4xl font-semibold'>
+                         Blogging
+                  </h3>
+
+                  <p className='text-sm text-white mt-4'>
+                     I have been writing blogs as well on <Accent className='font-bold'>hashnode</Accent>, I try to keep content up to date with my personal blog
+                  </p>
+                  <a className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
+            hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'
+                  href="https://hashnode.bojanjagetic.com/" target='_blank' rel='noreferrer'>
+                     <span className='basis-3/4 md:text-sm '>Read</span>
+                     <SiHashnode className='text-xl mx-1 px-0 basis-1/4 text-[#2962FF]' />
+                  </a>
+               </div>
                <div>
                   <h3 className='text-white text-4xl font-semibold'>
                      Sign up for <Accent> newsletter</Accent>
@@ -56,7 +88,6 @@ const NewsLetter = () => {
                      an email on a weekly/monthly basis.
                   </p>
                </div>
-
                <div>
                   <div className=' items-stretch grid'>
                      {/* <input
@@ -91,21 +122,6 @@ const NewsLetter = () => {
                     : (
                      <></>
                       )}
-               </div>
-               <div>
-                  <h3 className='text-white text-4xl font-semibold'>
-                         Get in touch
-                  </h3>
-
-                  <p className='text-sm text-white mt-4'>
-                     <Accent className='font-bold'>Dont be shy</Accent>, if you have some great idea or project you wish to get done feel free to contact me
-                  </p>
-                  <a className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
-            hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'
-                  href="mailto:jagetic.bojan@gmail.com">
-                     <span className='basis-3/4 md:text-sm '>Say hello</span>
-                     <MdWavingHand className='text-xl mx-1 px-0 basis-1/4 text-amber-400' />
-                  </a>
                </div>
             </div>
             <Transition appear show={isOpen} as={Fragment}>

@@ -91,9 +91,9 @@ const Footer = () => {
                         id={medium.name}
                         type='dark'
                         className=' bg-neutral-700'>
-                        <h1>
+                        <p>
                            You can find me on <Accent>{medium.name}</Accent>
-                        </h1>
+                        </p>
                      </ReactTooltip>
                   </a>
                ))}
