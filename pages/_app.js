@@ -20,10 +20,39 @@ import NextHead from 'next/head'
 // })
 //   label === 'web-vital' && console.log({ id, name, label, value })
 // }
+const handleTitle = (router) => {
+  let title = 'Bojan Jagetic'
+  try {
+    const splittedTitle = router.route.split('/')
+    console.log(splittedTitle)
+    if (splittedTitle[2]) {
+      switch (splittedTitle[2]) {
+        case 'libaries':
+          title = 'Bojan Jagetic | Libary'
+          break
+        case 'blog':
+          title = 'Bojan Jagetic | Blog'
+          break
+        case 'aboutme':
+          title = 'Bojan Jagetic | About Me'
+          break
+        default:
+          console.log('Uknown case')
+      }
+    }
+    return title
+  } catch (exc) {
+    return 'Bojan Jagetic'
+  }
+}
 
 function IguanaDevelopmentTech ({ Component, pageProps }) {
   const router = useRouter()
-  const title = pageProps.data ? `${pageProps.data.title}` : 'Bojan Jagetic'
+  let defaultTitle
+  if (!pageProps.data) {
+    defaultTitle = handleTitle(router)
+  }
+  const title = pageProps.data ? `${pageProps.data.title}` : defaultTitle
   const ogUrl = pageProps.data
     ? pageProps.data.featuredImage
     : 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127896/igutech/undersstanding_mnfh3n.jpg'
