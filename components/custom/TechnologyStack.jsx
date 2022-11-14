@@ -16,10 +16,10 @@ const TechnologyStack = () => {
 				{' '}
 				Backend frameworks and services I preffer and mostly use{' '}
 			</h2>
-			<span className='flex'>
+			<span className='flex '>
 				{BEtechArray.map((tech, index) => (
 					<div
-						className='h-12 mb-3 gap-5 text-white text-2xl lg:text-3xl mr-3'
+						className='h-12 mb-3 gap-5 text-white text-xl lg:text-3xl mr-3'
 						key={tech.name}
 					>
 						<tech.icon data-tip data-for={tech.name} />
