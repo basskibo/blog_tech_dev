@@ -34,8 +34,11 @@ const SocialNetworkSHare = ({ post, type }) => {
             className='mr-3'
             title={post.title}
             media={post.featuredImage}
-            via='IguTechVercelApp'
-            hashtag={post.tags}
+            via='basskibo1'
+            hashtags={post.tags.map((tag, index) => (
+              tag.name
+            ))}
+            // hashtag={(post.tags)}
             url={`https://bojanjagetic.com/${type}/${post.slug}`}>
             <SiTwitter
                className='hover:text-sky-400 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
