@@ -4,7 +4,7 @@ import Accent from './custom/Accent'
 import 'react-loading-skeleton/dist/skeleton.css'
 import clsx from 'clsx'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import PropagateLoader from 'react-spinners/PropagateLoader'
+// import PropagateLoader from 'react-spinners/PropagateLoader'
 
 const getCategories = (posts) => {
   try {
@@ -187,8 +187,7 @@ const BlogScreen = ({ posts }) => {
           next={fetchMoreData}
           hasMore={hasMore}
           className=' grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'
-          loader={<div className='text-center '><PropagateLoader color="#ff0080" /></div>
-        }
+          // loader={<div className='text-center w-full overflow-hidden'><PropagateLoader color="#ff0080" /></div>}
         // scrollableTarget="scrollableDiv"
           // endMessage={
           //   <div className='text-center p-3 my-auto'>
