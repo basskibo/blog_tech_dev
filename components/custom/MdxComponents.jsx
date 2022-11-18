@@ -201,5 +201,44 @@ export default {
             allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
             sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts'></iframe>
     )
+  },
+  table: ({ header, content, genericData }) => {
+    console.log(genericData)
+    return (
+      <table className="table-auto  w-full xl:w-2/3 border border-neutral-700 hover:table-fixed">
+        <thead className='bg-neutral-800 '>
+          <tr >
+            {header.map((head) => (
+              <th key={head} className='p-3'>{head}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className='text-center'>
+          {/* {content.map((song) => (
+            <tr key={song}>
+              <td className='p-3' key={song.id}>{song.id}</td>
+              <td className='p-3' key={song.artist}>{song.artist}</td>
+              <td className='p-3' key={Math.random()}>{song.songId}</td>
+            </tr>
+          ))}
+          {genericData.map((data) => (
+            data.map((d) => (
+            <tr key={d}>
+              <td className='p-3' key={d}>{d}</td>
+              <td className='p-3' key={d}>{d}</td>
+              <td className='p-3' key={Math.random()}>{d}</td>
+            </tr>
+            ))
+          ))} */}
+           {/* {genericData.forEach(t => {
+            <tr key={t}>
+            <td className='p-3' key={t[0]}>{t[0]}</td>
+            <td className='p-3' key={t[1]}>{t[1]}</td>
+            <td className='p-3' key={t[2]}>{t[2]}</td>
+          </tr>
+           })} */}
+        </tbody>
+      </table>
+    )
   }
 }

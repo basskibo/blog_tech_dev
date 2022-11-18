@@ -73,7 +73,8 @@ const components = {
   ReactPlayer: MdxComponents.ReactPlayer,
   GithubCardRepo: MdxComponents.GithubCardRepo,
   NewLine: MdxComponents.NewLine,
-  Iframe: MdxComponents.Iframe
+  Iframe: MdxComponents.Iframe,
+  Table: MdxComponents.table
 }
 
 const PostDetails = ({ data, mdxSource, toc }) => {
