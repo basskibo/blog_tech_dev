@@ -1,10 +1,10 @@
 import React from 'react'
 import { SiGmail, SiTwitter, SiLinkedin, SiGithub } from 'react-icons/si'
-import ReactTooltip from 'react-tooltip'
-import Accent from '../custom/Accent'
+// import ReactTooltip from 'react-tooltip'
+// import Accent from '../custom/Accent'
 
 const waysToReachMe = [
-  { name: 'gmail', description: 'test', externalLink: false, icon: SiGmail },
+  { name: 'gmail', description: 'test', externalLink: false, icon: SiGmail, href: 'mailto:jagetic.bojan@gmail.com' },
   {
     name: 'Twitter',
     description: 'test',
@@ -87,14 +87,14 @@ const Footer = () => {
                         data-tip
                         data-for={medium.name}
                      />
-                     <ReactTooltip
+                     {/* <ReactTooltip
                         id={medium.name}
                         type='dark'
                         className=' bg-neutral-700'>
                         <p>
                            You can find me on <Accent>{medium.name}</Accent>
                         </p>
-                     </ReactTooltip>
+                     </ReactTooltip> */}
                   </a>
                ))}
             </span>

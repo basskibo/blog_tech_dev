@@ -17,7 +17,7 @@ const PostCard = ({ post }) => {
            'w-full  rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 overflow-hidden'
          )}>
          <a href={`/post/${post.data.slug}`}>
-            <div className='relative overflow-hidden h-64 lg:h-64'>
+            <div className='relative overflow-hidden h-64 lg:h-72'>
                <Image
                   alt={post.data.featuredImage}
                   src={post.data.featuredImage}
