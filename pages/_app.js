@@ -72,7 +72,8 @@ function IguanaDevelopmentTech ({ Component, pageProps }) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const loader = document.getElementById('globalLoader')
-      if (loader) setTimeout(() => setPageLoaded(true), 1500)
+      // if (loader) setTimeout(() => setPageLoaded(true), 1500)
+      if (loader) setPageLoaded(true)
     }
     const handleRouteChange = (url) => {
       ga.pageview(url)
