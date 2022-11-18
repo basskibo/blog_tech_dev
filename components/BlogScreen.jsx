@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { PostCard } from '../components'
 import Accent from './custom/Accent'
 import 'react-loading-skeleton/dist/skeleton.css'
 import clsx from 'clsx'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import PropagateLoader from 'react-spinners/PropagateLoader'
 
 const getCategories = (posts) => {
   try {
@@ -25,12 +27,29 @@ const BlogScreen = ({ posts }) => {
   const [chips] = useState(getCategories(posts))
   const [search, setSearch] = useState('')
   const [foundPosts, setFoundPosts] = useState(posts)
-  // const [featuredPost, setfeaturedPost] = useState(null)
+  const [currentIndex, setCurrentIndex] = useState(8)
+  const [items, setItems] = useState(foundPosts.slice(0, currentIndex))
+  const [hasMore, sethasMore] = useState(true)
+  const lastIndex = foundPosts.length
+  let pointer = 4
 
-  useEffect(() => {
-    console.log('looking for featured post')
-    // findFeaturedPost()
-  }, [])
+  const fetchMoreData = () => {
+    if (items.length >= foundPosts.length) {
+      sethasMore(false)
+    } else {
+      if ((currentIndex + pointer) > lastIndex) {
+        pointer = lastIndex - currentIndex
+      }
+      const nextIndex = currentIndex + pointer
+      const newData = foundPosts.slice(currentIndex, nextIndex)
+      setTimeout(() => {
+        setItems(
+          items.concat(newData)
+        )
+        setCurrentIndex(nextIndex)
+      }, 1000)
+    }
+  }
 
   // const findFeaturedPost = () => {
   //   posts.forEach(post => {
@@ -46,7 +65,7 @@ const BlogScreen = ({ posts }) => {
     const selected = e.target.innerText
     if (selected === search) {
       setSearch(null)
-      setFoundPosts(posts)
+      setItems(posts)
       return
     }
     setSearch(selected)
@@ -70,7 +89,7 @@ const BlogScreen = ({ posts }) => {
       return true
     })
 
-    setFoundPosts(postsWithCategory)
+    setItems(postsWithCategory)
   }
   const handleSearchChange = (e) => {
     e.preventDefault()
@@ -91,11 +110,12 @@ const BlogScreen = ({ posts }) => {
         return includes
       }
     })
-    setFoundPosts(filteredData)
+    setItems(filteredData)
   }
 
   return (
-      <div className='container mx-auto lg:my-14 my-5 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'>
+      <div className='container mx-auto lg:my-14 my-5 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'
+      >
          {/* {featuredPost
            ? (
                   <div className='w-full bg-slate-400 h-72'>
@@ -112,7 +132,7 @@ const BlogScreen = ({ posts }) => {
            : (
                   <></>
              )} */}
-         <div className='my-8 lg:px-5'>
+         <div className='my-8 lg:px-5' id="scrollableDiv">
             <h1 className='mb-5'>
                <Accent className='font-extrabold text-5xl'>Blog</Accent>
             </h1>
@@ -160,18 +180,32 @@ const BlogScreen = ({ posts }) => {
             </div>
          </div>
 
-         <div className='lg:px-5 grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'>
-            {foundPosts.map((post, index) => (
-               <PostCard
-                  className=''
-                  key={post.props.data.slug}
-                  post={post.props}
-               />
-               // </motion.div>
-            ))}{' '}
-         </div>
+         {/* <div className='lg:px-5 grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6' > */}
+         <InfiniteScroll
+          dataLength={items.length}
+          element={'div'}
+          next={fetchMoreData}
+          hasMore={hasMore}
+          className='lg:px-5 grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'
+          loader={<div className='text-center p-3 m-3 '><PropagateLoader color="#ff0080" /></div>
+        }
+        // scrollableTarget="scrollableDiv"
+          // endMessage={
+          //   <div className='text-center p-3 my-auto'>
+          //     <b>Yay! You have seen it all <span className='text-xl'>🎉</span></b>
+          //   </div>
+          // }
+        >
+          {items.map((post, index) => (
+                  <PostCard
+                    className=''
+                    key={post.props.data.slug}
+                    post={post.props}
+                />
+          ))}
+        </InfiniteScroll>
+         {/* </div> */}
       </div>
-      // </MotionComponent>
   )
 }
 
