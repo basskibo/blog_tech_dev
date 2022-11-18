@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import loader from '../src/loader'
+
 class MyDocument extends Document {
   static async getInitialProps (ctx) {
     const initialProps = await Document.getInitialProps(ctx)
@@ -30,30 +30,10 @@ class MyDocument extends Document {
                             `
                   }}
                />
-               <style>{loader}</style>
             </Head>
             <body>
-               <div id={'globalLoader'}>
-                  <div className='loader'>
-                     <div className='face'>
-                        <div className='circle'></div>
-                     </div>
-                     <div className='face'>
-                        <div className='circle'></div>
-                     </div>{' '}
-                     <div className='face'>
-                        <div className='circle'></div>
-                     </div>
-                  </div>
+               <div id={'globalLoader'} >
                </div>
-
-               {/* <div id={"globalLoader"}>
-                  <div className='loader'>
-                     <div />
-                     <div />
-                  </div>
-               </div> */}
-
                <Main />
                <NextScript />
             </body>

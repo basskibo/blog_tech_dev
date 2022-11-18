@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-
 import { Layout } from '../components'
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.scss'
 import * as ga from '../lib/analytics'
-
+import SplashScreen from '../components/custom/SplashScreen'
 import NextHead from 'next/head'
 
 // export function reportWebVitals ({ id, name, label, value }) {
@@ -46,6 +45,7 @@ const handleTitle = (router) => {
 }
 
 function IguanaDevelopmentTech ({ Component, pageProps }) {
+  const [pageLoaded, setPageLoaded] = useState(false)
   const router = useRouter()
   let defaultTitle
   if (!pageProps.data) {
@@ -68,17 +68,13 @@ function IguanaDevelopmentTech ({ Component, pageProps }) {
     return 'Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away'
   }
   const description = postDescription()
-  // pageProps.data
-  //   ? postDescription()
-  //   : 'Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away'
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const loader = document.getElementById('globalLoader')
-      if (loader) loader.style.display = 'none'
+      if (loader) setTimeout(() => setPageLoaded(true), 1500)
     }
     const handleRouteChange = (url) => {
-      console.log(url)
       ga.pageview(url)
     }
     router.events.on('routeChangeComplete', handleRouteChange)
@@ -103,9 +99,11 @@ function IguanaDevelopmentTech ({ Component, pageProps }) {
             <meta name="twitter:image" content={ogUrl} />
 
          </NextHead>
-         <Layout className='safe-top safe-left safe-right safe-bottom'>
-            <Component {...pageProps} />
-         </Layout>
+         <SplashScreen loaded={pageLoaded}>
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+         </SplashScreen>
       </>
   )
 }
