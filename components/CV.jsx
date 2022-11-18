@@ -39,6 +39,9 @@ const CV = () => {
                     {/* {constants.generateIcon('SiJavascript')} */}
                     {constants.generateIcon('SiNestjs')}
                     {constants.generateIcon('SiFirebase')}
+                    {constants.generateIcon('SiDocker')}
+                    {constants.generateIcon('SiJenkins')}
+
                 </div>
              </ul>
 
@@ -247,7 +250,6 @@ const CV = () => {
                     {constants.generateIcon('SiPostgresql')}
                     {constants.generateIcon('SiSencha')}
                     {constants.generateIcon('SiIonic')}
-
                 </div>
              </ul>
           </div>
