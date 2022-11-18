@@ -19,14 +19,14 @@ const PostDetail = ({ post, content }) => {
             </h1>
          </div>
          <div className='relative overflow-hidden  md-6 h-96'>
-         <Image
+            <Image
                src={post.featuredImage}
                alt={post.title}
                blurDataURL={constants.imageBlogURI}
                placeholder='blur'
                layout='fill'
                priority
-               className=' object-cover h-full w-full rounded-lg'
+               className='object-cover rounded-lg'
             />
             <div className='absolute w-full  bottom-0 inset-x-0  text-white font- float-right text-xs md:text-xs text-right leading-4 py-2 px-4 flex flex-row-reverse '>
                <div className=' backdrop-filter backdrop-blur-3xl p-2'>
