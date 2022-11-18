@@ -4,14 +4,16 @@ import {
   SiTwitter,
   SiLinkedin,
   SiReddit,
-  SiTelegram
+  SiTelegram,
+  SiViber
 } from 'react-icons/si'
 import {
   TelegramShareButton,
   FacebookShareButton,
   TwitterShareButton,
   LinkedinShareButton,
-  RedditShareButton
+  RedditShareButton,
+  ViberShareButton
 } from 'react-share'
 
 const SocialNetworkSHare = ({ post, type }) => {
@@ -72,7 +74,7 @@ const SocialNetworkSHare = ({ post, type }) => {
                rounded='true'
             />
          </RedditShareButton>
-         {/* <ViberShareButton
+         <ViberShareButton
             className='mr-3'
             title={post.title}
             media={post.featuredImage}
@@ -82,7 +84,7 @@ const SocialNetworkSHare = ({ post, type }) => {
                size={22}
                rounded='true'
             />
-         </ViberShareButton> */}
+         </ViberShareButton>
          <TelegramShareButton
             className='mr-3'
             title={post.title}
