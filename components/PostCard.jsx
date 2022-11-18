@@ -13,7 +13,7 @@ const PostCard = ({ post }) => {
          className={clsx(
            post.data.inPreparation
              ? 'text-slate-600 pointer-events-none bg-blend-hard-light bg-neutral-800 '
-             : 'text-white transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow',
+             : 'text-white transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow',
            'w-full  rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 overflow-hidden'
          )}>
          <a href={`/post/${post.data.slug}`}>

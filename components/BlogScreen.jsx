@@ -27,11 +27,11 @@ const BlogScreen = ({ posts }) => {
   const [chips] = useState(getCategories(posts))
   const [search, setSearch] = useState('')
   const [foundPosts, setFoundPosts] = useState(posts)
-  const [currentIndex, setCurrentIndex] = useState(8)
+  const [currentIndex, setCurrentIndex] = useState(12)
   const [items, setItems] = useState(foundPosts.slice(0, currentIndex))
   const [hasMore, sethasMore] = useState(true)
   const lastIndex = foundPosts.length
-  let pointer = 4
+  let pointer = 8
 
   const fetchMoreData = () => {
     if (items.length >= foundPosts.length) {
@@ -114,7 +114,7 @@ const BlogScreen = ({ posts }) => {
   }
 
   return (
-      <div className='container mx-auto lg:my-14 my-5 px-5 sm:px-2 xs:px-3 lg:px-5 bg-gradient-to-tr text-slate-400'
+      <div className='container mx-auto lg:my-14 my-5 px-5 sm:px-2 xs:px-3 bg-gradient-to-tr text-slate-400'
       >
          {/* {featuredPost
            ? (
@@ -183,11 +183,11 @@ const BlogScreen = ({ posts }) => {
          {/* <div className='lg:px-5 grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6' > */}
          <InfiniteScroll
           dataLength={items.length}
-          element={'div'}
+          element={'span'}
           next={fetchMoreData}
           hasMore={hasMore}
-          className='lg:px-5 grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'
-          loader={<div className='text-center p-3 m-3 '><PropagateLoader color="#ff0080" /></div>
+          className=' grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'
+          loader={<div className='text-center '><PropagateLoader color="#ff0080" /></div>
         }
         // scrollableTarget="scrollableDiv"
           // endMessage={
