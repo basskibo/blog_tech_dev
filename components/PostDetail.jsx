@@ -13,7 +13,7 @@ const PostDetail = ({ post, content }) => {
 
   return (
       <div className=' mx-auto  lg:rounded-lg lg:p-0 lg:mt-5 sm:mt-10 xs:mt-10'>
-         <div className='flex justify-center mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
+         <div className='flex justify-left mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
             <h1 className='lg:text-4xl text-xl lg:my-5 text-semibold text-white font-bold'>
                {post.title}
             </h1>
