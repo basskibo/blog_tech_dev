@@ -13,11 +13,11 @@ const PostCard = ({ post }) => {
          className={clsx(
            post.data.inPreparation
              ? 'text-slate-600 pointer-events-none bg-blend-hard-light bg-neutral-800 '
-             : 'text-white transform-gpu scale-100 hover:scale-[0.98] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow',
-           'w-full  rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 overflow-hidden'
+             : 'text-white transform-gpu scale-100 hover:scale-[0.96] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow',
+           'w-full  rounded-md lg:border border-gray-800 dark:bg-dark dark:border-neutral-700 overflow-hidden'
          )}>
          <a href={`/post/${post.data.slug}`}>
-            <div className='relative overflow-hidden h-64 lg:h-72'>
+            <div className='relative overflow-hidden h-64 2xl:h-72 lg:h-64'>
                <Image
                   alt={post.data.featuredImage}
                   src={post.data.featuredImage}

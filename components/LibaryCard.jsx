@@ -12,7 +12,7 @@ const LibaryCard = ({ libary }) => {
            libary.inPreparation
              ? 'text-slate-600 pointer-events-none bg-neutral-800 '
              : 'text-white transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow',
-           'w-full  py-3 px-2 text-white  shadow-lg shadow-neutral-800 rounded-md border border-gray-600 dark:bg-dark dark:border-gray-600 transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow overflow-hidden'
+           'w-full  py-3 px-2 text-white  shadow-lg shadow-neutral-800 rounded-md border border-gray-600 dark:bg-dark dark:border-neutral-700 transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow overflow-hidden'
          )}>
          <a href={`/libary/${libary.slug}`}>
             {libary.inPreparation
