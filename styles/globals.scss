@@ -167,3 +167,25 @@ a {
 		transform: rotate(1turn);
 	}
 }
+
+.layout {
+    max-width: 100rem;
+	margin-top:10px;
+	margin-bottom: 10px;
+    @apply mx-auto w-11/12;
+}
+
+.header-layout {
+		max-width: 100rem;
+		@apply mx-auto w-11/12;  
+}
+
+@layer components {
+	.section-layout {
+	//   @apply layout mx-auto lg:my-14 my-5 sm:px-2 xs:px-3 lg:px-5  text-slate-400;
+	}
+	.select2-search {
+	  @apply border border-gray-300 rounded;
+	}
+
+  }
