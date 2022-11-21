@@ -114,9 +114,8 @@ const BlogScreen = ({ posts }) => {
   }
 
   return (
-      <div className='container mx-auto lg:my-14 my-5 px-5 sm:px-2 xs:px-3 bg-gradient-to-tr text-slate-400'
-      >
-         {/* {featuredPost
+    <div className='layout mx-auto lg:my-14 my-5 sm:px-2 xs:px-3 lg:px-5  text-slate-400'>
+               {/* {featuredPost
            ? (
                   <div className='w-full bg-slate-400 h-72'>
                   <Image
@@ -132,7 +131,7 @@ const BlogScreen = ({ posts }) => {
            : (
                   <></>
              )} */}
-         <div className='my-8 lg:px-5' id="scrollableDiv">
+         <div className='my-8 ' id="scrollableDiv">
             <h1 className='mb-5'>
                <Accent className='font-extrabold text-5xl'>Blog</Accent>
             </h1>
@@ -186,7 +185,7 @@ const BlogScreen = ({ posts }) => {
           element={'span'}
           next={fetchMoreData}
           hasMore={hasMore}
-          className=' grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'
+          className=' grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'
           // loader={<div className='text-center w-full overflow-hidden'><PropagateLoader color="#ff0080" /></div>}
         // scrollableTarget="scrollableDiv"
           // endMessage={

@@ -19,13 +19,13 @@ const navigation = [
 
 const Header = ({ href }) => {
   return (
-      <div className='sticky top-0 z-50 absolute bg-neutral-700 backdrop-filter backdrop-blur-lg bg-opacity-30 '>
+      <div className=' sticky top-0 z-50 absolute bg-neutral-700 backdrop-filter backdrop-blur-lg bg-opacity-30 '>
          <Disclosure
             as='nav'
             className=' border-b border-neutral-500 lg:pb-1 text-white  lg:pt-1'>
             {({ open }) => (
                <>
-                  <div className=' max-w-10xl w-full  px-2 sm:px-6 lg:px-8'>
+                  <div className='header-layout max-w-10xl w-full  sm:px-6'>
                      <div className='relative flex items-center justify-between h-16'>
                         <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
                            {/* Mobile menu button */}
@@ -63,7 +63,7 @@ const Header = ({ href }) => {
                               </a>
                            </div>
                            <div className='hidden sm:block sm:ml-6'>
-                              <div className='flex space-x-4'>
+                              <div className='flex space-x-5'>
                                  {/* <DisclocureButton /> */}
                                  {navigation.map((item) => (
                                     <ActiveLink
