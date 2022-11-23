@@ -60,7 +60,6 @@ const Footer = () => {
             {/* <span className='inline-flex sm:ml-auto mx-5 sm:mt-0 mt-4 justify-center sm:justify-start'><SpotifyCard /></span> */}
             <span className='inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start'>
                {/* <p className='text-md'>Reach me at: </p> */}
-
                <a
                   className='mr-3 lg:mr-5  text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize items-right md:justify-right justify-right text-xs lg:text-sm'
                   href='https://blogtech-umami.herokuapp.com/share/kCnjGOHv/bojan_jagetic'
@@ -68,6 +67,13 @@ const Footer = () => {
                   rel='noopener noreferrer'>
                   Site Statistics
                </a>
+               {/* <a
+                  className='mr-3 lg:mr-5  text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize items-right md:justify-right justify-right text-xs lg:text-sm'
+                  href='http://docs.bojanjagetic.com'
+                  target='_blank'
+                  rel='noopener noreferrer'>
+                  Docs
+               </a> */}
                <a
                   className='mr-5 lg:mr-5 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize items-right md:justify-right justify-right text-xs lg:text-sm'
                   href='https://github.com/basskibo/blog_tech_dev'
