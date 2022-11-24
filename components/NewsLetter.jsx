@@ -45,7 +45,7 @@ const NewsLetter = () => {
   return (
       <div className='bg-neutral-900 pb-10 md:p-5'>
          <div className='relative max-w-7xl mx-auto sm:px-4 lg:px-0 sm:static'>
-            <div className=' grid place-items-left place-content-center xs:mx-2 xs:px-3 mx-auto relative border bg-neutral-900 border-neutral-700  grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
+            <div className=' grid place-items-left place-content-center xs:mx-2 xs:px-3 mx-auto relative xl:border bg-neutral-900 xl:border-neutral-700   grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
 
                <div>
                   <h3 className='text-white text-4xl font-semibold'>

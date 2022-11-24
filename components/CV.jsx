@@ -21,7 +21,7 @@ const CV = () => {
              October 2022 ~ Present
           </time>
           <h3 className='text-xl font-semibold text-slate-400 dark:text-white'>
-             CodeMeUp
+             CodeMeUp / ext. Truedigital
           </h3>
           <h2 className='py-1'>Web developer </h2>
 
@@ -30,6 +30,7 @@ const CV = () => {
                 <li>Project: Developing smart tv applications based on Tizen and WebOS platforms</li>
                 <li>Working on smart TV application used as streaming platform. Creating components, services, authorization, etc. Platform is serving LiveTV, video on demand  as well as option for renting movies. </li>
                 <li>Key technologies: React, Typescript, NestJS, Tizen, WebOS, Firebase, etc.</li>
+                <li>Dockerizing and creating the process of building, packing, deploying and  using Docker containers for the sdk usage</li>
                 <li className='font-semibold'>
                 Technologies used on this project
                 </li>
