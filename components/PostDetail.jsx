@@ -1,12 +1,31 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import Image from 'next/image'
 import ReadTime from './ReadTime'
 import constants from '../lib/constants'
 import SocialNetworkShare from './custom/SocialNetworkShare'
 import LastChangedFile from './custom/LastChangedFile'
+import { BsEye } from 'react-icons/bs'
+import axios from 'axios'
 
 const PostDetail = ({ post, content }) => {
+  const [views, setviews] = useState(0)
+
+  useEffect(() => {
+    getViews(post)
+  }, [])
+  const getViews = async (data) => {
+    console.log('fetching api views')
+    const url = '/api/views'
+    const result = await axios(url, {
+      method: 'GET',
+      params: { title: data.title },
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    setviews(result.data.views)
+  }
   const generateCreditImageUrl = () => {
     return `https://unsplash.com/@${post.imageCreditUsername}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText`
   }
@@ -54,9 +73,20 @@ const PostDetail = ({ post, content }) => {
                   <LastChangedFile fileName={`${post.slug}.mdx`} type='blog' />
                </div>
 
-               <ReadTime className='sm:flex-1 mb-4 lg:w-auto  2xl:text-md xl:text-sm'>
+               <span className='flex mb-2'>
+                  <ReadTime className=' w-28  flex-initial  lg:text-md sm:text-sm'>
+                     {content.compiledSource}
+                  </ReadTime>
+                  <div className=' w-28  flex-initial   lg:text-md sm:text-sm'>
+                     <p className="inline-flex mt-1">
+                        <BsEye className='h-full mt-0.5 text-lg' />{' '}
+                        <span className='ml-2 pb-1'>{views} views</span>
+                     </p>
+                  </div>
+               </span>
+               {/* <ReadTime className='sm:flex-1 mb-4 lg:w-auto  2xl:text-md xl:text-sm'>
                   {content.compiledSource}
-               </ReadTime>
+               </ReadTime> */}
                <blockquote className='mt-0 mb-4'>
                   <p className='text-slate-400 mt-0'>{post.excerpt}</p>
                </blockquote>
