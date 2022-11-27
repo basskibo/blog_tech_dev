@@ -11,7 +11,7 @@
     "test": "$(npm bin)/cypress open",
     "prepare": "husky install",
     "precommit": "",
-    "postbuild": "next-sitemap",
+    "postbuild": "npx prisma generate && next-sitemap",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
