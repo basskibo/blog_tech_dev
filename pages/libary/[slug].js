@@ -96,8 +96,8 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
     const url = '/api/views'
     // const url = `http://localhost:3000/api/views`;
     const result = await axios(url, {
-      method: 'GET',
-      params: { title: data.title },
+      method: 'POST',
+      params: { title: data.title, description: data.description, slug: data.slug },
       headers: {
         'Content-Type': 'application/json'
       }
