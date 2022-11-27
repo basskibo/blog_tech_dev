@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,11 +12,13 @@ model Widget {
 }
 
 model PageViews {
-  name String @unique
-  views Int  @default(sequence(increment: 2))
+  name        String @unique
+  views       Int    @default(sequence(increment: 2))
+  slug String
+  description String
 }
 
 model Subscribers {
-  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id    String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   email String @unique
 }
