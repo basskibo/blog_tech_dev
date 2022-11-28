@@ -48,7 +48,9 @@ const FeaturedPosts = () => {
                                  {post.name}
                               </h4>
                            </div>
-                           <div className='flex items-center text-gray-800 dark:text-gray-200 capsize'>
+                           <p className='text-gray-400 text-sm my-2 truncate '>{post.description}</p>
+
+                           <div className='flex items-center text-gray-800 dark:text-gray-400 capsize'>
                               <BsEye className='text-lg' />
                               <span className='ml-2 text-sm align-baseline capsize'>
                                  <CountUp end={post.views} /> views
