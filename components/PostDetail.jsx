@@ -20,7 +20,7 @@ const PostDetail = ({ post, content }) => {
     const url = '/api/views'
     const result = await axios(url, {
       method: 'POST',
-      params: { title: data.title, description: data.excerpt, slug: data.slug },
+      params: { title: data.title, description: data.excerpt, slug: `post/${data.slug}` },
       headers: {
         'Content-Type': 'application/json'
       }

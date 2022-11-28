@@ -31,7 +31,7 @@ const PostCard = ({ post }) => {
                <div
                   className={clsx(
                     post.data.inPreparation
-                      ? ' bg-gradient-to-r from-[#7928ca] to-[#ff0080] origin-top float-right mt-9 mr-9 w-72 text-center text-neutral-700 font-semibold'
+                      ? ' bg-gradient-to-r from-[#7928ca] to-[#ff0080] origin-top float-right mt-9 mr-9 w-72 text-center text-neutral-300 font-semibold'
                       : 'block-hidden'
                   )}
                   style={{ transform: 'translateX(50%) rotate(45deg)' }}>
