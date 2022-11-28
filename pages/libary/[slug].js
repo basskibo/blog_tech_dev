@@ -85,11 +85,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
   const [views, setviews] = useState(0)
 
   useEffect(() => {
-    // const interval = setInterval(() => {
     getViews(data)
-    // setSeconds(15000);
-    // }, seconds);
-    // return () => clearInterval(interval);
   }, [])
   const getViews = async (data) => {
     // if (process.env.ENVIRONMENT !== "dev") {
@@ -98,7 +94,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
     // const url = `http://localhost:3000/api/views`;
     const result = await axios(url, {
       method: 'POST',
-      params: { title: data.title, description: data.description, slug: data.slug },
+      params: { title: data.title, description: data.description, slug: `libary/${data.slug}` },
       headers: {
         'Content-Type': 'application/json'
       }
