@@ -7,6 +7,7 @@ import SocialNetworkShare from './custom/SocialNetworkShare'
 import LastChangedFile from './custom/LastChangedFile'
 import { BsEye } from 'react-icons/bs'
 import axios from 'axios'
+import CountUp from 'react-countup'
 
 const PostDetail = ({ post, content }) => {
   const [views, setviews] = useState(0)
@@ -77,10 +78,13 @@ const PostDetail = ({ post, content }) => {
                   <ReadTime className=' w-28  flex-initial  lg:text-md sm:text-sm'>
                      {content.compiledSource}
                   </ReadTime>
+                  <div
+                              className='w-1 h-1 mt-3 mr-6 rounded-full flex-initial'
+                              style={{ backgroundColor: '#FFF' }}></div>
                   <div className=' w-28  flex-initial   lg:text-md sm:text-sm'>
                      <p className="inline-flex mt-1">
                         <BsEye className='h-full mt-0.5 text-lg' />{' '}
-                        <span className='ml-2 pb-1'>{views} views</span>
+                        <span className='ml-2 pb-1'><CountUp end={views}/> views</span>
                      </p>
                   </div>
                </span>
