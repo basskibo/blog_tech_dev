@@ -31,7 +31,7 @@ const BlogScreen = ({ posts }) => {
   const [items, setItems] = useState(foundPosts.slice(0, currentIndex))
   const [hasMore, sethasMore] = useState(true)
   const lastIndex = foundPosts.length
-  let pointer = 8
+  let pointer = 12
 
   const fetchMoreData = () => {
     if (items.length >= foundPosts.length) {
