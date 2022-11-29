@@ -56,7 +56,7 @@ const CloudinaryContextImage = (props) => {
          <Image
             alt={props.alt}
             layout='responsive'
-            width={12}
+            width={14}
             height={8}
             src={url}
             unoptimized={false}
@@ -88,7 +88,7 @@ export default {
               strict: true
             })}>
             <h2 className='text-white text-2xl font-bold my-5'>
-               <Accent>{children}</Accent>
+             {children}
             </h2>
          </a>
     )
@@ -100,7 +100,7 @@ export default {
               lower: true,
               strict: true
             })}>
-            <h3 className='text-white text-xl font-semi-bold my-5'>
+            <h3 className='text-gray-300 text-xl font-semi-bold my-5'>
                {children}{' '}
             </h3>
          </a>
