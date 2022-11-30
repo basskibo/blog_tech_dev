@@ -18,13 +18,13 @@ inPreparation: false
 What are push notifications and how to use it ? Well push notifications are messages or alerts which are sent (pushed) to user's device, no matter if users application is opened or not.
 When we talk about web push notifications, application will receive message pushed to it no matter if it is open or not, so user can fetch all "unread" messages when it comes online or open the app. <Adjusted>Firebase Cloud messaging </Adjusted>, or <Adjusted>FCM</Adjusted> how it will be called further in post, is a cross-platform messaging solution from Google which allow us to reliably send messages to our clients.
 
-As we can see in official <Link href="https://firebase.google.com/docs/cloud-messaging">FCM  documentation</Link> :
+As we can see in official <Link href="https://firebase.google.com/docs/cloud-messaging">FCM documentation</Link> :
 <QouteComponent>Firebase Cloud Messaging (FCM) is a cross-platform messaging solution that lets you reliably send messages at no cost.
 Using FCM, you can notify a client app that new email or other data is available to sync. You can send notification messages to drive user re-engagement and retention. For use cases such as instant messaging, a message can transfer a payload of up to 4000 bytes to a client app. </QouteComponent>
 
 ### Prerequisite
 The main idea of this post is to show you how you can implement Firebase with React, for this you need to have Google developer account. We will use <Link href="https://create-react-app.dev/">create-react-app</Link> in order to 
-create our test app and we will use <Link href="https://www.npmjs.com/package/react-toastify">react-toastify</Link> for showing toaster message of our push notifications.
+create our test app, and we will use <Link href="https://www.npmjs.com/package/react-toastify">react-toastify</Link> for showing toaster message of our push notifications.
 
 ## Creating our app
 
@@ -36,24 +36,24 @@ npm install firebase react-toastify
 npm start
 ```
 
-First we used create-react-app to init our project which will be using for this demo, next thing is installing <Link href="https://www.npmjs.com/package/firebase">firebase</Link> and <Link href="https://www.npmjs.com/package/react-toastify">react-toastify</Link> npm modules and afterwards start the project.
+First we used create-react-app to init our project which will be using for this demo, next thing is installing <Link href="https://www.npmjs.com/package/firebase">Firebase</Link> and <Link href="https://www.npmjs.com/package/react-toastify">react-toastify</Link> NPM modules and afterwards start the project.
 
 ## Firebase setup
 
 First thing you need to do is to create account if you dont already have it, so go to the <Link href="https://firebase.google.com/">firebase</Link> and register, if you already have
-an account just skip this step and go to the <Link href="https://console.firebase.google.com/"> Firebase console</Link>. Afte we register we need to create new project and when we have a project created we need to register application afterwards which we will get firebase configuration.
+an account just skip this step and go to the <Link href="https://console.firebase.google.com/"> Firebase console</Link>. After we register we need to create new project and when we have a project created we need to register application afterwards which we will get Firebase configuration.
 In further sections we will see this step by step.
 
 ### Creating project
 
-This step is pretty easy, you need to go to <b>Create new project</b> and you will get input for name of the project, so go ahead and enter name for the project.
-If you have no projects you will see <b>Create new project</b> button but if you already have project, you will have tiles with existing projects and go to <b>+ Add project</b> .
-After you enter name you will be prompted to check or uncheck whether you want to use Google analytic.You can feel free to uncheck because we dont need it know but if you leave it checked it will make no harm. After all data are filled, you will see loader and afterwards will be redirected to the project screen.
+This step is pretty easy, you need to go to <b>Create new project</b>, and you will get input for name of the project, so go ahead and enter name for the project.
+If you have no projects you will see <b>Create new project</b> button but if you already have project, you will have tiles with existing projects and go to <b>+ Add project</b>.
+After you enter name you will be prompted to check or uncheck whether you want to use Google analytic. You can feel free to uncheck because we don't need it know but if you leave it checked it will make no harm. After all data are filled, you will see loader and afterwards will be redirected to the project screen.
 
 ### Application registration
 
-When your project is created you will need to choose platform you want to connect to your application, so we are using web project so we can select <b> web </b> option. You will be prompted again to enter name for application you are about to register, after entering name you can procceed and configuration for your application will be generated, which will be needed to get token, connect and use the FCM. This given configuration you can copy and we will provide it to our React application.
-When this last step is finished we have our FCM project setup and we can start building our application.
+When your project is created you will need to choose platform you want to connect to your application, so we are using web project, so we can select <b> web </b> option. You will be prompted again to enter name for application you are about to register, after entering name you can proceed and configuration for your application will be generated, which will be needed to get token, connect and use the FCM. This given configuration you can copy, and we will provide it to our React application.
+When this last step is finished we have our FCM project setup, and we can start building our application.
 For the whole setup flow you can reference to image below, where I will show you how it looks.
 
 <CloudinaryImage
@@ -66,7 +66,7 @@ For the whole setup flow you can reference to image below, where I will show you
 
 We have our Firebase project generated as well as configuration, so now we want to connect FCM to our application.
 
-1.) Create <Adjusted>firebaseNotification.js</Adjusted> inside of <Adjusted>src</Adjusted> and add following code:
+1. ) Create <Adjusted>firebaseNotification.js</Adjusted> inside of <Adjusted>src</Adjusted> and add following code:
 ```
 import { initializeApp } from 'firebase/app';
 
@@ -80,7 +80,7 @@ var firebaseConfig = {
 initializeApp(firebaseConfig);
 ```
 
-2.) Import firebase messaging module from firebase npm module into <Adjusted>firebaseNotification.js</Adjusted>:
+2.) Import Firebase messaging module from firebase npm module into <Adjusted>firebaseNotification.js</Adjusted>:
 
 ```
 import { getMessaging } from "firebase/messaging";
@@ -88,8 +88,8 @@ import { getMessaging } from "firebase/messaging";
 const messaging = getMessaging();
 ```
 
-3.) One of the important things is to fetch token, so we need to create function like <Adjusted>requestToken</Adjusted> which will use firebase's <Adjusted>getToken</Adjusted> method.
-It will subscribe our application to push notifications (FCM) and it will require permission if its not granted so be sure to <b>Allow notifications</b> in the browser in order to be able to recieve token. If our application have necessary permission we will get token which we wil later use to send push notification.
+3.) One of the important things is to fetch token, so we need to create function like <Adjusted>requestToken</Adjusted> which will use Firebase's <Adjusted>getToken</Adjusted> method.
+It will subscribe our application to push notifications (FCM) and it will require permission if it's not granted so be sure to <b>Allow notifications</b> in the browser in order to be able to receive token. If our application have necessary permission we will get token which we will later use to send push notification.
 ```
 import { getMessaging, getToken} from 'firebase/messaging';
 ...
@@ -110,7 +110,7 @@ export const requestToken = () => {
 };
 ```
 
-4.) Next thing we are required to do before sending push notificaitons, we need to generate <b>VAPID</b> or <b>Voluntary Application Server Identification </b> in order to use <b>getToken</b> method. In order to do this, go to <b>Project Settings</b> on your Firebase console, navigate to the <b>Cloud Messaging</b> tab and go to <b>Web configuration</b> section. You will find <b>Web Push certification</b> tab here you can click on <b>Generate key pair</b>.
+4.) Next thing we are required to do before sending push notifications, we need to generate <b>VAPID</b> or <b>Voluntary Application Server Identification </b> in order to use <b>getToken</b> method. In order to do this, go to <b>Project Settings</b> on your Firebase console, navigate to the <b>Cloud Messaging</b> tab and go to <b>Web configuration</b> section. You will find <b>Web Push certification</b> tab here you can click on <b>Generate key pair</b>.
 
 <CloudinaryImage
    src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1669676981/igutech/blogs/resources/push-test-app-Overview-Firebase-console-Google-Chrome-2022-11-29-00-08-38_ey6pny.gif'
@@ -119,9 +119,9 @@ export const requestToken = () => {
 />
 
 ### Create Notification component
- Now when we have <b>VAPID</b> key, we can import our <Adjusted>firebaseNotification.js</Adjusted> to our application, so next thing we will due we will create <Adjusted>Notification.jsx</Adjusted> react component. Here we will use react-toastify which I prefer but you can use react-hot-toast or some other as you wish, to get toast message on FCM notification and we will import our <b>requestToken</b> and <b>onMessageListener</b> in order to fetch token and afterwards listen to new messages as they arrive.
+ Now when we have <b>VAPID</b> key, we can import our <Adjusted>firebaseNotification.js</Adjusted> to our application, so next thing we will do is that we will create <Adjusted>Notification.jsx</Adjusted> react component. Here we will use react-toastify which I prefer, but you can use react-hot-toast or some other as you wish, to get toast message on FCM notification and we will import our <b>requestToken</b> and <b>onMessageListener</b> in order to fetch token and afterwards listen to new messages as they arrive.
  Pay attention to import request token method and call it in order to FCM to work as you can see in code below.
- We will create <b>notify</b> method inside of <b>useEffect</b> in order to notify and push notification to client when message arrives. You can use following code:
+ We will create <b>notify</b> method inside <b>useEffect</b> in order to notify and push notification to client when message arrives. You can use following code:
 
 ```
 import React, {useState, useEffect } from "react";
@@ -169,11 +169,12 @@ export default Notification
 
 ## Receiving messages
 
-So we can seperate two ways of receiving messages foreground and background.
+So we can separate two ways of receiving messages foreground and background.
 First means that this listener will listen on the messages when the application is focused and opened and the other one means that service worker will listen to the notification messages when our application is closed.
 
 ### Foreground listener
-.Foreground listener we alredy added and it will be used when our application is open and focused.
+
+Foreground listener we already added, and it will be used when our application is open and focused.
 This is code we already added to the <Adjusted>firebaseNotification.js</Adjusted>:
 ```
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
@@ -192,8 +193,8 @@ export const onMessageListener = () =>
 ### Background listener
 
 Service worker or as we will call it background listener we will explain due to it being less known concept.
-FCM requires one specific file which will be called <Adjusted>firebase-messaging-sw.js</Adjusted> inside of <Adjusted>public</Adjusted> folder, so first go ahead and create this file.
-Lets explain this part, in order to handle background messages, we will neeed to use <b>service worker</b> which is a script that browser can run in the background completely seperated from the web page and it can enable features that not requires web page or users interaction. 
+FCM requires one specific file which will be called <Adjusted>firebase-messaging-sw.js</Adjusted> inside <Adjusted>public</Adjusted> folder, so first go ahead and create this file.
+Let's explain this part, in order to handle background messages, we will need to use <b>service worker</b> which is a script that browser can run in the background completely separated from the web page, and it can enable features that not requires web page or users interaction. 
 
 After creating you can add following code:
 
@@ -235,7 +236,7 @@ messaging.onBackgroundMessage(function(payload) {
 
 ## Sending push notifications
 
-Lets test and checkout whether it is working as expected, in order to test it go to the Firebase console and send message 
+Let's test and checkout whether it is working as expected, in order to test it go to the Firebase console and send message 
 <LgList>
    <li>In your project menu, go to <b>Engage</b> menu and there you will find submenu <b>Cloud messaging</b> </li>
    <li>
