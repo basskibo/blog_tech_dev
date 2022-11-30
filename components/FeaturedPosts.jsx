@@ -44,13 +44,13 @@ const FeaturedPosts = () => {
                         href={post.slug}>
                         <div className='flex flex-col justify-between h-full bg-neutral-900  rounded-lg p-4'>
                            <div className='flex flex-col md:flex-row justify-between'>
-                              <h4 className='text-lg md:text-lg font-medium mb-6 sm:mb-10 w-full text-gray-900 dark:text-gray-100 tracking-tight'>
+                              <h4 className='text-lg md:text-lg font-medium mb-4 sm:mb-10 w-full text-gray-100 tracking-tight'>
                                  {post.name}
                               </h4>
                            </div>
                            <p className='text-gray-400 text-sm my-2 truncate '>{post.description}</p>
 
-                           <div className='flex items-center text-gray-800 dark:text-gray-400 capsize'>
+                           <div className='flex items-center text-gray-400 capsize'>
                               <BsEye className='text-lg' />
                               <span className='ml-2 text-sm align-baseline capsize'>
                                  <CountUp end={post.views} /> views
