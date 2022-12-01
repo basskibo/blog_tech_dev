@@ -50,8 +50,11 @@ const PostDetail = ({ post, content }) => {
             />
             <div className='absolute w-full  bottom-0 inset-x-0  text-white font- float-right text-xs md:text-xs text-right leading-4 py-2 px-4 flex flex-row-reverse '>
                <div className=' backdrop-filter backdrop-blur-3xl p-2'>
-               Photo by <a href={generateCreditImageUrl()} target="_blank" rel='noreferrer'>
-                  {post.imageCreditUser}</a> on <a target="_blank" rel='noreferrer' href="https://unsplash.com/s/photos/blog?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+                  {post.imageCreditUser
+                    ? <span> Photo by <a href={generateCreditImageUrl()} target="_blank" rel='noreferrer'>
+                  {post.imageCreditUser}</a> on <a target="_blank" rel='noreferrer' className='underline' href="https://unsplash.com/s/photos/blog?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> </span>
+                    : <span>Photo used from <a className='underline' href="https://pixabay.com/">Pixabay</a></span> }
+
                </div>
             </div>
          </div>

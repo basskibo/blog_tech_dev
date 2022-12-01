@@ -21,7 +21,7 @@ const LastChangedFile = (args) => {
                  ? history.data
                  : false
         if (isThereHistory) setLastTimeChanged(false)
-        const lastUpdate = isThereHistory[0].commit.author.date
+        const lastUpdate = isThereHistory[0]?.commit.author.date
         setLastTimeChanged(lastUpdate)
       } catch (error) {
         console.log(`Error while fetching file history : ${error}`)
