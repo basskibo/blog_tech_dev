@@ -25,7 +25,7 @@ const PostCard = ({ post }) => {
                   placeholder='blur'
                   layout='fill'
                   className={clsx(
-                    post.data.inPreparation ? 'blur-sm' : 'blur-none'
+                    post.data.inPreparation ? 'blur-md' : 'blur-none'
                   )}
                />
                <div
