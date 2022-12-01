@@ -94,7 +94,7 @@ webos_simulator (default)  root@127.0.0.1:22         ssh         ose
 emulator                   developer@127.0.0.1:6622  ssh         ose
 ```
 
-## Configuring @webosose/ares-cli with Developer Mode App
+### Configuring @webosose/ares-cli
 This is partially based on: https://webostv.developer.lge.com/develop/app-test/using-devmode-app/
 
 1.) Install Developer Mode app from Content Store
@@ -114,7 +114,7 @@ ares-setup-device -a webos -i "username=prisoner" -i "privatekey=webos_rsa" -i "
  -i "host=TV_IP" -i "port=9922"
 ```
 
-## Running and installing application on LG TV
+### Running and installing application on LG TV
 
 When we have our code ready for deploying it to TV, we must first <b>package</b> our project to .ipk file, <b>install</b> that .ipk to TV device and finally we can launch it or inspect it. For this last part you dont need to launch it from terminal you can launch application manually by using TV remote as well, but of course if you want to inspect it and debug application you will need to run command from terminal. Lets go step by step:
 
