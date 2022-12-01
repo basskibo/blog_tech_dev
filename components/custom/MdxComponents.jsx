@@ -5,8 +5,8 @@ import Accent from './Accent'
 import QouteComponent from '../QouteComponent'
 import { GithubCard } from 'github-user-repo-card'
 import GithubCardRepository from './GithubCardRepo'
-import Image from 'next/image'
-import constants from '../../lib/constants'
+// import Image from 'next/image'
+// import constants from '../../lib/constants'
 import { buildUrl } from 'cloudinary-build-url'
 import ReactPlayer from 'react-player'
 
@@ -51,17 +51,18 @@ const CloudinaryContextImage = (props) => {
 
   return (
       // <Image alt={props.alt} layout='responsive' width={1000} height={750} {...props} />
-      <div className='my-2'>
+      <div className='my-2 '>
          {' '}
-         <Image
+         <img
             alt={props.alt}
-            layout='responsive'
-            width={14}
-            height={8}
+            // layout='responsive'
+            // width={14}
+            // height={8}
             src={url}
-            unoptimized={false}
-            blurDataURL={constants.imageBlogURI}
+            // unoptimized={false}
+            // blurDataURL={constants.imageBlogURI}
             placeholder='blur'
+            className='w-full'
          />
          <p className='grid place-items-center place-content-center mt-1 italic'>
             {props.text}
@@ -112,8 +113,8 @@ export default {
   Adjusted: ({ children }) => {
     return (
          <code
-            className='bg-neutral-800 text-bold border-rounder-lg px-1  mr-1  font-mono
-         hover:underline decoration-indigo-500 border border-neutral-700 rounded-sm'>
+            className='bg-neutral-800 text-bolder border-rounder-lg px-1  mr-1  font-mono
+         hover:underline decoration-indigo-500 border border-neutral-700 rounded-md'>
             <Accent>{children}</Accent>
          </code>
     )
@@ -136,7 +137,8 @@ export default {
             style={a11yDark}
             wrapLines={true}
             showLineNumbers={false}
-            showInlineLineNumbers={true}>
+            showInlineLineNumbers={false}
+            >
             {children}
          </SyntaxHighlighter>
     )
@@ -203,9 +205,9 @@ export default {
     )
   },
   table: ({ header, content, genericData }) => {
-    console.log(genericData)
+    console.log(content)
     return (
-      <table className="table-auto  w-full xl:w-2/3 border border-neutral-700 hover:table-fixed">
+      <table className="table-auto  w-full xl:w-2/3 border border-neutral-700 ">
         <thead className='bg-neutral-800 '>
           <tr >
             {header.map((head) => (
@@ -214,6 +216,15 @@ export default {
           </tr>
         </thead>
         <tbody className='text-center'>
+        {content.map((rowData, i) => (
+            <tr key={rowData} >
+              {rowData.map(data => (
+               <td className='p-3 border border-neutral-700' key={data}>{data}</td>
+              ))}
+              {/* <td className='p-3' key={song.artist}>{song.artist}</td> */}
+              {/* <td className='p-3' key={Math.random()}>{song.songId}</td> */}
+            </tr>
+        ))}
           {/* {content.map((song) => (
             <tr key={song}>
               <td className='p-3' key={song.id}>{song.id}</td>
