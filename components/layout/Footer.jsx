@@ -62,7 +62,7 @@ const Footer = () => {
                {/* <p className='text-md'>Reach me at: </p> */}
                <a
                   className='mr-3 lg:mr-5  text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize items-right md:justify-right justify-right text-xs lg:text-sm'
-                  href='https://blogtech-umami.herokuapp.com/share/kCnjGOHv/bojan_jagetic'
+                  href='https://app.splitbee.io/public/bojanjagetic.com'
                   target='_blank'
                   rel='noopener noreferrer'>
                   Site Statistics
