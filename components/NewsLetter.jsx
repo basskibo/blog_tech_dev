@@ -105,6 +105,7 @@ const NewsLetter = () => {
                      />
                      <button
                         type='button'
+                        data-splitbee-event="Subscribe Newsletter"
                         onClick={openModal}
                         disabled={!email}
                         className='transform hover:scale-[1.02] transition-all md:w-1/4 ml-0 xs:ml-0 p-2 w-4/4 my-3 lg:w-1/4 rounded-md  shadow-sm  shadow-neutral-700

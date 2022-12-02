@@ -2,6 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 
+
 function ActiveLink ({ children, href, className, id }) {
   const router = useRouter()
   const style = {
@@ -11,6 +12,7 @@ function ActiveLink ({ children, href, className, id }) {
 
   const handleClick = (e) => {
     e.preventDefault()
+
     router.push(href)
   }
 
@@ -41,6 +43,7 @@ function ActiveLink ({ children, href, className, id }) {
          href={href}
          onClick={handleClick}
          style={style}
+         data-splitbee-event={`Click ${id}`}
          className={clsx(
            'font-semibold',
            className || '',
