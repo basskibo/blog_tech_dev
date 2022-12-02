@@ -25,6 +25,7 @@
     "@mdx-js/loader": "^2.0.0-rc.2",
     "@mdx-js/mdx": "^2.0.0-rc.2",
     "@prisma/client": "^4.5.0",
+    "@splitbee/web": "^0.3.0",
     "@svgr/webpack": "^6.2.1",
     "axios": "^0.26.1",
     "cloudinary-build-url": "^0.2.4",
