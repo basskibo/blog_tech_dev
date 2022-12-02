@@ -2,7 +2,6 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
 
-
 function ActiveLink ({ children, href, className, id }) {
   const router = useRouter()
   const style = {
