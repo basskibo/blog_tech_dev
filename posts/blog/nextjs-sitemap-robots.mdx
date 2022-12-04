@@ -1,9 +1,7 @@
 ---
-title: "Automatically generate sitemap and robots in Nextjs"
-publishedAt: "2022-11-15"
-excerpt: "Git is software for tracking changes in any set of files, usually used for coordinating work among programmers
- collaboratively developing source code during 
-software development. "
+title: "Generate sitemap and robots in Nextjs"
+publishedAt: "2022-12-04"
+excerpt: "Get better rank and visibility, SEO is your friend when you tell Google crawler what to look for."
 englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
@@ -12,21 +10,138 @@ imageCreditUser: "NASA"
 imageCreditUsername: "nasa"
 author: "Bojan Jagetic"
 tags: [{ slug: "nextjs", name: "nextjs" }]
-inPreparation: true
+inPreparation: false
 ---
 
 ## Introduction
 
-Classes are template used for creating objects, encapsulating data with code to work on that data.
-Class in Javascript is built on prototype but also it has some syntax that are not shared with ES5 class-like semantic.
-In the modern JavaScript, there’s a more advanced “class” construct, that introduces great new features which are useful for object-oriented programming.
-<NewLine/>
-  
+When you make your site you want it to be first in google search results or in other words we need to make improvements to our Search Engine Optimization (SEO).
+Google rank websites by many different reasons but one of the most important is that it knows our site and know what to expect on it. That is the reason why we 
+need <Adjusted>sitemap.xml</Adjusted> and <Adjusted>robots.txt</Adjusted>.
 
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Eu ex est irure nisi veniam occaecat est ullamco aliqua cillum laborum enim magna id. Irure amet tempor aliqua eu non eiusmod laboris minim occaecat excepteur eiusmod excepteur eiusmod ex. Qui nulla dolor anim duis duis sunt officia minim pariatur ullamco cillum cillum. Esse eu anim velit ut laborum. Eu consequat labore reprehenderit minim cillum anim laboris elit deserunt voluptate ipsum adipisicing do aliqua. Duis eu aliqua dolore ut nisi proident. Anim dolore sunt enim ullamco fugiat labore laboris elit fugiat anim aliqua.
+<Adjusted>Robot.txt</Adjusted> tells Google crawler which files it can request from website and which cannot.
+
+
+## Sitemap
+
+Lets begin with what sitemap represent and how it works. 
+<QouteComponent>
+A sitemap is a file where you provide information about the pages, videos, and other files on your site, and the relationships between them. Search engines like Google read this file to crawl your site more efficiently. A sitemap tells Google which pages and files you think are important in your site, and also provides valuable information about these files.
+</QouteComponent>
+What <Adjusted>sitemap.xml</Adjusted> do is that is basically defining relationship between pages on website. Search engines utilize this file to more accurately index your site. You can add additional
+things like when was the last time it was updated, how frequently the pages changes, priority, etc. 
+
+<CloudinaryImage
+   src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1670099252/igutech/blogs/resources/sitemap-flow-3_sormhv.png'
+   text='Sitemap flow'
+   alt='Sitemap flow'
+/>
+
+### Static Sitemap
+
+When you have static website, static sitemap will do the job.In other words when your website does not change frequently you can make simple .xml file 
+for defining and telling google crawler which content you have. 
+
+```
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+      <loc>https://yourapp.com</loc>
+  </url>
+  <url>
+      <loc>https://yourapp.com/blog</loc>
+  </url>
+  <url>
+      <loc>https://yourapp.com/libary</loc>
+  </url>
+  <url>
+      <loc>https://yourapp.com/contact</loc>
+  </url>
+</urlset>
+```
+### Dynamic Sitemap
+
+On the other hand, if your site frequently changes, you need to make dynamic sitemap. You can do it manually by generating .xml file after fetching all your files, but in this post we will cover the easier way of doing so.
+There is great npm module called <Link href="https://www.npmjs.com/package/next-sitemap">next-sitemap</Link> which is doing all dirty work for you. 
+
+First you need to install it by using following command:
+
+```bash
+yarn add next-sitemap
+```
+
+Create site map configuration file for next-sitemap to use. There are many properties available but we will use these three: 
+<LgList>
+   <li><code>siteUrl</code>- used for setting base URL of your website</li>
+   <li><code>generateRobotsTxt</code>- Generate a robots.txt file and list the generated sitemaps. Default false	</li>
+   <li><code>sitemapSize</code>- Split large sitemap into multiple files by specifying sitemap size. If number of URLs reach over default it will create new sitemap.xml so you will have sitemap-0.xml and sitemap-1.xml,etc.  Default is 5000.</li>
+</LgList>
+
+
+```javascript
+module.exports = {
+  siteUrl: process.env.SITE_URL || 'https://yourapp.com',
+  generateRobotsTxt: true, // (optional)
+  sitemapSize: 7000
+}
+```
+
+
+In your <Adjusted>package.json</Adjusted> add postbuild script which will be automatically triggered after succesfull build where we will start <code>next-sitemap</code> command.
+
+```json
+{
+  "build": "next build",
+  "postbuild": "next-sitemap"
+}
+```
+
+### Output
+
+After build is done you will have generated sitemap.xml and sitemap-0.xml at <code>public</code> folder by default.If you set generateRobotsTxt to true you will get robots.txt file as well. 
+
+If check <Adjusted>sitemap.xml</Adjusted> you should see:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<sitemap><loc>https://bojanjagetic.com/sitemap-0.xml</loc></sitemap>
+</sitemapindex>
+```
+
+As you can see there is only one location referencing to our <Adjusted>sitemap-0.xml</Adjusted>. Lets open and check content of it:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://bojanjagetic.com</loc><lastmod>2022-12-03T20:01:39.202Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://bojanjagetic.com/routes/aboutme</loc><lastmod>2022-12-03T20:01:39.203Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://bojanjagetic.com/routes/blog</loc><lastmod>2022-12-03T20:01:39.203Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://bojanjagetic.com/post/npm-vs-yarn</loc><lastmod>2022-12-03T20:01:39.203Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://bojanjagetic.com/post/programming-concepts</loc><lastmod>2022-12-03T20:01:39.203Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://bojanjagetic.com/libary/crypto-scrapper</loc><lastmod>2022-12-03T20:01:39.203Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://bojanjagetic.com/libary/github-card-npm-component</loc><lastmod>2022-12-03T20:01:39.203Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+... 
+```
+
+So as you can see it generated all routes that I have so Google crawler knows which resources are available.
+
+
+## Robots
+
+As we mention already, <Adjusted>robots.txt</Adjusted> will tell Google crawler which files and resources can be requested and location of sitemap. Content of generated robots.txt is something like following:
+
+```
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://bojanjagetic.com
+
+# Sitemaps
+Sitemap: https://bojanjagetic.com/sitemap.xml
+```
+
+## Conclusion
+
+Know that we have <Adjusted>sitemap.xml</Adjusted> and <Adjusted>robots.txt</Adjusted> we can know get better visibility on Google search and it will be better ranked, which means we will get more visitors. 
