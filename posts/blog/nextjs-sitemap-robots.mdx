@@ -97,7 +97,7 @@ In your <Adjusted>package.json</Adjusted> add postbuild script which will be aut
 
 ### Output
 
-After build is done you will have generated sitemap.xml and sitemap-0.xml at <code>public</code> folder by default.If you set generateRobotsTxt to true you will get robots.txt file as well. 
+After build is done you will have generated sitemap.xml and sitemap-0.xml at <code>public</code> folder which means that it is static directory and everything inside of <code>public </code> will be exposed in root domain level. This means that URL of our <code>sitemap.xml</code> and <code>robots.txt</code> will not be <code>/public/sitemap.xml</code>, but it will be just /sitemap.xml due to files being in public folder. If you set <code>generateRobotsTxt</code> to true you will get robots.txt file as well. 
 
 If check <Adjusted>sitemap.xml</Adjusted> you should see:
 
@@ -141,7 +141,12 @@ Host: https://bojanjagetic.com
 # Sitemaps
 Sitemap: https://bojanjagetic.com/sitemap.xml
 ```
+## Validation
 
+When we have everything done and deployed, we can validate and double-check our past work.
+For validating sitemap XML you can do it on <Link href="https://www.xml-sitemaps.com/validate-xml-sitemap.html">XML-sitemap</Link> 
+
+For validating robots.txt you can use <Link href="https://www.google.com/webmasters/tools/robots-testing-tool">Google search robots.txt tester</Link> 
 ## Conclusion
 
 Know that we have <Adjusted>sitemap.xml</Adjusted> and <Adjusted>robots.txt</Adjusted> we can know get better visibility on Google search and it will be better ranked, which means we will get more visitors. 
