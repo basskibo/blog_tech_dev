@@ -39,7 +39,7 @@ export default function Home () {
                content='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127896/igutech/undersstanding_mnfh3n.jpg'
             />
             <meta property='fb:app_id' content='3881343925425006' />
-            <title>Bojan Jagetic</title>
+            <title>Bojan Jagetic Personal Website</title>
             <link rel='icon' href='/favicon.ico' />
             <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
             <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
