@@ -20,7 +20,7 @@ import NextHead from 'next/head'
 //   label === 'web-vital' && console.log({ id, name, label, value })
 // }
 const handleTitle = (router) => {
-  let title = 'Bojan Jagetic'
+  let title = 'Bojan Jagetic Personal Website'
   try {
     const splittedTitle = router.route.split('/')
     if (splittedTitle[2]) {

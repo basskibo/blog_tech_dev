@@ -26,11 +26,11 @@ const FeaturedPosts = () => {
          <div className='pt-16 pb-40 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-32'>
             <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
                <div className='sm:max-w-lg'>
-                  <h1 className='text-xl font font-bold tracking-tight text-white sm:text-4xl'>
+                  <h2 className='text-xl font font-bold tracking-tight text-white sm:text-4xl'>
                      Popular posts
                      {/* <Accent> posts</Accent> */}
                      {/* Popular posts */}
-                  </h1>
+                  </h2>
                   <p className='mt-4 text-md text-slate-400'>
                      Dive into the sea of interesting topics and technologies.
                      There is a number of topics I tried to cover, so please be my
