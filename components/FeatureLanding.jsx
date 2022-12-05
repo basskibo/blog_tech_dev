@@ -30,9 +30,9 @@ const FeatureLanding = () => {
                         <SiSpotify />
                      </div>
                      <div className='flex-grow pl-2 pt-2'>
-                        <h2 className='text-slate-300 text-lg title-font font-semibold mb-2'>
+                        <h3 className='text-slate-300 text-lg title-font font-semibold mb-2'>
                            Currently listening on spotify
-                        </h2>
+                        </h3>
                         <p className=' my-3 text-sm text-slate-400'>
                            Spotify is one of my must have applications in order
                            to work properly. I made custom spotify card so you
@@ -46,9 +46,9 @@ const FeatureLanding = () => {
                         <SiGithub />
                      </div>
                      <div className='flex-grow pl-2 pt-2'>
-                        <h2 className='text-slate-300 text-lg title-font font-semibold mb-2'>
+                        <h3 className='text-slate-300 text-lg title-font font-semibold mb-2'>
                            My Github profile
-                        </h2>
+                        </h3>
                         <p className='my-3 text-sm text-slate-400'>
                            Here you can find some basic information about my
                            GitHub profile as well as seeing my{' '}
@@ -78,9 +78,9 @@ const FeatureLanding = () => {
                         <IoMdInfinite />
                      </div>
                      <div className='flex-grow pl-2 pt-2'>
-                        <h2 className='text-slate-300 text-lg title-font font-semibold mb-2'>
+                        <h3 className='text-slate-300 text-lg title-font font-semibold mb-2'>
                            My deaily.dev stats
-                        </h2>
+                        </h3>
                         <p className='my-3 text-sm text-slate-400'>
                            In order to be up-to-date with all the newest things
                            going on in dev world, I use{' '}
