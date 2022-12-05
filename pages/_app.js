@@ -40,7 +40,7 @@ const handleTitle = (router) => {
     }
     return title
   } catch (exc) {
-    return 'Bojan Jagetic'
+    return title
   }
 }
 
