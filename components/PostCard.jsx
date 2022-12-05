@@ -6,24 +6,26 @@ import Image from 'next/image'
 import constants from '../lib/constants'
 import clsx from 'clsx'
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, mode }) => {
   return (
       <div
          key={post.data.slug}
          className={clsx(
            post.data.inPreparation
              ? 'text-slate-600 pointer-events-none bg-blend-hard-light bg-neutral-800 '
-             : 'text-white transform-gpu scale-100 hover:scale-[0.96] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow',
+             : 'text-white transform-gpu scale-100 hover:scale-[0.98] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow',
            'w-full  rounded-md lg:border border-gray-800 dark:bg-dark dark:border-neutral-700 overflow-hidden'
          )}>
          <a href={`/post/${post.data.slug}`}>
-            <div className='relative overflow-hidden h-64 2xl:h-72 lg:h-64'>
+            <div className={clsx(mode === 'md' ? ' h-72' : 'h-96', 'relative overflow-hidden w-full')}>
                <Image
                   alt={post.data.featuredImage}
                   src={post.data.featuredImage}
                   blurDataURL={constants.imageBlogURI}
                   placeholder='blur'
                   layout='fill'
+                  height={300}
+                  width={300}
                   className={clsx(
                     post.data.inPreparation ? 'blur-md' : 'blur-none'
                   )}
