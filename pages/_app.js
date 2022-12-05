@@ -94,6 +94,11 @@ function IguanaDevelopmentTech ({ Component, pageProps }) {
                content={description}
             />
             <meta name='description' content={description} />
+            <meta property='og:url' content='https://bojanjagetic.com/' />
+            <meta property='og:type' content='website' />
+            <meta property='og:title' content='Bojan Jagetic Blog' />
+            <meta property="og:site_name" content="Blogtech" />
+            <meta property="og:locale" content="en_US" />
             <meta name="twitter:card" content="summary_large_image"/>
             <meta name="twitter:title" content="Bojan Jagetic"/>
             <meta name="twitter:description" content={description}/>
