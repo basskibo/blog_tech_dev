@@ -48,9 +48,9 @@ const NewsLetter = () => {
             <div className=' grid place-items-left place-content-center xs:mx-2 xs:px-3 mx-auto relative xl:border bg-neutral-900 xl:border-neutral-700   grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
 
                <div>
-                  <h3 className='text-white text-4xl font-semibold'>
+                  <h2 className='text-white text-4xl font-semibold'>
                          Get in touch
-                  </h3>
+                  </h2>
 
                   <p className='text-sm text-white mt-4'>
                      <Accent className='font-bold'>Dont be shy</Accent>, if you have some great idea or project you wish to get done feel free to contact me
@@ -63,9 +63,9 @@ const NewsLetter = () => {
                   </a>
                </div>
                <div>
-                  <h3 className='text-white text-4xl font-semibold'>
+                  <h2 className='text-white text-4xl font-semibold'>
                          Blogging
-                  </h3>
+                  </h2>
 
                   <p className='text-sm text-white mt-4'>
                      I have been writing blogs as well on <Accent className='font-bold'>Dev.to, Medium</Accent> and <Accent className='font-bold'>Hashnode</Accent>, I try to keep content up to date with my personal blog
@@ -92,9 +92,9 @@ const NewsLetter = () => {
                   </div>
                </div>
                <div>
-                  <h3 className='text-white text-4xl font-semibold'>
+                  <h2 className='text-white text-4xl font-semibold'>
                      Sign up for <Accent> newsletter</Accent>
-                  </h3>
+                  </h2>
 
                   <p className='text-sm text-white mt-4'>
                      if you liked what you read and want to read a lot of
