@@ -8,9 +8,11 @@ englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
 featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/q_60/v1655306475/igutech/ruchindra-gunasekara-GK8x_XCcDZg-unsplash_wethnv.jpg"
+imageCreditUser: "Ruchindra Gunasekara"
+imageCreditUsername: "ruchindra"
 author: "Bojan Jagetic"
 tags: [{ slug: "git", name: "git" }, { slug: "github", name: "github" }]
-inPreparation: true
+inPreparation: false
 ---
 
 ## Introduction
@@ -19,12 +21,86 @@ Developing code in a team, whether small or large, was quite a pain in terms of 
 That's where git comes in, making it easy to work and track code changes.
 
 <QouteComponent>
-   {" "}
    Git is software for tracking changes in any set of files, usually used for coordinating
    work among programmers collaboratively developing source code during software
    development. Its goals include speed, data integrity, and support for distributed,
    non-linear workflows .
 </QouteComponent>
+
+<Adjusted>Git</Adjusted> is the most widely used version control system in these modern days and how could it not be when it is made by <Link href="https://en.wikipedia.org/wiki/Linus_Torvalds">Linus Torvalds</Link> as open source project. For everyone who does not know who this guy is (but I hope there is not many of you) he is creator and lead developer of Linux kernel which is used by Linux distributions as such as Ubuntu or even Android, so I guess you can see how important this guy is. But let's continue with git which is the main topic, unfortunately this post is not about Linus, but I think he does deserve specific post :)  
+
+This post is made to help beginners to learn basics of Git version control system. Most of the companies these days cannot operate without Git, because it is version control system which help you track of code changes as well as making collaboration easier than ever before.
+
+What is <Adjusted>Git</Adjusted> actually? Well it is specific implementation
+
+## Installation and configuration
+
+There are different ways of installation of Git for every platform, so lets breakdown installation for most popular platforms. In this post we will cover installing on Mac OS X, Linux and Windows. After we verify that Git has been installed correctly we will configure it in order to Git knows who we are.
+
+### Install Git on Mac OS X
+
+There are many ways of installing Git on OS X, and we will cover two most popular ways of doing so.
+Before you start you can check whether you already have it installed due to Apple maintain its <Link href="http://opensource.apple.com/source/Git/">own fork of Git</Link>
+```bash
+$ git --version git version 2.7.0 (Apple Git-66)
+```
+But I don't tend to use it due to being behind main Git, so I strongly recommend you to manually install it.
+<LgList>
+<li> 
+<b>Installing via Mac installer</b> is the most easiest way of installing it. All you need to do is to
+ <Link href="https://sourceforge.net/projects/git-osx-installer/files/">download latest version</Link>.dmg file and follow intaller via GUI. After installing is done, go to the preffered Terminal and check version.
+      ```bash
+      $ git --version
+      ```
+
+</li>
+
+<li>
+<b>Installing Git with Homebrew</b> is my preffered way, but you need to have installed <Link href="https://brew.sh/">Homebrew</Link> on your machine.
+Open your preffered terminal and paste following command:
+```bash
+$ brew install git
+```
+After installation is complete,verify the installation was successful by typing :
+
+```bash
+$ git --version git version 2.9.2
+```
+
+</li>
+</LgList>
+
+
+### Install Git on Linux
+
+On Debian/Ubuntu you can use <Link href="https://wiki.debian.org/Apt">apt</Link> for installation, where git packages are available.
+
+```bash
+$ sudo apt-get update
+$ sudo apt-get install git
+```
+
+After everything is done, verify the installation was successful
+
+```
+$ git --version git version 2.25.1
+```
+
+
+### Install Git on Windows
+
+
+
+### Configuration
+
+Now when we got Git installed and working we must tell Git who we are which is important for Git commit to know who made commit. We will need to set up user's email and username, we can also set aliases, colors, merge tools, etc. but for now we will keep focus on the most important part and that is email and username.
+
+```
+git config --global user.name "bojan"
+git config --global user.email "bojan@mail.com"
+```
+
+Now when you push new commit, Git will know your name and username so when you annotate your code you will be able to see name you set it up.
 
 ## Difference between git rebase and git pull
 
@@ -33,11 +109,3 @@ That's where git comes in, making it easy to work and track code changes.
 </Link>
 or
 <Link href='https://www.edureka.co/blog/git-rebase-vs-merge/'> here 2 </Link>
-
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Eu ex est irure nisi veniam occaecat est ullamco aliqua cillum laborum enim magna id. Irure amet tempor aliqua eu non eiusmod laboris minim occaecat excepteur eiusmod excepteur eiusmod ex. Qui nulla dolor anim duis duis sunt officia minim pariatur ullamco cillum cillum. Esse eu anim velit ut laborum. Eu consequat labore reprehenderit minim cillum anim laboris elit deserunt voluptate ipsum adipisicing do aliqua. Duis eu aliqua dolore ut nisi proident. Anim dolore sunt enim ullamco fugiat labore laboris elit fugiat anim aliqua.

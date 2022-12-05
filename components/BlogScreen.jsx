@@ -30,6 +30,7 @@ const BlogScreen = ({ posts }) => {
   const [currentIndex, setCurrentIndex] = useState(12)
   const [items, setItems] = useState(foundPosts.slice(0, currentIndex))
   const [hasMore, sethasMore] = useState(true)
+  // const [featuredPost, setfeaturedPost] = useState(posts[9])
   const lastIndex = foundPosts.length
   let pointer = 12
 
@@ -178,6 +179,30 @@ const BlogScreen = ({ posts }) => {
                    )}
             </div>
          </div>
+         {/* <div className='my-8  rounded-xl'>
+            <div className='flex flex-row gap-5'>
+              <div className='basis-1/1 md:basis-2/3 '>
+              <PostCard
+                    mode="xl"
+                    key={featuredPost.props.data.slug}
+                    post={featuredPost.props}
+                />
+              </div>
+              <div className='basis-1/1 md:basis-1/3 '>
+            <PostCard
+                    mode="md"
+                    key={featuredPost.props.data.slug}
+                    post={featuredPost.props}
+                />
+                <PostCard
+                mode="md"
+                key={featuredPost.props.data.slug}
+                post={featuredPost.props}
+            />
+            </div>
+            </div>
+         </div> */}
+         {/* <hr className='my-10'/> */}
 
          {/* <div className='lg:px-5 grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6' > */}
          <InfiniteScroll
@@ -185,7 +210,7 @@ const BlogScreen = ({ posts }) => {
           element={'span'}
           next={fetchMoreData}
           hasMore={hasMore}
-          className=' grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6'
+          className=' grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'
           // loader={<div className='text-center w-full overflow-hidden'><PropagateLoader color="#ff0080" /></div>}
         // scrollableTarget="scrollableDiv"
           // endMessage={
@@ -197,6 +222,7 @@ const BlogScreen = ({ posts }) => {
           {items.map((post, index) => (
                   <PostCard
                     className=''
+                    mode="md"
                     key={post.props.data.slug}
                     post={post.props}
                 />

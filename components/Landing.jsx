@@ -22,7 +22,7 @@ const Landing = () => {
                <h1 className=' text-2xl xs:text-2xl lg:text-5xl  font-bold mb-2'>
                   Hello there,
                   <br />
-                  <div className='text-2xl sm:text-2xl lg:text-6xl '>
+                  <h1 className='text-2xl sm:text-2xl lg:text-6xl '>
                      My name is{' '}
                      <Accent className=''>
                         <TypeAnimation
@@ -43,7 +43,7 @@ const Landing = () => {
                            style={{ fontSize: '1em' }}
                         />
                      </Accent>
-                  </div>
+                  </h1>
                </h1>
 
                <div className='lg:mt-5'>
