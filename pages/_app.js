@@ -7,6 +7,7 @@ import '../styles/globals.scss'
 import * as ga from '../lib/analytics'
 import SplashScreen from '../components/custom/SplashScreen'
 import NextHead from 'next/head'
+import { Analytics } from '@vercel/analytics/react'
 
 // export function reportWebVitals ({ id, name, label, value }) {
 // ga('send', 'event', {
@@ -20,7 +21,7 @@ import NextHead from 'next/head'
 //   label === 'web-vital' && console.log({ id, name, label, value })
 // }
 const handleTitle = (router) => {
-  let title = 'Bojan Jagetic Personal Website'
+  let title = 'Bojan Jagetic'
   try {
     const splittedTitle = router.route.split('/')
     if (splittedTitle[2]) {
@@ -108,6 +109,7 @@ function IguanaDevelopmentTech ({ Component, pageProps }) {
          <SplashScreen loaded={pageLoaded}>
             <Layout>
                 <Component {...pageProps} />
+                <Analytics/>
             </Layout>
          </SplashScreen>
       </>
