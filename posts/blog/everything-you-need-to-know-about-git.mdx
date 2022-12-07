@@ -31,7 +31,25 @@ That's where git comes in, making it easy to work and track code changes.
 
 This post is made to help beginners to learn basics of Git version control system. Most of the companies these days cannot operate without Git, because it is version control system which help you track of code changes as well as making collaboration easier than ever before.
 
-What is <Adjusted>Git</Adjusted> actually? Well it is specific implementation
+### What is git
+What is <Adjusted>Git</Adjusted> actually and what it allows us? Well it is specific implementation of version control system which is used to track changes in source code and it is used as distributed version control tool with which we can manage source code with ease. It allows many developers to work together simultaneously on the same code by supporting non linear development with numbers of branches.
+
+
+<CloudinaryImage src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1670316344/igutech/blogs/resources/git_qeoqs8.png" alt="Git flow" text="Git flow"/>
+
+
+### Features
+<SmList>
+<li>Tracks history</li>
+<li>Free and open source</li>
+<li>Supports non-linear development</li>
+<li>Creates backups</li>
+<li>Scalable</li>
+<li>Supports collaboration</li>
+<li>Branching is easier</li>
+<li>Distributed development</li>
+</SmList>
+
 
 ## Installation and configuration
 
@@ -89,23 +107,178 @@ $ git --version git version 2.25.1
 
 ### Install Git on Windows
 
+On Windows there is really simple way of installing by downloadning <code>.exe</code> installation and follow installation procedure. You can download the newest version of <Link href="https://git-scm.com/download/win">Git on offical site</Link>
 
+Verify that installation was sucessfull
+```bash
+$ git -v
+git version 2.38.0.windows.1
+```
 
 ### Configuration
 
 Now when we got Git installed and working we must tell Git who we are which is important for Git commit to know who made commit. We will need to set up user's email and username, we can also set aliases, colors, merge tools, etc. but for now we will keep focus on the most important part and that is email and username.
 
 ```
-git config --global user.name "bojan"
-git config --global user.email "bojan@mail.com"
+$ git config --global user.name "bojan"
+$ git config --global user.email "bojan@mail.com"
 ```
 
 Now when you push new commit, Git will know your name and username so when you annotate your code you will be able to see name you set it up.
 
-## Difference between git rebase and git pull
+## Basic commands
+We will cover some of the most commonly used commands where I will try to explain as simple as I can.
 
-<Link href='https://betterprogramming.pub/differences-between-git-merge-and-rebase-and-why-you-should-care-ae41d96237b6'>
-   here{" "}
-</Link>
-or
-<Link href='https://www.edureka.co/blog/git-rebase-vs-merge/'> here 2 </Link>
+
+<LgList>
+    <li><b>git init </b> - Initialize new git repository. If you are creating git manually this is first command you need to run, on the other hand if you are using Github,Bitbucket or some similiar git hosting tool you will skip this command. </li>
+    <li><b>git clone </b> - Create a copy of existing Git repository. This is initial step when we want to 'download' our code from g.e. Github. When we clone the project we will pull all history as well. </li>
+    <li><b>git add</b> - Move changes from working directory to the staging area. You can still prepare last changes before commiting to the remote repository</li>
+    <li><b>git commit</b> - After we add our changes to staging area we can commit it to the project history with some meaningfull message. If you want to make changes or forgot to stage a file to your commit use <code>git commit --amend</code>
+        in order to make changes to the most recent commit.</li>
+    <li><b>git push</b> - When our commit is ready last thing is to push changes to the remote repository. You can commit multiple commits and afterwards push it all together which means that all our local
+        changes will be moved to remote repository.</li>
+    <li><b>git log</b> - After we commit changes we should be able to see our new commit in git log. Here you will explore all previous revisions of your project.</li>
+    <li><b>git status</b> - Displays the state of working directory and staged files. You run this command in combination with git add and commit commands.</li>
+   <li><b>git fetch </b> - Download a branch from remote repository with all of its commits, but it will not try to integrate anything to your local repository. This is a great wway to test changes before merging. </li>
+    <li><b>git pull </b> - You can look on this as automated version of fetch, because it will download a branch from remote repository but it will merge it automatically into your current local branch. </li>
+    <li><b>git reabse </b> - Rebasing lets you move branches around which is helpful to avoid uneccessarry merge commits. After rebasing we will get linear history which is really easier to follow.
+        If you want to add,edit or delete commits alongway you should use interactive mode which is normal rebase with this additional options. Use <code>git rebase -i</code> in order to use interactive mode.</li>
+    <li><b>git reset </b> - Revert changes to files in the working directory, reseting lets you clean up or remove changes that have not been pushed to a remote repository. The <code>--soft, --mixed, and --hard</code> flags do not have any effect on the file-level version of git reset, as the staged snapshot is always updated, and the working directory is never updated.</li>
+
+
+
+</LgList>
+
+## Git workflow
+
+In git there is three main states:
+<LgList>
+<li><b>Working directory</b> - This is entry point where you modify files in your working directory </li>
+<li><b>Staging area or index</b> - This is stage where we will add our file changes or sanpshot of stage files  </li>
+<li> <b>Git directory or Repository</b> - This is stage where our commit that have our changes will be premanently stored in our Git directory. After we push our changes to repository, other developer can pull these changes from this repository. </li>
+</LgList>
+
+Now when we know different stages in Git, we can learn how workflow works.
+
+1.) First thing is to create repository with a git hosting tool like <Link href="https://github.com/">Github</Link>,<Link href="https://bitbucket.org/">Bitbucket</Link>,<Link href="https://gitlab.com/">Gitlab</Link>, etc. This is one way you can also create your project or use existing one, position to the project in Terminal and use following command to initialize git project
+```
+$ git init
+```
+This will create <code>.git/</code> folder inside your project with following content:
+
+```bash
+ $ ll .git
+total 0
+drwxrwxrwx 1 basskibo basskibo 4096 Dec  6  2022 ./
+drwxrwxrwx 1 basskibo basskibo 4096 Dec  6  2022 ../
+-rwxrwxrwx 1 basskibo basskibo   23 Dec  6  2022 HEAD*
+-rwxrwxrwx 1 basskibo basskibo  130 Dec  6  2022 config*
+-rwxrwxrwx 1 basskibo basskibo   73 Dec  6  2022 description*
+drwxrwxrwx 1 basskibo basskibo 4096 Dec  6  2022 hooks/
+drwxrwxrwx 1 basskibo basskibo 4096 Dec  6  2022 info/
+drwxrwxrwx 1 basskibo basskibo 4096 Dec  6  2022 objects/
+drwxrwxrwx 1 basskibo basskibo 4096 Dec  6  2022 refs/
+```
+For details about adding git to exiting project read section 'Add git to existing project', we will continue with created repository from git hosting.
+
+2.) Next thing is to <code>clone</code> the project. Cloning project in Git means that we will copy or download project to our local machine.
+Use terminal command like following just add your git repository
+```bash
+$  git clone git@github.com:<GITHUB_USERNAME>/<GITHUB_REPOSITORY>.git
+```
+
+3.) Make some changes in code or in this case I will just create <code>test.txt</code> and enter following command in terminal and you should see output like this:
+
+```bash
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        test.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+Lets break-down this output and what it means. First line says on which branch are we ( we will cover branches in Git in next section), next line is saying 'No commits yet' which means that we did not commited any files yet and last line saying that we have untracked file <code>test.txt </code> which we need to add before commiting which will do next.
+
+4.) Now we need to <code>add</code> our changes which we want to commit, so do it so by using git add command and check git staus afterwards.
+
+```bash
+$ git add test.txt
+$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   test.txt
+```
+Now we can see that our test.txt is about to be commited. Lets commit it by:
+
+```bash
+$ git commit -m 'initial commit'
+$ git status
+On branch master
+nothing to commit, working tree clean
+```
+You can see that our working tree is clean and there is nothing else left to commit.
+
+5.) When everything is commited we can push our changes to remote repository by using following command:
+
+```bash
+$ git push origin master
+```
+
+Voilà! Our code is pushed on remote repository, you can go to your repository (Github, Bitbucket, etc.) which you used to create repository and check if your changes are there.
+
+
+6.) When you work in team and other developer want to get copy of your changes to his local machine, he will use pull in order to fetch the newest changes.
+
+```bash
+$ git pull
+```
+
+## Branches
+
+Branch in Git are used to keep your changes until they are ready to be merged into master (production branch). When you are developing new feature it is highly recommended to use different branch for example create feature branch which will be used for development. When feature is done and tested to be stable, you can merge your changes into master branch.
+
+<CloudinaryImage src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1670320603/igutech/blogs/resources/git-branch2_k6uzuv.png" alt="Git branches" text="Git branches" />
+## Git rebase and merge
+
+<code>Git rebase</code> is often thought to be a magic wand of the Git, which will magically merge changes and everything will work without any conflicts. We covered basic functionality of both in the section 'Basic Commands'
+but lets dive deeper and see what is real difference of these two commands which practically do the same thing. On the outside it looks as the same thing but output is very different so you should be careful when using each of these.
+
+### Git Merge
+This is often the easiest way around, you will basically merge main branch into the feature branch with one-liner command.
+```bash
+$ git merge feature master
+```
+Pay attention that <b>merge will create new commit</b> in the feature branch that will tie together with history of both branches, output will be like this:
+
+<CloudinaryImage src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1670371920/igutech/blogs/resources/git-merge_vqzkqr.png" alt="Git merge" text="Git merge"/>
+
+Merging is great because it will not change existing branches in any way as it could happen with rebasing, but bad side of it is that every time we need to merge our branches we will have additional merge commit.
+This can be polluting for the git history when our branches are very active so it can be harder to read and understand history of the project.
+
+### Git Rebase
+
+Second option is rebasing which will rebase feature branch onto master branch.
+```bash
+$ git checkout feature
+$ git rebase master
+```
+This will move the entire feature branch to the top of the master branch incorporating all of the new commits into master.
+<b>Rebase will rewrite project history</b> by creating brand new commits for every commit in the original branch, and output will be like this:
+<CloudinaryImage src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1670372142/igutech/blogs/resources/git-rebase2_ttunny.png" alt="Git rebase" text="Git rebase"/>
+
+Rebasing is great because it is much easier to read project history as well as giving us linear project history as seen in image above.
+You should use rebase with great care because rewriting project history can be potentially great problem for collaboration because you can lose context when changes incorporated into the feature.
+
+### Interactive Git Rebasing
+
+### The Golden Rule of Rebasing
