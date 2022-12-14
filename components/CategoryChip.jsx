@@ -10,7 +10,7 @@ const CategoryChip = ({ categories }) => {
                   {/* <a className='inline-flex' disabled={true}> */}
                      <span
                         className=' flex items-center mx-1 justify-cente opacity-70 text-white font-bold rounded-lg
-2xl:text-sm text-xs px-2 py-1 border-1 border-teal-800 bg-slate-500 hover:bg-teal-800 hover:text-white hover:cursor-pointer
+2xl:text-xs text-xs px-2 py-1 border-1 border-teal-800 bg-teal-900 hover:bg-teal-800 hover:text-white hover:cursor-pointer
 transition duration-500 ease-in-out backdrop-blur-2xl'>
                         {category.name}
                      </span>
