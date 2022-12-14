@@ -204,20 +204,12 @@ const BlogScreen = ({ posts }) => {
          </div> */}
          {/* <hr className='my-10'/> */}
 
-         {/* <div className='lg:px-5 grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-6' > */}
          <InfiniteScroll
           dataLength={items.length}
           element={'span'}
           next={fetchMoreData}
           hasMore={hasMore}
-          className=' grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'
-          // loader={<div className='text-center w-full overflow-hidden'><PropagateLoader color="#ff0080" /></div>}
-        // scrollableTarget="scrollableDiv"
-          // endMessage={
-          //   <div className='text-center p-3 my-auto'>
-          //     <b>Yay! You have seen it all <span className='text-xl'>🎉</span></b>
-          //   </div>
-          // }
+          className=' grid 2xl:grid-cols-3 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'
         >
           {items.map((post, index) => (
                   <PostCard
@@ -228,7 +220,6 @@ const BlogScreen = ({ posts }) => {
                 />
           ))}
         </InfiniteScroll>
-         {/* </div> */}
       </div>
   )
 }

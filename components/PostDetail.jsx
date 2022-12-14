@@ -46,6 +46,7 @@ const PostDetail = ({ post, content }) => {
                placeholder='blur'
                layout='fill'
                priority
+               style={{ transform: 'translate3d(0, 0, 0)' }}
                className='object-cover rounded-lg'
             />
             <div className='absolute w-full  bottom-0 inset-x-0  text-white font- float-right text-xs md:text-xs text-right leading-4 py-2 px-4 flex flex-row-reverse '>

@@ -25,13 +25,12 @@ export const getStaticProps = async () => {
       'utf-8'
     )
 
-    let { content, data } = matter(markdownWithMeta)
+    let { data } = matter(markdownWithMeta)
     data = { ...data, slug: filename.split('.')[0] }
     // const mdxSource = await serialize(content);
     return {
       props: {
-        data,
-        content
+        data
       }
     }
   })

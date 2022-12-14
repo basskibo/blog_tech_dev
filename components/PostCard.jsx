@@ -3,10 +3,26 @@ import moment from 'moment'
 import CategoryChip from './CategoryChip'
 import ReadTime from './ReadTime'
 import Image from 'next/image'
-import constants from '../lib/constants'
+// import constants from '../lib/constants'
 import clsx from 'clsx'
+import constants from '../utils/constants'
+import { setConfig, buildUrl } from 'cloudinary-build-url'
 
 const PostCard = ({ post, mode }) => {
+  setConfig({
+    cloudName: constants.CLOUDINARY_CLOUD_NAME
+  })
+
+  const imageUrl = buildUrl(post.data.featuredImage, {
+    transformations: {
+      quality: 40,
+      resize: {
+        type: 'scale',
+        width: 500
+      //   height: 500
+      }
+    }
+  })
   return (
       <div
          key={post.data.slug}
@@ -14,20 +30,24 @@ const PostCard = ({ post, mode }) => {
            post.data.inPreparation
              ? 'text-slate-600 pointer-events-none bg-blend-hard-light bg-neutral-800 '
              : 'text-white transform-gpu scale-100 hover:scale-[0.98] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow',
-           'w-full  rounded-md lg:border border-gray-800 dark:bg-dark dark:border-neutral-700 overflow-hidden'
+           'w-full  rounded-md lg:border border-gray-800 dark:bg-dark dark:border-neutral-800 overflow-hidden'
          )}>
          <a href={`/post/${post.data.slug}`}>
-            <div className={clsx(mode === 'md' ? ' h-72' : 'h-96', 'relative overflow-hidden w-full')}>
+            <div className={clsx(mode === 'md' ? ' h-80' : 'h-80', 'relative overflow-hidden w-full')}>
                <Image
                   alt={post.data.featuredImage}
-                  src={post.data.featuredImage}
+                  src={imageUrl}
                   blurDataURL={constants.imageBlogURI}
                   placeholder='blur'
                   layout='fill'
-                  height={300}
-                  width={300}
+                  // height={300}
+                  style={{ transform: 'translate3d(0, 0, 0)' }}
+
+                  // width={720}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, (max-width: 1536px) 33vw, 25vw"
                   className={clsx(
-                    post.data.inPreparation ? 'blur-md' : 'blur-none'
+                    post.data.inPreparation ? 'blur-md' : 'blur-none',
+                    'object-cover '
                   )}
                />
                <div

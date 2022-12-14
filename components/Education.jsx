@@ -21,38 +21,9 @@ const Education = () => {
              TBA
           </h3>
           <h2 className='py-1'>TBA </h2>
-
-          {/* <div className='text-base font-normal text-gray-500 dark:text-gray-400'>
-             <ul className='list-disc pl-5'>
-                <li>Project: Developing smart tv applications based on Tizen and WebOS platforms</li>
-                <li>Working on smart TV application used as streaming platform. Creating components, services, authorization, etc. Platform is serving LiveTV, video on demand  as well as option for renting movies. </li>
-                <li>Key technologies: React, Typescript, NestJS, Tizen, WebOS, Firebase, etc.</li>
-                <li className='font-semibold'>
-                Technologies used on this project
-                </li>
-                <div className='flex mb-2 gap-1'>
-                    {constants.generateIcon('SiReact')}
-                    {constants.generateIcon('SiTypescript')}
-                    {constants.generateIcon('SiNestjs')}
-                    {constants.generateIcon('SiFirebase')}
-                </div>
-             </ul>
-
-          </div> */}
        </li>{' '}
 
     </ol>
-
-    {/* <div className='relative'>
-       <Image
-          className='inset-0 object-cover object-bottom w-full rounded shadow-lg h-96 lg:absolute lg:h-full'
-          src={cvImage}
-          blurDataURL={constants.imageBlogURI}
-          placeholder='blur'
-          layout='fill'
-          alt='Photo by <a href="https://unsplash.com/@theshubhamdhage?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Shubham Dhage</a> on <a href="https://unsplash.com/t/3d-renders?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
-       />
-    </div> */}
  </div>
  </div>
   )
