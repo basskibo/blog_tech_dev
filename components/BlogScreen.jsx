@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { PostCard } from '../components'
+// import { PostCard } from '../components'
 import Accent from './custom/Accent'
 import 'react-loading-skeleton/dist/skeleton.css'
 import clsx from 'clsx'
-import InfiniteScroll from 'react-infinite-scroll-component'
+// import InfiniteScroll from 'react-infinite-scroll-component'
 // import PropagateLoader from 'react-spinners/PropagateLoader'
+import Virtualized from './custom/Masonary'
 
 const getCategories = (posts) => {
   try {
@@ -26,31 +27,31 @@ const getCategories = (posts) => {
 const BlogScreen = ({ posts }) => {
   const [chips] = useState(getCategories(posts))
   const [search, setSearch] = useState('')
-  const [foundPosts, setFoundPosts] = useState(posts)
-  const [currentIndex, setCurrentIndex] = useState(12)
-  const [items, setItems] = useState(foundPosts.slice(0, currentIndex))
-  const [hasMore, sethasMore] = useState(true)
+  // const [foundPosts, setFoundPosts] = useState(posts)
+  // const [currentIndex, setCurrentIndex] = useState(12)
+  // const [items, setItems] = useState(foundPosts.slice(0, currentIndex))
+  // const [hasMore, sethasMore] = useState(true)
   // const [featuredPost, setfeaturedPost] = useState(posts[9])
-  const lastIndex = foundPosts.length
-  let pointer = 12
+  // const lastIndex = foundPosts.length
+  // let pointer = 12
 
-  const fetchMoreData = () => {
-    if (items.length >= foundPosts.length) {
-      sethasMore(false)
-    } else {
-      if ((currentIndex + pointer) > lastIndex) {
-        pointer = lastIndex - currentIndex
-      }
-      const nextIndex = currentIndex + pointer
-      const newData = foundPosts.slice(currentIndex, nextIndex)
-      setTimeout(() => {
-        setItems(
-          items.concat(newData)
-        )
-        setCurrentIndex(nextIndex)
-      }, 1000)
-    }
-  }
+  // const fetchMoreData = () => {
+  //   if (items.length >= foundPosts.length) {
+  //     sethasMore(false)
+  //   } else {
+  //     if ((currentIndex + pointer) > lastIndex) {
+  //       pointer = lastIndex - currentIndex
+  //     }
+  //     const nextIndex = currentIndex + pointer
+  //     const newData = foundPosts.slice(currentIndex, nextIndex)
+  //     setTimeout(() => {
+  //       setItems(
+  //         items.concat(newData)
+  //       )
+  //       setCurrentIndex(nextIndex)
+  //     }, 1000)
+  //   }
+  // }
 
   // const findFeaturedPost = () => {
   //   posts.forEach(post => {
@@ -66,11 +67,11 @@ const BlogScreen = ({ posts }) => {
     const selected = e.target.innerText
     if (selected === search) {
       setSearch(null)
-      setItems(posts)
+      // setItems(posts)
       return
     }
     setSearch(selected)
-    setFoundPosts([])
+    // setFoundPosts([])
     const postsWithCategory = []
 
     posts.filter((el, index) => {
@@ -90,48 +91,32 @@ const BlogScreen = ({ posts }) => {
       return true
     })
 
-    setItems(postsWithCategory)
+    // setItems(postsWithCategory)
   }
   const handleSearchChange = (e) => {
     e.preventDefault()
     setSearch(e.target.value.toLowerCase())
-    const filteredData = posts.filter((el) => {
-      // if no input the return the original
-      const data = el.props.data
-      if (search === '') {
-        return data
-      } else {
-        const includes =
-               data.title
-                 .toLowerCase()
-                 .includes(e.target.value.toLowerCase()) ||
-               data.excerpt
-                 .toLowerCase()
-                 .includes(e.target.value.toLowerCase())
-        return includes
-      }
-    })
-    setItems(filteredData)
+    // const filteredData = posts.filter((el) => {
+    //   // if no input the return the original
+    //   const data = el.props.data
+    //   if (search === '') {
+    //     return data
+    //   } else {
+    //     const includes =
+    //            data.title
+    //              .toLowerCase()
+    //              .includes(e.target.value.toLowerCase()) ||
+    //            data.excerpt
+    //              .toLowerCase()
+    //              .includes(e.target.value.toLowerCase())
+    //     return includes
+    //   }
+    // })
+    // setItems(filteredData)
   }
 
   return (
     <div className='layout mx-auto lg:my-14 my-5 sm:px-2 xs:px-3 lg:px-5  text-slate-400'>
-               {/* {featuredPost
-           ? (
-                  <div className='w-full bg-slate-400 h-72'>
-                  <Image
-                  src={featuredPost.featuredImage}
-                     width={1200}
-                     height={400}
-                     style={{
-                       maxWidth: '100%',
-                       height: 'auto'
-                     }}></Image>
-               </div>
-             )
-           : (
-                  <></>
-             )} */}
          <div className='my-8 ' id="scrollableDiv">
             <h1 className='mb-5'>
                <Accent className='font-extrabold text-5xl'>Blog</Accent>
@@ -203,8 +188,11 @@ const BlogScreen = ({ posts }) => {
             </div>
          </div> */}
          {/* <hr className='my-10'/> */}
+<div className=' w-full'>
+<Virtualized posts={posts} />
 
-         <InfiniteScroll
+</div>
+         {/* <InfiniteScroll
           dataLength={items.length}
           element={'span'}
           next={fetchMoreData}
@@ -219,7 +207,7 @@ const BlogScreen = ({ posts }) => {
                     post={post.props}
                 />
           ))}
-        </InfiniteScroll>
+        </InfiniteScroll> */}
       </div>
   )
 }
