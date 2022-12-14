@@ -209,7 +209,7 @@ const BlogScreen = ({ posts }) => {
           element={'span'}
           next={fetchMoreData}
           hasMore={hasMore}
-          className=' grid 2xl:grid-cols-3 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'
+          className=' grid 2xl:grid-cols-3 xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7 mb-5 pb-5'
         >
           {items.map((post, index) => (
                   <PostCard
