@@ -15,10 +15,10 @@ const PostCard = ({ post, mode }) => {
 
   const imageUrl = buildUrl(post.data.featuredImage, {
     transformations: {
-      quality: 40,
+      quality: 70,
       resize: {
         type: 'scale',
-        width: 500
+        width: 700
       //   height: 500
       }
     }
@@ -30,10 +30,10 @@ const PostCard = ({ post, mode }) => {
            post.data.inPreparation
              ? 'text-slate-600 pointer-events-none bg-blend-hard-light bg-neutral-800 '
              : 'text-white transform-gpu scale-100 hover:scale-[0.98] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow',
-           'w-full  rounded-md lg:border border-gray-800 dark:bg-dark dark:border-neutral-800 overflow-hidden'
+           'w-full  rounded-xl lg:border border-neutral-700 overflow-hidden'
          )}>
          <a href={`/post/${post.data.slug}`}>
-            <div className={clsx(mode === 'md' ? ' h-80' : 'h-80', 'relative overflow-hidden w-full')}>
+            <div className={clsx(mode === 'md' ? ' h-52' : 'h-80', 'relative overflow-hidden w-full')}>
                <Image
                   alt={post.data.featuredImage}
                   src={imageUrl}
