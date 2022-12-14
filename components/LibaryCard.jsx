@@ -1,5 +1,5 @@
 import React from 'react'
-import constants from '../lib/constants'
+import constants from '../utils/constants'
 import moment from 'moment'
 import clsx from 'clsx'
 import { SiGithub } from 'react-icons/si'

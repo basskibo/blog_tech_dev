@@ -66,7 +66,7 @@ But I don't tend to use it due to being behind main Git, so I strongly recommend
 <LgList>
 <li> 
 <b>Installing via Mac installer</b> is the most easiest way of installing it. All you need to do is to
- <Link href="https://sourceforge.net/projects/git-osx-installer/files/">download latest version</Link>.dmg file and follow intaller via GUI. After installing is done, go to the preffered Terminal and check version.
+ <Link href="https://sourceforge.net/projects/git-osx-installer/files/">download latest version</Link>.dmg file and follow intaller via GUI. After installing is done, go to the preferred Terminal and check version.
       ```bash
       $ git --version
       ```
@@ -75,7 +75,8 @@ But I don't tend to use it due to being behind main Git, so I strongly recommend
 
 <li>
 <b>Installing Git with Homebrew</b> is my preffered way, but you need to have installed <Link href="https://brew.sh/">Homebrew</Link> on your machine.
-Open your preffered terminal and paste following command:
+Open your preferred terminal and paste following command:
+
 ```bash
 $ brew install git
 ```
@@ -107,9 +108,9 @@ $ git --version git version 2.25.1
 
 ### Install Git on Windows
 
-On Windows there is really simple way of installing by downloadning <code>.exe</code> installation and follow installation procedure. You can download the newest version of <Link href="https://git-scm.com/download/win">Git on offical site</Link>
+On Windows there is really simple way of installing by downloading  <code>.exe</code> installation and follow installation procedure. You can download the newest version of <Link href="https://git-scm.com/download/win">Git on offical site</Link>
 
-Verify that installation was sucessfull
+Verify that installation was successful
 ```bash
 $ git -v
 git version 2.38.0.windows.1
@@ -131,20 +132,20 @@ We will cover some of the most commonly used commands where I will try to explai
 
 
 <LgList>
-    <li><b>git init </b> - Initialize new git repository. If you are creating git manually this is first command you need to run, on the other hand if you are using Github,Bitbucket or some similiar git hosting tool you will skip this command. </li>
-    <li><b>git clone </b> - Create a copy of existing Git repository. This is initial step when we want to 'download' our code from g.e. Github. When we clone the project we will pull all history as well. </li>
-    <li><b>git add</b> - Move changes from working directory to the staging area. You can still prepare last changes before commiting to the remote repository</li>
-    <li><b>git commit</b> - After we add our changes to staging area we can commit it to the project history with some meaningfull message. If you want to make changes or forgot to stage a file to your commit use <code>git commit --amend</code>
+    <li><b>git init </b> - Initialize new git repository. If you are creating git manually this is first command you need to run, on the other hand if you are using Github,Bitbucket or some similar git hosting tool you will skip this command. </li>
+    <li><b>git clone </b> - Create a copy of existing Git repository. This is initial step when we want to 'download' our code from e.g. Github. When we clone the project we will pull all history as well. </li>
+    <li><b>git add</b> - Move changes from working directory to the staging area. You can still prepare last changes before committing to the remote repository</li>
+    <li><b>git commit</b> - After we add our changes to staging area we can commit it to the project history with some meaningful message. If you want to make changes or forgot to stage a file to your commit use <code>git commit --amend</code>
         in order to make changes to the most recent commit.</li>
     <li><b>git push</b> - When our commit is ready last thing is to push changes to the remote repository. You can commit multiple commits and afterwards push it all together which means that all our local
         changes will be moved to remote repository.</li>
     <li><b>git log</b> - After we commit changes we should be able to see our new commit in git log. Here you will explore all previous revisions of your project.</li>
     <li><b>git status</b> - Displays the state of working directory and staged files. You run this command in combination with git add and commit commands.</li>
-   <li><b>git fetch </b> - Download a branch from remote repository with all of its commits, but it will not try to integrate anything to your local repository. This is a great wway to test changes before merging. </li>
+   <li><b>git fetch </b> - Download a branch from remote repository with all of its commits, but it will not try to integrate anything to your local repository. This is a great way to test changes before merging. </li>
     <li><b>git pull </b> - You can look on this as automated version of fetch, because it will download a branch from remote repository but it will merge it automatically into your current local branch. </li>
-    <li><b>git reabse </b> - Rebasing lets you move branches around which is helpful to avoid uneccessarry merge commits. After rebasing we will get linear history which is really easier to follow.
-        If you want to add,edit or delete commits alongway you should use interactive mode which is normal rebase with this additional options. Use <code>git rebase -i</code> in order to use interactive mode.</li>
-    <li><b>git reset </b> - Revert changes to files in the working directory, reseting lets you clean up or remove changes that have not been pushed to a remote repository. The <code>--soft, --mixed, and --hard</code> flags do not have any effect on the file-level version of git reset, as the staged snapshot is always updated, and the working directory is never updated.</li>
+    <li><b>git rebase </b> - Rebasing lets you move branches around which is helpful to avoid unnecessary  merge commits. After rebasing we will get linear history which is really easier to follow.
+        If you want to add,edit or delete commits you should use interactive mode which is normal rebase with this additional options. Use <code>git rebase -i</code> in order to use interactive mode.</li>
+    <li><b>git reset </b> - Revert changes to files in the working directory, resetting lets you clean up or remove changes that have not been pushed to a remote repository. The <code>--soft, --mixed, and --hard</code> flags do not have any effect on the file-level version of git reset, as the staged snapshot is always updated, and the working directory is never updated.</li>
 
 
 
@@ -155,8 +156,8 @@ We will cover some of the most commonly used commands where I will try to explai
 In git there is three main states:
 <LgList>
 <li><b>Working directory</b> - This is entry point where you modify files in your working directory </li>
-<li><b>Staging area or index</b> - This is stage where we will add our file changes or sanpshot of stage files  </li>
-<li> <b>Git directory or Repository</b> - This is stage where our commit that have our changes will be premanently stored in our Git directory. After we push our changes to repository, other developer can pull these changes from this repository. </li>
+<li><b>Staging area or index</b> - This is stage where we will add our file changes or snapshot  of stage files  </li>
+<li> <b>Git directory or Repository</b> - This is stage where our commit that have our changes will be permanently stored in our Git directory. After we push our changes to repository, other developer can pull these changes from this repository. </li>
 </LgList>
 
 Now when we know different stages in Git, we can learn how workflow works.
@@ -205,7 +206,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 
 Lets break-down this output and what it means. First line says on which branch are we ( we will cover branches in Git in next section), next line is saying 'No commits yet' which means that we did not commited any files yet and last line saying that we have untracked file <code>test.txt </code> which we need to add before commiting which will do next.
 
-4.) Now we need to <code>add</code> our changes which we want to commit, so do it so by using git add command and check git staus afterwards.
+4.) Now we need to <code>add</code> our changes which we want to commit, so do it so by using git add command and check git status afterwards.
 
 ```bash
 $ git add test.txt
@@ -282,3 +283,5 @@ You should use rebase with great care because rewriting project history can be p
 ### Interactive Git Rebasing
 
 ### The Golden Rule of Rebasing
+
+## .gitignore

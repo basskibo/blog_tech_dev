@@ -1,6 +1,6 @@
 import React from 'react'
 import cvImage from '../public/images/cv.jpg'
-import constants from '../lib/constants'
+import constants from '../utils/constants'
 import Accent from '../components/custom/Accent'
 import Image from 'next/image'
 
