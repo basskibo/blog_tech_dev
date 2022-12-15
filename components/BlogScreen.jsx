@@ -27,13 +27,9 @@ const getCategories = (posts) => {
 const BlogScreen = ({ posts }) => {
   const [chips] = useState(getCategories(posts))
   const [search, setSearch] = useState('')
-  // const [foundPosts, setFoundPosts] = useState(posts)
-  // const [currentIndex, setCurrentIndex] = useState(12)
+  const [data, setData] = useState(posts)
   // const [items, setItems] = useState(foundPosts.slice(0, currentIndex))
-  // const [hasMore, sethasMore] = useState(true)
   // const [featuredPost, setfeaturedPost] = useState(posts[9])
-  // const lastIndex = foundPosts.length
-  // let pointer = 12
 
   // const fetchMoreData = () => {
   //   if (items.length >= foundPosts.length) {
@@ -66,12 +62,11 @@ const BlogScreen = ({ posts }) => {
     e.preventDefault()
     const selected = e.target.innerText
     if (selected === search) {
-      setSearch(null)
-      // setItems(posts)
+      setSearch('')
+      setData(posts)
       return
     }
     setSearch(selected)
-    // setFoundPosts([])
     const postsWithCategory = []
 
     posts.filter((el, index) => {
@@ -86,33 +81,32 @@ const BlogScreen = ({ posts }) => {
             postsWithCategory.push(posts[index])
           }
         })
-        // const includes =
       }
       return true
     })
 
-    // setItems(postsWithCategory)
+    setData(postsWithCategory)
   }
   const handleSearchChange = (e) => {
     e.preventDefault()
     setSearch(e.target.value.toLowerCase())
-    // const filteredData = posts.filter((el) => {
-    //   // if no input the return the original
-    //   const data = el.props.data
-    //   if (search === '') {
-    //     return data
-    //   } else {
-    //     const includes =
-    //            data.title
-    //              .toLowerCase()
-    //              .includes(e.target.value.toLowerCase()) ||
-    //            data.excerpt
-    //              .toLowerCase()
-    //              .includes(e.target.value.toLowerCase())
-    //     return includes
-    //   }
-    // })
-    // setItems(filteredData)
+    const filteredData = posts.filter((el) => {
+      // if no input the return the original
+      const data = el.props.data
+      if (search === '') {
+        return data
+      } else {
+        const includes =
+               data.title
+                 .toLowerCase()
+                 .includes(e.target.value.toLowerCase()) ||
+               data.excerpt
+                 .toLowerCase()
+                 .includes(e.target.value.toLowerCase())
+        return includes
+      }
+    })
+    setData(filteredData)
   }
 
   return (
@@ -148,7 +142,7 @@ const BlogScreen = ({ posts }) => {
                            <span
                               className={clsx(
                                 // eslint-disable-next-line no-constant-condition
-                                'flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border-1 border-teal-800 bg-slate-500 hover:bg-teal-800 hover:text-white hover:cursor-pointer transition duration-500 ease-in-out', '' ? '' : '',
+                                'flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border-1 border-teal-700 bg-[#7928ca] hover:bg-[#ff0080] hover:text-white hover:cursor-pointer transition duration-500 ease-in-out', '' ? '' : '',
                                 search === category.name
                                   ? ' underline decoration-solid decoration-2decoration-lime-400 text-lime-400 underline-offset-4 '
                                   : 'text-white'
@@ -189,7 +183,7 @@ const BlogScreen = ({ posts }) => {
          </div> */}
          {/* <hr className='my-10'/> */}
 <div className=' w-full'>
-<Virtualized posts={posts} />
+<Virtualized posts={data} />
 
 </div>
          {/* <InfiniteScroll
