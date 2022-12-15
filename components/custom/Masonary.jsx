@@ -32,7 +32,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                     placeholder='blur'
                     sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, (max-width: 1536px) 33vw, 25vw"
                     className={clsx(
-                      post?.data?.inPreparation ? '' : '',
+                      post?.data?.inPreparation ? 'blur-sm' : '',
                       'object-cover '
                     )}
                 />
@@ -64,9 +64,9 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                              <CategoryChip className='my-0' categories={post.data.tags} />
                          </div> */}
 
-                        <div className='basis-1/2 '>
+                        <div className=' '>
                             {post?.data?.inPreparation
-                              ? <p className=''><Accent className='bg-neutral-900  font-extrabold animate-pulse'>Cooming soon...</Accent></p>
+                              ? <p className=' my-5 bottom-0 h-64'><Accent className='w-full bg-neutral-900  font-extrabold animate-pulse'>Cooming soon...</Accent></p>
                               : <div className=''><p className='align-middle font-italic text-sm text-slate-300 mt-1 '>
                                 {post?.data?.excerpt}
                             </p>
