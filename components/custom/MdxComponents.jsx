@@ -193,15 +193,14 @@ export default {
   NewLine: () => {
     return <div className='my-5'> </div>
   },
-  Iframe: ({ children, className }) => {
+  Iframe: ({ url, title, className }) => {
     return (
-         <iframe
-            src='https://codesandbox.io/embed/js-class-example-24bl6t?fontsize=14&hidenavigation=1&theme=dark'
-            // className="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-            className='w-full h-96'
-            title='JS Class example '
-            allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
-            sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts'></iframe>
+      <iframe
+      src={url}
+      className='w-full h-96 min-h-full'
+      title={title}
+      allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking'
+      sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts'></iframe>
     )
   },
   table: ({ header, content, genericData }) => {

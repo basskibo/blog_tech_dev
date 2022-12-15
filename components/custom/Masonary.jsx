@@ -4,7 +4,7 @@ import VirtualGrid from 'react-responsive-virtual-grid'
 import Image from 'next/image'
 import clsx from 'clsx'
 // import ReadTime from '../ReadTime'
-// import moment from 'moment'
+import moment from 'moment'
 import constants from '../../utils/constants'
 // import CategoryChip from '../CategoryChip'
 import Accent from './Accent'
@@ -41,8 +41,8 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                              <CategoryChip className='my-0' categories={post?.data?.tags} />
                          </div> */}
                 <div
-                    className={clsx(post?.data?.inPreparation ? 'bg-neutral-900 text-slate-400' : 'backdrop-blur-3xl hover:bg-neutral-900  text-white',
-                      'pr-3 mt-1 z-50 lg:h-2/5 xs:h-1/2  w-full bottom-0 p-3 '
+                    className={clsx(post?.data?.inPreparation ? 'bg-neutral-900 text-slate-400 h-1/3' : 'lg:h-2/4 xs:h-1/2  backdrop-blur-3xl hover:bg-neutral-900  text-white',
+                      'pr-3 mt-1 z-50   w-full bottom-0 p-3 '
                     )}>
                     <h1 className='text-lg font-semibold '> {post?.data?.title}</h1>
                     <div className='mt-1 text-white flex-row '>
@@ -51,7 +51,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                      <ReadTime> {post}</ReadTime>
                   </div> */}
 
-                        {/* <div className='basis-1/2'>
+                        <div className='basis-1/2'>
                             <p className='align-middle font-bold text-sm text-slate-300 mt-1'>
                                 {post?.data?.inPreparation
                                   ? ''
@@ -59,7 +59,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                                     'MMMM DD, YYYY'
                                   )}
                             </p>
-                        </div> */}
+                        </div>
                         {/* <div className=' basis-1/2 pt-0 bottom-0 inset-x-0  text-white text-xs md:text-xs text-center leading-4'>
                              <CategoryChip className='my-0' categories={post.data.tags} />
                          </div> */}
