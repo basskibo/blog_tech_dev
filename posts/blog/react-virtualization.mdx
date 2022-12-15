@@ -1,0 +1,72 @@
+---
+title: "Advanced Techniques for Improving Performance with React Virtualization"
+publishedAt: "2022-11-15"
+excerpt: "Having a large number of data can really take effect on our app performance, but there is way to make it work like a charm."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1671091968/igutech/blogs/shubham-dhage-xYlf6Edpc-k-unsplash_dg4a4s.jpg"
+imageCreditUser: "Steve Johnson"
+imageCreditUsername: "steve_j"
+author: "Bojan Jagetic"
+tags: [{ slug: "react", name: "react" }, {slug : "next", name: "nextjs" }]
+inPreparation: false
+---
+
+## Introduction
+<Adjusted>React Virtualization</Adjusted> is a technique for optimizing the performance of large, complex lists in React applications. By rendering only the items that are visible in the viewport, React Virtualization allows for smoother, more performant scrolling and interactions with lists containing thousands or even millions of items. In this blog post, we will explore the benefits of using React Virtualization and provide a step-by-step guide for implementing it in your own React applications.
+
+
+
+## Optimizing Performance for Large Lists
+
+React Virtualization is a powerful tool for optimizing the performance of large, complex lists in React applications. By only rendering the items that are currently visible in the viewport, React Virtualization allows for smooth, performant scrolling and interactions with lists containing thousands or even millions of items.
+
+## Benefits of Using React Virtualization
+
+<LgList>
+<li>Improves the user experience by preventing the browser from becoming bogged down and unresponsive when working with large lists </li>
+<li> Conserves system resources by only rendering the items that are currently visible on the screen</li>
+<li> Makes it possible to work with large lists without sacrificing performance</li>
+</LgList>
+## Implementing React Virtualization in Your Applications
+
+To use React Virtualization in your own React applications, you will need to do the following:
+
+1. Install the <code>react-virtualized</code> package from npm
+2. Import the <code>List</code> component from <code>react-virtualized</code>
+3. Use the <code>List</code> component to wrap your list of items
+
+Here is an example of how you might use the <code>List</code> component to render a list of items:
+
+```javascript
+import { List } from 'react-virtualized';
+
+const MyList = () => {
+    const items = [
+        { id: 1, name: 'Item 1' },
+        { id: 2, name: 'Item 2' },
+    // ...
+    ];
+
+    return (
+        <List
+            width={500}
+            height={300}
+            rowCount={items.length}
+            rowHeight={50}
+            rowRenderer={({ index, key, style }) => (
+                <div key={key} style={style}>
+                    {items[index].name}
+                </div>
+                )}
+        />
+    );
+};
+
+```
+In this example, we are rendering a list of items using the <code>List</code> component from <Adjusted>react-virtualized</Adjusted>. We pass the <code>List</code> component several props to specify the width, height, and number of rows in the list, as well as a <code>rowRenderer</code> prop that specifies how each row in the list should be rendered.
+
+## Conclusion
+
+In conclusion, React Virtualization is a valuable tool for optimizing the performance of large, complex lists in React applications. By rendering only the items that are visible in the viewport, React Virtualization allows for smooth, performant scrolling and interactions with large lists, while also conserving system resources. If you are working with large lists in your React applications, we highly recommend giving React Virtualization a try. Later I will write post about <Adjusted>react-responsive-virtual-grid</Adjusted> which I used in real example on my personal website to render my blog list which is getting bigger, you can check how it really look in practice on <Link href="https://www.bojanjagetic.com/routes/blog">real example</Link>.
