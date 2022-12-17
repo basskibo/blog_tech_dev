@@ -1,9 +1,7 @@
 ---
 title: "Update xml file via Terminal or bash script"
 publishedAt: "2022-11-15"
-excerpt: "Git is software for tracking changes in any set of files, usually used for coordinating work among programmers
- collaboratively developing source code during 
-software development. "
+excerpt: "If you been in situation that you want to update xml file from bash script there is many ways to do that."
 englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
@@ -49,3 +47,24 @@ xmlstarlet ed -L -u '/root/element/@attribute' -v 'new value' file.xml
 This will update the attribute of the element element under the root element in file.xml with the value new value.
 
 <b>Note:</b> These are just a few examples of how you can update an XML file using the terminal or a bash script. There are many other tools and techniques you can use, depending on your specific needs.
+
+## Use combination of sed and xmlstarlet 
+
+To update an XML file from a bash script, you can use a combination of the sed command and the xmlstarlet utility. Here is an example of how this can be done:
+
+First, make sure that the sed and xmlstarlet utilities are installed on your system.
+
+Create a bash script and open it in a text editor.
+
+Use the sed command to find and replace a specific string in the XML file. For example, the following command will replace the string "old_string" with "new_string" in the file "input.xml":
+
+Copy code
+sed 's/old_string/new_string/g' input.xml > output.xml
+Use the xmlstarlet utility to update specific elements or attributes in the XML file. For example, the following command will update the value of the "name" attribute in the "item" element to "new_name":
+Copy code
+xmlstarlet ed -u '/items/item/@name' -v 'new_name' input.xml > output.xml
+Save and close the bash script.
+
+Run the bash script to update the XML file.
+
+Keep in mind that this is just a basic example, and you can use a combination of sed and xmlstarlet commands to update the XML file in more complex ways. You can also use other utilities such as awk or perl to manipulate the XML file in your bash script.
