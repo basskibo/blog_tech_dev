@@ -58,11 +58,16 @@ Create a bash script and open it in a text editor.
 
 Use the sed command to find and replace a specific string in the XML file. For example, the following command will replace the string "old_string" with "new_string" in the file "input.xml":
 
-Copy code
+```bash
 sed 's/old_string/new_string/g' input.xml > output.xml
+```
+
 Use the xmlstarlet utility to update specific elements or attributes in the XML file. For example, the following command will update the value of the "name" attribute in the "item" element to "new_name":
-Copy code
+
+```bash
 xmlstarlet ed -u '/items/item/@name' -v 'new_name' input.xml > output.xml
+```
+
 Save and close the bash script.
 
 Run the bash script to update the XML file.
