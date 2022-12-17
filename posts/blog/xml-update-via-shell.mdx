@@ -20,13 +20,32 @@ inPreparation: true
 
 So not really, but when we speak about Tizen we have Samsung devices in mind, because as mentioned it is mainly used for developing Samsung applications.By Samsung devices we mean mobile, TV and wearable devices as mostly used with Tizen.
 
-<NewLine/>
-  
+There are several ways you can update an XML file using the terminal or a bash script. Here are a few options:
 
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Eu ex est irure nisi veniam occaecat est ullamco aliqua cillum laborum enim magna id. Irure amet tempor aliqua eu non eiusmod laboris minim occaecat excepteur eiusmod excepteur eiusmod ex. Qui nulla dolor anim duis duis sunt officia minim pariatur ullamco cillum cillum. Esse eu anim velit ut laborum. Eu consequat labore reprehenderit minim cillum anim laboris elit deserunt voluptate ipsum adipisicing do aliqua. Duis eu aliqua dolore ut nisi proident. Anim dolore sunt enim ullamco fugiat labore laboris elit fugiat anim aliqua.
+## sed
+Use sed: sed is a command-line tool that can be used to search and replace text in a file. You can use it to update an XML file by specifying the search pattern and the replacement text. For example:
+
+```bash
+sed -i 's/<old-text>/<new-text>/g' file.xml
+```
+
+This will search for all instances of <old-text> in file.xml and replace them with <new-text>.
+
+
+## awk
+Use awk: awk is a programming language designed for text processing. You can use it to update an XML file by specifying the search pattern and the replacement text. For example:
+
+```bash
+awk '/<old-text>/{sub("<old-text>","<new-text>")}1' file.xml > newfile.xml
+```
+This will search for all instances of <old-text> in file.xml and replace them with <new-text>, and write the updated content to a new file called newfile.xml.
+
+## xmlstarlet
+Use xmlstarlet: xmlstarlet is a command-line tool for working with XML files. You can use it to update an XML file by specifying the element you want to update and the new value. For example:
+
+```bash
+xmlstarlet ed -L -u '/root/element/@attribute' -v 'new value' file.xml
+```
+This will update the attribute of the element element under the root element in file.xml with the value new value.
+
+<b>Note:</b> These are just a few examples of how you can update an XML file using the terminal or a bash script. There are many other tools and techniques you can use, depending on your specific needs.
