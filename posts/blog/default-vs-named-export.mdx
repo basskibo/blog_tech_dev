@@ -1,6 +1,6 @@
 ---
 title: "Default vs named module export in Javascript"
-publishedAt: "2022-11-15"
+publishedAt: "2022-12-17"
 excerpt: "Git is software for tracking changes in any set of files, usually used for coordinating work among programmers
  collaboratively developing source code during 
 software development. "
@@ -12,21 +12,63 @@ imageCreditUser: "Evgeni Tcherkasski"
 imageCreditUsername: "evgenit"
 author: "Bojan Jagetic"
 tags: [{ slug: "js", name: "javascript" }, {slug: "nodejs", name: "nodejs"}]
-inPreparation: true
+inPreparation: false
 ---
 
-## Introduction
+In JavaScript, we can use the <code>export</code> keyword to make certain variables, functions, and classes available to other parts of our codebase or to other modules. We can then use the import keyword to access those exports in another file.
 
-Classes are template used for creating objects, encapsulating data with code to work on that data.
-Class in Javascript is built on prototype but also it has some syntax that are not shared with ES5 class-like semantic.
-In the modern JavaScript, there’s a more advanced “class” construct, that introduces great new features which are useful for object-oriented programming.
-<NewLine/>
-  
+There are two ways to use the export keyword: <code>named exports</code> and <code>default exports</code>.
 
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Eu ex est irure nisi veniam occaecat est ullamco aliqua cillum laborum enim magna id. Irure amet tempor aliqua eu non eiusmod laboris minim occaecat excepteur eiusmod excepteur eiusmod ex. Qui nulla dolor anim duis duis sunt officia minim pariatur ullamco cillum cillum. Esse eu anim velit ut laborum. Eu consequat labore reprehenderit minim cillum anim laboris elit deserunt voluptate ipsum adipisicing do aliqua. Duis eu aliqua dolore ut nisi proident. Anim dolore sunt enim ullamco fugiat labore laboris elit fugiat anim aliqua.
+## Named Exports
+Named exports allow us to export multiple variables, functions, or classes with a specific name. We can use the export keyword followed by the variable, function, or class that we want to export. Here is an example of a file with named exports:
+
+```javascript
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+export const multiply = (a, b) => a * b;
+export const divide = (a, b) => a / b;
+```
+
+We can then import these named exports into another file by using the import keyword and specifying the names of the exports that we want to import. Here is an example of how we can import the named exports from the above file:
+
+```javascript
+import { add, subtract, multiply, divide } from './math';
+
+console.log(add(1, 2)); // 3
+console.log(subtract(1, 2)); // -1
+console.log(multiply(2, 3)); // 6
+console.log(divide(6, 2)); // 3
+```
+
+We can also use the * symbol to import all of the named exports from a module, like this:
+
+```javascript
+import * as math from './math';
+
+console.log(math.add(1, 2)); // 3
+console.log(math.subtract(1, 2)); // -1
+console.log(math.multiply(2, 3)); // 6
+console.log(math.divide(6, 2)); // 3
+```
+
+## Default Exports
+
+In addition to named exports, we can also use default exports in JavaScript. Default exports allow us to export a single variable, function, or class as the default export of a module. We can use the export default keyword followed by the variable, function, or class that we want to export as the default. Here is an example of a file with a default export:
+
+```javascript
+export default const add = (a, b) => a + b;
+```
+
+We can import the default export from another file by using the import keyword and specifying a name for the default export. Here is an example of how we can import the default export from the above file:
+
+```javascript
+import add from './math';
+
+console.log(add(1, 2)); // 3
+```
+
+It's important to note that we can only have one default export per module. However, we can have multiple named exports in the same module.
+
+## Choosing Between Named Exports and Default Exports
+
+When deciding whether to use named exports or a default export, it's important to consider the context in which the exports will be used. If you only need to export a single variable, function, or class, then using a default export might make the most sense. On the other hand, if you need to export multiple variables, functions, or classes, then named exports might be the better choice.
