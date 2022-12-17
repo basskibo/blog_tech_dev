@@ -29,7 +29,7 @@ Use sed: sed is a command-line tool that can be used to search and replace text 
 sed -i 's/<old-text>/<new-text>/g' file.xml
 ```
 
-This will search for all instances of <old-text> in file.xml and replace them with <new-text>.
+This will search for all instances of `<old-text>` in file.xml and replace them with `<new-text>`.
 
 
 ## awk
@@ -38,7 +38,7 @@ Use awk: awk is a programming language designed for text processing. You can use
 ```bash
 awk '/<old-text>/{sub("<old-text>","<new-text>")}1' file.xml > newfile.xml
 ```
-This will search for all instances of <old-text> in file.xml and replace them with <new-text>, and write the updated content to a new file called newfile.xml.
+This will search for all instances of `<old-text>` in file.xml and replace them with `<new-text>`, and write the updated content to a new file called newfile.xml.
 
 ## xmlstarlet
 Use xmlstarlet: xmlstarlet is a command-line tool for working with XML files. You can use it to update an XML file by specifying the element you want to update and the new value. For example:
