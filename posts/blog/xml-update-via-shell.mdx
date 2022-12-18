@@ -27,7 +27,7 @@ Use sed: sed is a command-line tool that can be used to search and replace text 
 sed -i 's/<old-text>/<new-text>/g' file.xml
 ```
 
-This will search for all instances of `<old-text>` in file.xml and replace them with `<new-text>`.
+This will search for all instances of <code>old-text</code> in file.xml and replace them with <code>new-text</code>.
 
 
 ## awk
@@ -36,7 +36,7 @@ Use awk: awk is a programming language designed for text processing. You can use
 ```bash
 awk '/<old-text>/{sub("<old-text>","<new-text>")}1' file.xml > newfile.xml
 ```
-This will search for all instances of `<old-text>` in file.xml and replace them with `<new-text>`, and write the updated content to a new file called newfile.xml.
+This will search for all instances of <code>old-text</code> in file.xml and replace them with <code>new-text</code>, and write the updated content to a new file called newfile.xml.
 
 ## xmlstarlet
 Use xmlstarlet: xmlstarlet is a command-line tool for working with XML files. You can use it to update an XML file by specifying the element you want to update and the new value. For example:
@@ -44,11 +44,11 @@ Use xmlstarlet: xmlstarlet is a command-line tool for working with XML files. Yo
 ```bash
 xmlstarlet ed -L -u '/root/element/@attribute' -v 'new value' file.xml
 ```
-This will update the attribute of the element element under the root element in file.xml with the value new value.
+This will update the attribute of the element element under the root element in <code>file.xml</code> with the value new value.
 
 <b>Note:</b> These are just a few examples of how you can update an XML file using the terminal or a bash script. There are many other tools and techniques you can use, depending on your specific needs.
 
-## Use combination of sed and xmlstarlet 
+## Combination of sed and xmlstarlet 
 
 To update an XML file from a bash script, you can use a combination of the sed command and the xmlstarlet utility. Here is an example of how this can be done:
 
@@ -62,7 +62,7 @@ Use the sed command to find and replace a specific string in the XML file. For e
 sed 's/old_string/new_string/g' input.xml > output.xml
 ```
 
-Use the xmlstarlet utility to update specific elements or attributes in the XML file. For example, the following command will update the value of the "name" attribute in the "item" element to "new_name":
+Use the xmlstarlet utility to update specific elements or attributes in the XML file. For example, the following command will update the value of the <code>name</code> attribute in the <code>item</code> element to <code>new_name</code>:
 
 ```bash
 xmlstarlet ed -u '/items/item/@name' -v 'new_name' input.xml > output.xml
