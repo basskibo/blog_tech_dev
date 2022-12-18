@@ -41,8 +41,9 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                              <CategoryChip className='my-0' categories={post?.data?.tags} />
                          </div> */}
                 <div
-                    className={clsx(post?.data?.inPreparation ? 'bg-neutral-900 text-slate-400 h-1/3' : 'lg:h-2/4 xs:h-1/2  backdrop-blur-3xl hover:bg-neutral-900  text-white',
-                      'pr-3 mt-1 z-50   w-full bottom-0 p-3 '
+                // backdrop-blur-3xl
+                    className={clsx(post?.data?.inPreparation ? ' text-slate-400 h-1/3' : 'lg:h-2/4 xs:h-1/2   hover:bg-neutral-900  text-white',
+                      'pr-3 mt-1 z-50 bg-neutral-900  w-full bottom-0 p-3 '
                     )}>
                     <h1 className='text-lg font-semibold '> {post?.data?.title}</h1>
                     <div className='mt-1 text-white flex-row '>
