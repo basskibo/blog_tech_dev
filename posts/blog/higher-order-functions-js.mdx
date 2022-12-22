@@ -1,9 +1,7 @@
 ---
 title: "Higher order functions in Javascript"
-publishedAt: "2022-11-15"
-excerpt: "Git is software for tracking changes in any set of files, usually used for coordinating work among programmers
- collaboratively developing source code during 
-software development. "
+publishedAt: "2022-12-22"
+excerpt: "Higher order functions are functions that take other functions as arguments or return them as output. They are an important concept in functional programming and can be used to greatly simplify and improve the readability of your code."
 englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
@@ -12,23 +10,70 @@ imageCreditUser: "Aman Shrestha"
 imageCreditUsername: "a_mans_photography"
 author: "Bojan Jagetic"
 tags: [{ slug: "js", name: "javascript" }]
-inPreparation: true
+inPreparation: false
 ---
 
 ## Introduction
 
-Classes are template used for creating objects, encapsulating data with code to work on that data.
-Class in Javascript is built on prototype but also it has some syntax that are not shared with ES5 class-like semantic.
-In the modern JavaScript, there’s a more advanced “class” construct, that introduces great new features which are useful for object-oriented programming.
-<NewLine/>
+Higher order functions are functions that take other functions as arguments or return them as output. They are an important concept in functional programming and can be used to greatly simplify and improve the readability of your code.
 
-Photo by <a href="https://unsplash.com/es/@a_mans_photography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Aman Shrestha</a> on <a href="https://unsplash.com/s/photos/higher?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-  
+## Using Higher Order Functions
+One of the most common ways to use higher order functions is to pass in a function as an argument to another function. For example, the <code>Array.prototype.map</code> method is a higher order function that takes a function as an argument and applies it to each element in an array, returning a new array with the transformed elements.
 
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Eu ex est irure nisi veniam occaecat est ullamco aliqua cillum laborum enim magna id. Irure amet tempor aliqua eu non eiusmod laboris minim occaecat excepteur eiusmod excepteur eiusmod ex. Qui nulla dolor anim duis duis sunt officia minim pariatur ullamco cillum cillum. Esse eu anim velit ut laborum. Eu consequat labore reprehenderit minim cillum anim laboris elit deserunt voluptate ipsum adipisicing do aliqua. Duis eu aliqua dolore ut nisi proident. Anim dolore sunt enim ullamco fugiat labore laboris elit fugiat anim aliqua.
+Here's an example of using map to double the values of an array:
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+const doubled = numbers.map(number => number * 2);
+
+console.log(doubled); // [2, 4, 6, 8, 10]
+```
+
+Another common higher order function is <code>Array.prototype.filter</code>, which takes a function as an argument and returns a new array with only the elements that pass the test implemented by the function.
+
+Here's an example of using <b>filter</b> to return only even numbers from an array:
+
+```javascript
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const evens = numbers.filter(number => number % 2 === 0);
+
+console.log(evens); // [2, 4, 6, 8, 10]
+```
+
+## Creating Higher Order Functions
+In addition to using higher order functions that are built into JavaScript, you can also create your own higher order functions.
+
+Here's an example of a higher order function that takes a function as an argument and returns a new function that will always return the opposite boolean value:
+
+```javascript
+function negate(func) {
+  return function(...args) {
+    return !func(...args);
+  }
+}
+
+const isPositive = number => number > 0;
+const isNotPositive = negate(isPositive);
+
+console.log(isPositive(1)); // true
+console.log(isNotPositive(1)); // false
+```
+
+Higher order functions can also return functions as output. Here's an example of a higher order function that takes a string and returns a function that will always return that string:
+
+```javascript
+function always(str) {
+  return function() {
+    return str;
+  }
+}
+
+const sayHello = always('Hello');
+
+console.log(sayHello()); // 'Hello'
+```
+
+## Conclusion
+Higher order functions are a powerful tool in JavaScript that can be used to greatly improve the readability and maintainability of your code. Whether you're using built-in higher order functions or creating your own, they are an important concept to understand in functional programming.
