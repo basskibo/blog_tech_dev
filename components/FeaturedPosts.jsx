@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { BsEye } from 'react-icons/bs'
 import CountUp from 'react-countup'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const FeaturedPosts = () => {
   const [posts, setPosts] = useState([])
+
   useEffect(() => {
     getViews()
   }, [])
@@ -18,9 +21,9 @@ const FeaturedPosts = () => {
         'Content-Type': 'application/json'
       }
     })
-    console.log(result.data)
     setPosts(result.data)
   }
+
   return (
       <div className='relative bg-neutral-900 overflow-hidden md:p-5'>
          <div className='pt-16 pb-40 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-32'>
@@ -37,65 +40,36 @@ const FeaturedPosts = () => {
                      guest and checkout, I hope there is something for everyone
                   </p>
                </div>
-               <div className='flex gap-6 flex-col md:flex-row mt-10'>
+               {posts.length > 0
+                 ? <div className=' flex gap-6 flex-col md:flex-row mt-10'>
                   {posts.map((post) => (
-                        <a key={post.name}
-                        className='transform hover:scale-[1.02] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-[#7928ca] to-[#ff0080]'
-                        href={post.slug}>
-                        <div className='flex flex-col justify-between h-full bg-neutral-900  rounded-lg p-4'>
-                           <div className='flex flex-col md:flex-row justify-between'>
-                              <h3 className='text-lg md:text-lg font-medium mb-4 sm:mb-10 w-full text-gray-100 tracking-tight'>
-                                 {post.name}
-                              </h3>
-                           </div>
-                           <p className='text-gray-400 text-sm my-2 truncate '>{post.description}</p>
-
-                           <div className='flex items-center text-gray-400 capsize'>
-                              <BsEye className='text-lg' />
-                              <span className='ml-2 text-sm align-baseline capsize'>
-                                 <CountUp end={post.views} /> views
-                              </span>
-                           </div>
-                        </div>
-                     </a>
-                  ))}
-                  {/* <a
-                                    className='transform hover:scale-[1.02] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-[#7928ca] to-[#ff0080]'
-
-                     // className='transform hover:scale-[1.02] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-b p-1 from-[#ff0080]  to-[#7928ca]'
-                     href='/post/nodejs-interview'>
+                     <a key={post.name}
+                     className='transform hover:scale-[1.02] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-[#7928ca] to-[#ff0080]'
+                     href={post.slug}>
                      <div className='flex flex-col justify-between h-full bg-neutral-900  rounded-lg p-4'>
                         <div className='flex flex-col md:flex-row justify-between'>
-                           <h4 className='text-lg md:text-lg font-medium mb-6 sm:mb-10 w-full text-gray-900 dark:text-gray-100 tracking-tight'>
-                              Node.js Developer Technical Interview (Basic)
-                           </h4>
+                           <h3 className='text-lg md:text-lg font-medium mb-4 sm:mb-10 w-full text-gray-100 tracking-tight'>
+                                 {post.name || <Skeleton />}
+                           </h3>
                         </div>
-                        <div className='flex items-center text-gray-800 dark:text-gray-200 capsize'>
-                        <BsEye className='text-lg' />
+                           <p className='text-gray-400 text-sm my-2 truncate '>{post.description}</p>
+
+                        <div className='flex items-center text-gray-400 capsize'>
+                           <BsEye className='text-lg' />
                            <span className='ml-2 text-sm align-baseline capsize'>
-                              325 views
+                              <CountUp end={post.views} /> views
                            </span>
                         </div>
                      </div>
                   </a>
-                  <a
-                     className='transform hover:scale-[1.02] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-[#ff0080] to-[#7928ca]'
-                     href='/post/databases-simple'>
-                     <div className='flex flex-col justify-between h-full bg-neutral-900  rounded-lg p-4'>
-                        <div className='flex flex-col md:flex-row justify-between'>
-                           <h4 className='text-lg md:text-lg font-medium mb-6 sm:mb-10 w-full text-gray-900 dark:text-gray-100 tracking-tight'>
-                              SQL vs NoSQL
-                           </h4>
-                        </div>
-                        <div className='flex items-center text-gray-800 dark:text-gray-200 capsize'>
-                        <BsEye className='text-lg' />
-                           <span className='ml-2 text-sm align-baseline capsize'>
-                              256 views
-                           </span>
-                        </div>
-                     </div>
-                  </a> */}
+                  ))}
                </div>
+                 : <div className='mt-10 grid grid-cols-3 gap-6'>
+                  <Skeleton count={7} baseColor="#202020" highlightColor="#444" />
+                  <Skeleton count={7} baseColor="#202020" highlightColor="#444" />
+                  <Skeleton count={7} baseColor="#202020" highlightColor="#444" />
+
+                   </div>}
             </div>
          </div>
       </div>
