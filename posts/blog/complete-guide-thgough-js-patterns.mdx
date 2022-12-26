@@ -1,8 +1,7 @@
 ---
-title: "Complete guid through the JavaScript design patterns"
+title: "Mastering JavaScript Design Patterns: A Comprehensive Guide"
 publishedAt: "2022-07-13"
-excerpt: "As JavaScript developer you will write the bunch of code for different types of problems and challenges
-but the code will be very similiar, thats because you used design patterns without even knowing "
+excerpt: "Design patterns are not just for experienced developers. Even if you're just starting out with JavaScript, you can benefit from learning about design patterns and how to use them in your projects"
 englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
@@ -14,26 +13,171 @@ inPreparation: true
 
 ## Introduction
 
-Its goals include speed, data integrity, and support for distributed, non-linear workflows. Wikipedia
+If you're new to JavaScript design patterns, this post is for you. We'll start with the basics, including an overview of what design patterns are and why they are important. From there, we'll move on to some of the most common design patterns in JavaScript, including the singleton pattern, the factory pattern, and the observer pattern.
+JavaScript design patterns are reusable solutions to common programming problems that can improve the organization, readability, and maintainability of your code. In this post, we'll introduce some of the most popular and useful design patterns in JavaScript and explain how to use them in your projects.
 
-Software architecture patterns plays crucial role in granting ability to system to scale over the time by user's demand gets a significant amount
 
-Just keep **looking**
 
-## Design Patterns
+
+### What is a Design Pattern
+
+Design patterns are a key concept in software engineering and are especially important in JavaScript, where the dynamic and flexible nature of the language can make it difficult to write clean and maintainable code. In this post, we'll explore the benefits of using design patterns in JavaScript and provide some practical examples of how to apply them in your projects.
+As Wikipedia says on <Link href="https://en.wikipedia.org/wiki/Software_design_pattern" >Software design patterns </Link>:
+<QouteComponent>In software engineering, a software design pattern is a general, reusable solution to a commonly occurring problem within a given context in software design. It is not a finished design that can be transformed directly into source or machine code. Rather, it is a description or template for how to solve a problem that can be used in many different situations. Design patterns are formalized best practices that the programmer can use to solve common problems when designing an application or system.</QouteComponent>
+
+### Practice
+Design patterns can speed up the development process by providing tested, proven development paradigms.[4] Effective software design requires considering issues that may not become visible until later in the implementation. Freshly written code can often have hidden subtle issues that take time to be detected, issues that sometimes can cause major problems down the road. Reusing design patterns helps to prevent such subtle issues,[5] and it also improves code readability for coders and architects who are familiar with the patterns.
+
+In order to achieve flexibility, design patterns usually introduce additional levels of indirection, which in some cases may complicate the resulting designs and hurt application performance.
+
+By definition, a pattern must be programmed anew into each application that uses it. Since some authors see this as a step backward from software reuse as provided by components, researchers have worked to turn patterns into components. Meyer and Arnout were able to provide full or partial componentization of two-thirds of the patterns they attempted.[6]
+
+Software design techniques are difficult to apply to a broader range of problems.[citation needed] Design patterns provide general solutions, documented in a format that does not require specifics tied to a particular problem.
 
 Find more info <Link href="https://blog.logrocket.com/design-patterns-in-node-js/"> on this link </Link>
 
-## Scalability Design Principles
+### Anti-patterns
 
-<Link href='https://www.linkedin.com/pulse/scalability-design-principles-lars-larsson/'>
-   Scalability Design Principles
-</Link>
+## Classification 
 
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Eu ex est irure nisi veniam occaecat est ullamco aliqua cillum laborum enim magna id. Irure amet tempor aliqua eu non eiusmod laboris minim occaecat excepteur eiusmod excepteur eiusmod ex. Qui nulla dolor anim duis duis sunt officia minim pariatur ullamco cillum cillum. Esse eu anim velit ut laborum. Eu consequat labore reprehenderit minim cillum anim laboris elit deserunt voluptate ipsum adipisicing do aliqua. Duis eu aliqua dolore ut nisi proident. Anim dolore sunt enim ullamco fugiat labore laboris elit fugiat anim aliqua.
+sa jfas gjai gail ji
+
+## Creational Design Patterns
+### Singleton Pattern
+
+The singleton pattern ensures that a class has only one instance, and provides a global point of access to it. This can be useful when you want to make sure that a shared resource is only initialized once.
+
+Here's an example of a singleton in JavaScript:
+
+```javascript
+class Singleton {
+  static instance;
+
+  static getInstance() {
+    if (!Singleton.instance) {
+      Singleton.instance = new Singleton();
+    }
+    return Singleton.instance;
+  }
+
+  constructor() {
+    // private constructor
+  }
+}
+
+const instance1 = Singleton.getInstance();
+const instance2 = Singleton.getInstance();
+
+console.log(instance1 === instance2); // true
+```
+
+
+### Factory Pattern
+
+The factory pattern is a creational pattern that provides an interface for creating objects in a super class, but allows subclasses to alter the type of objects that will be created.
+
+Here's an example of a factory in JavaScript:
+
+```javascript
+class ShapeFactory {
+  createShape(type) {
+    if (type === 'circle') {
+      return new Circle();
+    } else if (type === 'square') {
+      return new Square();
+    }
+  }
+}
+
+class Circle {
+  draw() {
+    console.log('Drawing a circle');
+  }
+}
+
+class Square {
+  draw() {
+    console.log('Drawing a square');
+  }
+}
+
+const shapeFactory = new ShapeFactory();
+const circle = shapeFactory.createShape('circle');
+circle.draw(); // "Drawing a circle"
+const square = shapeFactory.createShape('square');
+square.draw(); // "Drawing a square"
+```
+
+
+### Builder pattern
+
+
+### Module Pattern
+
+### Prototype Pattern
+
+## Structural Design Patterns
+
+### Decorator
+### Proxy Pattern
+
+
+### Adapter Pattern
+
+### Facade Pattern
+
+## Behavioral Design Patterns
+
+### Chain of Responsibility Pattern
+### Observer Pattern
+
+The observer pattern is a behavioral pattern that allows an object (the subject) to notify other objects (the observers) when its state changes. This pattern is often used for event-driven programming.
+
+Here's an example of the observer pattern in JavaScript:
+
+```javascript
+class Subject {
+  constructor() {
+    this.observers = [];
+  }
+
+  subscribe(observer) {
+    this.observers.push(observer);
+  }
+
+  unsubscribe(observer) {
+    this.observers = this.observers.filter(o => o !== observer);
+  }
+
+  notify(data) {
+    this.observers.forEach(observer => observer.update(data));
+  }
+}
+
+class Observer {
+  constructor(name) {
+    this.name = name;
+  }
+
+  update(data) {
+    console.log(`${this.name} received update: ${data}`);
+  }
+}
+
+const subject = new Subject();
+const observer1 = new Observer('observer 1');
+const observer2 = new Observer('observer 2');
+
+subject.subscribe(observer1);
+subject.subscribe(observer2);
+subject.notify('some data');
+// "observer 1 received update: some data"
+// "observer 2 received update: some data"
+```
+
+### Iterator Pattern
+
+
+## Conclusion
+
+<Iframe url="https://codesandbox.io/embed/heuristic-dhawan-lo00we?fontsize=14&theme=dark&view=editor" title="Module pattern" />
