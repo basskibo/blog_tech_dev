@@ -45,7 +45,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                     className={clsx(post?.data?.inPreparation ? ' text-slate-400 h-1/3' : 'lg:h-2/4 xs:h-1/2   hover:bg-neutral-900  text-white',
                       'pr-3 mt-1 z-50 bg-neutral-900  w-full bottom-0 p-3 '
                     )}>
-                    <h1 className='text-lg font-semibold '> {post?.data?.title}</h1>
+                    <h1 className='text-lg font-bold '> {post?.data?.title}</h1>
                     <div className='mt-1 text-white flex-row '>
                         {' '}
                         {/* <div className='basis-1/2'>
@@ -53,7 +53,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                   </div> */}
 
                         <div className='basis-1/2'>
-                            <p className='align-middle font-bold text-sm text-slate-300 mt-1'>
+                            <p className='align-middle  font-semibold text-sm text-slate-400 mt-1'>
                                 {post?.data?.inPreparation
                                   ? ''
                                   : moment(post?.data?.publishedAt).format(
@@ -68,7 +68,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                         <div className=' '>
                             {post?.data?.inPreparation
                               ? <p className=' my-5 bottom-0 h-64'><Accent className='w-full bg-neutral-900  font-extrabold animate-pulse'>Cooming soon...</Accent></p>
-                              : <div className=''><p className='align-middle font-italic text-sm text-slate-300 mt-1 '>
+                              : <div className=''><p className='align-middle italic text-sm text-slate-400 mt-1 '>
                                 {post?.data?.excerpt}
                             </p>
                              {/* <div className=' w-full pt-0 bottom-0 inset-x-0  text-white text-xs md:text-xs text-center leading-4'>
