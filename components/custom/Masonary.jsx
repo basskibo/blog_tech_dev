@@ -83,10 +83,69 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
   )
 }
 
+const ChildLibary = ({ style, index, data, readyInViewport, scrolling }) => {
+  const post = data[index]?.props
+  return (
+//     <div className='my-5'>
+//  <LibaryCard libary={post.data}
+//     key={post.data.slug} />
+//     </div>
+<div
+style={{ display: 'flex', borderRadius: '15px', ...style }} >
+<a
+    className={clsx(
+      post?.data?.inPreparation ? ' pointer-events-none' : ' ', 'relative flex flex-wrap  items-end justify-end flex-1 m-2 h-48 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg border border-neutral-800'
+    )}
+
+    href={`/libary/${post?.data?.slug}`}
+>
+
+    <div
+        className={clsx(post?.data?.inPreparation ? ' text-slate-400 ' : '   hover:bg-neutral-900  text-white',
+          'pr-3 mt-1 z-50 bg-neutral-900  w-full bottom-0 p-3 '
+        )}>
+        <h1 className='text-lg font-bold '> {post?.data?.title}</h1>
+        <div className='mt-1 text-white flex-row '>
+
+            <div className='basis-1/2'>
+                <p className='align-middle  font-semibold text-sm text-slate-400 mt-1'>
+                    {post?.data?.inPreparation
+                      ? ''
+                      : moment(post?.data?.publishedAt).format(
+                        'MMMM DD, YYYY'
+                      )}
+                </p>
+            </div>
+            <div className=' text-slate-400 text-sm flex mt-3'>
+                     {post?.data?.technologies.map((techIcon) =>
+                       constants.generateIcon(techIcon)
+                     )}
+                  </div>
+            <div className=' '>
+                {post?.data?.inPreparation
+                  ? <p className=' my-2 bottom-0 h-10'><Accent className='w-full bg-neutral-900  font-extrabold animate-pulse'>Cooming soon...</Accent></p>
+                  : <div className=''><p className='align-middle italic text-sm text-slate-400 mt-1 '>
+                    {post?.data?.excerpt}
+                </p>
+
+             </div>}
+            </div>
+        </div>
+    </div>
+</a>
+</div>
+
+  )
+}
+
 const App = ({ ...props }) => {
+  console.log(props)
   const data = props.posts
+  const type = props.type
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
-  const cellSize = !isTabletOrMobile ? { height: 400, width: 400 } : { height: 400 }
+  const cellWidthByType = type === 'blog' ? { height: 400, width: 400 } : { height: 200, width: 400 }
+  const cellHeightByType = type === 'blog' ? { height: 400 } : { height: 200 }
+  const cellSize = !isTabletOrMobile ? cellWidthByType : cellHeightByType
 
   return (
         <section>
@@ -95,7 +154,7 @@ const App = ({ ...props }) => {
                 <VirtualGrid
                     total={props.posts.length }
                     cell={cellSize}
-                    child={Child}
+                    child={type === 'blog' ? Child : ChildLibary}
                     childProps={{ data }}
                     viewportRowOffset={10}
                 />

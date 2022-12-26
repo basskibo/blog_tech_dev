@@ -94,7 +94,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
     // const url = `http://localhost:3000/api/views`;
     const result = await axios(url, {
       method: 'POST',
-      params: { title: data.title, description: data.description, slug: `libary/${data.slug}` },
+      params: { title: data.title, description: data.excerpt, slug: `libary/${data.slug}` },
       headers: {
         'Content-Type': 'application/json'
       }
@@ -159,7 +159,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
 
                         <blockquote className='mt-0 mb-4'>
                            <p className='text-slate-400 mt-0'>
-                              {data.description}
+                              {data.excerpt}
                            </p>
                         </blockquote>
 
