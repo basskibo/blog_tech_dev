@@ -1,9 +1,7 @@
 ---
-title: "Npm vs Yarn"
-publishedAt: "2022-11-15"
-excerpt: "Git is software for tracking changes in any set of files, usually used for coordinating work among programmers
- collaboratively developing source code during 
-software development. "
+title: "npm vs Yarn: A Comparison"
+publishedAt: "2022-12-24"
+excerpt: "npm and Yarn are both popular package managers for JavaScript projects, but they have some key differences that you should be aware of when deciding which one to use."
 englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
@@ -12,21 +10,36 @@ imageCreditUser: "Adelin Grigorescu"
 imageCreditUsername: "adelingrigorescu"
 author: "Bojan Jagetic"
 tags: [{ slug: "npm", name: "npm" }, { slug: "yarn", name: "yarn" }]
-inPreparation: true
+inPreparation: false
 ---
 
 ## Introduction
+<Link href='npmjs.com'>npm</Link> and <Link href='https://yarnpkg.com/'>Yarn</Link> are both popular package managers for JavaScript projects, but they have some key differences that you should be aware of when deciding which one to use.
 
-Classes are template used for creating objects, encapsulating data with code to work on that data.
-Class in Javascript is built on prototype but also it has some syntax that are not shared with ES5 class-like semantic.
-In the modern JavaScript, there’s a more advanced “class” construct, that introduces great new features which are useful for object-oriented programming.
-<NewLine/>
-  
+## npm
 
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Eu ex est irure nisi veniam occaecat est ullamco aliqua cillum laborum enim magna id. Irure amet tempor aliqua eu non eiusmod laboris minim occaecat excepteur eiusmod excepteur eiusmod ex. Qui nulla dolor anim duis duis sunt officia minim pariatur ullamco cillum cillum. Esse eu anim velit ut laborum. Eu consequat labore reprehenderit minim cillum anim laboris elit deserunt voluptate ipsum adipisicing do aliqua. Duis eu aliqua dolore ut nisi proident. Anim dolore sunt enim ullamco fugiat labore laboris elit fugiat anim aliqua.
+npm (short for Node Package Manager) is the default package manager for the JavaScript runtime environment Node.js. It is installed with Node.js and allows you to download and manage packages (libraries and tools) that you can use in your projects. npm uses a package.json file in the root of your project to keep track of the packages you have installed and their versions.
+
+### Some notable features of npm include:
+
+<LgList>
+    <li>A registry of over 1 million packages that you can use in your projects</li>
+    <li>Automatic dependency resolution, which means that npm will automatically install any dependencies (i.e. packages that your project relies on) that are required by your project</li>
+    <li>A command-line interface (CLI) that you can use to manage your packages and run scripts</li>
+</LgList>
+
+## Yarn
+Yarn is an alternative package manager that was developed by Facebook in collaboration with Exponent, Google, and Tilde. Like npm, Yarn allows you to download and manage packages for your projects, but it has a few key differences that set it apart.
+
+### Some notable features of Yarn include:
+
+<LgList>
+    <li>A faster installation process, thanks to its use of a lockfile and a cache</li>
+    <li>The ability to install packages offline, as long as you have previously installed them on the same machine</li>
+    <li>More reliable and deterministic installs, thanks to its use of a lockfile that specifies the exact versions of packages to be installed</li>
+    <li>A CLI that is similar to that of npm, but with a few extra features (e.g. the ability to easily upgrade all packages in a project to their latest versions)</li>
+</LgList>
+
+## Which one should you use?
+
+Ultimately, the choice between npm and Yarn depends on your personal preference and the needs of your project. Both package managers are widely used and have their own strengths and weaknesses. If you are just starting out with JavaScript development, it might make sense to stick with npm, since it is the default package manager for Node.js and has a larger user base. On the other hand, if you are working on a larger project with a team and need a more reliable and deterministic way to manage your dependencies, Yarn might be a better choice.
