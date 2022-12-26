@@ -1,7 +1,7 @@
 import React from 'react'
-import { SiGithub, SiSpotify } from 'react-icons/si'
+import { SiGithub } from 'react-icons/si'
 import { IoMdInfinite } from 'react-icons/io'
-import SpotifyCard from '../components/custom/SpotifyCard'
+// import SpotifyCard from '../components/custom/SpotifyCard'
 // import GithubCardProfile from "../components/custom/GithubCardProfile";
 import { GithubCard } from 'github-user-repo-card'
 
@@ -25,7 +25,7 @@ const FeatureLanding = () => {
                   </p> */}
                </div>
                <div className='flex gap-6 flex-col md:flex-row mt-10'>
-                  <div className=''>
+                  {/* <div className=''>
                      <div className='items-center justify-center rounded-full bg-neutral-900 text-lime-500 p-1 text-3xl'>
                         <SiSpotify />
                      </div>
@@ -40,7 +40,7 @@ const FeatureLanding = () => {
                         </p>
                         <SpotifyCard />
                      </div>
-                  </div>
+                  </div> */}
                   <div className=''>
                      <div className='items-center justify-center rounded-full bg-neutral-900 text-white p-1 text-3xl'>
                         <SiGithub />
@@ -68,7 +68,8 @@ const FeatureLanding = () => {
                               name='basskibo'
                               type='user'
                               repository='blogtech_dev'
-                              // height={478}
+                              height={450}
+                              width={300}
                            />
                         </div>
                      </div>

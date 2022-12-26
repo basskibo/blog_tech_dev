@@ -2,6 +2,7 @@ import React from 'react'
 import { SiGmail, SiTwitter, SiLinkedin, SiGithub } from 'react-icons/si'
 // import ReactTooltip from 'react-tooltip'
 // import Accent from '../custom/Accent'
+import SpotifyCard from '../custom/SpotifyCard'
 
 const waysToReachMe = [
   { name: 'gmail', description: 'test', externalLink: false, icon: SiGmail, href: 'mailto:jagetic.bojan@gmail.com' },
@@ -47,15 +48,16 @@ const Footer = () => {
                  </a>
              </div>
             <p className='text-sm text-gray-400 sm:ml-4 sm:pl-4  sm:border-gray-800 sm:py-2 sm:mt-0 mt-4'>
-               © 2022 Bojan Jagetic —
-               <a
+               © 2022 Bojan Jagetic
+               {/* <a
                   href='https://github.com/basskibo'
                   className='text-gray-500 ml-1'
                   target='_blank'
                   rel='noopener noreferrer'>
                   @basskibo
-               </a>
+               </a> */}
             </p>
+            <SpotifyCard/>
 
             {/* <span className='inline-flex sm:ml-auto mx-5 sm:mt-0 mt-4 justify-center sm:justify-start'><SpotifyCard /></span> */}
             <span className='inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start'>

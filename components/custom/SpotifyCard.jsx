@@ -7,14 +7,14 @@ import useSWR from 'swr'
 const fetcher = url => axios.get(url).then(res => res.data)
 
 const SpotifyCard = () => {
-  const { data, error } = useSWR('api/spotify', fetcher)
+  const { data, error } = useSWR('/api/spotify', fetcher)
   if (error) {
     // TODO Make notification dialog popup
     console.log(error)
   }
 
   return (
-      <div className='text-slate-400 bg-neutral-900 border border-neutral-600 rounded-lg w-7/8'>
+      <div className='text-slate-400 bg-neutral-900 border border-neutral-700 rounded-lg w-5/8 mx-5 my-2'>
          <a
             target='_blank'
             rel='noreferrer'
@@ -24,24 +24,24 @@ const SpotifyCard = () => {
                  : 'https://open.spotify.com/user/4g1ztvqi3z5mf0uqx87bz9exk'
             }
             className='relative flex  items-center space-x-2 py-4 pl-2 transition-shadow hover:shadow-md'>
-            <div className='w-18'>
+            <div className='w-15'>
                {data?.isPlaying
                  ? (
                   <img
-                     className='w-12 shadow-sm'
+                     className='w-14 shadow-sm'
                      src={data?.albumImageUrl}
                      alt={data?.album}
                   />
                    )
                  : (
-                  <SiSpotify size={64} color={'#1ED760'} />
+                  <SiSpotify size={30} color={'#1ED760'} />
                    )}
             </div>
 
             <div className='flex-1'>
-               <p className='component text-xs'>
+               {/* <p className='component text-xs'>
                   {data?.isPlaying ? 'Currently listening:' : ''}
-               </p>
+               </p> */}
                <p className='component font-bold text-md w-48 lg:w-72 truncate'>
                   {data?.isPlaying
                     ? (
