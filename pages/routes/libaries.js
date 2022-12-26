@@ -1,11 +1,12 @@
 import React from 'react'
 import Accent from '../../components/custom/Accent'
-import LibaryCard from '../../components/LibaryCard'
+// import LibaryCard from '../../components/LibaryCard'
 import 'react-loading-skeleton/dist/skeleton.css'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { getLibaryFiles } from '../../services/indexv2'
+import Virtualized from '../../components/custom/Masonary'
 
 const Libaries = ({ libaries }) => {
   return (
@@ -23,7 +24,11 @@ const Libaries = ({ libaries }) => {
                className='w-full my-3 bg-neutral-900  px-3 py-2 rounded-md border border-slate-600 focus:border-lime-600'
                placeholder='Search...'></input>
          </div>
-         <div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'>
+         <div className=' w-full'>
+            <Virtualized posts={libaries} type={'libary'}/>
+
+      </div>
+         {/* <div className='grid xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 lg:gap-7'>
             {libaries.map((libary, index) => (
                // <PostCard className='' key={post.props.data.slug} post={post.props} />
                <LibaryCard
@@ -31,7 +36,7 @@ const Libaries = ({ libaries }) => {
                   key={libary.props.data.slug}
                />
             ))}
-         </div>
+         </div> */}
       </div>
       // </MotionComponent>
   )
