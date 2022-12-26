@@ -2,6 +2,7 @@ import React from 'react'
 import Accent from '../../components/custom/Accent'
 import TechnologyStack from '../../components/custom/TechnologyStack'
 import CV from '../../components/CV'
+import FeatureLanding from '@/components/FeatureLanding'
 
 const Bio = () => {
   return (
@@ -48,6 +49,8 @@ const Bio = () => {
                <TechnologyStack />
             </div>
             <CV />
+            <FeatureLanding />
+
             {/* <Education/> */}
          </div>
       </div>
