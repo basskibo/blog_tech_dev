@@ -1,0 +1,51 @@
+---
+title: "What is SWR and How Can It Improve Your React Apps"
+publishedAt: "2022-12-26"
+excerpt: "If you're a developer working with React, you may have heard of a library called SWR (Stale-While-Revalidate). But what exactly is it and how can it benefit your React applications?"
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1672069547/igutech/blogs/federico-burgalassi-0qJ0hNuYQN8-unsplash_xaodtl.jpg"
+imageCreditUser: "Federico Burgalassi"
+imageCreditUsername: "fede_burgalassi"
+author: "Bojan Jagetic"
+tags: [{ slug: "nextjs", name: "nextjs" }, {slug: 'react', name: 'react'}]
+inPreparation: false
+---
+
+## Introduction
+If you're a developer working with React, you may have heard of a library called SWR (Stale-While-Revalidate). But what exactly is it and how can it benefit your React applications?
+
+## What is SWR?
+SWR is a lightweight library for handling data fetching in React. It was created by Vercel (formerly known as Zeit) and is designed to make it easy to get data into your React components.
+
+One of the key features of SWR is its ability to "stale-while-revalidate." This means that it will first try to return cached data to the user while simultaneously re-fetching the data in the background. This allows for a seamless user experience, as the user is not left waiting for data to load.
+
+Another benefit of SWR is its automatic cache invalidation. This means that it will automatically update the cache with the latest data when it becomes available, ensuring that your users always have access to the most up-to-date information.
+
+## How to Use SWR in Your React Apps
+
+Using SWR in your React apps is straightforward. First, you'll need to install it:
+
+```
+npm install swr
+```
+Then, you can use the <Adjusted>useSWR</Adjusted> hook to get the data you need in your components:
+
+```
+import useSWR from 'swr';
+
+function MyComponent() {
+  const { data, error } = useSWR('/api/my-endpoint');
+
+  if (error) return <div>Failed to load data</div>;
+  if (!data) return <div>Loading...</div>;
+
+  return <div>{data.name}</div>;
+}
+```
+
+That's it! With just a few lines of code, you can easily get the data you need in your React components with the help of SWR.
+
+## Conclusion
+In summary, SWR is a useful library for handling data fetching in your React applications. Its ability to stale-while-revalidate and automatically invalidate the cache makes it easy to get the data you need in a seamless and efficient way. Give it a try in your next React project and see how it can improve your workflow.
