@@ -42,7 +42,7 @@ const SpotifyCard = () => {
                {/* <p className='component text-xs'>
                   {data?.isPlaying ? 'Currently listening:' : ''}
                </p> */}
-               <p className='component font-bold text-md w-48 lg:w-72  break-words'>
+               <p className='component font-bold text-md w-48 lg:w-72  truncate'>
                   {data?.isPlaying
                     ? (
                      <Accent>{data.title}</Accent>
@@ -54,7 +54,7 @@ const SpotifyCard = () => {
                <p className='font-dark text-sm text-semibold'>
                   {data?.isPlaying ? `Artist: ${data.artist}` : 'Spotify'}
                </p>
-               <p className='font-dark text-xs text-semibold  break-words'>
+               <p className='font-dark text-xs text-semibold w-48 lg:w-72 truncate'>
                   {data?.isPlaying ? `Album: ${data.album}` : ''}
                </p>
             </div>
