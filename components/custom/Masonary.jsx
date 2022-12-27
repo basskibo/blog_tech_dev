@@ -17,7 +17,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
             style={{ display: 'flex', borderRadius: '15px', ...style }}>
             <a
                 className={clsx(
-                  post?.data?.inPreparation ? ' pointer-events-none' : ' ', 'relative flex flex-wrap  items-end justify-end flex-1 m-2 h-96 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg border border-neutral-800'
+                  post?.data?.inPreparation ? ' pointer-events-none' : ' ', 'relative flex flex-wrap  items-end justify-end flex-1 m-2 h-96 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg border border-neutral-700'
                 )}
 
                 href={`/post/${post?.data?.slug}`}
@@ -94,14 +94,14 @@ const ChildLibary = ({ style, index, data, readyInViewport, scrolling }) => {
 style={{ display: 'flex', borderRadius: '15px', ...style }} >
 <a
     className={clsx(
-      post?.data?.inPreparation ? ' pointer-events-none' : ' ', 'relative flex flex-wrap  items-end justify-end flex-1 m-2 h-48 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg border border-neutral-800'
+      post?.data?.inPreparation ? ' pointer-events-none' : ' ', 'relative flex flex-wrap   flex-1 m-2 h-48 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg border border-neutral-700'
     )}
 
     href={`/libary/${post?.data?.slug}`}
 >
 
     <div
-        className={clsx(post?.data?.inPreparation ? ' text-slate-400 ' : '   hover:bg-neutral-900  text-white',
+        className={clsx(post?.data?.inPreparation ? ' text-slate-400 ' : '  text-white',
           'pr-3 mt-1 z-50 bg-neutral-900  w-full bottom-0 p-3 '
         )}>
         <h1 className='text-lg font-bold '> {post?.data?.title}</h1>
