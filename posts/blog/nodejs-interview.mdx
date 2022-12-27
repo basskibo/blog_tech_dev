@@ -107,7 +107,17 @@ fs.readFile('/test.md', (err, data) => {
 }
 ```
 
-### What is event loop
+### What is libuv
+
+We said earlier that Node.js is single-threaded, but how may we create multiple workers to load of thread if they are not thread ? Answer is libuv, which is special libary built (in the beginning) specially for Node.
+It is build in C language, uses system kernel which has multiple threads. Specifically, node do not use more than one thread, but libuv is, libuv spawns workers who are in fact threads
+
+### Concurrency and Throughput
+
+JavaScript execution in Node.js is single threaded, so concurrency refers to the event loop's capacity to execute JavaScript callback functions after completing other work. Any code that is expected to run in a concurrent manner must allow the event loop to continue running as non-JavaScript operations, like I/O, are occurring.
+This is because libuv sets up a thread pool to handle such concurrency. How many threads will be there in the thread pool depends upon the number of cores but you can override this.
+
+## What is event loop
 
 Event loop is an endless loop, which waits for tasks, executes them and then sleeps until it receives more tasks. The event loop executes tasks from the event queue only when the call stack is empty i.e. there is no ongoing task. The event loop allows us to use callbacks and promises.
 The event loop allows Node.js to perform non-blocking I/O operations despite the fact that JavaScript is single-threaded. It is done by assigning operations to the operating system whenever and wherever possible.
@@ -124,15 +134,6 @@ specific tasks such as timers, pending callbacks, idle or prepare, poll, check, 
 with different FIFO queues. Also in between iterations it checks for async I/O or timers and
 shuts down cleanly if there aren't any.
 
-### What is libuv
-
-We said earlier that Node.js is single-threaded, but how may we create multiple workers to load of thread if they are not thread ? Answer is libuv, which is special libary built (in the beginning) specially for Node.
-It is build in C language, uses system kernel which has multiple threads. Specifically, node do not use more than one thread, but libuv is, libuv spawns workers who are in fact threads
-
-### Concurrency and Throughput
-
-JavaScript execution in Node.js is single threaded, so concurrency refers to the event loop's capacity to execute JavaScript callback functions after completing other work. Any code that is expected to run in a concurrent manner must allow the event loop to continue running as non-JavaScript operations, like I/O, are occurring.
-This is because libuv sets up a thread pool to handle such concurrency. How many threads will be there in the thread pool depends upon the number of cores but you can override this.
 
 ## Fork and Cluster
 
@@ -171,7 +172,7 @@ Each thread has one Node instance (one event loop, one JS engine) with most of t
 Shares memory with other threads (e.g. SharedArrayBuffer)
 This can be used for CPU-intensive tasks like processing data or accessing the file system since NodeJS is single-threaded, synchronous tasks can be made more efficient leveraging the worker's threads.
 
-## What is middleware
+## What is Middleware
 
 Middleware comes in between your request and business logic. It is mainly used to capture logs and enable rate limit, routing, authentication, basically whatever that is not a part of business logic. There are third-party middleware also such as body-parser and you can write your own middleware for a specific use case.
 
@@ -203,7 +204,7 @@ Exit codes give us an idea of how a process got terminated/the reason behind ter
 
 </LgList>
 
-### What is an Event Emitter in Node.js
+## What is an Event Emitter in Node.js
 
 EventEmitter is a Node.js class that includes all the objects that are basically capable of emitting events. This can be done by attaching named events that are emitted by the object using an eventEmitter.on() function. Thus whenever this object throws an even the attached functions are invoked synchronously.
 
