@@ -42,11 +42,7 @@ React is a popular JavaScript library for building user interfaces, and as a res
 </Disclosure>  
 <Disclosure question={'2. What is JSX?'}> 
  <b>JSX</b> is a syntax extension of JavaScript. It is used with React to describe what the user interface should look like. By using JSX, we can write HTML structures in the same file that contains JavaScript code
-<CloudinaryImage
-   src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1669891424/igutech/blogs/resources/Untitled-2022-10-31-1033_kjksnz.png'
-   text='Development process'
-   alt='Development process'
-/>    
+
 
 </Disclosure>
 
@@ -156,13 +152,13 @@ HOC can be used for many use cases:
 
 
 
-<Disclosure question={'14. What are hooks React?'}>
+<Disclosure question={'15. What are hooks React?'}>
 React Hooks are the built-in functions that permit developers for using the state and lifecycle methods within React components. These are newly added features made available in React 16.8 version. Each lifecycle of a component is having 3 phases which include mount, unmount, and update. Along with that, components have properties and states. Hooks will allow using these methods by developers for improving the reuse of code with higher flexibility navigating the component tree.
 
 Using Hook, all features of React can be used without writing class components. For example, before React version 16.8, it required a class component for managing the state of a component. But now using the useState hook, we can keep the state in a functional component
 </Disclosure>
 
-<Disclosure question={'18. What is the use of useEffect React Hooks?'}>
+<Disclosure question={'16. What is the use of useEffect React Hooks?'}>
 The useEffect React Hook is used for performing the side effects in functional components. With the help of useEffect, you will inform React that your component requires something to be done after rendering the component or after a state change. The function you have passed(can be referred to as “effect”) will be remembered by React and call afterwards the performance of DOM updates is over. Using this, we can perform various calculations such as data fetching, setting up document title, manipulating DOM directly, etc, that don’t target the output value. The useEffect hook will run by default after the first render and also after each update of the component. React will guarantee that the DOM will be updated by the time when the effect has run by it.
 
 The useEffect React Hook will accept 2 arguments: useEffect(callback,[dependencies]);
@@ -188,20 +184,30 @@ Consider you don’t want to execute document title update each time on renderin
 
 </Disclosure>
 
-<Disclosure question={'14. What is the use of refs in React?'}>
+<Disclosure question={'17. What is the use of refs in React?'}>
 The ref is used to return a reference to the element. They should be avoided in most cases, however, they can be useful when you need a direct access to the DOM element or an instance of a component.
+Ref are an attribute of the DOM elements. The primary purpose of the refs is to find the DOM elements easily.
 </Disclosure>
 
-## Advanced Level - Interview Questions
+## Intermediate Level - Interview Questions
 
-<Disclosure question={'14. Does React useState Hook update immediately?'}>
-React useState and setState don’t make changes directly to the state object; they create queues to optimize performance, which is why the changes don’t update immediately. The process to update React state is asynchronous for performance reasons.
-
-To perform side effects after state has change, you must use the useEffect
+<Disclosure question={'18.  What is Context in React?'}>
+React context helps you to pass data using the tree of react components. It helps you to share data globally between various react components.
 </Disclosure>
 
 
-<Disclosure question={'15. Explain the lifecycle methods of components'}>
+<Disclosure question={'19.  What is Babel in React js?'}>
+Babel, is a JavaScript compiler that converts latest JavaScript like ES6, ES7 into plain old ES5 JavaScript that most browsers understand.
+If you want the browser to read JSX, then that JSX file should be replaced using a JSX transformer like Babel and then send back to the browser.
+</Disclosure>
+
+
+<Disclosure question={'20.  What is the main difference between createElement and cloneElment?'}>
+createElement is used by react to create react elements.
+cloneElement is used to clone an element and pass it new props.
+</Disclosure>
+
+<Disclosure question={'21. Explain the lifecycle methods of components'}>
     <LgList>
         <li>getInitialState(): This is executed before the creation of the component.</li>
         <li>componentDidMount(): Is executed when the component gets rendered and placed on the DOM.</li>
@@ -211,7 +217,7 @@ To perform side effects after state has change, you must use the useEffect
     </LgList>
 </Disclosure>
 
-<Disclosure question={'15. What are the different phases of ReactJS component lifecycle?'}>
+<Disclosure question={'22. What are the different phases of ReactJS component lifecycle?'}>
     <LgList>
         <li>Initialization: In this phase react component prepares setting up the initial state and default props.</li>
         <li>Mounting: The react component is ready to mount in the browser DOM. This phase covers componentWillMount and componentDidMount lifecycle methods.</li>
@@ -220,25 +226,7 @@ To perform side effects after state has change, you must use the useEffect
     </LgList>
 </Disclosure>
 
-
-<Disclosure question={'14. What is prop drilling and how can you avoid it?'}>
-When building a React application, there is often the need for a deeply nested component to use data provided by another component that is much higher in the hierarchy. The simplest approach is to simply pass a prop from each component to the next in the hierarchy from the source component to the deeply nested component. This is called prop drilling.
-
-The primary disadvantage of prop drilling is that components that should not otherwise be aware of the data become unnecessarily complicated and are harder to maintain.
-
-To avoid prop drilling, a common approach is to use React context. This allows a Provider component that supplies data to be defined, and allows nested components to consume context data via either a Consumer component or a useContext hook.
-</Disclosure>
-
-<Disclosure question={'14. What is Strict Mode in React?'}>
-React's StrictMode is sort of a helper component that will help you write better react components, you can wrap a set of components with <Adjusted>StrictMode</Adjusted> and it'll basically:
-    <LgList>
-        <li>Verify that the components inside are following some of the recommended practices and warn you if not in the console.</li>
-        <li>Verify the deprecated methods are not being used, and if they're used strict mode will warn you in the console.</li>
-        <li>Help you prevent some side effects by identifying potential risks.</li>
-    </LgList>
-</Disclosure>
-
- <Disclosure question={'5. What is the difference between Shadow DOM and Virtual DOM?'}>
+ <Disclosure question={'23. What is the difference between Shadow DOM and Virtual DOM?'}>
 The Shadow DOM is a browser technology designed primarily for scoping variables and CSS in web components. The Virtual DOM is a concept implemented by libraries in JavaScript on top of browser APIs.
 
 Virtual DOM is about avoiding unnecessary changes to the DOM, which are expensive performance-wise, because changes to the DOM usually cause re-rendering of the page. Virtual DOM also allows to collect several changes to be applied at once, so not every single change causes a re-render, but instead re-rendering only happens once after a set of changes was applied to the DOM.
@@ -246,7 +234,7 @@ Virtual DOM is about avoiding unnecessary changes to the DOM, which are expensiv
 Shadow dom is mostly about encapsulation of the implementation. A single custom element can implement more-or-less complex logic combined with more-or-less complex DOM. An entire web application of arbitrary complexity can be added to a page by an import and `<body><my-app></my-app>` but also simpler reusable and composable components can be implemented as custom elements where the internal representation is hidden in the shadow DOM like 
 </Disclosure>
 
- <Disclosure question={'5. Why we should not update state directly?'}>
+ <Disclosure question={'24. Why we should not update state directly?'}>
 If you try to update state directly then it won’t re-render the component.
 
 ```javascript
@@ -260,11 +248,69 @@ Instead use setState() method. It schedules an update to a component’s state o
 this.setState({message: ‘Hello World’});
 ```
 Note: The only place you can assign the state is constructor.
-
-
 </Disclosure>
 
-<Disclosure question={'14. Name a few techniques to optimize React app performance?'}>
+<Disclosure question={'25.  What is React Router?'}>
+React Router is a routing library built on top of React, which is used to create routes in a React application. This is one of the most frequently asked react interview questions.
+Why we need it ?
+  <LgList>
+        <li>It maintains consistent structure and behavior and is used to develop single-page web applications.</li>
+        <li>Enables multiple views in a single application by defining multiple routes in the React application.</li>
+    </LgList>
+</Disclosure>
+
+<Disclosure question={'26.  What is Redux?'}>
+Redux is an open-source, JavaScript library used to manage the application state. React uses Redux to build the user interface. It is a predictable state container for JavaScript applications and is used for the entire application’s state management.
+</Disclosure>
+
+
+<Disclosure question={'27.  What are components in Redux?'}>
+  <LgList>
+        <li>Store: Holds the state of the application.</li>
+        <li>Action: The source information for the store.</li>
+        <li>Reducer: Specifies how the application's state changes in response to actions sent to the store.</li>
+    </LgList>
+</Disclosure>
+
+<Disclosure question={'28.  What is Flux?'}>
+  <LgList>
+        <li>Flux is the application architecture that Facebook uses for building web applications. It is a method of handling complex data inside a client-side application and manages how data flows in a React application.</li>
+        <li>There is a single source of data (the store) and triggering certain actions is the only way way to update them.The actions call the dispatcher, and then the store is triggered and updated with their own data accordingly.</li>
+        <li>When a dispatch has been triggered, and the store updates, it will emit a change event that the views can rerender accordingly.</li>
+    </LgList>
+</Disclosure>
+
+
+## Advanced Level - Interview Questions
+
+<Disclosure question={'29. Does React useState Hook update immediately?'}>
+React useState and setState don’t make changes directly to the state object; they create queues to optimize performance, which is why the changes don’t update immediately. The process to update React state is asynchronous for performance reasons.
+
+To perform side effects after state has change, you must use the useEffect
+</Disclosure>
+
+
+
+<Disclosure question={'30. What is prop drilling and how can you avoid it?'}>
+When building a React application, there is often the need for a deeply nested component to use data provided by another component that is much higher in the hierarchy. The simplest approach is to simply pass a prop from each component to the next in the hierarchy from the source component to the deeply nested component. This is called prop drilling.
+
+The primary disadvantage of prop drilling is that components that should not otherwise be aware of the data become unnecessarily complicated and are harder to maintain.
+
+To avoid prop drilling, a common approach is to use React context. This allows a Provider component that supplies data to be defined, and allows nested components to consume context data via either a Consumer component or a useContext hook.
+</Disclosure>
+
+<Disclosure question={'31. What is Strict Mode in React?'}>
+React's StrictMode is sort of a helper component that will help you write better react components, you can wrap a set of components with <Adjusted>StrictMode</Adjusted> and it'll basically:
+    <LgList>
+        <li>Verify that the components inside are following some of the recommended practices and warn you if not in the console.</li>
+        <li>Verify the deprecated methods are not being used, and if they're used strict mode will warn you in the console.</li>
+        <li>Help you prevent some side effects by identifying potential risks.</li>
+    </LgList>
+</Disclosure>
+
+
+
+<Disclosure question={'32. Name a few techniques to optimize React app performance?'}>
 There are many ways through which one can optimize the performance of a React app, let’s have a look at some of them:
     <LgList>
         <li>
@@ -289,9 +335,9 @@ It is better to shift states which are less valuable to the parent component, to
  It is a technique used to reduce the load time of a React app. Lazy loading helps reduce the risk of web app performances to a minimum 
 </li>
 <li>
-<b>Virtualization </b>-  
-When you have large set of data or list, you do not want to render everything and waste resources. Better way is something called virtualization, it is a way of rendering only what is in viewport or in the simple words, render only what user sees. For more details you can read my seperate blog about this called <Link href="https://www.bojanjagetic.com/post/react-virtualization">Advanced Techniques for Improving Performance with React Virtualization
- </Link>
+<b>Virtualization </b> -  
+When you have large set of data or list, you do not want to render everything and waste resources. Better way is something called virtualization, it is a way of rendering only what is in viewport or in the simple words, render only what user sees. For more details you can read my seperate blog about this called 
+<Link href="https://www.bojanjagetic.com/post/react-virtualization">Advanced Techniques for Improving Performance with React Virtualization</Link>
 </li>
     </LgList>
 </Disclosure>
