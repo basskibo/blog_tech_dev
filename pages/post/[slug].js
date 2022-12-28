@@ -74,7 +74,8 @@ const components = {
   GithubCardRepo: MdxComponents.GithubCardRepo,
   NewLine: MdxComponents.NewLine,
   Iframe: MdxComponents.Iframe,
-  Table: MdxComponents.table
+  Table: MdxComponents.table,
+  Disclosure: MdxComponents.Disclosure
 }
 
 const PostDetails = ({ data, mdxSource, toc }) => {
