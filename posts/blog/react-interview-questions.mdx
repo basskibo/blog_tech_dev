@@ -19,7 +19,7 @@ React is a popular JavaScript library for building user interfaces, and as a res
 
 <NewLine/>
 
-## Basic Level - Interview Questions
+## Basic Level 
 
 <Disclosure question={'1. What are the main features of React?'} > 
     <LgList>
@@ -189,7 +189,7 @@ The ref is used to return a reference to the element. They should be avoided in 
 Ref are an attribute of the DOM elements. The primary purpose of the refs is to find the DOM elements easily.
 </Disclosure>
 
-## Intermediate Level - Interview Questions
+## Intermediate Level 
 
 <Disclosure question={'18.  What is Context in React?'}>
 React context helps you to pass data using the tree of react components. It helps you to share data globally between various react components.
@@ -281,7 +281,7 @@ Redux is an open-source, JavaScript library used to manage the application state
 </Disclosure>
 
 
-## Advanced Level - Interview Questions
+## Advanced Level 
 
 <Disclosure question={'29. Does React useState Hook update immediately?'}>
 React useState and setState don’t make changes directly to the state object; they create queues to optimize performance, which is why the changes don’t update immediately. The process to update React state is asynchronous for performance reasons.
@@ -342,6 +342,11 @@ When you have large set of data or list, you do not want to render everything an
     </LgList>
 </Disclosure>
 
+<Disclosure question={'33. Can React Hook replaces Redux?'}>
+The React Hook cannot be considered as a replacement for Redux (It is an open-source, JavaScript library useful in managing the application state) when it comes to the management of the global application state tree in large complex applications, even though the React will provide a useReducer hook that manages state transitions similar to Redux. Redux is very useful at a lower level of component hierarchy to handle the pieces of a state which are dependent on each other, instead of a declaration of multiple useState hooks.
+
+In commercial web applications which is larger, the complexity will be high, so using only React Hook may not be sufficient. Few developers will try to tackle the challenge with the help of React Hooks and others will combine React Hooks with the Redux.
+</Disclosure>
 
 
 ## Conclusion

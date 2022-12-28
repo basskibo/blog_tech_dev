@@ -249,9 +249,6 @@ export default {
     )
   },
   Disclosure: ({ question, answer, children }) => {
-    console.log(question)
-    console.log(answer)
-    console.log(children)
     return (
       <DisclosureComponent props={{ question, children }} />
     )
