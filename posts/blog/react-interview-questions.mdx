@@ -1,0 +1,300 @@
+---
+title: "React Interview Prep: What You Need to Know"
+publishedAt: "2022-12-28"
+excerpt: "If you are preparing for a React interview, it is important to familiarize yourself with the common questions and concepts that are likely to come up. "
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1672243509/igutech/blogs/andrew-neel-9moikpaufvg-unsplash_bqyfdg.jpg"
+imageCreditUser: "Andrew Neel"
+imageCreditUsername: "andrewtneel"
+author: "Bojan Jagetic"
+tags: [{ slug: "react", name: "react" }, {slug: "interview", name: "interview"}]
+inPreparation: false
+---
+
+## Introduction
+
+React is a popular JavaScript library for building user interfaces, and as a result, it is frequently used in job interviews for front-end developers. If you are preparing for a React interview, it is important to familiarize yourself with the common questions and concepts that are likely to come up. In this blog post, we will provide an overview of the React interview process, including tips for success and a list of common interview questions.
+
+ Whether you are a seasoned developer looking to brush up on your React knowledge or a newcomer to the field, this post will help you feel confident and prepared for your upcoming React interview.
+
+<NewLine/>
+
+## Basic Level - Interview Questions
+
+<Disclosure question={'1. What are the main features of React?'} > 
+    <LgList>
+        <li>
+        <Adjusted>JSX</Adjusted>:  JSX is a syntax extension to JavaScript. It is used with React to describe what the user interface should look like. By using JSX, we can write HTML structures in the same file that contains JavaScript code.
+        </li>
+        <li>
+        <Adjusted>Components</Adjusted>: Components are the building blocks of any React application, and a single app usually consists of multiple components. It splits the user interface into independent, reusable parts that can be processed separately.
+        </li>
+        <li>
+        <Adjusted>Virtual DOM</Adjusted>: React keeps a lightweight representation of the real DOM in the memory, and that is known as the virtual DOM. When the state of an object changes, virtual DOM changes only that object in the real DOM, rather than updating all the objects.
+        </li>
+        <li>
+        <Adjusted>One-way data-binding</Adjusted>: React’s one-way data binding keeps everything modular and fast. A unidirectional data flow means that when designing a React app, you often nest child components within parent components.
+        </li>
+        <li>
+        <Adjusted>High performance</Adjusted>: React updates only those components that have changed, rather than updating all the components at once. This results in much faster web applications.
+        </li>
+    </LgList>
+</Disclosure>  
+<Disclosure question={'2. What is JSX?'}> 
+ <b>JSX</b> is a syntax extension of JavaScript. It is used with React to describe what the user interface should look like. By using JSX, we can write HTML structures in the same file that contains JavaScript code
+<CloudinaryImage
+   src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1669891424/igutech/blogs/resources/Untitled-2022-10-31-1033_kjksnz.png'
+   text='Development process'
+   alt='Development process'
+/>    
+
+</Disclosure>
+
+<Disclosure question={'3. Can web browsers read JSX directly?'}>Web browsers cannot read JSX directly. This is because they are built to only read regular JS objects and JSX is not a regular JavaScript object. For a web browser to read a JSX file, the file needs to be transformed into a regular JavaScript object. For this, we use Babel </Disclosure>
+
+<Disclosure question={'4. What is the virtual DOM?'}>
+DOM stands for Document Object Model. The DOM represents an HTML document with a logical tree structure. Each branch of the tree ends in a node, and each node contains objects.
+
+// TODO IMAGE virtualdom
+
+React keeps a lightweight representation of the real DOM in the memory, and that is known as the virtual DOM. When the state of an object changes, the virtual DOM changes only that object in the real DOM, rather than updating all the objects. The following are some of the most frequently asked react interview questions.
+ </Disclosure>
+
+
+
+<Disclosure question={'5. What is an event and how to create it in React?'}>
+An event is an action that a user or system may trigger, such as pressing a key, a mouse click, etc.
+    <LgList>
+        <li>React events are named using camelCase, rather than lowercase in HTML. </li>
+        <li>With JSX, you pass a function as the event handler, rather than a string in HTML. </li>
+</LgList> 
+ </Disclosure>
+
+<Disclosure question={'6. What are synthetic events in React?'}>
+    <LgList>
+        <li>Synthetic events combine the response of different browser's native events into one API, ensuring that the events are consistent across different browsers.</li>
+        <li>The application is consistent regardless of the browser it is running in. Here, preventDefault is a synthetic event.</li>
+    </LgList>
+</Disclosure>
+
+<Disclosure question={'7. Why is there a need for using keys in Lists?'}>
+Keys are very important in lists for the following reasons:
+    <LgList>
+        <li>A key is a unique identifier and it is used to identify which items have changed, been updated or deleted from the lists</li>
+        <li>It also helps to determine which components need to be re-rendered instead of re-rendering all the components every time. Therefore, it increases performance, as only the updated components are re-rendered</li>
+    </LgList>
+</Disclosure>
+
+<Disclosure question={'8. What are forms in React?'}>
+React employs forms to enable users to interact with web applications.
+    <LgList>
+        <li>Using forms, users can interact with the application and enter the required information whenever needed. Form contain certain elements, such as text fields, buttons, checkboxes, radio buttons, etc</li>
+        <li>Forms are used for many different tasks such as user authentication, searching, filtering, indexing, etc</li>
+    </LgList>
+</Disclosure>
+
+<Disclosure question={'9. What are the components in React and with are differences?'}>
+Components are the building blocks of any React application, and a single app usually consists of multiple components. A component is essentially a piece of the user interface. It splits the user interface into independent, reusable parts that can be processed separately.
+
+There are two types of components in React:
+    <LgList>
+        <li>
+        <Adjusted>Functional Components</Adjusted>: These types of components have no state of their own and only contain render methods, and therefore are also called stateless components.They may derive data from other components as props - properties.
+        <CloudinaryImage src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1672239336/igutech/blogs/resources/pika-1672239313594-1x_xey660.png' text='Functional Components' alt='Functional Components'/>
+        </li>
+        <li>
+        <Adjusted>Class Components</Adjusted>: These types of components can hold and manage their own state and have a separate render method to return JSX on the screen. They are also called Stateful components as they can have a state.
+        <CloudinaryImage src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1672239821/igutech/blogs/resources/pika-1672239818383-1x_ampg2i.png' text='Class Components' alt='Class Components'/>
+        </li>
+
+        Main differences between these two are: 
+<Table header={['','Class Components','Functional Components']} content={[
+    ['State', 'Can hold or manage state', 'Cannot hold or manage state'],
+   ['Simplicity','Complex as compared to the stateless component', 'Simple and easy to understand'],
+['Lifecycle methods','Can work with all lifecycle methods', 'Does not work with any lifecycle method'],
+['Reusability','Can be reused', 'Cannot be reused']]} />
+    </LgList>
+</Disclosure>
+
+<Disclosure question={'10. What is render() in React?'}>
+    <LgList>
+        <li>It is required for each component to have a render() function. This function returns the HTML, which is to be displayed in the component.</li>
+        <li>If you need to render more than one element, all of the elements must be inside one parent tag like `<div>,<span>, <form>, etc.`</li>
+    </LgList>
+</Disclosure>
+
+
+<Disclosure question={'11. What is a state in React?'}>
+    <LgList>
+        <li>The state is a built-in React object that is used to contain data or information about the component. The state in a component can change over time, and whenever it changes, the component re-renders.</li>
+        <li>The change in state can happen as a response to user action or system-generated events. It determines the behavior of the component and how it will render.</li>
+    </LgList>
+</Disclosure>
+
+<Disclosure question={'12. What are props in React?'}>
+    <LgList>
+        <li>Props are short for Properties. It is a React built-in object that stores the value of attributes of a tag and works similarly to HTML attributes.</li>
+        <li>Props provide a way to pass data from one component to another component. Props are passed to the component in the same way as arguments are passed in a function.</li>
+    </LgList>
+</Disclosure>
+
+<Disclosure question={'13. What are the differences between state and props?'}>
+   <Table header={['','State','Props']} content={[['Use', 'Holds information about the components', 'Allows to pass data from one component to other components as an argument'],['Mutability','Is Mutable', 'Are Immutable'],
+['Read-only','Can be changed', 'Are read-only'],['Child components','Child components cannot access', 'Child components can access'],['Stateless components','Cannot have state', 'Can have props']]} />
+</Disclosure>
+
+<Disclosure question={'14. What is a higher-order component in React?'}>
+A higher-order component acts as a container for other components. This helps to keep components simple and enables re-usability. They are generally used when multiple components have to use a common logic. 
+HOC can be used for many use cases:
+<SmList>
+    <li>Code reuse, logic and bootstrap abstraction. </li>
+    <li>Render hijacking.</li>
+    <li>State abstraction and manipulation.</li>
+    <li>Props manipulation.</li>
+</SmList>
+</Disclosure>
+
+
+
+<Disclosure question={'14. What are hooks React?'}>
+React Hooks are the built-in functions that permit developers for using the state and lifecycle methods within React components. These are newly added features made available in React 16.8 version. Each lifecycle of a component is having 3 phases which include mount, unmount, and update. Along with that, components have properties and states. Hooks will allow using these methods by developers for improving the reuse of code with higher flexibility navigating the component tree.
+
+Using Hook, all features of React can be used without writing class components. For example, before React version 16.8, it required a class component for managing the state of a component. But now using the useState hook, we can keep the state in a functional component
+</Disclosure>
+
+<Disclosure question={'18. What is the use of useEffect React Hooks?'}>
+The useEffect React Hook is used for performing the side effects in functional components. With the help of useEffect, you will inform React that your component requires something to be done after rendering the component or after a state change. The function you have passed(can be referred to as “effect”) will be remembered by React and call afterwards the performance of DOM updates is over. Using this, we can perform various calculations such as data fetching, setting up document title, manipulating DOM directly, etc, that don’t target the output value. The useEffect hook will run by default after the first render and also after each update of the component. React will guarantee that the DOM will be updated by the time when the effect has run by it.
+
+The useEffect React Hook will accept 2 arguments: useEffect(callback,[dependencies]);
+
+Where the first argument callback represents the function having the logic of side-effect and it will be immediately executed after changes were being pushed to DOM. The second argument dependencies represent an optional array of dependencies. The useEffect() will execute the callback only if there is a change in dependencies in between renderings.
+
+Example:
+```javascript
+import { useEffect } from 'react';
+function WelcomeGreetings({ name }) {
+ const msg = `Hi, ${name}!`;     // Calculates output
+ useEffect(() => {
+   document.title = `Welcome to you ${name}`;    // Side-effect!
+ }, [name]);
+ return <div>{msg}</div>;         // Calculates output
+}
+```
+The above code will update the document title which is considered to be a side-effect as it will not calculate the component output directly. That is why updating of document title has been placed in a callback and provided to useEffect().
+
+Consider you don’t want to execute document title update each time on rendering of WelcomeGreetings component and you want it to be executed only when the name prop changes then you need to supply name as a dependency to useEffect(callback, [name]).
+
+
+
+</Disclosure>
+
+<Disclosure question={'14. What is the use of refs in React?'}>
+The ref is used to return a reference to the element. They should be avoided in most cases, however, they can be useful when you need a direct access to the DOM element or an instance of a component.
+</Disclosure>
+
+## Advanced Level - Interview Questions
+
+<Disclosure question={'14. Does React useState Hook update immediately?'}>
+React useState and setState don’t make changes directly to the state object; they create queues to optimize performance, which is why the changes don’t update immediately. The process to update React state is asynchronous for performance reasons.
+
+To perform side effects after state has change, you must use the useEffect
+</Disclosure>
+
+
+<Disclosure question={'15. Explain the lifecycle methods of components'}>
+    <LgList>
+        <li>getInitialState(): This is executed before the creation of the component.</li>
+        <li>componentDidMount(): Is executed when the component gets rendered and placed on the DOM.</li>
+        <li>shouldComponentUpdate(): Is invoked when a component determines changes to the DOM and returns a “true” or “false” value based on certain conditions. </li>
+        <li>componentDidUpdate(): Is invoked immediately after rendering takes place. </li>
+        <li>componentWillUnmount(): Is invoked immediately before a component is destroyed and unmounted permanently.</li>
+    </LgList>
+</Disclosure>
+
+<Disclosure question={'15. What are the different phases of ReactJS component lifecycle?'}>
+    <LgList>
+        <li>Initialization: In this phase react component prepares setting up the initial state and default props.</li>
+        <li>Mounting: The react component is ready to mount in the browser DOM. This phase covers componentWillMount and componentDidMount lifecycle methods.</li>
+        <li>Updating: In this phase, the component get updated in two ways, sending the new props and updating the state. This phase covers shouldComponentUpdate, componentWillUpdate and componentDidUpdate lifecycle methods. </li>
+        <li>Unmounting: In this last phase, the component is not needed and get unmounted from the browser DOM. This phase include componentWillUnmount lifecycle method. </li>
+    </LgList>
+</Disclosure>
+
+
+<Disclosure question={'14. What is prop drilling and how can you avoid it?'}>
+When building a React application, there is often the need for a deeply nested component to use data provided by another component that is much higher in the hierarchy. The simplest approach is to simply pass a prop from each component to the next in the hierarchy from the source component to the deeply nested component. This is called prop drilling.
+
+The primary disadvantage of prop drilling is that components that should not otherwise be aware of the data become unnecessarily complicated and are harder to maintain.
+
+To avoid prop drilling, a common approach is to use React context. This allows a Provider component that supplies data to be defined, and allows nested components to consume context data via either a Consumer component or a useContext hook.
+</Disclosure>
+
+<Disclosure question={'14. What is Strict Mode in React?'}>
+React's StrictMode is sort of a helper component that will help you write better react components, you can wrap a set of components with <Adjusted>StrictMode</Adjusted> and it'll basically:
+    <LgList>
+        <li>Verify that the components inside are following some of the recommended practices and warn you if not in the console.</li>
+        <li>Verify the deprecated methods are not being used, and if they're used strict mode will warn you in the console.</li>
+        <li>Help you prevent some side effects by identifying potential risks.</li>
+    </LgList>
+</Disclosure>
+
+ <Disclosure question={'5. What is the difference between Shadow DOM and Virtual DOM?'}>
+The Shadow DOM is a browser technology designed primarily for scoping variables and CSS in web components. The Virtual DOM is a concept implemented by libraries in JavaScript on top of browser APIs.
+
+Virtual DOM is about avoiding unnecessary changes to the DOM, which are expensive performance-wise, because changes to the DOM usually cause re-rendering of the page. Virtual DOM also allows to collect several changes to be applied at once, so not every single change causes a re-render, but instead re-rendering only happens once after a set of changes was applied to the DOM.
+
+Shadow dom is mostly about encapsulation of the implementation. A single custom element can implement more-or-less complex logic combined with more-or-less complex DOM. An entire web application of arbitrary complexity can be added to a page by an import and `<body><my-app></my-app>` but also simpler reusable and composable components can be implemented as custom elements where the internal representation is hidden in the shadow DOM like 
+</Disclosure>
+
+ <Disclosure question={'5. Why we should not update state directly?'}>
+If you try to update state directly then it won’t re-render the component.
+
+```javascript
+//Wrong
+This.state.message =”Hello world”;
+```
+Instead use setState() method. It schedules an update to a component’s state object. When state changes, the component responds by re-rendering
+
+```javascript
+//Correct
+this.setState({message: ‘Hello World’});
+```
+Note: The only place you can assign the state is constructor.
+
+
+</Disclosure>
+
+<Disclosure question={'14. Name a few techniques to optimize React app performance?'}>
+There are many ways through which one can optimize the performance of a React app, let’s have a look at some of them:
+    <LgList>
+        <li>
+        <b>Using useMemo( )</b> -
+It is a React hook that is used for caching CPU-Expensive functions.
+Sometimes in a React app, a CPU-Expensive function gets called repeatedly due to re-renders of a component, which can lead to slow rendering.
+useMemo( ) hook can be used to cache such functions. By using useMemo( ), the CPU-Expensive function gets called only when it is needed.
+</li>
+        <li>
+        <b>Using React.PureComponent</b> -
+It is a base component class that checks the state and props of a component to know whether the component should be updated.
+Instead of using the simple React.Component, we can use React.PureComponent to reduce the re-renders of a component unnecessarily.
+</li>
+        <li>
+        <b>Maintaining State Colocation</b> -
+This is a process of moving the state as close to where you need it as possible.
+Sometimes in React app, we have a lot of unnecessary states inside the parent component which makes the code less readable and harder to maintain. Not to forget, having many states inside a single component leads to unnecessary re-renders for the component.
+It is better to shift states which are less valuable to the parent component, to a separate component.
+</li>
+<li>
+<b>Lazy Loading</b> -
+ It is a technique used to reduce the load time of a React app. Lazy loading helps reduce the risk of web app performances to a minimum 
+</li>
+    </LgList>
+</Disclosure>
+
+
+
+## Conclusion
+
+In conclusion, React is a popular and widely-used JavaScript library for building user interfaces. It is used by many companies and developers for building web and mobile applications due to its efficiency and flexibility. Familiarizing yourself with common React interview questions and practicing your responses can help you prepare for a job interview in this field. It is also important to have a strong understanding of React concepts such as the virtual DOM, components, and state management, as well as knowledge of related technologies such as JSX and Redux. By demonstrating your knowledge of React and related technologies, you can increase your chances of success in a React job interview.
