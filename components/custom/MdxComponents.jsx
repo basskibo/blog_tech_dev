@@ -11,6 +11,7 @@ import { buildUrl } from 'cloudinary-build-url'
 import ReactPlayer from 'react-player'
 import ModalImage from 'react-modal-image'
 import slugify from 'slugify'
+import DisclosureComponent from './Disclosure'
 
 const VideoContext = (props) => (
   <div>
@@ -202,11 +203,11 @@ export default {
   table: ({ header, content, genericData }) => {
     console.log(content)
     return (
-      <table className="table-auto  w-full xl:w-2/3 border border-neutral-700 ">
+      <table className="table-auto  w-full xl:w-3/4 border border-neutral-700 ">
         <thead className='bg-neutral-800 '>
           <tr >
             {header.map((head) => (
-              <th key={head} className='p-3'>{head}</th>
+              <th key={head} className='p-3 font-bold'>{head}</th>
             ))}
           </tr>
         </thead>
@@ -245,6 +246,14 @@ export default {
            })} */}
         </tbody>
       </table>
+    )
+  },
+  Disclosure: ({ question, answer, children }) => {
+    console.log(question)
+    console.log(answer)
+    console.log(children)
+    return (
+      <DisclosureComponent props={{ question, children }} />
     )
   }
 }
