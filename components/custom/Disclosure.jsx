@@ -7,11 +7,13 @@ export default function Example ({ props }) {
   return (
         <div className="w-full  pt-2">
             <div className=" w-full  rounded-2xl bg-neutral-900 p-2">
-                <Disclosure as={'h3'} >
+                <Disclosure >
                     {({ open }) => (
                         <>
-                            <Disclosure.Button as={'h3'} className="flex w-full justify-between rounded-lg bg-neutral-700 backdrop-blur-xl p-4 py-2 text-left text-sm font-medium text-white hover:bg-['#ff0080] focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                                <span className='text-lg'>{question}</span>
+                            <Disclosure.Button as={'h3'} className="flex w-full justify-between rounded-lg bg-neutral-700 backdrop-blur-xl p-4 py-2 text-left text-md font-medium text-white hover:cursor-pointer focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+                                {/* <span className='text-lg'> */}
+                                    {question}
+                                {/* </span> */}
                                 <HiChevronUp
                                     className={`${open ? 'rotate-180 transform' : ''
                                         } h-5 w-5 text-white text-lg`}
