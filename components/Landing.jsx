@@ -124,7 +124,7 @@ const Landing = () => {
          </div>
          <AnchorLink
             id='btn-anchor-linkg'
-            href='#sectionFeature'
+            href='#featuredPostsSection'
             aria-label='Scroll down'
             className=' absolute hidden md:inline bottom-5 text-white left-1/2 -translate-x-1/2 md:bottom-5
             rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'>
