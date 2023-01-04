@@ -25,7 +25,7 @@ const FeaturedPosts = () => {
   }
 
   return (
-      <div className='relative bg-neutral-900 overflow-hidden md:p-5'>
+      <div className='relative bg-neutral-900 overflow-hidden md:p-5' id='featuredPostsSection'>
          <div className='pt-16 pb-40 sm:pt-24 sm:pb-20 lg:pt-32 lg:pb-32'>
             <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
                <div className='sm:max-w-lg'>
