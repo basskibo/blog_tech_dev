@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
-// import { PostCard } from '../components'
 import Accent from './custom/Accent'
 import 'react-loading-skeleton/dist/skeleton.css'
 import clsx from 'clsx'
-// import InfiniteScroll from 'react-infinite-scroll-component'
-// import PropagateLoader from 'react-spinners/PropagateLoader'
 import Virtualized from './custom/Masonary'
 
 const getCategories = (posts) => {
@@ -87,6 +84,7 @@ const BlogScreen = ({ posts }) => {
 
     setData(postsWithCategory)
   }
+
   const handleSearchChange = (e) => {
     e.preventDefault()
     setSearch(e.target.value.toLowerCase())
@@ -110,25 +108,27 @@ const BlogScreen = ({ posts }) => {
   }
 
   return (
-    <div className='layout mx-auto lg:my-14 my-5 sm:px-2 xs:px-3 lg:px-5  text-slate-400'>
-      <div className='my-8 ' id="scrollableDiv">
+    <div className='layout mx-auto lg:my-14 my-5 sm:px-2 xs:px-3 lg:px-3  text-slate-400'>
+      <div className='my-8 px-1' id="scrollableDiv">
         <h1 className='mb-5'>
           <Accent className='font-extrabold text-5xl'>Blog</Accent>
         </h1>
 
-        <p className='display-4 '>
+        <p className='display-4 px-1'>
           In order not to wander in the dark (as I did with some things)
           until I found a solution, I wrote some things so that one day
           some unknown hero might be helped.
         </p>
         {/* <MdSearch /> */}
-        <input
+        <div className='px-1'>
+<input
           className='w-full lg:w-4/4 my-3 bg-neutral-900  px-3 py-2 rounded-md border border-slate-600 focus:border-lime-600 flex-grow focus:outline-none cursor-text'
           placeholder='Search...'
           value={search}
           type='search'
           onChange={handleSearchChange}
         />
+        </div>
 
         <div className='mt-1 mb-7 lg:mb-10 lg:w-4/4'>
           {chips
