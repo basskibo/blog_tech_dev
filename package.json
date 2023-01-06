@@ -42,6 +42,7 @@
     "next": "^12.2.4-canary.9",
     "next-api-og-image": "^4.0.1",
     "next-sitemap": "^3.1.31",
+    "nodemailer": "^6.8.0",
     "querystring": "^0.2.1",
     "react": "^17.0.2",
     "react-anchor-link-smooth-scroll": "^1.0.12",
