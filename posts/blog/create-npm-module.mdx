@@ -1,9 +1,7 @@
 ---
-title: "How to create npm module"
-publishedAt: "2022-11-15"
-excerpt: "Git is software for tracking changes in any set of files, usually used for coordinating work among programmers
- collaboratively developing source code during 
-software development. "
+title: "5 Simple Steps to Creating Your Very Own npm Module"
+publishedAt: "2023-01-07"
+excerpt: "Are you tired of using someone else's npm module and wish you could create your own? Well, the good news is that it's actually quite simple to do!"
 englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
@@ -11,22 +9,51 @@ featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1668725339/ig
 imageCreditUser: "Paul Esch-Laurent"
 imageCreditUsername: "pinjasaur"
 author: "Bojan Jagetic"
-tags: [{ slug: "js", name: "javascript" },{slug: 'npm', name: 'npm'}]
-inPreparation: true
+tags: [{slug: 'npm', name: 'npm'}]
+inPreparation: false
 ---
+Are you tired of using someone else's npm module and wish you could create your own? Well, the good news is that it's actually quite simple to do! Follow these five steps and you'll have <code>your very own npm module</code> in no time.
 
-## Introduction
+## Step 1: Initialize Your Project
+First, create a new directory for your project and navigate to it in your terminal. Then, run the following command:
 
-Classes are template used for creating objects, encapsulating data with code to work on that data.
-Class in Javascript is built on prototype but also it has some syntax that are not shared with ES5 class-like semantic.
-In the modern JavaScript, there’s a more advanced “class” construct, that introduces great new features which are useful for object-oriented programming.
-<NewLine/>
-  
+```bash
+npm init
+git init
+git remote add origin git://git-remote-url
+```
 
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Eu ex est irure nisi veniam occaecat est ullamco aliqua cillum laborum enim magna id. Irure amet tempor aliqua eu non eiusmod laboris minim occaecat excepteur eiusmod excepteur eiusmod ex. Qui nulla dolor anim duis duis sunt officia minim pariatur ullamco cillum cillum. Esse eu anim velit ut laborum. Eu consequat labore reprehenderit minim cillum anim laboris elit deserunt voluptate ipsum adipisicing do aliqua. Duis eu aliqua dolore ut nisi proident. Anim dolore sunt enim ullamco fugiat labore laboris elit fugiat anim aliqua.
+This will prompt you to fill out some information about your module, such as its name, description, and entry point. Just follow the prompts and fill out the information as best you can.
+
+Create a <code>README.md</code> file that explains what your package code is and how to use it.
+
+## Step 2: Write Your Code
+
+Next, it's time to write the code for your module. This will depend on what your module does, but in general you should aim to keep it as simple and modular as possible. It's also a good idea to add some comments to your code to help others understand how it works.
+
+## Step 3: Test Your Code
+
+Before you publish your module, it's important to make sure it's working correctly. Write some tests to ensure that your module is doing what it's supposed to do. You can use a tool like Mocha or Jest to run your tests.
+
+Also try installing your npm module:  
+```bash
+npm install my-package-full-path
+```
+
+## Step 4: Publish Your Module
+
+Now it's time to make your module available to the world! In your terminal, navigate to root of your project and run the following command:
+
+```bash
+npm publish
+```
+
+This will publish your module to the npm registry, making it available for others to use.
+
+## Step 5: Keep Your Module Up to Date
+
+Congratulations, you now have your very own npm module! But the work doesn't stop here. It's important to keep your module up to date with the latest best practices and to fix any bugs that are found. Be sure to regularly check for and address any issues that are reported.
+
+## Conclusion
+
+Creating an npm module is a great way to share your code with the world and contribute to the open source community. With these five simple steps, you'll be well on your way to becoming an npm module pro!
