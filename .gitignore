@@ -44,3 +44,6 @@ yarn-error.log*
 # Sentry
 .sentryclirc
 .idea
+
+public/sitemap-0.xml
+package-lock.json

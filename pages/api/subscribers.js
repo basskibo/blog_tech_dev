@@ -37,6 +37,7 @@ async function sendEmail (email) {
     user: process.env.GMAIL_USERNAME,
     pass: process.env.GMAIL_PASS
   }
+  console.log(mailerAccount)
 
   // create reusable transporter object using the default SMTP transport
   const transporter = nodemailer.createTransport({

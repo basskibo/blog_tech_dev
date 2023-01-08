@@ -24,16 +24,16 @@ React is a popular JavaScript library for building user interfaces, and as a res
 <Disclosure question={'1. What are the main features of React?'} > 
     <LgList>
         <li>
-        <Adjusted>JSX</Adjusted>:  JSX is a syntax extension to JavaScript. It is used with React to describe what the user interface should look like. By using JSX, we can write HTML structures in the same file that contains JavaScript code.
+        <Adjusted>JSX</Adjusted> is a syntax extension to JavaScript which is used with React to describe how UI should look like. The bigest advantage of using JSX is that we can write HTML structures in the same file which contains Javascript code. Html is placed under <code>render()</code> method.
         </li>
         <li>
-        <Adjusted>Components</Adjusted>: Components are the building blocks of any React application, and a single app usually consists of multiple components. It splits the user interface into independent, reusable parts that can be processed separately.
+        <Adjusted>Components</Adjusted> are the building blocks of any React application where we usually use combination of multiple components. It splits the user interface into independent, isolated and reusable parts that can be processed separately and in combination with other components. 
         </li>
         <li>
-        <Adjusted>Virtual DOM</Adjusted>: React keeps a lightweight representation of the real DOM in the memory, and that is known as the virtual DOM. When the state of an object changes, virtual DOM changes only that object in the real DOM, rather than updating all the objects.
+        <Adjusted>Virtual DOM</Adjusted>: React holds a lightweight copy representation of the real DOM in memory and that represent Virtual DOM. When the state is changed, virtual DOM will compare real with virutal DOM and it will change only object which is changed and not the whole DOM.
         </li>
         <li>
-        <Adjusted>One-way data-binding</Adjusted>: React’s one-way data binding keeps everything modular and fast. A unidirectional data flow means that when designing a React app, you often nest child components within parent components.
+        <Adjusted>One-way data-binding</Adjusted> or <Adjusted>Unidirectional data flow</Adjusted> wher data can be moved in only one way.
         </li>
         <li>
         <Adjusted>High performance</Adjusted>: React updates only those components that have changed, rather than updating all the components at once. This results in much faster web applications.
@@ -41,8 +41,7 @@ React is a popular JavaScript library for building user interfaces, and as a res
     </LgList>
 </Disclosure>  
 <Disclosure question={'2. What is JSX?'}> 
- <b>JSX</b> is a syntax extension of JavaScript. It is used with React to describe what the user interface should look like. By using JSX, we can write HTML structures in the same file that contains JavaScript code
-
+<b>JSX</b> is a syntax extension to JavaScript which is used with React to describe how UI should look like. The bigest advantage of using JSX is that we can write HTML structures in the same file which contains Javascript code. Html is placed under <code>render()</code> method.
 
 </Disclosure>
 
@@ -56,7 +55,21 @@ DOM stands for Document Object Model. The DOM represents an HTML document with a
 React keeps a lightweight representation of the real DOM in the memory, and that is known as the virtual DOM. When the state of an object changes, the virtual DOM changes only that object in the real DOM, rather than updating all the objects. The following are some of the most frequently asked react interview questions.
  </Disclosure>
 
-
+<Disclosure question={'5. What is difference between React and Angular?'}>
+        Main differences between these two are: 
+<Table header={['','React','Angular']} content={[
+['Developer', 'Facebook' , 'Google'],
+['Release Year' , '2013', '2009'],
+    ['Type', 'Frontend Libary', 'Framework'],
+    ['DOM','Virtual DOM', 'Real DOM'],
+   ['Data Binding','Uni-directonal (one way binding)', 'Bi-directonal (two way binding)'],
+['Language','JSX+JS/TSX+TS', 'TS+HTML'],
+['Application Logic','Redux/Flux', 'Services'],
+['Rendering', 'Client/server side', 'Client/server side'],
+['Abstraction', 'Strong', 'Medium']]
+} />
+    
+ </Disclosure>
 
 <Disclosure question={'5. What is an event and how to create it in React?'}>
 An event is an action that a user or system may trigger, such as pressing a key, a mouse click, etc.

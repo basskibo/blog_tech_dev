@@ -1,3 +1,4 @@
 export default function handler (req, res) {
-  res.status(200).json({ name: 'John Doe' })
+  const name = req.query.name ? req.query.name : 'John Doe'
+  res.status(200).json({ name })
 }

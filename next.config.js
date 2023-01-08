@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const shouldAnalyzeBundles = process.env.ANALYZE === true
+
 module.exports = {
   // experimental: {
   // runtime: "nodejs",
@@ -28,6 +30,11 @@ module.exports = {
         use: ['@svgr/webpack']
       }
     )
+    if (shouldAnalyzeBundles) {
+      const withNextBundleAnalyzer =
+        require('next-bundle-analyzer')(/* options come there */)
+      config = withNextBundleAnalyzer(config)
+    }
 
     return config
   },
