@@ -23,12 +23,44 @@ A framework is a set of pre-written code that provides a structure for a specifi
 
 Popular examples of frameworks are Ruby on Rails for web development, AngularJS for JavaScript apps and Flask, Django for python web development.
 
+### Example of using a Framework
+
+```python
+from flask import Flask, render_template
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run()
+```
+
+In this example, we're using the Flask framework to build a simple web application. The Flask framework provides a set of conventions and tools for building web applications, including the <code>Flask</code> class, which we use to create an instance of our web application. The render_template function provided by the framework is used to render an HTML template. In this case, when a user navigates to the root URL of the application, the index function will be called and the index.html template will be rendered.
+
 ## What is a Library?
 
 A library, on the other hand, is a collection of pre-written code that can be used to perform specific tasks. Unlike a framework, a library does not provide a specific structure or set of conventions for building an application. Instead, it simply provides a set of tools that can be used to add functionality to an application. The benefit of this approach is that it allows developers to have more flexibility and control over their application, but it also means they must handle the organization and structure of the application themselves.
 
 Some of the popular examples of libraries in different languages are NumPy, SciPy, Matplotlib for python scientific computation, Lodash for JavaScript, Boost C++ Libraries for C++.
 
+
+### Example of using a Library
+
+```python
+import numpy as np
+
+# Creating a 2x3 array using numpy
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+
+# Performing matrix multiplication using numpy library
+result = np.dot(arr, arr.T)
+print(result)
+```
+In this example, we are using the NumPy library to perform a matrix multiplication. The <code>numpy</code> library provides a set of tools for working with arrays and matrices, including the <code>np.dot</code> function, which we use to perform the multiplication. We also imported numpy library as <code>np</code> which is a common practice while using numpy. It is also a library, but it is extremely powerful and commonly used to perform scientific computing and data manipulation tasks.
+
+It's important to notice that, using a library gives you more flexibility as compared to using a framework. With a library, you can pick and choose the specific tools you need, while a framework provides you with a specific set of tools, and if those don't fit your requirements you'll have to work with what you got.
 
 ## Usage
 
