@@ -28,7 +28,7 @@ Class can be regarded as a type of <Adjusted>function</Adjusted>, but instead of
 
 
 
-```js
+```javascript
 class MyClass {
   // class methods
   constructor() { ... }
@@ -50,7 +50,7 @@ This method will be called automatically when a class is initiated and it strict
  Javascript will automatically add invisible and empty constructor method. 
 
 
-```js
+```javascript
 class User {
   constructor(firstName, lastName, age) {
     this.firstName = firstName;
@@ -66,7 +66,7 @@ The <Adjusted>extends</Adjusted> keyword is used to create a child class of anot
 This is useful for code reusability because reusing properties and methods of an already existing class can be really helpfull and we do not duplicate code unnseccarry.
 
 
-```js
+```javascript
 class Student extends User {
   constructor(firstName, lastName, age, monthlySallary, user_class, grade) {
     super(firstName, lastName, age, monthlySallary);
@@ -84,7 +84,7 @@ In order to call static method we do not need to create instance of the class in
 
 
 
-```js
+```javascript
 class Car {
   constructor(brand) {
     this.carname = brand;
@@ -107,7 +107,7 @@ The <Adjusted>super</Adjusted> keyword is used to call the constructor of the pa
 defined in constructor of the parent class. In order to understand better concept of the "inheritance" in Object oriented programming you can read this
 <Link href="https://viktor-kukurba.medium.com/object-oriented-programming-in-javascript-2-inheritance-447368f57a26"> great article </Link>
 
-``` js
+``` javascript
 class Car {
   constructor(brand) {
     this.carname = brand;
