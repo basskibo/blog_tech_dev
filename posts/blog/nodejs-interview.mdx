@@ -91,7 +91,7 @@ As in official Node.js <a href="https://nodejs.org/en/docs/guides/blocking-vs-no
 
 When comparing codes, you can see the difference,for example <b>blocking code:</b>
 
-```js
+```javascript
 const fs = require('fs');
 const data = fs.readFileSync('/test.md');
 }
@@ -99,7 +99,7 @@ const data = fs.readFileSync('/test.md');
 
 on the other hand below you can see <b>non-blocking code:</b>
 
-```js
+```javascript
 const fs = require('fs');
 fs.readFile('/test.md', (err, data) => {
   if (err) throw err;
@@ -208,7 +208,7 @@ Exit codes give us an idea of how a process got terminated/the reason behind ter
 
 EventEmitter is a Node.js class that includes all the objects that are basically capable of emitting events. This can be done by attaching named events that are emitted by the object using an eventEmitter.on() function. Thus whenever this object throws an even the attached functions are invoked synchronously.
 
-```js
+```javascript
 const EventEmitter = require("events");
 class MyEmitter extends EventEmitter {}
 const myEmitter = new MyEmitter();
