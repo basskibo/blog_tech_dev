@@ -41,7 +41,7 @@ or
 ```shell
 yarn add react-syntax-highlighter clipboard react-icons tailwindcss
 ```
-<b>NOTE</b> I am using all this modules in my specific case, for my <Link href="https://www.bojanjagetic.com/">blog/portfolio website</Link> (you can check there how it looks in real example) but you do not have to use all of this, also you can use similiar modules like clipboard.js or react-hot-toast for example.
+<b>NOTE</b> I am using all this modules in my specific case, for my <Link href="https://www.bojanjagetic.com/">blog/portfolio website</Link> (you can check there how it looks in real example) but you do not have to use all of this, also you can use similar modules like clipboard.js or react-hot-toast for example.
 
 
 ## Import Required Libraries
@@ -95,7 +95,7 @@ In this example, relative and absolute classes from tailwindcss are used to posi
 
 ## Adding functionalities
 
-In most cases we will have different values to copy and different langauges, in this case we will use variable for code and language properties. Also you will maybe want to show toast message to user that code is copied in this example we will use react-toastify, so lets expand our code with copy functionality, language and code variables.
+In most cases we will have different values to copy and different languages, in this case we will use variable for code and language properties. Also you will maybe want to show toast message to user that code is copied in this example we will use react-toastify, so lets expand our code with copy functionality, language and code variables.
 
 
 ### Using variables
@@ -119,7 +119,7 @@ const CodeBlock = ({ code, language }) => {
 }
 ```
 
-### Add syntax highligher component
+### Add syntax highlighter component
 Now that you have the button, we want to show our code which will be copied, for this we are using react-syntax-highlighter component to which we will pass our code.
 
 ```javascript
@@ -147,7 +147,7 @@ Now that you have the button, we want to show our code which will be copied, for
 
 ### Sending toast
 
-After we sucessfully copy we want to notify and let end user know that code is succesfully copied to clipboard.
+After we successfully  copy we want to notify and let end user know that code is successfully copied to clipboard.
 
 
 
@@ -199,14 +199,13 @@ const CodeBlock = ({ code, className }) => {
                 theme="dark" />
         </div>
   )
-
 }
 ```
 
 
 ###  Change icon after copying
 
-This one is optional as well, you can use it but if you dont like it just skip this step. As seen on many examples and websites, I like more to have icon changed after code is copied, so initially we have copy icon and after it gets copied we will change it to checkmark icon which will last for 5 seconds and after that it will be reverted back to copy icon.  
+This one is optional as well, you can use it but if you don't like it just skip this step. As seen on many examples and websites, I like more to have icon changed after code is copied, so initially we have copy icon and after it gets copied we will change it to checkmark icon which will last for 5 seconds and after that it will be reverted back to copy icon.  
 
 ```javascript
   const [copied, setCopied] = useState(false)
