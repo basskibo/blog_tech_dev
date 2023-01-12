@@ -29,6 +29,7 @@ const CodeBlock = ({ code, className }) => {
   }
 
   const parseLanguageByClass = (className) => {
+    console.log(className)
     return className ? className.split('-')[1] : 'javascript'
   }
 
