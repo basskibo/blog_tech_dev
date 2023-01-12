@@ -1,6 +1,4 @@
 import React from 'react'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import Accent from './Accent'
 import QouteComponent from '../QouteComponent'
 import { GithubCard } from 'github-user-repo-card'
@@ -12,6 +10,7 @@ import ReactPlayer from 'react-player'
 import ModalImage from 'react-modal-image'
 import slugify from 'slugify'
 import DisclosureComponent from './Disclosure'
+import CodeBlock from './CodeBlock'
 
 const VideoContext = (props) => (
   <div>
@@ -66,10 +65,6 @@ const CloudinaryContextImage = (props) => {
       </p>
     </div>
   )
-}
-
-const parseLanguageByClass = (className) => {
-  return className ? className.split('-')[1] : 'js'
 }
 
 export default {
@@ -129,15 +124,28 @@ export default {
   },
   code: ({ children, className }) => {
     return (
-      <SyntaxHighlighter
-        language={parseLanguageByClass(className)}
-        style={a11yDark}
-        wrapLines={true}
-        showLineNumbers={false}
-        showInlineLineNumbers={false}
-      >
-        {children}
-      </SyntaxHighlighter>
+      <CodeBlock code={children} className={className} />
+      // <div className='static'>
+      //   <div className='m-2'>
+      //     <CopyToClipboard className='absolute hover:cursor-pointer ' text={children}
+      //       onCopy={() => console.log('copied!!')}>
+      //       <IoIosCopy size={17} className='p-3'/>
+      //     </CopyToClipboard>
+      //   </div>
+      //   <div>
+      //     <SyntaxHighlighter
+      //     className=''
+      //     language={parseLanguageByClass(className)}
+      //     style={a11yDark}
+      //     wrapLines={true}
+      //     wrapLongLines={true}
+      //     showLineNumbers={false}
+      //     showInlineLineNumbers={false}
+      //     >
+      //     {children}
+      //     </SyntaxHighlighter>
+      //   </div>
+      // </div>
     )
   },
   a: ({ children, className, href }) => {

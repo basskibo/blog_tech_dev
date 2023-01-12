@@ -5,7 +5,6 @@ const readingTime = require('reading-time')
 
 const ReadTime = ({ children, className }) => {
   const stats = readingTime(JSON.stringify(children))
-  console.log(children)
   return (
       <p className={cslx(className, 'inline-flex mt-1')}>
          <IoTimeOutline className='h-full pb-1 text-lg' />{' '}
