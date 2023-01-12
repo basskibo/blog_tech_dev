@@ -13,16 +13,17 @@ import DisclosureComponent from './Disclosure'
 import CodeBlock from './CodeBlock'
 
 const VideoContext = (props) => (
-  <div>
+  <div className='h-96 '>
     <ReactPlayer
       url={props.url}
       playing={true}
       loop={true}
+      controls={true}
       width='100%'
-      height='60%'
+      height='100%'
       muted={true}
     />
-    <p className='text-center'>Figure- {props.alt}</p>
+    {/* <p className='text-center '>{props.alt}</p> */}
   </div>
 )
 
