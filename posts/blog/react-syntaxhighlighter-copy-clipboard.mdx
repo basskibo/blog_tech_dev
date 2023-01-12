@@ -1,0 +1,325 @@
+---
+title: "One-Click Code Block Copying in React with react-copy-to-clipboard"
+publishedAt: "2023-01-13"
+excerpt: "When displaying code snippets on a website or application, it's often useful to provide a way for users to quickly copy the code to their clipboard. In this tutorial, we'll show you how to add this functionality to a code block"
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1673516907/igutech/blogs/luba-ertel-WlL8aHeMcVM-unsplash_mu792u.jpg"
+imageCreditUser: "Luba Ertel"
+imageCreditUsername: "ertelier"
+author: "Bojan Jagetic"
+tags: [{ slug: "react", name: "react" }]
+inPreparation: false
+---
+
+## Introduction
+
+Creating a Code Block with the Ability to Copy to Clipboard in React
+
+When displaying code snippets on a website or application, it's often useful to provide a way for users to quickly copy the code to their clipboard. In this tutorial, we'll show you how to add this functionality to a code block created with the react-syntax-highlighter library, using clipboard.js and react-icons with tailwindcss for styling.
+
+## Prerequisites
+Before we get started, make sure you have the following libraries installed:
+
+<LgList>
+<li><Link href="https://github.com/react-syntax-highlighter/react-syntax-highlighter">react-syntax-highlighter</Link> for syntax highlighting</li>
+<li><Link href="https://www.npmjs.com/package/react-copy-to-clipboard">react-copy-to-clipboard</Link> for copying to the clipboard</li>
+<li><Link href="https://react-icons.github.io/react-icons/search">react-icons</Link> for the copy icon</li>
+<li><Link href="https://tailwindcss.com/">tailwindcss</Link> for styling</li>
+<li><Link href="https://www.npmjs.com/package/react-toastify">react-toastify</Link> for sending toast messages</li>
+</LgList>
+
+You can install these packages by running the following command in your project's root directory:
+
+```shell
+npm install react-syntax-highlighter clipboard react-icons tailwindcss
+```
+
+or
+
+```shell
+yarn add react-syntax-highlighter clipboard react-icons tailwindcss
+```
+<b>NOTE</b> I am using all this modules in my specific case, for my <Link href="https://www.bojanjagetic.com/">blog/portfolio website</Link> (you can check there how it looks in real example) but you do not have to use all of this, also you can use similiar modules like clipboard.js or react-hot-toast for example.
+
+
+## Import Required Libraries
+At the top of your component file, import the libraries you'll need:
+
+```javascript
+import React, { useState } from 'react'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { IoIosCopy, IoIosCheckmarkCircleOutline } from 'react-icons/io'
+import { vs2015 } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+```
+
+You have variation of themes for react-syntax-highlighter depending if you are using <code>hljs</code> or <code>prisma</code>. Here you can find all available themes for <Link href="https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_STYLES_HLJS.MD">hljs </Link> and for <Link href="https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/AVAILABLE_STYLES_PRISM.MD">prisma</Link>.
+
+## Create the Code Block Component
+In the component that will display the code block, create a functional component called CodeBlock that takes in a code prop.
+
+```javascript
+const CodeBlock = ({ code }) => {
+  //...
+  return (
+    <div>
+      {/* code block and button goes here */}
+    </div>
+  );
+};
+```
+
+## Create the Copy to Clipboard Button
+In the CodeBlock component, create a button that the user can click to initiate the copy action. It should include the FaClipboard icon and classes from tailwindcss that position the button in the top right corner of the code block.
+
+```javascript
+return (
+    <div className="relative">
+        <button
+            className="absolute flex flex-row  top-0 right-0 p-2">
+            <span className='m-1 pb-1 basis-3/4 text-xs'>{language}</span>
+            <CopyToClipboard text='Hello World !'>
+            </CopyToClipboard>
+        </button>
+    </div>
+)
+```
+
+In this example, relative and absolute classes from tailwindcss are used to position the button with the FaClipboard icon in the top-right corner of the code block. The p-2 class is for padding and flex flex-row are used to position language name next to copy to clipboard icon.
+
+
+
+## Adding functionalities
+
+In most cases we will have different values to copy and different langauges, in this case we will use variable for code and language properties. Also you will maybe want to show toast message to user that code is copied in this example we will use react-toastify, so lets expand our code with copy functionality, language and code variables.
+
+
+### Using variables
+
+So we have provided code to our <code>CodeBlock</code> now we want to pass it to our <code>SyntaxHighlighter</code> and <code>CopyToClipboard</code> where we will copy it to the clipboard.
+
+```javascript
+const CodeBlock = ({ code, language }) => {
+ const notify = () => {
+    toast(<ToastDisplay className='bg-neutral-700 m-2' />)
+  }
+
+  function ToastDisplay () {
+    return (
+            <div className='m-2'>
+                <p className='text-md'>Copied to clipboard !</p>
+            </div>
+    )
+  };
+
+}
+```
+
+### Add syntax highligher component
+Now that you have the button, we want to show our code which will be copied, for this we are using react-syntax-highlighter component to which we will pass our code.
+
+```javascript
+ return (
+        <div className="relative">
+            <button
+                className="absolute flex flex-row  top-0 right-0 p-2">
+                <span className='m-1 pb-1 basis-3/4 text-xs'>javascript</span>
+                <CopyToClipboard text={code}></CopyToClipboard>
+            </button>
+            <SyntaxHighlighter
+                className=''
+                language='javascript'
+                style={vs2015}
+                wrapLines={true}
+                wrapLongLines={true}
+                showLineNumbers={false}
+                showInlineLineNumbers={false}
+            >
+                {code}
+            </SyntaxHighlighter>
+        </div>
+  )
+  ```
+
+### Sending toast
+
+After we sucessfully copy we want to notify and let end user know that code is succesfully copied to clipboard.
+
+
+
+```javascript
+const CodeBlock = ({ code, className }) => {
+  const notify = () => toast(<ToastDisplay className='bg-neutral-700 m-2' />)
+
+  function ToastDisplay () {
+    return (
+            <div className='m-2'>
+                <p className='text-md'>Copied to clipboard !</p>
+            </div>
+    )
+  };
+
+  return (
+        <div className="relative">
+            <button
+                className="absolute flex flex-row  top-0 right-0 p-2">
+                <span className='m-1 pb-1 basis-3/4 text-xs'>{language}</span>
+                <CopyToClipboard text={code}
+                    onCopy={() => notify()}>
+                       <IoIosCopy className="text-lg m-1 basis-1/4 hover:text-white" />
+                </CopyToClipboard>
+            </button>
+            <SyntaxHighlighter
+                className=''
+                language={parseLanguageByClass(className)}
+                style={vs2015}
+                wrapLines={true}
+                wrapLongLines={true}
+                showLineNumbers={false}
+                showInlineLineNumbers={false}
+            >
+                {code}
+            </SyntaxHighlighter>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick={false}
+                closeButton={false}
+                limit={1}
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover={false}
+                theme="dark" />
+        </div>
+  )
+
+}
+```
+
+
+###  Change icon after copying
+
+This one is optional as well, you can use it but if you dont like it just skip this step. As seen on many examples and websites, I like more to have icon changed after code is copied, so initially we have copy icon and after it gets copied we will change it to checkmark icon which will last for 5 seconds and after that it will be reverted back to copy icon.  
+
+```javascript
+  const [copied, setCopied] = useState(false)
+  const notify = () => {
+    toast(<ToastDisplay className='bg-neutral-700 m-2' />)
+    copy()
+  }
+  ...
+
+  const copy = () => {
+    console.log('Copied!')
+    setCopied(true)
+    setTimeout(() => {
+      setCopied(false)
+    }, 5000)
+  }
+
+  return (
+        <div className="relative">
+            <button
+                className="absolute flex flex-row  top-0 right-0 p-2">
+                <span className='m-1 pb-1 basis-3/4 text-xs'>{language}</span>
+                <CopyToClipboard text={code}
+                    onCopy={(copied) => notify()}>
+                        {copied
+                          ? <IoIosCheckmarkCircleOutline className="text-lg m-1 text-green-500 basis-1/4 " />
+                          : <IoIosCopy className="text-lg m-1 basis-1/4 hover:text-white" />}
+                </CopyToClipboard>
+    ...
+  )
+
+```
+
+
+## Conclusion
+
+That's All Folks, we have the whole component up and running. If you had problem catching up, here you can check the whole code :
+
+```javascript
+import React, { useState } from 'react'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { IoIosCopy, IoIosCheckmarkCircleOutline } from 'react-icons/io'
+import { vs2015 } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+
+const CodeBlock = ({ code, language }) => {
+  const [copied, setCopied] = useState(false)
+  const notify = () => {
+    toast(<ToastDisplay className='bg-neutral-700 m-2' />)
+    copy()
+  }
+
+  function ToastDisplay () {
+    return (
+            <div className='m-2'>
+                <p className='text-md'>Copied to clipboard !</p>
+            </div>
+    )
+  };
+  const copy = () => {
+    console.log('Copied!')
+    setCopied(true)
+    setTimeout(() => {
+      setCopied(false)
+    }, 5000)
+  }
+
+  return (
+        <div className="relative">
+            <button
+                className="absolute flex flex-row  top-0 right-0 p-2">
+                <span className='m-1 pb-1 basis-3/4 text-xs'>{language}</span>
+                <CopyToClipboard text={code}
+                    onCopy={(copied) => notify()}>
+                        {copied
+                          ? <IoIosCheckmarkCircleOutline className="text-lg m-1 text-green-500 basis-1/4" />
+                          : <IoIosCopy className="text-lg m-1 basis-1/4 hover:text-white" />}
+
+                </CopyToClipboard>
+
+            </button>
+            <SyntaxHighlighter
+                className=''
+                language={language}
+                style={vs2015}
+                wrapLines={true}
+                wrapLongLines={true}
+                showLineNumbers={false}
+                showInlineLineNumbers={false}
+            >
+                {code}
+            </SyntaxHighlighter>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick={false}
+                closeButton={false}
+                limit={1}
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover={false}
+                theme="dark" />
+        </div>
+  )
+}
+export default CodeBlock
+```
+You can check final look on my <Link href="https://www.bojanjagetic.com/post/react-syntaxhighlighter-copy-clipboard">personal blog</Link> or you can check video example how this really look
+<ReactPlayer url="https://youtu.be/pgaufvsajw8"  alt="React syntax highligher with copy to clipboard example"/>
+<NewLine/>
+Remember, there is many different variation on this topic, you can use whatever module you like in order to look how you imagined. Its pretty straight-forward solution and easy to implement, but if you have any doubts or questions feel free to contact me.

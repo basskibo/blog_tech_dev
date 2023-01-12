@@ -19,13 +19,13 @@ The <Adjusted>webOS</Adjusted> TV CLI (Command Line Interface) provides a collec
 
 You can run installation via npm by installing npm package of <Link href="https://www.npmjs.com/package/@webosose/ares-cli">@weboose/ares-cli</Link> by running
 
-```bash
+```shell
 $ npm i @webosose/ares-cli
 ```
 
 verify installation by running 
 
-```bash
+```shell
 $ ares -V
 Version: 2.3.1
 ```
@@ -109,7 +109,7 @@ This is partially based on: https://webostv.developer.lge.com/develop/app-test/u
 
 6.) Configure the device using ares-setup-device (-a may need to be replaced with -m if device named webos is already configured) PASSPHRASE is the 6-character passphrase printed on screen in developer mode app
 
-```bash
+```shell
 ares-setup-device -a webos -i "username=prisoner" -i "privatekey=webos_rsa" -i "passphrase=PASSPHRASE"
  -i "host=TV_IP" -i "port=9922"
 ```
@@ -122,7 +122,7 @@ When we have our code ready for deploying it to TV, we must first <b>package</b>
 <li> 
 run ares-package in order to package project
 
-```bash
+```shell
 ares-package ./
 ```
 
@@ -132,22 +132,22 @@ ares-package ./
 <li> 
 After ares-package command is finished and we have .ipk file output, we can proceed to install application on TV
 
-```bash
+```shell
 ares-install -d webos com.testwebos.app_1.0.0_all.ipk
 ```
 - Launch  application on TV, -d parameter represent on which device you want to run (in my case device is named webos)
 
-```bash
+```shell
 ares-launch -d webos com.testwebos.app
 ```
 - inspect and debug WebOS application
 
-```bash
+```shell
 ares-inspect -d webos -a com.testwebos.app -v 
 ```
 - After you are done you can close application by running :
 
-```bash
+```shell
 ares-launch -d webos com.testwebos.app -c
 ```
 

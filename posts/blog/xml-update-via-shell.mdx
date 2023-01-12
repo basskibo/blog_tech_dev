@@ -20,7 +20,7 @@ There are several ways you can update an XML file using the terminal or a bash s
 ## sed
 Use sed: sed is a command-line tool that can be used to search and replace text in a file. You can use it to update an XML file by specifying the search pattern and the replacement text. For example:
 
-```bash
+```shell
 sed -i 's/<old-text>/<new-text>/g' file.xml
 ```
 
@@ -30,7 +30,7 @@ This will search for all instances of <code>old-text</code> in file.xml and repl
 ## awk
 Use awk: awk is a programming language designed for text processing. You can use it to update an XML file by specifying the search pattern and the replacement text. For example:
 
-```bash
+```shell
 awk '/<old-text>/{sub("<old-text>","<new-text>")}1' file.xml > newfile.xml
 ```
 This will search for all instances of <code>old-text</code> in file.xml and replace them with <code>new-text</code>, and write the updated content to a new file called newfile.xml.
@@ -38,7 +38,7 @@ This will search for all instances of <code>old-text</code> in file.xml and repl
 ## xmlstarlet
 Use xmlstarlet: xmlstarlet is a command-line tool for working with XML files. You can use it to update an XML file by specifying the element you want to update and the new value. For example:
 
-```bash
+```shell
 xmlstarlet ed -L -u '/root/element/@attribute' -v 'new value' file.xml
 ```
 This will update the attribute of the element element under the root element in <code>file.xml</code> with the value new value.
@@ -55,13 +55,13 @@ Create a bash script and open it in a text editor.
 
 Use the sed command to find and replace a specific string in the XML file. For example, the following command will replace the string "old_string" with "new_string" in the file "input.xml":
 
-```bash
+```shell
 sed 's/old_string/new_string/g' input.xml > output.xml
 ```
 
 Use the xmlstarlet utility to update specific elements or attributes in the XML file. For example, the following command will update the value of the <code>name</code> attribute in the <code>item</code> element to <code>new_name</code>:
 
-```bash
+```shell
 xmlstarlet ed -u '/items/item/@name' -v 'new_name' input.xml > output.xml
 ```
 

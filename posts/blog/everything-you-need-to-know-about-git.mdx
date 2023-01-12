@@ -59,7 +59,8 @@ There are different ways of installation of Git for every platform, so lets brea
 
 There are many ways of installing Git on OS X, and we will cover two most popular ways of doing so.
 Before you start you can check whether you already have it installed due to Apple maintain its <Link href="http://opensource.apple.com/source/Git/">own fork of Git</Link>
-```bash
+
+```shell
 $ git --version git version 2.7.0 (Apple Git-66)
 ```
 But I don't tend to use it due to being behind main Git, so I strongly recommend you to manually install it.
@@ -67,7 +68,7 @@ But I don't tend to use it due to being behind main Git, so I strongly recommend
 <li> 
 <b>Installing via Mac installer</b> is the most easiest way of installing it. All you need to do is to
  <Link href="https://sourceforge.net/projects/git-osx-installer/files/">download latest version</Link>.dmg file and follow intaller via GUI. After installing is done, go to the preferred Terminal and check version.
-      ```bash
+      ```shell
       $ git --version
       ```
 
@@ -77,12 +78,12 @@ But I don't tend to use it due to being behind main Git, so I strongly recommend
 <b>Installing Git with Homebrew</b> is my preffered way, but you need to have installed <Link href="https://brew.sh/">Homebrew</Link> on your machine.
 Open your preferred terminal and paste following command:
 
-```bash
+```shell
 $ brew install git
 ```
 After installation is complete,verify the installation was successful by typing :
 
-```bash
+```shell
 $ git --version git version 2.9.2
 ```
 
@@ -94,7 +95,7 @@ $ git --version git version 2.9.2
 
 On Debian/Ubuntu you can use <Link href="https://wiki.debian.org/Apt">apt</Link> for installation, where git packages are available.
 
-```bash
+```shell
 $ sudo apt-get update
 $ sudo apt-get install git
 ```
@@ -111,7 +112,7 @@ $ git --version git version 2.25.1
 On Windows there is really simple way of installing by downloading  <code>.exe</code> installation and follow installation procedure. You can download the newest version of <Link href="https://git-scm.com/download/win">Git on offical site</Link>
 
 Verify that installation was successful
-```bash
+```shell
 $ git -v
 git version 2.38.0.windows.1
 ```
@@ -168,7 +169,7 @@ $ git init
 ```
 This will create <code>.git/</code> folder inside your project with following content:
 
-```bash
+```shell
  $ ll .git
 total 0
 drwxrwxrwx 1 basskibo basskibo 4096 Dec  6  2022 ./
@@ -185,13 +186,13 @@ For details about adding git to exiting project read section 'Add git to existin
 
 2.) Next thing is to <code>clone</code> the project. Cloning project in Git means that we will copy or download project to our local machine.
 Use terminal command like following just add your git repository
-```bash
+```shell
 $  git clone git@github.com:<GITHUB_USERNAME>/<GITHUB_REPOSITORY>.git
 ```
 
 3.) Make some changes in code or in this case I will just create <code>test.txt</code> and enter following command in terminal and you should see output like this:
 
-```bash
+```shell
 $ git status
 On branch master
 
@@ -208,7 +209,7 @@ Lets break-down this output and what it means. First line says on which branch a
 
 4.) Now we need to <code>add</code> our changes which we want to commit, so do it so by using git add command and check git status afterwards.
 
-```bash
+```shell
 $ git add test.txt
 $ git status
 On branch master
@@ -221,7 +222,7 @@ Changes to be committed:
 ```
 Now we can see that our test.txt is about to be commited. Lets commit it by:
 
-```bash
+```shell
 $ git commit -m 'initial commit'
 $ git status
 On branch master
@@ -231,7 +232,7 @@ You can see that our working tree is clean and there is nothing else left to com
 
 5.) When everything is commited we can push our changes to remote repository by using following command:
 
-```bash
+```shell
 $ git push origin master
 ```
 
@@ -240,7 +241,7 @@ Voilà! Our code is pushed on remote repository, you can go to your repository (
 
 6.) When you work in team and other developer want to get copy of your changes to his local machine, he will use pull in order to fetch the newest changes.
 
-```bash
+```shell
 $ git pull
 ```
 
@@ -256,7 +257,7 @@ but lets dive deeper and see what is real difference of these two commands which
 
 ### Git Merge
 This is often the easiest way around, you will basically merge main branch into the feature branch with one-liner command.
-```bash
+```shell
 $ git merge feature master
 ```
 Pay attention that <b>merge will create new commit</b> in the feature branch that will tie together with history of both branches, output will be like this:
@@ -269,7 +270,7 @@ This can be polluting for the git history when our branches are very active so i
 ### Git Rebase
 
 Second option is rebasing which will rebase feature branch onto master branch.
-```bash
+```shell
 $ git checkout feature
 $ git rebase master
 ```
