@@ -9,14 +9,14 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 const CodeBlock = ({ code, className }) => {
   const [copied, setCopied] = useState(false)
   const notify = () => {
-    toast(<ToastDisplay />)
+    toast(<ToastDisplay className='bg-neutral-700 m-2' />)
     copy()
   }
 
   function ToastDisplay () {
     return (
-            <div>
-                <p className='text-md'>Copied to clipboard! </p>
+            <div className='m-2'>
+                <p className='text-md'>Copied to clipboard !</p>
             </div>
     )
   };
@@ -60,7 +60,8 @@ const CodeBlock = ({ code, className }) => {
                 {code}
             </SyntaxHighlighter>
 
-            <ToastContainer position="bottom-right"
+            <ToastContainer
+                position="bottom-right"
                 autoClose={5000}
                 hideProgressBar
                 newestOnTop={false}
