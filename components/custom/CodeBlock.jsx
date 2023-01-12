@@ -40,7 +40,7 @@ const CodeBlock = ({ code, className }) => {
                 <CopyToClipboard text={code}
                     onCopy={(copied) => notify()}>
                         {copied
-                          ? <IoIosCheckmarkCircleOutline className="text-lg m-1 text-green-500 basis-1/4 hover:text-white transform-gpu scale-100
+                          ? <IoIosCheckmarkCircleOutline className="text-lg m-1 text-green-500 basis-1/4 transform-gpu scale-100
                      hover:scale-[1.02] " />
                           : <IoIosCopy className="text-lg m-1 basis-1/4 hover:text-white transform-gpu scale-100
                      hover:scale-[1.02] " />}
