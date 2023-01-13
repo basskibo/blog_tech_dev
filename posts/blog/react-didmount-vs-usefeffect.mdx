@@ -1,0 +1,67 @@
+---
+title: "A Deep Dive into componentDidMount and useEffect in React"
+publishedAt: "2023-01-13"
+excerpt: "Although they both serve similar purposes, they are not interchangeable and have some key differences. In this blog post, we'll take a closer look at each method."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1673448130/igutech/blogs/geraldo-stanislas-JfPIfLTaJY4-unsplash_b4k0ui.jpg"
+imageCreditUser: "Hugo Delauney"
+imageCreditUsername: "ugodly"
+author: "Bojan Jagetic"
+tags: [{ slug: "react", name: "react" }]
+inPreparation: false
+---
+
+## Introduction
+
+As a React developer, you may have come across the terms <Adjusted>componentDidMount</Adjusted> and <Adjusted>useEffect</Adjusted> when working with lifecycle methods and hooks. Although they both serve similar purposes, they are not interchangeable and have some key differences. In this blog post, we'll take a closer look at each method and when to use them in your React projects.
+
+
+## componentDidMount
+
+<Adjusted>componentDidMount</Adjusted> is a lifecycle method that is called after a component has been rendered to the DOM. It's commonly used to perform any setup or initialization tasks that need to happen after the component has been rendered. For example, you might use componentDidMount to fetch data from an API, set up a subscription, or add event listeners.
+
+```javascript
+class ExampleComponent extends React.Component {
+  componentDidMount() {
+    // perform setup tasks here
+  }
+
+  render() {
+    // component render logic here
+  }
+}
+```
+
+One of the key benefits of using componentDidMount is that it guarantees that the component has been rendered before the code inside the method is executed. This can be useful if you need to access the DOM or if you want to be sure that the component is fully rendered before you perform any logic.
+
+## useEffect
+
+<Adjusted>useEffect</Adjusted> is a hook that allows you to synchronize a component with an external system. It's similar to componentDidMount, componentDidUpdate, and componentWillUnmount combined. It allows you to add logic that is executed after the component is rendered, and also allows you to clean up that logic when the component is unmounted.
+
+```javascript
+function ExampleComponent() {
+  useEffect(() => {
+    // perform setup tasks here
+    return () => {
+      // clean up tasks here
+    }
+  }, []);
+
+  // component render logic here
+}
+```
+
+The first argument passed to useEffect is a function containing the logic to be executed after the component is rendered. The second argument is an array of dependencies, which are values that the effect depends on. If any of the dependencies change, the effect will be re-executed.
+
+One of the key benefits of using useEffect is that it allows you to synchronize a component with external systems in a more declarative and efficient way than using lifecycle methods. This can make your code easier to understand, test and reuse.
+
+## When to use which
+As a general rule of thumb, if you're working with class components and you need to perform setup or cleanup tasks that are related to the component's lifecycle, you should use componentDidMount. If you're working with functional components and you need to synchronize the component with an external system, you should use useEffect.
+
+In practice, you'll often find that you can use either method to accomplish the same task. The key is to understand the trade-offs between the two and choose the one that makes the most sense for your specific use case.
+
+## Conclusion
+
+componentDidMount and useEffect are both powerful tools that can help you manage the lifecycle of your React components. Understanding the differences between them and when to use them will help you write more maintainable, efficient and organized code.

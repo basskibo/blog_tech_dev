@@ -117,7 +117,7 @@ export default {
   ReactPlayer: VideoContext,
   p: ({ children }) => {
     return (
-      <p className='my-5 ml-2 text-md leading-relaxed      '>{children}</p>
+      <p className='my-5 ml-1 text-md leading-relaxed      '>{children}</p>
     )
   },
   b: ({ children }) => {
