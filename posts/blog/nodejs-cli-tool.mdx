@@ -16,7 +16,7 @@ inPreparation: false
 ## Introduction
 <Adjusted>Command-line</Adjusted> tools  are incredibly useful for automating repetitive tasks, performing quick checks and for developers to perform different tasks. In this tutorial, we will go through the process of creating a Node.js command-line tool, converting it into a Linux terminal CLI tool, and packaging it as an npm package.
 
-## Creating a Node.js Command-line Tool
+## Creating a Node.js CLI
 
 Node.js provides a built-in "fs" (file system) and "readline" modules to read and write files, as well as the "process" object to access command-line arguments. Here is an example of a simple command-line tool that takes two arguments, a file path and a string, and writes the string to the file:
 
@@ -54,7 +54,7 @@ console.log(program.output);
 You can run the above script using the command <code>node script.js -o path/to/file</code>.
 
 
-### Converting to a Linux Terminal CLI Tool
+## Converting to a Linux Terminal CLI Tool
 
 To make a Linux terminal command-line tool, you can use the same methods as mentioned earlier to create a Node.js script that accepts command-line arguments and performs the desired functionality. However, to make the script executable in the terminal as a command, you need to add a shebang line at the top of your script file and make the file executable.
 
