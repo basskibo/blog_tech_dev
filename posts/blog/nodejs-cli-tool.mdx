@@ -1,0 +1,131 @@
+---
+title: "Creating a Node.js Command-line Tool, Linux Terminal CLI and NPM Package"
+publishedAt: "2023-01-16"
+excerpt: "Command-line tools are incredibly useful for automating repetitive tasks, performing quick checks and for developers to perform different tasks.In this tutorial, we will go through the process of creating a Node.js command-line tool."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1673872691/igutech/blogs/biyunfei-yang--hcq1rI9VM0-unsplash_oxrnen.jpg"
+imageCreditUser: "Adelin Grigorescu"
+imageCreditUsername: "adelingrigorescu"
+author: "Bojan Jagetic"
+tags: [{slug: "nodejs", name: "nodejs", },{ slug: "npm", name: "npm" }, { slug: "linux", name: "linux" }]
+inPreparation: false
+---
+
+## Introduction
+<Adjusted>Command-line</Adjusted> tools  are incredibly useful for automating repetitive tasks, performing quick checks and for developers to perform different tasks. In this tutorial, we will go through the process of creating a Node.js command-line tool, converting it into a Linux terminal CLI tool, and packaging it as an npm package.
+
+## Creating a Node.js Command-line Tool
+
+Node.js provides a built-in "fs" (file system) and "readline" modules to read and write files, as well as the "process" object to access command-line arguments. Here is an example of a simple command-line tool that takes two arguments, a file path and a string, and writes the string to the file:
+
+```javascript
+const fs = require("fs");
+const readline = require("readline");
+
+const filePath = process.argv[2];
+const string = process.argv[3];
+
+fs.writeFile(filePath, string, (err) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log(`Successfully wrote to ${filePath}`);
+});
+```
+
+You can run this script using the command <code>node script.js path/to/file "Hello, World!"</code>.
+
+You can also use npm package <Link href="https://www.npmjs.com/package/commander">commander</Link> to make more complex command line tool with lot of options and sub commands.
+
+```javascript
+const program = require('commander');
+program
+  .version('0.0.1')
+  .description('A simple command line tool')
+  .option('-o, --output <file>', 'output file')
+  .parse(process.argv);
+
+console.log(program.output);
+```
+
+You can run the above script using the command <code>node script.js -o path/to/file</code>.
+
+
+### Converting to a Linux Terminal CLI Tool
+
+To make a Linux terminal command-line tool, you can use the same methods as mentioned earlier to create a Node.js script that accepts command-line arguments and performs the desired functionality. However, to make the script executable in the terminal as a command, you need to add a shebang line at the top of your script file and make the file executable.
+
+
+The shebang line is the first line of the script and should be in the following format:
+
+```bash
+#!/usr/bin/env node
+```
+
+This tells the operating system that the script should be executed using the Node.js interpreter.
+
+Then you need to make your script file executable by running the following command in the terminal:
+
+```bash
+chmod +x script.js
+```
+
+After that, you can move the script file to a directory that is in your system's PATH and you can run the script as a command from anywhere in the terminal.
+
+```shell
+mv script.js /usr/local/bin/your_command
+```
+
+Now you can run your command from anywhere in the terminal using your_command
+
+
+## Packaging as an npm package
+
+Once you have a functioning Node.js command-line tool, you can package it as an npm package. To do this, you first need to have a Node.js project that you want to package. The project should have a <code>package.json</code> file, which contains information about the package such as its name, version, and dependencies.
+
+You can create a package.json file by running the following command in your project's root directory:
+
+
+```shell
+npm init
+```
+
+This command will prompt you for information about your package, such as its name and version, and will create a package.json file in your project's root directory.
+
+Once you have a <code>package.json</code> file, you can add your code files and other necessary files to your package. Make sure that the main file of your package is specified in the main field of package.json.
+
+You can then use the <code>npm pack</code> command to create a tarball of your package, which can be published to the npm registry or distributed manually.
+
+```shell
+npm pack
+```
+
+To publish your package to the npm registry, you will need to have an account on npm and be logged in. You can do this by running the following command:
+
+```shell
+npm login
+```
+
+Once you are logged in, you can use the
+
+<code>npm publish</code> command to publish your package to the npm registry.
+
+```shell
+npm publish
+```
+
+It's important to note that once you have published a package with a specific version, you cannot publish another package with the same name and version. If you need to make changes to your package, you will need to increment the version number in your package.json file and republish the package.
+
+
+## Conclusion
+
+In conclusion, creating a Node.js command-line tool is a great way to automate repetitive tasks and perform quick checks. By converting it into a Linux terminal CLI tool and packaging it as an npm package, you can easily share your tool with others and make it easy for them to use. With the help of <code>fs</code> and <code>readline</code> modules, you can easily read and write files and access command-line arguments. Additionally, you can use the commander npm package to make more complex command line tools with a lot of options and sub-commands. Once you have a functioning Node.js command-line tool, you can package it as an npm package and share it on npm registry. This allows other developers to easily install and use your tool in their own projects.
+
+
+
+
+
+
