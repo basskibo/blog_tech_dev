@@ -108,7 +108,7 @@ export default {
       <code
         className='bg-neutral-800 text-bolder border-rounder-lg px-1  mr-1  font-mono
          hover:underline decoration-indigo-500 border border-neutral-700 rounded-md'>
-        <Accent>{children}</Accent>
+        <Accent> `{children}`</Accent>
       </code>
     )
   },

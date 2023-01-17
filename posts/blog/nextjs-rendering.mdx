@@ -1,0 +1,136 @@
+---
+title: "Understanding Rendering in Next.js"
+publishedAt: "2022-11-15"
+excerpt: "Next.js is a popular framework for building server-rendered React applications. One of the key features of Next.js is its ability to automatically handle the rendering of your pages on both the client and server. In this post, we'll take a closer look at how rendering works in Next.js."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1673942097/igutech/blogs/simon-lee-egWTpKFu8rU-unsplash_zjbvow.jpg"
+imageCreditUser: "SIMON LEE"
+imageCreditUsername: "simonppt"
+author: "Bojan Jagetic"
+tags: [{ slug: "nextjs", name: "nextjs" }]
+inPreparation: false
+---
+
+## Introduction
+
+Next.js is a popular framework for building server-rendered React applications. One of the key features of Next.js is its ability to automatically handle the rendering of your pages on both the client and server. In this post, we'll take a closer look at how rendering works in Next.js and how you can use it to optimize the performance of your applications.
+
+
+## Server-Side Rendering
+
+When a user first visits your Next.js application, the server is responsible for rendering the initial HTML for the page and sending it to the browser. This process is called server-side rendering (SSR).
+
+The server uses the <Adjusted>getInitialProps</Adjusted> lifecycle method to fetch any data that is needed for the page before rendering it. This allows you to pre-render the page with the data already in place, which can improve the initial load time for your users.
+
+```javascript
+// pages/index.js
+
+import axios from 'axios';
+
+function Index({ data }) {
+  return (
+    <div>
+      <h1>{data.title}</h1>
+      <p>{data.description}</p>
+    </div>
+  );
+}
+
+Index.getInitialProps = async () => {
+  const { data } = await axios.get('https://my-api.com/data');
+  return { data };
+}
+```
+
+Once the HTML is sent to the browser, React takes over and hydrates the components on the page, turning the static HTML into a fully interactive application.
+
+## Client-Side Rendering
+
+After the initial load, as the user interacts with the application, the client takes over the responsibility of rendering the pages. This process is called client-side rendering (CSR).
+
+In CSR, React uses the virtual DOM to efficiently update the components on the page as the user interacts with the application. This allows for a smooth and responsive user experience.
+
+```javascript
+// pages/index.js
+
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+function Index() {
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await axios.get('https://my-api.com/data');
+      setData(data);
+    }
+    fetchData();
+  }, []);
+
+  return (
+    <div>
+      <h1>{data.title}</h1>
+      <p>{data.description}</p>
+    </div>
+  );
+}
+
+export default Index;
+```
+
+## Automatic Code Splitting
+
+Next.js also has a feature called automatic code splitting, which allows it to only load the JavaScript that is needed for the current page. This can significantly reduce the amount of JavaScript that needs to be loaded on initial load, which can improve the performance of your application.
+
+```javascript
+// pages/index.js
+
+import dynamic from 'next/dynamic';
+
+const DynamicComponent = dynamic(() => import('../components/MyComponent'));
+
+function Index() {
+  return (
+    <div>
+      <h1>My page</h1>
+      <DynamicComponent />
+    </div>
+  );
+}
+
+export
+```
+
+## Pros and Cons
+
+### Pros
+<LgList>
+<li>Server-side rendering allows for faster initial load times and better SEO.</li>
+<li>Automatic code splitting improves the performance of the application by only loading the necessary JavaScript.</li>
+<li>Next.js provides a simple and efficient way to handle both server and client rendering.</li>
+</LgList>
+
+### Cons
+
+<LgList>
+<li>Server-side rendering can add some complexity to your application, especially if you have a lot of dynamic data.</li>
+<li>The server-side rendering process can increase the load on your servers, which may require more resources.</li>
+</LgList>
+
+
+### Optimizing Rendering
+
+To optimize the rendering performance of your Next.js application, there are a few best practices you can follow:
+
+<LgList>
+<li>Use <Adjusted>getInitialProps</Adjusted> to pre-fetch data on the server before rendering the page.</li>
+<li>Use the <Adjusted>StaticQuery</Adjusted> component to fetch data on the client.</li>
+<li>Use <Adjusted>dynamic imports</Adjusted> to load only the code that is needed for the current page.</li>
+<li>Use the <Adjusted>next/head</Adjusted> component to set the title and other meta tags for the page.</li>
+</LgList>
+
+## Conclusion
+
+By understanding and utilizing the rendering capabilities of Next.js, you can build high-performance, server-rendered React applications. The framework offers a great balance between performance and ease of use, making it a great choice for many types of projects. However, it's worth noting that server-side rendering can add some complexity to your application and increase load on your servers. That's why it's important to consider the specific requirements of your project and weigh the pros and cons before deciding to use Next.js.
