@@ -21,8 +21,8 @@ I hope I will add more in near future but for now it was just a good excercise.
 This is well known algorithm if not the best known because everybody was doing it at least once. <Link href="https://en.wikipedia.org/wiki/Fibonacci_number">Fibonnaci numbers</Link> or sequence is a 
 sequence of numbers that is calculated by adding values of two preceding numbers, 
 also known as golden ratio which can be found in nature. <NewLine/>
-We count the sequence starting with the index <Adjusted>n = 0</Adjusted> which has value of <Adjusted>0</Adjusted>. Next in sequence is <Adjusted>n = 1 </Adjusted> which has the value of <Adjusted>1</Adjusted>.
-Next in sequence is <Adjusted>n = 2 </Adjusted> with value <Adjusted> 1 </Adjusted>. If you ask why , it is simple we add values of previous two and that is <Adjusted> 0 + 1 </Adjusted>, to be easier for you to understand
+We count the sequence starting with the index <Adjusted>n = 0</Adjusted> which has value of <Adjusted>0</Adjusted>. Next in sequence is <Adjusted>n = 1</Adjusted> which has the value of <Adjusted>1</Adjusted>.
+Next in sequence is <Adjusted>n = 2</Adjusted> with value <Adjusted>1</Adjusted>. If you ask why , it is simple we add values of previous two and that is <Adjusted>0 + 1</Adjusted>, to be easier for you to understand
 here is the formula. 
 
 Formula for calculating Fibonnaci number is : 
@@ -30,7 +30,7 @@ Formula for calculating Fibonnaci number is :
 F(n) = F(n-2) + F(n-1)
 ```
 
-So if we want to calculate Fibonacci number for 3 result will be <Adjusted> F(1) + F(2) = 1 + 1 = 2 </Adjusted> as we got already Fibonacci for 1 and 2 which is 1 and 1.
+So if we want to calculate Fibonacci number for 3 result will be <Adjusted>F(1) + F(2) = 1 + 1 = 2</Adjusted> as we got already Fibonacci for 1 and 2 which is 1 and 1.
 
 ### Fibonnaci Solution
 
@@ -88,7 +88,7 @@ export const isPalindrom = (inputString: string): boolean => {
 ```
 
 ## First duplicate
-You are given array of numbers and you have to return first number that is duplicate. Array provided can be of size <Adjusted> n </Adjusted> so this means that we can have array with million of elements.
+You are given array of numbers and you have to return first number that is duplicate. Array provided can be of size <Adjusted>n</Adjusted> so this means that we can have array with million of elements.
 ### First duplicate Solution
 When we measure performance as well, in the million sized array, <Adjusted>for</Adjusted> loop can be an issue. <Adjusted>While</Adjusted> can be as well even though it is faster than for loop. 
 Best solution I found is to create <Adjusted>Set</Adjusted> and loop over array of numbers, check if we have it in Set if not add it. So we will use <Adjusted>Set.has()</Adjusted>  instead of having dual loop and if we have it in set 
