@@ -17,7 +17,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
             style={{ display: 'flex', borderRadius: '15px', ...style }}>
             <a
                 className={clsx(
-                  post?.data?.inPreparation ? ' pointer-events-none' : ' ', 'relative flex flex-wrap  items-end justify-end flex-1 m-2 h-96 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg border border-neutral-700'
+                  post?.data?.inPreparation ? ' pointer-events-none' : ' ', 'relative flex flex-wrap  items-end justify-end flex-1 m-2 h-96 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg border-4 border-neutral-800'
                 )}
 
                 href={`/post/${post?.data?.slug}`}
@@ -42,18 +42,18 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                          </div> */}
                 <div
                 // backdrop-blur-3xl
-                    className={clsx(post?.data?.inPreparation ? ' text-slate-400 h-1/3' : 'lg:h-2/4 xs:h-1/2   hover:bg-neutral-900  text-white',
+                    className={clsx(post?.data?.inPreparation ? ' text-slate-400 h-1/3' : 'lg:h-2/5 xs:h-1/2   hover:bg-neutral-900  text-white',
                       'pr-3 mt-1 z-50 bg-neutral-900  w-full bottom-0 p-3 '
                     )}>
-                    <h1 className='text-lg font-bold '> {post?.data?.title}</h1>
+                    <h1 className='text-md font-bold '> {post?.data?.title}</h1>
                     <div className='mt-1 text-white flex-row '>
                         {' '}
                         {/* <div className='basis-1/2'>
                      <ReadTime> {post}</ReadTime>
                   </div> */}
 
-                        <div className='basis-1/2'>
-                            <p className='align-middle  font-semibold text-sm text-slate-400 mt-1'>
+                        <div className='basis-1/2 '>
+                            <p className='align-middle  font-semibold text-xs text-slate-400 '>
                                 {post?.data?.inPreparation
                                   ? ''
                                   : moment(post?.data?.publishedAt).format(
@@ -65,10 +65,10 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                              <CategoryChip className='my-0' categories={post.data.tags} />
                          </div> */}
 
-                        <div className=' '>
+                        <div className='mt-1 '>
                             {post?.data?.inPreparation
                               ? <p className=' my-5 bottom-0 h-64'><Accent className='w-full bg-neutral-900  font-extrabold animate-pulse'>Cooming soon...</Accent></p>
-                              : <div className=''><p className='align-middle italic text-sm text-slate-400 mt-1 '>
+                              : <div className=''><p className='align-middle italic text-xs text-slate-400  '>
                                 {post?.data?.excerpt}
                             </p>
                              {/* <div className=' w-full pt-0 bottom-0 inset-x-0  text-white text-xs md:text-xs text-center leading-4'>
@@ -94,15 +94,15 @@ const ChildLibary = ({ style, index, data, readyInViewport, scrolling }) => {
 style={{ display: 'flex', borderRadius: '15px', ...style }} >
 <a
     className={clsx(
-      post?.data?.inPreparation ? ' pointer-events-none' : ' ', 'relative flex flex-wrap   flex-1 m-2 h-48 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg border border-neutral-700'
+      post?.data?.inPreparation ? ' pointer-events-none border-2' : 'border-4 ', 'relative flex flex-wrap   flex-1 m-2 h-48 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg  border-neutral-800'
     )}
 
     href={`/libary/${post?.data?.slug}`}
 >
 
     <div
-        className={clsx(post?.data?.inPreparation ? ' text-slate-400 ' : '  text-white',
-          'pr-3 mt-1 z-50 bg-neutral-900  w-full bottom-0 p-3 '
+        className={clsx(post?.data?.inPreparation ? ' text-slate-400 bg-neutral-800' : 'bg-neutral-900  text-white',
+          'pr-3 z-50  w-full bottom-0 p-3 '
         )}>
         <h1 className='text-lg font-bold '> {post?.data?.title}</h1>
         <div className='mt-1 text-white flex-row '>
