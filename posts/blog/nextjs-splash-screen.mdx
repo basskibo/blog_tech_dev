@@ -17,7 +17,7 @@ inPreparation: false
 
 A splash screen is a visual element that is displayed when an application is loading. It is a great way to provide a professional and polished look to your application, and can also be used to display important information such as branding, loading status, and more. In this blog post, we will go over how to create a splash screen in Next.js, a popular framework for building React-based web applications.
 
-## Step 1: Create a new Next.js project
+## Create a new Next.js project
 
 To get started, you will need to create a new Next.js project. You can do this by running the following command in your terminal:
 
@@ -28,7 +28,7 @@ npx create-next-app my-app
 This will create a new directory called "my-app" with the basic structure of a Next.js application.
 
 
-## Step 2: Create the Splash Screen component
+## Create the Splash Screen component
 
 In this step, we will create the component that will be used to display the splash screen. In the "my-app" directory, create a new file called "SplashScreen.js" and add the following code:
 
@@ -50,7 +50,7 @@ export default SplashScreen;
 This component simply displays the text "My App" and "Loading..." on the screen. You can customize this component to display whatever content you want on your splash screen.
 
 
-## Step 3: Use the Splash Screen component
+## Use the Splash Screen component
 
 Now that we have created our splash screen component, we need to use it in our application. Open the "pages/index.js" file and import the SplashScreen component at the top of the file:
 
@@ -70,7 +70,7 @@ const Index = () => {
 
 
 
-## Step 4: Hide the Splash Screen after loading
+## Hide the Splash Screen after loading
 
 Finally, we need to hide the splash screen after the application has finished loading. We can use the "useEffect" hook to accomplish this. In the "SplashScreen.js" file, import the "useEffect" hook at the top of the file:
 
@@ -106,7 +106,7 @@ const SplashScreen = () => {
 In this code, we are using the "useEffect" hook to set a timeout of 3 seconds (3000 milliseconds). After 3 seconds, the "isLoading" state is set to "false", which causes the SplashScreen component to be hidden from the DOM.
 
 
-## Step 5: Adding a spinner using react-spinners
+## Adding a spinner using react-spinners
 
 Now that we have the basic structure of our splash screen, let's make it more professional by adding a spinner to indicate that the application is still loading. To do this, we will use the "react-spinners" library, which provides a variety of pre-built spinners that we can use.
 
@@ -135,7 +135,7 @@ return (
 
 You can customize the size and color of the spinner as well as other props according to your needs.
 
-## Step 6: Styling with CSS
+## Styling with CSS
 
 Finally, let's add some styling to make our splash screen look more polished. Create a new file called "SplashScreen.css" in the "components" directory and add the following styles:
 
