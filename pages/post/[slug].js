@@ -5,11 +5,11 @@ import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
 import matter from 'gray-matter'
-import { PostDetail, CategoryChip, LikeButton } from '../../components/'
+import { PostDetail, CategoryChip } from '../../components/'
 
 import MdxComponents from '../../components/custom/MdxComponents'
 import TableOfContent from '../../components/custom/TableOfContent'
-// import LikeButton from '../../components/custom/LikeButton'
+import LikeButton from '../../components/custom/LikeButton'
 
 function getTableOfContents (content) {
   // eslint-disable-next-line prefer-regex-literals
