@@ -167,6 +167,9 @@ export default {
   ulLg: ({ children, className }) => {
     return <ul className=' list-disc ml-10'>{children}</ul>
   },
+  olLg: ({ children, className }) => {
+    return <ul className=' list-decimal ml-10'>{children}</ul>
+  },
   QouteComponent,
 
   test: ({ children }) => {
