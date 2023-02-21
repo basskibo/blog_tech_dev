@@ -1,45 +1,180 @@
 ---
 title: "Become Docker captain"
-publishedAt: "2022-06-15"
-excerpt: "Git is software for tracking changes in any set of files, usually used for coordinating work among programmers
- collaboratively developing source code during 
-software development. "
+publishedAt: "2023-02-21"
+excerpt: "Docker is a platform that simplifies the process of creating, deploying, and running applications by using containers. A container is a lightweight and portable unit that can run applications and their dependencies."
 englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
 featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/q_60/v1655307056/igutech/ian-taylor-jOqJbvo1P9g-unsplash_m38gg0.jpg"
 author: "Bojan Jagetic"
-inPreparation: true
+inPreparation: false
 tags: [{ slug: "docker", name: "docker" }, { slug: "swarm", name: "kubernetes" }]
 ---
 
 ## Introduction
 
-Its goals include speed, data integrity, and support for distributed, non-linear workflows. Wikipedia
-
-Software architecture patterns plays crucial role in granting ability to system to scale over the time by user's demand gets a significant amount
-
-Just keep **looking**
-
-## What is an Architectural Pattern?
-
-<Link href='https://www.bmc.com/blogs/microservices-architecture/#:~:text=Microservices%20are%20a%20set%20of,from%20one%20service%20to%20another.'>
-   {" "}
-   check here{" "}
-</Link>
-
-<Link href='https://www.devopsschool.com/blog/what-are-microservices-really-all-about-microservices-basics-story/'>
-   {" "}
-   check here{" "}
-</Link>
-
-<Link href='https://microservices.io/'> check here </Link>
+<Link href="https://www.docker.com/">Docker</Link> is a platform that simplifies the process of creating, deploying, and running applications by using containers. A container is a lightweight and portable unit that can run applications and their dependencies. In this blog post, we will cover the basics of Docker, how to use it, and its advantages.
 
 
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Eu ex est irure nisi veniam occaecat est ullamco aliqua cillum laborum enim magna id. Irure amet tempor aliqua eu non eiusmod laboris minim occaecat excepteur eiusmod excepteur eiusmod ex. Qui nulla dolor anim duis duis sunt officia minim pariatur ullamco cillum cillum. Esse eu anim velit ut laborum. Eu consequat labore reprehenderit minim cillum anim laboris elit deserunt voluptate ipsum adipisicing do aliqua. Duis eu aliqua dolore ut nisi proident. Anim dolore sunt enim ullamco fugiat labore laboris elit fugiat anim aliqua.
+## What is Docker
+Docker is a platform that allows developers to build, ship, and run distributed applications. It uses containers to package an application and its dependencies into a single unit, ensuring that the application runs consistently across any infrastructure. Docker containers are similar to virtual machines, but they are much lighter and faster to start up.
+
+## Installing docker
+
+To install Docker on your system, you can follow these steps:
+
+<LgNumberList>
+<li> 
+Visit the Docker website and select your operating system from the list.
+ </li>
+<li> 
+Follow the installation instructions for your operating system.
+</li>
+<li>
+Once you have installed Docker, you can verify the installation by running the following command in a terminal window:
+```shell
+docker --version
+```
+ This command will output the version of Docker that is currently installed on your system.
+</li>
+</LgNumberList>
+That's it! You now have Docker installed on your system and are ready to start using it to create and manage containers.
+
+### How to Use Docker
+To get started with Docker, you will need to install Docker on your local machine. Once installed, you can start using Docker by following these steps:
+
+Build an image: To build an image, you will need a Dockerfile. A Dockerfile is a text file that contains instructions for building an image. You can use the Dockerfile to specify the dependencies and the environment for your application.
+Example:
+
+```Dockerfile
+Copy code
+## Dockerfile
+FROM python:3.8-slim-buster
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+CMD [ "python", "app.py" ]
+```
+Create a container: Once you have built the image, you can create a container from it. You can use the docker run command to create a new container.
+Example:
+
+```shell
+docker run -p 5000:5000 myapp
+```
+Publish the image: If you want to share your application with others, you can publish the image to a registry. A registry is a central location where you can store and share your Docker images.
+Example:
+
+```bash
+docker tag myapp username/myapp
+docker push username/myapp
+```
+
+## Advantages of Docker
+There are several advantages to using Docker, including:
+
+<LgList>
+<li><Adjusted>Portability</Adjusted>: Docker containers can run on any platform, making it easy to move applications between different environments.</li>
+
+<li><Adjusted>Isolation</Adjusted>: Docker containers provide an isolated environment for applications, which reduces the risk of conflicts and dependencies.</li>
+
+<li><Adjusted>Scalability</Adjusted>: Docker containers are lightweight and can be easily scaled up or down to handle changes in demand.</li>
+
+<li><Adjusted>Consistency</Adjusted>: Docker containers ensure that applications run consistently across any infrastructure, reducing the risk of issues caused by differences in the environment.</li>
+</LgList>
+
+## Swarm and Kubernetes
+Swarm and Kubernetes are two popular container orchestration tools used to manage and scale containerized applications. They both offer a range of features to simplify container deployment, scaling, and management.
+
+### Swarm
+Docker Swarm is a native clustering and orchestration tool for Docker containers. It allows you to manage a cluster of Docker hosts and run containerized applications at scale. With Swarm, you can easily deploy and manage a group of Docker containers across multiple hosts, creating a swarm of Docker nodes that act as a single virtual host.
+
+One of the key advantages of Swarm is its simplicity. You can create a Swarm cluster with just a few commands and start deploying your application on the swarm. Swarm also provides built-in load balancing, automatic service discovery, and rolling updates to make it easier to manage your containerized applications.
+
+Here's an example of how to create a Swarm cluster:
+
+<LgNumberList>
+<li>
+ Install Docker on all of the nodes that will be part of the Swarm.
+ </li>
+<li> 
+On one of the nodes, run the following command to initialize the Swarm
+```shell
+docker swarm init
+```
+</li>
+<li>
+Join the other nodes to the Swarm by running the command that was output by the previous command on each of the nodes:
+```shell
+docker swarm join --token TOKEN MANAGER_IP
+```
+</li>
+<li>
+Deploy your application to the Swarm by running the following command:
+```shell
+docker stack deploy -c <compose-file> <stack-name>
+```
+This will deploy your application as a stack on the Swarm, which can be easily scaled up or down as needed.
+</li>
+</LgNumberList>
+
+
+
+
+
+### Kubernetes
+Kubernetes, on the other hand, is a more complex container orchestration tool that was originally developed by Google. It provides a powerful platform for managing and scaling containerized applications across a cluster of nodes. Kubernetes is designed to automate the deployment, scaling, and management of containerized applications, with features like automated rollouts, self-healing, and service discovery.
+
+One of the key advantages of Kubernetes is its flexibility. It can run on any cloud or on-premises infrastructure, and supports a wide range of container runtimes, including Docker, rkt, and CRI-O.
+
+Here's an example of how to deploy an application on a Kubernetes cluster:
+
+
+<LgNumberList>
+<li>
+Install Kubernetes on your cluster of nodes.
+ </li>
+<li> 
+Create a Kubernetes deployment by running the following command:
+
+```shell
+kubectl create deployment <deployment-name> --image=<image-name>
+```
+</li>
+<li>
+Scale up your deployment by running the following command:
+
+```shell
+kubectl scale deployment <deployment-name> --replicas=<number-of-replicas>
+```
+</li>
+<li>
+Expose your deployment as a service by running the following command:
+
+```shell
+kubectl expose deployment <deployment-name> --type=LoadBalancer --port=<service-port>
+```
+This will create a load-balanced service for your deployment, which can be accessed from outside the cluster.
+</li>
+</LgNumberList>
+
+
+### Difference
+
+Here we come to the most common question, what is the difference between these two and which one is better to use in different cases. 
+They both have advantages and disadvantages their purpose is pretty similiar, however, there are some key differences between the two. So in order to make some conclusion which one is better in which segment lets break things into segments:
+
+<LgList>
+<li><Adjusted>Architecture</Adjusted>: Swarm is a simpler tool than Kubernetes and has a flatter architecture, with a single manager node and multiple worker nodes. Kubernetes, on the other hand, has a more complex architecture, with a master node and multiple worker nodes.</li>
+<li><Adjusted>Deployment</Adjusted>: Swarm is easier to deploy than Kubernetes and can be set up with a single command. Kubernetes, on the other hand, requires more setup and configuration.</li>
+<li><Adjusted>Scaling</Adjusted>: Both tools can scale applications up and down, but Kubernetes is more flexible and has more advanced scaling features.</li>
+<li><Adjusted>Maintenance</Adjusted>: Swarm requires less maintenance than Kubernetes because it has a simpler architecture. However, Kubernetes has a more active and larger community, which provides more support and resources for maintenance.</li>
+<li><Adjusted>Extensibility</Adjusted>: Kubernetes is more extensible than Swarm, with a larger ecosystem of plugins and integrations.</li>
+<li><Adjusted>Support for other container runtimes:</Adjusted>:Kubernetes supports multiple container runtimes, while Swarm is designed to work only with the Docker Engine.</li>
+</LgList>
+
+Ultimately, the choice between Swarm and Kubernetes depends on the specific needs of your application and your level of expertise with container orchestration tools. If you are just getting started with containerization, Swarm may be a simpler and more approachable tool. If you have more complex needs and require more flexibility and extensibility, Kubernetes may be a better choice.
+
+
+## Conclusion
+Docker is a powerful tool that can simplify the process of creating, deploying, and running applications. By using containers, Docker provides a lightweight and portable platform that ensures consistency and reduces the risk of conflicts and dependencies. If you're new to Docker, we encourage you to try it out and see how it can benefit your development process. Additionally, with the use of Swarm and Kubernetes, you can easily manage and scale your containerized applications in a production environment.

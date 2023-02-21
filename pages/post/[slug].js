@@ -9,7 +9,7 @@ import { PostDetail, CategoryChip } from '../../components/'
 
 import MdxComponents from '../../components/custom/MdxComponents'
 import TableOfContent from '../../components/custom/TableOfContent'
-// import LikeButton from '../../components/custom/LikeButton'
+import LikeButton from '../../components/custom/LikeButton'
 
 function getTableOfContents (content) {
   // eslint-disable-next-line prefer-regex-literals
@@ -68,6 +68,7 @@ const components = {
   Accent: MdxComponents.Accent,
   QouteComponent: MdxComponents.QouteComponent,
   LgList: MdxComponents.ulLg,
+  LgNumberList: MdxComponents.olLg,
   SmList: MdxComponents.ulSm,
   GithubCard: MdxComponents.GithubCard,
   test: MdxComponents.test,
@@ -104,7 +105,7 @@ const PostDetails = ({ data, mdxSource, toc }) => {
             </div>
             <div className='hidden lg:block col-span-3 lg:col-span-3 place-content-center'>
                <TableOfContent toc={toc} />
-               {/* <LikeButton/> */}
+               <LikeButton/>
             </div>
          </div>
       </div>
