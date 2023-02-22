@@ -1,8 +1,7 @@
 ---
-title: "The Power of Python Data Structures: Lists, Dictionaries, and Tuples"
+title: "The Power of Python Data Structures: Lists, Dictionaries, Sets and Tuples"
 publishedAt: "2023-01-09"
-excerpt: "Python is known for its powerful and versatile data structures that can help you organize and manipulate data with ease.
-"
+excerpt: "Python is known for its powerful and versatile data structures that can help you organize and manipulate data with ease."
 englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
@@ -15,8 +14,9 @@ inPreparation: false
 
 ---
 ## Introduction
-Python is known for its powerful and versatile data structures that can help you organize and manipulate data with ease. In this post, we'll explore the differences between three of the most popular Python data structures: lists, dictionaries, and tuples.
+Python is known for its powerful and versatile data structures that can help you organize and manipulate data with ease. In this post, we'll explore the differences between three of the most popular Python data structures: lists, dictionaries,sets and tuples. We will explain every type in more details but lets see first what are differences between these four data structures, what are theirs advantages and disadvantages.
 
+<CloudinaryImage src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1677071667/igutech/blogs/resources/python-data-strurcture/11111111_rzktuv.png" text="Python data structures"/>
 ## Lists
 Lists are one of the most common data structures in Python. They allow you to store a collection of elements in a specific order. Lists are mutable, meaning you can add, remove, or change elements after you create them. To create a list, you use square brackets [].
 
@@ -60,5 +60,62 @@ In this example, my_tuple contains five elements: the numbers 1, 2, 3, the strin
 print(my_tuple[3])  # Output: "four"
 ```
 
+## Set
+In Python, a set is an unordered collection of unique elements. This means that a set can only contain each unique element once, and the order in which elements are added to the set is not preserved. You can create a set in Python by enclosing a comma-separated list of elements within curly braces {} or by using the built-in set() function. 
+
+```python
+fruits = {'apple', 'banana', 'orange'}
+print(fruits)  # {'apple', 'banana', 'orange'}
+```
+or you can create it by using set() method
+
+```python
+colors = set(['red', 'green', 'blue'])
+print(colors)  # {'red', 'green', 'blue'}
+```
+
+## Advantages and When to use
+
+Each of the data structures in Python - set, list, dictionary, and tuple - has its own strengths and weaknesses, and is suitable for different use cases. Here are some common scenarios where you might want to use each of these data structures.
+
+<LgNumberList>
+
+<li>
+<b>Lists</b>
+<LgList>
+<li>to store a collection of items that can be modified, and where the order of the items is important.</li>
+<li>to append or remove items from the collection frequently.</li>
+<li>to access individual items of the collection by index.</li>
+</LgList>
+</li>
+
+<li>
+<b>Tuples</b>
+<LgList>
+<li> to store a fixed sequence of values that cannot be modified.</li>
+<li> to use the sequence of values as a key in a dictionary (since dictionary keys must be immutable).</li>
+<li> to return multiple values from a function. </li>
+</LgList>
+</li>
+
+<li>
+<b>Sets</b>
+<LgList>
+<li>to store a collection of unique items, and you don't care about their order.</li>
+<li> to perform set operations like union, intersection, and difference.</li>
+<li> to remove duplicates from a collection.</li>
+</LgList>
+</li>
+<li>
+<b>Dictionaries</b>
+<LgList>
+<li> to store a collection of key-value pairs, and you want to be able to look up values by their keys.</li>
+<li> to add or remove key-value pairs frequently.</li>
+<li> to iterate over the keys or values in the dictionary. </li>
+</LgList>
+</li>
+</LgNumberList>
+
+As always, there is no best solution, every type has its own strenght and best practices. So, depending on your case choose wisely which one will you use because it can later means less headache.
 ## Conclusion
 In summary, lists, dictionaries, and tuples are powerful data structures in Python that allow you to store and manipulate data in different ways. Lists are mutable, dictionaries store data in key-value pairs, and tuples are immutable. By using the appropriate data structure for your needs, you can write more efficient and effective Python code.
