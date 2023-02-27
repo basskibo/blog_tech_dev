@@ -28,6 +28,7 @@ const FeaturedPosts = () => {
                               <ActiveLink
                                  href='/post/nodejs-interview'
                                  name='blog'
+                                 data-splitbee-event={'Header clicked blog_post_button'}
                                  id='blog_post_button'
                                  className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-700
                   hover:cursor-pointer text-center text-white  border border-lime-500 hover:text-lime-600 hover:shadow-neutral-500'>

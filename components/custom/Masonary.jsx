@@ -16,6 +16,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
         <div
             style={{ display: 'flex', borderRadius: '15px', ...style }}>
             <a
+                data-splitbee-event={`Blog post clicked ${post?.data?.slug}_post`}
                 id={`${post?.data?.slug}_post`}
                 className={clsx(
                   post?.data?.inPreparation ? ' pointer-events-none' : ' ', 'relative flex flex-wrap  items-end justify-end flex-1 m-2 h-96 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg border-4 border-neutral-800'
@@ -94,6 +95,7 @@ const ChildLibary = ({ style, index, data, readyInViewport, scrolling }) => {
 <div
 style={{ display: 'flex', borderRadius: '15px', ...style }} >
 <a
+    data-splitbee-event={`Blog post clicked ${post?.data?.slug}_post`}
     id={`${post?.data?.slug}_post`}
     className={clsx(
       post?.data?.inPreparation ? ' pointer-events-none border-2' : 'border-4 ', 'relative flex flex-wrap   flex-1 m-2 h-48 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg  border-neutral-800'
