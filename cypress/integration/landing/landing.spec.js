@@ -24,10 +24,10 @@ describe("Landing page", () => {
 		cy.get("h1 .text-3xl").first().should("have.text", "My name is Bojan")
 	})
 	it("displays  Read blog  button", () => {
-		cy.get("#rb_button").should("include.text", "Read blog")
+		cy.get("#blog_post_button").should("include.text", "Read blog")
 	})
 	it("displays  See my bio  button", () => {
-		cy.get("#am_button").should("include.text", "See my bio")
+		cy.get("#aboutme_button").should("include.text", "See my bio")
 	})
 
 	it("displays external Github button", () => {
