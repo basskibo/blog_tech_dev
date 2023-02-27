@@ -69,6 +69,7 @@ const Header = ({ href }) => {
                                     <ActiveLink
                                        key={item.name}
                                        href={item.href}
+                                       id={ `${item.name}_header_button`}
                                        data-splitbee-event={`Header clicked ${item.name}_header_button`}
                                        >
                                        {item.name}
@@ -182,7 +183,7 @@ const Header = ({ href }) => {
                   <Disclosure.Panel className='sm:hidden'>
                      <div className='px-2 pt-2 pb-3 space-y-1'>
                         {navigation.map((item) => (
-                           <ActiveLink key={item.name} href={item.href} data-splitbee-event={`Header clicked ${item.name}_header_button_m`}
+                           <ActiveLink key={item.name} href={item.href} id={ `${item.name}_header_button_m`} data-splitbee-event={`Header clicked ${item.name}_header_button_m`}
                            >
                               {item.name}
                            </ActiveLink>
