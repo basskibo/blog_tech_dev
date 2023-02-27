@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Layout } from '../components'
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.scss'
 import * as ga from '../lib/analytics'
-import SplashScreen from '../components/custom/SplashScreen'
+// import SplashScreen from '../components/custom/SplashScreen'
 import NextHead from 'next/head'
 import { Analytics } from '@vercel/analytics/react'
 
@@ -46,7 +46,7 @@ const handleTitle = (router) => {
 }
 
 function IguanaDevelopmentTech ({ Component, pageProps }) {
-  const [pageLoaded, setPageLoaded] = useState(false)
+  // const [pageLoaded, setPageLoaded] = useState(false)
   const router = useRouter()
   let defaultTitle
   if (!pageProps.data) {
@@ -71,11 +71,11 @@ function IguanaDevelopmentTech ({ Component, pageProps }) {
   const description = postDescription()
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const loader = document.getElementById('globalLoader')
-      // if (loader) setTimeout(() => setPageLoaded(true), 1500)
-      if (loader) setPageLoaded(true)
-    }
+    // if (typeof window !== 'undefined') {
+    // const loader = document.getElementById('globalLoader')
+    // if (loader) setTimeout(() => setPageLoaded(true), 1500)
+    // if (loader) setPageLoaded(true)
+    // }
     const handleRouteChange = (url) => {
       ga.pageview(url)
     }
