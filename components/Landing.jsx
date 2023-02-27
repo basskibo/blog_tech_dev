@@ -54,7 +54,7 @@ const Landing = () => {
                      not coding). Accustomed to using extensive tech stack
                      because I love challenging and complex projects.
                   </p>
-                  <p className='font-bold mb-1  hidden lg:block text-md'>
+                  <p className='font-bold mb-1 hidden lg:block text-md'>
                      Writing code is my obsession as well as constant
                      self-improvement, I have developed many web applications
                      and platforms from scratch in my spare time (when I&apos;m
@@ -78,14 +78,14 @@ const Landing = () => {
                   <ActiveLink
                      href='/routes/blog'
                      name='blog'
-                     id='rb_button'
+                     id='blog_post_button'
                      className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-800
                hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-[#ff0080] hover:shadow-neutral-500 '>
                      Read blog
                   </ActiveLink>
                   <ActiveLink
                      href='/routes/aboutme'
-                     id='am_button'
+                     id='aboutme_button'
                      className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-800 hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-[#ff0080] hover:shadow-neutral-500 '>
                      See my bio
                   </ActiveLink>
