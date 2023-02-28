@@ -2,6 +2,7 @@
 const shouldAnalyzeBundles = process.env.ANALYZE === true
 
 module.exports = {
+  productionBrowserSourceMaps: true,
   // experimental: {
   // runtime: "nodejs",
   // },
