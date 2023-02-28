@@ -21,7 +21,6 @@ const CodeBlock = ({ code, className }) => {
     )
   };
   const copy = () => {
-    console.log('Copied!')
     setCopied(true)
     setTimeout(() => {
       setCopied(false)
@@ -29,7 +28,6 @@ const CodeBlock = ({ code, className }) => {
   }
 
   const parseLanguageByClass = (className) => {
-    console.log(className)
     return className ? className.split('-')[1] : 'javascript'
   }
 

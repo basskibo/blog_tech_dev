@@ -19,7 +19,6 @@ const LikeButton = (args) => {
           // y: Math.random() - 0.2
         }
       })
-      console.log('l ', likes)
       setLiked(true)
       setLikes(likes + 1)
       setClicked(clicked + 1)

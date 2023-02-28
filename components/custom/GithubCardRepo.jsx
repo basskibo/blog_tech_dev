@@ -20,7 +20,6 @@ const GithubCardProfile = ({ children }) => {
           // }
         )
 
-        console.log(response.data)
         setRepository(response.data)
       } catch (error) {
         console.log('error', error)
