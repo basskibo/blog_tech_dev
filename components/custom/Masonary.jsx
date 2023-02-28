@@ -12,7 +12,6 @@ import { useMediaQuery } from 'react-responsive'
 
 const Child = ({ style, index, data, readyInViewport, scrolling }) => {
   const post = data[index]?.props
-  console.log('post', post)
   return (
         <div
             style={{ display: 'flex', borderRadius: '15px', ...style }}>

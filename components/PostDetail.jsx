@@ -16,7 +16,6 @@ const PostDetail = ({ post, content }) => {
     getViews(post)
   }, [])
   const getViews = async (data) => {
-    console.log('fetching api views')
     const url = '/api/views'
     const result = await axios(url, {
       method: 'POST',

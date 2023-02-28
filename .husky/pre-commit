@@ -3,3 +3,4 @@
 
 yarn eslint ./pages/*.js
 yarn eslint ./components/*.jsx
+npm run build

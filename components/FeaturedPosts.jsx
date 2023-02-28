@@ -12,7 +12,6 @@ const FeaturedPosts = () => {
     getViews()
   }, [])
   const getViews = async (data) => {
-    console.log('fetching api views')
     const url = '/api/views/featured'
     const result = await axios(url, {
       method: 'POST',

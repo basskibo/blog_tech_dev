@@ -100,7 +100,6 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
       }
     })
 
-    console.log(result.data)
     setviews(result.data.views)
   }
 

@@ -27,7 +27,6 @@ const NewsLetter = () => {
   }
 
   function handleChange (e) {
-    console.log(e.target.value)
     setemail(e.target.value)
     // setIsOpen(true)
   }
