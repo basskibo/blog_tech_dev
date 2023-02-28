@@ -106,12 +106,12 @@ function IguanaDevelopmentTech ({ Component, pageProps }) {
             <meta name="twitter:image" content={ogUrl} />
 
          </NextHead>
-         {/* <SplashScreen loaded={pageLoaded}> */}
+         <SplashScreen >
             <Layout>
                 <Component {...pageProps} />
                 <Analytics/>
             </Layout>
-         {/* </SplashScreen> */}
+         </SplashScreen>
       </>
   )
 }
