@@ -12,16 +12,16 @@ import { useMediaQuery } from 'react-responsive'
 
 const Child = ({ style, index, data, readyInViewport, scrolling }) => {
   const post = data[index]?.props
+  console.log('post', post)
   return (
         <div
             style={{ display: 'flex', borderRadius: '15px', ...style }}>
             <a
-                data-splitbee-event={`Blog post clicked ${post?.data?.slug}_post`}
-                id={`${post?.data?.slug}_post`}
+                // data-splitbee-event={`Blog post clicked ${post?.data?.slug}_post`}
+                // id={`${post?.data?.slug}_post`}
                 className={clsx(
                   post?.data?.inPreparation ? ' pointer-events-none ' : ' ', 'relative flex flex-wrap  items-end justify-end flex-1 m-2 h-96 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer  transition duration-100 animate-shadow rounded-lg border-4 border-neutral-800'
                 )}
-
                 href={`/post/${post?.data?.slug}`}
             >
                 {/* <span style={{ position: 'absolute' }}>Pcisum #{index}{scrolling ? ' - Scrolling' : ''}{readyInViewport ? ' - ReadyInViewport' : ''}</span> */}
