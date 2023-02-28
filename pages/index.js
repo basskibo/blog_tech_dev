@@ -3,9 +3,9 @@
 import React from 'react'
 import Head from 'next/head'
 import Landing from '../components/Landing'
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
+// import fs from 'fs'
+// import path from 'path'
+// import matter from 'gray-matter'
 
 export default function Home () {
   // const [numberOfPages, setnumberOfPages] = useState(0)
@@ -68,22 +68,22 @@ export default function Home () {
   )
 }
 
-export const getStaticProps = async () => {
-  const files = fs.readdirSync(path.join('posts/blog'))
-  const posts = files.map((filename) => {
-    const markdownWithMeta = fs.readFileSync(
-      path.join('posts/blog', filename),
-      'utf-8'
-    )
-    const { data: postData } = matter(markdownWithMeta)
-    const data = { ...postData, slug: filename.split('.')[0] }
-    return {
-      data
-    }
-  })
-  return {
-    props: {
-      posts
-    }
-  }
-}
+// export const getStaticProps = async () => {
+  // const files = fs.readdirSync(path.join('posts/blog'))
+  // const posts = files.map((filename) => {
+  //   const markdownWithMeta = fs.readFileSync(
+  //     path.join('posts/blog', filename),
+  //     'utf-8'
+  //   )
+  //   const { data: postData } = matter(markdownWithMeta)
+  //   const data = { ...postData, slug: filename.split('.')[0] }
+  //   return {
+  //     data
+  //   }
+  // })
+  // return {
+  //   props: {
+  //     posts
+  //   }
+  // }
+// }
