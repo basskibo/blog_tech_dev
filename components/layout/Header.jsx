@@ -2,6 +2,7 @@ import React from 'react'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import ActiveLink from '../custom/ActiveLink'
+// import Image from 'next/image'
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -52,6 +53,8 @@ const Header = ({ href }) => {
                                  <img
                                     className='block lg:hidden h-8 w-auto '
                                     src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1666821240/igutech/logo/logo_jibobs.webp'
+                                    width={30}
+                                    height={30}
                                     alt='Jagetic'
                                  />
                                  <img
