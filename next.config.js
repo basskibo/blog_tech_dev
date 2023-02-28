@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const shouldAnalyzeBundles = process.env.ANALYZE === true
 
-module.exports = {
+const NextConfiguration = {
   productionBrowserSourceMaps: true,
   // experimental: {
   // runtime: "nodejs",
@@ -59,3 +59,8 @@ module.exports = {
     ]
   }
 }
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true'
+})
+module.exports = withBundleAnalyzer({ NextConfiguration })
