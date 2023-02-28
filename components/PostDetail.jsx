@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import Image from 'next/image'
 import ReadTime from './ReadTime'
 import constants from '../lib/constants'
@@ -67,10 +67,10 @@ const PostDetail = ({ post, content }) => {
                   <p className='text-slate-400  '>
                      Writen on{' '}
                      <span className='font-semibold hidden lg:inline'>
-                        {moment(post.publishedAt).format('MMMM DD, YYYY')}
+                        {dayjs(post.publishedAt).format('MMMM DD, YYYY')}
                      </span>{' '}
                      <span className='font-semibold lg:hidden inline'>
-                        {moment(post.publishedAt).format('DD.MM.YYYY')}
+                        {dayjs(post.publishedAt).format('DD.MM.YYYY')}
                      </span>{' '}
                      by <span className='font-semibold'>{post.author}</span>
                   </p>

@@ -1,5 +1,5 @@
 import React from 'react'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import CategoryChip from './CategoryChip'
 import ReadTime from './ReadTime'
 import Image from 'next/image'
@@ -75,7 +75,7 @@ const PostCard = ({ post, mode }) => {
                      <p className='align-middle font-bold text-slate-400 mt-1'>
                         {post.data.inPreparation
                           ? ''
-                          : moment(post.data.publishedAt).format(
+                          : dayjs(post.data.publishedAt).format(
                             'MMMM DD, YYYY'
                           )}
                      </p>

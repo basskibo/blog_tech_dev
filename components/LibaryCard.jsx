@@ -1,6 +1,6 @@
 import React from 'react'
 import constants from '../utils/constants'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import clsx from 'clsx'
 import { SiGithub } from 'react-icons/si'
 
@@ -37,7 +37,7 @@ const LibaryCard = ({ libary }) => {
                   </h1>
 
                   <p className='align-middle  text-slate-400 mt-1'>
-                     {moment(libary.publishedAt).format('MMMM DD, YYYY')}
+                     {dayjs(libary.publishedAt).format('MMMM DD, YYYY')}
                   </p>
                   <div className=' text-slate-400 text-sm flex mt-3'>
                      {libary.technologies.map((techIcon) =>

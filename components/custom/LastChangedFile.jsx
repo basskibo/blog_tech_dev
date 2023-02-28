@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { GoHistory } from 'react-icons/go'
 
 const LastChangedFile = (args) => {
@@ -35,7 +35,7 @@ const LastChangedFile = (args) => {
          {lastTimeChanged
            ? (
             <p className=''>
-               Last updated {moment(lastTimeChanged).format('DD.MM.YYYY')}.
+               <span className=''>Last updated</span> <b>{dayjs(lastTimeChanged).format('MMMM DD, YYYY')}</b>.
                <span className='mr-3'>
                   <a
                      href={changesLink}
