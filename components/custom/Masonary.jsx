@@ -19,7 +19,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                 data-splitbee-event={`Blog post clicked ${post?.data?.slug}_post`}
                 id={`${post?.data?.slug}_post`}
                 className={clsx(
-                  post?.data?.inPreparation ? ' pointer-events-none' : ' ', 'relative flex flex-wrap  items-end justify-end flex-1 m-2 h-96 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg border-4 border-neutral-800'
+                  post?.data?.inPreparation ? ' pointer-events-none ' : ' ', 'relative flex flex-wrap  items-end justify-end flex-1 m-2 h-96 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer  transition duration-100 animate-shadow rounded-lg border-4 border-neutral-800'
                 )}
 
                 href={`/post/${post?.data?.slug}`}
@@ -34,7 +34,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                     placeholder='blur'
                     sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, (max-width: 1536px) 33vw, 25vw"
                     className={clsx(
-                      post?.data?.inPreparation ? 'blur-sm' : '',
+                      post?.data?.inPreparation ? 'blur-sm grayscale' : '',
                       'object-cover '
                     )}
                 />
@@ -85,7 +85,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
   )
 }
 
-const ChildLibary = ({ style, index, data, readyInViewport, scrolling }) => {
+const ChildLibrary = ({ style, index, data, readyInViewport, scrolling }) => {
   const post = data[index]?.props
   return (
 //     <div className='my-5'>
@@ -150,7 +150,6 @@ const App = ({ ...props }) => {
   const cellWidthByType = type === 'blog' ? { height: 400, width: 400 } : { height: 200, width: 400 }
   const cellHeightByType = type === 'blog' ? { height: 400 } : { height: 200 }
   const cellSize = !isTabletOrMobile ? cellWidthByType : cellHeightByType
-
   return (
         <section>
 
@@ -158,7 +157,7 @@ const App = ({ ...props }) => {
                 <VirtualGrid
                     total={props.posts.length }
                     cell={cellSize}
-                    child={type === 'blog' ? Child : ChildLibary}
+                    child={type === 'blog' ? Child : ChildLibrary}
                     childProps={{ data }}
                     viewportRowOffset={10}
                 />
