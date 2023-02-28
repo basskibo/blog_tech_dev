@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import moment from 'moment'
+// import moment from 'moment'
 import Pagination from './Pagination'
 
 // import { getComments } from '../services'
@@ -24,7 +24,7 @@ const Comment = ({ slug }) => {
             >
               <p className="mb-4 text-slate-400">
                 <span className="text-white font-semibold">{comment.name}</span>{' '}
-                on {moment(comment.createdAt).format('MMMM DD, YYYY')}
+                {/* on {moment(comment.createdAt).format('MMMM DD, YYYY')} */}
               </p>
               <p className="text-slate-400">{comment.comment} </p>
             </div>

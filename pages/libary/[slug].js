@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
@@ -119,12 +119,12 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
                            <p className='text-slate-400  lg:text-md sm:text-sm'>
                               Writen on{' '}
                               <span className='font-semibold hidden lg:inline'>
-                                 {moment(data.publishedAt).format(
+                                 {dayjs(data.publishedAt).format(
                                    'MMMM DD, YYYY'
                                  )}
                               </span>{' '}
                               <span className='font-semibold lg:hidden inline'>
-                                 {moment(data.publishedAt).format('DD.MM.YYYY')}
+                                 {dayjs(data.publishedAt).format('DD.MM.YYYY')}
                               </span>{' '}
                               by{' '}
                               <span className='font-semibold'>

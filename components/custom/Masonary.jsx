@@ -4,7 +4,7 @@ import VirtualGrid from 'react-responsive-virtual-grid'
 import Image from 'next/image'
 import clsx from 'clsx'
 // import ReadTime from '../ReadTime'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import constants from '../../utils/constants'
 // import CategoryChip from '../CategoryChip'
 import Accent from './Accent'
@@ -57,7 +57,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
                             <p className='align-middle  font-semibold text-xs text-slate-400 '>
                                 {post?.data?.inPreparation
                                   ? ''
-                                  : moment(post?.data?.publishedAt).format(
+                                  : dayjs(post?.data?.publishedAt).format(
                                     'MMMM DD, YYYY'
                                   )}
                             </p>
@@ -114,7 +114,7 @@ style={{ display: 'flex', borderRadius: '15px', ...style }} >
                 <p className='align-middle  font-semibold text-sm text-slate-400 mt-1'>
                     {post?.data?.inPreparation
                       ? ''
-                      : moment(post?.data?.publishedAt).format(
+                      : dayjs(post?.data?.publishedAt).format(
                         'MMMM DD, YYYY'
                       )}
                 </p>
