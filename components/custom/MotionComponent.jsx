@@ -14,16 +14,16 @@
 // }
 // const MotionComponent = ({ children }) => {
 //   return (
-// 		// <motion.div animate={{ y: [30, 0, 0] }} transition={{ duration: 1 }}>
-// 		<motion.div className="card-container"
-// 		initial="offscreen"
-// 		whileInView="onscreen"
-// 		viewport={{ once: true, amount: 0.8 }}
-// 			>
-// 				<motion.div className="card" variants={cardVariants}>
-// 				{children}
+// // <motion.div animate={{ y: [30, 0, 0] }} transition={{ duration: 1 }}>
+// <motion.div className="card-container"
+// initial="offscreen"
+// whileInView="onscreen"
+// viewport={{ once: true, amount: 0.8 }}
+// >
+// <motion.div className="card" variants={cardVariants}>
+// {children}
 //       </motion.div>
-// 		</motion.div>
+// </motion.div>
 //   )
 // }
 
