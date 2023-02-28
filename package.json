@@ -31,7 +31,6 @@
     "clsx": "^1.1.1",
     "draft-js": "^0.11.7",
     "esbuild": "^0.14.14",
-    "framer-motion": "^6.2.8",
     "fs": "^0.0.1-security",
     "github-user-repo-card": "^0.6.9",
     "graphql": "^16.2.0",
