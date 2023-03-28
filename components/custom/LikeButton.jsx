@@ -27,8 +27,8 @@ const LikeButton = (args) => {
   }, [likes])
 
   return (
-    <div className=''>
-        <button className="flex justify-center" onClick={onClick} >
+    <div className='flex justify-center'>
+        <button className=" " onClick={onClick} >
         {liked ? <BsHeartFill className='text-3xl  mx-1 text-red-800' /> : <BsHeart className='text-3xl text-neutral-300  mx-1' />}
         <span className='text-neutral-500 ml-1 text-xl'>{likes}</span>
         </button>

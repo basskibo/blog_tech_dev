@@ -1,7 +1,7 @@
 /* eslint-disable no-tabs */
 import React from 'react'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
-import LikeButton from './LikeButton'
+// import LikeButton from './LikeButton'
 // const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 const anchorOffset = 75
 const TableOfContent = ({ toc }) => {
@@ -36,7 +36,7 @@ const TableOfContent = ({ toc }) => {
 					</>
 				))}
 			</ul>
-			<LikeButton/>
+			{/* <LikeButton/> */}
 		</div>
   )
 }
