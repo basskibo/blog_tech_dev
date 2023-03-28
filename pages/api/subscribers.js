@@ -52,6 +52,14 @@ async function sendEmail (email) {
   })
 
   // send mail with defined transport object
+  // const welcomeMail = await transporter.sendMail({
+  //   from: '"Yay new subscriber 👻" <foo@example.com>', // sender address
+  //   to: 'jagetic.bojan@gmail.com', // list of receivers
+  //   subject: email + ' just subscribed ✔', // Subject line
+  //   text: 'Hello world?', // plain text body
+  //   html: 'New subscriber with email: <b>' + email + '</b> has been subscribed to the newseltter via ' + process.env.BASE_URL // html body
+  // })
+
   const info = await transporter.sendMail({
     from: '"Yay new subscriber 👻" <foo@example.com>', // sender address
     to: 'jagetic.bojan@gmail.com', // list of receivers
@@ -61,6 +69,8 @@ async function sendEmail (email) {
   })
 
   console.log('Message sent to email: %s', info.messageId)
+  // console.log('Message sent to email: %s', welcomeMail.messageId)
+
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
   // Preview only available when sending through an Ethereal account
