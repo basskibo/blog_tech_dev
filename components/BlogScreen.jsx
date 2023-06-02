@@ -12,6 +12,7 @@ const getCategories = (posts) => {
       categories.push(postCategory)
     })
     const flatenedArr = categories.flat()
+    // eslint-disable-next-line no-inner-declarations
     function getUniqueListBy (arr, key) {
       return [...new Map(arr.map((item) => [item[key], item])).values()]
     }

@@ -1,47 +1,36 @@
 ---
-title: "Spotify listen now card"
+title: "Spotify listening now card"
 publishedAt: "2022-07-19"
 excerpt: "NPM React component for generating Github card which shows profile and repository info"
 englishOnly: "true"
-technologies: ["SiReact", "SiNpm"]
+technologies: ["SiReact", "SiNpm", "SiNextdotjs"]
 author: "Bojan Jagetic"
-inPreparation: true
+inPreparation: false
 tags: [{ slug: "", name: "libary" }, {slug: "", name: "npm module"}]
----
+--- 
 
 ## Introduction
+In this blog post, we'll explore a code snippet that demonstrates how to create a Spotify API wrapper using Node.js and the popular HTTP client library, Axios. The code allows you to fetch information about the currently playing track on Spotify and retrieve details such as the song title, artist, album, album cover image URL, and the Spotify song URL. Let's dive into the code and understand how it works.
 
-<CloudinaryImage src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1666844996/igutech/post_data/Screenshot_2022-10-27_062355_la4aej.png' alt='npm module example' text='npm module example'/>
+## Code Explanation:
+The code begins with disabling the camelcase linting rule using the comment /* eslint-disable camelcase */. This allows the code to use snake_case variable names without triggering any linting errors.
 
-When you are creating your personal website or blog, it is great way to show off your Github profile in a way so other can see what you do and what can you do. If you are writing about some project, for example as I am doing right now, easy solution for you and your reader
-is to have some graphical showecase for project which is the link to the repository and code at the same time.
-Github user repository component card is my first <Adjusted>npm module</Adjusted> I made and published is bacically React component used for generating card for user's Github profile or repository.
+Next, the required modules, querystring and axios, are imported. querystring is used to stringify the request parameters, while axios is used to make HTTP requests to the Spotify API.
 
-## About module
+The code retrieves the required environment variables, namely SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, and SPOTIFY_REFRESH_TOKEN, using destructuring assignment from the process.env object. These variables store sensitive information and should be kept secure.
 
-As you probably know npm is a package manager for the JavaScript programming language maintained by npm, Inc. npm is the default package manager for the JavaScript runtime environment Node.js.
-It is pretty easy to use, so if you want to install this npm module it is neccassarry to have npm installed in your system and run command
+The basic variable is then created by encoding the client_id and client_secret using Base64 encoding. It will be used for authentication when requesting an access token from Spotify.
 
-## NPM module and repository
+Two constants, NOW_PLAYING_ENDPOINT and TOKEN_ENDPOINT, store the Spotify API endpoints for retrieving currently playing track information and obtaining access tokens, respectively.
 
-I will not go through detailed explanation here about code, you can read all out or even try it at <Link href="https://www.npmjs.com/package/github-user-repo-card"> npm repository </Link>
-As well, you can check bellow, this card is made with <Adjusted>github-user-repo-card</Adjusted>.
+The getAccessToken function is defined as an asynchronous function. It sends a POST request to the TOKEN_ENDPOINT with the necessary parameters, including the grant_type set to 'refresh_token' and the refresh_token obtained from the environment variables. The request includes the Authorization header with the encoded client_id and client_secret. The response data, which contains the access token, is returned.
 
+The getNowPlaying function is another asynchronous function that retrieves the currently playing track information. It first calls getAccessToken to obtain the access token, then sends a GET request to the NOW_PLAYING_ENDPOINT with the access token included in the Authorization header. The response is returned.
 
-### Installation
+The spotifyApi function is defined as an asynchronous function that takes two parameters, _ (unused) and res (response object). It calls getNowPlaying to get the currently playing track information. If the response status is 204 (no content) or an error occurs, or the currently playing type is not a track, it sends a JSON response indicating that nothing is currently playing. Otherwise, it extracts relevant data from the response and constructs a JSON object containing details about the currently playing track. Finally, it sends a JSON response with the constructed data.
 
-In order to install the newest version of <Adjusted>github-user-repo-card</Adjusted> in your project your standard npm command for installing module.
+The spotifyApi function is exported as the default export of the module.
 
-```shell
-npm i github-user-repo-card
-```
+## Conclusion:
 
-
-
-### Contribution and Issues
-
-If you want to contribute to the project wheather it would be by reporting an issue in the <Link href="https://github.com/basskibo/github-user-repo-card/issues"> github issues </Link> or you would like
-to make changes to the code, feel free to open pull request or fork the project. My goal is to make it better and usefull to the masses, so if you have some feature which would suits to you, I will repeat
-again, dont mind opening issue/disscusion, make changes in the code or you can contact me as well.   
-
-<GithubCardRepository>basskibo/github-user-repo-card</GithubCardRepository>
+In this blog post, we explored a code snippet that demonstrates how to create a Spotify API wrapper using Node.js and Axios. The code allows you to fetch information about the currently playing track on Spotify and retrieve details such as the song title, artist, album, album cover image URL, and the Spotify song URL. You can use this code as a starting point to build more advanced Spotify-related functionality in your Node.js applications. Feel free to modify and extend the code to suit your specific requirements. Happy coding!
