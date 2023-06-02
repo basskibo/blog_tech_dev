@@ -1,7 +1,7 @@
 ---
 title: "Spotify listening now card"
-publishedAt: "2022-07-19"
-excerpt: "NPM React component for generating Github card which shows profile and repository info"
+publishedAt: "2023-05-19"
+excerpt: "This code snippet allows you to fetch information about the currently playing track on Spotify and retrieve details such as the song title, artist, album, album cover image URL, and the Spotify song URL."
 englishOnly: "true"
 technologies: ["SiReact", "SiNpm", "SiNextdotjs"]
 author: "Bojan Jagetic"
@@ -10,27 +10,185 @@ tags: [{ slug: "", name: "libary" }, {slug: "", name: "npm module"}]
 --- 
 
 ## Introduction
-In this blog post, we'll explore a code snippet that demonstrates how to create a Spotify API wrapper using Node.js and the popular HTTP client library, Axios. The code allows you to fetch information about the currently playing track on Spotify and retrieve details such as the song title, artist, album, album cover image URL, and the Spotify song URL. Let's dive into the code and understand how it works.
+In this blog post, we'll explore a code snippet that demonstrates how to create a <Link href="https://www.spotify.com/">Spotify</Link> API wrapper using Next.js and the popular HTTP client library, <Link href="https://axios-http.com/docs/intro">Axios</Link>. This code we will write, will allows you to fetch information about the currently playing track on your Spotify account and retrieve details such as the song title, artist, album, album cover image URL, and the Spotify song URL. Its up to you to show whatever you like, this is my example which I am currently using on my <Link href="https://bojanjagetic.com">personal webiste</Link> so feel free to be creative as much as you like. So I will not bother anymore, let's dive into the code and understand how it works.
 
-## Code Explanation:
-The code begins with disabling the camelcase linting rule using the comment /* eslint-disable camelcase */. This allows the code to use snake_case variable names without triggering any linting errors.
+## Idea behind project
 
-Next, the required modules, querystring and axios, are imported. querystring is used to stringify the request parameters, while axios is used to make HTTP requests to the Spotify API.
+Nothing special to be honest, as I mentioned already above I wanted to show which music I am currently listening on Spotify and who knows, maybe some uknown visitor likes the song so at least I can do in this case is recommend some good music :)
 
-The code retrieves the required environment variables, namely SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, and SPOTIFY_REFRESH_TOKEN, using destructuring assignment from the process.env object. These variables store sensitive information and should be kept secure.
+## Code Explanation
+The code begins with the requiring neccessarry modules for this project, querystring and axios, are imported. <Link href="https://www.npmjs.com/package/querystring">querystring</Link> is used to stringify the request parameters (you dont have to use it, I already had it in project so find a good use of it but its not necessarry), while <Link href="https://axios-http.com/docs/intro">axios</Link> is used to make HTTP requests to the Spotify API.
 
-The basic variable is then created by encoding the client_id and client_secret using Base64 encoding. It will be used for authentication when requesting an access token from Spotify.
+The following code retrieves the required environment variables, which are named SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, and SPOTIFY_REFRESH_TOKEN, using destructuring assignment from the process.env object. These variables store sensitive information and should be kept secure so thats why it is strongly recommended to use environment variable. Be aware that you have to get your tokens from spotify developer portal.
+
+
+The __token__ variable is then created by encoding the client_id and client_secret using Base64 encoding. It will be used for authentication as a bearer token when we want to request an __access token__ from Spotify.
+
 
 Two constants, NOW_PLAYING_ENDPOINT and TOKEN_ENDPOINT, store the Spotify API endpoints for retrieving currently playing track information and obtaining access tokens, respectively.
 
-The getAccessToken function is defined as an asynchronous function. It sends a POST request to the TOKEN_ENDPOINT with the necessary parameters, including the grant_type set to 'refresh_token' and the refresh_token obtained from the environment variables. The request includes the Authorization header with the encoded client_id and client_secret. The response data, which contains the access token, is returned.
+```js
+import querystring from 'querystring'
+import axios from 'axios'
 
-The getNowPlaying function is another asynchronous function that retrieves the currently playing track information. It first calls getAccessToken to obtain the access token, then sends a GET request to the NOW_PLAYING_ENDPOINT with the access token included in the Authorization header. The response is returned.
+const {
+  SPOTIFY_CLIENT_ID: client_id,
+  SPOTIFY_CLIENT_SECRET: client_secret,
+  SPOTIFY_REFRESH_TOKEN: refresh_token
+} = process.env
 
-The spotifyApi function is defined as an asynchronous function that takes two parameters, _ (unused) and res (response object). It calls getNowPlaying to get the currently playing track information. If the response status is 204 (no content) or an error occurs, or the currently playing type is not a track, it sends a JSON response indicating that nothing is currently playing. Otherwise, it extracts relevant data from the response and constructs a JSON object containing details about the currently playing track. Finally, it sends a JSON response with the constructed data.
+const token = Buffer.from(`${client_id}:${client_secret}`).toString('base64')
+const NOW_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing'
+const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token'
 
-The spotifyApi function is exported as the default export of the module.
+```
 
-## Conclusion:
 
-In this blog post, we explored a code snippet that demonstrates how to create a Spotify API wrapper using Node.js and Axios. The code allows you to fetch information about the currently playing track on Spotify and retrieve details such as the song title, artist, album, album cover image URL, and the Spotify song URL. You can use this code as a starting point to build more advanced Spotify-related functionality in your Node.js applications. Feel free to modify and extend the code to suit your specific requirements. Happy coding!
+
+The __getAccessToken__ function, as already said, will be used for fetching access token from Spotify, it sends a POST request to the TOKEN_ENDPOINT <Adjusted>https://accounts.spotify.com/api/token</Adjusted> with the necessary parameters, including the grant_type set to __refresh_token__ and the refresh_token obtained from the environment variables. The request includes the Authorization header with the encoded client_id and client_secret. The response data, which contains the access token, is returned.
+
+```js
+const getAccessToken = async () => {
+  const response = await axios.post(
+    TOKEN_ENDPOINT,
+    querystring.stringify({
+      grant_type: 'refresh_token',
+      refresh_token
+    }),
+    {
+      headers: {
+        Authorization: `Basic ${basic}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }
+  )
+
+  return response.data
+}
+```
+
+Lets move on to the __getNowPlaying__ function is another asynchronous function that retrieves the currently playing track information from the NOW_PLAYING_ENDPOINT API <Adjusted>https://api.spotify.com/v1/me/player/currently-playing</Adjusted>. It first calls getAccessToken to obtain the access token, then sends a GET request to the __NOW_PLAYING_ENDPOINT__ with the access token included in the Authorization header. 
+
+```js
+export const getNowPlaying = async () => {
+  const { access_token } = await getAccessToken()
+  return axios.get(NOW_PLAYING_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${access_token}`
+    }
+  })
+}
+```
+
+Finally, we are coming to the __callSpotifyApi__ function which will be exported as a default and will be called. It calls __getNowPlaying__ to get the currently playing track information. If the response status is __204__ (no content) or an error occurs, it will send a JSON response indicating that nothing is currently playing so you should show something else. Otherwise, if there is some song playing, it extracts relevant data from the response and constructs a JSON object containing details about the currently playing track.  
+
+```js
+
+const spotifyApi = async (_, res) => {
+  const response = await getNowPlaying()
+  if (
+    response.status === 204 || response.status > 400 || (response.data && response.data.currently_playing_type !== 'track')
+  ) {
+    return res.status(200).json({ isPlaying: false })
+  }
+
+  const data = {
+    isPlaying: response.data.is_playing,
+    title: response.data.item.name,
+    album: response.data.item.album.name,
+    artist: response.data.item.album.artists.map((artist) => artist.name).join(', '),
+    albumImageUrl: response.data.item.album.images[0].url,
+    songUrl: response.data.item.external_urls.spotify
+  }
+
+  res.status(200).json(data)
+}
+
+export default spotifyApi
+
+```
+
+So finally, here is __spotify.js__ file, completed.
+
+```js
+/* eslint-disable camelcase */
+// /pages/api/spotify.js
+import querystring from 'querystring'
+import axios from 'axios'
+
+const {
+  SPOTIFY_CLIENT_ID: client_id,
+  SPOTIFY_CLIENT_SECRET: client_secret,
+  SPOTIFY_REFRESH_TOKEN: refresh_token
+} = process.env
+
+const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64')
+const NOW_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing'
+const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token'
+
+const getAccessToken = async () => {
+  const response = await axios.post(
+    TOKEN_ENDPOINT,
+    querystring.stringify({
+      grant_type: 'refresh_token',
+      refresh_token
+    }),
+    {
+      headers: {
+        Authorization: `Basic ${basic}`,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }
+  )
+
+  return response.data
+}
+
+export const getNowPlaying = async () => {
+  const { access_token } = await getAccessToken()
+  return axios.get(NOW_PLAYING_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${access_token}`
+    }
+  })
+}
+
+const spotifyApi = async (_, res) => {
+  const response = await getNowPlaying()
+  if (
+    response.status === 204 || response.status > 400 || (response.data && response.data.currently_playing_type !== 'track')
+  ) {
+    return res.status(200).json({ isPlaying: false })
+  }
+
+  const data = {
+    isPlaying: response.data.is_playing,
+    title: response.data.item.name,
+    album: response.data.item.album.name,
+    artist: response.data.item.album.artists.map((artist) => artist.name).join(', '),
+    albumImageUrl: response.data.item.album.images[0].url,
+    songUrl: response.data.item.external_urls.spotify
+  }
+
+  res.status(200).json(data)
+}
+
+export default spotifyApi
+```
+
+## Spotify card
+
+So basically for Spotify card you can make whatever you like, so feel free to make it by your preferences. I have been using in this project Next.js with Tailwind and for calling Spotify API I used <Link href="https://swr.vercel.app/">SWR</Link> which is basically 'React Hook for Data Fetching', but if you want to find more about that topic you can check my other post <Link href="https://www.bojanjagetic.com/post/swr"> What is SWR and How Can It Improve Your React Apps</Link>.
+So here is how it is looking inside of my app when I am not listening anything:
+
+<CloudinaryImage src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1685724812/igutech/post_data/Screenshot_from_2023-06-02_23-52-20_yltveo.png" alt="Spotify card not playing" text="Spotify card not playing" />
+
+So here is how it is looking inside of my app when I am listening :
+
+<CloudinaryImage src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1685725010/igutech/post_data/Screenshot_from_2023-06-02_23-56-13_agrotn.png" alt="Spotify card playing" text="Spotify card playing" />
+
+<CloudinaryImage src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1685725083/igutech/post_data/Screenshot_from_2023-06-02_23-57-50_rj2i9c.png" alt="Spotify card playing zoomed" text="Spotify card playing zoomed" />
+
+## Conclusion
+
+In this blog post, we explored a code snippet that demonstrates how to create a Spotify API wrapper using Next.js and Axios, simple as that. The code allows you to fetch information about the currently playing track on Spotify and retrieve details such as the song title, artist, album, album cover image URL, and the Spotify song URL. You can use this code as a starting point to build more advanced Spotify-related functionality in your applications or you can get some more better idea. Feel free to modify and extend the code to suit your specific requirements this is just my type but you can make it however you wish. I hope I helped, if you have any question please let me know and Happy coding!
