@@ -1,0 +1,65 @@
+---
+title: "Top 10 Interview Questions for JavaScript Full Stack Developers"
+publishedAt: "2023-06-12"
+excerpt: "JavaScript is a powerful and versatile programming language that is widely used in web development, and being a full stack developer proficient in JavaScript can open up numerous career opportunities."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1668806826/igutech/blogs/adelin-grigorescu-_qu8-6ktD0k-unsplash_pvre2y.jpg"
+imageCreditUser: "Federico Burgalassi"
+imageCreditUsername: "fede_burgalassi"
+author: "Bojan Jagetic"
+tags: [{ slug: "js", name: "javascript" }]
+inPreparation: false
+---
+
+## Introduction
+JavaScript is a powerful and versatile programming language that is widely used in web development, and being a full stack developer proficient in JavaScript can open up numerous career opportunities. Whether you're preparing for a job interview or aiming to assess your own knowledge, it's essential to be familiar with the key interview questions that may arise during the hiring process. In this blog post, we will explore the top 10 interview questions for JavaScript full stack developers to help you succeed in your next interview.
+
+## Quick Note
+I just have to mention before we jump into the questions and answers, that these are not mandatory questions that are in every interview, these are just some of the questions that are asked very often.
+Of course, the questions will be regulated according to the candidate's experience and position, so if you applied for nodejs, questions related specifically to nodejs will be in focus.
+
+### What is event delegation in JavaScript?
+Event delegation is a technique in JavaScript that allows you to attach a single event listener to a parent element instead of attaching individual event listeners to multiple child elements. This approach optimizes performance and reduces memory consumption, particularly when dealing with a large number of elements. It works by utilizing the event bubbling mechanism, where events that occur on the child elements bubble up to the parent element.
+
+
+### Explain the concept of closure in JavaScript.
+
+A closure is a combination of a function and the lexical environment within which it was declared. It allows a function to retain access to variables from its parent scope even after the parent function has finished executing. Closures are essential for creating private variables, implementing module patterns, and managing asynchronous operations in JavaScript.
+
+### What is the difference between 'undefined' and 'null' in JavaScript?
+
+In JavaScript, 'undefined' is a primitive value that is automatically assigned to variables that are declared but not initialized. It is also the default return value of a function that does not explicitly return anything. On the other hand, 'null' is an object that represents the intentional absence of any object value. It is often assigned explicitly to indicate the absence of an object reference.
+
+### Explain the concept of prototypal inheritance in JavaScript.
+
+In JavaScript, prototypal inheritance is a mechanism that allows objects to inherit properties and methods from other objects. Each object has an internal link to another object called its prototype. If a property or method is not found in an object, JavaScript looks for it in the object's prototype and continues up the prototype chain until it reaches the top-level prototype, usually the Object prototype
+
+
+###  What is the purpose of the 'this' keyword in JavaScript?
+
+The 'this' keyword refers to the context in which a function is called. It is a special variable that holds a reference to an object. The value of 'this' is determined at runtime and can vary based on how a function is invoked. In the global scope, 'this' refers to the global object (e.g., 'window' in browsers), whereas within a function, 'this' can refer to the object on which the function is called or the object that is currently being constructed (in the case of a constructor function).
+
+### What are promises in JavaScript?
+
+Promises are a feature introduced in ES6 to handle asynchronous operations more effectively. They represent the eventual completion or failure of an asynchronous operation and allow you to write asynchronous code in a more synchronous manner. Promises have three states: pending, fulfilled, and rejected. They provide methods such as 'then()' and 'catch()' to handle successful and failed outcomes, respectively.
+
+###  Explain the concept of event-driven programming in JavaScript.
+
+Event-driven programming is a paradigm in which the flow of a program is determined by events triggered by user actions, system notifications, or other sources. JavaScript is well-suited for event-driven programming because of its support for callback functions and event listeners. Event-driven programming enables the creation of interactive and responsive web applications by allowing developers to define how the program should respond to various events.
+
+### What is the difference between 'let', 'const', and 'var' in JavaScript?
+
+'let', 'const', and 'var' are used to declare variables in JavaScript, but they have different scoping rules. 'var' has function scope, meaning it is accessible within the entire function in which it is declared. 'let' and 'const' have block scope, meaning they are limited to the block of code in which they are defined. 'let' allows reassignment of values, while 'const' declares a variable with a constant (immutable) value.
+
+### How does JavaScript handle asynchronous programming?
+
+JavaScript handles asynchronous programming using callbacks, promises, and async/await. Callbacks are a traditional approach where a function is passed as an argument to another function and called once an asynchronous operation is completed. Promises provide a more structured way to handle asynchronous operations and avoid callback hell. Async/await is a syntax introduced in ES8 that allows writing asynchronous code in a more synchronous style using the 'async' and 'await' keywords.
+
+### What are some performance optimization techniques in JavaScript?
+
+To optimize JavaScript performance, you can consider techniques such as minimizing DOM manipulation, bundling and minifying scripts, using event delegation, optimizing loops, caching variables, and reducing unnecessary network requests. Additionally, employing lazy loading, asynchronous loading of scripts, and optimizing images can greatly improve the overall performance of a web application.
+
+## Conclusion
+Being well-prepared for an interview is crucial, and having a solid understanding of these top 10 interview questions for JavaScript full stack developers will undoubtedly boost your chances of success. Remember to not only memorize the answers but also understand the underlying concepts and be ready to demonstrate your practical experience. Good luck with your interview and your journey as a JavaScript full stack developer!
