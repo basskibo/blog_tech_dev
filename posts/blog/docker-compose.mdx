@@ -1,7 +1,7 @@
 ---
 title: "Demystifying Docker Compose: A Beginner's Guide"
 publishedAt: "2023-10-31"
-excerpt: "In the world of containerization, Docker Compose emerges as a powerful ally, simplifying complex setups for beginners and seasoned developers alike. Explore its capabilities and benefits in this beginner's guide, where we compare its usage to traditional Dockerfiles."
+excerpt: "In the world of containerization, Docker Compose emerges as a powerful ally, simplifying complex setups for beginners. Explore its capabilities and benefits in this beginner's guide."
 englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
@@ -21,24 +21,31 @@ Docker Compose is a tool for defining and running multi-container Docker applica
 
 ## Why Use Docker Compose?
 
-1. Simplified Orchestration
+<LgNumberList>
+<li>
+Simplified Orchestration
 Docker Compose simplifies the process of orchestrating multiple containers. It provides a clear and concise way to define the relationships between containers, their dependencies, and how they should interact.
-
-2. Environment Standardization
+</li>
+<li>
+Environment Standardization
 With Docker Compose, you can standardize your development, testing, and production environments. This ensures that your application behaves consistently across different stages of the development lifecycle.
-
-3. Efficient Collaboration
+</li>
+<li>
+Efficient Collaboration
 By sharing a docker-compose.yml file, you make it easy for team members to collaborate on the same application. Everyone uses the same configuration, resulting in fewer "It works on my machine" issues.
-
-4. Scalability
+</li>
+<li>
+Scalability
 Docker Compose is not just for development; it can also be used in production. You can easily scale your application by changing the docker-compose.yml file and deploying it to a production environment.
+</li>
+</LgNumberList>
 
 ## How to Use Docker Compose
 
 Let's walk through a basic example of how to use Docker Compose.
 
 ### Installation
-Before you can use Docker Compose, you need to install it. You can find installation instructions for various platforms here.
+Before you can use Docker Compose, you need to install it. You can find installation instructions for various platforms <Link href="https://docs.docker.com/compose/install/">here</Link>.
 
 ### Define Your Application
 Create a docker-compose.yml file in your project directory. In this file, you define your application's services, networks, and volumes. Here's a simple example:
@@ -59,31 +66,32 @@ In this example, we have two services: web and app. web uses a pre-built Nginx i
 ### Start Your Application
 To start your application, open a terminal in the project directory and run the following command:
 
-``bash
+```bash
 docker-compose up
-``
+```
+
 Docker Compose will download necessary images, build containers, and start your application.
 
 ### Interact with Your Containers
 You can interact with the containers using Docker commands. For example, to access a shell in the web container, you can run:
 
-bash
-Copy code
+```bash
 docker-compose exec web sh
+```
 
 ### Stop Your Application
 To stop your application, press Ctrl+C in the terminal where you started Docker Compose, or run:
 
-bash
-Copy code
+```bash
 docker-compose down
+```
 
 ## Docker Compose vs. Dockerfile
 
 Docker Compose and Dockerfiles are related but serve different purposes.
 
-Dockerfile: It defines how to build a single container image. It specifies the base image, adds dependencies, sets environment variables, and copies application code. Dockerfiles are used to create container images that can be run on any Docker-compatible system.
-Docker Compose: It defines and manages multiple containers that work together as a single application. You use Docker Compose to specify how different containers interact, which services they provide, and how they should be orchestrated.
+<Adjusted>Dockerfile</Adjusted>: It defines how to build a single container image. It specifies the base image, adds dependencies, sets environment variables, and copies application code. Dockerfiles are used to create container images that can be run on any Docker-compatible system.
+<Adjusted>Docker Compose</Adjusted>: It defines and manages multiple containers that work together as a single application. You use Docker Compose to specify how different containers interact, which services they provide, and how they should be orchestrated.
 In summary, Docker Compose is a higher-level tool that orchestrates containers, while Dockerfiles are used to define the individual containers. They complement each other and are often used together.
 
 ## Conclusion
