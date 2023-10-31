@@ -36,9 +36,11 @@ const CV = () => {
                 </li>
                 <div className='flex mb-2 gap-1'>
                     {constants.generateIcon('SiReact')}
+                    {constants.generateIcon('SiMui')}
                     {constants.generateIcon('SiTypescript')}
-                    {/* {constants.generateIcon('SiJavascript')} */}
+                    {constants.generateIcon('SiJavascript')}
                     {constants.generateIcon('SiNestjs')}
+                    {constants.generateIcon('SiExpress')}
                     {constants.generateIcon('SiFirebase')}
                     {constants.generateIcon('SiDocker')}
                     {constants.generateIcon('SiJenkins')}
