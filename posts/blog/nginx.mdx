@@ -1,0 +1,50 @@
+---
+title: "Default vs named module export in Javascript"
+publishedAt: "2022-12-17"
+excerpt: "In JavaScript, you can use the export keyword to make values and functions available for use in other files. There are two ways to use export: as a named export or as a default export."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1668806354/igutech/blogs/evgeni-tcherkasski-bao8WXkifXI-unsplash_t80cr4.jpg"
+imageCreditUser: "Evgeni Tcherkasski"
+imageCreditUsername: "evgenit"
+author: "Bojan Jagetic"
+tags: [{ slug: "js", name: "javascript" }, {slug: "nodejs", name: "nodejs"}]
+inPreparation: false
+---
+
+## Introduction
+
+
+
+
+
+
+Round Robin (round-robin):
+
+Algorithm: Requests are distributed in a circular order to each server.
+Use Case: It provides a simple and fair distribution of requests across servers but doesn't take server load or response times into account.
+
+IP Hash (ip_hash):
+Algorithm: Assigns requests to upstream servers based on the client's IP address. This ensures that requests from the same IP address are consistently routed to the same server.
+Use Case: Useful when maintaining session state on the server is important, such as for applications with user sessions.
+
+Weighted Round Robin (weight):
+Algorithm: Servers are assigned weights that determine the proportion of requests they receive. Servers with higher weights get more requests.
+Use Case: Use this when you want to distribute the load unevenly based on server capacity. For example, a server with higher capacity gets a higher weight.
+
+Weighted Least Connections (least_conn with weights):
+Algorithm: Similar to least_conn, but servers are assigned weights to account for their capacity. It combines least connections with a weighted approach.
+Use Case: Suitable when you want to distribute the load based on both server capacity and current connections.
+
+Least Time (least_time):
+Algorithm: Routes requests to the server with the lowest average response time. It considers server response times when distributing traffic.
+Use Case: Ideal for applications where server response time is a critical factor in load balancing.
+
+Random (random):
+Algorithm: Selects an upstream server randomly for each request.
+Use Case: Random load balancing can be useful in scenarios where you don't require specific distribution patterns, and you want a simple way to distribute requests across servers.
+
+Hash (hash):
+Algorithm: Requests are consistently routed to specific servers based on a hash of the request, such as the URL or another attribute.
+Use Case: Useful for maintaining session affinity or distributing traffic based on specific characteristics of the request.
