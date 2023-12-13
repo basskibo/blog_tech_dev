@@ -66,6 +66,7 @@ const components = {
   h3: MdxComponents.h3,
   img: MdxComponents.img,
   CloudinaryImage: MdxComponents.img,
+  ReactPlayer: MdxComponents.ReactPlayer,
   p: MdxComponents.p,
   a: MdxComponents.a,
   code: MdxComponents.code,
