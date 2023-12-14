@@ -79,33 +79,39 @@ sudo apt-get install nginx
 
 ### Round Robin (round-robin)
 
-Algorithm: Requests are distributed in a circular order to each server.
-Use Case: It provides a simple and fair distribution of requests across servers but doesn't take server load or response times into account.
+__Algorithm__: Requests are distributed in a circular order to each server.
+
+__Use Case__: It provides a simple and fair distribution of requests across servers but doesn't take server load or response times into account.
 
 ### IP Hash (ip_hash)
-<Accent>Algorithm:</Accent> Assigns requests to upstream servers based on the client's IP address. This ensures that requests from the same IP address are consistently routed to the same server.
+__Algorithm:__ Assigns requests to upstream servers based on the client's IP address. This ensures that requests from the same IP address are consistently routed to the same server.
 
-<Adjusted2F90B831DD842160A6782FDA3D8818652122BCE5B0650E725D0B8FCE441DE0D4>Use Case:</Adjusted2F90B831DD842160A6782FDA3D8818652122BCE5B0650E725D0B8FCE441DE0D4> Useful when maintaining session state on the server is important, such as for applications with user sessions.
+__Use Case:__ Useful when maintaining session state on the server is important, such as for applications with user sessions.
 
 ### Weighted Round Robin (weight)
-Algorithm: Servers are assigned weights that determine the proportion of requests they receive. Servers with higher weights get more requests.
-Use Case: Use this when you want to distribute the load unevenly based on server capacity. For example, a server with higher capacity gets a higher weight.
+__Algorithm:__ Servers are assigned weights that determine the proportion of requests they receive. Servers with higher weights get more requests.
+
+__Use Case:__ Use this when you want to distribute the load unevenly based on server capacity. For example, a server with higher capacity gets a higher weight.
 
 ### Weighted Least Connections (least_conn with weights)
-Algorithm: Similar to least_conn, but servers are assigned weights to account for their capacity. It combines least connections with a weighted approach.
-Use Case: Suitable when you want to distribute the load based on both server capacity and current connections.
+__Algorithm:__ Similar to least_conn, but servers are assigned weights to account for their capacity. It combines least connections with a weighted approach.
+
+__Use Case:__ Suitable when you want to distribute the load based on both server capacity and current connections.
 
 ### Least Time (least_time)
-Algorithm: Routes requests to the server with the lowest average response time. It considers server response times when distributing traffic.
-Use Case: Ideal for applications where server response time is a critical factor in load balancing.
+__Algorithm:__ Routes requests to the server with the lowest average response time. It considers server response times when distributing traffic.
+
+__Use Case:__ Ideal for applications where server response time is a critical factor in load balancing.
 
 ### Random (random)
-Algorithm: Selects an upstream server randomly for each request.
-Use Case: Random load balancing can be useful in scenarios where you don't require specific distribution patterns, and you want a simple way to distribute requests across servers.
+__Algorithm:__ Selects an upstream server randomly for each request.
+
+__Use Case:__ Random load balancing can be useful in scenarios where you don't require specific distribution patterns, and you want a simple way to distribute requests across servers.
 
 ### Hash (hash)
-Algorithm: Requests are consistently routed to specific servers based on a hash of the request, such as the URL or another attribute.
-Use Case: Useful for maintaining session affinity or distributing traffic based on specific characteristics of the request.
+__Algorithm:__ Requests are consistently routed to specific servers based on a hash of the request, such as the URL or another attribute.
+
+__Use Case:__ Useful for maintaining session affinity or distributing traffic based on specific characteristics of the request.
 
 ## Conclusion
 
