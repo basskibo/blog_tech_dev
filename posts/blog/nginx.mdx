@@ -1,13 +1,13 @@
 ---
-title: "Default vs named module export in Javascript"
-publishedAt: "2022-12-17"
+title: "Navigating the Web with NGINX"
+publishedAt: "2023-12-13"
 excerpt: "In JavaScript, you can use the export keyword to make values and functions available for use in other files. There are two ways to use export: as a named export or as a default export."
 englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
-featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1668806354/igutech/blogs/evgeni-tcherkasski-bao8WXkifXI-unsplash_t80cr4.jpg"
-imageCreditUser: "Evgeni Tcherkasski"
-imageCreditUsername: "evgenit"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1702482929/igutech/blogs/sam-barber-9HhaROFD-DM-unsplash_jh3gyx.jpg"
+imageCreditUser: "Sam Barber"
+imageCreditUsername: "milltownphotography"
 author: "Bojan Jagetic"
 tags: [{ slug: "js", name: "javascript" }, {slug: "nodejs", name: "nodejs"}]
 inPreparation: false
@@ -15,36 +15,101 @@ inPreparation: false
 
 ## Introduction
 
+In the vast landscape of web servers, NGINX stands as a powerful and versatile solution, serving much more than just static content. Let's unravel the layers of NGINX, understanding its capabilities and exploring why it's a go-to choice for many developers.
+
+NGINX, pronounced "engine-x," is an open-source web server that has evolved beyond its initial role. Originally designed as a high-performance HTTP server, NGINX has grown to become a robust reverse proxy server, load balancer, and even a content cache.
 
 
+## Key Features
 
+### 1. High Performance
 
+NGINX is renowned for its exceptional performance and efficiency. It excels in handling a large number of concurrent connections with minimal resource usage, making it an ideal choice for high-traffic websites.
 
-Round Robin (round-robin):
+### 2. Reverse Proxy
+
+NGINX acts as a reverse proxy, sitting between the client and the application server. This setup enhances security, load balances incoming traffic, and simplifies the management of multiple application servers.
+
+### 3. Load Balancing
+
+For distributing incoming network traffic across multiple servers, NGINX offers efficient load balancing. This ensures optimal resource utilization and prevents any single server from becoming a bottleneck.
+
+### 4. SSL/TLS Termination
+
+NGINX can handle SSL/TLS termination, relieving the backend servers from the computational overhead of encryption and decryption. This improves overall system performance.
+
+### 5. Content Caching
+
+With built-in caching capabilities, NGINX can store and serve static content directly, reducing the load on application servers and improving response times for users.
+
+## When to Use NGINX
+
+NGINX is a versatile tool, and here are some scenarios where it shines:
+
+### 1. High-Traffic Websites
+
+NGINX's efficient handling of concurrent connections makes it a top choice for websites experiencing high traffic volumes. Its low resource usage ensures stability even during traffic spikes.
+
+### 2. Load Balancing
+
+When you need to distribute incoming traffic across multiple application servers, NGINX's load balancing capabilities come into play. This ensures even distribution, preventing any single server from becoming a bottleneck.
+
+### 3. Reverse Proxy
+
+NGINX excels as a reverse proxy, providing an additional layer of security and simplifying the management of backend servers. This is especially useful in microservices architectures.
+
+### 4. SSL/TLS Termination
+
+NGINX is a great choice for handling SSL/TLS termination, freeing up application servers from the computational overhead of encryption. This is crucial for securing data in transit.
+
+### 5. Static Content Serving
+
+The built-in caching and efficient handling of static content make NGINX an excellent choice for serving static files directly to users, reducing the load on backend servers.
+
+## Getting Started with NGINX
+
+Installing NGINX is straightforward and varies depending on your operating system. For example, on Ubuntu, you can use:
+
+```bash
+sudo apt-get update
+sudo apt-get install nginx
+```
+
+## Strategies
+
+### Round Robin (round-robin)
 
 Algorithm: Requests are distributed in a circular order to each server.
 Use Case: It provides a simple and fair distribution of requests across servers but doesn't take server load or response times into account.
 
-IP Hash (ip_hash):
-Algorithm: Assigns requests to upstream servers based on the client's IP address. This ensures that requests from the same IP address are consistently routed to the same server.
-Use Case: Useful when maintaining session state on the server is important, such as for applications with user sessions.
+### IP Hash (ip_hash)
+<Accent>Algorithm:</Accent> Assigns requests to upstream servers based on the client's IP address. This ensures that requests from the same IP address are consistently routed to the same server.
 
-Weighted Round Robin (weight):
+<Adjusted2F90B831DD842160A6782FDA3D8818652122BCE5B0650E725D0B8FCE441DE0D4>Use Case:</Adjusted2F90B831DD842160A6782FDA3D8818652122BCE5B0650E725D0B8FCE441DE0D4> Useful when maintaining session state on the server is important, such as for applications with user sessions.
+
+### Weighted Round Robin (weight)
 Algorithm: Servers are assigned weights that determine the proportion of requests they receive. Servers with higher weights get more requests.
 Use Case: Use this when you want to distribute the load unevenly based on server capacity. For example, a server with higher capacity gets a higher weight.
 
-Weighted Least Connections (least_conn with weights):
+### Weighted Least Connections (least_conn with weights)
 Algorithm: Similar to least_conn, but servers are assigned weights to account for their capacity. It combines least connections with a weighted approach.
 Use Case: Suitable when you want to distribute the load based on both server capacity and current connections.
 
-Least Time (least_time):
+### Least Time (least_time)
 Algorithm: Routes requests to the server with the lowest average response time. It considers server response times when distributing traffic.
 Use Case: Ideal for applications where server response time is a critical factor in load balancing.
 
-Random (random):
+### Random (random)
 Algorithm: Selects an upstream server randomly for each request.
 Use Case: Random load balancing can be useful in scenarios where you don't require specific distribution patterns, and you want a simple way to distribute requests across servers.
 
-Hash (hash):
+### Hash (hash)
 Algorithm: Requests are consistently routed to specific servers based on a hash of the request, such as the URL or another attribute.
 Use Case: Useful for maintaining session affinity or distributing traffic based on specific characteristics of the request.
+
+## Conclusion
+
+NGINX's versatility, performance, and scalability make it an invaluable tool in the toolkit of web developers and system administrators. Whether you need a robust web server, a reverse proxy, or a load balancer, NGINX has you covered. Dive into the NGINX documentation to explore its full range of features and unleash the power of this open-source powerhouse.
+
+
+

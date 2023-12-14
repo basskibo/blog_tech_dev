@@ -28,7 +28,6 @@ import {
   SiHtml5,
   SiFastify,
   SiNestjs,
-  SiMui,
   SiNpm,
   SiNx,
   SiMaterialdesign,
@@ -106,8 +105,6 @@ export default {
       icondata = <SiSocketdotio />
     } else if (icon === 'DiExtjs') {
       icondata = <DiExtjs />
-    } else if (icon === 'SiMui') {
-      icondata = <SiMui />
     }
     return <span className='text-xl text-white mr-2 mt-1'>{icondata} </span>
   },
