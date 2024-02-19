@@ -3,6 +3,7 @@ import React from 'react'
 
 import constants from '../../lib/constants'
 import ReactTooltip from 'react-tooltip'
+import { Accent } from '..'
 
 const BEtechArray = constants.BEtechArray
 const FEtechArray = constants.FEtechArray
@@ -14,7 +15,7 @@ const TechnologyStack = () => {
 			{' '}
 			<h2 className='mb-3'>
 				{' '}
-				Backend frameworks and services I preffer and mostly use{' '}
+				<Accent>Backend  </Accent> frameworks and services I preffer and mostly use{' '}
 			</h2>
 			<span className='flex '>
 				{BEtechArray.map((tech, index) => (
@@ -33,7 +34,7 @@ const TechnologyStack = () => {
 			</span>
 			<h2 className='mb-3'>
 				{' '}
-				Frontend and hybrid mobile frameworks I preffer and mostly use :
+				<Accent>Frontend </Accent> and hybrid mobile frameworks I preffer and mostly use :
 			</h2>
 			<span className='flex'>
 				{FEtechArray.map((tech, index) => (
