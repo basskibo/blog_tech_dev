@@ -36,7 +36,9 @@ import {
   SiHeroku,
   SiSencha,
   SiPostgresql,
-  SiIonic
+  SiIonic,
+  SiAndroid,
+  SiIos
 } from 'react-icons/si'
 
 export default {
@@ -105,6 +107,10 @@ export default {
       icondata = <SiSocketdotio />
     } else if (icon === 'DiExtjs') {
       icondata = <DiExtjs />
+    } else if (icon === 'SiIos') {
+      icondata = <SiIos />
+    } else if (icon === 'SiAndroid') {
+      icondata = <SiAndroid />
     }
     return <span className='text-xl text-white mr-2 mt-1'>{icondata} </span>
   },

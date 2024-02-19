@@ -7,6 +7,7 @@ module.exports = {
     'plugin:react/recommended',
     'standard',
     'eslint:recommended',
+	'prettier',
     'next'
   ],
   overrides: [
@@ -16,11 +17,19 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: [
-    'react'
+    // 'react',
+	'prettier'
   ],
   rules: {
-    'react/prop-types': 0
+    'react/prop-types': 0,
     // indent: ['error', 'tab'],
-
+	"react/react-in-jsx-scope": "off",
+	"react/display-name": "off",
+	"react/prop-types": 0,
+	"indent": ["error", "tab"],
+	"linebreak-style": ["error", "unix"], //'unix'
+	"quotes": ["error", "single"],
+	"semi": ["error", "never"],
+	"no-debugger": "off"
   }
 }
