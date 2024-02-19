@@ -21,7 +21,7 @@ const Bio = () => {
 						messages, friendship and etc(Node.js, express, socket).
 						Skilled in JavaScript, NodeJS, Express, Sails.js, React, React
 						native, NextJs, AngularJS, MongoDB, Redis, Docker, MQTT
-						brokers, RabbitMQ, Jenkins, etc.. Programming is my passion
+						brokers, RabbitMQ,Firebase, Jenkins, etc.. Programming is my passion
 						and I tend to learn everyday new things and new technologies.
 					</p>
 					{/* <p className='mb-10'>
