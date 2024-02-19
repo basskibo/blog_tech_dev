@@ -24,7 +24,7 @@ const Bio = () => {
 						brokers, RabbitMQ, Jenkins, etc.. Programming is my passion
 						and I tend to learn everyday new things and new technologies.
 					</p>
-					<p className='mb-10'>
+					{/* <p className='mb-10'>
 						If you like what I do,in order to be updated with latest posts
 						and to vote for new content please feel free to donate
 						whatever amount you like. Possible options are{' '}
@@ -45,7 +45,7 @@ const Bio = () => {
 							{' '}
 							<Accent>Become a Patron! </Accent>
 						</a>
-					</p>
+					</p> */}
 					<TechnologyStack />
 				</div>
 				<CV />
