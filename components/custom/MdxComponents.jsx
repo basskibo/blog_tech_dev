@@ -260,9 +260,9 @@ export default {
       </table>
     )
   },
-  Disclosure: ({ question, answer, children }) => {
+  Disclosure: ({ question, answer, children,  defaultOpen }) => {
     return (
-      <DisclosureComponent props={{ question, children }} />
+      <DisclosureComponent props={{ question, children, defaultOpen }} />
     )
   }
 }
