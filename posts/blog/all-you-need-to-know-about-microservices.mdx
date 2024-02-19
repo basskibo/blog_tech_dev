@@ -7,7 +7,7 @@ banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 14, 2022"
 featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1655215250/igutech/blogs/sharon-mccutcheon-BucjGtyv58A-unsplash_elrktb.jpg"
 author: "Bojan Jagetic"
-inPreparation: true
+inPreparation: false
 tags:
    [
       { slug: "arch", name: "architecture" },
@@ -17,37 +17,53 @@ tags:
 
 ## Introduction
 
-Software architecture patterns plays crucial role in granting ability to system to scale over the time by user's demand gets a significant amount
+Microservice architecture has emerged as a popular approach to building modern, scalable, and resilient software systems. In this guide, we'll delve into the fundamentals of microservices, explore their benefits and challenges, and provide practical tips on how to effectively leverage microservice architecture in your projects.
 
-Just keep **looking**
+## Understanding Microservice Architecture
 
-## What is an Architectural Pattern?
+Microservice architecture is an architectural style that structures an application as a collection of loosely coupled, independently deployable services. Each service is responsible for a specific business capability and communicates with other services through well-defined APIs. Unlike monolithic architectures, where the entire application is contained within a single codebase, microservices promote modularity, flexibility, and scalability by breaking down complex systems into smaller, manageable components.
 
-<Link href='https://www.bmc.com/blogs/microservices-architecture/#:~:text=Microservices%20are%20a%20set%20of,from%20one%20service%20to%20another.'>
-   {" "}
-   check here{" "}
-</Link>
-<Link href='https://www.devopsschool.com/blog/what-are-microservices-really-all-about-microservices-basics-story/'>
-   {" "}
-   check here{" "}
-</Link>
-<Link href='https://microservices.io/'> check here </Link>
+//TODO: add some architectural image examples https://www.google.com/search?sca_esv=98aabcb1f05b8c1a&q=microservice+architecture&tbm=isch&source=lnms&sa=X&sqi=2&ved=2ahUKEwi_37S557eEAxWoDRAIHavhDSsQ0pQJegQIERAB&biw=1920&bih=1003&dpr=1#imgrc=IznLxXuAezfpSM
 
-<SmList>
-   <li>MongoDB </li>
-   <li>Cassandra </li>
-   <li>ElasticSearch </li>
-   <li>Amazon DynamoDB </li>
-   <li>CouchDB </li>
-   <li>Redis </li>
-   <li>HBase </li>
-   <li>RavenDB </li>
-</SmList>
+## Key Characteristics of Microservices
 
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Nostrud exercitation irure aute excepteur aliqua. Proident nisi elit reprehenderit cillum ea commodo incididunt laboris nisi sit consequat. Aliquip minim cillum voluptate amet excepteur culpa veniam duis do laborum mollit.
-Eiusmod anim reprehenderit duis minim ipsum magna tempor laborum ullamco duis Lorem officia in. Voluptate officia irure anim eiusmod aliqua anim tempor laborum ut enim laborum. Est culpa quis proident irure velit culpa esse Lorem minim. Magna nostrud incididunt veniam magna minim est excepteur magna. Id ad ut nostrud commodo duis aute commodo.
-Eu ex est irure nisi veniam occaecat est ullamco aliqua cillum laborum enim magna id. Irure amet tempor aliqua eu non eiusmod laboris minim occaecat excepteur eiusmod excepteur eiusmod ex. Qui nulla dolor anim duis duis sunt officia minim pariatur ullamco cillum cillum. Esse eu anim velit ut laborum. Eu consequat labore reprehenderit minim cillum anim laboris elit deserunt voluptate ipsum adipisicing do aliqua. Duis eu aliqua dolore ut nisi proident. Anim dolore sunt enim ullamco fugiat labore laboris elit fugiat anim aliqua.
+    Decomposition: Microservices decompose large, monolithic applications into smaller, focused services based on business domains or functionalities.
+    Independence: Each microservice operates independently and can be developed, deployed, and scaled autonomously without affecting other services.
+    Single Responsibility: Microservices adhere to the Single Responsibility Principle (SRP), focusing on a specific business capability or function.
+    Interoperability: Microservices communicate with each other through well-defined APIs, often using lightweight protocols like HTTP/REST or messaging queues.
+    Autonomy: Microservices are owned by small, cross-functional teams, allowing for rapid development, deployment, and iteration cycles.
+    Resilience: Microservices are designed for failure, with built-in fault tolerance and resilience mechanisms to handle errors and failures gracefully.
+    Scalability: Microservices can be independently scaled based on demand, enabling efficient resource utilization and cost optimization.
+
+## Benefits of Microservice Architecture
+
+    Scalability: Microservices allow for independent scaling of services based on traffic patterns and workload requirements.
+    Flexibility: Microservices promote agility and flexibility by enabling rapid development, deployment, and iteration cycles.
+    Modularity: Microservices improve maintainability and extensibility by breaking down complex systems into smaller, more manageable components.
+    Resilience: Microservices are inherently resilient, with built-in fault tolerance and isolation to minimize the impact of failures.
+    Technology Diversity: Microservices support polyglot architectures, allowing teams to choose the most suitable technologies for each service.
+
+## Challenges of Microservice Architecture
+
+    Distributed Complexity: Microservices introduce distributed complexity, requiring careful management of service-to-service communication and data consistency.
+    Operational Overhead: Managing a large number of microservices can increase operational overhead, including deployment, monitoring, and debugging.
+    Service Discovery: Microservices require effective service discovery mechanisms to locate and communicate with other services dynamically.
+    Data Management: Microservices challenge traditional data management approaches, requiring strategies for data partitioning, consistency, and synchronization.
+    Testing Complexity: Testing microservices can be challenging due to their distributed nature, requiring comprehensive integration and end-to-end testing strategies.
+
+## Practical Tips for Using Microservice Architecture
+
+    Domain-Driven Design (DDD): Adopt domain-driven design principles to identify and define bounded contexts and service boundaries based on business domains.
+    API Gateway: Implement an API gateway to centralize routing, authentication, and access control for microservices, simplifying client interactions.
+    Service Mesh: Consider using a service mesh like Istio or Linkerd to manage service-to-service communication, traffic routing, and observability.
+    Containerization: Containerize microservices using Docker or container orchestration platforms like Kubernetes for efficient deployment and management.
+    Continuous Integration/Continuous Deployment (CI/CD): Implement CI/CD pipelines to automate the build, test, and deployment processes for microservices, ensuring rapid and reliable delivery.
+    Monitoring and Observability: Use monitoring tools like Prometheus, Grafana, or ELK stack to monitor service health, performance, and availability in real-time.
+    Incremental Migration: Gradually migrate from monolithic to microservices architecture by identifying and extracting cohesive components iteratively.
+    DevOps Culture: Foster a culture of collaboration, automation, and continuous improvement across development and operations teams to streamline microservices development and operations.
+
+## Conclusion
+
+Microservice architecture offers numerous benefits for building scalable, resilient, and flexible software systems. By understanding the principles, benefits, and challenges of microservices, and applying best practices and practical tips, organizations can harness the power of microservices to accelerate innovation, improve agility, and deliver value to customers more efficiently.
+
+Whether you're embarking on a greenfield project or modernizing existing applications, embracing microservice architecture can pave the way for success in today's fast-paced digital landscape.
