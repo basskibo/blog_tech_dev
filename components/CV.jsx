@@ -5,14 +5,33 @@ import Accent from '../components/custom/Accent'
 import Image from 'next/image'
 
 const CV = () => {
+	const handleDownload = () => {
+		// Creating a hidden link element
+		const link = document.createElement('a');
+		link.href = '/Bojan_Jagetić.pdf'; // Replace with the actual path to your PDF file
+		link.download = 'Bojan_Jagetić.pdf'; // Specify the name for the downloaded file
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	}
+
 	return (
 		<div>
 			<h1 className='mb-5'>
 				<Accent className='text-3xl font-semibold'>
-					{' '}
 					Curriculum vitae
 				</Accent>{' '}
 			</h1>
+			<p className='mb-5'>
+				If you prefer, you can download {' '}
+				<button
+					onClick={handleDownload}
+					className='text-lime-500 underline decoration-dotted decoration-2decoration-sky-400
+							underline-offset-4 link link-underline link-underline-black hover:no-underline hover:cursor-ne-resize '>
+					<Accent>{' '} PDF version {' '} </Accent>
+				</button>
+				{' '} as well
+			</p>
 			<div className='grid gap-6 row-gap-10 lg:grid-cols-2'>
 				<ol className='relative border-l border-gray-200 dark:border-gray-700'>
 					<li className='ml-4 mb-10'>
