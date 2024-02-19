@@ -27,7 +27,7 @@ const CV = () => {
 
 						<div className='text-base font-normal text-gray-500 dark:text-gray-400'>
 							<ul className='list-disc pl-5'>
-								<li>Project: Developing smart tv applications based on Tizen and WebOS platforms</li>
+								<li>Project: Developing smart tv applications based on Tizen and WebOS platforms, developing backoffice and cross platform tablet applications</li>
 								<li>Working on smart TV application used as streaming platform. Creating components, services, authorization, etc.
 									Platform is serving LiveTV, video on demand  as well as option for renting movies. </li>
 								<li>Developed and maintained a comprehensive web application back office using React.js, implementing efficient and scalable front-end solutions.
