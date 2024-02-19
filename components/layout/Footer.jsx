@@ -76,13 +76,13 @@ const Footer = () => {
                   rel='noopener noreferrer'>
                   Docs
                </a> */}
-               <a
+               {/* <a
                   className='mr-5 lg:mr-5 text-gray-400  link link-underline link-underline-black hover:cursor-ne-resize items-right md:justify-right justify-right text-xs lg:text-sm'
                   href='https://github.com/basskibo/blog_tech_dev'
                   target='_blank'
                   rel='noopener noreferrer'>
                   Source Code
-               </a>
+               </a> */}
                {waysToReachMe.map((medium, index) => (
                   <a
                      className='ml-4 text-gray-400 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
