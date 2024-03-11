@@ -30,7 +30,7 @@ const waysToReachMe = [
 ]
 const Footer = () => {
   return (
-      <footer className='text-gray-400 bg-neutral-900 body-font border-t border-neutral-800 '>
+      <footer className='text-gray-400 relative bg-neutral-900  body-font border-t border-neutral-800 '>
          <div className='container px-5 py-4 lg:py-8 mx-auto flex items-center sm:flex-row flex-col'>
              <div className='flex-shrink-0 flex items-center'>
                  <a href='/'>
