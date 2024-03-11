@@ -10,6 +10,7 @@ const navigation = [
 
   // { name: "Projects", href: "/routes/projects", current: false },
   // { name: "Courses", href: "/routes/courses", current: false },
+  { name: "Interview Quiz", href: "/quiz", current: false },
   { name: 'Libary', href: '/routes/libaries', current: false },
   { name: 'About Me', href: '/routes/aboutme', current: false }
 ]
