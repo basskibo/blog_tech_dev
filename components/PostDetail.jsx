@@ -53,7 +53,7 @@ const PostDetail = ({ post, content }) => {
                   {post.imageCreditUser
                     ? <span> Photo by <a href={generateCreditImageUrl()} target="_blank" rel='noreferrer'>
                   {post.imageCreditUser}</a> on <a target="_blank" rel='noreferrer' className='underline' href="https://unsplash.com/s/photos/blog?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> </span>
-                    : <span>Photo used from <a className='underline' href="https://pixabay.com/">Pixabay</a></span> }
+                    : <span>Photo used from <a className='underline' href="https://unsplash.com/">Unsplash</a></span> }
 
                </div>
             </div>
