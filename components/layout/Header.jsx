@@ -10,8 +10,8 @@ const navigation = [
 
   // { name: "Projects", href: "/routes/projects", current: false },
   // { name: "Courses", href: "/routes/courses", current: false },
-  { name: "Interview Quiz", href: "/quiz", current: false },
   { name: 'Libary', href: '/routes/libaries', current: false },
+  { name: "Interview Quiz", href: "/quiz", current: false },
   { name: 'About Me', href: '/routes/aboutme', current: false }
 ]
 
@@ -21,7 +21,7 @@ const navigation = [
 
 const Header = ({ href }) => {
   return (
-      <div className=' sticky top-0 z-50 absolute bg-neutral-700 backdrop-filter backdrop-blur-lg bg-opacity-30 '>
+      <div className=' sticky top-0 z-50 bg-neutral-700 backdrop-filter backdrop-blur-lg bg-opacity-30 '>
          <Disclosure
             as='nav'
             className=' border-b border-neutral-500 lg:pb-1 text-white  lg:pt-1'>
