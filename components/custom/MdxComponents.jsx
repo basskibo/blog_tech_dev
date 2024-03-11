@@ -94,7 +94,20 @@ export default {
           lower: true,
           strict: true
         })}>
-        <h3 className='text-gray-300 text-xl font-semi-bold my-5'>
+        <h3 className='text-gray-200 text-xl font-semi-bold my-5'>
+          {children}{' '}
+        </h3>
+      </a>
+    )
+  },
+	h4: ({ children }) => {
+    return (
+      <a
+        id={slugify(children, {
+          lower: true,
+          strict: true
+        })}>
+        <h3 className='text-gray-200 text-lg font-semi-bold my-5'>
           {children}{' '}
         </h3>
       </a>
