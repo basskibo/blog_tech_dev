@@ -8,7 +8,7 @@ date: "June 15, 2022"
 featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/q_60/v1657728838/igutech/joel-naren-V8p9ql6-wGo-unsplash_gsd3mt.jpg"
 author: "Bojan Jagetic"
 tags: [{  slug: "design-pattern", name: "design pattern"  }, { slug: "js", name: "javascript" }]
-inPreparation: true
+inPreparation: false
 ---
 
 ## Introduction
@@ -27,20 +27,17 @@ As Wikipedia says on <Link href="https://en.wikipedia.org/wiki/Software_design_p
 <QouteComponent>In software engineering, a software design pattern is a general, reusable solution to a commonly occurring problem within a given context in software design. It is not a finished design that can be transformed directly into source or machine code. Rather, it is a description or template for how to solve a problem that can be used in many different situations. Design patterns are formalized best practices that the programmer can use to solve common problems when designing an application or system.</QouteComponent>
 
 
-Find more info <Link href="https://blog.logrocket.com/design-patterns-in-node-js/"> on this link </Link>
+You can find more <Link href="https://blog.logrocket.com/design-patterns-in-node-js/"> detailed post </Link> and learn more about design patterns in nodejs and their usage. If you want to read more about JS Vanilla patterns, be sure to checkout <Link href="https://www.patterns.dev/vanilla"> patterns.dev website.</Link>
 
 ### Anti-patterns
 
-## Classification 
-
-sa jfas gjai gail ji
 
 ## Creational Design Patterns
 ### Singleton Pattern
 
 As is often said, old but gold, <Adjusted>Singleton</Adjusted> pattern is one of the most used patterns.
 The singleton pattern ensures that a class <b>has one and only one instance</b>, and provides a global point of access to it. 
-In simple words, it consists of an object which cannot be chnaged or modified. It is usefull when we want to be sure that we have immutable single point of truth for our application.
+The Singleton Pattern ensures that a class has only one instance and provides a global point of access to that instance, commonly used for managing resources such as database connections or configuration settings. It guarantees that there is only one instance of a class throughout the application's lifecycle, promoting resource efficiency and centralized control.
 
 What makes Singleton, is global access to the instance usually with <code>Singleton.getInstance()</code> so we do not call <code>new Singleton()</code> directly. 
 <CloudinaryImage src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1672253243/igutech/blogs/resources/design_patterns/singleton1_z81frp.png" alt="Singleton pattern" text="Singleton pattern" />
@@ -48,44 +45,30 @@ What makes Singleton, is global access to the instance usually with <code>Single
 Here's an example of a singleton in JavaScript:
 
 ```javascript
-let counter = 0;
-class Users {
-  constructor() {
-    // Check whether or not we’ve already instantiated a Users
-    if (!Users.instance) {
-      this._data = [];
-      this._counter = counter;
-      Users.instance = this;
+const Singleton = (() => {
+    let instance;
+
+    function createInstance() {
+        // Private variables and methods
+        return {
+            // Public methods and variables
+        };
     }
-  }
-  getInstance() {
-    if (!Users.instance) {
-      instance = new Users();
-    }
-    return instance;
-  }
 
-  increment() {
-    return this._counter++;
-  }
+    return {
+        getInstance: () => {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        }
+    };
+})();
 
-  getCounter() {
-    return this._counter;
-  }
-  add(item) {
-    this._data.push(item);
-  }
+const singletonInstance1 = Singleton.getInstance();
+const singletonInstance2 = Singleton.getInstance();
 
-  print(id) {
-    const user = this._data.find((userData) => userData.id === id);
-    return `Users name with id:${user.id} is ${user.name}`;
-  }
-}
-
-const instance = new Users();
-const singleton = Object.freeze(instance);
-
-export default instance;
+console.log(singletonInstance1 === singletonInstance2); // Output: true
 
 ```
 
@@ -95,13 +78,13 @@ Lets summarize Singleton pattern and most important thing you should know:
   <li>Ensures we have only one instance of the class or object</li>
   <li>It is shared globally between multiple files inside application, also all imports have access and reference to the same instance</li>
   <li>It can be mutable or immutable, but with singleton we need to make sure it is thread-safe if used in multiple threads where   </li>
-  <li></li>
-
 </LgList>
 
 ### Factory Pattern
 
-The factory pattern is a creational pattern that provides an interface for creating objects in a super class, but allows subclasses to alter the type of objects that will be created.
+The factory pattern is a creational pattern that provides an interface for creating objects in a super class, but allows subclasses to alter the type of objects that will be created. 
+
+The Factory Pattern is a blueprint for making objects. It lets subclasses change the kind of objects made without needing to know the exact class of the object made. This pattern hides the details of object creation, making the code easier to maintain and scale.
 
 Here's an example of a factory in JavaScript:
 
@@ -138,24 +121,236 @@ square.draw(); // "Drawing a square"
 
 ### Builder pattern
 
+In this design pattern, the focus is to separate the construction of complex objects from their representation. In Node.js builder, the pattern is a way to create complex objects in a step-by-step manner.
 
+When there are multiple ways to create an object or many properties inside the object, seasoned developers usually opt for builder design patterns. The essence of the builder design pattern is to break down complex code into smaller and more manageable steps, so this design pattern makes it easier to modify the complex code easily over time.
+
+```
+class House {
+  constructor(builder) {
+    this.bedrooms = builder.bedrooms;
+    this.bathrooms = builder.bathrooms;
+    this.kitchens = builder.kitchens;
+    this.garages = builder.garages;
+  }
+}
+class HouseBuilder {
+  constructor() {
+    this.bedrooms = 0;
+    this.bathrooms = 0;
+    this.kitchens = 0;
+    this.garages = 0;
+  }
+  setBedrooms(bedrooms) {
+    this.bedrooms = bedrooms;
+    return this;
+  }
+  setBathrooms(bathrooms) {
+    this.bathrooms = bathrooms;
+    return this;
+  }
+  setKitchens(kitchens) {
+    this.kitchens = kitchens;
+    return this;
+  }
+  setGarages(garages) {
+    this.garages = garages;
+    return this;
+  }
+  build() {
+    return new House(this);
+  }
+}
+const house1 = new HouseBuilder()
+  .setBedrooms(3)
+  .setBathrooms(2)
+  .setKitchens(1)
+  .setGarages(2)
+  .build();
+console.log(house1); // Output: House { bedrooms: 3, bathrooms: 2, kitchens: 1, garages: 2 }
+```
 ### Module Pattern
 
+The Module Pattern encapsulates "privacy", state, and organization using closures, allowing for the creation of private variables and methods within a module, promoting encapsulation and reducing global namespace pollution. It provides a way to organize code into self-contained units, making it easier to manage and maintain large-scale applications.
+
+```
+const Counter = (() => {
+    let count = 0;
+
+    const increment = () => {
+        count++;
+    };
+
+    const decrement = () => {
+        count--;
+    };
+
+    const getCount = () => {
+        return count;
+    };
+
+    return {
+        increment,
+        decrement,
+        getCount
+    };
+})();
+
+Counter.increment();
+Counter.increment();
+console.log(Counter.getCount()); // Output: 2
+```
+
 ### Prototype Pattern
+The Prototype Pattern creates new objects based on a prototype of an existing object through cloning, allowing for the creation of new objects without explicitly specifying their class and promoting flexibility and reusability. It is particularly useful when the construction of a new object is more efficient by copying an existing object rather than creating it from scratch.
+
+```
+const carPrototype = {
+    drive() {
+        console.log('Driving');
+    },
+    stop() {
+        console.log('Stopping');
+    }
+};
+
+function createCar(make, model) {
+    const car = Object.create(carPrototype);
+    car.make = make;
+    car.model = model;
+    return car;
+}
+
+const car1 = createCar('Toyota', 'Corolla');
+const car2 = createCar('Honda', 'Civic');
+
+car1.drive(); // Output: Drivin
+car2.stop(); // Output: Stopping
+```
 
 ## Structural Design Patterns
 
 ### Decorator
-### Proxy Pattern
+The Decorator Pattern dynamically adds behavior to individual objects, allowing behavior to be added or removed at runtime, without affecting the behavior of other objects from the same class, promoting extensibility and modularity. It follows the open-closed principle, allowing for the addition of new functionality without modifying existing code.
 
+```
+class Car {
+    drive() {
+        console.log('Driving');
+    }
+}
+
+class CarDecorator {
+    constructor(car) {
+        this.car = car;
+    }
+
+    drive() {
+        this.car.drive();
+        this.decorate();
+    }
+
+    decorate() {
+        console.log('Adding additional features');
+    }
+}
+
+const basicCar = new Car();
+const decoratedCar = new CarDecorator(basicCar);
+
+decoratedCar.drive(); // Output: Driving, Adding additional features
+
+```
+
+### Proxy Pattern
+Provides a surrogate or placeholder for another object to control access to it.
 
 ### Adapter Pattern
 
 ### Facade Pattern
+The Facade Pattern provides a simplified interface to a larger body of code, hiding the complexity of the underlying system and providing a way to interact with the system through a single, easy-to-use interface. It promotes encapsulation by providing a unified interface to a set of interfaces in a subsystem, making it easier to use and understand.
+
+```
+class Subsystem1 {
+    operation1() {
+        console.log('Subsystem1 operation1');
+    }
+}
+
+class Subsystem2 {
+    operation2() {
+        console.log('Subsystem2 operation2');
+    }
+}
+
+class Facade {
+    constructor() {
+        this.subsystem1 = new Subsystem1();
+        this.subsystem2 = new Subsystem2();
+    }
+
+    operation() {
+        this.subsystem1.operation1();
+        this.subsystem2.operation2();
+    }
+}
+
+const facade = new Facade();
+facade.operation(); // Output: Subsystem1 operation1, Subsystem2 operation2
+```
 
 ## Behavioral Design Patterns
 
 ### Chain of Responsibility Pattern
+The Chain of Responsibility Pattern passes a request along a chain of handlers, allowing multiple objects to handle the request without knowing which object will ultimately process it. It decouples the sender of a request from its receiver, allowing for greater flexibility in handling requests and promoting the creation of reusable and interchangeable components.
+
+```
+class Handler {
+    constructor() {
+        this.nextHandler = null;
+    }
+
+    setNext(handler) {
+        this.nextHandler = handler;
+        return handler;
+    }
+
+    handleRequest(request) {
+        if (this.nextHandler) {
+            this.nextHandler.handleRequest(request);
+        }
+    }
+}
+
+class ConcreteHandler1 extends Handler {
+    handleRequest(request) {
+        if (request === 'type1') {
+            console.log('Handled by ConcreteHandler1');
+        } else {
+            super.handleRequest(request);
+        }
+    }
+}
+
+class ConcreteHandler2 extends Handler {
+    handleRequest(request) {
+        if (request === 'type2') {
+            console.log('Handled by ConcreteHandler2');
+        } else {
+            super.handleRequest(request);
+        }
+    }
+}
+
+const handler1 = new ConcreteHandler1();
+const handler2 = new ConcreteHandler2();
+
+handler1.setNext(handler2);
+
+handler1.handleRequest('type1'); // Output: Handled by ConcreteHandler1
+handler1.handleRequest('type2'); // Output: Handled by ConcreteHandler2
+```
+
 ### Observer Pattern
 
 The observer pattern is a behavioral pattern that allows an object (the subject) to notify other objects (the observers) when its state changes. This pattern is often used for event-driven programming.
@@ -205,6 +400,8 @@ subject.notify('some data');
 ### Iterator Pattern
 
 
+## Code example for patterns
+<Iframe url="https://stackblitz.com/edit/js-ra2knw?devToolsHeight=33&embed=1&file=index.js&theme=dark" title="Module pattern" />
+
 ## Conclusion
 
-<Iframe url="https://stackblitz.com/edit/js-ra2knw?devToolsHeight=33&embed=1&file=index.js&theme=dark" title="Module pattern" />
