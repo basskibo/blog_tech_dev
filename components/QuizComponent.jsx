@@ -5,8 +5,11 @@ import cslx from 'clsx'
 import { generateRandomQuestionList } from 'utils/generalUtil'
 import { IoReload } from "react-icons/io5";
 import { Chart } from "react-google-charts";
+// import { MdFullscreen } from "react-icons/md";
+import { RiFullscreenFill, RiFullscreenExitLine } from "react-icons/ri";
+import { IoWarningOutline } from "react-icons/io5";
 
-const QuizComponent = () => {
+const QuizComponent = ({ selectedQuiz }) => {
 	const [activeQuestion, setActiveQuestion] = useState(0)
 	const [selectedAnswer, setSelectedAnswer] = useState('')
 	const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null)
@@ -17,6 +20,7 @@ const QuizComponent = () => {
 		correctAnswers: 0,
 		wrongAnswers: 0
 	})
+	const [isFullScreen, setIsFullScreen] = useState(false);
 	const { questions } = nodeQuestions
 	const shuffledQuestions = generateRandomQuestionList(questions) //TODO: 
 	const totalQuestions = questions.length
@@ -32,6 +36,50 @@ const QuizComponent = () => {
 			setSelectedAnswer(false)
 		}
 	}
+
+	const toggleFullScreen = () => {
+		const quizDiv = document.getElementById('quizComponent');
+
+		if (quizDiv) {
+			if (!isFullScreen) {
+				if (quizDiv.requestFullscreen) {
+					quizDiv.requestFullscreen();
+				} else if (quizDiv.mozRequestFullScreen) {
+					quizDiv.mozRequestFullScreen();
+				} else if (quizDiv.webkitRequestFullscreen) {
+					quizDiv.webkitRequestFullscreen();
+				} else if (quizDiv.msRequestFullscreen) {
+					quizDiv.msRequestFullscreen();
+				}
+				setIsFullScreen(true);
+			} else {
+				if (document.exitFullscreen) {
+					document.exitFullscreen();
+				} else if (document.mozCancelFullScreen) {
+					document.mozCancelFullScreen();
+				} else if (document.webkitExitFullscreen) {
+					document.webkitExitFullscreen();
+				} else if (document.msExitFullscreen) {
+					document.msExitFullscreen();
+				}
+				setIsFullScreen(false);
+			}
+		}
+	};
+
+	// const toggleFullScreen = () => {
+	// 	const doc = window.document;
+	// 	const docEl = doc.documentElement;
+
+	// 	const requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+	// 	const cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+	// 	if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+	// 		requestFullScreen.call(docEl);
+	// 	} else {
+	// 		cancelFullScreen.call(doc);
+	// 	}
+	// };
 
 	// Calculate score and increment to next question
 	const handleNextQuestion = () => {
@@ -71,91 +119,128 @@ const QuizComponent = () => {
 		setChecked(false)
 		setShowResult(false)
 	}
-	const options = {
-		title: "Popularity of Types of Pizza",
-		legend: "none",
-		backgroundColor: { fill:'transparent' },
-		pieHole: 0.4,
-		sliceVisibilityThreshold: 0.2, // 20%
-		
-	};
+
 
 	return (
-		<div className='flex w-full h-screen justify-center content-start items-start mx-auto lg:px-12 text-white'>
-			<div className='flex flex-col border-2 px-10 max-w-full min-w-full border-neutral-800 radius border0r p-5'>
-				<p className='text-4xl text-center font-bold'>
-					<Accent>
-						Quiz game
-					</Accent>
-				</p>
-				<span className='divider'></span>
-				<div className='flex flex-col text-center text-xl'>
-					<p>Questions {activeQuestion + 1}
-						<span>/{totalQuestions}</span>
-					</p>
-				</div>
-				<div className='my-10'>
-					{!showResult ?
-						<div>
-							<h3 className='font-bold text-center my-5 text-2xl'> {question}</h3>
-							<div className='flex flex-col gap-5'>
-								{answers.map((answer, idx) => (
-									<button onClick={() => handleAnswer(answer, idx)} className={
-										cslx(
-											'border border-neutral-700 py-3  hover:border-indigo-900 px-5',
-											selectedAnswerIndex === idx ? 'border border-amber-900 bg-neutral-800' :
-												''
-										)
-									} id={idx}>{answer}</button>
-								))}
-							</div>
-
-						</div>
-						:
-						<div className='flex flex-row gap-5 align-middle items-center justify-between'>
-							<div className='flex flex-col'>
-								<h3 className='text-2xl font-bold'>Results: {result.score} points</h3>
-								<h3 className='text-2xl font-bold'>Overall: {result.score / 25 * 100}%</h3>
-								{/* <span className='border-3 border-b-slate-200'/> */}
-								<p className='text-lg font-semibold '>Total questions answered: {totalQuestions}</p>
-								<p className='text-lg font-semibold text-green-800'>Correct answers: {result.correctAnswers}</p>
-								<p className='text-lg font-semibold text-red-800'>Wrong answers: {result.wrongAnswers}</p>
-							</div>
-							<div className='flex flex-col'>
-								<Chart
-									chartType="PieChart"
-									data={[
-										["Answers", "Number"],
-										["Correct Answers", result.correctAnswers],
-										["Wrong Answers", result.wrongAnswers],
-									]}
-									options={options}
-									width={"100%"}
-									height={"350px"}
-								/>
-							</div>
-							<button className='flex flex-row justify-center items-center gap-5 px-5 align-middle border border-slate-400 py-3 hover:border-indigo-700 ' onClick={handlePlayAgain}>
-								<IoReload />
-								Play again
-
-							</button>
-
-						</div>
-					}
-				</div>
-
-				{checked ? (
-					<button className='border border-slate-400 py-3 hover:border-indigo-700 ' onClick={() => handleNextQuestion()}>
-						{activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
-					</button>
-				) : (!checked && !showResult) ? (<button disabled className='border border-slate-400 py-3 hover:border-indigo-700 ' onClick={handlePlayAgain}>
-					{activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
-				</button>) : <></>}
-
+		<div className='flex w-full lg:w-3/4 h-screen justify-center content-start items-start  text-white'>
+			{!selectedQuiz ? <div className='flex flex-row gap-2 justify-center items-center align-middle'>
+				<IoWarningOutline size={'2rem'}/>
+				<h3 className='text-2xl'>Please select category of quiz you want to play</h3>
 			</div>
+				: <div id='quizComponent' className='flex flex-col border-2 lg:px-5 max-w-full min-w-full border-neutral-800 radius border0r p-5'>
+					<div className='flex flex-row-reverse'>
+						<button onClick={toggleFullScreen}>
+							{isFullScreen ? <RiFullscreenExitLine size={'1.5rem'} /> : <RiFullscreenFill size={'1.5rem'} />}
+
+						</button>
+					</div>
+					{!showResult && <>
+						<p className='text-4xl text-center font-bold'>
+							<Accent>
+								{selectedQuiz} Quiz
+							</Accent>
+						</p>
+						<span className='divider'></span>
+						<div className='flex flex-col text-center text-xl'>
+							<p>Questions {activeQuestion + 1}
+								<span>/{totalQuestions}</span>
+							</p>
+						</div>
+					</>
+					}
+					<div className='my-10'>
+						{!showResult ?
+							<div>
+								<h3 className='font-bold text-center my-5 text-2xl'> {question}</h3>
+								<div className='flex flex-col gap-5'>
+									{answers.map((answer, idx) => (
+										<button onClick={() => handleAnswer(answer, idx)} className={
+											cslx(
+												'border border-neutral-700 py-3  hover:border-indigo-900 px-5',
+												selectedAnswerIndex === idx ? 'border border-amber-900 bg-neutral-800' :
+													''
+											)
+										} id={idx}>{answer}</button>
+									))}
+								</div>
+
+							</div> :
+							<Result result={result} totalQuestions={totalQuestions} handlePlayAgain={handlePlayAgain} />
+						}
+					</div>
+
+					{checked ? (
+						<button className='border border-slate-400 py-3 hover:border-indigo-700 ' onClick={() => handleNextQuestion()}>
+							{activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
+						</button>
+					) : (!checked && !showResult) ? (<button disabled className='border border-slate-400 py-3 hover:border-indigo-700 ' onClick={handlePlayAgain}>
+						{activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
+					</button>) : <></>}
+
+				</div> }
 
 		</div>
 
+	)
+}
+
+const Result = ({ result, totalQuestions, handlePlayAgain }) => {
+	const options = {
+		// title: "Popularity of Types of Pizza",
+		legend: "none",
+		backgroundColor: { fill: 'transparent', color: '#fff' },
+		pieHole: 0.4,
+		sliceVisibilityThreshold: 0.2, // 20%
+	};
+
+	const calculateScorePercentage = () => {
+		const score = result.score / (totalQuestions * 5) * 100
+		return score.toFixed(1)
+	}
+
+	return (
+		<div className='align-middle items-center justify-between'>
+
+			<p className='text-4xl text-center font-bold'>
+				<Accent>
+					Test Completed
+				</Accent>
+			</p>
+
+			<span className='flex flex-col lg:flex-row justify-center align-middle items-center gap-5'>
+				<div className='flex flex-col  justify-evenly items-start'>
+					<h3 className='text-3xl font-bold'>Results: <Accent>{result.score} points </Accent></h3>
+					<h3 className='text-3xl '>Overall:  <span className='font-bold font-3xl'>{calculateScorePercentage()}% </span></h3>
+					{/* <span className='border-3 border-b-slate-200'/> */}
+					<p className='text-lg  mt-2'>Total questions: <span className='font-semibold'>{totalQuestions} </span></p>
+					<p className='text-lg font-semibold text-green-700'>Correct answers: {result.correctAnswers}</p>
+					<p className='text-lg font-semibold text-red-700'>Wrong answers: {result.wrongAnswers}</p>
+				</div>
+				<div className='flex flex-col'>
+					<Chart
+						chartType="PieChart"
+						data={[
+							["Answers", "Number"],
+							["Correct Answers", result.correctAnswers],
+							["Wrong Answers", result.wrongAnswers],
+						]}
+						options={options}
+						width={"100%"}
+						height={"400px"}
+					/>
+				</div>
+			</span>
+
+
+			<div className='flex flex-row justify-around'>
+				<button className='flex flex-row w-96 justify-center items-center gap-5 px-5 align-middle border border-slate-400 py-3 hover:border-indigo-700 ' onClick={handlePlayAgain}>
+					<IoReload />
+					Play again
+
+				</button>
+			</div>
+
+		</div>
 	)
 }
 

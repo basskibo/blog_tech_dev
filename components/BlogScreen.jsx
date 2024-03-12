@@ -7,6 +7,7 @@ import Virtualized from './custom/Masonary'
 const getCategories = (posts) => {
   try {
     const categories = []
+	console.log(posts)
     posts.forEach((post) => {
       const postCategory = post.props.data.tags
       categories.push(postCategory)
@@ -19,7 +20,8 @@ const getCategories = (posts) => {
     const unique = getUniqueListBy(flatenedArr, 'name')
     return unique
   } catch (e) {
-    throw new Error(`Error parsing category: ${e.message}`)
+	console.error('error ', e)
+    throw new Error(`Error parsing category: ${e?.message}`)
   }
 }
 const BlogScreen = ({ posts }) => {
