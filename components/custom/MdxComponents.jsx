@@ -23,7 +23,7 @@ const VideoContext = (props) => (
       height='100%'
       muted={true}
     />
-    {/* <p className='text-center '>{props.alt}</p> */}
+    <p className='text-center '>{props.alt}</p>
   </div>
 )
 
