@@ -50,6 +50,7 @@ export default function Home () {
             <meta name="msapplication-TileColor" content="#da532c" />
             <meta name="theme-color" content="#ffffff"></meta>
             <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+			
             {/* <meta name="viewport" content="initial-scale=1, viewport-fit=cover" /> */}
 
             {/* <script
@@ -59,6 +60,8 @@ export default function Home () {
                src='https://blogtech-umami.herokuapp.com/umami.js'></script> */}
             {/* <script async defer data-website-id="ad2da36d-df11-4b49-a551-6aea0bf95f30" src="https://blogtech-umami.herokuapp.com/umami.js"></script> */}
             <script async src="https://cdn.splitbee.io/sb.js"></script>
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3181880928286370"
+     crossorigin="anonymous"></script>
 
          </Head>
          {/* <div className='text-center mt-10 mb-10  text-white'> */}
