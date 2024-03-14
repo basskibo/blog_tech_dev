@@ -6,10 +6,11 @@ import path from 'path'
 export default async function handler(req, res) {
 	const files = getPostFiles()
 	const projectRoot = findProjectRoot(process.cwd());
+	console.log('project >>>> ', process.cwd())
 	console.log('Project root:', projectRoot);
 	const posts = files.map((filename) => {
 		const markdownWithMeta = fs.readFileSync(
-			path.join(`${projectRoot}/posts/blog`, filename),
+			path.join(`${process.cwd()}/posts/blog`, filename),
 			'utf-8'
 		)
 		let { data } = matter(markdownWithMeta)
