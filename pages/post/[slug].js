@@ -9,6 +9,7 @@ import { PostDetail, CategoryChip } from '../../components/'
 
 import MdxComponents from '../../components/custom/MdxComponents'
 import TableOfContent from '../../components/custom/TableOfContent'
+import SimiliarPosts from '@/components/SimiliarPosts'
 // import LikeButton from '../../components/custom/LikeButton'
 
 function getTableOfContents (content) {
@@ -81,7 +82,6 @@ const components = {
 }
 
 const PostDetails = ({ data, mdxSource, toc }) => {
-	debugger
 	return (
 		<div className='layout mx-auto lg:mb-14 my-5 sm:px-2 xs:px-3 lg:px-5  text-slate-400'>
 			<div className='grid grid-cols-1 lg:grid-cols-12 gap-x-12'>
@@ -92,14 +92,12 @@ const PostDetails = ({ data, mdxSource, toc }) => {
 					</p>
 					<MDXRemote {...mdxSource} components={{ ...components }} lazy />
 
-					<div className='mb-4 lg:mb-0 w-full lg:w-auto lg:mr-10 sm:mr-3'>
-						<p className='border-b mt-10  align-middle text-center text-white'>
-							{' '}
-						</p>
-						<span className='pt-5  '>
+					<div className='mb-4 lg:mb-10 w-full lg:w-auto border-b border-neutral-800'>
+						{/* <span className='pt-5  '> */}
 							<CategoryChip categories={data.tags} />
-						</span>
+						{/* </span> */}
 					</div>
+					<SimiliarPosts tags={data?.tags}/>
 					{/* <Author author={post.author} /> */}
 					{/* <CommentsForm slug={post.slug} /> */}
 					{/* <Comments slug={post.slug} /> */}
