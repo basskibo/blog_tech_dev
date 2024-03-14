@@ -10,7 +10,7 @@ const FeatureLanding = () => {
   return (
       <div
          id='sectionFeature'
-         className='relative bg-neutral-900 overflow-hidden md:p-5'>
+         className='relative bg-neutral-900  overflow-hidden md:p-5'>
          <div className='pt-16 pb-32 sm:pt-24 sm:pb-20 lg:pt-20 lg:pb-32'>
             <div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
                <div className='sm:max-w-lg'>
