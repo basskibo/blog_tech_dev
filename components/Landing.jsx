@@ -1,13 +1,13 @@
 import React from 'react'
 import Accent from '../components/custom/Accent'
 import ActiveLink from '../components/custom/ActiveLink'
-import { FeaturedPosts } from './'
-import AnchorLink from 'react-anchor-link-smooth-scroll'
+import { FeatureLanding, FeaturedPosts } from './'
 import { SiGithub, SiLinkedin, SiTwitter } from 'react-icons/si'
 import NewsLetter from './NewsLetter'
 import { TypeAnimation } from 'react-type-animation'
 import { IoCloudDownloadOutline } from "react-icons/io5"
 import ParticlesBackground from './custom/ParticlesBackground'
+import AnchorLinkComponent from './custom/AnchorLink'
 
 const Landing = () => {
 	const handleDownload = () => {
@@ -29,13 +29,14 @@ const Landing = () => {
 				<div className=' text-slate-200 md:px-10 px-5 '>
 					{/* <MotionComponent> */}
 					<div
-						className='grid place-items-left place-content-center gap-1 h-screen mx-auto lg:max-w-4xl sm:max-w-xl'>
-						<h1 className=' text-2xl xs:text-2xl lg:text-5xl  font-bold mb-2'>
+						// className='grid place-items-left place-content-center gap-1 h-screen mx-auto lg:max-w-4xl sm:max-w-xl'>
+						className='flex flex-col justify-center gap-1 h-screen mx-auto lg:max-w-4xl sm:max-w-xl'>
+						<div className=' text-2xl xs:text-xl lg:text-5xl  font-bold mb-2'>
 							Hello there,
 							<br />
 							<h1 className='text-2xl sm:text-2xl lg:text-6xl '>
 								My name is{' '}
-								<Accent className=''>
+								<Accent>
 									<TypeAnimation
 										sequence={[
 											700,
@@ -55,7 +56,7 @@ const Landing = () => {
 									/>
 								</Accent>
 							</h1>
-						</h1>
+						</div>
 
 						<div className='lg:mt-5'>
 							<p className='font-bold mb-1 lg:hidden text-md xs:text-md'>
@@ -74,7 +75,7 @@ const Landing = () => {
 							</p>
 						</div>
 
-						<div className='mt-7 lg:mt-10  xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
+						<div className='flex flex-row mt-7 lg:mt-10  xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
 
 							<ActiveLink
 								href='/routes/blog'
@@ -91,7 +92,7 @@ const Landing = () => {
 								See my bio
 							</ActiveLink>
 						</div>
-						<div className='mt-7 lg:mt-10 flex gap-x-4'>
+						<div className='flex md:flex-row flex-col mt-7 lg:mt-10 gap-x-4'>
 							<a
 								id='lnk-linkedin-button'
 								className='inline-flex items-center text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
@@ -132,26 +133,11 @@ const Landing = () => {
 					</div>
 					{/* </MotionComponent> */}
 				</div>
-				<AnchorLink
-					id='btn-anchor-linkg'
-					href='#featuredPostsSection'
-					aria-label='Scroll down'
-					className=' absolute hidden md:inline bottom-5 text-white left-1/2 -translate-x-1/2 md:bottom-5
-				rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'>
-					<svg
-						className='w-6 h-6'
-						fill='currentColor'
-						viewBox='0 0 20 20'
-						xmlns='http://www.w3.org/2000/svg'>
-						<path
-							fillRule='evenodd'
-							d='M15.707 4.293a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 011.414-1.414L10 8.586l4.293-4.293a1 1 0 011.414 0zm0 6a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 14.586l4.293-4.293a1 1 0 011.414 0z'
-							clipRule='evenodd'></path>
-					</svg>
-				</AnchorLink>
+				<AnchorLinkComponent/>
 				{/* <SvgWave /> */}
-				{/* <FeatureLanding /> */}
 				<FeaturedPosts />
+				{/* <FeatureLanding /> */}
+
 				<NewsLetter />
 			</div>
 	)
