@@ -29,9 +29,12 @@ const SimiliarPosts = ({ tags }) => {
 					<a href={`/post/${post?.slug}`}
 						className='border border-neutral-800 rounded-lg basis-1/3 h-full hover:border-[#ff0080]'>
 						<img className='rounded-t-xl h-48 w-full' src={post?.featuredImage} height={30} />
-						<div className='p-3 flex flex-col'>
+						<div className='p-3 flex flex-col h-52'>
 							<span className='text-white font-bold mt-2 ml-2 mb-5'>
 								{post.title}
+							</span>
+							<span className='text-sm text-slate-400'>
+								{post?.date || post?.publishedAt} 
 							</span>
 							<span className='text-slate-500 text-xs'>
 								{post.excerpt}
