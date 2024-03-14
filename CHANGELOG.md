@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/basskibo/blog_tech_dev/compare/v0.2.2-0...v0.2.2) (2024-03-14)
+
+
+### Features
+
+* similiar posts fuctionality added ([6eb0aa5](https://github.com/basskibo/blog_tech_dev/commit/6eb0aa50e308fc01a2d61f36f62d866b2851e42a))
+
+
+### Bug Fixes
+
+* devto fetaured posts removed ([bc6a1dc](https://github.com/basskibo/blog_tech_dev/commit/bc6a1dcb9d908949c08e7399fad2c71200fee155))
+* interview quiz removed until done ([42207aa](https://github.com/basskibo/blog_tech_dev/commit/42207aae3ea8651afe8cabfd0c3ab38516e55b82))
+
 ### [0.2.2-0](https://github.com/basskibo/blog_tech_dev/compare/v0.2.1-1...v0.2.2-0) (2024-03-14)
 
 ### [0.2.1-1](https://github.com/basskibo/blog_tech_dev/compare/v0.2.1-0...v0.2.1-1) (2024-03-14)
