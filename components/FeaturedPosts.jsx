@@ -10,7 +10,7 @@ const FeaturedPosts = () => {
 	const [devToPosts, setDevToPosts] = useState([])
 	useEffect(() => {
 		getViews()
-		fetchLatestDevToPost()
+		// fetchLatestDevToPost()
 	}, [])
 
 	const fetchLatestDevToPost = async () => {
@@ -22,7 +22,7 @@ const FeaturedPosts = () => {
 				per_page: 3
 			},
 			headers: {
-				'api-key': 'uNBcDUYGPpkad57AGurojm3S',
+				'api-key': process.env.REACT_DEVTO_API_KEY,
 				'Content-Type': 'application/json',
 				'Access-Control-Allow-Headers': '*'
 
@@ -92,13 +92,12 @@ const FeaturedPosts = () => {
 			</div>
 
 
-			<div className=''>
+			{/* <div className=''>
 				<div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
 					<div className='sm:max-w-lg'>
 						<h2 className='text-xl font font-bold tracking-tight text-white sm:text-4xl'>
 							My Latest Dev.to posts
-							{/* <Accent> posts</Accent> */}
-							{/* Popular posts */}
+			
 						</h2>
 						<p className='mt-4 text-md text-slate-400'>
 							Dive into the sea of interesting topics and technologies.
@@ -137,7 +136,7 @@ const FeaturedPosts = () => {
 
 						</div>}
 				</div>
-			</div>
+			</div> */}
 		</div>
 	)
 }
