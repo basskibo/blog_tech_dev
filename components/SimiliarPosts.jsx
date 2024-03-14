@@ -24,7 +24,7 @@ const SimiliarPosts = ({ tags }) => {
 	return (
 		<div className='my-5'>
 			<h2 className='text-3xl my-3 font-bold'><Accent>Other posts that you might like </Accent></h2>
-			<div className='flex flex-row gap-5 h-96'>
+			<div className='flex flex-col md:flex-row gap-5 '>
 				{similiarPosts ? similiarPosts?.map((post) => (
 					<a href={`/post/${post?.slug}`}
 						className='border border-neutral-800 rounded-lg basis-1/3 h-full hover:border-[#ff0080]'>
