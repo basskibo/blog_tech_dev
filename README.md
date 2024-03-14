@@ -48,3 +48,22 @@ In order to open cypress,run following command
 
     npm install cypress --save-dev
     node_modules/.bin/cypress open
+
+## Commit convention
+We are using [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) specification for commit messages, which is lightweight convention on top of commit messsages.
+- `feat`, for addition or removal of a feature.
+- `fix`, for squashing bugs
+- `chore`, for installing npm packages
+- `test`, for adding test suites
+- `refactor`, for refactoring code flow but not changing the feature itself
+- `style`, for styling code structure like spacing, reorder or remove unused imports, etc.
+- `docs` → Update documentation (README.md)
+
+So our commit history should look like this:
+
+```
+style: styling fixed for home screen
+fix: profile form fix
+feat: implement profile form
+feat: implement blog form
+```
