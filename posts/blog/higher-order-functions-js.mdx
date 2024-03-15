@@ -1,0 +1,79 @@
+---
+title: "Higher order functions in Javascript"
+publishedAt: "2022-12-22"
+excerpt: "Higher order functions are functions that take other functions as arguments or return them as output. They are an important concept in functional programming and can be used to greatly simplify and improve the readability of your code."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1668207699/igutech/blogs/aman-shrestha-AovgvC79XOw-unsplash_oavvfv.jpg"
+imageCreditUser: "Aman Shrestha"
+imageCreditUsername: "a_mans_photography"
+author: "Bojan Jagetic"
+tags: [{ slug: "js", name: "javascript" }]
+inPreparation: false
+---
+
+## Introduction
+
+Higher order functions are functions that take other functions as arguments or return them as output. They are an important concept in functional programming and can be used to greatly simplify and improve the readability of your code.
+
+## Using Higher Order Functions
+One of the most common ways to use higher order functions is to pass in a function as an argument to another function. For example, the <Adjusted>Array.prototype.map</Adjusted> method is a higher order function that takes a function as an argument and applies it to each element in an array, returning a new array with the transformed elements.
+
+Here's an example of using map to double the values of an array:
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+const doubled = numbers.map(number => number * 2);
+
+console.log(doubled); // [2, 4, 6, 8, 10]
+```
+
+Another common higher order function is <Adjusted>Array.prototype.filter</Adjusted>, which takes a function as an argument and returns a new array with only the elements that pass the test implemented by the function.
+
+Here's an example of using <b>filter</b> to return only even numbers from an array:
+
+```javascript
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+const evens = numbers.filter(number => number % 2 === 0);
+
+console.log(evens); // [2, 4, 6, 8, 10]
+```
+
+## Creating Higher Order Functions
+In addition to using higher order functions that are built into JavaScript, you can also create your own higher order functions.
+
+Here's an example of a higher order function that takes a function as an argument and returns a new function that will always return the opposite boolean value:
+
+```javascript
+function negate(func) {
+  return function(...args) {
+    return !func(...args);
+  }
+}
+
+const isPositive = number => number > 0;
+const isNotPositive = negate(isPositive);
+
+console.log(isPositive(1)); // true
+console.log(isNotPositive(1)); // false
+```
+
+Higher order functions can also return functions as output. Here's an example of a higher order function that takes a string and returns a function that will always return that string:
+
+```javascript
+function always(str) {
+  return function() {
+    return str;
+  }
+}
+
+const sayHello = always('Hello');
+
+console.log(sayHello()); // 'Hello'
+```
+
+## Conclusion
+Higher order functions are a powerful tool in JavaScript that can be used to greatly improve the readability and maintainability of your code. Whether you're using built-in higher order functions or creating your own, they are an important concept to understand in functional programming.

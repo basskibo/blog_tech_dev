@@ -1,0 +1,85 @@
+---
+title: "Framework vs Library: The Ultimate Showdown"
+publishedAt: "2023-01-11"
+excerpt: "When it comes to software development, there are a lot of different tools and technologies that can help you get the job done, two of the most common are frameworks and libraries"
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1673448129/igutech/blogs/dayne-topkin-Sk-C-om9Jz8-unsplash_cb6hhc.jpg"
+imageCreditUser: "Dayne Topkin"
+imageCreditUsername: "dtopkin1"
+author: "Bojan Jagetic"
+tags: [{ slug: "js", name: "javascript" }]
+inPreparation: false
+---
+
+## Introduction
+
+When it comes to software development, there are a lot of different tools and technologies that can help you get the job done. Two of the most common are <Adjusted>frameworks</Adjusted> and <Adjusted>libraries</Adjusted>, but many developers are unsure of the difference between the two. In this post, we'll take a look at what sets frameworks and libraries apart, and when you should use one over the other.
+
+## What is a Framework?
+
+A framework is a set of pre-written code that provides a structure for a specific type of application. It typically includes a set of conventions and best practices for building the type of application it's designed for. This means that a framework defines the way an application should be built, and developers must work within the constraints of the framework. The benefit of this approach is that it allows developers to build applications quickly and with a consistent structure.
+
+Popular examples of frameworks are Ruby on Rails for web development, AngularJS for JavaScript apps and Flask, Django for python web development.
+
+### Example of using a Framework
+
+```python
+from flask import Flask, render_template
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run()
+```
+
+In this example, we're using the Flask framework to build a simple web application. The Flask framework provides a set of conventions and tools for building web applications, including the <code>Flask</code> class, which we use to create an instance of our web application. The render_template function provided by the framework is used to render an HTML template. In this case, when a user navigates to the root URL of the application, the index function will be called and the index.html template will be rendered.
+
+## What is a Library?
+
+A library, on the other hand, is a collection of pre-written code that can be used to perform specific tasks. Unlike a framework, a library does not provide a specific structure or set of conventions for building an application. Instead, it simply provides a set of tools that can be used to add functionality to an application. The benefit of this approach is that it allows developers to have more flexibility and control over their application, but it also means they must handle the organization and structure of the application themselves.
+
+Some of the popular examples of libraries in different languages are NumPy, SciPy, Matplotlib for python scientific computation, Lodash for JavaScript, Boost C++ Libraries for C++.
+
+
+### Example of using a Library
+
+```python
+import numpy as np
+
+# Creating a 2x3 array using numpy
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+
+# Performing matrix multiplication using numpy library
+result = np.dot(arr, arr.T)
+print(result)
+```
+In this example, we are using the NumPy library to perform a matrix multiplication. The <code>numpy</code> library provides a set of tools for working with arrays and matrices, including the <code>np.dot</code> function, which we use to perform the multiplication. We also imported numpy library as <code>np</code> which is a common practice while using numpy. It is also a library, but it is extremely powerful and commonly used to perform scientific computing and data manipulation tasks.
+
+It's important to notice that, using a library gives you more flexibility as compared to using a framework. With a library, you can pick and choose the specific tools you need, while a framework provides you with a specific set of tools, and if those don't fit your requirements you'll have to work with what you got.
+
+## Usage
+
+We got through what is purpose of framework and libary but when to use it. Lets see when should we use a framework and when libary, on the first look they looks the pretty the same but usage is different. 
+
+### When to use a Framework
+
+When you need to build an application quickly and don't want to spend a lot of time worrying about the structure and organization of the code.
+When you're working on a project with a lot of other developers and you want to ensure that everyone is working with a consistent structure and set of conventions.
+When you want to use a specific set of best practices and conventions that have been proven to work well for a particular type of application.
+
+### When to use a Library
+
+When you want to have more control over the structure and organization of your code.
+When you want to add specific functionality to an existing application, rather than building a new one from scratch.
+When you're working on a project with a lot of other developers, and you want to give them the flexibility to organize and structure the code as they see fit.
+
+## Conclusion
+
+In conclusion, frameworks and libraries are both important tools for software development, and each has its own set of strengths and weaknesses. Frameworks provide a structure and set of conventions for building applications quickly, while libraries provide a collection of tools for adding functionality to existing applications. Choosing between the two depends on the specific needs of your project and the preferences of your development team.
+
+Both Frameworks and Libraries are helpful tools for a developer to complete his task, but it's all about understanding what fits best for the current scenario and making a decision accordingly.

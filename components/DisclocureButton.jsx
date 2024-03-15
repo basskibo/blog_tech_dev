@@ -1,30 +1,31 @@
-import { Popover, Transition } from "@headlessui/react"
-import { ChevronDownIcon } from "@heroicons/react/solid"
-import { Fragment } from "react"
+/* eslint-disable no-tabs */
+import React, { Fragment } from 'react'
+import { Popover, Transition } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/solid'
 
 const solutions = [
-	{
-		name: "Insights",
-		description: "Measure actions your users take",
-		href: "##",
-		icon: IconOne,
-	},
-	{
-		name: "Automations",
-		description: "Create your own targeted content",
-		href: "##",
-		icon: IconTwo,
-	},
-	{
-		name: "Reports",
-		description: "Keep track of your growth",
-		href: "##",
-		icon: IconThree,
-	},
+  {
+    name: 'Insights',
+    description: 'Measure actions your users take',
+    href: '##',
+    icon: IconOne
+  },
+  {
+    name: 'Automations',
+    description: 'Create your own targeted content',
+    href: '##',
+    icon: IconTwo
+  },
+  {
+    name: 'Reports',
+    description: 'Keep track of your growth',
+    href: '##',
+    icon: IconThree
+  }
 ]
 
-export default function DisclocureButton() {
-	return (
+export default function DisclocureButton () {
+  return (
 		<div className='w-full max-w-sm  fixed '>
 			<div className='bg-yellow-400 text-white rounded-full p-1 mr-2 cursor-pointer h-4 w-4'></div>
 			<svg className='fill-current h-4 w-4' viewBox='0 0 25 25'>
@@ -35,12 +36,12 @@ export default function DisclocureButton() {
 					<>
 						<Popover.Button
 							className={`
-                ${open ? "" : "text-opacity-90"}
+                ${open ? '' : 'text-opacity-90'}
                 text-white group bg-orange-700 px-3 py-2 rounded-md inline-flex items-center text-base font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
 						>
 							<span>Solutions</span>
 							<ChevronDownIcon
-								className={`${open ? "" : "text-opacity-70"}
+								className={`${open ? '' : 'text-opacity-70'}
                   ml-2 h-5 w-5 text-orange-300 group-hover:text-opacity-80 transition ease-in-out duration-150`}
 								aria-hidden='true'
 							/>
@@ -99,11 +100,11 @@ export default function DisclocureButton() {
 				)}
 			</Popover>
 		</div>
-	)
+  )
 }
 
-function IconOne() {
-	return (
+function IconOne () {
+  return (
 		<svg
 			width='48'
 			height='48'
@@ -132,11 +133,11 @@ function IconOne() {
 				strokeWidth='2'
 			/>
 		</svg>
-	)
+  )
 }
 
-function IconTwo() {
-	return (
+function IconTwo () {
+  return (
 		<svg
 			width='48'
 			height='48'
@@ -158,11 +159,11 @@ function IconTwo() {
 				strokeWidth='2'
 			/>
 		</svg>
-	)
+  )
 }
 
-function IconThree() {
-	return (
+function IconThree () {
+  return (
 		<svg
 			width='48'
 			height='48'
@@ -178,5 +179,5 @@ function IconThree() {
 			<rect x='29' y='16' width='2' height='20' fill='#FB923C' />
 			<rect x='33' y='12' width='2' height='24' fill='#FB923C' />
 		</svg>
-	)
+  )
 }

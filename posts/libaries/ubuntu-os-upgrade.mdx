@@ -1,13 +1,13 @@
 ---
 title: "Ubuntu OS upgrade script"
 publishedAt: "2022-06-14"
-description: "Simple bash script used for upgrading ubuntu OS"
+excerpt: "Simple bash script used for upgrading ubuntu OS"
 englishOnly: "true"
 technologies: ["SiGnubash"]
 author: "Bojan Jagetic"
-
+inPreparation: false
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
-tags: [{ slug: "ubuntu", name: "ubuntu" }, { slug: "linux", name: "linux" }]
+tags: [{ slug: "ubuntu", name: "script" }]
 ---
 
 ## Introduction
@@ -27,7 +27,7 @@ Basically this script just runs commands needed to upgrade the OS, you will stil
 First block of commands are just for updating apt packages and upgrading dist.
 It looks something like this:
 
-```bash
+```shell
 sudo apt-get update
 sudo apt-get upgrade -y
 
@@ -77,4 +77,4 @@ cat /etc/os-release  | grep VERSION
 lsb_release -a
 ```
 
-<GithubCardRepo>basskibo/ubuntu_os_upgrade</GithubCardRepo>
+<GithubCardRepository>basskibo/ubuntu_os_upgrade</GithubCardRepository>

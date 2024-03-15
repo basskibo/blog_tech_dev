@@ -1,7 +1,9 @@
 ---
 title: "Node.js Developer Technical Interview (Basic)"
-excerpt: "If you have beem preparing for the technical interview for Node.js developer position or you just want to affirm your Node.js knowledge feel free to read and refresh your memory (or learn something new)."
+excerpt: "If you have beem preparing for the technical interview for Node.js developer position or you just want to affirm your Node.js knowledge feel free to read and refresh your memory."
 featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/q_60/v1645127897/igutech/nodejs_zqmmvh.jpg"
+imageCreditUser: "Maranda Vandergriff"
+imageCreditUsername : "mkvandergriff"
 publishedAt: "2022-02-12T05:35:07.322Z"
 author: "Bojan Jagetic"
 tags:
@@ -10,6 +12,7 @@ tags:
       { slug: "interview", name: "interview" },
       { slug: "express", name: "expressjs" },
    ]
+inPreparation: false
 ---
 
 ## Introduction
@@ -88,7 +91,7 @@ As in official Node.js <a href="https://nodejs.org/en/docs/guides/blocking-vs-no
 
 When comparing codes, you can see the difference,for example <b>blocking code:</b>
 
-```js
+```javascript
 const fs = require('fs');
 const data = fs.readFileSync('/test.md');
 }
@@ -96,7 +99,7 @@ const data = fs.readFileSync('/test.md');
 
 on the other hand below you can see <b>non-blocking code:</b>
 
-```js
+```javascript
 const fs = require('fs');
 fs.readFile('/test.md', (err, data) => {
   if (err) throw err;
@@ -104,7 +107,17 @@ fs.readFile('/test.md', (err, data) => {
 }
 ```
 
-### What is event loop
+### What is libuv
+
+We said earlier that Node.js is single-threaded, but how may we create multiple workers to load of thread if they are not thread ? Answer is libuv, which is special libary built (in the beginning) specially for Node.
+It is build in C language, uses system kernel which has multiple threads. Specifically, node do not use more than one thread, but libuv is, libuv spawns workers who are in fact threads
+
+### Concurrency and Throughput
+
+JavaScript execution in Node.js is single threaded, so concurrency refers to the event loop's capacity to execute JavaScript callback functions after completing other work. Any code that is expected to run in a concurrent manner must allow the event loop to continue running as non-JavaScript operations, like I/O, are occurring.
+This is because libuv sets up a thread pool to handle such concurrency. How many threads will be there in the thread pool depends upon the number of cores but you can override this.
+
+## What is event loop
 
 Event loop is an endless loop, which waits for tasks, executes them and then sleeps until it receives more tasks. The event loop executes tasks from the event queue only when the call stack is empty i.e. there is no ongoing task. The event loop allows us to use callbacks and promises.
 The event loop allows Node.js to perform non-blocking I/O operations despite the fact that JavaScript is single-threaded. It is done by assigning operations to the operating system whenever and wherever possible.
@@ -121,15 +134,6 @@ specific tasks such as timers, pending callbacks, idle or prepare, poll, check, 
 with different FIFO queues. Also in between iterations it checks for async I/O or timers and
 shuts down cleanly if there aren't any.
 
-### What is libuv
-
-We said earlier that Node.js is single-threaded, but how may we create multiple workers to load of thread if they are not thread ? Answer is libuv, which is special libary built (in the beginning) specially for Node.
-It is build in C language, uses system kernel which has multiple threads. Specifically, node do not use more than one thread, but libuv is, libuv spawns workers who are in fact threads
-
-### Concurrency and Throughput
-
-JavaScript execution in Node.js is single threaded, so concurrency refers to the event loop's capacity to execute JavaScript callback functions after completing other work. Any code that is expected to run in a concurrent manner must allow the event loop to continue running as non-JavaScript operations, like I/O, are occurring.
-This is because libuv sets up a thread pool to handle such concurrency. How many threads will be there in the thread pool depends upon the number of cores but you can override this.
 
 ## Fork and Cluster
 
@@ -168,7 +172,7 @@ Each thread has one Node instance (one event loop, one JS engine) with most of t
 Shares memory with other threads (e.g. SharedArrayBuffer)
 This can be used for CPU-intensive tasks like processing data or accessing the file system since NodeJS is single-threaded, synchronous tasks can be made more efficient leveraging the worker's threads.
 
-## What is middleware
+## What is Middleware
 
 Middleware comes in between your request and business logic. It is mainly used to capture logs and enable rate limit, routing, authentication, basically whatever that is not a part of business logic. There are third-party middleware also such as body-parser and you can write your own middleware for a specific use case.
 
@@ -200,11 +204,11 @@ Exit codes give us an idea of how a process got terminated/the reason behind ter
 
 </LgList>
 
-### What is an Event Emitter in Node.js
+## What is an Event Emitter in Node.js
 
 EventEmitter is a Node.js class that includes all the objects that are basically capable of emitting events. This can be done by attaching named events that are emitted by the object using an eventEmitter.on() function. Thus whenever this object throws an even the attached functions are invoked synchronously.
 
-```js
+```javascript
 const EventEmitter = require("events");
 class MyEmitter extends EventEmitter {}
 const myEmitter = new MyEmitter();
@@ -213,3 +217,69 @@ myEmitter.on("event", () => {
 });
 myEmitter.emit("event");
 ```
+
+
+
+    What is Node.js, and what are its main features?
+    How does Node.js handle asynchronous programming?
+    What is the Event Loop in Node.js, and how does it work?
+    Can you explain the difference between callback functions, promises, and async/await in Node.js?
+    What is npm, and what is its role in Node.js development?
+    Explain the purpose of package.json in a Node.js project.
+    How do you handle errors in Node.js applications?
+    What is middleware in the context of Express.js, and how is it used?
+    Can you describe the purpose of the "require" function in Node.js?
+    How do you manage dependencies in a Node.js project?
+    What are streams in Node.js, and why are they useful?
+    Explain the role of modules in Node.js, and how do you create and use them?
+    What is the purpose of the "exports" and "module.exports" objects in Node.js modules?
+    How can you debug a Node.js application?
+    What is clustering in Node.js, and how can it improve application performance?
+    How do you securely handle user authentication and authorization in a Node.js application?
+    Can you explain the concept of RESTful APIs and how they are implemented in Node.js?
+    What are some best practices for optimizing the performance of a Node.js application?
+    How do you deploy a Node.js application to a production environment?
+    Can you discuss some common security vulnerabilities in Node.js applications and how to mitigate them?
+
+	Question: What is Node.js, and what are its main features?
+
+Answer: Node.js is a JavaScript runtime environment built on Chrome's V8 JavaScript engine. Its main features include:
+
+    Asynchronous and event-driven: Node.js uses non-blocking, event-driven architecture, making it efficient for handling I/O operations and scalable for concurrent connections.
+    Single-threaded but highly scalable: Node.js operates on a single-threaded event loop model, allowing it to handle a large number of concurrent connections without the overhead of traditional multi-threaded approaches.
+    JavaScript everywhere: Node.js enables developers to use JavaScript for both server-side and client-side development, providing consistency and code reuse across the stack.
+    NPM ecosystem: Node.js comes with npm (Node Package Manager), the largest ecosystem of open-source libraries and tools, facilitating rapid development and sharing of reusable code.
+    Lightweight and fast: Node.js has a small footprint and low overhead, making it fast to install, deploy, and execute, ideal for building high-performance web applications.
+
+	   - What is Node.js, and how does it differ from other server-side technologies?
+        Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine, allowing developers to run JavaScript on the server-side. Unlike traditional server-side technologies like PHP or Java, Node.js is event-driven and non-blocking, making it highly scalable and efficient for handling I/O-heavy applications.
+
+    - Explain the concept of event-driven programming in Node.js.
+        Event-driven programming in Node.js means that the server responds to events such as HTTP requests, file system operations, or database queries asynchronously. Instead of blocking and waiting for each operation to complete, Node.js registers callback functions to be executed when the operation completes, allowing the server to handle multiple requests concurrently.
+
+   - What is the Event Loop in Node.js, and how does it work?
+        The Event Loop is the core mechanism in Node.js that enables asynchronous I/O operations. It continuously checks the event queue for pending events and executes the associated callback functions in a non-blocking manner. This allows Node.js to handle multiple concurrent operations efficiently without getting blocked.
+
+   - What are the benefits of using npm in Node.js development?
+        npm (Node Package Manager) is the largest ecosystem of open-source libraries and tools for Node.js. It simplifies dependency management, allows easy installation and updating of packages, facilitates code reuse, and provides access to a vast collection of modules for various functionalities, speeding up development and reducing project complexity.
+
+    -Explain the difference between callback functions, promises, and async/await in Node.js.
+        Callback functions are functions passed as arguments to other functions and executed later, commonly used for handling asynchronous operations in Node.js.
+        Promises provide a cleaner and more readable way to work with asynchronous code by representing a future value or error, allowing chaining of operations and better error handling.
+        async/await is a syntactic sugar built on top of promises, making asynchronous code look and behave more like synchronous code, enhancing readability and maintainability.
+
+   - How does error handling work in Node.js applications?
+        Error handling in Node.js involves using try/catch blocks for synchronous code and handling errors using callback functions or promise rejections for asynchronous code. Additionally, Node.js provides the 'error' event for handling uncaught exceptions at the process level.
+
+   - What are streams in Node.js, and why are they useful?
+        Streams are objects used to read or write data continuously in Node.js, enabling efficient processing of large amounts of data without loading it entirely into memory. They are useful for tasks like file I/O, network communication, and data transformation, improving performance and reducing memory usage.
+
+  -  Explain the role of middleware in Express.js.
+        Middleware functions in Express.js are functions that have access to the request and response objects and can modify them or terminate the request-response cycle. They are used to perform tasks such as logging, authentication, data parsing, and error handling, allowing for modular and reusable code in Express.js applications.
+
+  -  How do you securely handle user authentication and authorization in Node.js applications?
+        Secure user authentication and authorization in Node.js applications involve using best practices such as password hashing, session management, JSON Web Tokens (JWT) for authentication, role-based access control (RBAC), and HTTPS for secure communication, to protect against common security threats like SQL injection, cross-site scripting (XSS), and cross-site request forgery (CSRF).
+
+   - What are some common performance optimization techniques for Node.js applications?
+        Performance optimization in Node.js applications can be achieved through techniques such as caching, code profiling and optimization, using efficient algorithms and data structures, minimizing blocking operations, leveraging clustering for multi-core systems, employing load balancing, and using CDN (Content Delivery Network) for static assets, to enhance throughput, response times, and scalability.
+

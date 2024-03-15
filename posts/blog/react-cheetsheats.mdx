@@ -5,8 +5,11 @@ description: "Thorough explanation on Next.js data fetching method such as CSR, 
 englishOnly: "true"
 excerpt: "Want to have all basic stuff about React in one place, sure here it is. Here you have basic React concepts and functions that can be helpfull."
 featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/q_60/v1648039921/igutech/react-cheatsheet_k6re7p.jpg"
+imageCreditUser: "Lautaro Adrenani"
+imageCreditUsername: "lautaroandreani"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 tags: [{ slug: "react", name: "react" }, { slug: "js", name: "javascript" }]
+inPreparation: false
 ---
 
 ## Introduction
@@ -17,7 +20,7 @@ tags: [{ slug: "react", name: "react" }, { slug: "js", name: "javascript" }]
 
 React elements are written just like regular HTML elements. You can write any valid HTML element in React.
 
-```html
+```HTML
 <h1>My Header</h1>
 <p>My paragraph> <button>My button</button></p>
 ```
@@ -28,7 +31,7 @@ However, because JSX is really just JavaScript functions (and not HTML), the syn
 
 Unlike HTML, single-tag elements (like the img element), must be self-closing. They must end in a forward slash /:
 
-```html
+```HTML
 <img src="my-image.png" />
 <br />
 <hr />
@@ -42,7 +45,7 @@ Since JSX is really JavaScript and JavaScript uses a camelcase naming convention
 
 The most common example is the class attribute, which we write as className.
 
-```html
+```HTML
 <div className="container"></div>
 ```
 
@@ -52,7 +55,7 @@ To apply inline styles, instead of using double quotes (“”), we use two sets
 
 Inline styles are not written as plain strings, but as properties on objects:
 
-```html
+```HTML
 <h1 style={{ fontSize: 24, margin: '0 auto', textAlign: 'center' }}>My header</h1>
 ```
 
@@ -288,14 +291,17 @@ Hooks let us use all the features that were previously only available in class c
 
 Additionally, we can create our own custom hooks that give our app custom functionality.
 
-Many React hooks were added to the core React library as well. We are going to cover the 6 essential hooks you absolutely need to know:
+Many React hooks were added to the core React library as well. We are going to cover the 6 basic built-in hooks you absolutely need to know and which you will 
+probably use the most:
 
--  useState
--  useEffect
--  useRef
--  useContext
--  useCallback
--  useMemo
+<SmList>
+   <li>useState </li>
+   <li>useEffect </li>
+   <li>useRef </li>
+   <li>useContext </li>
+   <li>useMemo </li>
+   <li>useCallback </li>
+</SmList>
 
 ### React useState Hook
 

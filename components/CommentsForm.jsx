@@ -1,76 +1,77 @@
-import React, { useState, useRef, useEffect } from "react"
-import { Switch } from "@headlessui/react"
+/* eslint-disable no-tabs */
+import React, { useState, useRef, useEffect } from 'react'
+import { Switch } from '@headlessui/react'
 
-const style = {
-	position: "absolute",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	width: 400,
-	bgcolor: "#0f172a",
-	border: "2px solid #000",
-	color: "white",
-	boxShadow: 24,
-	p: 4,
-}
+import { submitComment } from '../services'
 
-import { submitComment } from "../services"
+// const style = {
+//   position: 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   width: 400,
+//   bgcolor: '#0f172a',
+//   border: '2px solid #000',
+//   color: 'white',
+//   boxShadow: 24,
+//   p: 4
+// }
 
 const CommentsForm = ({ slug }) => {
-	const [error, setError] = useState(false)
-	const [localStorage, setLocalStorage] = useState(null)
-	const [showSuccessMessage, setShowSuccessMessage] = useState(false)
-	const [checked, setEnabled] = useState(false)
+  const [error, setError] = useState(false)
+  //   const [localStorage, setLocalStorage] = useState(null)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [checked, setEnabled] = useState(false)
 
-	const commentEl = useRef()
-	const nameEl = useRef()
-	const emailEl = useRef()
-	const storeDataEl = useRef()
+  const commentEl = useRef()
+  const nameEl = useRef()
+  const emailEl = useRef()
+  const storeDataEl = useRef()
 
-	useEffect(() => {
-		nameEl.current.value = window.localStorage.getItem("name")
-		emailEl.current.value = window.localStorage.getItem("email")
-	}, [])
+  useEffect(() => {
+    nameEl.current.value = window.localStorage.getItem('name')
+    emailEl.current.value = window.localStorage.getItem('email')
+  }, [])
 
-	const handleCommentSubmition = () => {
-		console.log("Handling button click!!")
-		setError(false)
-		setShowSuccessMessage(false)
-		const { value: comment } = commentEl.current
-		const { value: name } = nameEl.current
-		const { value: email } = emailEl.current
+  const handleCommentSubmition = () => {
+    console.log('Handling button click!!')
+    setError(false)
+    setShowSuccessMessage(false)
+    const { value: comment } = commentEl.current
+    const { value: name } = nameEl.current
+    const { value: email } = emailEl.current
 
-		if (!comment || !name || !email) {
-			setError(true)
+    if (!comment || !name || !email) {
+      setError(true)
 
-			return
-		}
-		const commentObj = {
-			name,
-			email,
-			comment,
-			slug,
-		}
+      return
+    }
+    const commentObj = {
+      name,
+      email,
+      comment,
+      slug
+    }
 
-		if (checked) {
-			window.localStorage.setItem("email", email)
-			window.localStorage.setItem("name", name)
-		} else {
-			window.localStorage.removeItem("name", name)
-			window.localStorage.removeItem("email", email)
-		}
+    if (checked) {
+      window.localStorage.setItem('email', email)
+      window.localStorage.setItem('name', name)
+    } else {
+      window.localStorage.removeItem('name', name)
+      window.localStorage.removeItem('email', email)
+    }
 
-		submitComment(commentObj).then((res) => {
-			setShowSuccessMessage(true)
-			commentEl.current.value = ""
-			emailEl.current.value = ""
-			nameEl.current.value = ""
-			setTimeout(() => {
-				setShowSuccessMessage(false)
-			}, 10000)
-		})
-	}
-	return (
+    submitComment(commentObj).then((res) => {
+      setShowSuccessMessage(true)
+      commentEl.current.value = ''
+      emailEl.current.value = ''
+      nameEl.current.value = ''
+      setTimeout(() => {
+        setShowSuccessMessage(false)
+      }, 10000)
+    })
+  }
+  return (
 		<div className='bg-slate-900 shadow-lg rounded-lg p-8 pb-12 mb-8'>
 			<h3 className='text-xl mb-8 text-white font-semibold border-b pb-4'>
 				Leave you comment
@@ -107,13 +108,13 @@ const CommentsForm = ({ slug }) => {
 						onChange={setEnabled}
 						ref={storeDataEl}
 						className={`${
-							checked ? "bg-sky-800" : "bg-slate-400"
+							checked ? 'bg-sky-800' : 'bg-slate-400'
 						} relative inline-flex items-center h-4 rounded-full w-11`}
 					>
 						<span className='sr-only'>Enable notifications</span>
 						<span
 							className={`${
-								checked ? "translate-x-6" : "translate-x-1"
+								checked ? 'translate-x-6' : 'translate-x-1'
 							} inline-block w-3 h-3  bg-white rounded-full`}
 						/>
 					</Switch>
@@ -153,7 +154,7 @@ const CommentsForm = ({ slug }) => {
 				</button>
 			</div>
 		</div>
-	)
+  )
 }
 
 export default CommentsForm

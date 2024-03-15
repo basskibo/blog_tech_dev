@@ -1,0 +1,74 @@
+---
+title: "Default vs named module export in Javascript"
+publishedAt: "2022-12-17"
+excerpt: "In JavaScript, you can use the export keyword to make values and functions available for use in other files. There are two ways to use export: as a named export or as a default export."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1668806354/igutech/blogs/evgeni-tcherkasski-bao8WXkifXI-unsplash_t80cr4.jpg"
+imageCreditUser: "Evgeni Tcherkasski"
+imageCreditUsername: "evgenit"
+author: "Bojan Jagetic"
+tags: [{ slug: "js", name: "javascript" }, {slug: "nodejs", name: "nodejs"}]
+inPreparation: false
+---
+
+## Introduction
+
+In JavaScript, we can use the <code>export</code> keyword to make certain variables, functions, and classes available to other parts of our codebase or to other modules. We can then use the import keyword to access those exports in another file.
+
+There are two ways to use the export keyword: <code>named exports</code> and <code>default exports</code>.
+
+## Named Exports
+Named exports allow us to export multiple variables, functions, or classes with a specific name. We can use the export keyword followed by the variable, function, or class that we want to export. Here is an example of a file with named exports:
+
+```javascript
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+export const multiply = (a, b) => a * b;
+export const divide = (a, b) => a / b;
+```
+
+We can then import these named exports into another file by using the import keyword and specifying the names of the exports that we want to import. Here is an example of how we can import the named exports from the above file:
+
+```javascript
+import { add, subtract, multiply, divide } from './math';
+
+console.log(add(1, 2)); // 3
+console.log(subtract(1, 2)); // -1
+console.log(multiply(2, 3)); // 6
+console.log(divide(6, 2)); // 3
+```
+
+We can also use the * symbol to import all of the named exports from a module, like this:
+
+```javascript
+import * as math from './math';
+
+console.log(math.add(1, 2)); // 3
+console.log(math.subtract(1, 2)); // -1
+console.log(math.multiply(2, 3)); // 6
+console.log(math.divide(6, 2)); // 3
+```
+
+## Default Exports
+
+In addition to named exports, we can also use default exports in JavaScript. Default exports allow us to export a single variable, function, or class as the default export of a module. We can use the export default keyword followed by the variable, function, or class that we want to export as the default. Here is an example of a file with a default export:
+
+```javascript
+export default const add = (a, b) => a + b;
+```
+
+We can import the default export from another file by using the import keyword and specifying a name for the default export. Here is an example of how we can import the default export from the above file:
+
+```javascript
+import add from './math';
+
+console.log(add(1, 2)); // 3
+```
+
+It's important to note that we can only have one default export per module. However, we can have multiple named exports in the same module.
+
+## Choosing Between Named Exports and Default Exports
+
+When deciding whether to use named exports or a default export, it's important to consider the context in which the exports will be used. If you only need to export a single variable, function, or class, then using a default export might make the most sense. On the other hand, if you need to export multiple variables, functions, or classes, then named exports might be the better choice.

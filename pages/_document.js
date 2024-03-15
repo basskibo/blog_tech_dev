@@ -1,13 +1,14 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
-import loader from "../src/loader";
-class MyDocument extends Document {
-   static async getInitialProps(ctx) {
-      const initialProps = await Document.getInitialProps(ctx);
-      return { ...initialProps };
-   }
+/* eslint-disable react/react-in-jsx-scope */
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-   render() {
-      return (
+class MyDocument extends Document {
+  static async getInitialProps (ctx) {
+    const initialProps = await Document.getInitialProps(ctx)
+    return { ...initialProps }
+  }
+
+  render () {
+    return (
          <Html lang="en">
             <Head>
                <script
@@ -16,7 +17,7 @@ class MyDocument extends Document {
                />
                <script
                   dangerouslySetInnerHTML={{
-                     __html: `
+                    __html: `
                                 window.dataLayer = window.dataLayer || [];
                                 function gtag(){dataLayer.push(arguments);}
                                 gtag('js', new Date());
@@ -26,39 +27,21 @@ class MyDocument extends Document {
                                 )} , {
                                 page_path: window.location.pathname,
                                 });
-                            `,
+                            `
                   }}
                />
-               <style>{loader}</style>
+			   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3181880928286370"
+     crossorigin="anonymous"></script>
             </Head>
             <body>
-               <div id={"globalLoader"}>
-                  <div className='loader'>
-                     <div className='face'>
-                        <div className='circle'></div>
-                     </div>
-                     <div className='face'>
-                        <div className='circle'></div>
-                     </div>{" "}
-                     <div className='face'>
-                        <div className='circle'></div>
-                     </div>
-                  </div>
+               <div id={'globalLoader'} >
                </div>
-
-               {/* <div id={"globalLoader"}>
-                  <div className='loader'>
-                     <div />
-                     <div />
-                  </div>
-               </div> */}
-
                <Main />
                <NextScript />
             </body>
          </Html>
-      );
-   }
+    )
+  }
 }
 
-export default MyDocument;
+export default MyDocument
