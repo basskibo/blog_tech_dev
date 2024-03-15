@@ -48,7 +48,7 @@ function selectRandomNumberOfPosts(array, count) {
 	while (result.length < count) {
 		const randomIndex = Math.floor(Math.random() * totalElements);
 		const randomElement = array[randomIndex];
-		if (!result.includes(randomElement)) {
+		if (!result.includes(randomElement)&& !randomElement.inPreparation) {
 			result.push(randomElement);
 		}
 	}
