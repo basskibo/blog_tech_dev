@@ -21,7 +21,7 @@ const QuizComponent = ({ selectedQuiz }) => {
 		wrongAnswers: 0
 	})
 	const [isFullScreen, setIsFullScreen] = useState(false);
-	const { questions } = nodeQuestions
+	const { questions, title, level } = nodeQuestions
 	const shuffledQuestions = generateRandomQuestionList(questions) //TODO: 
 	const totalQuestions = questions.length
 	const { question, answers, correctAnswer } = questions[activeQuestion]
@@ -67,19 +67,6 @@ const QuizComponent = ({ selectedQuiz }) => {
 		}
 	};
 
-	// const toggleFullScreen = () => {
-	// 	const doc = window.document;
-	// 	const docEl = doc.documentElement;
-
-	// 	const requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-	// 	const cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-
-	// 	if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-	// 		requestFullScreen.call(docEl);
-	// 	} else {
-	// 		cancelFullScreen.call(doc);
-	// 	}
-	// };
 
 	// Calculate score and increment to next question
 	const handleNextQuestion = () => {
@@ -124,12 +111,12 @@ const QuizComponent = ({ selectedQuiz }) => {
 	return (
 		<div className='flex w-full lg:w-3/4 h-screen justify-center content-start items-start  text-white'>
 			{!selectedQuiz ? <div className='flex flex-row gap-2 justify-center items-center align-middle'>
-				<IoWarningOutline size={'2rem'}/>
+				<IoWarningOutline size={'2rem'} />
 				<h3 className='text-2xl'>Please select category of quiz you want to play</h3>
 			</div>
 				: <div id='quizComponent' className='flex flex-col border-2 lg:px-5 max-w-full min-w-full border-neutral-800 radius border0r p-5'>
 					<div className='flex flex-row-reverse'>
-						<button onClick={toggleFullScreen}>
+						<button onClick={toggleFullScreen} className='transform hover:scale-[1.14] transition-all  hover:cursor-pointer hover:text-[#ff0080]'>
 							{isFullScreen ? <RiFullscreenExitLine size={'1.5rem'} /> : <RiFullscreenFill size={'1.5rem'} />}
 
 						</button>
@@ -137,7 +124,7 @@ const QuizComponent = ({ selectedQuiz }) => {
 					{!showResult && <>
 						<p className='text-4xl text-center font-bold'>
 							<Accent>
-								{selectedQuiz} Quiz
+								{title} {level} Quiz
 							</Accent>
 						</p>
 						<span className='divider'></span>
@@ -152,11 +139,11 @@ const QuizComponent = ({ selectedQuiz }) => {
 						{!showResult ?
 							<div>
 								<h3 className='font-bold text-center my-5 text-2xl'> {question}</h3>
-								<div className='flex flex-col gap-5'>
+								<div className='grid grid-cols-2 grid-rows-2 gap-5'>
 									{answers.map((answer, idx) => (
 										<button onClick={() => handleAnswer(answer, idx)} className={
 											cslx(
-												'border border-neutral-700 py-3  hover:border-indigo-900 px-5',
+												'border border-neutral-700 py-3 text-sm hover:border-indigo-900 px-5',
 												selectedAnswerIndex === idx ? 'border border-amber-900 bg-neutral-800' :
 													''
 											)
@@ -168,16 +155,18 @@ const QuizComponent = ({ selectedQuiz }) => {
 							<Result result={result} totalQuestions={totalQuestions} handlePlayAgain={handlePlayAgain} />
 						}
 					</div>
-
-					{checked ? (
-						<button className='border border-slate-400 py-3 hover:border-indigo-700 ' onClick={() => handleNextQuestion()}>
+					<div className='flex justify-center '>
+						{checked ? (
+							<button className='border w-1/2 border-slate-400  py-3 hover:border-indigo-700 ' onClick={() => handleNextQuestion()}>
+								{activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
+							</button>
+						) : (!checked && !showResult) ? (
+						<button disabled className='border w-1/2 border-slate-400 disabled:text-slate-400 py-3 hover:border-indigo-700 ' onClick={handlePlayAgain}>
 							{activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
-						</button>
-					) : (!checked && !showResult) ? (<button disabled className='border border-slate-400 py-3 hover:border-indigo-700 ' onClick={handlePlayAgain}>
-						{activeQuestion === questions.length - 1 ? 'Finish' : 'Next'}
-					</button>) : <></>}
+						</button>) : <></>}
+					</div>
+				</div>}
 
-				</div> }
 
 		</div>
 

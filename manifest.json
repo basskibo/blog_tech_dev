@@ -1,6 +1,8 @@
 {
 	"name": "Jagetic",
 	"short_name": "BJ",
+	"start_url": "/",
+	"description": "Bojan Jagetic's personal website where you can find bunch of content",
 	"icons": [
 		{
 			"src": "/public/android-chrome-192x192.png",
