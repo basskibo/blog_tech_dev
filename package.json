@@ -72,6 +72,7 @@
 		"react-type-animation": "^2.1.1",
 		"react-window": "^1.8.8",
 		"reading-time": "^1.5.0",
+		"rss": "^1.2.2",
 		"sass": "^1.62.1",
 		"sharp": "^0.32.1",
 		"slugify": "^1.6.5",
