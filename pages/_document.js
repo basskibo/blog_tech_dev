@@ -32,6 +32,9 @@ class MyDocument extends Document {
                />
 			   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3181880928286370"
      crossorigin="anonymous"></script>
+	         <link rel="manifest" href="/manifest.json" />
+			 <link rel="apple-touch-icon" href="/android-chrome-192x192.png" />
+        <meta name="theme-color" content="#ff0080" />
             </Head>
             <body>
                <div id={'globalLoader'} >
