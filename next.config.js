@@ -10,11 +10,11 @@ const NextConfiguration = {
   // runtime: "nodejs",
   // },
   reactStrictMode: true,
-  pwa: {
-    dest: "public",
-    register: true,
-    skipWaiting: true,
-  },
+//   pwa: {
+//     dest: "public",
+//     register: true,
+//     skipWaiting: true,
+//   },
   // experimental: { esmExternals: true },
   pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
   // Support loading `.md`, `.mdx`:
