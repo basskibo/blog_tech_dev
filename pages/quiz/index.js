@@ -22,8 +22,8 @@ const quiz = () => {
 	]
 
 	const handleCategorySelect = (e) => {
-		alert('Still in development..')
-		return
+		// alert('Still in development..')
+		// return
 		const selectedCategory = e.target.outerText
 		setSelectedQuiz(selectedCategory)
 		console.log(selectedCategory)
@@ -61,8 +61,8 @@ const quiz = () => {
 					<h2 className='text-2xl text-slate-200 my-5'>Choose category to play</h2>
 					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
 						{quizes.map((quiz) => (
-							<div key={quiz.id} onClick={handleCategorySelect} className='border border-neutral-800 px-5 py-10 flex flex-col justify-center items-center align-middle  
-							transform hover:scale-[1.00] transition-opacity  hover:cursor-pointer hover:text-[#ff0080] hover:border-[#ff0080]'>
+							<div key={quiz.id} onClick={handleCategorySelect} className='border rounded-md border-neutral-800 px-5 py-10 flex flex-col justify-center items-center align-middle  
+							transform hover:scale-[1.05] transition-all  hover:cursor-pointer hover:text-[#ff0080] hover:border-[#ff0080]'>
 								<p className='flex flex-row text-lg justify-center items-center align-middle gap-1 text-white'>{quiz?.icon}{quiz.name} </p>
 								<p className='flex flex-row text-sm justify-center items-center align-middle text-slate-400'>Level: {quiz?.level} </p>
 							</div>

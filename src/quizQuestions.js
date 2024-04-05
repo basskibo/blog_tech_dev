@@ -1,6 +1,8 @@
 export const nodeQuestions = {
 	totalQuestions: 5,
 	id: 'nodejs',
+	title: 'Nodejs',
+	level: 'Junior',
 	questions: [
 		{
 			"id": 1,
