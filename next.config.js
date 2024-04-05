@@ -72,4 +72,4 @@ const NextConfiguration = {
 //   enabled: process.env.ANALYZE === 'true'
 // })
 // module.exports = withBundleAnalyzer({ NextConfiguration })
-module.exports = withPWA(NextConfiguration)
+module.exports = NextConfiguration
