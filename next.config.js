@@ -1,12 +1,20 @@
 /** @type {import('next').NextConfig} */
 const shouldAnalyzeBundles = process.env.ANALYZE === false
 
+const withPWA = require('next-pwa')({
+	dest: 'public'
+})
 const NextConfiguration = {
   productionBrowserSourceMaps: true,
   // experimental: {
   // runtime: "nodejs",
   // },
   reactStrictMode: true,
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+  },
   // experimental: { esmExternals: true },
   pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
   // Support loading `.md`, `.mdx`:
@@ -64,4 +72,4 @@ const NextConfiguration = {
 //   enabled: process.env.ANALYZE === 'true'
 // })
 // module.exports = withBundleAnalyzer({ NextConfiguration })
-module.exports = NextConfiguration
+module.exports = withPWA(NextConfiguration)
