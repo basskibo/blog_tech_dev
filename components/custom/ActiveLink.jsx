@@ -42,7 +42,7 @@ function ActiveLink ({ children, href, className, id }) {
          href={href}
          onClick={handleClick}
          style={style}
-         data-splitbee-event={`Click ${id}`}
+        //  data-splitbee-event={`Click ${id}`}
          className={clsx(
            'font-semibold',
            className || '',
