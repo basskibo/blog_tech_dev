@@ -12,32 +12,29 @@ import constants from '../../utils/constants';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 import Accent from './Accent';
-// import { useInView } from 'react-intersection-observer';
-// import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { useEffect, useState } from 'react';
 
 const Child = ({ style, index, data, readyInViewport, scrolling }) => {
-	// const { ref, inView, entry } = useInView();
-	// const [isVisible, setIsVisible] = useState(false);
+	const { ref, inView, entry } = useInView();
+	const [isVisible, setIsVisible] = useState(false);
 
-	// useEffect(() => {
-	// 	console.log('in view' , inView)
-	// 	console.log('entry' , entry)
-	// 	if (inView) {
-	// 		setIsVisible(true);
-	// 	}
-	// }, [inView]);
+	useEffect(() => {
+		console.log('in view' , inView)
+		console.log('entry' , entry)
+		if (inView) {
+			setIsVisible(true);
+		}
+	}, [inView]);
 	const post = data[index]?.props
 	return (
 		<motion.div
-			// ref={ref}
+			ref={ref}
 
-			// initial={{ opacity: 0, y: -25 }} // Initial animation state
-			// animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
-			// transition={{ duration: 0.5, delay: index * 0.1 }} // Apply stagger delay
-			animate={{opacity: 1, y: 25}}
+			initial={{ opacity: 0, y: -25 }} // Initial animation state
+			animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
+			transition={{ duration: 0.5, delay: index * 0.1 }} // Apply stagger delay
 			style={{  opacity: 0 }}
-			// animate={{ opacity: 1 }}
-			transition={{ duration: 0.5, delay: index * 0.1 }}
 			key={post.id}
 		>
 			<div
@@ -75,11 +72,6 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
 						)}>
 						<h1 className='text-md font-bold '> {post?.data?.title}</h1>
 						<div className='mt-1 text-white flex-row '>
-							{' '}
-							{/* <div className='basis-1/2'>
-                     <ReadTime> {post}</ReadTime>
-                  </div> */}
-
 							<div className='basis-1/2 '>
 								<p className='align-middle  font-semibold text-xs text-slate-400 '>
 									{post?.data?.inPreparation
@@ -122,7 +114,7 @@ const ChildLibrary = ({ style, index, data, readyInViewport, scrolling }) => {
 		<div
 			style={{ display: 'flex', borderRadius: '15px', ...style }} >
 			<a
-				data-splitbee-event={`Blog post clicked ${post?.data?.slug}_post`}
+				// data-splitbee-event={`Blog post clicked ${post?.data?.slug}_post`}
 				id={`${post?.data?.slug}_post`}
 				className={clsx(
 					post?.data?.inPreparation ? ' pointer-events-none border-2' : 'border-4 ', 'relative flex flex-wrap   flex-1 m-2 h-48 transform-gpu scale-100 hover:scale-[1.02] active:scale-[0.99] hover:cursor-pointer transition duration-100 animate-shadow rounded-lg  border-neutral-800'
@@ -184,10 +176,10 @@ const App = ({ ...props }) => {
 					cell={cellSize}
 					child={type === 'blog' ? Child : ChildLibrary}
 					childProps={{ data }}
-					viewportRowOffset={10}
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ duration: 0.5 }}
+					viewportRowOffset={12}
+					// initial={{ opacity: 0 }}
+					// animate={{ opacity: 1 }}
+					// transition={{ duration: 0.5 }}
 				/>
 		</section>
 	)

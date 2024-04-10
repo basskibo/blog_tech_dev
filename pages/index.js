@@ -60,7 +60,7 @@ export default function Home () {
                data-website-id='450f4336-3ad9-4ab9-8bd2-f4961ec74b8d'
                src='https://blogtech-umami.herokuapp.com/umami.js'></script> */}
             {/* <script async defer data-website-id="ad2da36d-df11-4b49-a551-6aea0bf95f30" src="https://blogtech-umami.herokuapp.com/umami.js"></script> */}
-            <script async src="https://cdn.splitbee.io/sb.js"></script>
+            {/* <script async src="https://cdn.splitbee.io/sb.js"></script> */}
 			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3181880928286370"
      crossorigin="anonymous"></script>
 
