@@ -57,9 +57,9 @@ const quiz = () => {
 				</div>
 			}
 			{!selectedQuiz &&
-				<div>
+				<div className=''>
 					<h2 className='text-2xl text-slate-200 my-5'>Choose category to play</h2>
-					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+					<div className='grid bg-black bg-grid-white/[0.05] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
 						{quizes.map((quiz) => (
 							<div key={quiz.id} onClick={handleCategorySelect} className='border rounded-md border-neutral-800 px-5 py-10 flex flex-col justify-center items-center align-middle  
 							transform hover:scale-[1.05] transition-all  hover:cursor-pointer hover:text-[#ff0080] hover:border-[#ff0080]'>
