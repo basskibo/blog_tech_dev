@@ -39,8 +39,8 @@ import {
 	SiIonic,
 	SiAndroid,
 	SiIos,
-	DiExtjs
 } from 'react-icons/si'
+import {DiExtjs } from 'react-icons/di'
 
 export default {
 	CLOUDINARY_CLOUD_NAME: 'dr1sm5gnj',
