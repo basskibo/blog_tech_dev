@@ -5,9 +5,9 @@ import path from 'path'
 
 export default async function handler(req, res) {
 	const files = getPostFiles()
-	const projectRoot = findProjectRoot(process.cwd());
+	const projectRoot = findProjectRoot(process.cwd())
 	console.log('project >>>> ', process.cwd())
-	console.log('Project root:', projectRoot);
+	console.log('Project root:', projectRoot)
 	const posts = files.map((filename) => {
 		const markdownWithMeta = fs.readFileSync(
 			path.join(`${process.cwd()}/posts/blog`, filename),
@@ -53,5 +53,5 @@ function selectRandomNumberOfPosts(array, count) {
 		}
 	}
 
-	return result;
+	return result
 }

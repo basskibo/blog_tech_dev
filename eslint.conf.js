@@ -3,6 +3,7 @@ module.exports = {
 	  browser: true,
 	  es2021: true
 	},
+	// ignores: [".config/*", "./public/*"]
 	extends: [
 	  'plugin:react/recommended',
 	  'standard',
@@ -23,14 +24,13 @@ module.exports = {
 	rules: {
 	  'react/prop-types': 0,
 	  // indent: ['error', 'tab'],
-	  "react/react-in-jsx-scope": "off",
-	  "react/display-name": "off",
-	  "react/prop-types": 0,
-	  "indent": ["error", "tab"],
-	  "linebreak-style": ["error", "unix"], //'unix'
-	  "quotes": ["error", "single"],
-	  "semi": ["error", "never"],
-	  "no-debugger": "off"
-	}
-  }
+	  'react/react-in-jsx-scope': 'off',
+	  'react/display-name': 'off',
+	  'react/prop-types': 0,
+	  'indent': ['error', 'tab'],
+	  'linebreak-style': ['error', 'unix'], // 'unix'
+	  'quotes': ['error', 'single'],
+	  'semi': ['error', 'never'],
+	  'no-debugger': 'off'
+	},}
   

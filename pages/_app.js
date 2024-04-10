@@ -26,17 +26,17 @@ const handleTitle = (router) => {
 		const splittedTitle = router.route.split('/')
 		if (splittedTitle[2]) {
 			switch (splittedTitle[2]) {
-				case 'libaries':
-					title = 'Bojan Jagetic | Libary'
-					break
-				case 'blog':
-					title = 'Bojan Jagetic | Blog'
-					break
-				case 'aboutme':
-					title = 'Bojan Jagetic | About Me'
-					break
-				default:
-					console.log('Uknown case')
+			case 'libaries':
+				title = 'Bojan Jagetic | Libary'
+				break
+			case 'blog':
+				title = 'Bojan Jagetic | Blog'
+				break
+			case 'aboutme':
+				title = 'Bojan Jagetic | About Me'
+				break
+			default:
+				console.log('Uknown case')
 			}
 		}
 		return title
