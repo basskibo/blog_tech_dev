@@ -6,8 +6,8 @@ import React from 'react'
 
 // import 'react-loading-skeleton/dist/skeleton.css'
 const Projects = () => {
-  return (
-   <div></div>
-  )
+	return (
+		<div></div>
+	)
 }
 export default Projects
