@@ -173,22 +173,6 @@ const CV = () => {
 								</div>
 							</ul>
 						</div>
-						{/* <a
-             href='#'
-
-             className='pointer-events-none inline-flex items-center py-2  px-4 text-sm font-medium text-gray-900 bg-gray-400 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700'>
-             See project{" "}
-             <svg
-                className='ml-2 w-3 h-3'
-                fill='currentColor'
-                viewBox='0 0 20 20'
-                xmlns='http://www.w3.org/2000/svg'>
-                <path
-                   fillRule='evenodd'
-                   d='M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z'
-                   clipRule='evenodd'></path>
-             </svg>
-          </a> */}
 					</li>
 					<li className='mb-10 ml-4'>
 						<div className='absolute w-3 h-3 bg-gray-200 rounded-full -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700'></div>
