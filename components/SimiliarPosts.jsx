@@ -28,8 +28,8 @@ const SimiliarPosts = ({ tags }) => {
 				{similiarPosts ? similiarPosts?.map((post) => (
 					<a href={`/post/${post?.slug}`}
 						className='bg-[#00000099] border border-neutral-800 break-words rounded-lg basis-1/1 md:basis-1/2 lg:basis-1/3 h-full hover:border-[#ff0080]'>
-						<img className='rounded-t-xl h-1/3 w-full' src={post?.featuredImage} height={30} />
-						<div className='p-3 flex flex-col h-64'>
+						<img className='rounded-t-xl h-52 w-full' src={post?.featuredImage} height={30} />
+						<div className='p-3 flex flex-col h-56'>
 							<span className='text-white font-bold mt-2 ml-2 mb-5'>
 								{post.title}
 							</span>
