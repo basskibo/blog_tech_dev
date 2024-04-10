@@ -250,3 +250,29 @@ a {
    left: 0;
    z-index: -1;
 }
+
+
+
+::-webkit-scrollbar {
+	width: 2.5px;
+	
+	/* display: none; */
+}
+
+::-webkit-scrollbar-track {
+	background: #292929;
+	/* box-shadow: inset -10px 10px 15px #555;  */
+	border-radius: 70px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	/* background: #3d3d3d; */
+	background: #7928ca;
+	border-radius: 70px;
+}
+
+/*Handle on hover */
+::-webkit-scrollbar-track:hover {
+	background: #fefefe;
+}
