@@ -1,7 +1,7 @@
 import React from 'react'
 import Accent from '../components/custom/Accent'
 import ActiveLink from '../components/custom/ActiveLink'
-import { FeatureLanding, FeaturedPosts } from './'
+import { FeaturedPosts } from './'
 import { SiGithub, SiLinkedin, SiTwitter } from 'react-icons/si'
 import NewsLetter from './NewsLetter'
 import { TypeAnimation } from 'react-type-animation'

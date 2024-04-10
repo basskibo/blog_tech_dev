@@ -37,7 +37,7 @@ export const getStaticProps = async () => {
 			}
 		}
 	})
-	const rssFeed = await generateRSSFeed(posts)
+	await generateRSSFeed(posts)
 
 	return {
 		props: {

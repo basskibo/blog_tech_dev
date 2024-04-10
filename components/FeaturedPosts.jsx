@@ -7,29 +7,29 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 const FeaturedPosts = () => {
 	const [posts, setPosts] = useState([])
-	const [devToPosts, setDevToPosts] = useState([])
+	// const [devToPosts, setDevToPosts] = useState([])
 	useEffect(() => {
 		getViews()
 		// fetchLatestDevToPost()
 	}, [])
 
-	const fetchLatestDevToPost = async () => {
-		const url = 'https://dev.to/api/articles/me/all'
-		const result = await axios.get(url, {
-			method: 'GET',
-			params: {
-				page: 1,
-				per_page: 3
-			},
-			headers: {
-				'api-key': process.env.REACT_DEVTO_API_KEY,
-				'Content-Type': 'application/json',
-				'Access-Control-Allow-Headers': '*'
+	// const fetchLatestDevToPost = async () => {
+		// const url = 'https://dev.to/api/articles/me/all'
+		// const result = await axios.get(url, {
+		// 	method: 'GET',
+		// 	params: {
+		// 		page: 1,
+		// 		per_page: 3
+		// 	},
+		// 	headers: {
+		// 		'api-key': process.env.REACT_DEVTO_API_KEY,
+		// 		'Content-Type': 'application/json',
+		// 		'Access-Control-Allow-Headers': '*'
 
-			}
-		})
-		setDevToPosts(result.data)
-	}
+		// 	}
+		// })
+		// setDevToPosts(result.data)
+	// }
 	const getViews = async (data) => {
 		const url = '/api/views/featured'
 		const result = await axios(url, {

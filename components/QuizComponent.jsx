@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import { nodeQuestions } from 'src/quizQuestions'
 import { Accent } from '.'
 import cslx from 'clsx'
-import { generateRandomQuestionList } from 'utils/generalUtil'
-import { IoReload } from "react-icons/io5";
+// import { generateRandomQuestionList } from 'utils/generalUtil'
+import { IoReload, IoWarningOutline } from "react-icons/io5";
 import { Chart } from "react-google-charts";
 // import { MdFullscreen } from "react-icons/md";
 import { RiFullscreenFill, RiFullscreenExitLine } from "react-icons/ri";
-import { IoWarningOutline } from "react-icons/io5";
 
 const QuizComponent = ({ selectedQuiz }) => {
 	const [activeQuestion, setActiveQuestion] = useState(0)
@@ -22,7 +21,7 @@ const QuizComponent = ({ selectedQuiz }) => {
 	})
 	const [isFullScreen, setIsFullScreen] = useState(false);
 	const { questions, title, level } = nodeQuestions
-	const shuffledQuestions = generateRandomQuestionList(questions) //TODO: 
+	// const shuffledQuestions = generateRandomQuestionList(questions) 
 	const totalQuestions = questions.length
 	const { question, answers, correctAnswer } = questions[activeQuestion]
 
@@ -141,7 +140,7 @@ const QuizComponent = ({ selectedQuiz }) => {
 								<h3 className='font-bold text-center my-5 text-2xl'> {question}</h3>
 								<div className='grid grid-cols-2 grid-rows-2 gap-5'>
 									{answers.map((answer, idx) => (
-										<button onClick={() => handleAnswer(answer, idx)} className={
+										<button key={idx} onClick={() => handleAnswer(answer, idx)} className={
 											cslx(
 												'border border-neutral-700 py-3 text-sm hover:border-indigo-900 px-5',
 												selectedAnswerIndex === idx ? 'border border-amber-900 bg-neutral-800' :
