@@ -12,29 +12,32 @@ import constants from '../../utils/constants';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 import Accent from './Accent';
-import { useInView } from 'react-intersection-observer';
-import { useEffect, useState } from 'react';
+// import { useInView } from 'react-intersection-observer';
+// import { useEffect, useState } from 'react';
 
 const Child = ({ style, index, data, readyInViewport, scrolling }) => {
-	const [ref, inView] = useInView();
-	const [isVisible, setIsVisible] = useState(false);
+	// const { ref, inView, entry } = useInView();
+	// const [isVisible, setIsVisible] = useState(false);
 
-	useEffect(() => {
-		if (inView) {
-			setIsVisible(true);
-		}
-	}, [inView]);
+	// useEffect(() => {
+	// 	console.log('in view' , inView)
+	// 	console.log('entry' , entry)
+	// 	if (inView) {
+	// 		setIsVisible(true);
+	// 	}
+	// }, [inView]);
 	const post = data[index]?.props
 	return (
 		<motion.div
-			ref={ref}
+			// ref={ref}
 
-			initial={{ opacity: 0, y: -30 }} // Initial animation state
-			animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
-			transition={{ duration: 0.6, delay: index * 0.1 }} // Apply stagger delay
-			// style={{  opacity: 0 }}
+			// initial={{ opacity: 0, y: -25 }} // Initial animation state
+			// animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
+			// transition={{ duration: 0.5, delay: index * 0.1 }} // Apply stagger delay
+			animate={{opacity: 1, y: 25}}
+			style={{  opacity: 0 }}
 			// animate={{ opacity: 1 }}
-			// transition={{ duration: 1.5, delay: index * 0.1 }}
+			transition={{ duration: 0.5, delay: index * 0.1 }}
 			key={post.id}
 		>
 			<div
@@ -47,7 +50,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
 					)}
 					href={`/post/${post?.data?.slug}`}
 				>
-					{/* <span style={{ position: 'absolute' }}>Pcisum #{index}{scrolling ? ' - Scrolling' : ''}{readyInViewport ? ' - ReadyInViewport' : ''}</span> */}
+					{/* <span style={{ position: 'absolute' }}>Pcisum #{index}{scrolling ? ' - Scrolling' : ''}{readyInViewport ? ' - ReadyInViewport' : ''}<	/span> */}
 					<Image
 						alt={post?.data?.featuredImage}
 						src={post?.data?.featuredImage || 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1669989316/igutech/blogs/almos-bechtold-GFgWx3o8bTI-unsplash_nfqh81.jpg'}
@@ -175,9 +178,7 @@ const App = ({ ...props }) => {
 	const cellHeightByType = type === 'blog' ? { height: 400 } : { height: 200 }
 	const cellSize = !isTabletOrMobile ? cellWidthByType : cellHeightByType
 	return (
-		<section>
-
-			<div style={{}}>
+		<section style={{  }}>
 				<VirtualGrid
 					total={props.posts.length}
 					cell={cellSize}
@@ -188,7 +189,6 @@ const App = ({ ...props }) => {
 					animate={{ opacity: 1 }}
 					transition={{ duration: 0.5 }}
 				/>
-			</div>
 		</section>
 	)
 }
