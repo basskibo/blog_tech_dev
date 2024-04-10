@@ -12,7 +12,7 @@ import TableOfContent from '../../components/custom/TableOfContent'
 import SimiliarPosts from '@/components/SimiliarPosts'
 // import LikeButton from '../../components/custom/LikeButton'
 
-function getTableOfContents (content) {
+function getTableOfContents(content) {
 	// eslint-disable-next-line prefer-regex-literals
 	const regexp = new RegExp(/^(### |## )(.*)\n/, 'gm')
 	const headings = [...content.matchAll(regexp)]
@@ -94,10 +94,10 @@ const PostDetails = ({ data, mdxSource, toc }) => {
 
 					<div className='mb-4 lg:mb-10 w-full lg:w-auto border-b border-neutral-800'>
 						{/* <span className='pt-5  '> */}
-							<CategoryChip categories={data.tags} />
+						<CategoryChip categories={data.tags} />
 						{/* </span> */}
 					</div>
-					<SimiliarPosts tags={data?.tags}/>
+					<SimiliarPosts tags={data?.tags} />
 					{/* <Author author={post.author} /> */}
 					{/* <CommentsForm slug={post.slug} /> */}
 					{/* <Comments slug={post.slug} /> */}

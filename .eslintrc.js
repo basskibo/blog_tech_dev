@@ -26,10 +26,10 @@ module.exports = {
 	"react/react-in-jsx-scope": "off",
 	"react/display-name": "off",
 	"react/prop-types": 0,
-	"indent": ["error", "tab"],
+	// "indent": ["error", "tab"],
 	"linebreak-style": ["error", "unix"], //'unix'
-	"quotes": ["error", "single"],
-	"semi": ["error", "never"],
+	// "quotes": ["error", "single"],
+	// "semi": ["error", "never"],
 	"no-debugger": "off"
   }
 }
