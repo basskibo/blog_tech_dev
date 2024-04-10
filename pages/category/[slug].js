@@ -5,7 +5,7 @@ import React from 'react'
 
 // const PostDetails = ({ post }) => {
 const PostDetails = () => {
-  return <div></div>
+	return <div></div>
 }
 
 export default PostDetails
