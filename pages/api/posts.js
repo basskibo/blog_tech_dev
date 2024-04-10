@@ -25,31 +25,31 @@ export default async function handler(req, res) {
 
 function findProjectRoot(currentDir) {
 	if (fs.existsSync(path.join(currentDir, 'package.json'))) {
-		return currentDir;
+		return currentDir
 	}
 
 	// If not found, move one directory up
-	const parentDir = path.resolve(currentDir, '..');
+	const parentDir = path.resolve(currentDir, '..')
 
 	// If parent directory is the same as current directory, we've reached the root
 	if (parentDir === currentDir) {
-		throw new Error('Project root not found');
+		throw new Error('Project root not found')
 	}
 
 	// Recursively check in the parent directory
-	return findProjectRoot(parentDir);
+	return findProjectRoot(parentDir)
 }
 
 
 function selectRandomNumberOfPosts(array, count) {
-	const result = [];
-	const totalElements = array.length;
-	count = Math.min(count, totalElements);
+	const result = []
+	const totalElements = array.length
+	count = Math.min(count, totalElements)
 	while (result.length < count) {
-		const randomIndex = Math.floor(Math.random() * totalElements);
-		const randomElement = array[randomIndex];
-		if (!result.includes(randomElement)&& !randomElement.inPreparation) {
-			result.push(randomElement);
+		const randomIndex = Math.floor(Math.random() * totalElements)
+		const randomElement = array[randomIndex]
+		if (!result.includes(randomElement) && !randomElement.inPreparation) {
+			result.push(randomElement)
 		}
 	}
 
