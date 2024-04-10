@@ -21,7 +21,7 @@ const createSubscriber = async (req, res) => {
 		await sendEmail(email)
 	} catch (err) {
 		console.error('error executing query:', err)
-	return err
+		return err
 	} finally {
 		prisma.$disconnect()
 		console.log(result)
