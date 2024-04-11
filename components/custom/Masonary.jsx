@@ -40,6 +40,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
 			<div
 				style={{ display: 'flex', borderRadius: '15px', ...style }}>
 				<a
+					data-umami-event={`blog-post-${post?.data?.slug}-click`}
 					// data-splitbee-event={`Blog post clicked ${post?.data?.slug}_post`}
 					// id={`${post?.data?.slug}_post`}
 					className={clsx(
@@ -63,7 +64,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
 					/>
 
 					{/* <div className=' pt-0 self-end  text-white text-xs md:text-xs text-center leading-4'>
-                             <CategoryChip className='my-0' categories={post?.data?.tags} />
+							<CategoryChip className='my-0' categories={post?.data?.tags} />
                          </div> */}
 					<div
 						// backdrop-blur-3xl
@@ -114,6 +115,8 @@ const ChildLibrary = ({ style, index, data, readyInViewport, scrolling }) => {
 		<div
 			style={{ display: 'flex', borderRadius: '15px', ...style }} >
 			<a
+				data-umami-event={`lib-post-${post?.data?.slug}-click`}
+
 				// data-splitbee-event={`Blog post clicked ${post?.data?.slug}_post`}
 				id={`${post?.data?.slug}_post`}
 				className={clsx(

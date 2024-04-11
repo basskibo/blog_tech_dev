@@ -1,0 +1,79 @@
+---
+title: "Umami dockerized"
+publishedAt: "2024-04-11"
+excerpt: "Simple docker compose for dokerizing Umami"
+englishOnly: "true"
+technologies: ["SiDocker", "SiGnubash"]
+author: "Bojan Jagetic"
+inPreparation: false
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+tags: [{ slug: "", name: "script" }, {slug: "docker", name: "docker"}]
+---
+
+## Introduction
+
+After every new OS reinstallation you have to do the boring part and install everything from scratch. I have been in situation where I was installing
+new Ubuntu environment multiple times per year, so I made myself easier and made a bash script which can do this for me.
+
+## Simplified Deployment with Docker Compose:
+
+Docker Compose allows you to define and run multi-container Docker applications with a single YAML file. With Umami, Docker Compose streamlines the process of setting up a self-hosted analytics solution by managing all the necessary components and dependencies.
+
+## Efficient Resource Management:
+
+By encapsulating Umami and its dependencies within Docker containers, Docker Compose ensures efficient resource utilization and isolation. Each container runs in its own isolated environment, making it easy to scale, update, and manage Umami without impacting other services or applications running on the host system.
+
+## Consistent Development and Production Environments:
+
+Docker Compose provides a consistent environment for developing, testing, and deploying Umami across different stages of the software development lifecycle. Developers can use the same Docker Compose configuration to set up Umami locally on their development machines, ensuring parity with the production environment.
+
+## Easy Configuration and Orchestration:
+
+With Docker Compose, you can define Umami's configuration, including environment variables, network settings, and volume mounts, in a simple YAML file. Docker Compose automatically orchestrates the deployment of Umami and its dependencies, handling tasks such as container initialization, networking, and storage management.
+
+## Scalability and High Availability:
+
+Docker Compose enables you to scale Umami horizontally by deploying multiple instances of the Umami container across multiple Docker hosts. You can also integrate Docker Compose with container orchestration platforms like Docker Swarm or Kubernetes for automated scaling and high availability.
+
+## Compose file
+Below you can check yaml file for docker compose.
+
+```yml
+version: '3'
+services:
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    ports:
+      - "3020:3000"
+    environment:
+      DATABASE_URL: postgresql://umami:umami@db:5432/umami
+      DATABASE_TYPE: postgresql
+      APP_SECRET: replace-me-with-a-random-string
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: umami
+      POSTGRES_USER: umami
+      POSTGRES_PASSWORD: umami
+    ports:
+      - "5436:5432"
+    volumes:
+      - umami-db-data:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+volumes:
+  umami-db-data:
+```
+## Conclusion
+In summary, Docker Compose simplifies the deployment and management of Umami as a self-hosted analytics solution, providing efficiency, consistency, and scalability for your analytics infrastructure. With Docker Compose, you can quickly get Umami up and running in your environment, empowering you to gain valuable insights into your website traffic while maintaining full control over your data.
+
+
+<GithubCardRepository>basskibo/umami-dockerized</GithubCardRepository>

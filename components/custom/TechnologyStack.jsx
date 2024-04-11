@@ -2,7 +2,7 @@
 import React from 'react'
 
 import constants from '../../lib/constants'
-import ReactTooltip from 'react-tooltip'
+// import ReactTooltip from 'react-tooltip'
 import { Accent } from '..'
 
 const BEtechArray = constants.BEtechArray
@@ -25,10 +25,10 @@ const TechnologyStack = () => {
 					>
 						<tech.icon data-tip data-for={tech.name} />
 
-						<ReactTooltip id={tech.name} type='dark' className=' bg-neutral-700'>
+						{/* <ReactTooltip id={tech.name} type='dark' className=' bg-neutral-700'>
 							<h1>Name: {tech.name}</h1>
 							<p>Descripton: {tech.desc}</p>
-						</ReactTooltip>
+						</ReactTooltip> */}
 					</div>
 				))}
 			</span>
@@ -44,14 +44,14 @@ const TechnologyStack = () => {
 					>
 						<tech.icon data-tip data-for={tech.name} />
 
-						<ReactTooltip
+						{/* <ReactTooltip
 							id={tech.name}
 							type='dark'
 							className='absolute bg-neutral-700'
 						>
 							<h1>Name: {tech.name}</h1>
 							<p>Descripton: {tech.desc}</p>
-						</ReactTooltip>
+						</ReactTooltip> */}
 					</div>
 				))}
 			</span>
@@ -64,14 +64,14 @@ const TechnologyStack = () => {
 					>
 						<tech.icon data-tip data-for={tech.name} />
 
-						<ReactTooltip
+						{/* <ReactTooltip
 							id={tech.name}
 							type='dark'
 							className='absolute bg-neutral-700'
 						>
 							<h1>Name: {tech.name}</h1>
 							<p>Descripton: {tech.desc}</p>
-						</ReactTooltip>
+						</ReactTooltip> */}
 					</div>
 				))}
 			</span>
