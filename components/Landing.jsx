@@ -78,6 +78,7 @@ const Landing = () => {
 						<div className='flex flex-row mt-7 lg:mt-10  xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
 
 							<ActiveLink
+								data-umami-event="landing-read-blog"
 								href='/routes/blog'
 								name='blog'
 								id='blog_post_button'
@@ -86,6 +87,7 @@ const Landing = () => {
 								Read blog
 							</ActiveLink>
 							<ActiveLink
+								data-umami-event="landing-see-bio"
 								href='/routes/aboutme'
 								id='aboutme_button'
 								className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-sm  shadow-neutral-800 hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-[#ff0080] hover:shadow-neutral-500 '>
@@ -94,6 +96,7 @@ const Landing = () => {
 						</div>
 						<div className='flex md:flex-row flex-col mt-7 lg:mt-10 gap-x-4'>
 							<a
+								data-umami-event="landing-lnk-linkedin-button"
 								id='lnk-linkedin-button'
 								className='inline-flex items-center text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
 								href='https://linkedin.com/in/bojan-jagetic-972203106'
@@ -104,6 +107,7 @@ const Landing = () => {
 								<span className='lg:hidden '>B.Jagetic</span>
 							</a>
 							<a
+								data-umami-event="landing-lnk-github-button"
 								id='lnk-github-button'
 								className='inline-flex items-center text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
 								href='https://github.com/basskibo/'
@@ -112,6 +116,7 @@ const Landing = () => {
 								<SiGithub className='mr-1 h-4 w-4' /> basskibo
 							</a>
 							<a
+								data-umami-event='landing-lnk-twitter-button'
 								id='lnk-twitter-button'
 								className='inline-flex items-center text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
 								href='https://twitter.com/basskibo1'
@@ -121,6 +126,7 @@ const Landing = () => {
 								<span className=' lg:block'>basskibo1</span>
 							</a>
 							<button
+								data-umami-event="landing-download-cv-button"
 								onClick={handleDownload}
 								id='download_button'
 								className='inline-flex items-center text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'

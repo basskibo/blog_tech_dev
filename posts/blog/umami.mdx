@@ -1,0 +1,158 @@
+---
+title: 'Umami: Your best Go-To Google Analytics Alternative'
+publishedAt: '20204-04-11'
+excerpt: "Are you tired of relying solely on Google Analytics to track your website's performance? Look no further!"
+englishOnly: 'true'
+banner: 'bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld'
+date: 'April 11, 2024'
+featuredImage: 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1712833017/igutech/blogs/0_lkvhRg1KiGf_G0FF_wbydyy.webp'
+imageCreditUser: 'Janina Bachmann'
+imageCreditUsername: 'jabasunshine'
+author: 'Bojan Jagetic'
+tags: [{ slug: 'analytics', name: 'analytics' }]
+inPreparation: false
+---
+
+## Introduction
+
+Are you tired of relying solely on Google Analytics to track your website's performance? Look no further! Introducing <Link href="https://umami.is/"> Umami </Link>, a powerful and privacy-focused alternative that puts you in control of your analytics data. Umami was founded by three brothers, Mike, Brian and Francis Cao as they were frustarted with using Google Analytics, which dominated and still does the industry of analytics despite of privacy concerns. As it is open-source, Umami quickly started being popular open-source project while still respecting privacy of users. My personal opinion, is that Umami is really easy to setup and use, for smaller projects as my personal website it is of great use. It does not many tracking as GA but it really does its job.
+
+In this post, we'll explore the benefits of using Umami over Google Analytics, how to set it up, and some catchy variations for its name.
+
+## Why you should choose Umami
+
+    **Privacy:** As I mentioned in the introduction section, unlike Google Analytics, which collects and stores user data on Google's servers, Umami can be self-hosted, giving you full ownership and control of your data. Say goodbye to third-party tracking and privacy concerns! You can host umami on your servers and really be owner of analytics data.
+
+    **Open Source:** Umami is open-source software, meaning you can inspect, modify, and customize it to suit your needs. No more black-box analytics solutions—take control of your analytics stack.
+    This can be real advantage as you can tailor Umami for your needs, as well as I did with dockerizing Umami. If you are interested in self hosting Umami which unlocks you many more possibilites than free plan you can check my post on <Link href="https://bojanjagetic.com/libary/umami-dockerized">Dockerizing Umami </Link>
+
+    **Simplicity:** Umami provides a clean, intuitive and modern interface for analyzing your website traffic without overwhelming you with unnecessary features. I dont say it is useless, but many thing from GA I personally dont use and havent used at least once. It's lightweight, fast, and focused on delivering actionable insights.
+
+    **Real-Time Tracking:** With Umami, you can monitor your website traffic in real-time, gaining instant visibility into visitor behavior and trends as they unfold. Say hello to up-to-the-second analytics reporting! You can track real time user activity, views and events.
+    <CloudinaryImage src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1712835395/igutech/post_data/xccwv9e9m1ehonctvltm.png" alt="Realtime Analytics" text="Realtime analytics" />
+
+## Setting Up Umami
+
+As mention above you can use Umami on two ways, <Accent>Cloud (umami cloud free plan)</Accent> and <Accent>Self-hosted (hosted on your machine)</Accent>.
+
+### Umami Cloud
+
+<LgNumberList>
+<li>
+		Visit <Link href="https://umami.is/">Umami website</Link> and Sign Up or Login if you
+		already have account.
+</li>
+<li>
+		After you login you should be able to see screen like this
+		<CloudinaryImage
+			src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1712836121/igutech/post_data/Screenshot_from_2024-04-11_13-48-22_uhz5vw.png"
+			alt="Umami Dashboard"
+			text="Umami Dashboard"
+		/> Click on <Accent>+ Add Website</Accent> and you will be prompted to enter websites Name
+		and Domain.
+		<CloudinaryImage
+			src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1712836247/igutech/post_data/Screenshot_from_2024-04-11_13-50-28_vcf0o6.png"
+			alt="Umami add website"
+			text="Umami add website"
+		/>
+		After entering go to <Accent>Save</Accent> and you will be able to see your newly made website under Websites Menu.
+</li>
+
+<li>
+	Now when we have website created we must add tracking code we get from Umami for our website and add it in our applications header. It is important to add to our header in order to Umami be able to 
+	stream statistics data to Umami cloud. 
+	Go to <Accent>Edit</Accent> and you will see Tracking code tab click on that and you will get script code which you need to add in your application. 
+		<CloudinaryImage
+			src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1712836651/igutech/post_data/Screenshot_from_2024-04-11_13-57-16_hrwspr.png"
+			alt="Tracking Code"
+			text="Tracking Code" /> 
+		You should be able to see somthing like this 
+		```js
+		<script defer src="https://eu.umami.is/script.js" data-website-id="XXXXXX-XXXX-XXXX-XXX-XXXXX"></script>
+		```
+		Copy that code provided by Umami and paste in your application **head**, in this example I am using Next.js so i added it into <Accent>_document.js</Accent>
+
+		```js
+			import Document, { Html, Head, Main, NextScript } from 'next/document'
+
+			class MyDocument extends Document {
+				static async getInitialProps(ctx) {
+					const initialProps = await Document.getInitialProps(ctx)
+					return { ...initialProps }
+				}	
+
+			render() {
+				return (
+					<Html lang="en">
+						<Head>
+							<script defer src="https://analytics.eu.umami.is/script.js" data-website-id="XXXXX-XXXX-XXXX-XXXX-XXXXX"></script>
+						</Head>
+						<body>
+							<div id={'globalLoader'} >
+							</div>
+							<Main />
+							<NextScript />
+						</body>
+					</Html>
+				)
+			}
+
+			}
+
+			export default MyDocument
+    	``` 
+		or if you want in plain html, you should add it like following 
+		
+		```
+			<head>
+				<script defer src="https://analytics.eu.umami.is/script.js" data-website-id="XXXXX-XXXX-XXXX-XXXX-XXXXX"></script>
+			</head>
+		```
+</li>
+
+<li>
+	Now that we have tracking script in our application we are ready to deploy it (in my case that is on Vercel). After deploy is done we should be able to see data streamed to our Umami Analytics.
+	<CloudinaryImage
+			src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1712840138/igutech/post_data/Screenshot_from_2024-04-11_14-55-06_cddami.png"
+			alt="Umami overview"
+			text="Umami Analytics overview" />  
+</li>
+<li>
+	You are able to track events as well in Umami and it is pretty straight forward, just add it to desired button, link, etc. like in example below
+	
+	``js
+		<button id="signup-button" data-umami-event="Signup button">Sign up</button>
+	``
+
+	<CloudinaryImage
+			src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1712836648/igutech/post_data/Screenshot_from_2024-04-11_13-53-47_sxowvq.png"
+			alt="Umami tracking events"
+			text="Umami tracking events" />
+		
+</li>
+
+</LgNumberList>
+
+### Self-Hosted
+If you want to host Umami on your machines, you are free to do so. Easisest way which i used many times is that I use dockerized Umami and run it in docker containers on my desired machine.
+Easiest way to do so is to go to the so is to follow this guide <Link href="https://bojanjagetic.com/libary/umami-dockerized">Dockerizing Umami </Link>. 
+Basically, you need docker compose file, and Docker installed on your machine. When you have all prerequisites you can run 
+```shell
+docker compose up -d
+```
+This will start docker server in one container and database in the other which is needed in order to Umami stores data of your analytics.
+Pretty straight forward steps and you are ready to go, visit specified port for Umami you set and thats it. Afterwards you can host it on your server wherever you want.
+
+## Conclusion
+
+In conclusion, Umami offers a refreshing alternative to Google Analytics, providing privacy, openness, simplicity, and real-time tracking—all while putting you in control of your analytics destiny. Give Umami a try today and unlock the true potential of your website analytics.
+
+Keep in mind that you dont have to option only one analytics tool, you have options and ability to use multiple analytics for the same website for whatever purpose you choose. On my website, I personally use Umami, Google Analytics, Vercel Analytics and Splitbee (later aquired by Vercel).
+
+<CloudinaryImage
+	src="https://res.cloudinary.com/dr1sm5gnj/image/upload/v1712832823/igutech/post_data/Screenshot_from_2024-04-11_12-52-25_phkdgp.png"
+	alt="Analytics in use"
+	text="Used Analytics tools"
+/>
+Note: Remember to always comply with applicable data protection laws and regulations when collecting
+and processing user data.

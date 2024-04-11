@@ -4,6 +4,7 @@ import AnchorLink from 'react-anchor-link-smooth-scroll'
 const AnchorLinkComponent = () => {
 	return (
 		<AnchorLink
+			data-umami-event="btn-anchor-linkg"
 			id='btn-anchor-linkg'
 			href='#featuredPostsSection'
 			aria-label='Scroll down'

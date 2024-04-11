@@ -134,7 +134,7 @@ export default {
     )
   },
   b: ({ children }) => {
-    return <span className='font-bold'>{children}</span>
+    return <b className='font-bold text-white '>{children}</b>
   },
   code: ({ children, className }) => {
     return (

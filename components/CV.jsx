@@ -25,6 +25,7 @@ const CV = () => {
 			<p className='mb-5'>
 				If you prefer, you can download {' '}
 				<button
+					data-umami-event="aboutme-cv-btn-clicked"
 					onClick={handleDownload}
 					className='text-lime-500 underline decoration-dotted decoration-2decoration-sky-400
 							underline-offset-4 link link-underline link-underline-black hover:no-underline hover:cursor-ne-resize '>

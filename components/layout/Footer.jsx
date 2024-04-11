@@ -33,7 +33,7 @@ const Footer = () => {
 		<footer className='text-gray-400 relative bg-neutral-900 body-font border-t border-neutral-800  bottom-0 w-full'>
 			<div className='container px-5 py-4 lg:py-8 mx-auto flex items-center sm:flex-row flex-col'>
 				<div className='flex-shrink-0 flex items-center'>
-					<a href='/'>
+					<a data-umami-event={'footer-logo-click'} href='/'>
 						<img
 							className='block lg:hidden h-6 w-auto'
 							src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1666821240/igutech/logo/logo_jibobs.webp'
@@ -52,7 +52,7 @@ const Footer = () => {
 				<SpotifyCard />
 
 				<span className='inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start'>
-					<a
+					<a data-umami-event={'footer-statistics-click'}
 						className='mr-3 lg:mr-5 text-gray-400 link link-underline link-underline-black hover:cursor-ne-resize items-right md:justify-right justify-right text-xs lg:text-sm'
 						href='https://eu.umami.is/share/zT2j3LFvt31l6Q0g/bojanjagetic.com'
 						target='_blank'
@@ -61,6 +61,7 @@ const Footer = () => {
 					</a>
 
 					<a
+						data-umami-event={'footer-rss-click'}
 						className='mr-3 lg:mr-5 text-gray-400 link link-underline link-underline-black hover:cursor-ne-resize items-right md:justify-right justify-right text-xs lg:text-sm'
 						href='https://bojanjagetic.com/rss.xml'
 						target='_blank'
@@ -70,6 +71,7 @@ const Footer = () => {
 
 					{waysToReachMe.map((medium, index) => (
 						<a
+							data-umami-event={`footer-${medium.name}-click`}
 							className='ml-4 text-gray-400 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
 							href={medium.href}
 							target='_blank'

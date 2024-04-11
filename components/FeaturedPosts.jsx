@@ -62,6 +62,7 @@ const FeaturedPosts = () => {
 						? <div className=' flex gap-6 flex-col md:flex-row mt-10'>
 							{posts.map((post) => (
 								<a key={post.name}
+									data-umami-event={`landing-ftr-post-${post.slug}`}
 									className='transform hover:scale-[1.02] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-[#7928ca] to-[#ff0080]'
 									href={post.slug}>
 									<div className='flex flex-col justify-between h-full bg-neutral-900  rounded-lg p-4'>
