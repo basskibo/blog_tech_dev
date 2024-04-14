@@ -20,8 +20,8 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
 	const [isVisible, setIsVisible] = useState(false);
 
 	useEffect(() => {
-		console.log('in view' , inView)
-		console.log('entry' , entry)
+		console.log('in view', inView)
+		console.log('entry', entry)
 		if (inView) {
 			setIsVisible(true);
 		}
@@ -29,13 +29,10 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
 	const post = data[index]?.props
 	return (
 		<motion.div
-			ref={ref}
-
-			initial={{ opacity: 0, y: -25 }} // Initial animation state
-			animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 50 }}
+			key={index}
+			initial={{ opacity: 0, y: -20 }} // Initial animation state
+			animate={{ opacity: 1, y: 0 }}     // Animation to play when component mounts
 			transition={{ duration: 0.5, delay: index * 0.1 }} // Apply stagger delay
-			style={{  opacity: 0 }}
-			key={post.id}
 		>
 			<div
 				style={{ display: 'flex', borderRadius: '15px', ...style }}>
@@ -168,22 +165,22 @@ const App = ({ ...props }) => {
 	console.log(props)
 	const data = props.posts
 	const type = props.type
-	const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+	const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' })
 	const cellWidthByType = type === 'blog' ? { height: 400, width: 400 } : { height: 200, width: 400 }
 	const cellHeightByType = type === 'blog' ? { height: 400 } : { height: 200 }
 	const cellSize = !isTabletOrMobile ? cellWidthByType : cellHeightByType
 	return (
-		<section style={{  }}>
-				<VirtualGrid
-					total={props.posts.length}
-					cell={cellSize}
-					child={type === 'blog' ? Child : ChildLibrary}
-					childProps={{ data }}
-					viewportRowOffset={12}
-					// initial={{ opacity: 0 }}
-					// animate={{ opacity: 1 }}
-					// transition={{ duration: 0.5 }}
-				/>
+		<section style={{}}>
+			<VirtualGrid
+				total={props.posts.length}
+				cell={cellSize}
+				child={type === 'blog' ? Child : ChildLibrary}
+				childProps={{ data }}
+				viewportRowOffset={12}
+			// initial={{ opacity: 0 }}
+			// animate={{ opacity: 1 }}
+			// transition={{ duration: 0.5 }}
+			/>
 		</section>
 	)
 }
