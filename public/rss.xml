@@ -9,9 +9,9 @@
             <link>https://bojanjagetic.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 16 Apr 2024 16:11:26 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 16 Apr 2024 16:16:06 GMT</lastBuildDate>
         <atom:link href="https://bojanjagetic.com/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 16 Apr 2024 16:11:26 GMT</pubDate>
+        <pubDate>Tue, 16 Apr 2024 16:16:06 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2024, © 2022 Bojan Jagetic]]></copyright>
         <item>
             <title><![CDATA[What is Microservices architecture and how to use it]]></title>
@@ -72,6 +72,12 @@
             <description><![CDATA[Higher order functions are functions that take other functions as arguments or return them as output. They are an important concept in functional programming and can be used to greatly simplify and improve the readability of your code.]]></description>
             <link>https://bojanjagetic.com/post/higher-order-functions-js</link>
             <guid isPermaLink="true">https://bojanjagetic.com/post/higher-order-functions-js</guid>
+        </item>
+        <item>
+            <title><![CDATA[How to embed link in React Application]]></title>
+            <description><![CDATA[Are you tired of relying solely on Google Analytics to track your website's performance? Look no further!]]></description>
+            <link>https://bojanjagetic.com/post/how-to-embed-link</link>
+            <guid isPermaLink="true">https://bojanjagetic.com/post/how-to-embed-link</guid>
         </item>
         <item>
             <title><![CDATA[Javascript Class fundamentals]]></title>
