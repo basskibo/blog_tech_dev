@@ -1,0 +1,165 @@
+---
+title: "Sending Emails Using Node.js"
+publishedAt: "2024-04-25"
+excerpt: "With Node.js, developers have a powerful tool at their disposal for automating tasks, including sending emails."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1714037172/igutech/brett-jordan-LPZy4da9aRo-unsplash_qq4c5h.jpg"
+imageCreditUser: "brett_jordan"
+imageCreditUsername: "brett_jordan"
+author: "Bojan Jagetic"
+tags: [{slug: "nodejs", name: "nodejs", },{ slug: "npm", name: "npm" }]
+inPreparation: false
+---
+
+
+## Introduction
+
+Email communication is a fundamental aspect of modern life and business. With Node.js, developers have a powerful tool at their disposal for automating tasks, including sending emails. Nodemailer, a popular Node.js module, simplifies the process of integrating email functionality into applications.
+In this guide, we'll explore how to send emails using Node.js with the help of Nodemailer, a module for Node.js applications to allow easy email sending.
+
+## Prerequisites
+
+Before we dive into the code, ensure you have the following prerequisites:
+
+<LgList>
+<li> Node.js installed on your system </li>
+<li> An understanding of JavaScript and Node.js basics </li>
+<li> An email account for sending emails </li>
+<li> Basic knowledge of Express.js (optional) </li>
+</LgList>
+
+## Setting Up Nodemailer
+
+First, install the Nodemailer and multer packages in your Node.js project using npm or yarn:
+
+```bash
+npm install nodemailer
+npm install multer
+```
+
+### Setting environment variables
+
+Then, create a .env file in your project directory to store sensitive information like email credentials:
+
+```dotenv
+EMAIL_HOST=your_email_host
+EMAIL_PORT=your_email_port
+EMAIL_USERNAME=your_email_username
+EMAIL_PASSWORD=your_email_password
+```
+
+Replace <Adjusted>your_email_host</Adjusted>, <Adjusted>your_email_port</Adjusted>, <Adjusted>your_email_username</Adjusted>, and <Adjusted>your_email_password</Adjusted> with your email provider's SMTP details.
+
+
+## Writing the Code
+ 
+As in this example I am using Express.js we should make router and controller for our API. Lets start with router which will 
+
+### Setting up Express Router
+
+Now, let's write the Node.js code to send emails. Here's an example function using Express.js for handling email sending requests. In more advanced example I added middelware for validation and token verification, but we can skip it for now. If we want user to be able to attach files when sending email, we can use multer for easy file uploading.
+
+```javascript
+// emailRoutes.js
+
+const express = require('express');
+const router = express.Router();
+require('dotenv').config();
+const verifyToken = require('../../middleware/verifyToken');
+const upload = require('../../libs/multer');
+const { emailSenderValidation, emailContactValidation } = require('../../middleware/mailerValidation');
+const { sendNotifyPlainEmail } = require('../../controllers/email/emailController');
+
+// POST route for sending notification emails with plain text
+router.post('/notify/plain', upload.any('files'), verifyToken, emailSenderValidation, sendNotifyPlainEmail);
+
+module.exports = router;
+
+```
+
+### Controller Functions
+Now, let's define the controller functions for handling email sending in emailController.js:
+
+```javascript
+const nodemailer = require("nodemailer");
+require('dotenv').config();
+const path = require('path');
+const { validationResult } = require('express-validator');
+const { generateSimpleEmail, generateContactEmail } = require('./emailGenerator');
+
+async function sendNotifyPlainEmail(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    const { to, cc, subject, content } = req.body;
+
+    try {
+        const transporter = nodemailer.createTransport({
+            host: process.env.EMAIL_HOST,
+            port: process.EMAIL_PORT,
+            secure: true,
+            auth: {
+                user: process.env.EMAIL_USERNAME,
+                pass: process.env.EMAIL_PASSWORD,
+            },
+            tls: {
+                rejectUnauthorized: true,
+            },
+        });
+        const haveAttachments = req?.files ? req.files.map(file => {
+            return {
+                filename: file?.originalname,
+                path: path.join('uploads', file?.originalname),
+                cid: file?.filename
+            }
+        }) : false;
+
+        const info = await transporter.sendMail({
+            from: '"Admin Test 🚀" <office@mail.com>',
+            to: to,
+            cc: cc,
+            subject: subject,
+            text: content,
+            html: content,
+            attachments: haveAttachments ? haveAttachments : ''
+        });
+        console.log(info.envelope);
+        console.log("Message sent: %s", info);
+        res.send({ data: `Email sent to ${to}`, messageId: info.messageId }).status(200);
+    } catch (exc) {
+        console.error('error happened', exc);
+        res.status(400).send({ message: `Message was not delivered to ${to}`, error: exc });
+    }
+}
+
+module.exports = { sendNotifyPlainEmail };
+```
+
+
+## Testing API
+
+Ok now we have our API so we want to test it , easiest way to do is with postman or curl, here is the example for curl :
+
+```curl
+curl --location 'http://localhost:3000/email/notify/plain' \
+--header 'x-api-key: 1111111-1111-111-1111-11111' \
+--form 'to="jagetic.bojan@testmail.com"' \
+--form 'content="Test 123"' \
+--form 'subject="Test Subject"'
+```
+
+After successfully calling our new API we should be able to see response 
+
+```
+{"data":"Email sent to jagetic.bojan@testmail.com","messageId":"<2c9cbf8e-25db-e329-11111-1111111@test.com>"}%        
+``` 
+
+
+## Conclusion
+
+With this code, you can easily send emails using Node.js and Nodemailer. Remember to handle errors gracefully and secure your email credentials properly.
+
+Feel free to customize the code according to your specific requirements and integrate it into your Node.js applications for sending emails effortlessly.

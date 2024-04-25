@@ -9,9 +9,9 @@
             <link>https://bojanjagetic.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 16 Apr 2024 16:17:42 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 25 Apr 2024 09:27:14 GMT</lastBuildDate>
         <atom:link href="https://bojanjagetic.com/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 16 Apr 2024 16:17:42 GMT</pubDate>
+        <pubDate>Thu, 25 Apr 2024 09:27:14 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2024, © 2022 Bojan Jagetic]]></copyright>
         <item>
             <title><![CDATA[What is Microservices architecture and how to use it]]></title>
@@ -210,6 +210,12 @@
             <description><![CDATA[npm and Yarn are both popular package managers for JavaScript projects, but they have some key differences that you should be aware of when deciding which one to use.]]></description>
             <link>https://bojanjagetic.com/post/regular-vs-arrow-fn</link>
             <guid isPermaLink="true">https://bojanjagetic.com/post/regular-vs-arrow-fn</guid>
+        </item>
+        <item>
+            <title><![CDATA[Sending Emails Using Node.js]]></title>
+            <description><![CDATA[With Node.js, developers have a powerful tool at their disposal for automating tasks, including sending emails.]]></description>
+            <link>https://bojanjagetic.com/post/sending-email-with-node</link>
+            <guid isPermaLink="true">https://bojanjagetic.com/post/sending-email-with-node</guid>
         </item>
         <item>
             <title><![CDATA[What is SWR and How Can It Improve Your React Apps]]></title>
