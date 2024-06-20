@@ -8,6 +8,8 @@ import * as ga from '../lib/analytics'
 import SplashScreen from '../components/custom/SplashScreen'
 import NextHead from 'next/head'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 
 // export function reportWebVitals ({ id, name, label, value }) {
 // ga('send', 'event', {
@@ -109,6 +111,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 			<SplashScreen loaded={pageLoaded}>
 				<Layout>
 					<Component {...pageProps} />
+					<SpeedInsights />
 					<Analytics />
 				</Layout>
 			</SplashScreen>
