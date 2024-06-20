@@ -52,7 +52,8 @@ const NextConfiguration = {
 			'tailwindui.com',
 			'images.pexels.com',
 			'res.cloudinary.com',
-			'avatars.githubusercontent.com'
+			'avatars.githubusercontent.com',
+			'images.unsplash.com'
 		]
 	},
 	eslint: {

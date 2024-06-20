@@ -4,6 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { MdWavingHand } from 'react-icons/md'
 import { SiHashnode, SiDevdotto, SiMedium } from 'react-icons/si'
 import axios from 'axios'
+import ActiveLink from './custom/ActiveLink'
 
 const NewsLetter = () => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -16,14 +17,7 @@ const NewsLetter = () => {
 	}
 
 	function openModal() {
-		const regex = /[a-z0-9]+@[a-z]+.[a-z]{2,3}/
-		if (regex.test(email)) {
-			setIsOpen(true)
-			saveSubscriber(email)
-			setValidationError(false)
-		} else {
-			setValidationError(true)
-		}
+
 	}
 
 	function handleChange(e) {
@@ -42,9 +36,10 @@ const NewsLetter = () => {
 		})
 	}
 	return (
-		<div className='bg-neutral-900 mb-10 md:p-5'>
+		<div className='bg-neutral-900  relative  overflow-hidden  md:p-10'>
+			{/* <div className='bg-gradient-to-b from-neutral-900  to-[#7928ca]  md:p-5'> */}
 			<div className='relative max-w-7xl mx-auto sm:px-4 lg:px-0 sm:static'>
-				<div className=' grid place-items-left place-content-center xs:mx-2 xs:px-3 mx-auto relative xl:border bg-neutral-900 xl:border-neutral-700   grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
+				<div className=' grid place-items-left place-content-center xs:mx-2 xs:px-3 mx-auto relative xl:border bg-neutral-900 xl:border-neutral-800   grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
 
 					<div>
 						<h2 className='text-white text-4xl font-semibold'>
@@ -105,29 +100,16 @@ const NewsLetter = () => {
 					</div>
 					<div>
 						<div className=' items-stretch grid'>
-							{/* <input
-                     type='email'
-                     placeholder='Enter your email'
-                     className='px-4 w-full bg-neutral-900 rounded-md border-gray-300 ring ring-gray-500 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
-                  /> */}
-							<input
-								className='w-4/4 lg:w-3/4 my-3 bg-neutral-900 text-white  px-3 py-2 rounded-md border border-slate-600 focus:border-[#7928ca] flex-grow focus:outline-none cursor-text'
-								placeholder='Enter your email'
-								value={email}
-								onChange={handleChange}
-								type='email'
-							// onChange={handleSearchChange}
-							/>
-							<button
-								type='button'
+							<a
 								data-umami-event={'newslatter-subscribe-click'}
 								data-splitbee-event="Subscribe Newsletter"
-								onClick={openModal}
+								target="_blank"
+								rel="noreferrer"
+								href="https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist"
 								disabled={!email}
-								className='transform hover:scale-[1.02] transition-all md:w-1/4 ml-0 xs:ml-0 p-2 w-4/4 my-3 lg:w-1/4 rounded-md  shadow-sm  shadow-neutral-700
-                  hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'>
-								Subscribe
-							</button>
+								className='transform hover:scale-[1.02] transition-all md:w-1/4 ml-0 xs:ml-0 p-2 w-4/4 my-3 lg:w-1/4 rounded-md  shadow-sm  shadow-neutral-700 hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'>
+							Subscribe on newslatter
+							</a>
 						</div>
 
 						{validationError
