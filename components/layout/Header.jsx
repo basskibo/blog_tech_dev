@@ -2,7 +2,8 @@ import React from 'react'
 import { Disclosure } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import ActiveLink from '../custom/ActiveLink'
-// import Image from 'next/image'
+import Image from 'next/image'
+import logoSmImg from '../../public/logo/logo_sm.webp'
 
 const navigation = [
 	{ name: 'Home', href: '/', current: true },
@@ -14,10 +15,6 @@ const navigation = [
 	// { name: "Quiz", href: "/quiz", current: false },
 	{ name: 'About Me', href: '/routes/aboutme', current: false }
 ]
-
-// function classNames (...classes) {
-//   return classes.filter(Boolean).join(' ')
-// }
 
 const Header = ({ href }) => {
 	return (
@@ -51,17 +48,20 @@ const Header = ({ href }) => {
 								<div className='flex-1 flex items-center justify-center sm:items-stretch sm:justify-start'>
 									<div className='flex-shrink-0 flex items-center'>
 										<a href='/'>
-											<img
+											<Image
 												className='block lg:hidden h-8 w-auto '
-												src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1666821240/igutech/logo/logo_jibobs.webp'
+												src={logoSmImg}
 												width={30}
 												height={30}
+												priority={true}
 												alt='Jagetic'
 											/>
-											<img
+											<Image
 												className='hidden lg:block h-8 w-auto animate-pulse'
-												src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1666821292/igutech/logo/logo-no-background_dbpm3q.svg'
-												// src='https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg'
+												src={logoSmImg}
+												width={30}
+												height={30}
+												priority={true}
 												alt='Jagetic'
 											/>
 										</a>
