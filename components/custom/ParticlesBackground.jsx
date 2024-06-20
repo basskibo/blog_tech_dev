@@ -24,7 +24,7 @@ const ParticlesBackground = () => {
 				interactivity: {
 					events: {
 						onClick: {
-							enable: true,
+							enable: false,
 							mode: "push",
 						},
 						onHover: {
@@ -48,8 +48,8 @@ const ParticlesBackground = () => {
 						value: "#c1c1c1",
 					},
 					links: {
-						color: "#c2c2c2",
-						distance: 200,
+						color: "#fff",
+						distance: 300,
 						enable: true,
 						opacity: 0.3,
 						width: 0.5,
@@ -69,16 +69,16 @@ const ParticlesBackground = () => {
 							enable: true,
 							area: 1200,
 						},
-						value: 50,
+						value: 15,
 					},
 					opacity: {
-						value: 0.3,
+						value: 0.5,
 					},
 					shape: {
 						type: "circle",
 					},
 					size: {
-						value: { min: 1, max: 3 },
+						value: { min: 1, max: 2 },
 					},
 				},
 				detectRetina: true,

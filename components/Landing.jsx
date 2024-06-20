@@ -25,9 +25,10 @@ const Landing = () => {
 
 	return (
 			<div className='bg-gradient-to-b from-neutral-900  to-[#7928ca] '>
-				<ParticlesBackground />
 				{/* <div className=''> */}
 				<div className=' text-slate-200 md:px-10 px-5 '>
+				<ParticlesBackground />
+
 					{/* <MotionComponent> */}
 					<div
 						// className='grid place-items-left place-content-center gap-1 h-screen mx-auto lg:max-w-4xl sm:max-w-xl'>
