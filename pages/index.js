@@ -47,7 +47,7 @@ export default function Home() {
 				<link rel="manifest" href="/site.webmanifest" />
 				<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
 				<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" />
-				<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></link>
+				{/* <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></link> */}
 				<meta name="msapplication-TileColor" content="#da532c" />
 				<meta name="theme-color" content="#ffffff"></meta>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -55,8 +55,8 @@ export default function Home() {
 				{/* <meta name="viewport" content="initial-scale=1, viewport-fit=cover" /> */}
 				{/* <script async defer data-website-id="ad2da36d-df11-4b49-a551-6aea0bf95f30" src="https://blogtech-umami.herokuapp.com/umami.js"></script> */}
 				{/* <script async src="https://cdn.splitbee.io/sb.js"></script> */}
-				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3181880928286370"
-					crossOrigin="anonymous"></script>
+				{/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3181880928286370"
+					crossOrigin="anonymous"></script> */}
 
 			</Head>
 			{/* <div className='text-center mt-10 mb-10  text-white'> */}
