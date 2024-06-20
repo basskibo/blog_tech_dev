@@ -31,6 +31,8 @@ const waysToReachMe = [
 const Footer = () => {
 	return (
 		<footer className='text-gray-400 relative bg-neutral-900 body-font border-t border-neutral-800  bottom-0 w-full'>
+			{/* <div className='h-8 bg-gradient-to-b from-neutral-900   to-[#7928ca]'></div> */}
+
 			<div className='container px-5 py-4 lg:py-8 mx-auto flex items-center sm:flex-row flex-col'>
 				<div className='flex-shrink-0 flex items-center'>
 					<a data-umami-event={'footer-logo-click'} href='/'>
@@ -58,6 +60,13 @@ const Footer = () => {
 						target='_blank'
 						rel='noopener noreferrer'>
 						Site Statistics
+					</a>
+					<a data-umami-event={'footer-newsletter-click'}
+						className='mr-3 lg:mr-5 text-gray-400 link link-underline link-underline-black hover:cursor-ne-resize items-right md:justify-right justify-right text-xs lg:text-sm'
+						href='https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist'
+						target='_blank'
+						rel='noopener noreferrer'>
+						Newsletter
 					</a>
 
 					<a

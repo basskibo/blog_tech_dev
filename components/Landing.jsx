@@ -8,6 +8,7 @@ import { TypeAnimation } from 'react-type-animation'
 import { IoCloudDownloadOutline } from "react-icons/io5"
 import ParticlesBackground from './custom/ParticlesBackground'
 import AnchorLinkComponent from './custom/AnchorLink'
+import FeaturedProject from './FeaturedProject'
 
 const Landing = () => {
 	const handleDownload = () => {
@@ -143,6 +144,7 @@ const Landing = () => {
 				{/* <SvgWave /> */}
 				<FeaturedPosts />
 				{/* <FeatureLanding /> */}
+				{/* <FeaturedProject /> */}
 
 				<NewsLetter />
 			</div>
