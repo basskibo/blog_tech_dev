@@ -30,8 +30,7 @@ class MyDocument extends Document {
                             `
 						}}
 					/>
-					<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3181880928286370"
-						crossOrigin="anonymous"></script>
+				
 					<script defer src="https://analytics.eu.umami.is/script.js" data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"></script>
 				</Head>
 				<body>
