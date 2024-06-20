@@ -49,15 +49,7 @@ const Header = ({ href }) => {
 									<div className='flex-shrink-0 flex items-center'>
 										<a href='/'>
 											<Image
-												className='block lg:hidden h-8 w-auto '
-												src={logoSmImg}
-												width={30}
-												height={30}
-												priority={true}
-												alt='Jagetic'
-											/>
-											<Image
-												className='hidden lg:block h-8 w-auto animate-pulse'
+												className=' h-8 w-auto '
 												src={logoSmImg}
 												width={30}
 												height={30}
