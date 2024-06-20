@@ -48,3 +48,5 @@ yarn-error.log*
 public/sitemap-0.xml
 package-lock.json
 public/rss.xml
+public/rss.xml
+public/sitemap-0.xml
