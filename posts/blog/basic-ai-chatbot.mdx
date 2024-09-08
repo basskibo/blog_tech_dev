@@ -1,0 +1,275 @@
+---
+title: "Building a Powerful Chatbot with OpenAI and LangChain"
+publishedAt: "2024-09-08"
+excerpt: "In this post, we'll walk through how to create a basic but powerful chatbot using OpenAI and LangChain"
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 14, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1725807374/igutech/blogs/boliviainteligente-dwOcAJxSuD8-unsplash_vtmgcc.jpg"
+author: "Bojan Jagetic"
+inPreparation: false
+tags:
+   [
+      { slug: "nodejs", name: "nodejs" },
+      { slug: "ai", name: "AI" },
+   ]
+---
+
+
+## Introduction
+
+Chatbots are essential tools in various industries, providing automated interaction with users. There is no person in the world these days that have not tried at least once <Link href="https://chatgpt.com/" > Chat GPT</Link> (or any other AI powered chatbot). Using OpenAI’s GPT models and the <Link href="https://www.langchain.com/">LangChain</Link> library, we can build a chatbot that handles sessions and processes user messages through a streaming response system, as in later post we will comunicate with our API's and make agents which will be specialized for certain things.
+
+Here’s what we’ll cover:
+
+<LgList>
+<li>Setting up an Express server with middleware.</li>
+<li> Creating an <Adjusted>AgentManager</Adjusted> to handle chatbot agents.</li>
+<li> Creating an <Adjusted>ChatAgent</Adjusted> to handle chatbot agents.</li>
+<li> Streaming chatbot responses back to users in real-time.</li>
+</LgList>
+
+## Setting Up the Environment
+
+
+First, we need a few key dependencies:
+
+- [Express](https://expressjs.com/) for handling API requests.
+- [LangChain](https://langchain.com/) to manage GPT models and tools.
+- [OpenAI](https://beta.openai.com/docs/) for GPT model interaction. We need to obtain token from Open AI in order to use spawn sessions and interact with chatbot
+
+### Install Dependencies
+
+First thing we do is to initialize new project and install neccessarry modules which we will use.
+
+```bash
+npm init -Y
+npm install express langchain openai uuid class-validator class-transformer mutex
+```
+
+
+### Setting Up Express Routes
+
+To begin, we'll define two main routes:
+
+    
+First route will create a new chat session, whereas second one will send messages to an existing session.
+
+
+```ts
+router.post('/session', APIKeyMiddleware, createSession);
+router.post('/session/:id/message', APIKeyMiddleware, postMessage);
+```
+
+The <Adjusted>APIKeyMiddleware</Adjusted> ensures that only authenticated requests access these routes. Note that you can implement middleware which suits yours needs.
+
+
+
+## Creating Agent Manager
+
+We’ll create an AgentManager class to handle chat agents. This class is responsible for creating new agents and managing active sessions, so imagine this class as the main entrypoint for our API's as it will hadle agents which will be responsible for chat. First user will need to create session and later on that session will be used for chatting.
+
+```ts
+export class AgentManager {
+	private __lock = new Mutex();
+	private __agents: Map<string, AgentInstance> = new Map();
+
+	async createAgent(authorization: string): Promise<string> {
+		const uuid = uuidv4();
+		const release = await this.__lock.acquire();
+		try {
+			// this.__deleteExpiredAgentsLockless();
+			let agent: ChatAgent | null = agent = new HospitalityChatAgent(authorization);
+			this.__agents.set(uuid, { agent, createdAt: Date.now() });
+			return uuid;
+		} finally {
+			release();
+		}
+	}
+
+	async getAgent(uuid: string): Promise<ChatAgent | null> {
+		const release = await this.__lock.acquire();
+		try {
+			// this.__deleteExpiredAgentsLockless();
+			const agentInstance = this.__agents.get(uuid);
+			return agentInstance ? agentInstance.agent : null;
+		} finally {
+			release();
+		}
+	}
+
+	private __deleteExpiredAgentsLockless(): void {}
+}
+```
+
+
+The <Adjusted>createAgent</Adjusted> method initializes an agent, locks the process, and assigns it to a unique session ID. Agents expire after a specified session duration, which is handled by the __deleteExpiredAgentsLockless method but we will implement it in the next itteration you can avoid it for now.
+
+
+## Handling Sessions and Messages
+
+Next, let's define our session creation and message handling routes:
+
+```typescript
+export const createSession = async (req: Request, res: Response): Promise<void> => {
+	const authorization = req.headers['authorization'] as string;
+	try {
+		const sessionId = await agentManager.createAgent(authorization, AgentType.STB);
+		res.json({ sessionId });
+	} catch (err) {
+		if (err instanceof Error) {
+			res.status(400).json({ error: err.message });
+		} else {
+			res.status(500).json({ error: 'An unknown error occurred' });
+		}
+	}
+}
+
+export const postMessage = async (req: Request, res: Response): Promise<void> => {
+	const { id } = req.params;
+	const { message } = req.body;
+
+	if (!id || !message) {
+		return res.status(400).json({ error: 'Bad request. Missing session ID or message' });
+	}
+
+	try {
+		const agent = await agentManager.getAgent(id);
+		if (!agent) {
+			return res.status(400).json({ error: `No agent found with id ${id}` });
+		}
+
+		const iterable = await agent.invoke(message);
+		await streamResponse(res, iterable);
+	} catch (err) {
+		res.status(500).json({ error: err instanceof Error ? err.message : 'An unknown error occurred' });
+	}
+}
+```
+
+Here, createSession sets up a new session and postMessage sends a user’s message to the agent. If no session or message is provided, it returns a 400 Bad Request error.
+Streaming Responses
+
+Now, the key to making our chatbot feel responsive and interactive: streaming the response.
+
+```typescript
+async invoke(input: string): Promise<AsyncIterable<Chunk>> {
+	const release = await this.__lock.acquire();
+	try {
+		const tool = this.determineTool(input);
+		if (tool) {
+			const toolOutput = await tool.call(input);
+			this.callbackQueue.enqueue({ type: ChunkType.TOKEN, value: toolOutput });
+			this.callbackQueue.enqueue({ type: ChunkType.FINISH, value: '' });
+		} else {
+			await this.chat.invoke([new HumanMessage(input)], {
+				callbacks: [
+					{
+						handleLLMNewToken: (token: string) => {
+							this.callbackQueue.enqueue({ type: ChunkType.TOKEN, value: token });
+						},
+						handleLLMEnd: () => {
+							this.callbackQueue.enqueue({ type: ChunkType.FINISH, value: '' });
+						},
+						handleLLMError: (error: Error) => {
+							this.callbackQueue.enqueue({ type: ChunkType.ERROR, value: error.message });
+						}
+					}
+				]
+			});
+		}
+
+		return this.createAsyncIterable(this.callbackQueue);
+	} finally {
+		release();
+	}
+}
+
+private createAsyncIterable(callbackQueue: AgentCallbackQueue): AsyncIterable<Chunk> {
+	return {
+		[Symbol.asyncIterator]: async function* () {
+			let finished = false;
+			while (!finished) {
+				const chunk = await callbackQueue.dequeue();
+				if (chunk) {
+					yield chunk;
+					if (chunk.type === ChunkType.FINISH || chunk.type === ChunkType.ERROR) {
+						finished = true;
+					}
+				} else {
+					await new Promise(resolve => setTimeout(resolve, 100));
+				}
+			}
+		}
+	};
+}
+```
+
+In the invoke method, the agent processes the user’s input and streams back the response in chunks. Each chunk is either a token from the model or a message indicating the end of the stream.
+
+The createAsyncIterable method allows us to generate these chunks one by one and stream them back to the client.
+
+
+## Streaming response
+
+In the end, we want to stream response to client as we recieve it, dont want to wait for some time until completes and return the whole response, better solution is to stream response in chunks.
+
+```typescript
+
+const delay = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
+
+export async function streamResponse(res: Response, iterable: AsyncIterable<Chunk>) {
+    res.setHeader('Content-Type', 'application/x-ndjson');
+    res.setHeader('Transfer-Encoding', 'chunked');
+
+    try {
+        let buffer = '';
+		console.log('iterable', iterable)
+        for await (const chunk of iterable) {
+			console.log(chunk)
+
+            switch (chunk.type) {
+                case ChunkType.TOKEN:
+                    buffer += chunk.value; 
+                    await delay(50);
+					console.log('chunk is : ', chunk)
+                    res.write(buffer);
+                    if (res.flush) res.flush();
+                    buffer = '';
+                    break;
+
+                case ChunkType.ERROR:
+                    console.error('Error chunk:', chunk.value);
+                    if (!res.headersSent) {
+                        res.status(500).json({ error: 'Streaming failed.' });
+                    }
+                    return;
+
+                case ChunkType.FINISH:
+                    if (buffer.trim()) {
+                        res.write(`${buffer.trim()}\n`);
+                    }
+                    console.log('Finished chunk stream');
+                    return;
+            }
+        }
+    } catch (err) {
+        console.error('Error during streaming:', err);
+        if (!res.headersSent) {
+            res.status(500).json({ error: 'Streaming failed.' });
+        }
+    } finally {
+        res.end();
+        console.log('Response ended.');
+    }
+}
+
+```
+
+## Conclusion
+
+Congratulations! You now have a basic chatbot that handles chat sessions and streams responses back to the client. This architecture can be easily extended with additional tools, more sophisticated logic, or different GPT models.
+
+By using OpenAI’s powerful language models and LangChain’s tool management, you can create more advanced and interactive chatbots for various domains. Now it’s your turn to customize and expand the chatbot’s capabilities!
+
+Stay tuned for more tips and tricks on building AI-powered applications. Happy coding!
