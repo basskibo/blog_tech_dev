@@ -79,7 +79,7 @@ export class AgentManager {
 		const release = await this.__lock.acquire();
 		try {
 			// this.__deleteExpiredAgentsLockless();
-			let agent: ChatAgent | null = agent = new HospitalityChatAgent(authorization);
+			let agent: ChatAgent | null = agent = new GeneralChatAgent(authorization);
 			this.__agents.set(uuid, { agent, createdAt: Date.now() });
 			return uuid;
 		} finally {
@@ -114,7 +114,7 @@ Next, let's define our session creation and message handling routes:
 export const createSession = async (req: Request, res: Response): Promise<void> => {
 	const authorization = req.headers['authorization'] as string;
 	try {
-		const sessionId = await agentManager.createAgent(authorization, AgentType.STB);
+		const sessionId = await agentManager.createAgent(authorization, AgentType.WEB);
 		res.json({ sessionId });
 	} catch (err) {
 		if (err instanceof Error) {
@@ -178,7 +178,6 @@ async invoke(input: string): Promise<AsyncIterable<Chunk>> {
 				]
 			});
 		}
-
 		return this.createAsyncIterable(this.callbackQueue);
 	} finally {
 		release();
@@ -224,15 +223,10 @@ export async function streamResponse(res: Response, iterable: AsyncIterable<Chun
 
     try {
         let buffer = '';
-		console.log('iterable', iterable)
         for await (const chunk of iterable) {
-			console.log(chunk)
-
             switch (chunk.type) {
                 case ChunkType.TOKEN:
                     buffer += chunk.value; 
-                    await delay(50);
-					console.log('chunk is : ', chunk)
                     res.write(buffer);
                     if (res.flush) res.flush();
                     buffer = '';
@@ -249,7 +243,6 @@ export async function streamResponse(res: Response, iterable: AsyncIterable<Chun
                     if (buffer.trim()) {
                         res.write(`${buffer.trim()}\n`);
                     }
-                    console.log('Finished chunk stream');
                     return;
             }
         }
@@ -260,7 +253,6 @@ export async function streamResponse(res: Response, iterable: AsyncIterable<Chun
         }
     } finally {
         res.end();
-        console.log('Response ended.');
     }
 }
 
@@ -268,7 +260,8 @@ export async function streamResponse(res: Response, iterable: AsyncIterable<Chun
 
 ## Conclusion
 
-Congratulations! You now have a basic chatbot that handles chat sessions and streams responses back to the client. This architecture can be easily extended with additional tools, more sophisticated logic, or different GPT models.
+Congratulations! You now have a basic chatbot that handles chat sessions and streams responses back to the client. This architecture can be easily extended with additional tools, more sophisticated logic, or different GPT models, but for now we have skeleton for more complex chatbot.
+
 
 By using OpenAI’s powerful language models and LangChain’s tool management, you can create more advanced and interactive chatbots for various domains. Now it’s your turn to customize and expand the chatbot’s capabilities!
 
