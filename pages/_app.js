@@ -28,17 +28,17 @@ const handleTitle = (router) => {
 		const splittedTitle = router.route.split('/')
 		if (splittedTitle[2]) {
 			switch (splittedTitle[2]) {
-			case 'libaries':
-				title = 'Bojan Jagetic | Libary'
-				break
-			case 'blog':
-				title = 'Bojan Jagetic | Blog'
-				break
-			case 'aboutme':
-				title = 'Bojan Jagetic | About Me'
-				break
-			default:
-				console.log('Uknown case')
+				case 'libaries':
+					title = 'Bojan Jagetic | Libary'
+					break
+				case 'blog':
+					title = 'Bojan Jagetic | Blog'
+					break
+				case 'aboutme':
+					title = 'Bojan Jagetic | About Me'
+					break
+				default:
+					console.log('Uknown case')
 			}
 		}
 		return title
@@ -106,7 +106,21 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				<meta name="twitter:title" content="Bojan Jagetic" />
 				<meta name="twitter:description" content={description} />
 				<meta name="twitter:image" content={ogUrl} />
-
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify({
+							"@context": "https://schema.org",
+							"@type": "Organization",
+							"url": "https://bojanjagetic.com",
+							"name": "Bojan Jagetic",
+							"sameAs": [
+								"https://github.com/basskibo",
+								"https://x.com/basskibo1"
+							],
+						}),
+					}}
+				/>
 			</NextHead>
 			<SplashScreen loaded={pageLoaded}>
 				<Layout>
