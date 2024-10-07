@@ -9,15 +9,21 @@
             <link>https://bojanjagetic.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 20 Jun 2024 11:51:22 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 07 Oct 2024 14:18:54 GMT</lastBuildDate>
         <atom:link href="https://bojanjagetic.com/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 20 Jun 2024 11:51:22 GMT</pubDate>
+        <pubDate>Mon, 07 Oct 2024 14:18:54 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2024, © 2022 Bojan Jagetic]]></copyright>
         <item>
             <title><![CDATA[What is Microservices architecture and how to use it]]></title>
             <description><![CDATA[This is just a multifaceted knowledge in order to help someone looking for conceptual things in one place.]]></description>
             <link>https://bojanjagetic.com/post/all-you-need-to-know-about-microservices</link>
             <guid isPermaLink="true">https://bojanjagetic.com/post/all-you-need-to-know-about-microservices</guid>
+        </item>
+        <item>
+            <title><![CDATA[Building a Powerful Chatbot with OpenAI and LangChain]]></title>
+            <description><![CDATA[In this post, we'll walk through how to create a basic but powerful chatbot using OpenAI and LangChain]]></description>
+            <link>https://bojanjagetic.com/post/basic-ai-chatbot</link>
+            <guid isPermaLink="true">https://bojanjagetic.com/post/basic-ai-chatbot</guid>
         </item>
         <item>
             <title><![CDATA[Become Docker captain]]></title>
@@ -90,6 +96,12 @@
             <description><![CDATA[If you're new to JavaScript, this post is for you. We'll start with the basics, including an overview of the language and its syntax, as well as common data types and control structures.]]></description>
             <link>https://bojanjagetic.com/post/javascript-overview</link>
             <guid isPermaLink="true">https://bojanjagetic.com/post/javascript-overview</guid>
+        </item>
+        <item>
+            <title><![CDATA[Update JSON file via Terminal or bash script]]></title>
+            <description><![CDATA[If you been in situation that you want to update xml file from bash script there is many ways to do that.]]></description>
+            <link>https://bojanjagetic.com/post/json-update-via-shell</link>
+            <guid isPermaLink="true">https://bojanjagetic.com/post/json-update-via-shell</guid>
         </item>
         <item>
             <title><![CDATA[Creating a Modern Landing Page with Particles and React]]></title>
@@ -182,7 +194,7 @@
             <guid isPermaLink="true">https://bojanjagetic.com/post/react-interview-questions</guid>
         </item>
         <item>
-            <title><![CDATA[React native animation loader]]></title>
+            <title><![CDATA[Send Push notification with Firebase and React]]></title>
             <description><![CDATA[You want to reliably send message? Look no more, firebase will make your life easier with cloud messages and many more features which Google provides]]></description>
             <link>https://bojanjagetic.com/post/react-native-animation-loader</link>
             <guid isPermaLink="true">https://bojanjagetic.com/post/react-native-animation-loader</guid>
