@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import CategoryChip from '../CategoryChip';
 import { IoCalendarClearOutline } from 'react-icons/io5';
 
-const Child = ({ style, index, data }) => {
+const Child = ({ style, index, data, type }) => {
 	const { ref, inView } = useInView();
 	const [isVisible, setIsVisible] = useState(false);
 
@@ -23,20 +23,30 @@ const Child = ({ style, index, data }) => {
 
 	const post = data[index]?.props;
 
+	// Manually override height for "libary" type
+	const customStyle = {
+		...style,
+		height: type === 'libary' ? '250px' : style.height,
+		width: style.width,
+		overflow: 'hidden', 
+		padding: '1rem'
+	};
+
 	return (
-		<div ref={ref} style={{ ...style, overflow: 'hidden', padding: '1rem' }}>
+		<div ref={ref} style={customStyle}>
+
 			<div className={`fade-in ${isVisible ? 'visible' : ''}`} style={{ height: '100%' }}>
 				<div className="relative flex flex-col h-full rounded-lg border-2 border-neutral-800 shadow-lg overflow-hidden">
 					<a
 						data-umami-event={`blog-post-${post?.data?.slug}-click`}
-						href={`/post/${post?.data?.slug}`}
+						href={type === 'blog'? `/post/${post?.data?.slug}` : type === 'libary' ? `/libary/${post?.data?.slug}` :'/'}
 						className={clsx(
 							'relative flex flex-1 flex-col transition transform scale-100 card-hover cursor-pointer',
 							post?.data?.inPreparation && 'pointer-events-none'
 						)}
 					>
 						{/* Image Section */}
-						<div className="relative w-full h-80"> {/* Fixed height for image */}
+						{ type === 'blog' && <div className="relative w-full h-80"> {/* Fixed height for image */}
 							<Image
 								alt={post?.data?.featuredImage}
 								src={
@@ -53,7 +63,7 @@ const Child = ({ style, index, data }) => {
 									post?.data?.inPreparation && 'blur-sm grayscale'
 								)}
 							/>
-						</div>
+						</div> }
 
 						{/* Content Section */}
 						<div className="flex flex-col space-y-2 justify-start p-3 bg-neutral-900 text-white h-full">
@@ -81,6 +91,14 @@ const Child = ({ style, index, data }) => {
 									</p>
 								</div>
 							)}
+							
+							{ (type === 'libary'  && !post?.data?.inPreparation) && (
+								<div className="flex items-start justify-center h-full">
+									<p className="text-sm text-slate-500 ">
+										{post?.data?.excerpt}
+									</p>
+								</div>
+							)}
 						</div>
 					</a>
 				</div>
@@ -93,8 +111,8 @@ const Child = ({ style, index, data }) => {
 const App = ({ posts, type }) => {
 	const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 	const cellSize = !isTabletOrMobile
-		? { height: 400, width: 400 }
-		: { height: 300, width: 300 };
+		? { height: type === 'libary' ? 300 : 400, width: type === 'libary' ? 350 : 400 }
+		: { height: type === 'libary' ? 300 : 300, width: 300 };
 
 	return (
 		<section style={{ overflowY: 'auto' }}>
@@ -102,11 +120,12 @@ const App = ({ posts, type }) => {
 				total={posts.length}
 				cell={cellSize}
 				child={Child}
-				childProps={{ data: posts }}
+				childProps={{ data: posts,  type: type }}
 				viewportRowOffset={12}
 			/>
 		</section>
 	);
 };
+
 
 export default App;
