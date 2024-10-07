@@ -11,8 +11,7 @@ import { useEffect, useState } from 'react';
 import CategoryChip from '../CategoryChip';
 import { IoCalendarClearOutline } from 'react-icons/io5';
 
-// Child Component for the Grid
-const Child = ({ style, index, data, readyInViewport, scrolling }) => {
+const Child = ({ style, index, data }) => {
 	const { ref, inView } = useInView();
 	const [isVisible, setIsVisible] = useState(false);
 
@@ -25,19 +24,14 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
 	const post = data[index]?.props;
 
 	return (
-		<div ref={ref} style={{ ...style, padding: '1rem' }}>
-			<motion.div
-				initial={{ opacity: 0, y: -20 }}
-				animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -20 }}
-				transition={{ duration: 0.3, delay: index * 0.1 }}
-				className="w-full h-full flex flex-col"
-			>
+		<div ref={ref} style={{ ...style, overflow: 'hidden', padding: '1rem' }}>
+			<div className={`fade-in ${isVisible ? 'visible' : ''}`} style={{ height: '100%' }}>
 				<div className="relative flex flex-col h-full rounded-lg border-2 border-neutral-800 shadow-lg overflow-hidden">
 					<a
 						data-umami-event={`blog-post-${post?.data?.slug}-click`}
 						href={`/post/${post?.data?.slug}`}
 						className={clsx(
-							'relative flex flex-1 flex-col transition transform scale-100 hover:scale-105 active:scale-95 cursor-pointer',
+							'relative flex flex-1 flex-col transition transform scale-100 card-hover cursor-pointer',
 							post?.data?.inPreparation && 'pointer-events-none'
 						)}
 					>
@@ -66,7 +60,6 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
 							<div>
 								<CategoryChip categories={post?.data?.tags} className="mb-2" />
 								<h1 className="text-lg font-bold mb-1">{post?.data?.title}</h1>
-
 							</div>
 
 							{!post?.data?.inPreparation && (
@@ -83,7 +76,7 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
 							{/* Coming Soon Message */}
 							{post?.data?.inPreparation && (
 								<div className="flex items-start justify-center h-full">
-									<p className="text-md text-slate-400 animate-pulse">
+									<p className="text-md text-slate-400 coming-soon">
 										<Accent className="font-extrabold">Coming soon...</Accent>
 									</p>
 								</div>
@@ -91,10 +84,11 @@ const Child = ({ style, index, data, readyInViewport, scrolling }) => {
 						</div>
 					</a>
 				</div>
-			</motion.div>
+			</div>
 		</div>
 	);
 };
+
 
 const App = ({ posts, type }) => {
 	const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });

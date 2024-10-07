@@ -244,3 +244,43 @@ a {
 	max-width: 100%;
 	height: auto;
 }
+
+
+// ANIMATION
+
+/* Base fade-in and translateY animation */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    will-change: opacity, transform; /* Hint browser to optimize */
+}
+
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Add scaling for hover effect */
+.card-hover {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+    transform: scale(1.05);
+}
+
+/* Add pulse animation for 'Coming Soon' */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.coming-soon {
+    animation: pulse 1.5s infinite;
+}

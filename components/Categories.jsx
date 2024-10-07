@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import CategoryChip from './CategoryChip'
 
-import { getCategories } from '../services'
 
 const Categories = () => {
 	const [categories, setCategories] = useState([])
@@ -18,7 +17,7 @@ const Categories = () => {
 			</h3>
 			<CategoryChip categories={categories} />
 		</div>
-	)
+)
 }
 
 export default Categories
