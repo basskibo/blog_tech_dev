@@ -12,7 +12,6 @@ const ideOstechArray = constants.ideOstechArray
 const TechnologyStack = () => {
   return (
 		<div>
-			{' '}
 			<h2 className='mb-3'>
 				{' '}
 				<Accent>Backend  </Accent> frameworks and services I preffer and mostly use{' '}
@@ -24,11 +23,6 @@ const TechnologyStack = () => {
 						key={tech.name}
 					>
 						<tech.icon data-tip data-for={tech.name} />
-
-						{/* <ReactTooltip id={tech.name} type='dark' className=' bg-neutral-700'>
-							<h1>Name: {tech.name}</h1>
-							<p>Descripton: {tech.desc}</p>
-						</ReactTooltip> */}
 					</div>
 				))}
 			</span>
