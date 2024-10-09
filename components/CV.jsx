@@ -47,12 +47,22 @@ const CV = () => {
 
 						<div className='text-base font-normal text-gray-500 dark:text-gray-400'>
 							<ul className='list-disc pl-5'>
-								<li>Project: Developing smart tv applications based on Tizen and WebOS platforms, developing backoffice and cross platform tablet applications</li>
-								<li>Working on smart TV application used as streaming platform. Creating components, services, authorization, etc.
-									Platform is serving LiveTV, video on demand  as well as option for renting movies. </li>
-								<li>Developed and maintained a comprehensive web application back office using React.js, implementing efficient and scalable front-end solutions.
-									Spearheaded the development of a React Native mobile application, ensuring cross-platform (IOS and Android) compatibility and optimal user experience.
-									Collaborated closely with cross-functional teams to translate project requirements into actionable technical specifications.
+								<li>Project: Developing smart tv applications based on Tizen and WebOS platforms, hospitality project</li>
+								<li>Spearheaded the development of a hospitality platform using Node.js, Java, and AI technologies, ensuring
+									robust backend services and smooth integration of AI-driven features.
+									Implemented microservices architecture to support AI-enhanced features like dynamic content
+									recommendations, reservation management, and predictive analytics. </li>
+								<li>Developed scalable and highly available backend services on AWS, focusing on EC2, S3, and CloudWatch
+									for operational efficiency.
+								</li>
+								<li>
+									Collaborated on AI model deployment, ensuring seamless integration into the cloud infrastructure.
+								</li>
+								<li>
+									Worked on the frontend using React.js, creating responsive and dynamic user interfaces for client-side
+									applications, ensuring seamless user experience across different devices.
+									Developed and maintained mobile applications using React Native, enhancing cross-platform compatibility
+									for iOS and Android.
 								</li>
 								<li>Key technologies: React, React native, Nodejs, Typescript, Tizen, WebOS, Firebase, etc.</li>
 								<li>Dockerizing and creating the process of building, CI/CD, packing, deploying and  using Docker containers for the sdk usage</li>
@@ -60,13 +70,11 @@ const CV = () => {
 									Technologies used on this project
 								</li>
 								<div className='flex mb-2 gap-1'>
+									{constants.generateIcon('SiNodedotjs')}
+									{constants.generateIcon('SiExpress')}
 									{constants.generateIcon('SiReact')}
 									{constants.generateIcon('SiTypescript')}
-									{constants.generateIcon('SiJavascript')}
-									{constants.generateIcon('SiIos')}
-									{constants.generateIcon('SiAndroid')}
-									{constants.generateIcon('SiExpress')}
-									{constants.generateIcon('SiFirebase')}
+									{constants.generateIcon('SiSpring')}
 									{constants.generateIcon('SiDocker')}
 									{constants.generateIcon('SiJenkins')}
 								</div>

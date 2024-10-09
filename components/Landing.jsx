@@ -139,13 +139,9 @@ const Landing = () => {
 							</button>
 						</div>
 					</div>
-					{/* </MotionComponent> */}
 				</div>
 				<AnchorLinkComponent/>
-				{/* <SvgWave /> */}
 				<FeaturedPosts />
-				{/* <FeatureLanding /> */}
-				{/* <FeaturedProject /> */}
 
 				<NewsLetter />
 			</div>

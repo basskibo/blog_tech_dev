@@ -39,6 +39,7 @@ import {
 	SiIonic,
 	SiAndroid,
 	SiIos,
+	SiSpring
 } from 'react-icons/si'
 import {DiExtjs } from 'react-icons/di'
 
@@ -112,6 +113,8 @@ export default {
 			icondata = <SiIos />
 		} else if (icon === 'SiAndroid') {
 			icondata = <SiAndroid />
+		}else if (icon === 'SiSpring') {
+			icondata = <SiSpring />
 		}
 		return <span className='text-xl text-white mr-2 mt-1'>{icondata} </span>
 	},
