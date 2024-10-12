@@ -9,9 +9,9 @@
             <link>https://bojanjagetic.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 07 Oct 2024 14:18:54 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 12 Oct 2024 10:36:25 GMT</lastBuildDate>
         <atom:link href="https://bojanjagetic.com/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 07 Oct 2024 14:18:54 GMT</pubDate>
+        <pubDate>Sat, 12 Oct 2024 10:36:25 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2024, © 2022 Bojan Jagetic]]></copyright>
         <item>
             <title><![CDATA[What is Microservices architecture and how to use it]]></title>
@@ -99,7 +99,7 @@
         </item>
         <item>
             <title><![CDATA[Update JSON file via Terminal or bash script]]></title>
-            <description><![CDATA[If you been in situation that you want to update xml file from bash script there is many ways to do that.]]></description>
+            <description><![CDATA[When working with JSON files in a Linux environment, there are many times you need to automate updates to these files. Whether you're dealing with configuration files, API data, or just plain old structured data, learning how to automate JSON file updates using Bash can save a lot of manual effort.]]></description>
             <link>https://bojanjagetic.com/post/json-update-via-shell</link>
             <guid isPermaLink="true">https://bojanjagetic.com/post/json-update-via-shell</guid>
         </item>

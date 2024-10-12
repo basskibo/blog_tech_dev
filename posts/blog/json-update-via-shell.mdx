@@ -1,24 +1,24 @@
 ---
 title: "Update JSON file via Terminal or bash script"
-publishedAt: "2024-10-07"
+publishedAt: "2024-10-12"
 excerpt: "When working with JSON files in a Linux environment, there are many times you need to automate updates to these files. Whether you're dealing with configuration files, API data, or just plain old structured data, learning how to automate JSON file updates using Bash can save a lot of manual effort."
 englishOnly: "true"
 banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
 date: "June 15, 2022"
 featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1728310649/igutech/blogs/giulia-may-cNtMy74-mnI-unsplash_vfd0oj.jpg"
-imageCreditUser: "Brandon Jaramillo"
-imageCreditUsername: "brandon_j369"
+imageCreditUser: "Giulia May"
+imageCreditUsername: "giuliamay"
 author: "Bojan Jagetic"
 tags: [{ slug: "json", name: "json" },{ slug: "sh", name: "bash" }]
-inPreparation: true
+inPreparation: false
 ---
+
 
 ## Introduction
 
+When working with JSON files in a Linux or OS X environments, there are many times you need to automate updates to these files, you really dont have to but it makes your life easier. Whetheru you're dealing with configuration files, API data, or just plain old structured data, learning how to automate JSON file updates using Bash can save a lot of manual effort.
 
-When working with JSON files in a Linux environment, there are many times you need to automate updates to these files. Whether you're dealing with configuration files, API data, or just plain old structured data, learning how to automate JSON file updates using Bash can save a lot of manual effort.
-
-In this guide, we’ll walk through how to automate JSON updates using Bash scripts. We’ll use tools like `jq` and shell scripting to make this process efficient and repeatable.
+In this guide, we’ll walk through how to automate JSON updates using Bash scripts. We’ll use tools like `jq` and shell scripting to make this process efficient and easy to use.
 
 ## Why Automate JSON File Updates?
 
@@ -26,15 +26,16 @@ Automation becomes crucial when:
 - You need to update multiple JSON files frequently.
 - You're working on a deployment pipeline that requires dynamic JSON values.
 - Configuration changes need to be applied in various environments.
+- why not? everything is easier when automated :)
 
-Let’s say you need to update a configuration file's field, such as modifying a version number, or injecting dynamic values from a CI/CD pipeline. Doing this manually is error-prone and time-consuming, which is where a Bash script becomes helpful.
+How many times you wanted to alter some field in JSON from Jenkins for example. Let’s say you need to update a configuration file's field, such as modifying a version number, or injecting dynamic values from a CI/CD pipeline. Doing this manually is error-prone and time-consuming, which is where a Bash script becomes helpful.
 
 ## Installation
 
 1. **jq**: A lightweight and flexible command-line JSON processor.
    - Install using your package manager:
      ```bash
-     sudo apt-get install jq    # Ubuntu/Debian
+     sudo apt-get install jq -y    # Ubuntu/Debian
      sudo yum install jq        # RHEL/CentOS
      brew install jq            # macOS
      ```
@@ -43,18 +44,19 @@ Let’s say you need to update a configuration file's field, such as modifying a
 
 ## Sample JSON File
 
-Let’s say we have the following `config.json` file:
+Let’s say we have the following `config.json` file, open it with `nano`, `vim` or any text editor you prefer.
 
 ```json
 {
-  "name": "example-project",
+  "name": "my-project",
   "version": "1.0.0",
   "dependencies": {
     "express": "^4.17.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "typescript": "^5.3.3"
   }
 }
-
+```
 
 You want to automate updating the version and adding a new dependency.
 
@@ -62,53 +64,83 @@ You want to automate updating the version and adding a new dependency.
 
 Before updating the JSON, it’s useful to know how to read JSON values using jq. For example, to read the version field:
 
-bash
-Copy code
+```bash
 jq '.version' config.json
+```
+
 The output will be:
 
-arduino
-Copy code
+```
 "1.0.0"
+```
+
 You can also filter nested fields. For example, to read the express dependency version:
 
 ```bash
 jq '.dependencies.express' config.json
 ```
 
-## Step 2: Update JSON Values with jq
-To automate the process of updating JSON values, we can use the jq command with the --arg or --argjson options to update fields dynamically.
+The output will be:
 
-Example: Update the version field
-If we need to update the version from 1.0.0 to 1.1.0, we can do so by running:
-
-```bash
-jq '.version = "1.1.0"' config.json > temp.json && mv temp.json config.json
+```
+"^4.17.1"
 ```
 
-Example: Add a new dependency
-Let’s say you want to add a new dependency axios to the dependencies section:
+## Step 2: Update JSON Values with jq
+
+Now when we know how to read property values from JSON file, we can now update it.
+To automate the process of updating JSON values, we can use the `jq` command with the `--arg` or `--argjson` options to update fields dynamically.
+
+- If we need to update the version from 1.0.0 to 1.1.0, we can do so by running:
 
 ```bash
-jq '.dependencies.axios = "^0.21.1"' config.json > temp.json && mv temp.json config.json
-This command updates the JSON file by adding the new dependency.
+jq '.version = "1.1.0"' config.json > tmp.json && mv tmp.json config.json
+```
+
+- Let’s say you want to add a new dependency axios to the dependencies section which is nested:
+
+```bash
+jq '.dependencies.typescript = "^0.1.1"' config.json > temp.json && mv temp.json config.json
+```
+
+- If you want to write new property to the root you can do it with ease.
+
+```bash
+jq '.author = "Bojan Jagetic"' config.json > temp.json && mv temp.json config.json
+
+```
+
+Finally after these changes, when we read our `config.json` we should be able to see changes.
+
+```json
+{12:07}~ ➭ cat config.json
+{
+  "name": "my-project",
+  "version": "1.1.0",
+  "dependencies": {
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "typescript": "^0.1.1"
+  },
+  "author": "Bojan Jagetic"
+}
+
 ```
 
 ## Step 3: Create a Bash Script to Automate Updates
 
-Let’s automate the process by creating a Bash script that updates multiple fields at once.
+Now that we know how to read and update JSON , we can make a bash script which wil make our live easier and which will update mulitple fields at once.
 
-````bash
-Copy code
+```bash
 #!/bin/bash
 
 # Variables
-VERSION="1.1.0"
+VERSION="1.2.0"
 NEW_DEP="axios"
 NEW_DEP_VERSION="^0.21.1"
 
 # Update version
-jq --arg version "$VERSION" '.version = $version' config.json > temp.json && mv temp.json config.json
+jq --arg version "$VERSION" '.version = $version' config.json > tmp.json && mv tmp.json config.json
 
 # Add a new dependency
 jq --arg dep "$NEW_DEP" --arg ver "$NEW_DEP_VERSION" '.dependencies[$dep] = $ver' config.json > temp.json && mv temp.json config.json
@@ -122,38 +154,102 @@ This script updates the version and adds a new dependency axios. You can add thi
 Make the Script Executable
 To use the script, save it as update-config.sh and make it executable:
 
-bash
-Copy code
-chmod +x update-config.sh
-Now, running ./update-config.sh will update the JSON file automatically.
 
-## Step 4: Automate JSON Updates via CI/CD (Optional)
+```bash
+chmod +x update_config.sh
+```
+
+Now, running `./update_config.sh` or `bash update_config.sh` will update the JSON file automatically.
+
+End results are like following:
+
+```
+{12:09}~ ➭ nano update_script.sh
+{12:16}~ ➭ chmod +x update_script.sh        
+{12:16}~ ➭ bash update_script.sh 
+Updated config.json successfully!
+{12:16}~ ➭ cat config.json          
+{
+  "name": "my-project",
+  "version": "1.2.0",
+  "dependencies": {
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "typescript": "1.1.0",
+    "axios": "^0.21.1"
+  },
+  "author": "Bojan Jagetic"
+}
+```
+
+## Step 4: Automate version increase via script
+
+Some of most used cases where would you find upating JSON usefull, is when you need to increase version automatically. Now we will add functionality to our script that will increase version as well so we do not need to manually add version, it will read current and increase minor version by one (0.0.1 -> 0.0.2).
+
+So we will alter existing script, remove `VERSION` variable as we will not need it anymore, our bash script will read version by itself so no need to pass version.
+
+```bash
+#!/bin/bash
+
+# Variables
+NEW_DEP="axios"
+NEW_DEP_VERSION="^0.21.1"
+
+# Update version
+
+# Add a new dependency
+jq --arg dep "$NEW_DEP" --arg ver "$NEW_DEP_VERSION" '.dependencies[$dep] = $ver' config.json > temp.json && mv temp.json config.json
+
+echo "Updated config.json successfully with new "$NEW_DEP"!"
+
+
+CURRENT_VERSION=$(jq -r '.version' config.json)
+# Split version into major, minor, and patch components
+IFS='.' read -r major minor patch <<< "$CURRENT_VERSION"
+
+patch=$((patch + 1))
+
+# Combine into new version
+NEW_VERSION="$major.$minor.$patch"
+
+# Update version in config.json
+jq --arg version "$NEW_VERSION" '.version = $version' config.json > tmp.json && mv tmp.json config.json
+
+# Add a new dependency
+jq --arg dep "$NEW_DEP" --arg ver "$NEW_DEP_VERSION" '.dependencies[$dep] = $ver' config.json > temp.json && mv temp.json config.json
+
+echo "Updated config.json successfully! New version is $NEW_VERSION"
+```
+
+You should see output :
+
+```
+{12:30}~ ➭ bash update_script.sh
+Updated config.json successfully with new axios!
+Updated config.json successfully! New version is 1.2.1
+```
+
+## Step 5: Automate JSON Updates via CI/CD (Optional)
 
 If you’re using tools like Jenkins, GitLab CI, or GitHub Actions, you can add this script to your pipeline to automate configuration updates before deployment. Simply add a step that runs your Bash script.
 
 Example (GitHub Actions):
-yaml
+
+```yaml
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Update JSON Config
-      run: ./update-config.sh
+      run: ./update_config.sh
+```
+
 This will automatically update your JSON configuration file as part of the pipeline process.
 
 ## Conclusion
 
-Automating JSON file updates with Bash and jq is a powerful technique for handling configuration files or dynamic data. Whether you’re managing simple changes or complex updates, this process can streamline your workflow and reduce manual intervention.
+Automating JSON file updates with Bash and jq is a powerful technique for handling configuration files or dynamic data, it can save a lot of time and headache by doing it manually. Whether you’re managing simple changes or complex updates, this process can streamline your workflow and reduce manual intervention.
+Have in mind that this is simple example, you can make changes and make it better and suits your needs.
 
 Give it a try and see how much time you save by automating JSON file updates!
-
-markdown
-
-### Key Points of the MDX Post:
-1. **Tools**: Introduces `jq` and Bash scripting.
-2. **Example Use Case**: Uses a practical example of updating a JSON config file (`version` and `dependencies`).
-3. **Script**: Provides a reusable Bash script that can be integrated into CI/CD pipelines.
-4. **Automation**: Shows how to automate the process in various environments.
-
-This structure is simple, informative, and geared towards developers who want to automate JSON updates.
