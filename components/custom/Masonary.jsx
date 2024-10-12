@@ -46,7 +46,7 @@ const Child = ({ style, index, data, type }) => {
 						)}
 					>
 						{/* Image Section */}
-						{ type === 'blog' && <div className="relative w-full h-80"> {/* Fixed height for image */}
+						{ type === 'blog' && <div className="relative w-full h-80">
 							<Image
 								alt={post?.data?.featuredImage}
 								src={
