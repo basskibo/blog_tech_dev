@@ -1,36 +1,32 @@
+'use client'
 import React from 'react'
-// import { Accent } from '@/components/index'
-// import QuizComponent from '@/components/QuizComponent'
-// import { IoLogoNodejs, IoLogoJavascript } from "react-icons/io";
-// import { MdArchitecture, MdOutlineDesignServices } from "react-icons/md";
-// import { IoLogoReact } from "react-icons/io5";
-// import { FaRandom } from "react-icons/fa";
-// import { SiMongodb, SiMysql } from "react-icons/si";
+import { Accent } from '@/components/index'
+import QuizComponent from '@/components/QuizComponent'
+import { IoLogoNodejs, IoLogoJavascript } from "react-icons/io";
+import { MdArchitecture, MdOutlineDesignServices } from "react-icons/md";
+import { IoLogoReact } from "react-icons/io5";
+import { FaRandom } from "react-icons/fa";
+import { SiMongodb, SiMysql } from "react-icons/si";
+import DifficultyBar from '@/components/custom/DIfficultyBar';
+import { mongodbQuestions, nodeQuestions, reactQuestions } from 'src/quizQuestions';
 
-const quiz = () => {
-	// const [selectedQuiz, setSelectedQuiz] = useState('')
-	// const quizes = [
-	// 	{ name: 'NodeJs', level: 'Senior', id: 'node', icon: <IoLogoNodejs size={'2rem'} /> },
-	// 	{ name: 'NodeJs', level: 'Junior', id: 'node', icon: <IoLogoNodejs size={'2rem'} /> },
-	// 	{ name: 'Javascript', level: 'Senior', id: 'js', icon: <IoLogoJavascript size={'2rem'} /> },
-	// 	{ name: 'React', level: 'Senior', id: 'react', icon: <IoLogoReact size={'2rem'} /> },
-	// 	{ name: 'Software Architecture', level: 'Senior', id: 'arch', icon: <MdArchitecture size={'2rem'} /> },
-	// 	{ name: 'Design Patterns', level: 'Senior', id: 'dp', icon: <MdOutlineDesignServices size={'2rem'} /> },
-	// 	{ name: 'MongoDB', level: 'Senior', id: 'mongodb', icon: <SiMongodb size={'2rem'} /> },
-	// 	{ name: 'Mysql', level: 'Senior', id: 'mysql', icon: <SiMysql size={'2rem'} /> },
-	// 	{ name: 'Random', level: 'Senior', id: 'random', icon: <FaRandom size={'2rem'} /> },
-	// ]
+const Quiz = () => {
+	const [selectedQuiz, setSelectedQuiz] = React.useState('')
+	const [showConfirmRestart, setShowConfirmRestart] = React.useState(false); 
 
-	// const handleCategorySelect = (e) => {
-	// 	// alert('Still in development..')
-	// 	// return
-	// 	const selectedCategory = e.target.outerText
-	// 	setSelectedQuiz(selectedCategory)
-	// 	console.log(selectedCategory)
-	// }
+	const quizes = [
+		...nodeQuestions,
+		...reactQuestions,
+		...mongodbQuestions
+	];
+
+	const handleSidebarCategorySelect = (e) => {
+		alert('Still in development..')
+	
+	}
 	return (
 		<div className='layout mx-auto lg:my-14 my-5 sm:px-2 xs:px-3 lg:px-5  text-slate-400'>
-			{/* <div className='my-8 '>
+			<div className='my-8 '>
 				<h1 className='mb-5'>
 					<Accent className='font-extrabold text-5xl'>Interview Quiz</Accent>
 				</h1>
@@ -43,36 +39,63 @@ const quiz = () => {
 			{selectedQuiz &&
 				<div className='flex  flex-col lg:flex-row gap-10'>
 					<div className='flex flex-col w-full lg:w-1/4 border p-2 border-neutral-800'>
-						<h3 className='text-white text-2xl '>Test categories</h3>
+						<h3 className='text-white text-2xl '>Categories</h3>
 						<ul className='flex flex-col gap-5 mt-5'>
 							{quizes.map((quiz) => (
-								<li onClick={handleCategorySelect} key={quiz.id} className='flex flex-row gap-2 items-center hover:underline hover:cursor-pointer hover:text-[#ff0080]'>
+								<li  onClick={() => setSelectedQuiz(quiz.id)} key={quiz.id} className='disabled flex flex-row gap-2 items-center hover:underline hover:cursor-pointer hover:text-[#ff0080]'>
 									{quiz?.icon}{quiz.name}
+									<span>{quiz.id}</span>
 								</li>
 							))}
 						</ul>
 					</div>
-					<QuizComponent selectedQuiz={selectedQuiz} />
+					<QuizComponent selectedQuiz={selectedQuiz} setSelectedQuiz={setSelectedQuiz} onRequestRestart={() => setShowConfirmRestart(true)}/>
 
 				</div>
 			}
 			{!selectedQuiz &&
 				<div className=''>
 					<h2 className='text-2xl text-slate-200 my-5'>Choose category to play</h2>
-					<div className='grid bg-black bg-grid-white/[0.05] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+					<div className='grid  bg-grid-white/[0.05] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
 						{quizes.map((quiz) => (
-							<div key={quiz.id} onClick={handleCategorySelect} className='border rounded-md border-neutral-800 px-5 py-10 flex flex-col justify-center items-center align-middle  
+							<div key={quiz.id} onClick={() => setSelectedQuiz(quiz.id)} className='border bg-neutral-800 rounded-md border-neutral-800 px-5 py-10 space-y-2 flex flex-col justify-center items-center align-middle  
 							transform hover:scale-[1.05] transition-all  hover:cursor-pointer hover:text-[#ff0080] hover:border-[#ff0080]'>
 								<p className='flex flex-row text-lg justify-center items-center align-middle gap-1 text-white'>{quiz?.icon}{quiz.name} </p>
-								<p className='flex flex-row text-sm justify-center items-center align-middle text-slate-400'>Level: {quiz?.level} </p>
+								<DifficultyBar level={quiz.difficulty}/>
+								<p className='flex flex-row text-sm justify-center items-center align-middle text-slate-400'>Difficulty: {quiz?.level} </p>
 							</div>
 						))}
 					</div>
 				</div>
-			} */}
+			}
+			{showConfirmRestart && (
+				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+					<div className="bg-white p-5 rounded shadow-lg">
+						<h3 className="text-lg font-semibold">Confirm Restart</h3>
+						<p>Are you sure you want to restart the quiz?</p>
+						<div className="mt-4 flex justify-end">
+							<button
+								className="bg-red-500 text-white px-4 py-2 rounded mr-2"
+								onClick={() => {
+									setShowConfirmRestart(false);
+									handlePlayAgain();
+								}}
+							>
+								Yes, Restart
+							</button>
+							<button
+								className="bg-gray-300 text-black px-4 py-2 rounded"
+								onClick={() => setShowConfirmRestart(false)}
+							>
+								Cancel
+							</button>
+						</div>
+					</div>
+				</div>
+			)}
 
 		</div>
 	)
 }
 
-export default quiz
+export default Quiz

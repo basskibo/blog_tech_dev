@@ -26,3 +26,15 @@ export const generateRandomQuestionList = (questions) => {
 	return selectedQuestions
 }
 
+
+export const getRandomQuestions = (questions, numberOfQuestions) => {
+	const shuffled = questions.sort(() => 0.5 - Math.random());
+	
+	// Return a slice with the specified number of questions
+	return shuffled.slice(0, numberOfQuestions);
+};
+
+export const findById = (list, id) => {
+	return list.find((el) => el.id === id);
+	
+}
