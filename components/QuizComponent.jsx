@@ -6,7 +6,7 @@ import { IoWarningOutline } from "react-icons/io5";
 import { RiFullscreenFill, RiFullscreenExitLine } from "react-icons/ri";
 import { findById, getRandomQuestions } from 'utils/generalUtil';
 import Chart from 'react-google-charts';
-import { HomeIcon, RefreshIcon } from '@heroicons/react/solid';
+import { HomeIcon, RefreshIcon, ShareIcon } from '@heroicons/react/solid';
 
 const QuizComponent = ({ selectedQuiz, setSelectedQuiz, onRequestRestart }) => {
 	const [activeQuestion, setActiveQuestion] = useState(0);
@@ -20,7 +20,7 @@ const QuizComponent = ({ selectedQuiz, setSelectedQuiz, onRequestRestart }) => {
 	});
 	const [isFullScreen, setIsFullScreen] = useState(false);
 	const { questions, name, level } = findById(allQuizes, selectedQuiz);
-	const totalQuestions = 3;
+	const totalQuestions = 10;
 
 	const [randomQuestions] = useState(() => getRandomQuestions(questions, totalQuestions));
 
@@ -194,7 +194,6 @@ const QuizComponent = ({ selectedQuiz, setSelectedQuiz, onRequestRestart }) => {
 								<div className='flex flex-col  justify-evenly items-start'>
 									<h3 className='text-3xl font-bold'>Results: <Accent>{result.score} points </Accent></h3>
 									<h3 className='text-3xl '>Overall:  <span className='font-bold font-3xl'>{calculateScorePercentage()}% </span></h3>
-									{/* <span className='border-3 border-b-slate-200'/> */}
 									<p className='text-lg  mt-2'>Total questions: <span className='font-semibold'>{totalQuestions} </span></p>
 									<p className='text-lg font-semibold text-green-700'>Correct answers: {result.correctAnswers}</p>
 									<p className='text-lg font-semibold text-red-700'>Wrong answers: {result.wrongAnswers}</p>
@@ -231,6 +230,13 @@ const QuizComponent = ({ selectedQuiz, setSelectedQuiz, onRequestRestart }) => {
 									Go Back
 									<HomeIcon />
 								</button>
+								{/* <button
+									onClick={() => setSelectedQuiz(false)}
+									className='transform hover:scale-[1.05] transition-all  hover:cursor-pointer hover:text-[#ff0080] hover:bg-neutral-900 border-none py-5 px-20'
+								>
+									Share
+									<ShareIcon />
+								</button> */}
 							</div>
 
 						</div>

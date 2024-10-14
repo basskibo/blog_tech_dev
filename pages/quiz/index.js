@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { Fragment, useState } from 'react'
 import { Accent } from '@/components/index'
 import QuizComponent from '@/components/QuizComponent'
 import { IoLogoNodejs, IoLogoJavascript } from "react-icons/io";
@@ -9,10 +9,12 @@ import { FaRandom } from "react-icons/fa";
 import { SiMongodb, SiMysql } from "react-icons/si";
 import DifficultyBar from '@/components/custom/DIfficultyBar';
 import { mongodbQuestions, nodeQuestions, reactQuestions } from 'src/quizQuestions';
+import { Dialog, Transition } from '@headlessui/react';
 
 const Quiz = () => {
-	const [selectedQuiz, setSelectedQuiz] = React.useState('')
-	const [showConfirmRestart, setShowConfirmRestart] = React.useState(false); 
+	const [selectedQuiz, setSelectedQuiz] = useState('')
+	const [showConfirmRestart, setShowConfirmRestart] = useState(false); 
+	const [isOpen, setIsOpen] = useState(false)
 
 	const quizes = [
 		...nodeQuestions,
@@ -20,10 +22,20 @@ const Quiz = () => {
 		...mongodbQuestions
 	];
 
-	const handleSidebarCategorySelect = (e) => {
-		alert('Still in development..')
-	
+	const handleCategoryChange = (e) => {
+		setIsOpen(true)
+    
 	}
+	
+	const closeModal = () => {
+		setIsOpen(false)
+	}
+	
+	const handleResetQuiz = () => {
+		setSelectedQuiz('')
+		setIsOpen(false)
+	}
+
 	return (
 		<div className='layout mx-auto lg:my-14 my-5 sm:px-2 xs:px-3 lg:px-5  text-slate-400'>
 			<div className='my-8 '>
@@ -42,9 +54,8 @@ const Quiz = () => {
 						<h3 className='text-white text-2xl '>Categories</h3>
 						<ul className='flex flex-col gap-5 mt-5'>
 							{quizes.map((quiz) => (
-								<li  onClick={() => setSelectedQuiz(quiz.id)} key={quiz.id} className='disabled flex flex-row gap-2 items-center hover:underline hover:cursor-pointer hover:text-[#ff0080]'>
-									{quiz?.icon}{quiz.name}
-									<span>{quiz.id}</span>
+								<li  onClick={handleCategoryChange} key={quiz.id} className='disabled flex flex-row gap-2 text-lg items-center hover:underline hover:cursor-pointer hover:text-[#ff0080]'>
+									{quiz?.icon}{quiz.name} <span className=' text-end self-auto p-1 rounded-lg text-slate-600 text-sm'>{quiz.level}</span>
 								</li>
 							))}
 						</ul>
@@ -69,8 +80,8 @@ const Quiz = () => {
 				</div>
 			}
 			{showConfirmRestart && (
-				<div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-					<div className="bg-white p-5 rounded shadow-lg">
+				<div className="fixed inset-0 flex items-center justify-center blur-sm grayscale bg-neutral-900  bg-opacity-50">
+					<div className="bg-neutral-900 p-5 rounded shadow-lg">
 						<h3 className="text-lg font-semibold">Confirm Restart</h3>
 						<p>Are you sure you want to restart the quiz?</p>
 						<div className="mt-4 flex justify-end">
@@ -93,6 +104,66 @@ const Quiz = () => {
 					</div>
 				</div>
 			)}
+			<Transition appear show={isOpen} as={Fragment}>
+					<Dialog as='div' className='relative z-10' onClose={closeModal}>
+						<Transition.Child
+							as={Fragment}
+							enter='ease-out duration-300'
+							enterFrom='opacity-0'
+							enterTo='opacity-100'
+							leave='ease-in duration-200'
+							leaveFrom='opacity-100'
+							leaveTo='opacity-0'>
+							<div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md' />
+						</Transition.Child>
+
+						<div className='fixed inset-0 overflow-y-auto'>
+							<div className='flex min-h-full items-center justify-center p-4 text-center'>
+								<Transition.Child
+									as={Fragment}
+									enter='ease-out duration-300'
+									enterFrom='opacity-0 scale-95'
+									enterTo='opacity-100 scale-100'
+									leave='ease-in duration-200'
+									leaveFrom='opacity-100 scale-100'
+									leaveTo='opacity-0 scale-95'>
+									<Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-neutral-900  border border-neutral-700 p-6 text-left align-middle shadow-xl transition-all'>
+										<Dialog.Title
+											as='h3'
+											className='text-lg font-medium leading-6 text-white'>
+											Leave Quiz
+										</Dialog.Title>
+										<div className='mt-2'>
+											<p className='text-sm text-slate-400'>
+												By leaving this page you active quiz session will be closed.
+												You confirm to leave currenct quiz and go back to quiz selector ?
+											</p>
+										</div>
+										<div className='w-full flex flex-row-reverse  '>
+										<div className='mt-4 '>
+											<span className='  items-center justify-center  bg-gradient-to-r p-[2px]  from-[#7928ca] to-[#ff0080]'>
+												<button
+													type='button'
+													className='text-end rounded-md border border-transparent bg-neutral-900 text-sm text-white p-3'
+													onClick={closeModal}>
+													Cancel
+												</button>
+												<button
+													type='button'
+													className='inline-flex justify-center rounded-md border border-transparent bg-neutral-900 text-sm text-white p-3'
+													onClick={handleResetQuiz}>
+													Confirm
+												</button>
+											</span>
+										</div>
+										</div>
+								
+									</Dialog.Panel>
+								</Transition.Child>
+							</div>
+						</div>
+					</Dialog>
+				</Transition>
 
 		</div>
 	)
