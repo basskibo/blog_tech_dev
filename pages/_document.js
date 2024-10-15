@@ -19,37 +19,20 @@ class MyDocument extends Document {
 					<script
 						dangerouslySetInnerHTML={{
 							__html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID}', {
-					page_path: window.location.pathname,
-                });
-				`,
+                                window.dataLayer = window.dataLayer || [];
+                                function gtag(){dataLayer.push(arguments);}
+                                gtag('js', new Date());
+                                gtag('config', ${JSON.stringify(
+				process.env
+					.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID
+			)} , {
+                                page_path: window.location.pathname,
+                                });
+                            `
 						}}
 					/>
-
-					{/* Umami Analytics - Exclude localhost */}
-					<script
-						dangerouslySetInnerHTML={{
-							__html: `
-                if (window.location.hostname !== 'localhost') {
-					(function(w, d, s, l, i) {
-                    w[l] = w[l] || [];
-                    w[l].push({
-						'gtm.start': new Date().getTime(), event: 'gtm.js'
-                    });
-                    var f = d.getElementsByTagName(s)[0],
-                        j = d.createElement(s),
-                        dl = l != 'dataLayer' ? '&l=' + l : '';
-                    j.async = true;
-                    j.src = 'https://analytics.eu.umami.is/script.js?id=${process.env.UMAMI_WEBSITE_ID}' + dl;
-                    f.parentNode.insertBefore(j, f);
-				})(window, document, 'script', 'dataLayer', '${process.env.UMAMI_WEBSITE_ID}');
-                }
-			`,
-						}}
-					/>
+				
+					<script defer src="https://analytics.eu.umami.is/script.js" data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"></script>
 				</Head>
 				<body>
 					<div id={'globalLoader'} >
