@@ -9,9 +9,15 @@
             <link>https://bojanjagetic.com</link>
         </image>
         <generator>RSS for Node</generator>
+<<<<<<< HEAD
         <lastBuildDate>Sat, 28 Dec 2024 17:17:19 GMT</lastBuildDate>
         <atom:link href="https://bojanjagetic.com/rss.xml" rel="self" type="application/rss+xml"/>
         <pubDate>Sat, 28 Dec 2024 17:17:19 GMT</pubDate>
+=======
+        <lastBuildDate>Sun, 01 Dec 2024 00:45:31 GMT</lastBuildDate>
+        <atom:link href="https://bojanjagetic.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Sun, 01 Dec 2024 00:45:31 GMT</pubDate>
+>>>>>>> 9777361 (feat: moved theme to radix)
         <copyright><![CDATA[All rights reserved 2024, © 2022 Bojan Jagetic]]></copyright>
         <item>
             <title><![CDATA[What is Microservices architecture and how to use it]]></title>
