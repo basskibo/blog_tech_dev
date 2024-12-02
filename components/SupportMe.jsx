@@ -1,6 +1,7 @@
 import React from 'react'
 import { Accent } from '.'
 import { SiPatreon, SiBuymeacoffee } from "react-icons/si"
+import BuyMeCoffee from './custom/buttons/BuyMeACoffe'
 
 const SupportMe = () => {
 	return (
@@ -11,17 +12,7 @@ const SupportMe = () => {
 				whatever amount you like. Possible options are{' '}
 
 				<ul className='flex flex-col space-y-2 items-start mt-2'>
-					<li className='inline-flex justify-center align-baseline items-center space-x-3'>
-						<SiBuymeacoffee />
-						<a
-							href='https://www.buymeacoffee.com/basskibo'
-							target='_blank'
-							rel='noreferrer'
-							className='text-lime-500 underline decoration-dotted decoration-2decoration-sky-400
-			underline-offset-4 link link-underline link-underline-black hover:no-underline hover:cursor-ne-resize '>
-							<Accent>Buy me a coffee </Accent>
-						</a>
-					</li>
+					
 					<li className='inline-flex justify-center align-baseline items-center space-x-3'>
 						<SiPatreon />
 						<a
@@ -33,8 +24,19 @@ const SupportMe = () => {
 							<Accent>Become a Patron! </Accent>
 						</a>
 					</li>
+					<li className='inline-flex justify-center align-baseline items-center space-x-3'>
+						<SiBuymeacoffee />
+						<a
+							href='https://www.buymeacoffee.com/basskibo'
+							target='_blank'
+							rel='noreferrer'
+							className='text-lime-500 underline decoration-dotted decoration-2decoration-sky-400
+			underline-offset-4 link link-underline link-underline-black hover:no-underline hover:cursor-ne-resize '>
+							<Accent>Buy me a coffee </Accent>
+							<BuyMeCoffee />
+						</a>
+					</li>
 				</ul>
-
 
 			</p></div >
 	)
