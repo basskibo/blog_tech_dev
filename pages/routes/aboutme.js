@@ -7,9 +7,9 @@ import SupportMe from '@/components/SupportMe'
 
 const Bio = () => {
 	return (
-		<div className='layout mx-auto lg:my-14 my-5 sm:px-2 xs:px-3 lg:px-5  text-slate-400'>
+		<div className='layout mx-auto lg:my-14 my-5 sm:px-2 xs:px-3 lg:px-5 py-5  text-slate-400'>
 			<div className='my-8 '>
-				<h1 className='mb-5'>
+				<h1 className='mb-5 text-center'>
 					<Accent className='font-extrabold text-5xl'>About</Accent>
 				</h1>
 				{/* <MotionComponent> */}
