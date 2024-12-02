@@ -9,7 +9,7 @@ const FeaturedPosts = () => {
             <div className='container px-5 pb-5 mx-auto my-10'>
                <div className='flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6 '>
                   <div className='p-4 md:w-1/1 lg:w-2/4 flex-auto'>
-                     <div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-neutral-900 text-lime-500 mb-4 flex-shrink-0'></div>
+                     <div className='w-12 h-12 inline-flex items-center justify-center rounded-full  text-lime-500 mb-4 flex-shrink-0'></div>
                      <div className='flex-grow pl-6'>
                         <h1 className='text-white text-4xl title-font font-semibold mb-2'>
                            <Accent className='inline decoration-clone leading-snug dark:leading-none'>
@@ -74,7 +74,7 @@ hover:cursor-pointer transition duration-100 animate-shadow'>
                            </div>
                         </div>
                         <div
-                           className='md:ml-20  absolute bottom-4  rotate-12  bg-neutral-900 rounded-lg transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97]
+                           className='md:ml-20  absolute bottom-4  rotate-12   rounded-lg transform-gpu scale-100 hover:scale-[1.03] active:scale-[0.97]
 hover:cursor-pointer transition duration-100 animate-shadow'>
                            <div className='max-w-sm rounded-lg overflow-hidden shadow-lg border border-slate-600 '>
                               <img

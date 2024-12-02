@@ -36,10 +36,10 @@ const NewsLetter = () => {
 		})
 	}
 	return (
-		<div className='bg-neutral-900  relative  overflow-hidden  md:p-10'>
+		<div className='  relative  overflow-hidden  md:p-10'>
 			{/* <div className='bg-gradient-to-b from-neutral-900  to-[#7928ca]  md:p-5'> */}
 			<div className='relative max-w-7xl mx-auto sm:px-4 lg:px-0 sm:static'>
-				<div className=' grid place-items-left place-content-center xs:mx-2 xs:px-3 mx-auto relative xl:border bg-neutral-900 xl:border-neutral-800   grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
+				<div className=' grid place-items-left place-content-center xs:mx-2 xs:px-3 mx-auto relative xl:border  xl:border-neutral-800   grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
 
 					<div>
 						<h2 className='text-white text-4xl font-semibold'>
@@ -146,7 +146,7 @@ const NewsLetter = () => {
 									leave='ease-in duration-200'
 									leaveFrom='opacity-100 scale-100'
 									leaveTo='opacity-0 scale-95'>
-									<Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-neutral-900  border border-neutral-700 p-6 text-left align-middle shadow-xl transition-all'>
+									<Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl   border border-neutral-700 p-6 text-left align-middle shadow-xl transition-all'>
 										<Dialog.Title
 											as='h3'
 											className='text-lg font-medium leading-6 text-white'>
@@ -165,7 +165,7 @@ const NewsLetter = () => {
 											<span className='bg-gradient-to-r p-[2px]  from-[#7928ca] to-[#ff0080]'>
 												<button
 													type='button'
-													className='inline-flex justify-center rounded-md border border-transparent bg-neutral-900 text-sm text-white p-3'
+													className='inline-flex justify-center rounded-md border border-transparent  text-sm text-white p-3'
 													onClick={closeModal}>
 													Got it, thanks!
 												</button>

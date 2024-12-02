@@ -169,8 +169,8 @@ const QuizComponent = ({ selectedQuiz, setSelectedQuiz, onRequestRestart }) => {
 								<button
 									onClick={checked ? handleNextQuestion : handleCheckAnswer}
 									className={cslx(
-										'mt-10 py-5 px-10 border border-slate-500 text-white rounded-lg hover:border-[#ff0080]  hover:bg-neutral-900 hover:text-[#ff0080]',
-										selectedAnswerIndex === null && !checked ? 'disabled bg-neutral-900 text-slate-500' : ''
+										'mt-10 py-5 px-10 border border-slate-500 text-white rounded-lg hover:border-[#ff0080]  hover: hover:text-[#ff0080]',
+										selectedAnswerIndex === null && !checked ? 'disabled  text-slate-500' : ''
 									)}
 									disabled={selectedAnswerIndex === null && !checked}
 								>
@@ -216,7 +216,7 @@ const QuizComponent = ({ selectedQuiz, setSelectedQuiz, onRequestRestart }) => {
 								<div className='flex flex-row gap-2 items-center '>
 									<button
 										onClick={handlePlayAgain}
-										className=' transform hover:scale-[1.05] transition-all  hover:cursor-pointer hover:text-[#ff0080] hover:bg-neutral-900 border-none py-5 px-20'
+										className=' transform hover:scale-[1.05] transition-all  hover:cursor-pointer hover:text-[#ff0080] hover: border-none py-5 px-20'
 									>
 										Play Again
 										<RefreshIcon />									
@@ -225,14 +225,14 @@ const QuizComponent = ({ selectedQuiz, setSelectedQuiz, onRequestRestart }) => {
 
 								<button
 									onClick={() => setSelectedQuiz(false)}
-									className='transform hover:scale-[1.05] transition-all  hover:cursor-pointer hover:text-[#ff0080] hover:bg-neutral-900 border-none py-5 px-20'
+									className='transform hover:scale-[1.05] transition-all  hover:cursor-pointer hover:text-[#ff0080] hover: border-none py-5 px-20'
 								>
 									Go Back
 									<HomeIcon />
 								</button>
 								{/* <button
 									onClick={() => setSelectedQuiz(false)}
-									className='transform hover:scale-[1.05] transition-all  hover:cursor-pointer hover:text-[#ff0080] hover:bg-neutral-900 border-none py-5 px-20'
+									className='transform hover:scale-[1.05] transition-all  hover:cursor-pointer hover:text-[#ff0080] hover: border-none py-5 px-20'
 								>
 									Share
 									<ShareIcon />
