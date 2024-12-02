@@ -113,9 +113,8 @@ const BlogScreen = ({ posts }) => {
 	return (
 		<div className='layout mx-auto lg:my-14 my-5 py-3 sm:px-2 xs:px-3 lg:px-3  text-slate-400'>
 			<div className='my-8 px-1' id="scrollableDiv">
-				<h1 className='mb-5 text-center'>
-					<Accent className='font-extrabold text-5xl'>Blog </Accent>
-					({data?.length})
+				<h1 className='mb-5 text-center text-5xl'>
+					The <Accent className='font-extrabold '>Blog </Accent>
 				</h1>
 
 				<p className='display-4 px-1'>
