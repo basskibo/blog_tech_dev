@@ -7,7 +7,7 @@ export default function Example({ props }) {
 	debugger
 	return (
 		<div className="w-full  pt-2">
-			<div className=" w-full  rounded-2xl bg-neutral-900 p-2">
+			<div className=" w-full  rounded-2xl  p-2">
 				<Disclosure defaultOpen={defaultOpen}>
 					{({ open }) => (
 						<>

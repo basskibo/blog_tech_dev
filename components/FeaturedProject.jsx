@@ -5,9 +5,9 @@ import Image from 'next/image'
 const FeaturedProject = () => {
 	return (
 		// <div className='bg-gradient-to-b from-neutral-900  to-[#7928ca] '>
-		<div className=' relative bg-neutral-900   '>
+		<div className=' relative    '>
 			<div className='  pt-16 pb-20 sm:pt-24 sm:pb-20 lg:pt-20 lg:pb-32'>
-				<div className='bg-neutral-900  absolute max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
+				<div className='  absolute max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
 					<div className=' sm:max-w-lg'>
 						<h2 className='text-xl font font-bold tracking-tight text-white sm:text-4xl'>
 							Coming soon
