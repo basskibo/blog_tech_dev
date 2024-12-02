@@ -91,8 +91,8 @@ const Libaries = ({ libaries }) => {
 
 	return (
 		// <MotionComponent>
-		<div className='layout mx-auto lg:my-14 my-5  sm:px-2 xs:px-3 lg:px-5 py-3 text-center text-slate-400'>
-			<div className='my-8 px-1'>
+		<div className='layout mx-auto lg:my-0 my-3  sm:px-2 xs:px-3 lg:px-5 py-2 text-center text-slate-400'>
+			<div className='my-24 px-1'>
 
 			<ComponentHeader titlePrefix={'Created '} title={'Libaries'} subtitle={''} text={bio} />
 

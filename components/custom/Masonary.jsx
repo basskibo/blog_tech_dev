@@ -43,7 +43,7 @@ const Child = ({ style, index, data, type }) => {
 						className={clsx(
 							'relative flex flex-1 flex-col transition transform scale-100 card-hover cursor-pointer',
 							post?.data?.inPreparation && 'pointer-events-none',
-							'opacity-60 hover:opacity-100'
+							'opacity-70 hover:opacity-100'
 						)}
 					>
 						{/* Image Section */}
