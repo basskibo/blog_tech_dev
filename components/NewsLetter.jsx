@@ -5,6 +5,8 @@ import { MdWavingHand } from 'react-icons/md'
 import { SiHashnode, SiDevdotto, SiMedium } from 'react-icons/si'
 import axios from 'axios'
 import ActiveLink from './custom/ActiveLink'
+import { generalStyles } from './config/styles'
+import clsx from 'clsx'
 
 const NewsLetter = () => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -36,7 +38,7 @@ const NewsLetter = () => {
 		})
 	}
 	return (
-		<div className='  relative  overflow-hidden  md:p-10'>
+		<div className='  relative bg-black  overflow-hidden  md:p-10'>
 			{/* <div className='bg-gradient-to-b from-neutral-900  to-[#7928ca]  md:p-5'> */}
 			<div className='relative max-w-7xl mx-auto sm:px-4 lg:px-0 sm:static'>
 				<div className=' grid place-items-left place-content-center xs:mx-2 xs:px-3 mx-auto relative xl:border  xl:border-neutral-800   grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
@@ -67,11 +69,11 @@ const NewsLetter = () => {
 						</p>
 						<div className='flex flex-col xl:flex-row'>
 							<a data-umami-event={'newslatter-devto-click'}
-								className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
-               hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'
+								className={clsx(generalStyles.buttonBordered,'ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm flex flex-row m-2')  }
+
 								href="https://dev.to/basskibo" target='_blank' rel='noreferrer'>
 								<span className='basis-3/4 md:text-sm '>Dev.to</span>
-								<SiDevdotto className='text-xl mx-1 px-0 basis-1/4 text-[#fff]' />
+								<SiDevdotto className='text-xl mx-1 px-0 basis-2/4 text-[#fff]' />
 							</a>
 							<a data-umami-event={'newslatter-hashnode-click'} className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
                hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'
