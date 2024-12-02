@@ -5,8 +5,7 @@ import { MdWavingHand } from 'react-icons/md'
 import { SiHashnode, SiDevdotto, SiMedium } from 'react-icons/si'
 import axios from 'axios'
 import ActiveLink from './custom/ActiveLink'
-import { generalStyles } from './config/styles'
-import clsx from 'clsx'
+import { IoNewspaperOutline } from 'react-icons/io5'
 
 const NewsLetter = () => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -53,7 +52,7 @@ const NewsLetter = () => {
 						</p>
 						<a data-umami-event={'say-hello-click'}
 							className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
-            hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'
+               hover:cursor-pointer text-center text-white  border border-primary-400  hover:text-secondary-400 hover:shadow-neutral-500'
 							href="mailto:jagetic.bojan@gmail.com">
 							<span className='basis-3/4 md:text-sm '>Say hello</span>
 							<MdWavingHand className='text-xl mx-1 px-0 basis-1/4 text-amber-400' />
@@ -69,20 +68,20 @@ const NewsLetter = () => {
 						</p>
 						<div className='flex flex-col xl:flex-row'>
 							<a data-umami-event={'newslatter-devto-click'}
-								className={clsx(generalStyles.buttonBordered,'ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm flex flex-row m-2')  }
-
+								className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
+               hover:cursor-pointer text-center text-white  border border-primary-400  hover:text-secondary-400 hover:shadow-neutral-500'
 								href="https://dev.to/basskibo" target='_blank' rel='noreferrer'>
 								<span className='basis-3/4 md:text-sm '>Dev.to</span>
-								<SiDevdotto className='text-xl mx-1 px-0 basis-2/4 text-[#fff]' />
+								<SiDevdotto className='text-xl mx-1 px-0 basis-1/4 text-[#fff]' />
 							</a>
 							<a data-umami-event={'newslatter-hashnode-click'} className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
-               hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'
+               hover:cursor-pointer text-center text-white  border border-primary-400  hover:text-secondary-400 hover:shadow-neutral-500'
 								href="https://hashnode.bojanjagetic.com/" target='_blank' rel='noreferrer'>
 								<span className='basis-3/4 md:text-sm '>Hashnode</span>
 								<SiHashnode className='text-xl mx-1 px-0 basis-1/4 text-[#2962FF]' />
 							</a>
 							<a data-umami-event={'newslatter-medium-click'} className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
-               hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'
+               hover:cursor-pointer text-center text-white  border border-primary-400  hover:text-secondary-400 hover:shadow-neutral-500'
 								href="https://medium.com/@jagetic.bojan" target='_blank' rel='noreferrer'>
 								<span className='basis-3/4 md:text-sm '>Medium</span>
 								<SiMedium className='text-xl mx-1 px-0 basis-1/4 text-[#cecece]' />
@@ -102,15 +101,16 @@ const NewsLetter = () => {
 					</div>
 					<div>
 						<div className=' items-stretch grid'>
+						
 							<a
 								data-umami-event={'newslatter-subscribe-click'}
-								data-splitbee-event="Subscribe Newsletter"
-								target="_blank"
-								rel="noreferrer"
+
+								className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
+               hover:cursor-pointer text-center text-white  border border-primary-400  hover:text-secondary-400 hover:shadow-neutral-500'
 								href="https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist"
-								disabled={!email}
-								className='transform hover:scale-[1.02] transition-all md:w-1/4 ml-0 xs:ml-0 p-2 w-4/4 my-3 lg:w-1/4 rounded-md  shadow-sm  shadow-neutral-700 hover:cursor-pointer text-center text-white  border border-[#7928ca]  hover:text-[#ff0080] hover:shadow-neutral-500'>
-							Subscribe on newslatter
+								target='_blank' rel='noreferrer'>
+								<span className='basis-3/4 md:text-sm '>Subscribe on newslatter</span>
+								<IoNewspaperOutline className='text-xl mx-1 px-0 basis-1/4 text-[#cecece]' />
 							</a>
 						</div>
 

@@ -12,7 +12,6 @@ module.exports = {
 				'hero-pattern': 'url(\'../public/images/hero.svg\')'
 			},
 			colors: {
-				background: "rgba(var(--background))",
 				border: "rgba(var(--border))",
 				card: "rgba(var(--card))",
 				cta: "rgba(var(--cta))",
@@ -27,13 +26,29 @@ module.exports = {
 				...sky,
 				...jadeDark,
 				primary: {
-					// Customize it on globals.css :root
-					200: 'rgb(var(--tw-clr-primary-200) / <alpha-value>)',
-					300: 'rgb(var(--tw-clr-primary-300) / <alpha-value>)',
-					400: 'rgb(var(--tw-clr-primary-400) / <alpha-value>)',
-					500: 'rgb(var(--tw-clr-primary-500) / <alpha-value>)',
+					100: blueDark.blue12,   // Use any color from the Radix blueDark palette
+					200: blueDark.blue11,
+					300: blueDark.blue10,
+					400: blueDark.blue9,
+					500: blueDark.blue8,
+					600: blueDark.blue7,
+					700: blueDark.blue6,
+					800: blueDark.blue5,
+					900: blueDark.blue4,
+				},
+				secondary: {
+					100: jadeDark.jade12,   // Replace with desired color from Radix
+					200: jadeDark.jade11,
+					300: violet.violet3,
+					400: jadeDark.jade9,
+					500: violet.violet5,
+					600: violet.violet6,
+					700: violet.violet7,
 				},
 				dark: '#0e1111',
+				gold: '#ffd700',
+				silver: '#c0c0c0',
+				bronze: '#cd7f32'
 			},
 			keyframes: {
 				flicker: {

@@ -85,14 +85,14 @@ const Landing = () => {
 								href='/routes/blog'
 								name='blog'
 								id='blog_post_button'
-								className={generalStyles.buttonBordered}>
+								className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-sm  shadow-neutral-800 hover:cursor-pointer text-center text-white  border border-primary-400 hover:text-primary-400 hover:shadow-neutral-600 transform hover:scale-[1.03] transition-all'>
 								Read blog
 							</ActiveLink>
 							<ActiveLink
 								data-umami-event="landing-see-bio"
 								href='/routes/aboutme'
 								id='aboutme_button'
-								className={generalStyles.getDefaultBorder()}>
+								className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-sm  shadow-neutral-800 hover:cursor-pointer text-center text-white  border border-primary-400 hover:text-primary-400 hover:shadow-neutral-600 transform hover:scale-[1.03] transition-all'>
 								See my bio
 							</ActiveLink>
 						</div>

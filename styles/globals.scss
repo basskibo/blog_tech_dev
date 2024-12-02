@@ -7,7 +7,7 @@
 }
 html,
 body {
-	background-color: #0a0a0a;
+	background-color: #000;
 	box-sizing: border-box;
 
 	padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
@@ -17,7 +17,7 @@ body {
 	padding: 0;
 	margin: 0;
 	// font-family: "Montserrat", sans-serif;
-	font-family: 'Ubuntu', 'Rethink Sans',  sans-serif;
+	font-family: 'Ubuntu', 'Rethink Sans', sans-serif;
 	&:before {
 		content: '';
 		content: '';
@@ -224,7 +224,7 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-	background: #292929;
+	background: #000;
 	/* box-shadow: inset -10px 10px 15px #555;  */
 	border-radius: 70px;
 }
@@ -273,7 +273,7 @@ a {
 }
 
 .card-hover:hover {
-	transform: scale(1.05);
+	// transform: scale(1.01);
 }
 
 /* Add pulse animation for 'Coming Soon' */
@@ -289,4 +289,20 @@ a {
 
 .coming-soon {
 	animation: pulse 1.5s infinite;
+}
+
+.bg-gold {
+	border:1px solid #ffd700;
+}
+
+.border-gold {
+	background-color: #ffd700;
+}
+
+.bg-silver {
+	background-color: #c0c0c0;
+}
+
+.bg-bronze {
+	background-color: #cd7f32;
 }
