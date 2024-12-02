@@ -43,7 +43,7 @@ const FeaturedPosts = () => {
 	}
 
 	return (
-		<div className='relative  overflow-hidden md:p-5' id='featuredPostsSection'>
+		<div className='relative bg-black overflow-hidden md:p-5' id='featuredPostsSection'>
 			<div className='pt-16 pb-20 sm:pt-24 sm:pb-20 lg:pt-20 lg:pb-32'>
 				<div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
 					<div className='sm:max-w-lg'>
