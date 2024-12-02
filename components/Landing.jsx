@@ -9,6 +9,7 @@ import { IoCloudDownloadOutline } from "react-icons/io5"
 import ParticlesBackground from './custom/ParticlesBackground'
 import AnchorLinkComponent from './custom/AnchorLink'
 import FeaturedProject from './FeaturedProject'
+import { generalStyles } from './config/styles'
 
 const Landing = () => {
 	const handleDownload = () => {
@@ -24,7 +25,7 @@ const Landing = () => {
 	}
 
 	return (
-			<div className='bg-gradient-to-b from-neutral-900  to-[#7928ca] '>
+			<div className='bg-gradient-to-b from-black  to-blue7 '>
 				{/* <div className=''> */}
 				<div className=' text-slate-200 md:px-10 px-5 '>
 				<ParticlesBackground />
@@ -84,15 +85,14 @@ const Landing = () => {
 								href='/routes/blog'
 								name='blog'
 								id='blog_post_button'
-								className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-sm  shadow-neutral-800
-				hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-[#ff0080] hover:shadow-neutral-600 '>
+								className={generalStyles.buttonBordered}>
 								Read blog
 							</ActiveLink>
 							<ActiveLink
 								data-umami-event="landing-see-bio"
 								href='/routes/aboutme'
 								id='aboutme_button'
-								className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-sm  shadow-neutral-800 hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-[#ff0080] hover:shadow-neutral-500 '>
+								className={generalStyles.buttonBordered}>
 								See my bio
 							</ActiveLink>
 						</div>
