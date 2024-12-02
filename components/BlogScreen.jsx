@@ -3,6 +3,7 @@ import Accent from './custom/Accent'
 import 'react-loading-skeleton/dist/skeleton.css'
 import clsx from 'clsx'
 import Virtualized from './custom/Masonary'
+import { ComponentHeader } from './layout/ComponentHeading'
 
 const getCategories = (posts) => {
 	try {
@@ -110,19 +111,15 @@ const BlogScreen = ({ posts }) => {
 		setData(filteredData)
 	}
 
+	const bio = `In order not to wander in the dark (as I did with some things)
+					until I found a solution, I wrote some things so that one day
+					some unknown hero might be helped.`
+
 	return (
 		<div className='layout mx-auto lg:my-14 my-5 py-3 sm:px-2 xs:px-3 lg:px-3  text-slate-400'>
 			<div className='my-8 px-1' id="scrollableDiv">
-				<h1 className='mb-5 text-center text-5xl'>
-					The <Accent className='font-extrabold '>Blog </Accent>
-				</h1>
+				<ComponentHeader titlePrefix={'The '} title={'Blog'} subtitle={''} text={bio} />
 
-				<p className='display-4 px-1'>
-					In order not to wander in the dark (as I did with some things)
-					until I found a solution, I wrote some things so that one day
-					some unknown hero might be helped.
-				</p>
-				{/* <MdSearch /> */}
 				<div className='px-1'>
 					<input
 						className='w-full lg:w-4/4 my-3   px-3 py-2 rounded-md border border-slate-600  flex-grow cursor-text'
