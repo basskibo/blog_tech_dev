@@ -4,6 +4,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import clsx from 'clsx'
 import Virtualized from './custom/Masonary'
 import { ComponentHeader } from './layout/ComponentHeading'
+import { generalStyles } from './config/styles'
 
 const getCategories = (posts) => {
 	try {
@@ -142,10 +143,11 @@ const BlogScreen = ({ posts }) => {
 										<span
 											className={clsx(
 												// eslint-disable-next-line no-constant-condition
-												'flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border-1 border-teal-700 bg-[#7928ca] hover:bg-[#ff0080] hover:text-white hover:cursor-pointer transition duration-500 ease-in-out', '' ? '' : '',
+												'flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border-1  hover:text-white hover:cursor-pointer transition duration-500 ease-in-out', '' ? '' : '',
 												search === category.name
-													? ' underline decoration-solid decoration-2 bg-[#ff0080]  underline-offset-4 '
-													: 'text-white'
+													? ` underline decoration-solid decoration-2 bg-${generalStyles.mainColor}  underline-offset-4 `
+													: search !== '' & search !== category.name?  'text-gray-500': 'text-white',
+													generalStyles.defaultBorder
 											)}>
 											{category.name}
 										</span>

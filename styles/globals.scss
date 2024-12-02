@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-	--grape: 114, 35,204
+	--grape: 114, 35, 204;
 }
 html,
 body {
@@ -17,7 +17,7 @@ body {
 	padding: 0;
 	margin: 0;
 	// font-family: "Montserrat", sans-serif;
-	font-family: 'Ubuntu', sans-serif;
+	font-family: 'Ubuntu', 'Rethink Sans',  sans-serif;
 	&:before {
 		content: '';
 		content: '';
@@ -33,6 +33,12 @@ body {
 		background-repeat: no-repeat;
 		background-size: cover;
 	}
+}
+.rethink-sans {
+	font-family: 'Rethink Sans', sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
 }
 
 // .ubuntu-light {
@@ -85,7 +91,6 @@ body {
 .text-shadow {
 	text-shadow: 0px 2px 0px rgb(0 0 0 / 30%);
 }
-
 
 // .landing-section-bg {
 // 	height: 100vh;
@@ -176,7 +181,6 @@ a {
 	text-decoration: none;
 }
 
-
 // @keyframes animate023845 {
 // 	to {
 // 		transform: rotate(1turn);
@@ -248,42 +252,41 @@ a {
 	height: auto;
 }
 
-
 // ANIMATION
 
 /* Base fade-in and translateY animation */
 .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    will-change: opacity, transform; /* Hint browser to optimize */
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+	will-change: opacity, transform; /* Hint browser to optimize */
 }
 
-
 .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+	opacity: 1;
+	transform: translateY(0);
 }
 
 /* Add scaling for hover effect */
 .card-hover {
-    transition: transform 0.2s ease-in-out;
+	transition: transform 0.2s ease-in-out;
 }
 
 .card-hover:hover {
-    transform: scale(1.05);
+	transform: scale(1.05);
 }
 
 /* Add pulse animation for 'Coming Soon' */
 @keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
 }
 
 .coming-soon {
-    animation: pulse 1.5s infinite;
+	animation: pulse 1.5s infinite;
 }
