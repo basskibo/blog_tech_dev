@@ -23,11 +23,11 @@ const SimiliarPosts = ({ tags }) => {
 
 	return (
 		<div className='my-5'>
-			<h2 className='text-3xl my-3 font-bold'><Accent>Other posts that you might like </Accent></h2>
+			<h2 className='text-3xl my-3 font-bold'> Other posts that you  <Accent>might like </Accent></h2>
 			<div className='flex flex-col md:flex-row gap-5 '>
 				{similiarPosts ? similiarPosts?.map((post) => (
 					<a key={post?.slug} href={`/post/${post?.slug}`} data-umami-event={`similiar-post-${post?.slug}}-click`}
-						className='bg-[#00000099] border border-neutral-800 break-words rounded-lg basis-1/1 md:basis-1/2 lg:basis-1/3 h-full hover:border-[#ff0080]'>
+						className='bg-[#00000099] border border-neutral-800 break-words rounded-lg basis-1/1 md:basis-1/2 lg:basis-1/3 h-full hover:border-primary-400'>
 						<img className='rounded-t-xl h-52 w-full' alt={'Similiar post img'} src={post?.featuredImage} height={30} />
 						<div className='p-3 flex flex-col h-56'>
 							<span className='text-white font-bold mt-2 ml-2 mb-5'>

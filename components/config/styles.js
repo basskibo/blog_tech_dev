@@ -11,7 +11,7 @@ export const generalStyles =  {
 				hover:cursor-pointer text-center text-white  border border-${generalTheme.mainColor} hover:text-${generalTheme.secondary} hover:shadow-neutral-600 transform hover:scale-[1.03] transition-all`,
 	getDefaultBorder: function () {
 		const x = `mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-sm  shadow-neutral-800 
-				hover:cursor-pointer text-center text-white  border border-${generalTheme.third} hover:text-${generalTheme.secondary} hover:shadow-neutral-600 transform hover:scale-[1.03] transition-all`
+				hover:cursor-pointer text-center text-white  border border-${generalTheme.mainColor} hover:text-${generalTheme.third} hover:shadow-neutral-600 transform hover:scale-[1.03] transition-all`
 		return JSON.stringify(x);
 	},
 	getHeaderStyle: () => {
