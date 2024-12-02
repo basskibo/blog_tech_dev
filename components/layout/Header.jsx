@@ -20,6 +20,7 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import classNames from "classnames";
 import { CaretDownIcon, DividerVerticalIcon } from "@radix-ui/react-icons";
 import clsx from 'clsx'
+import { generalStyles, generalTheme } from '../config/styles'
 
 const Header = () => {
 	const [isScrolled, setIsScrolled] = React.useState(false);
@@ -49,10 +50,10 @@ const Header = () => {
 	return (
 		<>
 			<NavigationMenu.Root className={clsx(menuClass)}>
-				<NavigationMenu.List className="center m-0 flex list-none rounded-md  p-1 shadow-[0_2px_10px] bg-slate-700 backdrop-filter backdrop-blur-lg bg-opacity-30 shadow-blackA4">
+				<NavigationMenu.List className="center m-0 flex list-none rounded-md  p-2 shadow-[0_2px_10px] bg-neutral-800/60 backdrop-filter backdrop-blur-lg bg-opacity-30 shadow-blackA4">
 					<NavigationMenu.Item>
 						<NavigationMenu.Link
-							className="block select-none rounded px-3 py-2 text-[15px] font-medium leading-none text-mauve8 no-underline outline-none  focus:shadow-[0_0_0_2px] focus:shadow-violet7"
+							className={generalStyles.getHeaderStyle()}
 							href="/"
 						>
 							Home
@@ -61,7 +62,7 @@ const Header = () => {
 
 					<NavigationMenu.Item>
 						<NavigationMenu.Link
-							className="block select-none rounded px-3 py-2 text-[15px] font-medium leading-none text-mauve8 no-underline outline-none  focus:shadow-[0_0_0_2px] focus:shadow-violet7"
+							className={generalStyles.getHeaderStyle()}
 							href="/routes/blog"
 						>
 							Blog
@@ -69,7 +70,7 @@ const Header = () => {
 					</NavigationMenu.Item>
 					<NavigationMenu.Item>
 						<NavigationMenu.Link
-							className="block select-none rounded px-3 py-2 text-[15px] font-medium leading-none text-mauve8 no-underline outline-none  focus:shadow-[0_0_0_2px] focus:shadow-violet7"
+							className={generalStyles.getHeaderStyle()}
 							href="/routes/libaries"
 						>
 							Libary
@@ -123,32 +124,27 @@ const Header = () => {
 						</NavigationMenu.Content>
 					</NavigationMenu.Item> */}
 
+	
 					<NavigationMenu.Item>
 						<NavigationMenu.Link
-							className="block select-none rounded px-3 py-2 text-[15px] font-medium leading-none text-mauve8 no-underline outline-none  focus:shadow-[0_0_0_2px] focus:shadow-violet7"
-							href="/quiz"
-						>
-							Quiz
-						</NavigationMenu.Link>
-					</NavigationMenu.Item>
-					<NavigationMenu.Item>
-						<NavigationMenu.Link
-							className="block select-none rounded px-3 py-2 text-[15px] font-medium leading-none text-mauve8 no-underline outline-none  focus:shadow-[0_0_0_2px] focus:shadow-violet7"
+							className={generalStyles.getHeaderStyle()}
 							href="/routes/aboutme"
 						>
 							About
 						</NavigationMenu.Link>
 					</NavigationMenu.Item>
-					<div className="w-px pt-5 bg-neutral-500 h-[20px]"></div>
+					<div className="w-px pt-2 bg-neutral-700 h-100%"></div>
 					<NavigationMenu.Item>
-						<NavigationMenu.Trigger className="group flex select-none items-center justify-between gap-0.5 rounded px-3 py-2 text-[15px] font-medium leading-none text-mauve11 outline-none  focus:shadow-[0_0_0_2px] focus:shadow-violet7">
+						<NavigationMenu.Trigger 
+						className={`group flex select-none items-center justify-between gap-0.5 rounded px-3 py-1 text-[17px] font-medium leading-none text-mauve9 hover:text-${generalStyles.mainColor} outline-none  focus:shadow-[0_0_0_2px] focus:shadow-violet7`}
+						>
 							More{" "}
 							<CaretDownIcon
-								className="relative top-px text-mauve11  transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180"
+								className="relative top-px text-mauve9  transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180"
 								aria-hidden
 							/>
 						</NavigationMenu.Trigger>
-						<NavigationMenu.Content className="absolute left-0 top-0 w-full data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft sm:w-auto">
+						<NavigationMenu.Content className="absolute bg-gray-900 left-0 top-0 w-full data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft sm:w-auto">
 							<ul className="one m-0 grid list-none gap-x-2.5 p-[22px] sm:w-[500px] sm:grid-cols-[0.75fr_1fr]">
 								<li className="row-span-3 grid">
 									<NavigationMenu.Link asChild>
@@ -174,14 +170,14 @@ const Header = () => {
 									</NavigationMenu.Link>
 								</li>
 
-								<ListItem href="https://stitches.dev/" title="Stitches">
-									CSS-in-JS with best-in-class developer experience.
+								<ListItem href="/quiz" title="Quiz">
+									Play interview quiz and test your knowledge in desired field
 								</ListItem>
 								<ListItem href="/colors" title="Colors">
 									Beautiful, thought-out palettes with auto dark mode.
 								</ListItem>
-								<ListItem href="https://icons.radix-ui.com/" title="Icons">
-									A crisp set of 15x15 icons, balanced and consistent.
+								<ListItem href="https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist" title="Newsletter">
+									Subscribe to my newslatter and be up to date
 								</ListItem>
 							</ul>
 						</NavigationMenu.Content>

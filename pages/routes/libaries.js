@@ -9,6 +9,7 @@ import { getLibaryFiles } from '../../services/indexv2'
 import Virtualized from '../../components/custom/Masonary'
 import clsx from 'clsx'
 import { ComponentHeader } from '@/components/layout/ComponentHeading'
+import { generalStyles } from '@/components/config/styles'
 
 const getCategories = (posts) => {
 	try {
@@ -117,13 +118,14 @@ const Libaries = ({ libaries }) => {
 										disabled={true}
 										onClick={handleCategoryClick}>
 										<span
-											className={clsx(
-												// eslint-disable-next-line no-constant-condition
-												'flex items-center m-1 justify-cente opacity-80 text-white font-bold  rounded-lg text-sm px-2 py-2 border-1 border-teal-700 bg-[#7928ca] hover:bg-[#ff0080] hover:text-white hover:cursor-pointer transition duration-500 ease-in-out', '' ? '' : '',
-												search === category.name
-													? ' underline decoration-solid decoration-2 bg-[#ff0080]  underline-offset-4 '
-													: 'text-white'
-											)}>
+												className={clsx(
+													// eslint-disable-next-line no-constant-condition
+													'flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border-1  hover:text-white hover:cursor-pointer transition duration-500 ease-in-out', '' ? '' : '',
+													search === category.name
+														? ` underline decoration-solid decoration-2 bg-${generalStyles.mainColor}  underline-offset-4 `
+														: search !== '' & search !== category.name?  'text-gray-500': 'text-white',
+														generalStyles.defaultBorder
+												)}>
 											{category.name}
 										</span>
 									</a>

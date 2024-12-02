@@ -92,7 +92,7 @@ const Landing = () => {
 								data-umami-event="landing-see-bio"
 								href='/routes/aboutme'
 								id='aboutme_button'
-								className={generalStyles.buttonBordered}>
+								className={generalStyles.getDefaultBorder()}>
 								See my bio
 							</ActiveLink>
 						</div>
