@@ -117,8 +117,8 @@ const BlogScreen = ({ posts }) => {
 					some unknown hero might be helped.`
 
 	return (
-		<div className='layout mx-auto lg:my-14 my-5 py-3 sm:px-2 xs:px-3 lg:px-3  text-slate-400'>
-			<div className='my-8 px-1' id="scrollableDiv">
+		<div className='layout mx-auto lg:my-0 my-5 py-3 sm:px-2 xs:px-3 lg:px-3  text-slate-400'>
+			<div className='my-24 px-1' id="scrollableDiv">
 				<ComponentHeader titlePrefix={'The '} title={'Blog'} subtitle={''} text={bio} />
 
 				<div className='px-1'>
@@ -143,11 +143,11 @@ const BlogScreen = ({ posts }) => {
 										<span
 											className={clsx(
 												// eslint-disable-next-line no-constant-condition
-												'flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border-1  hover:text-white hover:cursor-pointer transition duration-500 ease-in-out', '' ? '' : '',
+												'flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border border-primary-400  hover:text-white hover:cursor-pointer transition duration-500 ease-in-out',
 												search === category.name
-													? ` underline decoration-solid decoration-2 bg-${generalStyles.mainColor}  underline-offset-4 `
-													: search !== '' & search !== category.name?  'text-gray-500': 'text-white',
-													generalStyles.defaultBorder
+													? ` underline decoration-solid decoration-2 bg-primary-400 underline-offset-4 `
+													: search !== '' & search !== category.name?  'text-gray-500': 'text-white'
+													
 											)}>
 											{category.name}
 										</span>

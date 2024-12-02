@@ -31,36 +31,40 @@ const PostDetail = ({ post, content }) => {
 	}
 
 	return (
-		<div className=' mx-auto  lg:rounded-lg lg:p-0 lg:mt-5 sm:mt-10 xs:mt-10'>
-			<div className='flex justify-left mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
-				<h1 className='lg:text-4xl text-xl lg:my-5 text-semibold text-white font-bold'>
-					{post.title}
-				</h1>
-			</div>
-			<div className='relative overflow-hidden  md-6 h-96'>
-				<Image
-					src={post.featuredImage}
-					alt={post.title}
-					blurDataURL={constants.imageBlogURI}
-					placeholder='blur'
-					layout='fill'
-					priority
-					style={{ transform: 'translate3d(0, 0, 0)' }}
-					className='object-cover rounded-lg'
-				/>
-				<div className='absolute w-full  bottom-0 inset-x-0  text-white font- float-right text-xs md:text-xs text-right leading-4 py-2 px-4 flex flex-row-reverse '>
-					<div className=' backdrop-filter backdrop-blur-3xl p-2'>
-						{post.imageCreditUser
-							? <span> Photo by <a href={generateCreditImageUrl()} target="_blank" rel='noreferrer'>
-								{post.imageCreditUser}</a> on <a target="_blank" rel='noreferrer' className='underline' href="https://unsplash.com/s/photos/blog?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> </span>
-							: <span>Photo used from <a className='underline' href="https://unsplash.com/">Unsplash</a></span>}
+<div className='mx-auto lg:rounded-lg lg:p-0 lg:mt-5 sm:mt-10 xs:mt-10'>
+  <div className='flex justify-left mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
+    <h1 className='lg:text-4xl text-xl lg:my-5 text-semibold text-white font-bold'>
+      {post.title}
+    </h1>
+  </div>
+  <div className='relative overflow-hidden md-6 h-96'>
+    <Image
+      src={post.featuredImage}
+      alt={post.title}
+      blurDataURL={constants.imageBlogURI}
+      placeholder='blur'
+      layout='fill'
+      priority
+      style={{ transform: 'translate3d(0, 0, 0)' }}
+      className='object-cover rounded-lg'
+    />
+    {/* Lighter Gradient Overlay on Both Sides and Top */}
+    <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/40'></div>
+    <div className='absolute inset-0 bg-gradient-to-r from-black/90 via-transparent to-black/90'></div>
+    <div className='absolute w-full bottom-0 inset-x-0 text-white font- float-right text-xs md:text-xs text-right leading-4 py-2 px-4 flex flex-row-reverse'>
+      <div className='backdrop-filter backdrop-blur-3xl p-2'>
+        {post.imageCreditUser
+          ? <span> Photo by <a href={generateCreditImageUrl()} target="_blank" rel='noreferrer'>
+            {post.imageCreditUser}</a> on <a target="_blank" rel='noreferrer' className='underline' href="https://unsplash.com/s/photos/blog?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> </span>
+          : <span>Photo used from <a className='underline' href="https://unsplash.com/">Unsplash</a></span>}
+      </div>
+    </div>
+  </div>
 
-					</div>
-				</div>
-			</div>
-			{/* <div className='relative  md-6 h-96  '>
 
-         </div> */}
+
+
+
 			<div className='lg:px-0 prose 2xl:text-md xl:text-sm'>
 				<div className=' text-slate-400 mb-6 my-6 w-full'>
 					<div className='flex-1  mb-2 w-full lg:w-auto '>

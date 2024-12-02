@@ -4,6 +4,7 @@ const prisma = new PrismaClient()
 
 const postView = async (req, res) => {
 	let result
+	console.log('Getting views >>>')
 	if (req.method === 'POST') {
 		// Process a POST request
 		try {
