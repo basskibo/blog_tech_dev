@@ -14,7 +14,7 @@ const TechnologyStack = () => {
 		<div>
 			<h2 className='mb-3'>
 				{' '}
-				<Accent>Backend  </Accent> frameworks and services I preffer and mostly use{' '}
+				Backend  frameworks and services I preffer and mostly use{' '}
 			</h2>
 			<span className='flex '>
 				{BEtechArray.map((tech, index) => (
@@ -28,7 +28,7 @@ const TechnologyStack = () => {
 			</span>
 			<h2 className='mb-3'>
 				{' '}
-				<Accent>Frontend </Accent> and hybrid mobile frameworks I preffer and mostly use :
+				Frontend and hybrid mobile frameworks I preffer and mostly use :
 			</h2>
 			<span className='flex'>
 				{FEtechArray.map((tech, index) => (

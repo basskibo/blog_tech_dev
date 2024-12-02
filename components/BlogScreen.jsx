@@ -125,7 +125,7 @@ const BlogScreen = ({ posts }) => {
 				{/* <MdSearch /> */}
 				<div className='px-1'>
 					<input
-						className='w-full lg:w-4/4 my-3 bg-neutral-900  px-3 py-2 rounded-md border border-slate-600  flex-grow cursor-text'
+						className='w-full lg:w-4/4 my-3   px-3 py-2 rounded-md border border-slate-600  flex-grow cursor-text'
 						placeholder='Search...'
 						value={search}
 						type='search'

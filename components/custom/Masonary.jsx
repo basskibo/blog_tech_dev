@@ -66,7 +66,7 @@ const Child = ({ style, index, data, type }) => {
 						</div> }
 
 						{/* Content Section */}
-						<div className="flex flex-col space-y-2 justify-start p-3 bg-neutral-900 text-white h-full">
+						<div className="flex flex-col space-y-2 justify-start p-3  text-white h-full">
 							<div>
 								<CategoryChip categories={post?.data?.tags} className="mb-2" />
 								<h1 className="text-lg font-bold mb-1">{post?.data?.title}</h1>

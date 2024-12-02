@@ -43,7 +43,7 @@ const FeaturedPosts = () => {
 	}
 
 	return (
-		<div className='relative bg-neutral-900 overflow-hidden md:p-5' id='featuredPostsSection'>
+		<div className='relative  overflow-hidden md:p-5' id='featuredPostsSection'>
 			<div className='pt-16 pb-20 sm:pt-24 sm:pb-20 lg:pt-20 lg:pb-32'>
 				<div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
 					<div className='sm:max-w-lg'>
@@ -65,7 +65,7 @@ const FeaturedPosts = () => {
 									data-umami-event={`landing-ftr-post-${post.slug}`}
 									className='transform hover:scale-[1.02] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-[#7928ca] to-[#ff0080]'
 									href={post.slug}>
-									<div className='flex flex-col justify-between h-full bg-neutral-900  rounded-lg p-4'>
+									<div className='flex flex-col justify-between h-full   rounded-lg p-4'>
 										<div className='flex flex-col md:flex-row justify-between'>
 											<h3 className='text-lg md:text-lg font-medium mb-4 sm:mb-10 w-full text-gray-100 tracking-tight'>
 												{post.name || <Skeleton />}
@@ -112,7 +112,7 @@ const FeaturedPosts = () => {
 								<a key={post.name}
 									className='transform hover:scale-[1.02] transition-all rounded-xl w-full md:w-1/3 bg-gradient-to-r p-1 from-[#7928ca] to-[#ff0080]'
 									href={post.slug}>
-									<div className='flex flex-col justify-between h-full bg-neutral-900  rounded-lg p-4'>
+									<div className='flex flex-col justify-between h-full   rounded-lg p-4'>
 										<div className='flex flex-col md:flex-row justify-between'>
 											<h3 className='text-lg md:text-lg font-medium mb-4 sm:mb-10 w-full text-gray-100 tracking-tight'>
 												{post.name || <Skeleton />}
