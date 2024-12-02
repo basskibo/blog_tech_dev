@@ -8,6 +8,7 @@ import matter from 'gray-matter'
 import { getLibaryFiles } from '../../services/indexv2'
 import Virtualized from '../../components/custom/Masonary'
 import clsx from 'clsx'
+import { ComponentHeader } from '@/components/layout/ComponentHeading'
 
 const getCategories = (posts) => {
 	try {
@@ -84,20 +85,25 @@ const Libaries = ({ libaries }) => {
 		})
 		setData(filteredData)
 	}
+	const bio = `Here you can find some of my simple libaries and repositories
+					which are open source so feel free to use it in your projects.`
 
 	return (
 		// <MotionComponent>
 		<div className='layout mx-auto lg:my-14 my-5  sm:px-2 xs:px-3 lg:px-5 py-3 text-center text-slate-400'>
 			<div className='my-8 px-1'>
-				<h1 className='mb-5'>
+
+			<ComponentHeader titlePrefix={'Created '} title={'Libaries'} subtitle={''} text={bio} />
+
+				{/* <h1 className='mb-5'>
 					The <Accent className='font-extrabold text-5xl'>Libary</Accent> ({data?.length})
 				</h1>
 				<p className='display-4 px-1'>
 					Here you can find some of my simple libaries and repositories
 					which are open source so feel free to use it in your projects.
-				</p>
+				</p> */}
 				<input
-					className='w-full my-3 bg-neutral-900  px-3 py-2 rounded-md border border-slate-600 focus:border-lime-600'
+					className='w-full my-3   px-3 py-2 rounded-md border border-slate-600 focus:border-lime-600'
 					placeholder='Search...'
 					onChange={handleSearchChange}
 				></input>

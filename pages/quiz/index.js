@@ -80,8 +80,8 @@ const Quiz = () => {
 				</div>
 			}
 			{showConfirmRestart && (
-				<div className="fixed inset-0 flex items-center justify-center blur-sm grayscale bg-neutral-900  bg-opacity-50">
-					<div className="bg-neutral-900 p-5 rounded shadow-lg">
+				<div className="fixed inset-0 flex items-center justify-center blur-sm grayscale   bg-opacity-50">
+					<div className=" p-5 rounded shadow-lg">
 						<h3 className="text-lg font-semibold">Confirm Restart</h3>
 						<p>Are you sure you want to restart the quiz?</p>
 						<div className="mt-4 flex justify-end">
@@ -127,7 +127,7 @@ const Quiz = () => {
 									leave='ease-in duration-200'
 									leaveFrom='opacity-100 scale-100'
 									leaveTo='opacity-0 scale-95'>
-									<Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-neutral-900  border border-neutral-700 p-6 text-left align-middle shadow-xl transition-all'>
+									<Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl   border border-neutral-700 p-6 text-left align-middle shadow-xl transition-all'>
 										<Dialog.Title
 											as='h3'
 											className='text-lg font-medium leading-6 text-white'>
@@ -144,13 +144,13 @@ const Quiz = () => {
 											<span className='  items-center justify-center  bg-gradient-to-r p-[2px]  from-[#7928ca] to-[#ff0080]'>
 												<button
 													type='button'
-													className='text-end rounded-md border border-transparent bg-neutral-900 text-sm text-white p-3'
+													className='text-end rounded-md border border-transparent  text-sm text-white p-3'
 													onClick={closeModal}>
 													Cancel
 												</button>
 												<button
 													type='button'
-													className='inline-flex justify-center rounded-md border border-transparent bg-neutral-900 text-sm text-white p-3'
+													className='inline-flex justify-center rounded-md border border-transparent  text-sm text-white p-3'
 													onClick={handleResetQuiz}>
 													Confirm
 												</button>
