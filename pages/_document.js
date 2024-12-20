@@ -23,16 +23,16 @@ class MyDocument extends Document {
                                 function gtag(){dataLayer.push(arguments);}
                                 gtag('js', new Date());
                                 gtag('config', ${JSON.stringify(
-				process.env
-					.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID
-			)} , {
+								process.env
+									.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID
+							)} , {
                                 page_path: window.location.pathname,
                                 });
                             `
 						}}
 					/>
-				
-					<script defer src="https://analytics.eu.umami.is/script.js" data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"></script>
+
+					<script defer src="https://cloud.umami.is/script.js" data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"></script>
 				</Head>
 				<body>
 					<div id={'globalLoader'} >
