@@ -68,6 +68,10 @@ const Landing = () => {
 								and platforms from scratch in my spare time (when I&apos;m
 								not coding). Accustomed to using extensive tech stack
 								because I love challenging and complex projects.
+
+								I&apos;m passionate about coding and constantly pushing myself to improve. In my spare time, I have built a variety of web applications and platforms from scratch, embracing the challenge of complex projects. Working with a wide range of technologies keeps me inspired and eager to take on the next big idea.
+
+
 							</p>
 							<p className='font-bold mb-1 hidden lg:block text-md'>
 								Writing code is my obsession as well as constant

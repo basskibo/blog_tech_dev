@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Accent } from "..";
+import MotionWrapper from "./MotionWrapper";
 
 export function ComponentHeader({ titlePrefix, title, subtitle, text, size = 'lg'}) {
 	const FADE_DOWN_ANIMATION_VARIANTS = {
@@ -7,19 +8,7 @@ export function ComponentHeader({ titlePrefix, title, subtitle, text, size = 'lg
 		show: { opacity: 1, y: 0, transition: { type: "spring" } },
 	};
 	return (
-		<motion.div
-			initial="hidden"
-			animate="show"
-			viewport={{ once: true }}
-			variants={{
-				hidden: {},
-				show: {
-					transition: {
-						staggerChildren: 0.15,
-					},
-				},
-			}}
-		>
+		<MotionWrapper>
 			<motion.h1
 				className={`text-center font-display text-slate-400  text-${size === 'lg' ? '5xl': '3xl'} font-bold tracking-[-0.02em] drop-shadow-sm md:text-${size === 'lg' ? '7xl' : '6xl'} md:leading-[5rem]`}
 				variants={FADE_DOWN_ANIMATION_VARIANTS}
@@ -38,6 +27,6 @@ export function ComponentHeader({ titlePrefix, title, subtitle, text, size = 'lg
 			>
 				{text}
 			</motion.div>
-		</motion.div>
+		</MotionWrapper>
 	);
 }
