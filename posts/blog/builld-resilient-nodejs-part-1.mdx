@@ -1,0 +1,52 @@
+---
+title: "Building a resilient Node.js application | Part 1"
+publishedAt: "2023-01-09"
+excerpt: "Are you a developer looking to create a blog or personal website that is both easy to maintain, blazing fast and visually appealing? Look no further"
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "June 15, 2022"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1735132830/igutech/blogs/straw-1080691_1280_t6n3jh.jpg"
+imageCreditUser: "Hugo Delauney"
+imageCreditUsername: "ugodly"
+author: "Bojan Jagetic"
+tags: [{ slug: "nodejs", name: "nodejs" }]
+inPreparation: false
+---
+
+## Introduction
+
+Building a resilient Node.js application requires careful consideration of stability, efficiency, and adaptability. Ensuring consistent performance and handling traffic surges effectively is critical for maintaining uptime and providing a seamless user experience.
+
+## Understanding Traffic Patterns
+
+Knowing how your application handles traffic spikes and behaves under load is the foundation of scalability:
+
+<LgList>
+<li> **Scale appropriately**: Adjust resources to meet predictable surges, such as e-commerce peaks during sales or ride-hailing demands post-events. </li>
+<li> **Leverage monitoring tools**: Use data-driven insights to track traffic and system performance, validating assumptions with evidence. </li>
+</LgList>
+
+## Prioritizing Stability
+
+Stability ensures predictable and reliable application behavior. Key practices include:
+
+<LgList>
+<li> **Deterministic performance**: Understand the resource costs of features, such as CPU usage and memory footprint. </li>
+<li> **Failure planning**: Track error rates and plan for exceptions to reduce unpredictability. Use structured logging libraries like <Adjusted>pino</Adjusted> to capture detailed logs. </li>
+<li> **Monitor access patterns**: Tailor optimizations for write-heavy or read-heavy workloads, ensuring smooth data interactions. </li>
+</LgList>
+## Optimizing Database Queries
+
+Efficient database usage is a cornerstone of application performance:
+
+<LgList>
+<li> **Manage query complexity**: Limit query depth and implement pagination to control data loads. Tools like <Adjusted>Mercurius</Adjusted> provide caching for GraphQL APIs. </li>
+<li> **Index effectively**: Create indexes for frequently queried fields but avoid over-indexing, which increases storage costs. </li>
+<li> **Connection pooling**: Use database connection pools to prevent overwhelming resources and maintain consistent latencies. </li>
+</LgList>
+
+## Summary
+
+Crafting a resilient Node.js application starts with stability. By understanding traffic patterns, proactively handling failures, and optimizing database queries, you build a foundation for reliable and scalable performance.
+
+Stay tuned for Part II, where we explore efficiency strategies like caching and session management to further enhance application resilience.
