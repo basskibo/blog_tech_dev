@@ -11,10 +11,12 @@ import CountUp from 'react-countup'
 
 const PostDetail = ({ post, content }) => {
 	const [views, setviews] = useState(0)
+	const url = `url('${post.featuredImage}')`
 
 	useEffect(() => {
 		getViews(post)
 	}, [])
+
 	const getViews = async (data) => {
 		const url = '/api/views'
 		const result = await axios(url, {
@@ -26,88 +28,72 @@ const PostDetail = ({ post, content }) => {
 		})
 		setviews(result.data.views)
 	}
+
 	const generateCreditImageUrl = () => {
 		return `https://unsplash.com/@${post.imageCreditUsername}?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText`
 	}
 
 	return (
-<div className='mx-auto lg:rounded-lg lg:p-0 lg:mt-5 sm:mt-10 xs:mt-10'>
-  <div className='flex justify-left mb-8 w-full pt-5 lg:pt-1 mt-0 lg:mt-0'>
-    <h1 className='lg:text-4xl text-xl lg:my-5 text-semibold text-white font-bold'>
-      {post.title}
-    </h1>
-  </div>
-  <div className='relative overflow-hidden md-6 h-96'>
-    <Image
-      src={post.featuredImage}
-      alt={post.title}
-      blurDataURL={constants.imageBlogURI}
-      placeholder='blur'
-      layout='fill'
-      priority
-      style={{ transform: 'translate3d(0, 0, 0)' }}
-      className='object-cover rounded-lg'
-    />
-    {/* Lighter Gradient Overlay on Both Sides and Top */}
-    <div className='absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/40'></div>
-    <div className='absolute inset-0 bg-gradient-to-r from-black/90 via-transparent to-black/90'></div>
-    <div className='absolute w-full bottom-0 inset-x-0 text-white font- float-right text-xs md:text-xs text-right leading-4 py-2 px-4 flex flex-row-reverse'>
-      <div className='backdrop-filter backdrop-blur-3xl p-2'>
-        {post.imageCreditUser
-          ? <span> Photo by <a href={generateCreditImageUrl()} target="_blank" rel='noreferrer'>
-            {post.imageCreditUser}</a> on <a target="_blank" rel='noreferrer' className='underline' href="https://unsplash.com/s/photos/blog?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> </span>
-          : <span>Photo used from <a className='underline' href="https://unsplash.com/">Unsplash</a></span>}
-      </div>
-    </div>
-  </div>
+		<div className='mx-auto lg:rounded-lg lg:p-0 lg:mt-5 sm:mt-10 xs:mt-10'>
+		<div className='flex justify-left w-full pt-5 lg:pt-1  lg:mt-0'>
+			<h1 className='lg:text-4xl text-xl lg:my-5 text-semibold text-white font-bold'>
+				{post.title}
+			</h1>
+		</div>
+		<div
+			className="absolute top-0 left-0 w-full h-96 bg-cover bg-center"
+			style={{
+				backgroundImage: url,
+			}}
+		>
+			
+			{/* Gradient overlay with disintegration effect */}
+			<div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-100 mask-image mask-linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%)"></div>
+		</div>
+			{/* Content Section over the Background Image */}
+			<div className="relative z-10 text-white px-0 py-10">
+				{/* Title */}
+				<div className="text-start mb-8">
+					<h1 className="lg:text-4xl text-xl font-semibold">{post.title}</h1>
+				</div>
 
-
-
-
-
-			<div className='lg:px-0 prose 2xl:text-md xl:text-sm'>
-				<div className=' text-slate-400 mb-6 my-6 w-full'>
-					<div className='flex-1  mb-2 w-full lg:w-auto '>
-						<p className='text-slate-400  '>
-							Writen on{' '}
-							<span className='font-semibold hidden lg:inline'>
+				{/* Post Info */}
+				<div className="mb-8 flex justify-between items-center">
+					<div className="text-slate-400">
+						<p>
+							Written on{' '}
+							<span className="font-semibold hidden lg:inline">
 								{dayjs(post.publishedAt).format('MMMM DD, YYYY')}
 							</span>{' '}
-							<span className='font-semibold lg:hidden inline'>
+							<span className="font-semibold lg:hidden inline">
 								{dayjs(post.publishedAt).format('DD.MM.YYYY')}
 							</span>{' '}
-							by <span className='font-semibold'>{post.author}</span>
+							by <span className="font-semibold">{post.author}</span>
 						</p>
-						<LastChangedFile fileName={`${post.slug}.mdx`} type='blog' />
+						<LastChangedFile fileName={`${post.slug}.mdx`} type="blog" />
 					</div>
 
-					<span className='flex mb-2'>
-						<ReadTime className=' w-28  flex-initial  lg:text-md sm:text-sm'>
-							{content.compiledSource}
-						</ReadTime>
-						<div
-							className='w-1 h-1 mt-3 mr-6 rounded-full flex-initial'
-							style={{ backgroundColor: '#FFF' }}></div>
-						<div className=' w-28  flex-initial   lg:text-md sm:text-sm'>
-							<p className="inline-flex mt-1">
-								<BsEye className='h-full mt-0.5 text-lg' />{' '}
-								<span className='ml-2 pb-1'><CountUp end={views} /> views</span>
-							</p>
+					{/* Views & Read Time */}
+					<div className="flex items-center text-slate-400">
+						<ReadTime className="mr-6 lg:text-md sm:text-sm">{content.compiledSource}</ReadTime>
+						<div className="mr-6 text-white">
+							<BsEye className="inline-block text-lg" />
+							<span className="ml-2 pb-1">
+								<CountUp end={views} /> views
+							</span>
 						</div>
-					</span>
-					{/* <ReadTime className='sm:flex-1 mb-4 lg:w-auto  2xl:text-md xl:text-sm'>
-                  {content.compiledSource}
-               </ReadTime> */}
-					<blockquote className='mt-0 mb-4'>
-						<p className='text-slate-400 mt-0'>{post.excerpt}</p>
-					</blockquote>
-
-					<div className='flex flex-inline mb-2'>
-						{/* <span className='lg:text-lg sm:text-md mr-3 p-0'>Share: </span> */}
-						<span className='mr-2 font-semibold'>Share:</span>
-
-						<SocialNetworkShare post={post} type={'post'} />
 					</div>
+				</div>
+
+				{/* Excerpt */}
+				<blockquote className="mt-0 mb-4 text-slate-400">
+					<p>{post.excerpt}</p>
+				</blockquote>
+
+				{/* Share Section */}
+				<div className="flex mb-2">
+					<span className="mr-2 font-semibold">Share:</span>
+					<SocialNetworkShare post={post} type="post" />
 				</div>
 			</div>
 		</div>
