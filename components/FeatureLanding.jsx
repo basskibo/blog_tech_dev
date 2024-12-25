@@ -47,8 +47,8 @@ const FeatureLanding = () => {
 									</a>{' '}
 									in practice. You can checkout post about it and see
 									more info.
-								</p>
-								<div className='flex-auto xl:px-10'>
+ 								</p>
+								<div className='flex-auto xl:pr-10'>
 									<GithubCard
 										name='basskibo'
 										type='user'
