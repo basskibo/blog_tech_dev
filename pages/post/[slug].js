@@ -105,7 +105,8 @@ const PostDetails = ({ data, mdxSource, toc }) => {
 					{/* <CommentsForm slug={post.slug} /> */}
 					{/* <Comments slug={post.slug} /> */}
 				</div>
-				<div className='hidden lg:flex lg:content-center items-start col-span-3 lg:col-span-3 '>
+				{/* <div className='hidden lg:flex lg:content-center items-start col-span-3 lg:col-span-3 '> */}
+				<div className='hidden lg:flex lg:content-center items-center col-span-3 lg:col-span-3 justify-center'>
 					<TableOfContent toc={toc} />
 					{/* <LikeButton/> */}
 				</div>
