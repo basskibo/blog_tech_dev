@@ -9,9 +9,9 @@
             <link>https://bojanjagetic.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 11 Dec 2024 08:19:37 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 25 Dec 2024 14:58:03 GMT</lastBuildDate>
         <atom:link href="https://bojanjagetic.com/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Wed, 11 Dec 2024 08:19:37 GMT</pubDate>
+        <pubDate>Wed, 25 Dec 2024 14:58:03 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2024, © 2022 Bojan Jagetic]]></copyright>
         <item>
             <title><![CDATA[What is Microservices architecture and how to use it]]></title>
@@ -30,6 +30,12 @@
             <description><![CDATA[Docker is a platform that simplifies the process of creating, deploying, and running applications by using containers. A container is a lightweight and portable unit that can run applications and their dependencies.]]></description>
             <link>https://bojanjagetic.com/post/become-docker-captain</link>
             <guid isPermaLink="true">https://bojanjagetic.com/post/become-docker-captain</guid>
+        </item>
+        <item>
+            <title><![CDATA[Building a resilient Node.js application | Part 1]]></title>
+            <description><![CDATA[Are you a developer looking to create a blog or personal website that is both easy to maintain, blazing fast and visually appealing? Look no further]]></description>
+            <link>https://bojanjagetic.com/post/builld-resilient-nodejs-part-1</link>
+            <guid isPermaLink="true">https://bojanjagetic.com/post/builld-resilient-nodejs-part-1</guid>
         </item>
         <item>
             <title><![CDATA[Mastering JavaScript Design Patterns: A Comprehensive Guide]]></title>
