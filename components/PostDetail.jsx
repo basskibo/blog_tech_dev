@@ -35,30 +35,29 @@ const PostDetail = ({ post, content }) => {
 
 	return (
 		<div className='mx-auto lg:rounded-lg lg:p-0 lg:mt-5 sm:mt-10 xs:mt-10'>
-		<div className='flex justify-left w-full pt-5 lg:pt-1  lg:mt-0'>
-			<h1 className='lg:text-4xl text-xl lg:my-5 text-semibold text-white font-bold'>
-				{post.title}
-			</h1>
-		</div>
-		<div
-			className="absolute top-0 left-0 w-full h-96 bg-cover bg-center"
-			style={{
-				backgroundImage: url,
-			}}
-		>
-			
-			{/* Gradient overlay with disintegration effect */}
-			<div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-100 mask-image mask-linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%)"></div>
-		</div>
-			{/* Content Section over the Background Image */}
-			<div className="relative z-10 text-white px-0 py-10">
+			<div className='flex justify-left w-full pt-5 lg:pt-1  lg:mt-0'>
+				<h1 className='lg:text-4xl text-xl lg:my-5 text-semibold text-white font-bold'>
+					{post.title}
+				</h1>
+			</div>
+			<div
+				className="absolute top-0 left-0 w-full h-80 bg-cover blur-sm bg-center"
+				style={{
+					backgroundImage: url,
+				}}
+			>
+
+				{/* Gradient overlay with disintegration effect */}
+				<div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-100 mask-image mask-linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%)"></div>
+			</div>
+			<div className="relative z-10 text-white px-0 pt-28">
 				{/* Title */}
 				<div className="text-start mb-8">
 					<h1 className="lg:text-4xl text-xl font-semibold">{post.title}</h1>
 				</div>
 
 				{/* Post Info */}
-				<div className="mb-8 flex justify-between items-center">
+				<div className="mb-8 flex justify-between items-center ">
 					<div className="text-slate-400">
 						<p>
 							Written on{' '}
