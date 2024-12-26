@@ -11,7 +11,7 @@ import MdxComponents from '../../components/custom/MdxComponents'
 import TableOfContent from '../../components/custom/TableOfContent'
 import SimiliarPosts from '@/components/SimiliarPosts'
 import EmbeddedLink from '@/components/custom/EmbededLInk'
-// import LikeButton from '../../components/custom/LikeButton'
+import LikeButton from '../../components/custom/LikeButton'
 
 console.log(MdxComponents)
 function getTableOfContents(content) {
@@ -86,29 +86,20 @@ const components = {
 
 const PostDetails = ({ data, mdxSource, toc }) => {
 	return (
-		<div className='layout mx-auto lg:mb-14 my-5 sm:px-2 xs:px-3 lg:px-5  text-slate-400'>
+		<div className='layout mx-auto lg:mb-14 my-5 sm:px-2 xs:px-3 lg:px-5 text-slate-400'>
 			<div className='grid grid-cols-1 lg:grid-cols-12 gap-x-12'>
-				<div className='col-span-1 lg:col-span-9'>
+				<div className='col-span-1 lg:col-span-10'>
 					<PostDetail post={data} content={mdxSource} />
-					<p className='border-b  mb-4 align-middle text-center text-white'>
-						{' '}
-					</p>
+					<p className='border-b mb-4 align-middle text-center text-white'></p>
 					<MDXRemote {...mdxSource} components={{ ...components }} lazy />
-
 					<div className='mb-4 lg:mb-10 w-full lg:w-auto border-b border-neutral-800'>
-						{/* <span className='pt-5  '> */}
 						<CategoryChip categories={data.tags} />
-						{/* </span> */}
 					</div>
 					<SimiliarPosts tags={data?.tags} />
-					{/* <Author author={post.author} /> */}
-					{/* <CommentsForm slug={post.slug} /> */}
-					{/* <Comments slug={post.slug} /> */}
 				</div>
-				{/* <div className='hidden lg:flex lg:content-center items-start col-span-3 lg:col-span-3 '> */}
-				<div className='hidden lg:flex lg:content-center items-center col-span-3 lg:col-span-3 justify-center'>
+				<div className='col-span-2 lg:col-span-2 justify-center items-center align-middle'>
 					<TableOfContent toc={toc} />
-					{/* <LikeButton/> */}
+					{/* <LikeButton /> */}
 				</div>
 			</div>
 		</div>
