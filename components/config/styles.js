@@ -15,7 +15,7 @@ export const generalStyles =  {
 		return JSON.stringify(x);
 	},
 	getHeaderStyle: () => {
-		const x = `block select-none rounded px-3 py-3 text-17px] font-medium leading-none text-mauve8 hover:text-${generalTheme.mainColor} no-underline outline-none  focus:shadow-[0_0_0_2px]`
+		const x = `block select-none rounded px-3 py-3 lg:text-[17px] text-[13px] font-medium leading-none text-mauve8 hover:text-${generalTheme.mainColor} no-underline outline-none  focus:shadow-[0_0_0_2px]`
 		return JSON.stringify(x)
 	}
 }

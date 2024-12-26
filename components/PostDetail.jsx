@@ -41,7 +41,7 @@ const PostDetail = ({ post, content }) => {
 				</h1>
 			</div>
 			<div
-				className="absolute top-0 left-0 w-full h-80 bg-cover blur-sm bg-center"
+				className="absolute top-0 left-0 w-full h-80 bg-cover blur-xs bg-center"
 				style={{
 					backgroundImage: url,
 				}}
@@ -50,10 +50,10 @@ const PostDetail = ({ post, content }) => {
 				{/* Gradient overlay with disintegration effect */}
 				<div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-100 mask-image mask-linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,1) 100%)"></div>
 			</div>
-			<div className="relative z-10 text-white px-0 pt-28">
+			<div className="relative z-10 text-white px-0 pt-36">
 				{/* Title */}
 				<div className="text-start mb-8">
-					<h1 className="lg:text-4xl text-xl font-semibold">{post.title}</h1>
+					<h1 className="lg:text-5xl text-3xl font-semibold">{post.title}</h1>
 				</div>
 
 				{/* Post Info */}
