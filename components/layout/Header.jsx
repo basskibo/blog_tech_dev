@@ -4,23 +4,20 @@ import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import ActiveLink from '../custom/ActiveLink'
 import Image from 'next/image'
 import logoSmImg from '../../public/logo/logo_sm.webp'
-
-const navigation = [
-	{ name: 'Home', href: '/', current: true },
-	{ name: 'Blog', href: '/routes/blog', current: false },
-
-	// { name: "Projects", href: "/routes/projects", current: false },
-	// { name: "Courses", href: "/routes/courses", current: false },
-	{ name: 'Libary', href: '/routes/libaries', current: false },
-	{ name: "Quiz", href: "/quiz", current: false },
-	{ name: 'About Me', href: '/routes/aboutme', current: false }
-]
-
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import classNames from "classnames";
 import { CaretDownIcon, DividerVerticalIcon } from "@radix-ui/react-icons";
 import clsx from 'clsx'
 import { generalStyles, generalTheme } from '../config/styles'
+
+const navigation = [
+	{ name: 'Home', href: '/', current: true },
+	{ name: 'Blog', href: '/routes/blog', current: false },
+	{ name: 'Libary', href: '/routes/libaries', current: false },
+	{ name: 'About', href: '/routes/aboutme', current: false }
+]
+
+
 
 const Header = () => {
 	const [isScrolled, setIsScrolled] = React.useState(false);
@@ -50,32 +47,19 @@ const Header = () => {
 	return (
 		<>
 			<NavigationMenu.Root className={clsx(menuClass)}>
-				<NavigationMenu.List className="center m-0 flex list-none rounded-md  p-2 shadow-[0_2px_10px] bg-neutral-800/60 backdrop-filter backdrop-blur-lg bg-opacity-30 shadow-blackA4">
-					<NavigationMenu.Item>
-						<NavigationMenu.Link
-							className={generalStyles.getHeaderStyle()}
-							href="/"
-						>
-							Home
-						</NavigationMenu.Link>
-					</NavigationMenu.Item>
+				<NavigationMenu.List className="center m-0 flex list-none rounded-md  p-2 shadow-[0_2px_10px] bg-neutral-800/60 backdrop-filter backdrop-blur-lg bg-opacity-70 shadow-blackA4">
+					{navigation.map((item) => (
+						<NavigationMenu.Item key={item.name}>
+							<NavigationMenu.Link
+								className={generalStyles.getHeaderStyle()}
+								href={item.href}
+							>
+								{item.name}
+							</NavigationMenu.Link>
+						</NavigationMenu.Item>
+					))}
 
-					<NavigationMenu.Item>
-						<NavigationMenu.Link
-							className={generalStyles.getHeaderStyle()}
-							href="/routes/blog"
-						>
-							Blog
-						</NavigationMenu.Link>
-					</NavigationMenu.Item>
-					<NavigationMenu.Item>
-						<NavigationMenu.Link
-							className={generalStyles.getHeaderStyle()}
-							href="/routes/libaries"
-						>
-							Libary
-						</NavigationMenu.Link>
-					</NavigationMenu.Item>
+
 					{/* <NavigationMenu.Item>
 						<NavigationMenu.Trigger className="group flex select-none items-center justify-between gap-0.5 rounded px-3 py-2 text-[15px] font-medium leading-none text-mauve8 outline-none  focus:shadow-[0_0_0_2px] focus:shadow-violet7">
 							Projects{" "}
@@ -124,23 +108,18 @@ const Header = () => {
 						</NavigationMenu.Content>
 					</NavigationMenu.Item> */}
 
-	
-					<NavigationMenu.Item>
-						<NavigationMenu.Link
-							className={generalStyles.getHeaderStyle()}
-							href="/routes/aboutme"
-						>
-							About
-						</NavigationMenu.Link>
-					</NavigationMenu.Item>
 					<div className="w-px pt-2 bg-neutral-700 h-100%"></div>
 					<NavigationMenu.Item>
-						<NavigationMenu.Trigger 
-						className={`group flex select-none items-center justify-between gap-0.5 rounded px-3 py-1 text-[17px] font-medium leading-none text-mauve9 hover:text-${generalStyles.mainColor} outline-none  focus:shadow-[0_0_0_2px] focus:shadow-violet7`}
+						<NavigationMenu.Trigger
+							className={`group flex select-none items-center justify-between gap-0.5 rounded px-3 py-1 text-[17px] font-medium leading-none text-mauve9 outline-none`}
+							onClick={(event) => {
+								event.preventDefault(); // Prevent default behavior
+								// Toggle the menu open/close state here if needed
+							}}
 						>
 							More{" "}
 							<CaretDownIcon
-								className="relative top-px text-mauve9  transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180"
+								className="relative top-px text-mauve9 transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180"
 								aria-hidden
 							/>
 						</NavigationMenu.Trigger>
@@ -164,7 +143,7 @@ const Header = () => {
 												Interview Quiz
 											</div>
 											<p className="text-[14px] leading-[1.3] text-mauve7">
-												Play interactive quiz, where you can prepare for interview,remember forgoten knowledge or learn. 
+												Play interactive quiz, where you can prepare for interview,remember forgoten knowledge or learn.
 											</p>
 										</a>
 									</NavigationMenu.Link>
@@ -182,15 +161,14 @@ const Header = () => {
 							</ul>
 						</NavigationMenu.Content>
 					</NavigationMenu.Item>
-					<NavigationMenu.Indicator className="top-full z-10 flex h-2.5 items-end justify-center overflow-hidden transition-[width,transform_250ms_ease] data-[state=hidden]:animate-fadeOut data-[state=visible]:animate-fadeIn">
+					{/* <NavigationMenu.Indicator className="top-full z-10 flex h-2.5 items-end justify-center overflow-hidden transition-[width,transform_250ms_ease] data-[state=hidden]:animate-fadeOut data-[state=visible]:animate-fadeIn">
 						<div className="relative top-[70%] size-2.5 rotate-45 rounded-tl-sm bg-white" />
-					</NavigationMenu.Indicator>
+					</NavigationMenu.Indicator> */}
 				</NavigationMenu.List>
 
 				<div className="perspective-[2000px] absolute left-0 top-full flex w-full justify-center">
 					<NavigationMenu.Viewport className="relative mt-2.5 h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden rounded-md bg-white transition-[width,_height] duration-300 data-[state=closed]:animate-scaleOut data-[state=open]:animate-scaleIn sm:w-[var(--radix-navigation-menu-viewport-width)]" />
 				</div>
-				<div className="h-20" />
 			</NavigationMenu.Root>
 		</>
 
