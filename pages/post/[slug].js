@@ -87,7 +87,7 @@ const components = {
 const PostDetails = ({ data, mdxSource, toc }) => {
 	return (
 		<div className='layout mx-auto lg:mb-14 my-5 sm:px-2 xs:px-3 lg:px-5 text-slate-400'>
-			<div className='grid grid-cols-1 lg:grid-cols-12 gap-x-12'>
+			<div className='grid grid-cols-1 lg:grid-cols-12 gap-x-1 lg:gap-x-12'>
 				<div className='col-span-1 lg:col-span-10'>
 					<PostDetail post={data} content={mdxSource} />
 					<p className='border-b mb-4 align-middle text-center text-white'></p>

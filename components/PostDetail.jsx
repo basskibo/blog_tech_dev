@@ -8,6 +8,7 @@ import LastChangedFile from './custom/LastChangedFile'
 import { BsEye } from 'react-icons/bs'
 import axios from 'axios'
 import CountUp from 'react-countup'
+import QouteComponent from './QouteComponent'
 
 const PostDetail = ({ post, content }) => {
 	const [views, setviews] = useState(0)
@@ -54,12 +55,12 @@ const PostDetail = ({ post, content }) => {
 				{/* Title */}
 				<div className="text-start mb-8">
 					<h1 className="lg:text-5xl text-3xl font-semibold">{post.title}</h1>
-				</div>
+				</div> 	
 
 				{/* Post Info */}
-				<div className="mb-8 flex justify-between items-center ">
-					<div className="text-slate-400">
-						<p>
+				<div className="mb-4 text-sm flex flex-col sm:flex-row justify-between items-center ">
+					<div className="text-slate-400 mb-2 sm:mb-0">
+						<p className="text-center sm:text-left">
 							Written on{' '}
 							<span className="font-semibold hidden lg:inline">
 								{dayjs(post.publishedAt).format('MMMM DD, YYYY')}
@@ -73,7 +74,7 @@ const PostDetail = ({ post, content }) => {
 					</div>
 
 					{/* Views & Read Time */}
-					<div className="flex items-center text-slate-400">
+					<div className="flex items-center text-slate-400 text-center sm:text-left">
 						<ReadTime className="mr-6 lg:text-md sm:text-sm">{content.compiledSource}</ReadTime>
 						<div className="mr-6 text-white">
 							<BsEye className="inline-block text-lg" />
@@ -85,9 +86,9 @@ const PostDetail = ({ post, content }) => {
 				</div>
 
 				{/* Excerpt */}
-				<blockquote className="mt-0 mb-4 text-slate-400">
-					<p>{post.excerpt}</p>
-				</blockquote>
+				<QouteComponent className="mt-0 mb-4 bg-black text-slate-400">
+					{post.excerpt}
+				</QouteComponent>
 
 				{/* Share Section */}
 				<div className="flex mb-2">

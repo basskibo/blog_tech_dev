@@ -9,9 +9,9 @@
             <link>https://bojanjagetic.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 26 Dec 2024 10:03:00 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 28 Dec 2024 17:17:19 GMT</lastBuildDate>
         <atom:link href="https://bojanjagetic.com/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 26 Dec 2024 10:03:00 GMT</pubDate>
+        <pubDate>Sat, 28 Dec 2024 17:17:19 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2024, © 2022 Bojan Jagetic]]></copyright>
         <item>
             <title><![CDATA[What is Microservices architecture and how to use it]]></title>
@@ -108,6 +108,12 @@
             <description><![CDATA[When working with JSON files in a Linux environment, there are many times you need to automate updates to these files. Whether you're dealing with configuration files, API data, or just plain old structured data, learning how to automate JSON file updates using Bash can save a lot of manual effort.]]></description>
             <link>https://bojanjagetic.com/post/json-update-via-shell</link>
             <guid isPermaLink="true">https://bojanjagetic.com/post/json-update-via-shell</guid>
+        </item>
+        <item>
+            <title><![CDATA[Making Color Palette Generator in React/Remix]]></title>
+            <description><![CDATA[We will walk through the process of building a Color Palette Generator using React.]]></description>
+            <link>https://bojanjagetic.com/post/making-pallete-generator</link>
+            <guid isPermaLink="true">https://bojanjagetic.com/post/making-pallete-generator</guid>
         </item>
         <item>
             <title><![CDATA[Creating a Modern Landing Page with Particles and React]]></title>

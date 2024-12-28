@@ -4,7 +4,7 @@ import AnchorLink from 'react-anchor-link-smooth-scroll'
 const anchorOffset = 75
 const TableOfContent = ({ toc }) => {
 	return (
-		<div className='fixed top-1/2 left-2/2 transform -translate-x-2/2 -translate-y-1/2 flex flex-col ml-20'>
+		<div className='fixed top-1/2 left-2/2 transform -translate-x-2/2 -translate-y-1/2 hidden lg:flex flex-col ml-20'>
 			<h1 className='text-white text-start text-xl font-bold mb-3'>Table of content</h1>
 			<ul className=''>
 				{toc.map((item, index) => (
