@@ -25,8 +25,8 @@ const Bio = () => {
 	`;
 
 	return (
-		<div className='layout mx-auto lg:my-14 my-5 sm:px-2 xs:px-3 lg:px-5 py-5 text-slate-400'>
-			<div className='my-8'>
+		<div className='layout mx-auto lg:my-0 my-5 py-3 sm:px-2 xs:px-3 lg:px-3  text-slate-400'>
+			<div className='my-24 px-1' id="scrollableDiv">
 				{/* Wrap ComponentHeader with MotionWrapper */}
 				<MotionWrapper>
 						<ComponentHeader
