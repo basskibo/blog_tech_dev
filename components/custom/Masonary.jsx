@@ -47,7 +47,7 @@ const Child = ({ style, index, data, type }) => {
 						)}
 					>
 						{/* Image Section */}
-						{ type === 'blog' && <div className="relative w-full h-80">
+						{ type === 'blog' && <div className="relative w-full h-48  lg:h-80">
 							<Image
 								alt={post?.data?.featuredImage}
 								src={
@@ -67,7 +67,7 @@ const Child = ({ style, index, data, type }) => {
 						</div> }
 
 						{/* Content Section */}
-						<div className="flex flex-col space-y-2 justify-start p-3  text-white h-full">
+						<div className="flex flex-col space-y-2 justify-start p-2 lg:p-3  text-white h-full">
 							<div>
 								<CategoryChip categories={post?.data?.tags} className="mb-2" />
 								<h1 className="text-lg font-bold mb-1">{post?.data?.title}</h1>
