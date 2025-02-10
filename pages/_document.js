@@ -32,7 +32,20 @@ class MyDocument extends Document {
 						}}
 					/>
 
-					<script defer src="https://cloud.umami.is/script.js" data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"></script>
+					<script defer src="https://analytics.eu.umami.is/script.js" data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"></script><script type="text/javascript">
+						{`
+							var _iub = _iub || [];
+							_iub.csConfiguration = {
+								"siteId": 3924656,
+								"cookiePolicyId": 81182214,
+								"lang": "en",
+								"storage": {"useSiteId": true}
+							};
+						`}
+					</script>
+					<script async type="text/javascript" src="https://cs.iubenda.com/autoblocking/3924656.js"></script>
+					<script async type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
+					<script async type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js"></script>
 				</Head>
 				<body>
 					<div id={'globalLoader'} >
