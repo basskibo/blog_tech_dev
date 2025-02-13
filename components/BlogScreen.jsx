@@ -30,35 +30,6 @@ const BlogScreen = ({ posts }) => {
 	const [chips] = useState(getCategories(posts))
 	const [search, setSearch] = useState('')
 	const [data, setData] = useState(posts)
-	// const [items, setItems] = useState(foundPosts.slice(0, currentIndex))
-	// const [featuredPost, setfeaturedPost] = useState(posts[9])
-
-	// const fetchMoreData = () => {
-	//   if (items.length >= foundPosts.length) {
-	//     sethasMore(false)
-	//   } else {
-	//     if ((currentIndex + pointer) > lastIndex) {
-	//       pointer = lastIndex - currentIndex
-	//     }
-	//     const nextIndex = currentIndex + pointer
-	//     const newData = foundPosts.slice(currentIndex, nextIndex)
-	//     setTimeout(() => {
-	//       setItems(
-	//         items.concat(newData)
-	//       )
-	//       setCurrentIndex(nextIndex)
-	//     }, 1000)
-	//   }
-	// }
-
-	// const findFeaturedPost = () => {
-	//   posts.forEach(post => {
-	//     const { data } = post.props
-	//     if (data.featuredPost) {
-	//       setfeaturedPost(data)
-	//     }
-	//   })
-	// }
 
 	const handleCategoryClick = (e) => {
 		e.preventDefault()

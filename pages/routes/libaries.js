@@ -91,8 +91,8 @@ const Libaries = ({ libaries }) => {
 
 	return (
 		// <MotionComponent>
-		<div className='layout mx-auto lg:my-0 my-3  sm:px-2 xs:px-3 lg:px-5 py-2 text-center text-slate-400'>
-			<div className='my-24 px-1'>
+		<div className='layout mx-auto lg:my-0 my-5  sm:px-2 xs:px-3 lg:px-5 py-2 text-center text-slate-400'>
+			<div className='my-24 sm:mt-48 px-1'>
 
 			<ComponentHeader titlePrefix={'Created '} title={'Libaries'} subtitle={''} text={bio} />
 
@@ -137,7 +137,7 @@ const Libaries = ({ libaries }) => {
 						)}
 				</div>
 			</div>
-			<div className=' w-full'>
+			<div className=' w-full mt-10'>
 				<Virtualized posts={data} type={'libary'} />
 
 			</div>
