@@ -19,6 +19,8 @@
     "postinstall": "prisma generate || true"
   },
   "dependencies": {
+    "@giscus/react": "^3.1.0",
+    "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
     "@mdx-js/loader": "^2.0.0-rc.2",
     "@mdx-js/mdx": "^2.0.0-rc.2",
