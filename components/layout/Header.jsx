@@ -60,7 +60,6 @@ const Header = ({ href }) => {
 									</div>
 									<div className='hidden sm:block sm:ml-6'>
 										<div className='flex space-x-5'>
-											{/* <DisclocureButton /> */}
 											{navigation.map((item) => (
 												<ActiveLink
 													key={item.name}
