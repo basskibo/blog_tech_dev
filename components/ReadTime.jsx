@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoTimeOutline } from 'react-icons/io5'
 import cslx from 'clsx'
-const readingTime = require('reading-time')
+import readingTime from 'reading-time'
 
 const ReadTime = ({ children, className }) => {
   const stats = readingTime(JSON.stringify(children))
