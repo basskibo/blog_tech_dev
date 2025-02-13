@@ -86,20 +86,19 @@ const FeaturedPosts = () => {
 						</div>}
 				</div>
 
-				{JSON.stringify(devToPosts)}
 				<div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
 					<ComponentHeader titlePrefix={'My Most Popular posts on '} title={'Dev.to'} text={devtotext} size={'md'} />
 				
 					{devToPosts.length > 0 ? (
 
-						<div className="flex xs:flex-col justify-center items-end gap-6 mt-10">
+						<div className="flex flex-col md:flex-row gap-6 mt-10">
 							{devToPosts.slice(0, 3).map((post, i) => {
 								const podiumClasses =
 									i === 0
-										? "order-2 h-80 md:h-96 border-gold" // First place (larger)
+										? "order-2 h-80 md:h-96 border-gold" 
 										: i === 1
-											? "order-1 h-72 md:h-80 border-silver" // Second place (medium)
-											: "order-3 h-64 md:h-72 border-bronze"; // Third place (medium)
+											? "order-1 h-72 md:h-80 border-silver"
+											: "order-3 h-64 md:h-72 border-bronze";
 
 								return (
 									<a
