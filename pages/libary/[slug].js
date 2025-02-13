@@ -109,7 +109,7 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
 			<div className='grid grid-cols-1 lg:grid-cols-12 gap-x-12'>
 				<div className='col-span-1 lg:col-span-9'>
 					{/* <PostDetail post={data} content={mdxSource} /> */}
-					<div className=' my-10 '>
+					<div className=' md:my-10 my-24 '>
 						<h1 className='lg:text-4xl text-2xl lg:my-5 text-semibold text-white font-bold break-words'>
 							{' '}
 							{data.title}
