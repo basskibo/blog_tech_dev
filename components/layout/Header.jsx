@@ -114,13 +114,7 @@ const Header = () => {
 							className={classNames(
 								"block select-none rounded-md p-3 text-[13px] lg:text-[15px] leading-none no-underline outline-none transition-colors hover:bg-gray-800 focus:shadow-[0_0_0_2px] focus:shadow-violet7",
 								"group flex select-none items-center justify-between gap-0.5 px-3 py-1 sm:text-[13px] lg:text-[17px] font-medium leading-none text-mauve9 outline-none"
-							)}
-							onClick={(event) => {
-								event.preventDefault();
-								setIsMenuOpen((prev) => !prev);
-								console.log('clicked', isMenuOpen)
-							}}
-						>
+							)}>
 							More{" "}
 							<CaretDownIcon
 								className="relative top-px text-mauve9 transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180"
@@ -129,7 +123,7 @@ const Header = () => {
 						</NavigationMenu.Trigger>
 						<NavigationMenu.Content className={classNames(
 							"absolute bg-gray-900 left-0 top-0 w-full data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft sm:w-auto",
-							{ 'hidden': !isMenuOpen }
+							// { 'hidden': !isMenuOpen }
 						)}>
 							<ul className="one m-0 grid list-none gap-x-2.5 p-[12px] sm:w-[500px] sm:grid-cols-[0.75fr_1fr]">
 								<li className="row-span-3 grid">
