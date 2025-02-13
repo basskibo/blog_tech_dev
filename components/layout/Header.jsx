@@ -156,8 +156,8 @@ const Header = () => {
 									</NavigationMenu.Link>
 								</li>
 
-								<ListItem href="/quiz" title="Quiz" className="text-sky-600">
-									Play interview quiz and test your knowledge in desired field
+								<ListItem href="/guestbook" title="GuestBook" className="text-sky-600">
+									Leave a message, appreciation, or suggestions
 								</ListItem>
 								<ListItem href="/routes/uses" title="Daily Uses">
 									A peek of my workspace and tools.
