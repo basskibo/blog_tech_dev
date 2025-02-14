@@ -4,7 +4,7 @@ import { ComponentHeader } from './layout/ComponentHeading';
 
 const GuestBook = () => {
 	return (
-		<div className="relative w-full overflow-hidden">
+		<div className="relative w-full my-10 lg:my-2 overflow-hidden">
 			{/* Full-Width Background Image with Gradient Overlay */}
 			<div
 				className="absolute top-0 left-0 w-full h-96 bg-cover bg-center"
