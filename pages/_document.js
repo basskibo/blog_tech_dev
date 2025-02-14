@@ -32,6 +32,7 @@ class MyDocument extends Document {
 						}}
 					/>
 					<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" />
+
 					<script defer src="https://cloud.umami.is/script.js" data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"></script>
 					<script
 						dangerouslySetInnerHTML={{
