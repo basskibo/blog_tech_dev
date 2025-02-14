@@ -69,7 +69,7 @@ const CloudinaryContextImage = (props) => {
 	)
 }
 
-export default {
+const MdxComponents =  {
 	h1: ({ children }) => {
 		return (
 			<h1 className='text-white text-3xl font-bold my-5'> {children}</h1>
@@ -258,3 +258,6 @@ export default {
 	},
 	EmbeddedLink: EmbeddedLink
 }
+
+
+export default MdxComponents
