@@ -43,7 +43,7 @@ export default function DailyUses() {
 									{section.entries.map((entry, idx) => (
 										<div
 											key={idx}
-											className="p-6 bg-gray-900 rounded-lg shadow-2xl flex items-center justify-between transition-all duration-300 transform hover:scale-105"
+											className="p-6 bg-gray12 rounded-lg shadow-2xl flex items-center justify-between transition-all duration-300 transform hover:scale-105"
 										>
 											<div>
 												<h3 className="text-xl font-semibold text-gray-200">{entry.title}</h3>
