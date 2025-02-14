@@ -13,7 +13,6 @@ import SimiliarPosts from '@/components/SimiliarPosts'
 import EmbeddedLink from '@/components/custom/EmbededLInk'
 import LikeButton from '../../components/custom/LikeButton'
 
-console.log(MdxComponents)
 function getTableOfContents(content) {
 	// eslint-disable-next-line prefer-regex-literals
 	const regexp = new RegExp(/^(### |## )(.*)\n/, 'gm')

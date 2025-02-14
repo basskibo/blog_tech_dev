@@ -57,7 +57,7 @@ const postView = async (req, res) => {
 			)
 		} catch (err) {
 			console.error('error executing query:', err)
-			console.log(err.code)
+			console.error(err.code)
 			if (err.code === 'P2025') {
 				result = await prisma.PageViews.create(
 					{

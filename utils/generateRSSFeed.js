@@ -19,7 +19,6 @@ export default async function generateRSSFeed(allPosts) {
 	const feed = new RSS(feedOptions)
 
 	allPosts.map((post) => {
-		console.log('single post', post)
 		const {props} = post
 		const {data} = props
 		feed.item({

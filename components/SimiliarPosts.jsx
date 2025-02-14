@@ -17,7 +17,6 @@ const SimiliarPosts = ({ tags }) => {
 				'Content-Type': 'application/json'
 			}
 		})
-		console.log(result.data)
 		setSimiliarPosts(result.data?.similiarPosts)
 	}
 
