@@ -33,22 +33,6 @@ class MyDocument extends Document {
 					/>
 					<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" />
 					<script defer src="https://cloud.umami.is/script.js" data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"></script>
-					<script
-						dangerouslySetInnerHTML={{
-							__html: `
-								var _iub = _iub || [];
-								_iub.csConfiguration = {
-									siteId: 3924656,
-									cookiePolicyId: 81182214,
-									lang: "en",
-									storage: {useSiteId: true}
-								};
-							`
-						}}
-					/>
-					<script async src="https://cs.iubenda.com/autoblocking/3924656.js"></script>
-					<script async src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
-					<script async src="//cdn.iubenda.com/cs/iubenda_cs.js"></script>
 				</Head>
 				<body>
 					<div id={'globalLoader'} >

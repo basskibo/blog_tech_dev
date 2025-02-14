@@ -90,10 +90,10 @@ const Libaries = ({ libaries }) => {
 
 	return (
 		// <MotionComponent>
-		<div className='layout mx-auto lg:my-0 my-5  sm:px-2 xs:px-3 lg:px-5 py-2 text-center text-slate-400'>
-			<div className='my-24 sm:mt-48 px-1'>
+		<div className='layout mx-auto lg:my-0 my-5 py-3 sm:px-2 xs:px-3 lg:px-3  text-slate-400'>
+			<div className='my-24 px-1' id="scrollableDiv">
 
-			<ComponentHeader titlePrefix={'Created '} title={'Libaries'} subtitle={''} text={bio} />
+				<ComponentHeader titlePrefix={'Created '} title={'Libaries'} subtitle={''} text={bio} />
 
 				{/* <h1 className='mb-5'>
 					The <Accent className='font-extrabold text-5xl'>Libary</Accent> ({data?.length})
@@ -107,24 +107,24 @@ const Libaries = ({ libaries }) => {
 					placeholder='Search...'
 					onChange={handleSearchChange}
 				></input>
-				<div className='mt-1 mb-7 lg:mb-10 lg:w-4/4'>
+				{/* <div className='mt-1 mb-7 lg:mb-10 lg:w-4/4'>
 					{chips
 						? (
 							chips.map((category) => (
-								<span key={category.slug}>
+								<span key={`${category.slug}_${new Date()}`}>
 									<a
 										className='inline-flex'
 										disabled={true}
 										onClick={handleCategoryClick}>
 										<span
-												className={clsx(
-													// eslint-disable-next-line no-constant-condition
-													'flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border-1  hover:text-white hover:cursor-pointer transition duration-500 ease-in-out', '' ? '' : '',
-													search === category.name
-														? ` underline decoration-solid decoration-2 bg-${generalStyles.mainColor}  underline-offset-4 `
-														: search !== '' & search !== category.name?  'text-gray-500': 'text-white',
-														generalStyles.defaultBorder
-												)}>
+											className={clsx(
+												// eslint-disable-next-line no-constant-condition
+												'flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border-1  hover:text-white hover:cursor-pointer transition duration-500 ease-in-out', '' ? '' : '',
+												search === category.name
+													? ` underline decoration-solid decoration-2 bg-${generalStyles.mainColor}  underline-offset-4 `
+													: search !== '' & search !== category.name ? 'text-gray-500' : 'text-white',
+												generalStyles.defaultBorder
+											)}>
 											{category.name}
 										</span>
 									</a>
@@ -134,7 +134,7 @@ const Libaries = ({ libaries }) => {
 						: (
 							<></>
 						)}
-				</div>
+				</div> */}
 			</div>
 			<div className=' w-full mt-10'>
 				<Virtualized posts={data} type={'libary'} />

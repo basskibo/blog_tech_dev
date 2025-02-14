@@ -7,7 +7,7 @@ const CategoryChip = ({ categories }) => {
 			{categories
 				? (
 					categories.map((category) => (
-						<span key={category.slug} className='inline-flex'>
+						<span key={'JSON.stringify(category.slug)'} className='inline-flex'>
 							<span
 								className={`flex items-center mx-1 justify-cente opacity-70 text-white font-semibold rounded-lg
 									2xl:text-xs text-xs px-2 py-1 border-1 border-${generalStyles.defaultBorder} bg-${generalStyles.third} hover:bg-${generalStyles.mainColor} hover:text-white hover:font-bold hover:cursor-pointer
