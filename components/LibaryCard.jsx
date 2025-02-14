@@ -7,7 +7,6 @@ import { SiGithub } from 'react-icons/si'
 const LibaryCard = ({ libary }) => {
   return (
       <div
-         key={libary.slug}
          className={clsx(
            libary.inPreparation
              ? 'text-slate-600 pointer-events-none bg-neutral-800 '
