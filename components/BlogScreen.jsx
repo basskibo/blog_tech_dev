@@ -9,7 +9,6 @@ import { generalStyles } from './config/styles'
 const getCategories = (posts) => {
 	try {
 		const categories = []
-		console.log(posts)
 		posts.forEach((post) => {
 			const postCategory = post.props.data.tags
 			categories.push(postCategory)

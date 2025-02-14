@@ -87,12 +87,10 @@ const LibaryDetails = ({ data, mdxSource, toc }) => {
 
 	useEffect(() => {
 		getViews(data)
-	}, [])
+	}, [data])
+	
 	const getViews = async (data) => {
-		// if (process.env.ENVIRONMENT !== "dev") {
-		console.log('fetching api views')
 		const url = '/api/views'
-		// const url = `http://localhost:3000/api/views`;
 		const result = await axios(url, {
 			method: 'POST',
 			params: { title: data.title, description: data.excerpt, slug: `libary/${data.slug}` },
