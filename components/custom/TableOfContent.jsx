@@ -8,10 +8,10 @@ const TableOfContent = ({ toc }) => {
 			<h1 className='text-white text-start text-xl font-bold mb-3'>Table of content</h1>
 			<ul className=''>
 				{toc.map((item, index) => (
-					<>
-						<li className='my-1 text-slate-400' key={item.title}>
+					<span key={item.title}>
+						<li className='my-1 text-slate-400' >
 							<AnchorLink
-								key={item.link}
+								
 								offset={() => anchorOffset}
 								href={item.link}
 								className='font-medium text-md lg:text-md hover:cursor-pointer hover:text-sky-400 hover:underline'
@@ -31,7 +31,7 @@ const TableOfContent = ({ toc }) => {
 								</AnchorLink>
 							</li>
 						))}
-					</>
+					</span>
 				))}
 			</ul>
 			{/* <LikeButton/> */}
