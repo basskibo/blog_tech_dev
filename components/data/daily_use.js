@@ -37,6 +37,10 @@ export const dailyItems = [
 				description: "Shortcut mapping and ergonomic design boost productivity.",
 				link: "https://www.logitech.com/en-us/products/mice/mx-master-3s.html?srsltid=AfmBOorundK990GFw63boYT_2oCTKNmYSgkuk2lnfHcGE6JcEF5QqPH9"
 			},
+			{
+				title: "Macbook Pro Mid 2012",
+				description: "Personal laptop that I rarely use but it got some personal value, as I see it more like relic than some powerful working station as its pretty outdated."
+			}
 		],
 	},
 	{
@@ -53,4 +57,38 @@ export const dailyItems = [
 			},
 		],
 	},
+	{
+		category: 'OS & Software',
+		entries: [
+			{
+				title: 'Ubuntu 22.04 LTS',
+				description: 'Using Linux daily has become essential for me. Its speed and efficiency enhance my workflow, especially in programming and development, where powerful command-line tools and easy software management streamline tasks. The open-source nature fosters a supportive community, making troubleshooting easier. And of course one of the main things, its totally open source.',
+				link: 'https://ubuntu.com/'
+			},
+			{
+				title: 'OS X',
+				description: 'I love using Mac for its Unix-based system, even if not regularly.'
+			},
+			{
+				title: 'Windows 11',
+				description: 'Everyone who knows me already knows that im not a biggest fan of Windows, but lets be honest, which better system for PC gaming :)'
+			},
+			
+			{
+				title: 'Visual Studio Code',
+				description: 'A powerful code editor with great extensions.',
+				link: 'https://code.visualstudio.com/'
+			},
+			{
+				title: 'IntelliJ IDEA',
+				description: 'An integrated development environment for Java and more.',
+				link: 'https://www.jetbrains.com/idea/'
+			},
+			{
+				title: 'Cursor',
+				description: 'A modern code editor designed for developers.',
+				link :'https://www.cursor.com/'
+			},
+		]
+	}
 ];
