@@ -16,7 +16,7 @@ const PostDetail = ({ post, content }) => {
 
 	useEffect(() => {
 		getViews(post)
-	}, [])
+	}, [post])
 
 	const getViews = async (data) => {
 		const url = '/api/views'

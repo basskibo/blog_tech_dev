@@ -32,7 +32,7 @@ function ActiveLink({ children, href, className, id }) {
 			}
 			return false
 		} catch (exc) {
-			console.log(exc)
+			console.error(exc)
 		}
 	}
 

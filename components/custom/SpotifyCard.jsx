@@ -10,7 +10,7 @@ const SpotifyCard = () => {
   const { data, error } = useSWR('/api/spotify', fetcher)
   if (error) {
     // TODO Make notification dialog popup
-    console.log(error)
+    console.error(error)
   }
 
   return (

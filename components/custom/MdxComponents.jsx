@@ -138,35 +138,12 @@ export default {
 		return <b className='font-bold text-white '>{children}</b>
 	},
 	code: ({ children, className }) => {
-		return (
-			<CodeBlock code={children} className={className} />
-			// <div className='static'>
-			//   <div className='m-2'>
-			//     <CopyToClipboard className='absolute hover:cursor-pointer ' text={children}
-			//       onCopy={() => console.log('copied!!')}>
-			//       <IoIosCopy size={17} className='p-3'/>
-			//     </CopyToClipboard>
-			//   </div>
-			//   <div>
-			//     <SyntaxHighlighter
-			//     className=''
-			//     language={parseLanguageByClass(className)}
-			//     style={a11yDark}
-			//     wrapLines={true}
-			//     wrapLongLines={true}
-			//     showLineNumbers={false}
-			//     showInlineLineNumbers={false}
-			//     >
-			//     {children}
-			//     </SyntaxHighlighter>
-			//   </div>
-			// </div>
-		)
+		return (<CodeBlock code={children} className={className} />	)
 	},
 	a: ({ children, className, href }) => {
 		return (
 			<a
-				className='my-3 hover:cursor-ne-resize text-[#ff0080] underline decoration-dotted decoration-2
+				className='my-3 hover:cursor-ne-resize text-jade10 underline decoration-dotted decoration-2
             decoration-sky-400 underline-offset-4 link link-underline link-underline-black hover:no-underline'
 				href={href}
 				target='_blank'

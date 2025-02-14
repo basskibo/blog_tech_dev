@@ -34,7 +34,6 @@ const Libaries = ({ libaries }) => {
 	const [chips] = useState(getCategories(libaries))
 	const [search, setSearch] = useState('')
 	const [data, setData] = useState(libaries)
-	console.log('chips', chips)
 
 	const handleCategoryClick = (e) => {
 		e.preventDefault()
