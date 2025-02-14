@@ -1,6 +1,6 @@
 /* eslint-disable no-dupe-keys */
 const plugin = require('tailwindcss/plugin')
-const { blackA, blueDark, sky, blueP3A, mauve, violet, indigo, purple, jadeDark, grass, tomato } = require("@radix-ui/colors")
+const { blackA,gray, blueDark, sky, blueP3A, mauve, violet, indigo, purple, jadeDark, grass, sand, tomato } = require("@radix-ui/colors")
 
 
 module.exports = {
@@ -17,6 +17,7 @@ module.exports = {
 				cta: "rgba(var(--cta))",
 				grape: "rgba(var(--grape))",
 				...blackA,
+				...gray,
 				...mauve,
 				...violet,
 				...purple,
@@ -27,6 +28,7 @@ module.exports = {
 				...jadeDark,
 				...grass,
 				...tomato,
+				...sand,
 				primary: {
 					100: blueDark.blue12,   // Use any color from the Radix blueDark palette
 					200: blueDark.blue11,
