@@ -1,5 +1,9 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+yarn.lock
+
+public/sitemap-0.xml
+public/rss.xml
 # dependencies
 /node_modules
 /.pnp
@@ -10,8 +14,11 @@
 
 # next.js
 /.next/
+.next/
 /out/
 
+public
+/public
 # production
 /build
 
@@ -36,15 +43,5 @@ yarn-error.log*
 
 #local dev files
 .history
-.nextjs
 .vscode
-# Sentry
-.sentryclirc
-
-# Sentry
-.sentryclirc
 .idea
-
-public/sitemap-0.xml
-package-lock.json
-public/rss.xml
