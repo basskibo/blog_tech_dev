@@ -14,7 +14,7 @@ import { ComponentHeader } from '@/components/layout/ComponentHeading';
 
 const Quiz = () => {
 	const [selectedQuiz, setSelectedQuiz] = useState('')
-	const [showConfirmRestart, setShowConfirmRestart] = useState(false); 
+	const [showConfirmRestart, setShowConfirmRestart] = useState(false);
 	const [isOpen, setIsOpen] = useState(false)
 
 	const quizes = [
@@ -25,13 +25,13 @@ const Quiz = () => {
 
 	const handleCategoryChange = (e) => {
 		setIsOpen(true)
-    
+
 	}
-	
+
 	const closeModal = () => {
 		setIsOpen(false)
 	}
-	
+
 	const handleResetQuiz = () => {
 		setSelectedQuiz('')
 		setIsOpen(false)
@@ -41,10 +41,12 @@ const Quiz = () => {
 					different levels of expertise so you can find questions suitable for yourself. To be honest I made this so i can reasure my knoweldge in fun and
 					also more faster way than just reading text.`
 	return (
-		<div className='layout mx-auto lg:my-14 my-5 sm:px-2 xs:px-3 lg:px-5 py-3 text-center text-slate-400'>
-			<ComponentHeader titlePrefix={'Interactive'} title={'Quiz'} subtitle={'Test your knowledge'} text={bio}/>
-			<div className='my-8 '>
+		<div className='layout mx-auto  my-48 lg:mt-24 px-1  sm:px-2 xs:px-3 lg:px-5 py-3 text-center text-slate-400'>
+			<div className='my-24 lg:my-4 px-1' id="scrollableDiv">
 
+				<ComponentHeader titlePrefix={'Interactive'} title={'Quiz'} subtitle={'Test your knowledge'} text={bio} />
+				<div className='my-8 '>
+				</div>
 			</div>
 			{selectedQuiz &&
 				<div className='flex  flex-col lg:flex-row gap-10'>
@@ -52,13 +54,13 @@ const Quiz = () => {
 						<h3 className='text-white text-2xl '>Categories</h3>
 						<ul className='flex flex-col gap-5 mt-5'>
 							{quizes.map((quiz) => (
-								<li  onClick={handleCategoryChange} key={quiz.id} className='disabled flex flex-row gap-2 text-lg items-center hover:underline hover:cursor-pointer hover:text-[#ff0080]'>
+								<li onClick={handleCategoryChange} key={quiz.id} className='disabled flex flex-row gap-2 text-lg items-center hover:underline hover:cursor-pointer hover:text-[#ff0080]'>
 									{quiz?.icon}{quiz.name} <span className=' text-end self-auto p-1 rounded-lg text-slate-600 text-sm'>{quiz.level}</span>
 								</li>
 							))}
 						</ul>
 					</div>
-					<QuizComponent selectedQuiz={selectedQuiz} setSelectedQuiz={setSelectedQuiz} onRequestRestart={() => setShowConfirmRestart(true)}/>
+					<QuizComponent selectedQuiz={selectedQuiz} setSelectedQuiz={setSelectedQuiz} onRequestRestart={() => setShowConfirmRestart(true)} />
 
 				</div>
 			}
@@ -70,7 +72,7 @@ const Quiz = () => {
 							<div key={quiz.id} onClick={() => setSelectedQuiz(quiz.id)} className='border bg-neutral-800 rounded-md border-neutral-800 px-5 py-10 space-y-2 flex flex-col justify-center items-center align-middle  
 							transform hover:scale-[1.05] transition-all  hover:cursor-pointer hover:text-[#ff0080] hover:border-blue10'>
 								<p className='flex flex-row text-lg justify-center items-center align-middle gap-1 text-white'>{quiz?.icon}{quiz.name} </p>
-								<DifficultyBar level={quiz.difficulty}/>
+								<DifficultyBar level={quiz.difficulty} />
 								<p className='flex flex-row text-sm justify-center items-center align-middle text-slate-400'>Difficulty: {quiz?.level} </p>
 							</div>
 						))}
@@ -103,41 +105,41 @@ const Quiz = () => {
 				</div>
 			)}
 			<Transition appear show={isOpen} as={Fragment}>
-					<Dialog as='div' className='relative z-10' onClose={closeModal}>
-						<Transition.Child
-							as={Fragment}
-							enter='ease-out duration-300'
-							enterFrom='opacity-0'
-							enterTo='opacity-100'
-							leave='ease-in duration-200'
-							leaveFrom='opacity-100'
-							leaveTo='opacity-0'>
-							<div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md' />
-						</Transition.Child>
+				<Dialog as='div' className='relative z-10 my-10 lg:my-2' onClose={closeModal}>
+					<Transition.Child
+						as={Fragment}
+						enter='ease-out duration-300'
+						enterFrom='opacity-0'
+						enterTo='opacity-100'
+						leave='ease-in duration-200'
+						leaveFrom='opacity-100'
+						leaveTo='opacity-0'>
+						<div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md' />
+					</Transition.Child>
 
-						<div className='fixed inset-0 overflow-y-auto'>
-							<div className='flex min-h-full items-center justify-center p-4 text-center'>
-								<Transition.Child
-									as={Fragment}
-									enter='ease-out duration-300'
-									enterFrom='opacity-0 scale-95'
-									enterTo='opacity-100 scale-100'
-									leave='ease-in duration-200'
-									leaveFrom='opacity-100 scale-100'
-									leaveTo='opacity-0 scale-95'>
-									<Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl   border border-neutral-700 p-6 text-left align-middle shadow-xl transition-all'>
-										<Dialog.Title
-											as='h3'
-											className='text-lg font-medium leading-6 text-white'>
-											Leave Quiz
-										</Dialog.Title>
-										<div className='mt-2'>
-											<p className='text-sm text-slate-400'>
-												By leaving this page you active quiz session will be closed.
-												You confirm to leave currenct quiz and go back to quiz selector ?
-											</p>
-										</div>
-										<div className='w-full flex flex-row-reverse  '>
+					<div className='fixed inset-0 overflow-y-auto'>
+						<div className='flex min-h-full items-center justify-center p-4 text-center'>
+							<Transition.Child
+								as={Fragment}
+								enter='ease-out duration-300'
+								enterFrom='opacity-0 scale-95'
+								enterTo='opacity-100 scale-100'
+								leave='ease-in duration-200'
+								leaveFrom='opacity-100 scale-100'
+								leaveTo='opacity-0 scale-95'>
+								<Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl   border border-neutral-700 p-6 text-left align-middle shadow-xl transition-all'>
+									<Dialog.Title
+										as='h3'
+										className='text-lg font-medium leading-6 text-white'>
+										Leave Quiz
+									</Dialog.Title>
+									<div className='mt-2'>
+										<p className='text-sm text-slate-400'>
+											By leaving this page you active quiz session will be closed.
+											You confirm to leave currenct quiz and go back to quiz selector ?
+										</p>
+									</div>
+									<div className='w-full flex flex-row-reverse  '>
 										<div className='mt-4 '>
 											<span className='  items-center justify-center  bg-gradient-to-r p-[2px]  from-[#7928ca] to-[#ff0080]'>
 												<button
@@ -154,14 +156,14 @@ const Quiz = () => {
 												</button>
 											</span>
 										</div>
-										</div>
-								
-									</Dialog.Panel>
-								</Transition.Child>
-							</div>
+									</div>
+
+								</Dialog.Panel>
+							</Transition.Child>
 						</div>
-					</Dialog>
-				</Transition>
+					</div>
+				</Dialog>
+			</Transition>
 
 		</div>
 	)
