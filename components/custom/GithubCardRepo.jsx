@@ -22,12 +22,12 @@ const GithubCardProfile = ({ children }) => {
 
         setRepository(response.data)
       } catch (error) {
-        console.log('error', error)
+        console.error('error', error)
       }
     }
 
     fetchData()
-  }, [])
+  }, [children])
 
   const setLanguageColor = (language) => {
     switch (language) {

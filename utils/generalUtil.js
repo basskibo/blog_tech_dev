@@ -22,7 +22,6 @@ export const generateRandomQuestionList = (questions) => {
 	const selectedQuestions = selectedIndices.map(index => questions[index])
 
 	// Output the selected questions
-	// console.log(selectedQuestions);
 	return selectedQuestions
 }
 
