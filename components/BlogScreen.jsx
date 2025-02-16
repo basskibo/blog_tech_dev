@@ -5,6 +5,8 @@ import clsx from 'clsx'
 import Virtualized from './custom/Masonary'
 import { ComponentHeader } from './layout/ComponentHeading'
 import { generalStyles } from './config/styles'
+import { Badge } from '@radix-ui/themes'
+import '@radix-ui/themes/styles.css';
 
 const getCategories = (posts) => {
 	try {
@@ -93,7 +95,7 @@ const BlogScreen = ({ posts }) => {
 
 				<div className='px-1'>
 					<input
-						className='w-full lg:w-4/4 my-3   px-3 py-2 rounded-md border border-slate-600  flex-grow cursor-text'
+						className='w-full lg:w-4/4 my-3   px-3 py-2 rounded-md border border-slate-600 bg-neutral-900 flex-grow cursor-text'
 						placeholder='Search...'
 						value={search}
 						type='search'
@@ -101,34 +103,26 @@ const BlogScreen = ({ posts }) => {
 					/>
 				</div>
 
-				<div className='mt-1 mb-7 lg:mb-10 lg:w-4/4'>
-					{chips
-						? (
-							chips.map((category) => (
-								<span key={category.slug}>
-									<a
-										className='inline-flex'
-										disabled={true}
-										onClick={handleCategoryClick}>
-										<span
-											className={clsx(
-												// eslint-disable-next-line no-constant-condition
-												'flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border border-primary-400  hover:text-white hover:cursor-pointer transition duration-500 ease-in-out',
-												search === category.name
-													? ` underline decoration-solid decoration-2 bg-primary-400 underline-offset-4 `
-													: search !== '' & search !== category.name?  'text-gray-500': 'text-white'
-													
-											)}>
-											{category.name}
-										</span>
-									</a>
-								</span>
-							))
-						)
-						: (
-							<></>
-						)}
+
+				<div className="mt-1 mb-7 lg:mb-10 lg:w-full flex flex-wrap gap-2">
+					{chips?.map((category) => (
+						<Badge
+							key={category.slug}
+							onClick={(e) => handleCategoryClick(e)}
+							variant="outline"
+							color="blue"
+							className={clsx(
+								'cursor-pointer flex items-center px-2 py-1 transition duration-300',
+								search === category.name
+									? 'bg-blue-500 text-white border-blue-600' // Highlight active
+									: 'bg-transparent text-blue-500 border-blue-500 hover:bg-blue-100'
+							)}
+						>
+							{category.name}
+						</Badge>
+					))}
 				</div>
+
 			</div>
 			<div className=' w-full'>
 				<Virtualized posts={data} type={'blog'} />

@@ -86,7 +86,7 @@ const FeaturedPosts = () => {
 						</div>}
 				</div>
 
-				<div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
+				<div className='relative max-w-7xl mx-auto px-4 my-10 lg:px-0 sm:static'>
 					<ComponentHeader titlePrefix={'My Most Popular posts on '} title={'Dev.to'} text={devtotext} size={'md'} />
 				
 					{devToPosts.length > 0 ? (

@@ -112,7 +112,7 @@ const Child = ({ style, index, data, type }) => {
 const App = ({ posts, type }) => {
 	const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 	const cellSize = !isTabletOrMobile
-		? { height: type === 'libary' ? 300 : 400, width: type === 'libary' ? 350 : 400 }
+		? { height: type === 'libary' ? 250 : 400, width: type === 'libary' ? 400 : 400 }
 		: { height: type === 'libary' ? 300 : 300, width: 300 };
 
 	return (

@@ -10,6 +10,9 @@ import Virtualized from '../../components/custom/Masonary'
 import clsx from 'clsx'
 import { ComponentHeader } from '@/components/layout/ComponentHeading'
 import { generalStyles } from '@/components/config/styles'
+import { Badge } from '@radix-ui/themes'
+import '@radix-ui/themes/styles.css';
+import { libaryBio } from '@/components/config/bios'
 
 const getCategories = (posts) => {
 	try {
@@ -85,63 +88,43 @@ const Libaries = ({ libaries }) => {
 		})
 		setData(filteredData)
 	}
-	const bio = `Here you can find some of my simple libaries and repositories
-					which are open source so feel free to use it in your projects.`
+	
 
 	return (
 		// <MotionComponent>
-		<div className='layout mx-auto lg:my-0 my-5 py-3 sm:px-2 xs:px-3 lg:px-3  text-slate-400'>
-			<div className='my-24 px-1' id="scrollableDiv">
-
-				<ComponentHeader titlePrefix={'Created '} title={'Libaries'} subtitle={''} text={bio} />
-
-				{/* <h1 className='mb-5'>
-					The <Accent className='font-extrabold text-5xl'>Libary</Accent> ({data?.length})
-				</h1>
-				<p className='display-4 px-1'>
-					Here you can find some of my simple libaries and repositories
-					which are open source so feel free to use it in your projects.
-				</p> */}
+		<div className='layout mx-auto lg:my-0 my-5  sm:px-2 xs:px-3 lg:px-5 py-2 text-center text-slate-400'>
+			<div className='my-24 lg:my-20 sm:mt-40 px-1'>
+				<ComponentHeader titlePrefix={'Created '} title={'Libaries'} subtitle={''} text={libaryBio} />
 				<input
-					className='w-full my-3   px-3 py-2 rounded-md border border-slate-600 focus:border-lime-600'
+					className='w-full my-3   px-3 py-2 rounded-md border border-slate-600 bg-neutral-900'
 					placeholder='Search...'
 					onChange={handleSearchChange}
 				></input>
-				{/* <div className='mt-1 mb-7 lg:mb-10 lg:w-4/4'>
-					{chips
-						? (
-							chips.map((category) => (
-								<span key={`${category.slug}_${new Date()}`}>
-									<a
-										className='inline-flex'
-										disabled={true}
-										onClick={handleCategoryClick}>
-										<span
-											className={clsx(
-												// eslint-disable-next-line no-constant-condition
-												'flex items-center m-1 justify-cente opacity-80 text-white font-bold rounded-lg text-xs px-2 py-1 border-1  hover:text-white hover:cursor-pointer transition duration-500 ease-in-out', '' ? '' : '',
-												search === category.name
-													? ` underline decoration-solid decoration-2 bg-${generalStyles.mainColor}  underline-offset-4 `
-													: search !== '' & search !== category.name ? 'text-gray-500' : 'text-white',
-												generalStyles.defaultBorder
-											)}>
-											{category.name}
-										</span>
-									</a>
-								</span>
-							))
-						)
-						: (
-							<></>
-						)}
-				</div> */}
+				<div className="mt-1 mb-7 lg:mb-10 lg:w-full flex flex-wrap gap-2">
+					{chips?.map((category) => (
+						<Badge
+							key={category.slug}
+							onClick={(e) => handleCategoryClick(e)}
+							variant="outline"
+							color="blue"
+							className={clsx(
+								'cursor-pointer flex items-center px-2 py-1 transition duration-300',
+								search === category.name
+									? 'bg-blue-500 text-white border-blue-600' // Highlight active
+									: 'bg-transparent text-blue-500 border-blue-500 hover:bg-blue-100'
+							)}
+						>
+							{category.name}
+						</Badge>
+					))}
+				</div>
+
 			</div>
 			<div className=' w-full mt-10'>
 				<Virtualized posts={data} type={'libary'} />
 
 			</div>
 		</div>
-		// </MotionComponent>
 	)
 }
 export default Libaries
