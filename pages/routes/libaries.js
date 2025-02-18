@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import Accent from '../../components/custom/Accent'
-// import LibaryCard from '../../components/LibaryCard'
 import 'react-loading-skeleton/dist/skeleton.css'
 import fs from 'fs'
 import path from 'path'
@@ -9,7 +7,6 @@ import { getLibaryFiles } from '../../services/indexv2'
 import Virtualized from '../../components/custom/Masonary'
 import clsx from 'clsx'
 import { ComponentHeader } from '@/components/layout/ComponentHeading'
-import { generalStyles } from '@/components/config/styles'
 import { Badge } from '@radix-ui/themes'
 import '@radix-ui/themes/styles.css';
 import { libaryBio } from '@/components/config/bios'
@@ -71,7 +68,6 @@ const Libaries = ({ libaries }) => {
 		e.preventDefault()
 		setSearch(e.target.value.toLowerCase())
 		const filteredData = libaries.filter((el) => {
-			// if no input the return the original
 			const data = el.props.data
 			if (search === '') {
 				return data
@@ -91,7 +87,6 @@ const Libaries = ({ libaries }) => {
 	
 
 	return (
-		// <MotionComponent>
 		<div className='layout mx-auto lg:my-0 my-5  sm:px-2 xs:px-3 lg:px-5 py-2 text-center text-slate-400'>
 			<div className='my-24 lg:my-20 sm:mt-40 px-1'>
 				<ComponentHeader titlePrefix={'Created '} title={'Libaries'} subtitle={''} text={libaryBio} />
