@@ -1,0 +1,52 @@
+---
+title: "Shallow vs. Deep Copy: Understanding the Difference"
+excerpt: "When working with objects or data structures in programming, copying data isn't always straightforward."
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1739878121/igutech/damien-dufour-0Y3EXJiVG1o-unsplash_mvpmya.jpg"
+imageCreditUser: "Aaron Visuals"
+imageCreditUsername: "aronvisuals"
+publishedAt: "2025-02-17T05:35:07.322Z"
+author: "Bojan Jagetic"
+tags: [{ slug: "sh", name: "bash" }]
+inPreparation: false
+---
+
+## Introduction
+
+When working with objects or data structures in programming, copying data isn't always straightforward. There are two types of copies: shallow copy and deep copy, and understanding their differences is crucial to avoiding unintended side effects in your code.
+
+
+## Shallow Copy
+
+A <Adjusted>shallow copy</Adjusted> creates a new object, but it only copies references to the nested objects rather than duplicating them. This means changes to the nested objects in the copy will affect the original.
+
+Example in JavaScript:
+```javascript
+const original = { a: 1, b: { c: 2 } };
+const shallowCopy = { ...original };
+
+shallowCopy.b.c = 42; 
+console.log(original.b.c); // 42 (Changes reflected in original)
+```
+
+Use Case: Suitable for flat objects or when you don’t need to modify nested structures.
+
+## Deep Copy
+
+A <Adjusted>deep copy</Adjusted> creates a completely independent duplicate, including all nested objects. Changes to the copied object won’t affect the original.
+Example in JavaScript (Using JSON Method):
+
+```javascript
+const original = { a: 1, b: { c: 2 } };
+const deepCopy = JSON.parse(JSON.stringify(original));
+
+deepCopy.b.c = 42;
+console.log(original.b.c); // 2 (Original remains unchanged)
+```
+Use Case: Essential when working with complex objects or preventing accidental mutations.
+
+### Choosing the Right Approach
+<LgList>
+	<li>Use shallow copy when dealing with simple, non-nested data.</li>
+    <li>Use deep copy when working with deeply nested structures or immutable data.</li>
+</LgList>
+Which one do you use the most in your projects? 🚀 Let me know!
