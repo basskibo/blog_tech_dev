@@ -42,7 +42,7 @@ const PostDetail = ({ post, content }) => {
 				</h1>
 			</div>
 			<div
-				className="absolute top-0 left-0 w-full h-80 bg-cover blur-xs bg-center"
+				className="absolute top-0 left-0 w-full h-96 bg-cover blur-xs bg-center"
 				style={{
 					backgroundImage: url,
 				}}

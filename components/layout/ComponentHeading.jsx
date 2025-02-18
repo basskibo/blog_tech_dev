@@ -11,7 +11,7 @@ export function ComponentHeader({ titlePrefix, title, subtitle, text, size = 'lg
 	return (
 		<MotionWrapper>
 			<motion.h1
-				className={`text-center font-display text-slate-400 text-3xl md:text-4xl lg:text-5xl font-bold tracking-[-0.02em] drop-shadow-sm  md:leading-[5rem]`}
+				className={`text-center font-display text-slate-400 text-3xl md:text-4xl lg:text-4xl font-bold tracking-[-0.02em] drop-shadow-sm  md:leading-[5rem]`}
 				variants={FADE_DOWN_ANIMATION_VARIANTS}
 			>
 				{titlePrefix} <Accent>{title} </Accent>
