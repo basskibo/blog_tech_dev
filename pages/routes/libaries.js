@@ -103,7 +103,7 @@ const Libaries = ({ libaries }) => {
 							variant="outline"
 							color="blue"
 							className={clsx(
-								'cursor-pointer flex items-center px-2 py-1 transition duration-300',
+								'cursor-pointer flex items-center px-2 py-1 transition duration-300 text-sm',
 								search === category.name
 									? 'bg-blue-500 text-white border-blue-600' // Highlight active
 									: 'bg-transparent text-blue-500 border-blue-500 hover:bg-blue-100'
