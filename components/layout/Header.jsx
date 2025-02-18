@@ -47,7 +47,7 @@ const Header = () => {
 	return (
 		<>
 			<NavigationMenu.Root className={clsx(menuClass)}>
-				<NavigationMenu.List className="center m-0 flex list-none rounded-md  p-2 shadow-[0_2px_10px] bg-neutral-800/60 backdrop-filter backdrop-blur-lg bg-opacity-70 shadow-blackA4">
+				<NavigationMenu.List className="center m-0 flex list-none  p-2 shadow-[0_2px_10px] bg-neutral-800/60 backdrop-filter backdrop-blur-lg bg-opacity-70 shadow-blackA4">
 					{navigation.map((item) => (
 						<NavigationMenu.Item key={item.name}>
 							<NavigationMenu.Link
@@ -129,7 +129,7 @@ const Header = () => {
 								<li className="row-span-3 grid">
 									<NavigationMenu.Link asChild>
 										<a
-											className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-indigo-600 to-blue-700 p-[20px] no-underline outline-none focus:shadow-[0_0_0_2px] focus:shadow-violet7"
+											className="flex h-full w-full select-none flex-col justify-end  bg-gradient-to-b from-indigo-600 to-blue-700 p-[20px] no-underline outline-none focus:shadow-[0_0_0_2px] focus:shadow-violet7"
 											href="/quiz"
 										>
 											<Image
@@ -182,7 +182,7 @@ const ListItem = React.forwardRef(
 			<NavigationMenu.Link asChild>
 				<a
 					className={classNames(
-						"block select-none rounded-md p-3 text-[15px] leading-none no-underline outline-none transition-colors hover:bg-gray-800 focus:shadow-[0_0_0_2px] focus:shadow-violet7",
+						"block select-none  p-3 text-[15px] leading-none no-underline outline-none transition-colors hover:bg-gray-800 focus:shadow-[0_0_0_2px] focus:shadow-violet7",
 						className,
 					)}
 					{...props}
