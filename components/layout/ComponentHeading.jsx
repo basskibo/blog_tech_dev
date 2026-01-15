@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Accent } from "..";
+import Accent from "../custom/Accent";
 import MotionWrapper from "./MotionWrapper";
 
 export function ComponentHeader({ titlePrefix, title, subtitle, text, size = 'lg'}) {

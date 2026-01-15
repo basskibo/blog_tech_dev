@@ -1,6 +1,6 @@
 'use client'
 import React, { Fragment, useState } from 'react'
-import { Accent } from '@/components/index'
+import Accent from '@/components/custom/Accent'
 import QuizComponent from '@/components/QuizComponent'
 import { IoLogoNodejs, IoLogoJavascript } from "react-icons/io";
 import { MdArchitecture, MdOutlineDesignServices } from "react-icons/md";
