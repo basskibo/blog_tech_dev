@@ -37,92 +37,104 @@ const NewsLetter = () => {
 		})
 	}
 	return (
-		<div className='  relative bg-black  overflow-hidden  md:p-10'>
-			{/* <div className='bg-gradient-to-b from-neutral-900  to-[#7928ca]  md:p-5'> */}
-			<div className='relative max-w-7xl mx-auto sm:px-4 lg:px-0 sm:static'>
-				<div className=' grid place-items-left place-content-center xs:mx-2 xs:px-3 mx-auto relative xl:border  xl:border-neutral-800   grid-cols-1 lg:grid-cols-2 gap-10 p-10 lg:p-[60px] rounded-2xl'>
+		<div className='relative bg-black overflow-hidden p-4 sm:p-6 md:p-8 lg:p-10 safe-top safe-bottom'>
+			<div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 sm:static'>
+				<div className='grid place-items-left place-content-center mx-auto relative xl:border xl:border-neutral-800/50 grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 p-6 sm:p-8 lg:p-12 xl:p-[60px] rounded-2xl bg-gradient-to-br from-neutral-900/50 to-black/50 backdrop-blur-sm'>
 
-					<div>
-						<h2 className='text-white text-4xl font-semibold'>
+					<div className='space-y-4 sm:space-y-5'>
+						<h2 className='text-white text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent'>
 							Get in touch
 						</h2>
 
-						<p className='text-sm text-white mt-4'>
-							<Accent className='font-bold'>Dont be shy</Accent>, if you have some great idea or project you wish to get done feel free to contact me
+						<p className='text-sm sm:text-base text-slate-300 leading-relaxed'>
+							<Accent className='font-bold text-primary-400'>Dont be shy</Accent>, if you have some great idea or project you wish to get done feel free to contact me
 						</p>
 						<a data-umami-event={'say-hello-click'}
-							className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
-               hover:cursor-pointer text-center text-white  border border-primary-400  hover:text-secondary-400 hover:shadow-neutral-500'
+							className='group relative inline-flex items-center justify-center gap-2 mt-4 sm:mt-5 w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base text-white
+               bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400
+               shadow-lg shadow-primary-500/20 hover:shadow-primary-400/40
+               transform hover:scale-[1.02] active:scale-[0.98]
+               transition-all duration-200 ease-out
+               border border-primary-400/30 hover:border-primary-400/50'
 							href="mailto:jagetic.bojan@gmail.com">
-							<span className='basis-3/4 md:text-sm '>Say hello</span>
-							<MdWavingHand className='text-xl mx-1 px-0 basis-1/4 text-amber-400' />
+							<span>Say hello</span>
+							<MdWavingHand className='text-xl sm:text-2xl text-amber-300 group-hover:animate-bounce' />
 						</a>
 					</div>
-					<div>
-						<h2 className='text-white text-4xl font-semibold'>
+					<div className='space-y-4 sm:space-y-5'>
+						<h2 className='text-white text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent'>
 							Blogging
 						</h2>
 
-						<p className='text-sm text-white mt-4'>
-							I have been writing blogs as well on <Accent className='font-bold'>Dev.to, Medium</Accent> and <Accent className='font-bold'>Hashnode</Accent>, I try to keep content up to date with my personal blog
+						<p className='text-sm sm:text-base text-slate-300 leading-relaxed'>
+							I have been writing blogs as well on <Accent className='font-bold text-primary-400'>Dev.to, Medium</Accent> and <Accent className='font-bold text-primary-400'>Hashnode</Accent>, I try to keep content up to date with my personal blog
 						</p>
-						<div className='flex flex-col xl:flex-row'>
+						<div className='flex flex-col sm:flex-row gap-3 sm:gap-4 mt-4 sm:mt-5'>
 							<a data-umami-event={'newslatter-devto-click'}
-								className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
-               hover:cursor-pointer text-center text-white  border border-primary-400  hover:text-secondary-400 hover:shadow-neutral-500'
+								className='group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 sm:px-6 py-3 rounded-xl font-medium text-sm sm:text-base text-white
+               bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800
+               border border-gray-700/50 hover:border-gray-600
+               shadow-lg hover:shadow-xl
+               transform hover:scale-[1.02] active:scale-[0.98]
+               transition-all duration-200 ease-out'
 								href="https://dev.to/basskibo" target='_blank' rel='noreferrer'>
-								<span className='basis-3/4 md:text-sm '>Dev.to</span>
-								<SiDevdotto className='text-xl mx-1 px-0 basis-1/4 text-[#fff]' />
+								<SiDevdotto className='text-lg sm:text-xl text-white' />
+								<span>Dev.to</span>
 							</a>
-							<a data-umami-event={'newslatter-hashnode-click'} className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
-               hover:cursor-pointer text-center text-white  border border-primary-400  hover:text-secondary-400 hover:shadow-neutral-500'
+							<a data-umami-event={'newslatter-hashnode-click'} 
+								className='group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 sm:px-6 py-3 rounded-xl font-medium text-sm sm:text-base text-white
+               bg-gradient-to-br from-indigo-900/50 to-indigo-800/50 hover:from-indigo-800/60 hover:to-indigo-700/60
+               border border-indigo-700/50 hover:border-indigo-600
+               shadow-lg hover:shadow-xl shadow-indigo-500/10
+               transform hover:scale-[1.02] active:scale-[0.98]
+               transition-all duration-200 ease-out'
 								href="https://hashnode.bojanjagetic.com/" target='_blank' rel='noreferrer'>
-								<span className='basis-3/4 md:text-sm '>Hashnode</span>
-								<SiHashnode className='text-xl mx-1 px-0 basis-1/4 text-[#2962FF]' />
+								<SiHashnode className='text-lg sm:text-xl text-[#2962FF]' />
+								<span>Hashnode</span>
 							</a>
-							<a data-umami-event={'newslatter-medium-click'} className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
-               hover:cursor-pointer text-center text-white  border border-primary-400  hover:text-secondary-400 hover:shadow-neutral-500'
+							<a data-umami-event={'newslatter-medium-click'} 
+								className='group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 sm:px-6 py-3 rounded-xl font-medium text-sm sm:text-base text-white
+               bg-gradient-to-br from-gray-900 to-black hover:from-gray-800 hover:to-gray-900
+               border border-gray-800/50 hover:border-gray-700
+               shadow-lg hover:shadow-xl
+               transform hover:scale-[1.02] active:scale-[0.98]
+               transition-all duration-200 ease-out'
 								href="https://medium.com/@jagetic.bojan" target='_blank' rel='noreferrer'>
-								<span className='basis-3/4 md:text-sm '>Medium</span>
-								<SiMedium className='text-xl mx-1 px-0 basis-1/4 text-[#cecece]' />
+								<SiMedium className='text-lg sm:text-xl text-white' />
+								<span>Medium</span>
 							</a>
 						</div>
 					</div>
-					<div>
-						<h2 className='text-white text-4xl font-semibold'>
-							Sign up for <Accent> newsletter</Accent>
+					<div className='space-y-4 sm:space-y-5'>
+						<h2 className='text-white text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent'>
+							Sign up for <Accent className='text-primary-400'>newsletter</Accent>
 						</h2>
 
-						<p className='text-sm text-white mt-4'>
+						<p className='text-sm sm:text-base text-slate-300 leading-relaxed'>
 							if you liked what you read and want to read a lot of
 							similar content, subscribe to the mailing list and receive
 							an email on a weekly/monthly basis.
 						</p>
 					</div>
-					<div>
-						<div className=' items-stretch grid'>
-						
-							<a
-								data-umami-event={'newslatter-subscribe-click'}
-
-								className='transform hover:scale-[1.02] transition-all ml-0 xs:ml-0 p-2 w-2/4 my-3 md:w-1/4 md:py-3 rounded-md  shadow-sm  shadow-neutral-700 flex flex-row m-2
-               hover:cursor-pointer text-center text-white  border border-primary-400  hover:text-secondary-400 hover:shadow-neutral-500'
-								href="https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist"
-								target='_blank' rel='noreferrer'>
-								<span className='basis-3/4 md:text-sm '>Subscribe on newslatter</span>
-								<IoNewspaperOutline className='text-xl mx-1 px-0 basis-1/4 text-[#cecece]' />
-							</a>
-						</div>
-
-						{validationError
-							? (
-								<p className='text-red-700 mt-2 font-semibold  text-md'>
-									Email format is wrong, please try again
-								</p>
-							)
-							: (
-								<></>
-							)}
+					<div className='flex flex-col items-start'>
+						<a
+							data-umami-event={'newslatter-subscribe-click'}
+							className='group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base text-white
+               bg-gradient-to-r from-secondary-600 to-secondary-500 hover:from-secondary-500 hover:to-secondary-400
+               shadow-lg shadow-secondary-500/20 hover:shadow-secondary-400/40
+               transform hover:scale-[1.02] active:scale-[0.98]
+               transition-all duration-200 ease-out
+               border border-secondary-400/30 hover:border-secondary-400/50'
+							href="https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist"
+							target='_blank' rel='noreferrer'>
+							<IoNewspaperOutline className='text-xl sm:text-2xl text-white group-hover:rotate-12 transition-transform' />
+							<span>Subscribe on newsletter</span>
+						</a>
+						{validationError && (
+							<p className='text-red-400 mt-3 font-semibold text-sm'>
+								Email format is wrong, please try again
+							</p>
+						)}
 					</div>
 				</div>
 				<Transition appear show={isOpen} as={Fragment}>

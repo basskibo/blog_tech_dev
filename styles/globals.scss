@@ -4,35 +4,66 @@
 
 :root {
 	--grape: 114, 35, 204;
+	--radius: 0.5rem;
+	
+	/* Light theme - svetla bela pozadina */
+	--background: 0 0% 100%;
+	--foreground: 222.2 84% 4.9%;
+	--card: 0 0% 100%;
+	--card-foreground: 222.2 84% 4.9%;
+	--popover: 0 0% 100%;
+	--popover-foreground: 222.2 84% 4.9%;
+	--primary: 217 91% 60%;
+	--primary-foreground: 255 255 255;
+	--secondary: 210 40% 96.1%;
+	--secondary-foreground: 222.2 47.4% 11.2%;
+	--muted: 210 40% 96.1%;
+	--muted-foreground: 215.4 16.3% 46.9%;
+	--accent: 210 40% 96.1%;
+	--accent-foreground: 222.2 47.4% 11.2%;
+	--destructive: 0 84.2% 60.2%;
+	--destructive-foreground: 255 255 255;
+	--border: 214.3 31.8% 91.4%;
+	--input: 214.3 31.8% 91.4%;
+	--ring: 217 91% 60%;
 }
-html,
-body {
-	background-color: #000;
+
+.dark {
+	/* Dark theme - tamna crna pozadina */
+	--background: 0 0% 3%;
+	--foreground: 210 40% 98%;
+	--card: 0 0% 6%;
+	--card-foreground: 210 40% 98%;
+	--popover: 0 0% 6%;
+	--popover-foreground: 210 40% 98%;
+	--primary: 217 91% 60%;
+	--primary-foreground: 0 0% 3%;
+	--secondary: 217.2 32.6% 17.5%;
+	--secondary-foreground: 210 40% 98%;
+	--muted: 217.2 32.6% 17.5%;
+	--muted-foreground: 215 20.2% 65.1%;
+	--accent: 217.2 32.6% 17.5%;
+	--accent-foreground: 210 40% 98%;
+	--destructive: 0 62.8% 30.6%;
+	--destructive-foreground: 210 40% 98%;
+	--border: 217.2 32.6% 17.5%;
+	--input: 217.2 32.6% 17.5%;
+	--ring: 217 91% 60%;
+}
+html {
 	box-sizing: border-box;
-
-	padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
-		env(safe-area-inset-left);
-	padding-top: env(safe-area-inset-top);
-
-	padding: 0;
 	margin: 0;
-	// font-family: "Montserrat", sans-serif;
-	font-family: 'Ubuntu', 'Rethink Sans', sans-serif;
-	&:before {
-		content: '';
-		content: '';
-		width: 100%;
-		height: 100vh;
+	padding: 0;
+}
 
-		background-color: #000;
-		position: fixed;
-		left: 0;
-		top: 0;
-		z-index: -1;
-		background-position: 50% 50%;
-		background-repeat: no-repeat;
-		background-size: cover;
-	}
+body {
+	background-color: hsl(var(--background));
+	color: hsl(var(--foreground));
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Ubuntu', 'Rethink Sans', sans-serif;
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
 .rethink-sans {
 	font-family: 'Rethink Sans', sans-serif;

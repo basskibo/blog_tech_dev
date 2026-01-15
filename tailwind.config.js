@@ -12,8 +12,55 @@ module.exports = {
 				'hero-pattern': 'url(\'../public/images/hero.svg\')'
 			},
 			colors: {
-				border: "rgba(var(--border))",
-				card: "rgba(var(--card))",
+				border: "hsl(var(--border))",
+				input: "hsl(var(--input))",
+				ring: "hsl(var(--ring))",
+				background: "hsl(var(--background))",
+				foreground: "hsl(var(--foreground))",
+				primary: {
+					DEFAULT: "hsl(var(--primary))",
+					foreground: "hsl(var(--primary-foreground))",
+					100: blueDark.blue12,   // Use any color from the Radix blueDark palette
+					200: blueDark.blue11,
+					300: blueDark.blue10,
+					400: blueDark.blue9,
+					500: blueDark.blue8,
+					600: blueDark.blue7,
+					700: blueDark.blue6,
+					800: blueDark.blue5,
+					900: blueDark.blue4,
+				},
+				secondary: {
+					DEFAULT: "hsl(var(--secondary))",
+					foreground: "hsl(var(--secondary-foreground))",
+					100: jadeDark.jade12,   // Replace with desired color from Radix
+					200: jadeDark.jade11,
+					300: violet.violet3,
+					400: jadeDark.jade9,
+					500: violet.violet5,
+					600: violet.violet6,
+					700: violet.violet7,
+				},
+				destructive: {
+					DEFAULT: "hsl(var(--destructive))",
+					foreground: "hsl(var(--destructive-foreground))",
+				},
+				muted: {
+					DEFAULT: "hsl(var(--muted))",
+					foreground: "hsl(var(--muted-foreground))",
+				},
+				accent: {
+					DEFAULT: "hsl(var(--accent))",
+					foreground: "hsl(var(--accent-foreground))",
+				},
+				popover: {
+					DEFAULT: "hsl(var(--popover))",
+					foreground: "hsl(var(--popover-foreground))",
+				},
+				card: {
+					DEFAULT: "hsl(var(--card))",
+					foreground: "hsl(var(--card-foreground))",
+				},
 				cta: "rgba(var(--cta))",
 				grape: "rgba(var(--grape))",
 				...blackA,
@@ -29,30 +76,15 @@ module.exports = {
 				...grass,
 				...tomato,
 				...sand,
-				primary: {
-					100: blueDark.blue12,   // Use any color from the Radix blueDark palette
-					200: blueDark.blue11,
-					300: blueDark.blue10,
-					400: blueDark.blue9,
-					500: blueDark.blue8,
-					600: blueDark.blue7,
-					700: blueDark.blue6,
-					800: blueDark.blue5,
-					900: blueDark.blue4,
-				},
-				secondary: {
-					100: jadeDark.jade12,   // Replace with desired color from Radix
-					200: jadeDark.jade11,
-					300: violet.violet3,
-					400: jadeDark.jade9,
-					500: violet.violet5,
-					600: violet.violet6,
-					700: violet.violet7,
-				},
 				dark: '#0e1111',
 				gold: '#ffd700',
 				silver: '#c0c0c0',
 				bronze: '#cd7f32'
+			},
+			borderRadius: {
+				lg: "var(--radius)",
+				md: "calc(var(--radius) - 2px)",
+				sm: "calc(var(--radius) - 4px)",
 			},
 			keyframes: {
 				flicker: {
@@ -84,7 +116,10 @@ module.exports = {
 			},
 		}
 	},
-	plugins: [require('@tailwindcss/typography'), require('autoprefixer'), plugin(function ({ addUtilities }) {
+	plugins: [
+		require('@tailwindcss/typography'), 
+		require('autoprefixer'), 
+		plugin(function ({ addUtilities }) {
 		const notchUtilities = {
 			'.safe-top': {
 				paddingTop: 'constant(safe-area-inset-top)',
