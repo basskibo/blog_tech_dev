@@ -64,23 +64,28 @@ const Landing = () => {
 						<h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] tracking-tight'>
 							My name is{' '}
 							<Accent>
-								<TypeAnimation
-									sequence={[
-										700,
-										'Jagetic',
-										2000,
-										'Bojan Jagetic',
-										() => {
-											console.log('Done typing!')
-										}
-									]}
-									wrapper='span'
-									cursor={true}
-									speed={25}
-									repeat={0}
-									className='block sm:inline'
-									style={{ fontSize: '1em' }}
-								/>
+								<span className='inline-block min-w-[1ch]'>
+									<TypeAnimation
+										sequence={[
+											700,
+											'Jagetic',
+											2000,
+											'Bojan Jagetic',
+											() => {
+												console.log('Done typing!')
+											}
+										]}
+										wrapper='span'
+										cursor={true}
+										speed={25}
+										repeat={0}
+										style={{ 
+											fontSize: '1em',
+											display: 'inline-block',
+											minHeight: '1em'
+										}}
+									/>
+								</span>
 							</Accent>
 						</h1>
 					</motion.div>
