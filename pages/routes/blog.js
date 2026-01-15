@@ -1,5 +1,5 @@
 import React from 'react'
-import { BlogScreen } from '../../components'
+import BlogScreen from '../../components/BlogScreen'
 import { getPostFiles } from '../../services/indexv2'
 import fs from 'fs'
 import path from 'path'

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { allQuizes } from 'src/quizQuestions';
-import { Accent } from '.';
+import Accent from './custom/Accent';
 import cslx from 'clsx';
 import { IoWarningOutline } from "react-icons/io5";
 import { RiFullscreenFill, RiFullscreenExitLine } from "react-icons/ri";

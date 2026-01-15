@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Accent } from '.'
+import Accent from './custom/Accent'
 import axios from 'axios'
 
 const SimiliarPosts = ({ tags }) => {
