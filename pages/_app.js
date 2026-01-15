@@ -8,20 +8,9 @@ import * as ga from '../lib/analytics'
 import SplashScreen from '../components/custom/SplashScreen'
 import NextHead from 'next/head'
 import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from '@vercel/speed-insights/next'
+import { ThemeProvider } from '../components/theme-provider'
 
-
-// export function reportWebVitals ({ id, name, label, value }) {
-// ga('send', 'event', {
-//   eventCategory:
-//     label === 'web-vital' ? 'Web Vitals' : 'Next.js custom metric',
-//   eventAction: name,
-//   eventValue: Math.round(name === 'CLS' ? value * 1000 : value), // values must be integers
-//   eventLabel: id, // id unique to current page load
-//   nonInteraction: true // avoids affecting bounce rate.
-// })
-//   label === 'web-vital' && console.log({ id, name, label, value })
-// }
 const handleTitle = (router) => {
 	let title = 'Bojan Jagetic'
 	try {
@@ -98,6 +87,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 	return (
 		<>
 			<NextHead>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
 				<title>{title}</title>
 				<meta property='og:image' content={ogUrl} />
 				<meta
@@ -130,13 +120,20 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 					}}
 				/>
 			</NextHead>
-			<SplashScreen loaded={pageLoaded}>
-				<Layout>
-					<Component {...pageProps} />
-					<SpeedInsights />
-					<Analytics />
-				</Layout>
-			</SplashScreen>
+			<ThemeProvider
+				attribute="class"
+				defaultTheme="dark"
+				enableSystem
+				disableTransitionOnChange
+			>
+				<SplashScreen loaded={pageLoaded}>
+					<Layout>
+						<Component {...pageProps} />
+						<SpeedInsights />
+						<Analytics />
+					</Layout>
+				</SplashScreen>
+			</ThemeProvider>
 		</>
 	)
 }

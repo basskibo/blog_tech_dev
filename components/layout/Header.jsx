@@ -1,203 +1,253 @@
 import React from 'react'
-import { Disclosure } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
-import ActiveLink from '../custom/ActiveLink'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Button } from '../ui/button'
+import { cn } from '@/lib/utils'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import logoSmImg from '../../public/logo/logo_sm.webp'
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import classNames from "classnames";
-import { CaretDownIcon, DividerVerticalIcon } from "@radix-ui/react-icons";
-import clsx from 'clsx'
-import { generalStyles, generalTheme } from '../config/styles'
+import * as NavigationMenu from "@radix-ui/react-navigation-menu"
+import { CaretDownIcon } from "@radix-ui/react-icons"
 
 const navigation = [
-	{ name: 'Home', href: '/', current: true },
-	{ name: 'Blog', href: '/routes/blog', current: false },
-	{ name: 'Libary', href: '/routes/libaries', current: false },
-	{ name: 'About', href: '/routes/aboutme', current: false }
+	{ name: 'Home', href: '/' },
+	{ name: 'Blog', href: '/routes/blog' },
+	{ name: 'Libary', href: '/routes/libaries' },
+	{ name: 'About', href: '/routes/aboutme' }
 ]
 
-
 const Header = () => {
-	const [isScrolled, setIsScrolled] = React.useState(false);
-	const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+	const router = useRouter()
+	const [isScrolled, setIsScrolled] = React.useState(false)
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
 
 	React.useEffect(() => {
 		const handleScroll = () => {
-			// Check if the user has scrolled down from the top
-			setIsScrolled(window.scrollY > 10);
-		};
-
-		// Listen to the scroll event
-		window.addEventListener('scroll', handleScroll);
-
-		// Cleanup event listener on component unmount
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, []);
-
-	// Dynamic class for the menu
-	const menuClass = classNames(
-		"top-0 z-50 pt-6 flex w-full justify-center fixed inset-x-0 transition-opacity duration-500",
-		{
-			'opacity-100 pointer-events-auto': !isScrolled,
-			'opacity-0 pointer-events-none': isScrolled,
+			setIsScrolled(window.scrollY > 10)
 		}
-	);
+
+		window.addEventListener('scroll', handleScroll)
+		return () => window.removeEventListener('scroll', handleScroll)
+	}, [])
+
+	const isActive = (href) => {
+		if (href === '/') {
+			return router.asPath === '/'
+		}
+		return router.asPath.startsWith(href)
+	}
 
 	return (
 		<>
-			<NavigationMenu.Root className={clsx(menuClass)}>
-				<NavigationMenu.List className="center m-0 flex list-none  p-2 shadow-[0_2px_10px] bg-neutral-800/60 backdrop-filter backdrop-blur-lg bg-opacity-70 shadow-blackA4">
-					{navigation.map((item) => (
-						<NavigationMenu.Item key={item.name}>
-							<NavigationMenu.Link
-								className={generalStyles.getHeaderStyle()}
-								href={item.href}
-							>
-								{item.name}
-							</NavigationMenu.Link>
-						</NavigationMenu.Item>
-					))}
-
-
-					{/* <NavigationMenu.Item>
-						<NavigationMenu.Trigger className="group flex select-none items-center justify-between gap-0.5 rounded px-3 py-2 text-[15px] font-medium leading-none text-mauve8 outline-none  focus:shadow-[0_0_0_2px] focus:shadow-violet7">
-							Projects{" "}
-							<CaretDownIcon
-								className="relative top-px text-mauve10 transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180"
-								aria-hidden
+			<motion.header
+				initial={{ y: -100 }}
+				animate={{ y: 0 }}
+				transition={{ duration: 0.3 }}
+				className={cn(
+					"fixed top-0 left-0 right-0 z-50 transition-all duration-300 safe-top",
+					isScrolled
+						? "bg-background/80 backdrop-blur-md border-b border-border shadow-sm"
+						: "bg-transparent"
+				)}
+			>
+				<nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="flex items-center justify-between h-16 lg:h-20">
+						{/* Logo */}
+						<Link href="/" className="flex items-center space-x-2">
+							<Image
+								src={logoSmImg}
+								width={32}
+								height={32}
+								alt="Bojan Jagetic"
+								className="rounded"
+								priority
 							/>
-						</NavigationMenu.Trigger>
-						<NavigationMenu.Content className="absolute left-0 top-0 w-full sm:w-auto">
-							<ul className="m-0 grid list-none gap-x-2.5 p-[22px] sm:w-[600px] sm:grid-flow-col sm:grid-rows-3">
-								<ListItem
-									title="Introduction"
-									href="/primitives/docs/overview/introduction"
-								>
-									Build high-quality, accessible design systems and web apps.
-								</ListItem>
-								<ListItem
-									title="Getting started"
-									href="/primitives/docs/overview/getting-started"
-								>
-									A quick tutorial to get you up and running with Radix
-									Primitives.
-								</ListItem>
-								<ListItem title="Styling" href="/primitives/docs/guides/styling">
-									Unstyled and compatible with any styling solution.
-								</ListItem>
-								<ListItem
-									title="Animation"
-									href="/primitives/docs/guides/animation"
-								>
-									Use CSS keyframes or any animation library of your choice.
-								</ListItem>
-								<ListItem
-									title="Accessibility"
-									href="/primitives/docs/overview/accessibility"
-								>
-									Tested in a range of browsers and assistive technologies.
-								</ListItem>
-								<ListItem
-									title="Releases"
-									href="/primitives/docs/overview/releases"
-								>
-									Radix Primitives releases and their changelogs.
-								</ListItem>
-							</ul>
-						</NavigationMenu.Content>
-					</NavigationMenu.Item> */}
+							<span className="hidden sm:inline-block text-lg font-semibold text-foreground">
+								Bojan Jagetic
+							</span>
+						</Link>
 
-					<div className="w-px pt-2 bg-neutral-700 h-100%"></div>
-					<NavigationMenu.Item>
-						<NavigationMenu.Trigger
-							className={classNames(
-								"block select-none rounded-md p-3 text-[13px] lg:text-[15px] leading-none no-underline outline-none transition-colors hover:bg-gray-800 focus:shadow-[0_0_0_2px] focus:shadow-violet7",
-								"group flex select-none items-center justify-between gap-0.5 px-3 py-1 sm:text-[13px] lg:text-[17px] font-medium leading-none text-mauve9 outline-none"
-							)}>
-							More{" "}
-							<CaretDownIcon
-								className="relative top-px text-mauve9 transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180"
-								aria-hidden
-							/>
-						</NavigationMenu.Trigger>
-						<NavigationMenu.Content className={classNames(
-							"absolute bg-gray-900 left-0 top-0 w-full data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft sm:w-auto",
-							// { 'hidden': !isMenuOpen }
-						)}>
-							<ul className="one m-0 grid list-none gap-x-2.5 p-[12px] sm:w-[500px] sm:grid-cols-[0.75fr_1fr]">
-								<li className="row-span-3 grid">
-									<NavigationMenu.Link asChild>
-										<a
-											className="flex h-full w-full select-none flex-col justify-end  bg-gradient-to-b from-indigo-600 to-blue-700 p-[20px] no-underline outline-none focus:shadow-[0_0_0_2px] focus:shadow-violet7"
-											href="/quiz"
-										>
-											<Image
-												className=' h-30 w-30 items-center align-middle '
-												src={logoSmImg}
-												width={30}
-												height={30}
-												priority={true}
-												alt='Jagetic'
-											/>
-											<div className="mb-[7px] mt-4 text-[18px] font-medium leading-[1.2] text-white">
-												Interview Quiz
+						{/* Desktop Navigation */}
+						<div className="hidden md:flex items-center space-x-1">
+							<NavigationMenu.Root>
+								<NavigationMenu.List className="flex items-center space-x-1">
+									{navigation.map((item) => (
+										<NavigationMenu.Item key={item.name}>
+											<NavigationMenu.Link asChild>
+												<Link
+													href={item.href}
+													className={cn(
+														"px-4 py-2 rounded-md text-sm font-medium transition-colors",
+														"hover:bg-accent hover:text-accent-foreground",
+														isActive(item.href)
+															? "bg-accent text-accent-foreground"
+															: "text-muted-foreground"
+													)}
+												>
+													{item.name}
+												</Link>
+											</NavigationMenu.Link>
+										</NavigationMenu.Item>
+									))}
+
+									{/* More Menu */}
+									<NavigationMenu.Item>
+										<NavigationMenu.Trigger className="group flex items-center gap-1 px-4 py-2 rounded-md text-sm font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors">
+											More
+											<CaretDownIcon className="relative top-px transition-transform duration-200 group-data-[state=open]:-rotate-180" />
+										</NavigationMenu.Trigger>
+										<NavigationMenu.Content className="absolute left-0 top-full mt-2 w-full sm:w-auto">
+											<div className="bg-popover border rounded-lg shadow-lg p-2 min-w-[280px] sm:min-w-[400px]">
+												<div className="grid gap-1 sm:grid-cols-2">
+													<NavigationMenu.Link asChild>
+														<Link
+															href="/quiz"
+															className="flex flex-col p-4 rounded-lg bg-gradient-to-br from-indigo-600 to-blue-700 text-white hover:from-indigo-500 hover:to-blue-600 transition-colors"
+														>
+															<div className="flex items-center gap-2 mb-2">
+																<Image
+																	src={logoSmImg}
+																	width={24}
+																	height={24}
+																	alt="Quiz"
+																	className="rounded"
+																/>
+																<span className="font-semibold">Interview Quiz</span>
+															</div>
+															<p className="text-sm text-white/90">
+																Play interactive quiz to prepare for interviews
+															</p>
+														</Link>
+													</NavigationMenu.Link>
+													<NavigationMenu.Link asChild>
+														<Link
+															href="/guestbook"
+															className="p-4 rounded-lg hover:bg-accent transition-colors"
+														>
+															<div className="font-medium text-foreground mb-1">GuestBook</div>
+															<p className="text-sm text-muted-foreground">
+																Leave a message or suggestions
+															</p>
+														</Link>
+													</NavigationMenu.Link>
+													<NavigationMenu.Link asChild>
+														<Link
+															href="/routes/uses"
+															className="p-4 rounded-lg hover:bg-accent transition-colors"
+														>
+															<div className="font-medium text-foreground mb-1">Daily Uses</div>
+															<p className="text-sm text-muted-foreground">
+																My workspace and tools
+															</p>
+														</Link>
+													</NavigationMenu.Link>
+													<NavigationMenu.Link asChild>
+														<a
+															href="https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist"
+															target="_blank"
+															rel="noopener noreferrer"
+															className="p-4 rounded-lg hover:bg-accent transition-colors"
+														>
+															<div className="font-medium text-foreground mb-1">Newsletter</div>
+															<p className="text-sm text-muted-foreground">
+																Subscribe to stay updated
+															</p>
+														</a>
+													</NavigationMenu.Link>
+												</div>
 											</div>
-											<p className="text-[14px] leading-[1.3] text-mauve7">
-												Play interactive quiz, where you can prepare for interview,remember forgoten knowledge or learn.
-											</p>
-										</a>
-									</NavigationMenu.Link>
-								</li>
+										</NavigationMenu.Content>
+									</NavigationMenu.Item>
+								</NavigationMenu.List>
 
-								<ListItem href="/guestbook" title="GuestBook" className="text-sky-600">
-									Leave a message, appreciation, or suggestions
-								</ListItem>
-								<ListItem href="/routes/uses" title="Daily Uses">
-									A peek of my workspace and tools.
-								</ListItem>
-								<ListItem href="https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist" target="__blank" title="Newsletter">
-									Subscribe to my newslatter and be up to date
-								</ListItem>
-							</ul>
-						</NavigationMenu.Content>
-					</NavigationMenu.Item>
-					{/* <NavigationMenu.Indicator className="top-full z-10 flex h-2.5 items-end justify-center overflow-hidden transition-[width,transform_250ms_ease] data-[state=hidden]:animate-fadeOut data-[state=visible]:animate-fadeIn">
-						<div className="relative top-[70%] size-2.5 rotate-45 rounded-tl-sm bg-white" />
-					</NavigationMenu.Indicator> */}
-				</NavigationMenu.List>
+								<div className="perspective-[2000px] absolute left-0 top-full flex w-full justify-center">
+									<NavigationMenu.Viewport className="relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden rounded-lg border bg-popover text-popover-foreground shadow-lg transition-[width,_height] duration-300 data-[state=closed]:animate-scaleOut data-[state=open]:animate-scaleIn sm:w-[var(--radix-navigation-menu-viewport-width)]" />
+								</div>
+							</NavigationMenu.Root>
+						</div>
 
-				<div className="perspective-[2000px] absolute left-0 top-full flex w-full justify-center">
-					<NavigationMenu.Viewport className="relative mt-2.5 h-[var(--radix-navigation-menu-viewport-height)] w-full origin-[top_center] overflow-hidden rounded-md bg-white transition-[width,_height] duration-300 data-[state=closed]:animate-scaleOut data-[state=open]:animate-scaleIn sm:w-[var(--radix-navigation-menu-viewport-width)]" />
-				</div>
-			</NavigationMenu.Root>
-		</>
-
-	);
-};
-
-const ListItem = React.forwardRef(
-	({ className, children, title, ...props }, forwardedRef) => (
-		<li>
-			<NavigationMenu.Link asChild>
-				<a
-					className={classNames(
-						"block select-none  p-3 text-[15px] leading-none no-underline outline-none transition-colors hover:bg-gray-800 focus:shadow-[0_0_0_2px] focus:shadow-violet7",
-						className,
-					)}
-					{...props}
-					ref={forwardedRef}
-				>
-					<div className="mb-[5px] font-medium leading-[1.2] text-sky-600">
-						{title}
+						{/* Mobile Menu Button */}
+						<Button
+							variant="ghost"
+							size="icon"
+							className="md:hidden"
+							onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+						>
+							{isMobileMenuOpen ? (
+								<X className="h-6 w-6" />
+							) : (
+								<Menu className="h-6 w-6" />
+							)}
+						</Button>
 					</div>
-					<p className="leading-[1.4] text-mauve11">{children}</p>
-				</a>
-			</NavigationMenu.Link>
-		</li>
-	),
-);
+				</nav>
 
-ListItem.displayName = 'ListItem';
+				{/* Mobile Menu */}
+				<AnimatePresence>
+					{isMobileMenuOpen && (
+						<motion.div
+							initial={{ opacity: 0, height: 0 }}
+							animate={{ opacity: 1, height: "auto" }}
+							exit={{ opacity: 0, height: 0 }}
+							className="md:hidden border-t border-border bg-background/95 backdrop-blur-md"
+						>
+							<div className="container mx-auto px-4 py-4 space-y-2">
+								{navigation.map((item) => (
+									<Link
+										key={item.name}
+										href={item.href}
+										onClick={() => setIsMobileMenuOpen(false)}
+										className={cn(
+											"block px-4 py-2 rounded-md text-base font-medium transition-colors",
+											"hover:bg-accent hover:text-accent-foreground",
+											isActive(item.href)
+												? "bg-accent text-accent-foreground"
+												: "text-muted-foreground"
+										)}
+									>
+										{item.name}
+									</Link>
+								))}
+								<div className="pt-2 border-t border-border mt-2">
+									<Link
+										href="/quiz"
+										onClick={() => setIsMobileMenuOpen(false)}
+										className="block px-4 py-2 rounded-md text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+									>
+										Interview Quiz
+									</Link>
+									<Link
+										href="/guestbook"
+										onClick={() => setIsMobileMenuOpen(false)}
+										className="block px-4 py-2 rounded-md text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+									>
+										GuestBook
+									</Link>
+									<Link
+										href="/routes/uses"
+										onClick={() => setIsMobileMenuOpen(false)}
+										className="block px-4 py-2 rounded-md text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+									>
+										Daily Uses
+									</Link>
+									<a
+										href="https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist"
+										target="_blank"
+										rel="noopener noreferrer"
+										onClick={() => setIsMobileMenuOpen(false)}
+										className="block px-4 py-2 rounded-md text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+									>
+										Newsletter
+									</a>
+								</div>
+							</div>
+						</motion.div>
+					)}
+				</AnimatePresence>
+			</motion.header>
+		</>
+	)
+}
 
 export default Header

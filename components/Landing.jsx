@@ -1,6 +1,6 @@
 import React from 'react'
+import Link from 'next/link'
 import Accent from '../components/custom/Accent'
-import ActiveLink from '../components/custom/ActiveLink'
 import { FeaturedPosts } from './'
 import { SiGithub, SiLinkedin, SiTwitter } from 'react-icons/si'
 import NewsLetter from './NewsLetter'
@@ -8,147 +8,211 @@ import { TypeAnimation } from 'react-type-animation'
 import { IoCloudDownloadOutline } from "react-icons/io5"
 import ParticlesBackground from './custom/ParticlesBackground'
 import AnchorLinkComponent from './custom/AnchorLink'
-import FeaturedProject from './FeaturedProject'
-import { generalStyles } from './config/styles'
+import { Button } from './ui/button'
+import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
 
 const Landing = () => {
 	const handleDownload = () => {
-		// Creating a hidden link element
 		const link = document.createElement('a');
-		link.href = '/Bojan_Jagetić.pdf'; // Replace with the actual path to your PDF file
-		link.download = 'Bojan_Jagetić.pdf'; // Specify the name for the downloaded file
+		link.href = '/Bojan_Jagetić.pdf';
+		link.download = 'Bojan_Jagetić.pdf';
 		document.body.appendChild(link);
 		link.click();
 		document.body.removeChild(link);
-		// Change 'file.pdf' to the path of your file
-		// window.open('/Bojan_Jagetić.pdf', '_blank');
+	}
+
+	const containerVariants = {
+		hidden: { opacity: 0 },
+		visible: {
+			opacity: 1,
+			transition: {
+				staggerChildren: 0.2,
+				delayChildren: 0.1
+			}
+		}
+	}
+
+	const itemVariants = {
+		hidden: { opacity: 0, y: 20 },
+		visible: {
+			opacity: 1,
+			y: 0,
+			transition: {
+				duration: 0.5,
+				ease: "easeOut"
+			}
+		}
 	}
 
 	return (
-			<div className='bg-gradient-to-b from-black  to-blue7 '>
-				{/* <div className=''> */}
-				<div className=' text-slate-200 md:px-10 px-5 '>
+		<div className='bg-gradient-to-b from-background via-background/95 to-background/90 min-h-screen'>
+			<div className='text-foreground relative safe-top safe-left safe-right'>
 				<ParticlesBackground />
 
-					{/* <MotionComponent> */}
-					<div
-						// className='grid place-items-left place-content-center gap-1 h-screen mx-auto lg:max-w-4xl sm:max-w-xl'>
-						className='flex flex-col justify-center gap-1 h-screen mx-auto lg:max-w-4xl sm:max-w-xl'>
-						<div className=' text-2xl xs:text-xl lg:text-5xl  font-bold mb-2'>
-							Hello there,
-							<br />
-							<h1 className='text-2xl sm:text-2xl lg:text-6xl '>
-								My name is{' '}
-								<Accent>
-									<TypeAnimation
-										sequence={[
-											700,
-											'Jagetic', // Types 'One'
-											2000, // Waits 1s
-											'Bojan Jagetic', // Deletes 'One' and types 'Two'
-											() => {
-												console.log('Done typing!') // Place optional callbacks anywhere in the array
-											}
-										]}
-										wrapper='Accent'
-										cursor={true}
-										speed={25}
-										repeat={0}
-										className='break-words'
-										style={{ fontSize: '1em' }}
-									/>
-								</Accent>
-							</h1>
+				<motion.div
+					variants={containerVariants}
+					initial="hidden"
+					animate="visible"
+					className='flex flex-col justify-center min-h-screen py-8 sm:py-12 md:py-16 lg:py-20 safe-top safe-bottom mx-auto max-w-6xl px-4 sm:px-6 md:px-8 lg:px-10'
+				>
+					{/* Hero Section */}
+					<motion.div variants={itemVariants} className='mb-8 sm:mb-10 md:mb-12 lg:mb-16'>
+						<div className='text-base sm:text-lg md:text-xl lg:text-2xl font-semibold mb-3 sm:mb-4 text-muted-foreground'>
+							Hello there, 👋
 						</div>
+						<h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] tracking-tight'>
+							My name is{' '}
+							<Accent>
+								<TypeAnimation
+									sequence={[
+										700,
+										'Jagetic',
+										2000,
+										'Bojan Jagetic',
+										() => {
+											console.log('Done typing!')
+										}
+									]}
+									wrapper='span'
+									cursor={true}
+									speed={25}
+									repeat={0}
+									className='block sm:inline'
+									style={{ fontSize: '1em' }}
+								/>
+							</Accent>
+						</h1>
+					</motion.div>
 
-						<div className='lg:mt-5'>
-							<p className='font-bold mb-1 lg:hidden text-md xs:text-md'>
-								Writing code is my obsession as well as constant
-								self-improvement, I have developed many web applications
-								and platforms from scratch in my spare time (when I&apos;m
-								not coding). Accustomed to using extensive tech stack
-								because I love challenging and complex projects.
+					{/* Description */}
+					<motion.div variants={itemVariants} className='mb-8 sm:mb-10 md:mb-12 max-w-3xl'>
+						<p className='font-normal text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-muted-foreground'>
+							Writing code is my obsession as well as constant self-improvement. 
+							I have developed many web applications and platforms from scratch 
+							in my spare time. Accustomed to using extensive tech stack because 
+							I love challenging and complex projects.
+						</p>
+						<p className='font-normal text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-muted-foreground mt-4 hidden lg:block'>
+							I&apos;m passionate about coding and constantly pushing myself to improve. 
+							Working with a wide range of technologies keeps me inspired and eager 
+							to take on the next big idea.
+						</p>
+					</motion.div>
 
-								I&apos;m passionate about coding and constantly pushing myself to improve. In my spare time, I have built a variety of web applications and platforms from scratch, embracing the challenge of complex projects. Working with a wide range of technologies keeps me inspired and eager to take on the next big idea.
-
-
-							</p>
-							<p className='font-bold mb-1 hidden lg:block text-md'>
-								Writing code is my obsession as well as constant
-								self-improvement, I have developed many web applications
-								and platforms from scratch in my spare time (when I&apos;m
-								not coding). Accustomed to using extensive tech stack
-								because I love challenging and complex projects.
-							</p>
-						</div>
-
-						<div className='flex flex-row mt-7 lg:mt-10  xl:grid-cols-2 sm:grid-cols-1 gap-2 text-sm sm:text-md xs:text-sm lg:text-md'>
-
-							<ActiveLink
-								data-umami-event="landing-read-blog"
-								href='/routes/blog'
-								name='blog'
-								id='blog_post_button'
-								className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-sm  shadow-neutral-800 hover:cursor-pointer text-center text-white  border border-primary-400 hover:text-primary-400 hover:shadow-neutral-600 transform hover:scale-[1.03] transition-all'>
+					{/* CTA Buttons */}
+					<motion.div variants={itemVariants} className='flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-10'>
+						<Button
+							asChild={true}
+							variant="default"
+							size="lg"
+							id='blog_post_button'
+							data-umami-event="landing-read-blog"
+							className={cn(
+								"w-full sm:w-auto bg-gradient-to-r from-primary-600 to-primary-400",
+								"hover:from-primary-500 hover:to-primary-300",
+								"text-white font-semibold shadow-lg shadow-primary-500/20",
+								"hover:shadow-xl hover:shadow-primary-500/30",
+								"transition-all duration-300 hover:scale-105",
+								"border-0"
+							)}
+						>
+							<Link href='/routes/blog'>
 								Read blog
-							</ActiveLink>
-							<ActiveLink
-								data-umami-event="landing-see-bio"
-								href='/routes/aboutme'
-								id='aboutme_button'
-								className='mt-5 px-5 lg:px-10 rounded-md  p-3 shadow-sm  shadow-neutral-800 hover:cursor-pointer text-center text-white  border border-primary-400 hover:text-primary-400 hover:shadow-neutral-600 transform hover:scale-[1.03] transition-all'>
+							</Link>
+						</Button>
+						<Button
+							asChild={true}
+							variant="outline"
+							size="lg"
+							id='aboutme_button'
+							data-umami-event="landing-see-bio"
+							className={cn(
+								"w-full sm:w-auto border-2 border-primary-400/50",
+								"bg-black/30 backdrop-blur-sm text-white",
+								"hover:bg-primary-400/10 hover:border-primary-400",
+								"font-semibold shadow-lg",
+								"transition-all duration-300 hover:scale-105"
+							)}
+						>
+							<Link href='/routes/aboutme'>
 								See my bio
-							</ActiveLink>
-						</div>
-						<div className='flex md:flex-row flex-col mt-7 lg:mt-10 gap-x-4'>
-							<a
-								data-umami-event="landing-lnk-linkedin-button"
-								id='lnk-linkedin-button'
-								className='inline-flex items-center text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
-								href='https://linkedin.com/in/bojan-jagetic-972203106'
-								target='_blank'
-								rel='noreferrer'>
-								<SiLinkedin className='mr-1 h-4 w-4' />
-								<span className='hidden lg:block'>Bojan Jagetic</span>
-								<span className='lg:hidden '>B.Jagetic</span>
-							</a>
-							<a
-								data-umami-event="landing-lnk-github-button"
-								id='lnk-github-button'
-								className='inline-flex items-center text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
-								href='https://github.com/basskibo/'
-								target='_blank'
-								rel='noreferrer'>
-								<SiGithub className='mr-1 h-4 w-4' /> basskibo
-							</a>
-							<a
-								data-umami-event='landing-lnk-twitter-button'
-								id='lnk-twitter-button'
-								className='inline-flex items-center text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
-								href='https://twitter.com/basskibo1'
-								target='_blank'
-								rel='noreferrer'>
-								<SiTwitter className='mr-1 h-4 w-4 ' />
-								<span className=' lg:block'>basskibo1</span>
-							</a>
-							<button
-								data-umami-event="landing-download-cv-button"
-								onClick={handleDownload}
-								id='download_button'
-								className='inline-flex items-center text-sm text-slate-300 hover:underline link link-underline link-underline-black hover:cursor-ne-resize'
-							// className='mt-5 flex justify-center items-center content-center gap-2 px-5 lg:px-10 rounded-md  p-3 shadow-md  shadow-neutral-800 hover:cursor-pointer text-center text-white  border border-[#7928ca] hover:text-[#ff0080] hover:shadow-neutral-500 '
-							>
-								<IoCloudDownloadOutline className='mr-1 h-4 w-4 ' />
-								Download CV
-							</button>
-						</div>
-					</div>
-				</div>
-				<AnchorLinkComponent/>
-				<FeaturedPosts />
+							</Link>
+						</Button>
+					</motion.div>
 
-				<NewsLetter />
+					{/* Social Links */}
+					<motion.div variants={itemVariants} className='flex flex-wrap items-center gap-4 sm:gap-6'>
+						<a
+							data-umami-event="landing-lnk-linkedin-button"
+							id='lnk-linkedin-button'
+							href="https://linkedin.com/in/bojan-jagetic"
+							target="_blank"
+							rel="noopener noreferrer"
+							className={cn(
+								"inline-flex items-center gap-2 text-sm sm:text-base",
+								"text-muted-foreground hover:text-primary",
+								"transition-colors duration-200 py-2",
+								"group"
+							)}
+						>
+							<SiLinkedin className='h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 group-hover:scale-110 transition-transform' />
+							<span className='hidden sm:inline'>Bojan Jagetic</span>
+							<span className='sm:hidden'>LinkedIn</span>
+						</a>
+						<a
+							data-umami-event="landing-lnk-github-button"
+							id='lnk-github-button'
+							href="https://github.com/basskibo"
+							target="_blank"
+							rel="noopener noreferrer"
+							className={cn(
+								"inline-flex items-center gap-2 text-sm sm:text-base",
+								"text-muted-foreground hover:text-foreground",
+								"transition-colors duration-200 py-2",
+								"group"
+							)}
+						>
+							<SiGithub className='h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 group-hover:scale-110 transition-transform' />
+							<span>basskibo</span>
+						</a>
+						<a
+							data-umami-event='landing-lnk-twitter-button'
+							id='lnk-twitter-button'
+							href="https://twitter.com/basskibo1"
+							target="_blank"
+							rel="noopener noreferrer"
+							className={cn(
+								"inline-flex items-center gap-2 text-sm sm:text-base",
+								"text-muted-foreground hover:text-primary",
+								"transition-colors duration-200 py-2",
+								"group"
+							)}
+						>
+							<SiTwitter className='h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 group-hover:scale-110 transition-transform' />
+							<span>basskibo1</span>
+						</a>
+						<button
+							data-umami-event="landing-download-cv-button"
+							onClick={handleDownload}
+							id='download_button'
+							className={cn(
+								"inline-flex items-center gap-2 text-sm sm:text-base",
+								"text-muted-foreground hover:text-primary",
+								"transition-colors duration-200 py-2",
+								"group"
+							)}
+						>
+							<IoCloudDownloadOutline className='h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 group-hover:scale-110 transition-transform' />
+							<span>Download CV</span>
+						</button>
+					</motion.div>
+				</motion.div>
 			</div>
+			<AnchorLinkComponent/>
+			<FeaturedPosts />
+			<NewsLetter />
+		</div>
 	)
 }
 

@@ -48,9 +48,9 @@ const FeaturedPosts = () => {
 							guest and checkout, I hope there is something for everyone`
 
 	return (
-		<div className='relative bg-black overflow-hidden md:p-5' id='featuredPostsSection'>
-			<div className='pt-16 pb-20 sm:pt-24 sm:pb-20 lg:pt-20 lg:pb-32'>
-				<div className='relative max-w-7xl mx-auto px-4 lg:px-0 sm:static'>
+		<div className='relative bg-background overflow-hidden md:p-5' id='featuredPostsSection'>
+			<div className='pt-12 pb-16 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24 lg:pt-24 lg:pb-32 safe-top safe-bottom'>
+				<div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-0 sm:static'>
 				<ComponentHeader titlePrefix={'Most Popular '} title={'Posts'} text={postsText} size={'md'} />
 
 					{posts.length > 0
@@ -86,70 +86,83 @@ const FeaturedPosts = () => {
 						</div>}
 				</div>
 
-				<div className='relative max-w-7xl mx-auto px-4 my-10 lg:px-0 sm:static'>
+				<div className='relative max-w-7xl mx-auto px-4 sm:px-6 my-8 sm:my-10 lg:px-0 sm:static'>
 					<ComponentHeader titlePrefix={'My Most Popular posts on '} title={'Dev.to'} text={devtotext} size={'md'} />
 				
 					{devToPosts.length > 0 ? (
 
-						<div className="flex flex-col md:flex-row gap-6 mt-10">
+						<div className="flex flex-col md:flex-row gap-4 sm:gap-6 mt-10">
 							{devToPosts.slice(0, 3).map((post, i) => {
-								const podiumClasses =
-									i === 0
-										? "order-2 h-80 md:h-96 border-gold" 
-										: i === 1
-											? "order-1 h-72 md:h-80 border-silver"
-											: "order-3 h-64 md:h-72 border-bronze";
+								const rankColors = {
+									0: { border: "border-yellow-500/50", bg: "bg-yellow-500/10", text: "text-yellow-400", badge: "bg-yellow-500/20 text-yellow-400" },
+									1: { border: "border-gray-400/50", bg: "bg-gray-400/10", text: "text-gray-300", badge: "bg-gray-400/20 text-gray-300" },
+									2: { border: "border-orange-600/50", bg: "bg-orange-600/10", text: "text-orange-400", badge: "bg-orange-600/20 text-orange-400" }
+								};
+								const colors = rankColors[i] || rankColors[2];
+								const heights = i === 0 ? "min-h-[400px] md:min-h-[450px]" : i === 1 ? "min-h-[380px] md:min-h-[420px]" : "min-h-[360px] md:min-h-[400px]";
 
 								return (
 									<a
 										key={post.title}
 										data-umami-event={`landing-ftr-post-${post.slug}`}
-										className={`relative transform transition-all rounded-xl w-full md:w-1/3 shadow-lg hover:shadow-xl border p-0 overflow-hidden ${podiumClasses}`}
+										className={`relative group transform transition-all duration-300 rounded-2xl w-full md:w-1/3 shadow-xl hover:shadow-2xl border-2 ${colors.border} ${colors.bg} overflow-hidden hover:scale-[1.02]`}
 										href={post.url}
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										<div className="flex flex-col justify-between h-full rounded-lg p-4 bg-black">
-											{/* First Place - Crown Icon */}
-											{i === 0 && (
-												<div className="absolute -top-6 -right-5 h-24 w-24 flex justify-center items-center">
-													<FaCrown className="text-yellow-500  text-4xl" />
-												</div>
-											)}
+										{/* Gradient Overlay */}
+										<div className={`absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10`}></div>
+										
+										{/* First Place - Crown Icon */}
+										{i === 0 && (
+											<div className="absolute top-3 right-3 z-20 h-16 w-16 flex justify-center items-center animate-pulse">
+												<FaCrown className="text-yellow-400 text-3xl drop-shadow-lg" />
+											</div>
+										)}
+
+										<div className={`flex flex-col ${heights} p-5 sm:p-6 relative z-0`}>
+											{/* Rank Badge */}
+											<div className={`inline-flex items-center justify-center w-fit px-3 py-1.5 rounded-full ${colors.badge} text-xs sm:text-sm font-bold mb-4 backdrop-blur-sm`}>
+												Rank #{i + 1}
+											</div>
 
 											{/* Image Section */}
-											{post.img ? (
-												<img
-													src={post.img}
-													alt={post.title}
-													className="w-full h-40 object-cover rounded-lg mb-4"
-												/>
-											) : (
-												<div className="w-full h-40 bg-gray-800 flex items-center justify-center text-gray-600 rounded-lg mb-4">
-													<span>No Image</span>
-												</div>
-											)}
+											<div className="relative mb-4 rounded-xl overflow-hidden">
+												{post.img ? (
+													<img
+														src={post.img}
+														alt={post.title}
+														className="w-full h-40 sm:h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+													/>
+												) : (
+													<div className="w-full h-40 sm:h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center text-gray-500">
+														<span className="text-sm">No Image</span>
+													</div>
+												)}
+												<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+											</div>
 
 											{/* Content Section */}
 											<div className="flex flex-col flex-grow">
-												<p className="text-gray-400 text-sm mb-2 truncate">Rank #{i + 1}</p>
-												<h3 className="text-lg font-semibold text-white tracking-tight mb-4">
+												<h3 className="text-lg sm:text-xl font-bold text-white tracking-tight mb-3 line-clamp-2 group-hover:text-primary-400 transition-colors">
 													{post.title || <Skeleton />}
 												</h3>
-												<p className="text-gray-400 text-sm mb-6 truncate">{post.description}</p>
+												<p className="text-gray-400 text-sm sm:text-base mb-4 line-clamp-2 flex-grow">
+													{post.description}
+												</p>
 											</div>
 
 											{/* Stats Section */}
-											<div className="absolute bottom-2 left-2 right-2 flex justify-between text-gray-400 text-sm">
-												<div className="flex items-center">
-													<BsEye className="text-indigo-400 text-lg" />
-													<span className="ml-2">
+											<div className="flex justify-between items-center pt-4 border-t border-gray-800/50 mt-auto">
+												<div className="flex items-center gap-2 text-gray-400">
+													<BsEye className="text-indigo-400 text-base sm:text-lg" />
+													<span className="text-xs sm:text-sm font-medium">
 														<CountUp end={post.pageViews} /> views
 													</span>
 												</div>
-												<div className="flex items-center">
-													<IoHeartOutline className="text-pink-400 text-lg" />
-													<span className="ml-2">
+												<div className="flex items-center gap-2 text-gray-400">
+													<IoHeartOutline className="text-pink-400 text-base sm:text-lg" />
+													<span className="text-xs sm:text-sm font-medium">
 														<CountUp end={post.publicReactions} /> reactions
 													</span>
 												</div>
