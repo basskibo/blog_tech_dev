@@ -1,15 +1,20 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Layout } from '../components'
+import Layout from '../components/layout/Layout'
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.scss'
 import * as ga from '../lib/analytics'
 import SplashScreen from '../components/custom/SplashScreen'
 import NextHead from 'next/head'
 import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
-import { ThemeProvider } from '../components/theme-provider'
+import { ThemeProvider } from 'next-themes'
+import dynamic from 'next/dynamic'
+
+const SpeedInsights = dynamic(
+	() => import('@vercel/speed-insights/next').then((mod) => mod.SpeedInsights),
+	{ ssr: false }
+)
 
 const handleTitle = (router) => {
 	let title = 'Bojan Jagetic'
@@ -129,8 +134,12 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				<SplashScreen loaded={pageLoaded}>
 					<Layout>
 						<Component {...pageProps} />
-						<SpeedInsights />
-						<Analytics />
+						{typeof window !== 'undefined' && (
+							<>
+								<SpeedInsights />
+								<Analytics />
+							</>
+						)}
 					</Layout>
 				</SplashScreen>
 			</ThemeProvider>
