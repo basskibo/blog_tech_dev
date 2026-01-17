@@ -33,6 +33,18 @@ class MyDocument extends Document {
 					/>
 					<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" />
 					<script defer src="https://cloud.umami.is/script.js" data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"></script>
+					{/* Microsoft Clarity */}
+					<script
+						dangerouslySetInnerHTML={{
+							__html: `
+								(function(c,l,a,r,i,t,y){
+									c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+									t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+									y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+								})(window, document, "clarity", "script", "v2x468vj4f");
+							`
+						}}
+					/>
 				</Head>
 				<body>
 					<div id={'globalLoader'} >
