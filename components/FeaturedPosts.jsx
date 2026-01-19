@@ -140,6 +140,7 @@ const FeaturedPosts = () => {
 														className="object-cover group-hover:scale-110 transition-transform duration-500"
 														sizes="(max-width: 768px) 100vw, 33vw"
 														loading="lazy"
+														unoptimized={post.img?.includes('amazonaws.com')}
 													/>
 												) : (
 													<div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center text-gray-500">

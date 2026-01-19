@@ -5,23 +5,30 @@ import Accent from '../components/custom/Accent'
 import { FeaturedPosts } from './'
 import { SiGithub, SiLinkedin, SiTwitter } from 'react-icons/si'
 import NewsLetter from './NewsLetter'
+import { TypeAnimation } from 'react-type-animation'
 import { IoCloudDownloadOutline } from "react-icons/io5"
 import AnchorLinkComponent from './custom/AnchorLink'
 import { Button } from './ui/button'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 
-// Lazy load heavy components for better mobile performance
-const TypeAnimation = dynamic(() => import('react-type-animation').then(mod => mod.TypeAnimation), { 
-	ssr: false,
-	loading: () => <span>Bojan Jagetic</span>
-})
-
+// Lazy load ParticlesBackground only - it's not critical for above-the-fold
 const ParticlesBackground = dynamic(() => import('./custom/ParticlesBackground'), { 
-	ssr: false 
+	ssr: false,
+	loading: () => null // Don't show anything while loading
 })
 
 const Landing = () => {
+	const [showParticles, setShowParticles] = React.useState(false)
+
+	React.useEffect(() => {
+		// Load particles after initial render to improve LCP
+		const timer = setTimeout(() => {
+			setShowParticles(true)
+		}, 1000)
+		return () => clearTimeout(timer)
+	}, [])
+
 	const handleDownload = () => {
 		const link = document.createElement('a');
 		link.href = '/Bojan_Jagetić.pdf';
@@ -57,7 +64,7 @@ const Landing = () => {
 	return (
 		<div className='bg-gradient-to-b from-background via-background/95 to-background/90 min-h-screen'>
 			<div className='text-foreground relative safe-top safe-left safe-right'>
-				<ParticlesBackground />
+				{showParticles && <ParticlesBackground />}
 
 				<motion.div
 					variants={containerVariants}
