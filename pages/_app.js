@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import Script from 'next/script'
 import Layout from '../components/layout/Layout'
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.scss'
@@ -21,7 +22,6 @@ const handleTitle = (router) => {
 	try {
 		const splittedTitle = router.route.split('/')
 		if (splittedTitle[2]) {
-			console.log(splittedTitle[2])
 			switch (splittedTitle[2]) {
 				case 'libaries':
 					title = 'Bojan Jagetic | Libary'
@@ -34,13 +34,12 @@ const handleTitle = (router) => {
 					break
 				case 'uses':
 					title = 'Bojan Jagetic | Everyday use'
+					break
 				case 'projects':
 					title = 'Bojan Jagetic | Projects'
-				case 'aboutme':
-					title = 'Bojan Jagetic | About Me'
 					break
 				default:
-					console.log('Uknown case')
+					break
 			}
 		}
 		return title
@@ -109,6 +108,10 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				<meta name="twitter:title" content="Bojan Jagetic" />
 				<meta name="twitter:description" content={description} />
 				<meta name="twitter:image" content={ogUrl} />
+				{/* Performance and SEO meta tags */}
+				<meta name="theme-color" content="#000000" />
+				<meta name="format-detection" content="telephone=no" />
+				<link rel="canonical" href={`https://jageticbojan.com${router.asPath}`} />
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{
@@ -125,6 +128,51 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 					}}
 				/>
 			</NextHead>
+			
+			{/* Optimized third-party scripts using next/script */}
+			{process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID && (
+				<>
+					<Script
+						strategy="afterInteractive"
+						src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID}`}
+					/>
+					<Script
+						id="google-analytics"
+						strategy="afterInteractive"
+						dangerouslySetInnerHTML={{
+							__html: `
+								window.dataLayer = window.dataLayer || [];
+								function gtag(){dataLayer.push(arguments);}
+								gtag('js', new Date());
+								gtag('config', '${process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID}', {
+									page_path: window.location.pathname,
+								});
+							`,
+						}}
+					/>
+				</>
+			)}
+			
+			<Script
+				strategy="lazyOnload"
+				src="https://cloud.umami.is/script.js"
+				data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"
+			/>
+			
+			<Script
+				id="microsoft-clarity"
+				strategy="lazyOnload"
+				dangerouslySetInnerHTML={{
+					__html: `
+						(function(c,l,a,r,i,t,y){
+							c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+							t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+							y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+						})(window, document, "clarity", "script", "v2x468vj4f");
+					`,
+				}}
+			/>
+			
 			<ThemeProvider
 				attribute="class"
 				defaultTheme="dark"

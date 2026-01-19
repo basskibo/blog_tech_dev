@@ -1,4 +1,5 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 import Accent from './Accent'
 import QouteComponent from '../QouteComponent'
 import { GithubCard } from 'github-user-repo-card'
@@ -6,12 +7,14 @@ import GithubCardRepository from './GithubCardRepo'
 // import Image from 'next/image'
 // import constants from '../../lib/constants'
 import { buildUrl } from 'cloudinary-build-url'
-import ReactPlayer from 'react-player'
 import ModalImage from 'react-modal-image'
 import slugify from 'slugify'
 import DisclosureComponent from './Disclosure'
 import CodeBlock from './CodeBlock'
 import EmbeddedLink from './EmbededLInk'
+
+// Lazy load ReactPlayer as it's a heavy library
+const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
 const VideoContext = (props) => (
 	<div className='h-96 '>
@@ -204,7 +207,6 @@ const MdxComponents =  {
 		)
 	},
 	table: ({ header, content, genericData }) => {
-		console.log(content)
 		return (
 			<table className="table-auto  w-full xl:w-3/4 border border-neutral-700 ">
 				<thead className='bg-neutral-800 '>

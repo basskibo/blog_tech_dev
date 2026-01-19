@@ -5,17 +5,13 @@ const shouldAnalyzeBundles = process.env.ANALYZE === false
 // 	dest: 'public'
 // })
 const NextConfiguration = {
-	productionBrowserSourceMaps: true,
-	// experimental: {
-	// runtime: "nodejs",
-	// },
+	// Disable source maps in production for better performance
+	productionBrowserSourceMaps: false,
+	// Enable compression
+	compress: true,
+	// Enable React strict mode
 	reactStrictMode: true,
-	//   pwa: {
-	//     dest: "public",
-	//     register: true,
-	//     skipWaiting: true,
-	//   },
-	// experimental: { esmExternals: true },
+	// Optimize page extensions
 	pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
 	// Support loading `.md`, `.mdx`:
 	webpack (config, options) {
@@ -47,6 +43,7 @@ const NextConfiguration = {
 
 		return config
 	},
+	// Optimize images configuration
 	images: {
 		domains: [
 			'tailwindui.com',
@@ -54,10 +51,61 @@ const NextConfiguration = {
 			'res.cloudinary.com',
 			'avatars.githubusercontent.com',
 			'images.unsplash.com'
-		]
+		],
+		formats: ['image/avif', 'image/webp'],
+		deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+		minimumCacheTTL: 60,
+		dangerouslyAllowSVG: true,
+		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
 	},
+	// Optimize ESLint
 	eslint: {
 		dirs: ['pages', 'components', 'posts', 'services'] // Only run ESLint on the 'pages', 'components', 'posts' and 'services' directories during production builds (next build)
+	},
+	// Headers for better caching and security
+	async headers() {
+		return [
+			{
+				source: '/:path*',
+				headers: [
+					{
+						key: 'X-DNS-Prefetch-Control',
+						value: 'on'
+					},
+					{
+						key: 'X-Frame-Options',
+						value: 'SAMEORIGIN'
+					},
+					{
+						key: 'X-Content-Type-Options',
+						value: 'nosniff'
+					},
+					{
+						key: 'Referrer-Policy',
+						value: 'origin-when-cross-origin'
+					}
+				]
+			},
+			{
+				source: '/images/:path*',
+				headers: [
+					{
+						key: 'Cache-Control',
+						value: 'public, max-age=31536000, immutable'
+					}
+				]
+			},
+			{
+				source: '/_next/static/:path*',
+				headers: [
+					{
+						key: 'Cache-Control',
+						value: 'public, max-age=31536000, immutable'
+					}
+				]
+			}
+		]
 	},
 	async rewrites () {
 		return [

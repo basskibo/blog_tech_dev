@@ -21,13 +21,16 @@ const FeaturedProject = () => {
 						</p>
 					</div>
 
-					<div className='imageContainer'>
-						<Image src={"https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+					<div className='imageContainer relative w-full h-auto'>
+						<Image 
+							src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 							className='responsiveImage'
-							layout="responsive"
-							width={100}
-							height={100}
-							alt='scratch travel' />
+							width={1887}
+							height={1258}
+							alt='scratch travel'
+							sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+							priority={false}
+						/>
 					</div>
 
 
