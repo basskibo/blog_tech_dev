@@ -7,7 +7,7 @@ export default function Home() {
 	return (
 		<div>
 			<Head>
-				<meta property='og:url' content='https://bojanjagetic.com/' />
+				<meta property='og:url' content='https://jageticbojan.com/' />
 				<meta property='og:type' content='website' />
 				<meta property='og:title' content='Bojan Jagetic Blog' />
 				<meta property="og:site_name" content="Blogtech" />

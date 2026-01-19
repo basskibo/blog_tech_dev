@@ -100,7 +100,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 					content={description}
 				/>
 				<meta name='description' content={description} />
-				<meta property='og:url' content='https://bojanjagetic.com/' />
+				<meta property='og:url' content='https://jageticbojan.com/' />
 				<meta property='og:type' content='website' />
 				<meta property='og:title' content='Bojan Jagetic Blog' />
 				<meta property="og:site_name" content="Blogtech" />
@@ -115,7 +115,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 						__html: JSON.stringify({
 							"@context": "https://schema.org",
 							"@type": "Organization",
-							"url": "https://bojanjagetic.com",
+							"url": "https://jageticbojan.com",
 							"name": "Bojan Jagetic",
 							"sameAs": [
 								"https://github.com/basskibo",
