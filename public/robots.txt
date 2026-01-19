@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://bojanjagetic.com
+Host: https://jageticbojan.com
 
 # Sitemaps
-Sitemap: https://bojanjagetic.com/sitemap.xml
+Sitemap: https://jageticbojan.com/sitemap.xml
