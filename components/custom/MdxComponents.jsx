@@ -52,7 +52,7 @@ const CloudinaryContextImage = (props) => {
 				hideDownload={false}
 				hideZoom={true}
 				showRotate={true}
-				alt={props.alt}
+				alt={props.alt || 'Image'}
 			/>
 			{/* <img
             alt={props.alt}
@@ -79,42 +79,48 @@ const MdxComponents =  {
 		)
 	},
 	h2: ({ children }) => {
+		const id = slugify(children, {
+			lower: true,
+			strict: true
+		})
 		return (
-			<a
-				id={slugify(children, {
-					lower: true,
-					strict: true
-				})}>
-				<h2 className='text-white text-2xl font-bold my-5'>
-					{children}
-				</h2>
-			</a>
+			<h2 
+				id={id}
+				className='text-white text-2xl font-bold my-5'
+				tabIndex={-1}
+			>
+				{children}
+			</h2>
 		)
 	},
 	h3: ({ children }) => {
+		const id = slugify(children, {
+			lower: true,
+			strict: true
+		})
 		return (
-			<a
-				id={slugify(children, {
-					lower: true,
-					strict: true
-				})}>
-				<h3 className='text-gray-200 text-xl font-semi-bold my-5'>
-					{children}{' '}
-				</h3>
-			</a>
+			<h3 
+				id={id}
+				className='text-gray-200 text-xl font-semi-bold my-5'
+				tabIndex={-1}
+			>
+				{children}{' '}
+			</h3>
 		)
 	},
 	h4: ({ children }) => {
+		const id = slugify(children, {
+			lower: true,
+			strict: true
+		})
 		return (
-			<a
-				id={slugify(children, {
-					lower: true,
-					strict: true
-				})}>
-				<h3 className='text-gray-200 text-lg font-semi-bold my-5'>
-					{children}{' '}
-				</h3>
-			</a>
+			<h4 
+				id={id}
+				className='text-gray-200 text-lg font-semi-bold my-5'
+				tabIndex={-1}
+			>
+				{children}{' '}
+			</h4>
 		)
 	},
 	Accent: ({ children }) => {

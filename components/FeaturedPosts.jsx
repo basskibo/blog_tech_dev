@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Image from 'next/image'
 import axios from 'axios'
 import { BsEye } from 'react-icons/bs'
 import CountUp from 'react-countup'
@@ -24,7 +25,10 @@ const FeaturedPosts = () => {
 			})
 			setDevToPosts(result.data)
 		} catch (exc) {
-			console.error(exc)
+			// Silently handle error in production
+			if (process.env.NODE_ENV === 'development') {
+				console.error(exc)
+			}
 		}
 
 	}
@@ -127,15 +131,18 @@ const FeaturedPosts = () => {
 											</div>
 
 											{/* Image Section */}
-											<div className="relative mb-4 rounded-xl overflow-hidden">
+											<div className="relative mb-4 rounded-xl overflow-hidden h-40 sm:h-48">
 												{post.img ? (
-													<img
+													<Image
 														src={post.img}
-														alt={post.title}
-														className="w-full h-40 sm:h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+														alt={post.title || 'Dev.to post image'}
+														fill
+														className="object-cover group-hover:scale-110 transition-transform duration-500"
+														sizes="(max-width: 768px) 100vw, 33vw"
+														loading="lazy"
 													/>
 												) : (
-													<div className="w-full h-40 sm:h-48 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center text-gray-500">
+													<div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center text-gray-500">
 														<span className="text-sm">No Image</span>
 													</div>
 												)}

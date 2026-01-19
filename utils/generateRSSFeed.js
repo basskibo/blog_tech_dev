@@ -2,8 +2,8 @@ import RSS from 'rss'
 import fs from 'fs'
 
 export default async function generateRSSFeed(allPosts) {
-	// const site_url = 'https://jageticbojan.com'
-	const site_url = process.env.BASE_URL
+	// Use environment variable if available, otherwise use the correct domain
+	const site_url = process.env.BASE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://jageticbojan.com'
 
 	const feedOptions = {
 		title: 'Bojanjagetic Blog Post | RSS Feed',
@@ -25,8 +25,9 @@ export default async function generateRSSFeed(allPosts) {
 			title: data.title,
 			description: data.excerpt,
 			url: `${site_url}/post/${data.slug}`,
+			guid: `${site_url}/post/${data.slug}`,
 			image_url: data.featuredImage,
-			date: post.date,
+			date: post.date || data.publishedAt || data.createdAt,
 		})
 	})
 
