@@ -87,7 +87,7 @@ const FeatureLanding = () => {
 									Here you can find some basic information about my
 									GitHub profile as well as seeing my{' '}
 									<a
-										href='https://www.bojanjagetic.com/libary/github-card-npm-component'
+										href='https://www.jageticbojan.com/libary/github-card-npm-component'
 										target='_blank'
 										rel='noopener noreferrer'
 										className={cn(

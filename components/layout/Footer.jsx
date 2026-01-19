@@ -55,7 +55,7 @@ const Footer = () => {
 				<span className='inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start items-center gap-4'>
 					<a data-umami-event={'footer-statistics-click'}
 						className='text-muted-foreground hover:text-foreground transition-colors text-xs lg:text-sm'
-						href='https://eu.umami.is/share/zT2j3LFvt31l6Q0g/bojanjagetic.com'
+						href='https://eu.umami.is/share/zT2j3LFvt31l6Q0g/jageticbojan.com'
 						target='_blank'
 						rel='noopener noreferrer'>
 						Site Statistics
@@ -71,7 +71,7 @@ const Footer = () => {
 					<a
 						data-umami-event={'footer-rss-click'}
 						className='text-muted-foreground hover:text-foreground transition-colors text-xs lg:text-sm'
-						href='https://bojanjagetic.com/rss.xml'
+						href='https://jageticbojan.com/rss.xml'
 						target='_blank'
 						rel='noopener noreferrer'>
 						RSS

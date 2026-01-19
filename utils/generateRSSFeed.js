@@ -2,7 +2,7 @@ import RSS from 'rss'
 import fs from 'fs'
 
 export default async function generateRSSFeed(allPosts) {
-	// const site_url = 'https://bojanjagetic.com'
+	// const site_url = 'https://jageticbojan.com'
 	const site_url = process.env.BASE_URL
 
 	const feedOptions = {

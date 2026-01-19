@@ -15,7 +15,7 @@ const EmbeddedLink = ({ url }) => {
 			try {
 				const response = await axios.get(url, {
 					headers: {
-						'origin': 'https://bojanjagetic.com'
+						'origin': 'https://jageticbojan.com'
 					}
 				});
 				const html = response.data;

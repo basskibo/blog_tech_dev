@@ -88,7 +88,7 @@ const NewsLetter = () => {
                shadow-lg hover:shadow-xl shadow-indigo-500/10
                transform hover:scale-[1.02] active:scale-[0.98]
                transition-all duration-200 ease-out'
-								href="https://hashnode.bojanjagetic.com/" target='_blank' rel='noreferrer'>
+								href="https://hashnode.jageticbojan.com/" target='_blank' rel='noreferrer'>
 								<SiHashnode className='text-lg sm:text-xl text-[#2962FF]' />
 								<span>Hashnode</span>
 							</a>
