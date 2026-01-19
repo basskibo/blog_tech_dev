@@ -2,32 +2,24 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Accent from '../components/custom/Accent'
-import { FeaturedPosts } from './'
 import { SiGithub, SiLinkedin, SiTwitter } from 'react-icons/si'
-import NewsLetter from './NewsLetter'
 import { TypeAnimation } from 'react-type-animation'
 import { IoCloudDownloadOutline } from "react-icons/io5"
+import ParticlesBackground from './custom/ParticlesBackground'
 import AnchorLinkComponent from './custom/AnchorLink'
 import { Button } from './ui/button'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 
-// Lazy load ParticlesBackground only - it's not critical for above-the-fold
-const ParticlesBackground = dynamic(() => import('./custom/ParticlesBackground'), { 
-	ssr: false,
-	loading: () => null // Don't show anything while loading
+// Lazy load components that are below the fold
+const FeaturedPosts = dynamic(() => import('./').then(mod => mod.FeaturedPosts), {
+	ssr: true // Keep SSR for SEO
+})
+const NewsLetter = dynamic(() => import('./NewsLetter'), {
+	ssr: true
 })
 
 const Landing = () => {
-	const [showParticles, setShowParticles] = React.useState(false)
-
-	React.useEffect(() => {
-		// Load particles after initial render to improve LCP
-		const timer = setTimeout(() => {
-			setShowParticles(true)
-		}, 1000)
-		return () => clearTimeout(timer)
-	}, [])
 
 	const handleDownload = () => {
 		const link = document.createElement('a');
@@ -64,7 +56,7 @@ const Landing = () => {
 	return (
 		<div className='bg-gradient-to-b from-background via-background/95 to-background/90 min-h-screen'>
 			<div className='text-foreground relative safe-top safe-left safe-right'>
-				{showParticles && <ParticlesBackground />}
+				<ParticlesBackground />
 
 				<motion.div
 					variants={containerVariants}

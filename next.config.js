@@ -35,6 +35,7 @@ const NextConfiguration = {
 				use: ['@svgr/webpack']
 			}
 		)
+		
 		if (shouldAnalyzeBundles) {
 			const withNextBundleAnalyzer =
         require('next-bundle-analyzer')(/* options come there */)
@@ -45,15 +46,6 @@ const NextConfiguration = {
 	},
 	// Optimize images configuration
 	images: {
-		domains: [
-			'tailwindui.com',
-			'images.pexels.com',
-			'res.cloudinary.com',
-			'avatars.githubusercontent.com',
-			'images.unsplash.com',
-			'thepracticaldev.s3.amazonaws.com',
-			'dev-to-uploads.s3.amazonaws.com'
-		],
 		remotePatterns: [
 			{
 				protocol: 'https',
@@ -74,6 +66,10 @@ const NextConfiguration = {
 			{
 				protocol: 'https',
 				hostname: 'avatars.githubusercontent.com',
+			},
+			{
+				protocol: 'https',
+				hostname: 'tailwindui.com',
 			},
 		],
 		formats: ['image/avif', 'image/webp'],

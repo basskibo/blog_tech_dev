@@ -18,7 +18,9 @@ const ParticlesBackground = () => {
 			options={{
 				background: {
 				},
-				fpsLimit: 120,
+				fpsLimit: 60, // Reduced from 120 to 60 for better performance
+				pauseOnBlur: true, // Pause when tab is not visible
+				pauseOnOutsideViewport: true, // Pause when outside viewport
 				interactivity: {
 					events: {
 						onClick: {
@@ -47,9 +49,9 @@ const ParticlesBackground = () => {
 					},
 					links: {
 						color: "#fff",
-						distance: 300,
+						distance: 200, // Reduced from 300
 						enable: true,
-						opacity: 0.3,
+						opacity: 0.2, // Reduced from 0.3
 						width: 0.5,
 					},
 					move: {
@@ -59,18 +61,18 @@ const ParticlesBackground = () => {
 							default: "bounce",
 						},
 						random: false,
-						speed: 4,
+						speed: 2, // Reduced from 4
 						straight: false,
 					},
 					number: {
 						density: {
 							enable: true,
-							area: 1200,
+							area: 2000, // Increased area to reduce density
 						},
-						value: 15,
+						value: 8, // Reduced from 15 to 8
 					},
 					opacity: {
-						value: 0.5,
+						value: 0.4, // Reduced from 0.5
 					},
 					shape: {
 						type: "circle",
@@ -79,7 +81,7 @@ const ParticlesBackground = () => {
 						value: { min: 1, max: 2 },
 					},
 				},
-				detectRetina: true,
+				detectRetina: false, // Disabled for better performance
 			}}
 		/>
 	);
