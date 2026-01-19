@@ -2,328 +2,380 @@
     <channel>
         <title><![CDATA[Bojanjagetic Blog Post | RSS Feed]]></title>
         <description><![CDATA[Welcome to this blog posts!]]></description>
-        <link>http://github.com/dylang/node-rss</link>
+        <link>https://jageticbojan.com</link>
         <image>
-            <url>undefined/logo.png</url>
+            <url>https://jageticbojan.com/logo.png</url>
             <title>Bojanjagetic Blog Post | RSS Feed</title>
-            <link></link>
+            <link>https://jageticbojan.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 19 Jan 2026 15:38:01 GMT</lastBuildDate>
-        <atom:link href="undefined/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 19 Jan 2026 15:38:01 GMT</pubDate>
+        <lastBuildDate>Mon, 19 Jan 2026 15:56:30 GMT</lastBuildDate>
+        <atom:link href="https://jageticbojan.com/rss.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Mon, 19 Jan 2026 15:56:30 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2026, © 2022 Bojan Jagetic]]></copyright>
         <item>
             <title><![CDATA[What is Microservices architecture and how to use it]]></title>
             <description><![CDATA[This is just a multifaceted knowledge in order to help someone looking for conceptual things in one place.]]></description>
-            <link>undefined/post/all-you-need-to-know-about-microservices</link>
-            <guid isPermaLink="true">undefined/post/all-you-need-to-know-about-microservices</guid>
+            <link>https://jageticbojan.com/post/all-you-need-to-know-about-microservices</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/all-you-need-to-know-about-microservices</guid>
+            <pubDate>Tue, 14 Jun 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Building a Powerful Chatbot with OpenAI and LangChain]]></title>
             <description><![CDATA[In this post, we'll walk through how to create a basic but powerful chatbot using OpenAI and LangChain]]></description>
-            <link>undefined/post/basic-ai-chatbot</link>
-            <guid isPermaLink="true">undefined/post/basic-ai-chatbot</guid>
+            <link>https://jageticbojan.com/post/basic-ai-chatbot</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/basic-ai-chatbot</guid>
+            <pubDate>Sun, 08 Sep 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Become Docker captain]]></title>
             <description><![CDATA[Docker is a platform that simplifies the process of creating, deploying, and running applications by using containers. A container is a lightweight and portable unit that can run applications and their dependencies.]]></description>
-            <link>undefined/post/become-docker-captain</link>
-            <guid isPermaLink="true">undefined/post/become-docker-captain</guid>
+            <link>https://jageticbojan.com/post/become-docker-captain</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/become-docker-captain</guid>
+            <pubDate>Tue, 21 Feb 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Building a resilient Node.js application | Part 1]]></title>
             <description><![CDATA[Are you a developer looking to create a blog or personal website that is both easy to maintain, blazing fast and visually appealing? Look no further]]></description>
-            <link>undefined/post/builld-resilient-nodejs-part-1</link>
-            <guid isPermaLink="true">undefined/post/builld-resilient-nodejs-part-1</guid>
+            <link>https://jageticbojan.com/post/builld-resilient-nodejs-part-1</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/builld-resilient-nodejs-part-1</guid>
+            <pubDate>Mon, 09 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Mastering JavaScript Design Patterns: A Comprehensive Guide]]></title>
             <description><![CDATA[Design patterns are not just for experienced developers. Even if you're just starting out with JavaScript, you can benefit from learning about design patterns and how to use them in your projects]]></description>
-            <link>undefined/post/complete-guide-thgough-js-patterns</link>
-            <guid isPermaLink="true">undefined/post/complete-guide-thgough-js-patterns</guid>
+            <link>https://jageticbojan.com/post/complete-guide-thgough-js-patterns</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/complete-guide-thgough-js-patterns</guid>
+            <pubDate>Wed, 13 Jul 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[5 Simple Steps to Creating Your Very Own npm Module]]></title>
             <description><![CDATA[Are you tired of using someone else's npm module and wish you could create your own? Well, the good news is that it's actually quite simple to do!]]></description>
-            <link>undefined/post/create-npm-module</link>
-            <guid isPermaLink="true">undefined/post/create-npm-module</guid>
+            <link>https://jageticbojan.com/post/create-npm-module</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/create-npm-module</guid>
+            <pubDate>Sat, 07 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Creating and Managing Configuration Files via Shell Scripts]]></title>
             <description><![CDATA[Configuration files (.ini, .env, .yaml, etc.) play a crucial role in managing application settings, database connections, and environment-specific configurations ]]></description>
-            <link>undefined/post/creating-config-files-script</link>
-            <guid isPermaLink="true">undefined/post/creating-config-files-script</guid>
+            <link>https://jageticbojan.com/post/creating-config-files-script</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/creating-config-files-script</guid>
+            <pubDate>Tue, 18 Feb 2025 05:35:07 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Automating Cron Job Setup Using Bash Scripts]]></title>
             <description><![CDATA[Cron jobs are essential for automating repetitive tasks on Unix-based systems, such as running backups, updating databases, and scheduling reports.]]></description>
-            <link>undefined/post/cron-job-shell</link>
-            <guid isPermaLink="true">undefined/post/cron-job-shell</guid>
+            <link>https://jageticbojan.com/post/cron-job-shell</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/cron-job-shell</guid>
+            <pubDate>Sun, 16 Feb 2025 05:35:07 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[SQL vs NoSQL]]></title>
             <description><![CDATA[Clash of the Titans ,which one is fbetter and faster ? Is NoSQL faster than SQL? Not really, as well as the SQL is not faster than NoSQL. Which one to choose than? Both have advantages and disadvantages, lets dig deeper and findout. ]]></description>
-            <link>undefined/post/databases-simple</link>
-            <guid isPermaLink="true">undefined/post/databases-simple</guid>
+            <link>https://jageticbojan.com/post/databases-simple</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/databases-simple</guid>
+            <pubDate>Tue, 16 Mar 2021 05:35:07 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Default vs named module export in Javascript]]></title>
             <description><![CDATA[In JavaScript, you can use the export keyword to make values and functions available for use in other files. There are two ways to use export: as a named export or as a default export.]]></description>
-            <link>undefined/post/default-vs-named-export</link>
-            <guid isPermaLink="true">undefined/post/default-vs-named-export</guid>
+            <link>https://jageticbojan.com/post/default-vs-named-export</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/default-vs-named-export</guid>
+            <pubDate>Sat, 17 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Demystifying Docker Compose: A Beginner's Guide]]></title>
             <description><![CDATA[In the world of containerization, Docker Compose emerges as a powerful ally, simplifying complex setups for beginners. Explore its capabilities and benefits in this beginner's guide.]]></description>
-            <link>undefined/post/docker-compose</link>
-            <guid isPermaLink="true">undefined/post/docker-compose</guid>
+            <link>https://jageticbojan.com/post/docker-compose</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/docker-compose</guid>
+            <pubDate>Tue, 31 Oct 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Everything you need to know about Git]]></title>
             <description><![CDATA[Git is software for tracking changes in any set of files, usually used for coordinating work among programmers collaboratively developing source code during  software development. ]]></description>
-            <link>undefined/post/everything-you-need-to-know-about-git</link>
-            <guid isPermaLink="true">undefined/post/everything-you-need-to-know-about-git</guid>
+            <link>https://jageticbojan.com/post/everything-you-need-to-know-about-git</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/everything-you-need-to-know-about-git</guid>
+            <pubDate>Wed, 15 Jun 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Framework vs Library: The Ultimate Showdown]]></title>
             <description><![CDATA[When it comes to software development, there are a lot of different tools and technologies that can help you get the job done, two of the most common are frameworks and libraries]]></description>
-            <link>undefined/post/framework-vs-libary</link>
-            <guid isPermaLink="true">undefined/post/framework-vs-libary</guid>
+            <link>https://jageticbojan.com/post/framework-vs-libary</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/framework-vs-libary</guid>
+            <pubDate>Wed, 11 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Higher order functions in Javascript]]></title>
             <description><![CDATA[Higher order functions are functions that take other functions as arguments or return them as output. They are an important concept in functional programming and can be used to greatly simplify and improve the readability of your code.]]></description>
-            <link>undefined/post/higher-order-functions-js</link>
-            <guid isPermaLink="true">undefined/post/higher-order-functions-js</guid>
+            <link>https://jageticbojan.com/post/higher-order-functions-js</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/higher-order-functions-js</guid>
+            <pubDate>Thu, 22 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[How to embed link with preview in React Application]]></title>
             <description><![CDATA[When building a web application, it's often useful to show a preview of a link's content—like how social media platforms show link previews]]></description>
-            <link>undefined/post/how-to-embed-link</link>
-            <guid isPermaLink="true">undefined/post/how-to-embed-link</guid>
+            <link>https://jageticbojan.com/post/how-to-embed-link</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/how-to-embed-link</guid>
+            <pubDate>Fri, 12 Oct 20204 22:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Javascript Class fundamentals]]></title>
             <description><![CDATA[In object-oriented programming, a class is an extensible program-code-template for creating objects, providing initial values for state (member variables) and implementations of behavior (member functions or methods).]]></description>
-            <link>undefined/post/javascript-class-fundamentals</link>
-            <guid isPermaLink="true">undefined/post/javascript-class-fundamentals</guid>
+            <link>https://jageticbojan.com/post/javascript-class-fundamentals</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/javascript-class-fundamentals</guid>
+            <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[A Beginner's Guide to JavaScript: The Basics]]></title>
             <description><![CDATA[If you're new to JavaScript, this post is for you. We'll start with the basics, including an overview of the language and its syntax, as well as common data types and control structures.]]></description>
-            <link>undefined/post/javascript-overview</link>
-            <guid isPermaLink="true">undefined/post/javascript-overview</guid>
+            <link>https://jageticbojan.com/post/javascript-overview</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/javascript-overview</guid>
+            <pubDate>Mon, 16 Mar 2020 05:35:07 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Update JSON file via Terminal or bash script]]></title>
             <description><![CDATA[When working with JSON files in a Linux environment, there are many times you need to automate updates to these files. Whether you're dealing with configuration files, API data, or just plain old structured data, learning how to automate JSON file updates using Bash can save a lot of manual effort.]]></description>
-            <link>undefined/post/json-update-via-shell</link>
-            <guid isPermaLink="true">undefined/post/json-update-via-shell</guid>
+            <link>https://jageticbojan.com/post/json-update-via-shell</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/json-update-via-shell</guid>
+            <pubDate>Sat, 12 Oct 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Making Color Palette Generator in React/Remix]]></title>
             <description><![CDATA[We will walk through the process of building a Color Palette Generator using React.]]></description>
-            <link>undefined/post/making-pallete-generator</link>
-            <guid isPermaLink="true">undefined/post/making-pallete-generator</guid>
+            <link>https://jageticbojan.com/post/making-pallete-generator</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/making-pallete-generator</guid>
+            <pubDate>Thu, 22 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Creating a Modern Landing Page with Particles and React]]></title>
             <description><![CDATA[Make better first impression with modern landing page and usage of particles to make it look cool]]></description>
-            <link>undefined/post/modern-landing-with-particles</link>
-            <guid isPermaLink="true">undefined/post/modern-landing-with-particles</guid>
+            <link>https://jageticbojan.com/post/modern-landing-with-particles</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/modern-landing-with-particles</guid>
+            <pubDate>Tue, 12 Mar 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Blogging with Next.js and MDX: The ultimate combination for dynamic content]]></title>
             <description><![CDATA[Are you a developer looking to create a blog or personal website that is both easy to maintain, blazing fast and visually appealing? Look no further]]></description>
-            <link>undefined/post/next-and-mdx</link>
-            <guid isPermaLink="true">undefined/post/next-and-mdx</guid>
+            <link>https://jageticbojan.com/post/next-and-mdx</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/next-and-mdx</guid>
+            <pubDate>Mon, 09 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Understanding Rendering in Next.js]]></title>
             <description><![CDATA[A splash screen is a visual element that is displayed when an application is loading. It is a great way to provide a professional and polished look to your application, and can also be used to display important information such as branding, loading status, and more...]]></description>
-            <link>undefined/post/nextjs-rendering</link>
-            <guid isPermaLink="true">undefined/post/nextjs-rendering</guid>
+            <link>https://jageticbojan.com/post/nextjs-rendering</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/nextjs-rendering</guid>
+            <pubDate>Tue, 17 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Generate sitemap and robots in Nextjs]]></title>
             <description><![CDATA[Get better rank and visibility on search engine, SEO is your friend when you tell Google crawler exactly what to look for and where which you can do with sitemap.xml and robots.txt]]></description>
-            <link>undefined/post/nextjs-sitemap-robots</link>
-            <guid isPermaLink="true">undefined/post/nextjs-sitemap-robots</guid>
+            <link>https://jageticbojan.com/post/nextjs-sitemap-robots</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/nextjs-sitemap-robots</guid>
+            <pubDate>Sun, 04 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Creating a Splash Screen in Next.js]]></title>
             <description><![CDATA[A splash screen is a visual element that is displayed when an application is loading. It is a great way to provide a professional and polished look to your application, and can also be used to display important information such as branding, loading status, and more.]]></description>
-            <link>undefined/post/nextjs-splash-screen</link>
-            <guid isPermaLink="true">undefined/post/nextjs-splash-screen</guid>
+            <link>https://jageticbojan.com/post/nextjs-splash-screen</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/nextjs-splash-screen</guid>
+            <pubDate>Wed, 18 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Navigating the Web with NGINX]]></title>
             <description><![CDATA[In JavaScript, you can use the export keyword to make values and functions available for use in other files. There are two ways to use export: as a named export or as a default export.]]></description>
-            <link>undefined/post/nginx</link>
-            <guid isPermaLink="true">undefined/post/nginx</guid>
+            <link>https://jageticbojan.com/post/nginx</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/nginx</guid>
+            <pubDate>Wed, 13 Dec 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Creating a Node.js Command-line Tool, Linux Terminal CLI and NPM Package]]></title>
             <description><![CDATA[Command-line tools are incredibly useful for automating repetitive tasks, performing quick checks and for developers to perform different tasks.In this tutorial, we will go through the process of creating a Node.js command-line tool.]]></description>
-            <link>undefined/post/nodejs-cli-tool</link>
-            <guid isPermaLink="true">undefined/post/nodejs-cli-tool</guid>
+            <link>https://jageticbojan.com/post/nodejs-cli-tool</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/nodejs-cli-tool</guid>
+            <pubDate>Mon, 16 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Node.js Developer Technical Interview (Senior)]]></title>
             <description><![CDATA[If you have beem preparing for the technical interview for Node.js senior developer position or you just want to make your Node.js knowledge strong, feel free to read and refresh your memory.]]></description>
-            <link>undefined/post/nodejs-interview-senior</link>
-            <guid isPermaLink="true">undefined/post/nodejs-interview-senior</guid>
+            <link>https://jageticbojan.com/post/nodejs-interview-senior</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/nodejs-interview-senior</guid>
+            <pubDate>Sat, 12 Feb 2022 05:35:07 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Node.js Developer Technical Interview (Basic)]]></title>
             <description><![CDATA[If you have beem preparing for the technical interview for Node.js developer position or you just want to affirm your Node.js knowledge feel free to read and refresh your memory.]]></description>
-            <link>undefined/post/nodejs-interview</link>
-            <guid isPermaLink="true">undefined/post/nodejs-interview</guid>
+            <link>https://jageticbojan.com/post/nodejs-interview</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/nodejs-interview</guid>
+            <pubDate>Sat, 12 Feb 2022 05:35:07 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[npm vs Yarn: A Comparison]]></title>
             <description><![CDATA[npm and Yarn are both popular package managers for JavaScript projects, but they have some key differences that you should be aware of when deciding which one to use.]]></description>
-            <link>undefined/post/npm-vs-yarn</link>
-            <guid isPermaLink="true">undefined/post/npm-vs-yarn</guid>
+            <link>https://jageticbojan.com/post/npm-vs-yarn</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/npm-vs-yarn</guid>
+            <pubDate>Sat, 24 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Basic programming concepts everyone should know about]]></title>
             <description><![CDATA[This is just a multifaceted knowledge in order to help someone looking for conceptual things in one place.]]></description>
-            <link>undefined/post/programming-concepts</link>
-            <guid isPermaLink="true">undefined/post/programming-concepts</guid>
+            <link>https://jageticbojan.com/post/programming-concepts</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/programming-concepts</guid>
+            <pubDate>Thu, 02 Sep 2021 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[The Power of Python Data Structures: Lists, Dictionaries, Sets and Tuples]]></title>
             <description><![CDATA[Python is known for its powerful and versatile data structures that can help you organize and manipulate data with ease.]]></description>
-            <link>undefined/post/python-list-dict-tuple</link>
-            <guid isPermaLink="true">undefined/post/python-list-dict-tuple</guid>
+            <link>https://jageticbojan.com/post/python-list-dict-tuple</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/python-list-dict-tuple</guid>
+            <pubDate>Wed, 22 Feb 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[React Cheatsheet]]></title>
             <description><![CDATA[Want to have all basic stuff about React in one place, sure here it is. Here you have basic React concepts and functions that can be helpfull.]]></description>
-            <link>undefined/post/react-cheetsheats</link>
-            <guid isPermaLink="true">undefined/post/react-cheetsheats</guid>
+            <link>https://jageticbojan.com/post/react-cheetsheats</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/react-cheetsheats</guid>
+            <pubDate>Thu, 02 Sep 2021 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[A Deep Dive into componentDidMount and useEffect in React]]></title>
             <description><![CDATA[Although they both serve similar purposes, they are not interchangeable and have some key differences. In this blog post, we'll take a closer look at each method.]]></description>
-            <link>undefined/post/react-didmount-vs-usefeffect</link>
-            <guid isPermaLink="true">undefined/post/react-didmount-vs-usefeffect</guid>
+            <link>https://jageticbojan.com/post/react-didmount-vs-usefeffect</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/react-didmount-vs-usefeffect</guid>
+            <pubDate>Fri, 13 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[React Interview Prep: What You Need to Know]]></title>
             <description><![CDATA[If you are preparing for a React interview, it is important to familiarize yourself with the common questions and concepts that are likely to come up. ]]></description>
-            <link>undefined/post/react-interview-questions</link>
-            <guid isPermaLink="true">undefined/post/react-interview-questions</guid>
+            <link>https://jageticbojan.com/post/react-interview-questions</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/react-interview-questions</guid>
+            <pubDate>Wed, 28 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Send Push notification with Firebase and React]]></title>
             <description><![CDATA[You want to reliably send message? Look no more, firebase will make your life easier with cloud messages and many more features which Google provides]]></description>
-            <link>undefined/post/react-native-animation-loader</link>
-            <guid isPermaLink="true">undefined/post/react-native-animation-loader</guid>
+            <link>https://jageticbojan.com/post/react-native-animation-loader</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/react-native-animation-loader</guid>
+            <pubDate>Tue, 29 Nov 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Understanding Redux: A Guide to Managing Application State]]></title>
             <description><![CDATA[Redux is a library that is often used in JavaScript applications to manage the state of the application. It is particularly useful for applications that have a lot of state that needs to be managed.]]></description>
-            <link>undefined/post/react-redux</link>
-            <guid isPermaLink="true">undefined/post/react-redux</guid>
+            <link>https://jageticbojan.com/post/react-redux</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/react-redux</guid>
+            <pubDate>Thu, 19 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[One-Click Code Block Copying in React with react-copy-to-clipboard]]></title>
             <description><![CDATA[When displaying code snippets on a website or application, it's often useful to provide a way for users to quickly copy the code to their clipboard. In this tutorial, we'll show you how to add this functionality to a code block]]></description>
-            <link>undefined/post/react-syntaxhighlighter-copy-clipboard</link>
-            <guid isPermaLink="true">undefined/post/react-syntaxhighlighter-copy-clipboard</guid>
+            <link>https://jageticbojan.com/post/react-syntaxhighlighter-copy-clipboard</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/react-syntaxhighlighter-copy-clipboard</guid>
+            <pubDate>Fri, 13 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Advanced Techniques for Improving Performance with React Virtualization]]></title>
             <description><![CDATA[Having a large number of data can really take effect on our app performance, but there is way to make it work like a charm.]]></description>
-            <link>undefined/post/react-virtualization</link>
-            <guid isPermaLink="true">undefined/post/react-virtualization</guid>
+            <link>https://jageticbojan.com/post/react-virtualization</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/react-virtualization</guid>
+            <pubDate>Tue, 15 Nov 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Regular vs Arrow functions: A Comparison]]></title>
             <description><![CDATA[npm and Yarn are both popular package managers for JavaScript projects, but they have some key differences that you should be aware of when deciding which one to use.]]></description>
-            <link>undefined/post/regular-vs-arrow-fn</link>
-            <guid isPermaLink="true">undefined/post/regular-vs-arrow-fn</guid>
+            <link>https://jageticbojan.com/post/regular-vs-arrow-fn</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/regular-vs-arrow-fn</guid>
+            <pubDate>Sat, 24 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Sending Emails Using Node.js]]></title>
             <description><![CDATA[With Node.js, developers have a powerful tool at their disposal for automating tasks, including sending emails.]]></description>
-            <link>undefined/post/sending-email-with-node</link>
-            <guid isPermaLink="true">undefined/post/sending-email-with-node</guid>
+            <link>https://jageticbojan.com/post/sending-email-with-node</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/sending-email-with-node</guid>
+            <pubDate>Thu, 25 Apr 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Shallow vs. Deep Copy: Understanding the Difference]]></title>
             <description><![CDATA[When working with objects or data structures in programming, copying data isn't always straightforward.]]></description>
-            <link>undefined/post/shallow-vs-deep-copy</link>
-            <guid isPermaLink="true">undefined/post/shallow-vs-deep-copy</guid>
+            <link>https://jageticbojan.com/post/shallow-vs-deep-copy</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/shallow-vs-deep-copy</guid>
+            <pubDate>Mon, 17 Feb 2025 05:35:07 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[What is SWR and How Can It Improve Your React Apps]]></title>
             <description><![CDATA[If you're a developer working with React, you may have heard of a library called SWR (Stale-While-Revalidate). But what exactly is it and how can it benefit your React applications?]]></description>
-            <link>undefined/post/swr</link>
-            <guid isPermaLink="true">undefined/post/swr</guid>
+            <link>https://jageticbojan.com/post/swr</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/swr</guid>
+            <pubDate>Mon, 26 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Introduction to Tailwind CSS]]></title>
             <description><![CDATA[Have you ever heard of Tailwind CSS? It is a utility-first CSS framework that is quickly gaining popularity among front-end developers]]></description>
-            <link>undefined/post/tailwind-introduction</link>
-            <guid isPermaLink="true">undefined/post/tailwind-introduction</guid>
+            <link>https://jageticbojan.com/post/tailwind-introduction</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/tailwind-introduction</guid>
+            <pubDate>Sun, 08 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Sending Telegram Messages using Node.js and the Telegram API]]></title>
             <description><![CDATA[One of the great features of Telegram is that it also has an API that allows developers to interact with Telegram's servers and send messages to Telegram users programmatically.]]></description>
-            <link>undefined/post/telegram-bot-node</link>
-            <guid isPermaLink="true">undefined/post/telegram-bot-node</guid>
+            <link>https://jageticbojan.com/post/telegram-bot-node</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/telegram-bot-node</guid>
+            <pubDate>Mon, 26 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Develop Samsung application with Tizen]]></title>
             <description><![CDATA[Git is software for tracking changes in any set of files, usually used for coordinating work among programmers collaboratively developing source code during  software development. ]]></description>
-            <link>undefined/post/tizen-overview</link>
-            <guid isPermaLink="true">undefined/post/tizen-overview</guid>
+            <link>https://jageticbojan.com/post/tizen-overview</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/tizen-overview</guid>
+            <pubDate>Tue, 15 Nov 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Top 10 Interview Questions for JavaScript Full Stack Developers]]></title>
             <description><![CDATA[JavaScript is a powerful and versatile programming language that is widely used in web development, and being a full stack developer proficient in JavaScript can open up numerous career opportunities.]]></description>
-            <link>undefined/post/top-10-fullstack-questions</link>
-            <guid isPermaLink="true">undefined/post/top-10-fullstack-questions</guid>
+            <link>https://jageticbojan.com/post/top-10-fullstack-questions</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/top-10-fullstack-questions</guid>
+            <pubDate>Mon, 12 Jun 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Embark on a UI Odyssey: 5 Spectacular Libraries to Explore]]></title>
             <description><![CDATA[In the ever-evolving landscape of web development, thousands of websites are being made everyday, with billion of existing ones]]></description>
-            <link>undefined/post/top-5-ui-modern-frameworks</link>
-            <guid isPermaLink="true">undefined/post/top-5-ui-modern-frameworks</guid>
+            <link>https://jageticbojan.com/post/top-5-ui-modern-frameworks</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/top-5-ui-modern-frameworks</guid>
+            <pubDate>Tue, 16 Apr 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Top 10 common Software Architecture patterns ]]></title>
             <description><![CDATA[This is just a multifaceted knowledge in order to help someone looking for conceptual things in one place.]]></description>
-            <link>undefined/post/top10-software-architectures</link>
-            <guid isPermaLink="true">undefined/post/top10-software-architectures</guid>
+            <link>https://jageticbojan.com/post/top10-software-architectures</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/top10-software-architectures</guid>
+            <pubDate>Thu, 02 Sep 2021 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[What is Typescript]]></title>
             <description><![CDATA[TypeScript is a superset of JavaScript that adds optional static typing to the language. This means that you can add type annotations to your code]]></description>
-            <link>undefined/post/typescript-basic</link>
-            <guid isPermaLink="true">undefined/post/typescript-basic</guid>
+            <link>https://jageticbojan.com/post/typescript-basic</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/typescript-basic</guid>
+            <pubDate>Tue, 10 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Umami: Your best Go-To Google Analytics Alternative]]></title>
             <description><![CDATA[Are you tired of relying solely on Google Analytics to track your website's performance? Look no further!]]></description>
-            <link>undefined/post/umami</link>
-            <guid isPermaLink="true">undefined/post/umami</guid>
+            <link>https://jageticbojan.com/post/umami</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/umami</guid>
+            <pubDate>Tue, 10 Apr 20204 22:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Running webOS project]]></title>
             <description><![CDATA[Want to make new Netflix application for TV? Learn how to develop webOS application for LG TV devices]]></description>
-            <link>undefined/post/webos-project</link>
-            <guid isPermaLink="true">undefined/post/webos-project</guid>
+            <link>https://jageticbojan.com/post/webos-project</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/webos-project</guid>
+            <pubDate>Tue, 15 Nov 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Update xml file via Terminal or bash script]]></title>
             <description><![CDATA[If you been in situation that you want to update xml file from bash script there is many ways to do that.]]></description>
-            <link>undefined/post/xml-update-via-shell</link>
-            <guid isPermaLink="true">undefined/post/xml-update-via-shell</guid>
+            <link>https://jageticbojan.com/post/xml-update-via-shell</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/xml-update-via-shell</guid>
+            <pubDate>Sun, 18 Dec 2022 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>
