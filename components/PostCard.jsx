@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import constants from '../utils/constants'
 import { setConfig, buildUrl } from 'cloudinary-build-url'
 
-const PostCard = ({ post, mode }) => {
+const PostCard = ({ post, mode, priority = false }) => {
   setConfig({
     cloudName: constants.CLOUDINARY_CLOUD_NAME
   })
@@ -32,14 +32,16 @@ const PostCard = ({ post, mode }) => {
              : 'text-white transform-gpu scale-100 hover:scale-[0.98] active:scale-[0.97] hover:cursor-pointer transition duration-100 animate-shadow',
            'w-full  rounded-xl lg:border border-neutral-700 overflow-hidden'
          )}>
-         <a href={`/post/${post.data.slug}`}>
+         <a href={`/post/${post.data.slug}`} aria-label={`Read post: ${post.data.title}`}>
             <div className={clsx(mode === 'md' ? ' h-52' : 'h-80', 'relative overflow-hidden w-full')}>
                <Image
-                  alt={post.data.featuredImage || post.data.title}
+                  alt={post.data.title || 'Blog post image'}
                   src={imageUrl}
                   fill
                   blurDataURL={constants.imageBlogURI}
                   placeholder='blur'
+                  priority={priority}
+                  loading={priority ? undefined : 'lazy'}
                   style={{ transform: 'translate3d(0, 0, 0)' }}
                   sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, (max-width: 1536px) 33vw, 25vw"
                   className={clsx(

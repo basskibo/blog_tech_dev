@@ -135,6 +135,7 @@ const QuizComponent = ({ selectedQuiz, setSelectedQuiz, onRequestRestart }) => {
 								<div className='flex flex-row-reverse'>
 									<button
 										onClick={toggleFullScreen}
+										aria-label={isFullScreen ? 'Exit fullscreen' : 'Enter fullscreen'}
 										className='transform hover:scale-[1.14] transition-all  hover:cursor-pointer hover:text-violet10'
 									>
 										{isFullScreen ? (

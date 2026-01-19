@@ -83,12 +83,13 @@ const Child = ({ style, index, data, type }) => {
 								"bg-muted"
 							)}>
 								<Image
-									alt={post?.data?.featuredImage || post?.data?.title}
+									alt={post?.data?.title || 'Blog post image'}
 									src={
 										post?.data?.featuredImage ||
 										'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1669989316/igutech/blogs/almos-bechtold-GFgWx3o8bTI-unsplash_nfqh81.jpg'
 									}
 									fill
+									loading="lazy"
 									className={cn(
 										"object-cover transition-transform duration-500",
 										"group-hover:scale-110",

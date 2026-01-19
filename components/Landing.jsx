@@ -1,16 +1,25 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Accent from '../components/custom/Accent'
 import { FeaturedPosts } from './'
 import { SiGithub, SiLinkedin, SiTwitter } from 'react-icons/si'
 import NewsLetter from './NewsLetter'
-import { TypeAnimation } from 'react-type-animation'
 import { IoCloudDownloadOutline } from "react-icons/io5"
-import ParticlesBackground from './custom/ParticlesBackground'
 import AnchorLinkComponent from './custom/AnchorLink'
 import { Button } from './ui/button'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
+
+// Lazy load heavy components for better mobile performance
+const TypeAnimation = dynamic(() => import('react-type-animation').then(mod => mod.TypeAnimation), { 
+	ssr: false,
+	loading: () => <span>Bojan Jagetic</span>
+})
+
+const ParticlesBackground = dynamic(() => import('./custom/ParticlesBackground'), { 
+	ssr: false 
+})
 
 const Landing = () => {
 	const handleDownload = () => {
@@ -70,10 +79,7 @@ const Landing = () => {
 											700,
 											'Jagetic',
 											2000,
-											'Bojan Jagetic',
-											() => {
-												console.log('Done typing!')
-											}
+											'Bojan Jagetic'
 										]}
 										wrapper='span'
 										cursor={true}
