@@ -35,15 +35,12 @@ const PostCard = ({ post, mode }) => {
          <a href={`/post/${post.data.slug}`}>
             <div className={clsx(mode === 'md' ? ' h-52' : 'h-80', 'relative overflow-hidden w-full')}>
                <Image
-                  alt={post.data.featuredImage}
+                  alt={post.data.featuredImage || post.data.title}
                   src={imageUrl}
+                  fill
                   blurDataURL={constants.imageBlogURI}
                   placeholder='blur'
-                  layout='fill'
-                  // height={300}
                   style={{ transform: 'translate3d(0, 0, 0)' }}
-
-                  // width={720}
                   sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, (max-width: 1536px) 33vw, 25vw"
                   className={clsx(
                     post.data.inPreparation ? 'blur-md' : 'blur-none',

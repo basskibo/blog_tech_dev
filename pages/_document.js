@@ -11,39 +11,20 @@ class MyDocument extends Document {
 		return (
 			<Html lang="en" suppressHydrationWarning>
 				<Head>
-					{/* Google Analytics */}
-					<script
-						async
-						src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID}`}
-					/>
-					<script
-						dangerouslySetInnerHTML={{
-							__html: `
-                                window.dataLayer = window.dataLayer || [];
-                                function gtag(){dataLayer.push(arguments);}
-                                gtag('js', new Date());
-                                gtag('config', ${JSON.stringify(
-								process.env
-									.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID
-							)} , {
-                                page_path: window.location.pathname,
-                                });
-                            `
-						}}
-					/>
-					<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" />
-					<script defer src="https://cloud.umami.is/script.js" data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"></script>
-					{/* Microsoft Clarity */}
-					<script
-						dangerouslySetInnerHTML={{
-							__html: `
-								(function(c,l,a,r,i,t,y){
-									c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-									t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-									y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-								})(window, document, "clarity", "script", "v2x468vj4f");
-							`
-						}}
+					{/* Preconnect to external domains for better performance */}
+					<link rel="preconnect" href="https://fonts.googleapis.com" />
+					<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+					<link rel="preconnect" href="https://www.googletagmanager.com" />
+					<link rel="preconnect" href="https://cloud.umami.is" />
+					<link rel="preconnect" href="https://www.clarity.ms" />
+					<link rel="dns-prefetch" href="https://res.cloudinary.com" />
+					<link rel="dns-prefetch" href="https://images.unsplash.com" />
+					<link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
+					
+					{/* Optimized font loading with display=swap */}
+					<link 
+						rel="stylesheet" 
+						href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" 
 					/>
 				</Head>
 				<body>
