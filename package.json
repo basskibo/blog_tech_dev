@@ -84,6 +84,7 @@
     "sass": "^1.62.1",
     "sharp": "^0.32.6",
     "slugify": "^1.6.5",
+    "spotify-now-playing-card": "^1.0.6",
     "swr": "^1.3.0",
     "tailwind-merge": "^3.4.0",
     "tsparticles-slim": "^2.12.0"
