@@ -11,6 +11,8 @@ const NextConfiguration = {
 	compress: true,
 	// Enable React strict mode
 	reactStrictMode: true,
+	// Transpile ES modules from node_modules
+	transpilePackages: ['spotify-now-playing-card'],
 	// Optimize page extensions
 	pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
 	// Support loading `.md`, `.mdx`:
@@ -35,6 +37,12 @@ const NextConfiguration = {
 				use: ['@svgr/webpack']
 			}
 		)
+		
+		// Handle ES modules properly
+		config.resolve.extensionAlias = {
+			'.js': ['.js', '.ts', '.tsx'],
+			'.jsx': ['.jsx', '.tsx'],
+		}
 		
 		if (shouldAnalyzeBundles) {
 			const withNextBundleAnalyzer =
