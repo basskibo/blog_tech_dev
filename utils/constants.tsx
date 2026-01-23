@@ -1,6 +1,6 @@
 // @ts-nocheck
 /* eslint-disable react/react-in-jsx-scope */
-/* @refresh reset */
+import React from 'react'
 import {
 	SiJenkins,
 	SiJavascript,
@@ -127,30 +127,40 @@ const ideOsTechnologies: Technology[] = [
 	{ name: 'Ubuntu', desc: 'test', icon: SiUbuntu }
 ]
 
+export { iconMap }
+
 // Generate icon component from icon name string
+// Using React.createElement to avoid Fast Refresh issues with JSX in functions
 const generateIcon = (iconName: string): JSX.Element => {
 	const IconComponent = iconMap[iconName]
 	
 	if (!IconComponent) {
 		console.warn(`Icon "${iconName}" not found in iconMap`)
-		return <span className='text-xl text-white mr-2 mt-1' />
+		return React.createElement('span', { className: 'text-xl text-white mr-2 mt-1' })
 	}
 	
-	return (
-		<span className='text-xl text-white mr-2 mt-1'>
-			<IconComponent />
-		</span>
+	return React.createElement(
+		'span',
+		{ className: 'text-xl text-white mr-2 mt-1' },
+		React.createElement(IconComponent)
 	)
 }
 
-// Constants object
-const constants = {
-	CLOUDINARY_CLOUD_NAME: 'dr1sm5gnj',
-	imageBlogURI: imageBlob,
+// Constants object - using Object.freeze to ensure stable references for Fast Refresh
+export const CLOUDINARY_CLOUD_NAME = 'dr1sm5gnj'
+export const imageBlogURI = imageBlob
+export { generateIcon }
+export const BEtechArray = backendTechnologies
+export const FEtechArray = frontendTechnologies
+export const ideOstechArray = ideOsTechnologies
+
+const constants = Object.freeze({
+	CLOUDINARY_CLOUD_NAME,
+	imageBlogURI,
 	generateIcon,
-	BEtechArray: backendTechnologies,
-	FEtechArray: frontendTechnologies,
-	ideOstechArray: ideOsTechnologies
-}
+	BEtechArray,
+	FEtechArray,
+	ideOstechArray
+})
 
 export default constants
