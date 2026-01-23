@@ -1,0 +1,164 @@
+---
+title: "Spotify Now Playing Card - NPM Module"
+publishedAt: "2025-01-21"
+excerpt: "A beautiful, customizable React component to display your currently playing Spotify track. Published as an npm module with built-in API handlers and multiple style variants."
+englishOnly: "true"
+technologies: ["SiReact", "SiNpm", "SiNextdotjs", "SiTypescript"]
+author: "Bojan Jagetic"
+inPreparation: false
+tags: [{ slug: "", name: "libary" }, {slug: "", name: "npm module"}, {slug: "", name: "react"}]
+---
+
+## Introduction
+
+After using a custom Spotify "now playing" card on my personal website for a while, I decided to package it as a reusable npm module. The result is <Link href="https://www.npmjs.com/package/spotify-now-playing-card">spotify-now-playing-card</Link> - a fully-featured React component with built-in API handlers and multiple style variants.
+
+<CloudinaryImage src='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1769036892/random/538840110-03c0e67a-fcf4-4a0a-b3a8-588415858780_ffcowl.png' alt='Spotify Now Playing Card variants' text='Spotify Now Playing Card - All variants'/>
+
+## Why Create an NPM Module?
+
+The original implementation was tightly coupled to my blog's codebase. By extracting it into a standalone module, I could:
+- Make it reusable across different projects
+- Share it with the community
+- Improve code organization and maintainability
+- Add features like multiple style variants and framework-agnostic API handlers
+
+## Key Features
+
+The module includes several features that make it production-ready:
+
+### Built-in API Handlers
+
+Instead of requiring users to write their own Spotify API integration, the module provides ready-to-use handlers for different frameworks:
+
+**Next.js Pages Router:**
+```javascript
+import { createSpotifyHandler } from 'spotify-now-playing-card'
+
+const spotifyApi = createSpotifyHandler({
+  clientId: process.env.SPOTIFY_CLIENT_ID,
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+  refreshToken: process.env.SPOTIFY_REFRESH_TOKEN
+})
+
+export default spotifyApi
+```
+
+**Next.js App Router:**
+```typescript
+import { createSpotifyAppHandler } from 'spotify-now-playing-card'
+
+const spotifyApi = createSpotifyAppHandler({
+  clientId: process.env.SPOTIFY_CLIENT_ID!,
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET!,
+  refreshToken: process.env.SPOTIFY_REFRESH_TOKEN!
+})
+
+export const GET = spotifyApi
+```
+
+This eliminates the need for users to understand Spotify's OAuth flow or token refresh logic.
+
+### Multiple Style Variants
+
+The component comes with 4 pre-built style variants that users can switch between with a simple prop:
+
+- **Default**: Minimal design with gradient text
+- **Spotify**: Bold white/orange split background design
+- **Modern**: Glassmorphism effect with vertical layout
+- **Dark**: Elegant dark theme with green accents
+
+```jsx
+<SpotifyCard apiUrl="/api/spotify" variant="spotify" />
+```
+
+No custom CSS needed - just set the `variant` prop!
+
+### Framework Agnostic
+
+While optimized for Next.js, the component works with any React setup. The API handlers can be adapted for Express.js or other Node.js backends.
+
+## Technical Implementation
+
+### TypeScript First
+
+The entire module is written in TypeScript with full type definitions, making it easy to use in TypeScript projects and providing excellent IDE support.
+
+### Build Setup
+
+I used Rollup to bundle the module with support for both CommonJS and ESM formats:
+
+```javascript
+// rollup.config.js
+export default {
+  input: 'src/index.ts',
+  output: [
+    { file: 'dist/index.cjs.js', format: 'cjs' },
+    { file: 'dist/index.esm.js', format: 'esm' }
+  ],
+  // ...
+}
+```
+
+This ensures compatibility with different module systems and bundlers.
+
+### SWR for Data Fetching
+
+The component uses <Link href="https://swr.vercel.app/">SWR</Link> for efficient data fetching with built-in features like:
+- Automatic revalidation
+- Error retry logic
+- Configurable refresh intervals
+- Focus revalidation
+
+### CSS-in-Package
+
+Instead of requiring Tailwind CSS, the module includes its own CSS file with default styles. Users can still override styles using the `styles` prop or custom CSS.
+
+## Usage Example
+
+Here's how simple it is to use:
+
+```jsx
+import { SpotifyCard } from 'spotify-now-playing-card'
+import 'spotify-now-playing-card/dist/styles.css'
+
+function App() {
+  return <SpotifyCard apiUrl="/api/spotify" variant="modern" />
+}
+```
+
+That's it! The component handles all the complexity of fetching data, displaying the track, and handling edge cases.
+
+## Lessons Learned
+
+Building this module taught me several important lessons:
+
+1. **API Design Matters**: Providing both high-level helpers (`createSpotifyHandler`) and low-level functions gives users flexibility
+2. **Documentation is Critical**: Clear README with examples for different use cases reduces support requests
+3. **TypeScript is Worth It**: Full type definitions make the module much easier to use
+4. **Testing Locally**: Using `npm link` during development saves a lot of time
+
+## Installation
+
+You can install the module via npm, yarn, or pnpm:
+
+```bash
+npm install spotify-now-playing-card
+# or
+yarn add spotify-now-playing-card
+# or
+pnpm add spotify-now-playing-card
+```
+
+## Repository
+
+The source code is available on GitHub:
+
+<GithubCardRepository>basskibo/spotify-now-playing-card</GithubCardRepository>
+
+## Conclusion
+
+Creating this npm module was a great learning experience. It forced me to think about API design, documentation, and making code truly reusable. The module is now being used in production on my personal website and is available for anyone who wants to display their Spotify activity.
+
+If you're thinking about creating an npm module, I highly recommend it - it's a great way to contribute to the open-source community while improving your own code organization skills.
+

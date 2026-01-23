@@ -7,7 +7,7 @@ import { TypeAnimation } from 'react-type-animation'
 import { IoCloudDownloadOutline } from "react-icons/io5"
 import ParticlesBackground from './custom/ParticlesBackground'
 import AnchorLinkComponent from './custom/AnchorLink'
-import { Button } from './ui/button'
+import { Button, buttonVariants } from './ui/button'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 
@@ -112,13 +112,12 @@ const Landing = () => {
 
 					{/* CTA Buttons */}
 					<motion.div variants={itemVariants} className='flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-10'>
-						<Button
-							asChild={true}
-							variant="default"
-							size="lg"
+						<Link
+							href='/routes/blog'
 							id='blog_post_button'
 							data-umami-event="landing-read-blog"
 							className={cn(
+								buttonVariants({ variant: "default", size: "lg" }),
 								"w-full sm:w-auto bg-gradient-to-r from-primary-600 to-primary-400",
 								"hover:from-primary-500 hover:to-primary-300",
 								"text-white font-semibold shadow-lg shadow-primary-500/20",
@@ -127,17 +126,14 @@ const Landing = () => {
 								"border-0"
 							)}
 						>
-							<Link href='/routes/blog'>
-								Read blog
-							</Link>
-						</Button>
-						<Button
-							asChild={true}
-							variant="outline"
-							size="lg"
+							Read blog
+						</Link>
+						<Link
+							href='/routes/aboutme'
 							id='aboutme_button'
 							data-umami-event="landing-see-bio"
 							className={cn(
+								buttonVariants({ variant: "outline", size: "lg" }),
 								"w-full sm:w-auto border-2 border-primary-400/50",
 								"bg-black/30 backdrop-blur-sm text-white",
 								"hover:bg-primary-400/10 hover:border-primary-400",
@@ -145,10 +141,8 @@ const Landing = () => {
 								"transition-all duration-300 hover:scale-105"
 							)}
 						>
-							<Link href='/routes/aboutme'>
-								See my bio
-							</Link>
-						</Button>
+							See my bio
+						</Link>
 					</motion.div>
 
 					{/* Social Links */}
