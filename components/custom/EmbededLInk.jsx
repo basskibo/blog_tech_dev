@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import cheerio from 'cheerio';
+import { load } from 'cheerio';
 
 const EmbeddedLink = ({ url }) => {
 
@@ -21,7 +21,7 @@ const EmbeddedLink = ({ url }) => {
 				const html = response.data;
 
 				// Parse HTML content using Cheerio
-				const $ = cheerio.load(html);
+				const $ = load(html);
 				const ogImage = $('meta[property="og:image"]').attr('content');
 				const ogTitle = $('meta[property="og:title"]').attr('content');
 				const ogDesc = $('meta[property="og:description"]').attr('content');
