@@ -1,6 +1,6 @@
 /* eslint-disable no-tabs */
 import React from 'react'
-import constants from '../../lib/constants'
+import constants from '../../utils/constants'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
 

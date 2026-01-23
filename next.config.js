@@ -151,3 +151,4 @@ const NextConfiguration = {
 // module.exports = withBundleAnalyzer({ NextConfiguration })
 module.exports = NextConfiguration
 // module.exports = withPWA(NextConfiguration)
+

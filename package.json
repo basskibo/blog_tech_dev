@@ -53,15 +53,15 @@
     "github-user-repo-card": "^0.6.9",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.562.0",
-    "next": "^13.5.4",
+    "next": "14",
     "next-sitemap": "^3.1.31",
     "next-themes": "^0.4.6",
     "querystring": "^0.2.1",
-    "react": "^18.0.2",
+    "react": "^19.2.3",
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-copy-to-clipboard": "^5.1.0",
     "react-countup": "^6.4.0",
-    "react-dom": "^18.0.2",
+    "react-dom": "^19.2.3",
     "react-google-charts": "^4.0.1",
     "react-icons": "^4.3.1",
     "react-intersection-observer": "^9.8.2",
@@ -94,6 +94,9 @@
     "@next/bundle-analyzer": "^13.2.1",
     "@next/eslint-plugin-next": "^13.4.4",
     "@tailwindcss/typography": "^0.5.1",
+    "@types/node": "^25.0.10",
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.20",
     "babel-loader": "^8.3.0",
     "cypress": "^9.5.1",
@@ -116,6 +119,7 @@
     "prisma": "^6.3.1",
     "standard-version": "^9.5.0",
     "tailwindcss": "^3.4.17",
-    "tslib": "^2.4.1"
+    "tslib": "^2.4.1",
+    "typescript": "^5.9.3"
   }
 }
