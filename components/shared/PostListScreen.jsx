@@ -77,12 +77,16 @@ const PostListScreen = ({
 
 			switch (sortBy) {
 				case 'newest':
+					console.log(`comparing newest ${aData.title} - ${bData.title} ${bData.publishedAt} - ${aData.publishedAt}`)	
 					return dayjs(bData.publishedAt || bData.createdAt || 0).unix() - dayjs(aData.publishedAt || aData.createdAt || 0).unix()
 				case 'oldest':
+					console.log(`comparing oldest ${aData.title} ${aData.publishedAt} - ${bData.publishedAt}`)	
 					return dayjs(aData.publishedAt || aData.createdAt || 0).unix() - dayjs(bData.publishedAt || bData.createdAt || 0).unix()
 				case 'title-asc':
+						console.log(`comparing title-asc ${aData.title} - ${bData.title}`)	
 					return aData.title.localeCompare(bData.title)
 				case 'title-desc':
+					console.log(`comparing title-desc ${bData.title} - ${aData.title}`)	
 					return bData.title.localeCompare(aData.title)
 				default:
 					return 0

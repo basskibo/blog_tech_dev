@@ -9,9 +9,9 @@
             <link>https://jageticbojan.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 19 Jan 2026 16:03:32 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 28 Jan 2026 14:08:10 GMT</lastBuildDate>
         <atom:link href="https://jageticbojan.com/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 19 Jan 2026 16:03:32 GMT</pubDate>
+        <pubDate>Wed, 28 Jan 2026 14:08:10 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2026, © 2022 Bojan Jagetic]]></copyright>
         <item>
             <title><![CDATA[What is Microservices architecture and how to use it]]></title>
@@ -105,6 +105,13 @@
             <pubDate>Wed, 11 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[From Portfolio Widget to npm Package: Building a Spotify Now Playing Card]]></title>
+            <description><![CDATA[How I turned a custom Spotify widget from my portfolio into a reusable React + TypeScript npm package, including API setup, DX improvements and a small CLI.]]></description>
+            <link>https://jageticbojan.com/post/from-portoflio-to-npm-widget</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/from-portoflio-to-npm-widget</guid>
+            <pubDate>Tue, 20 Jan 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[Higher order functions in Javascript]]></title>
             <description><![CDATA[Higher order functions are functions that take other functions as arguments or return them as output. They are an important concept in functional programming and can be used to greatly simplify and improve the readability of your code.]]></description>
             <link>https://jageticbojan.com/post/higher-order-functions-js</link>
@@ -116,7 +123,7 @@
             <description><![CDATA[When building a web application, it's often useful to show a preview of a link's content—like how social media platforms show link previews]]></description>
             <link>https://jageticbojan.com/post/how-to-embed-link</link>
             <guid isPermaLink="false">https://jageticbojan.com/post/how-to-embed-link</guid>
-            <pubDate>Fri, 12 Oct 20204 22:00:00 GMT</pubDate>
+            <pubDate>Sun, 13 Oct 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Javascript Class fundamentals]]></title>
@@ -361,7 +368,7 @@
             <description><![CDATA[Are you tired of relying solely on Google Analytics to track your website's performance? Look no further!]]></description>
             <link>https://jageticbojan.com/post/umami</link>
             <guid isPermaLink="false">https://jageticbojan.com/post/umami</guid>
-            <pubDate>Tue, 10 Apr 20204 22:00:00 GMT</pubDate>
+            <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Running webOS project]]></title>

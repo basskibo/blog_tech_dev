@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 import fs from 'fs'
@@ -81,28 +81,56 @@ const components = {
 	Iframe: MdxComponents.Iframe,
 	Table: MdxComponents.table,
 	Disclosure: MdxComponents.Disclosure,
-	EmbeddedLink: MdxComponents.EmbeddedLink
+	EmbeddedLink: MdxComponents.EmbeddedLink,
+	HighlightBox: MdxComponents.HighlightBox
 }
 
 const PostDetails = ({ data, mdxSource, toc }) => {
+	const [isLoading, setIsLoading] = useState(true)
+
+	useEffect(() => {
+		// kratko čekanje da se sve hidrira i MDX mount‑uje
+		const timeout = setTimeout(() => setIsLoading(false), 400)
+		return () => clearTimeout(timeout)
+	}, [])
+
 	return (
-		<div className='layout mx-auto lg:mb-14 my-5 sm:px-2 xs:px-3 lg:px-5 text-slate-400'>
-			<div className='grid grid-cols-1 lg:grid-cols-12 gap-x-1 lg:gap-x-12'>
-				<div className='col-span-1 lg:col-span-10'>
-					<PostDetail post={data} content={mdxSource} />
-					<p className='border-b mb-4 align-middle text-center text-white'></p>
-					<MDXRemote {...mdxSource} components={{ ...components }} lazy />
-					<div className='mb-4 lg:mb-10 w-full lg:w-auto border-b border-neutral-800'>
-						<CategoryChip categories={data.tags} />
+		<>
+			{isLoading && (
+				<div className='fixed inset-0 z-[60] flex items-center justify-center bg-gradient-to-br from-background via-neutral-950 to-background'>
+					<div className='relative flex flex-col items-center gap-4'>
+						<div className='relative h-16 w-16'>
+							<div className='absolute inset-0 rounded-full border-2 border-pink-500/30 border-t-transparent animate-spin-slow' />
+							<div className='absolute inset-2 rounded-full border-2 border-sky-500/40 border-b-transparent animate-spin' />
+							<div className='absolute inset-4 rounded-full bg-neutral-900 flex items-center justify-center shadow-[0_0_30px_rgba(56,189,248,0.5)]'>
+								<span className='h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.9)]' />
+							</div>
+						</div>
+						<p className='text-xs sm:text-sm font-medium tracking-[0.2em] uppercase text-slate-300'>
+							Loading article
+						</p>
 					</div>
-					<SimiliarPosts tags={data?.tags} />
 				</div>
-				<div className='col-span-2 lg:col-span-2 justify-center items-center align-middle'>
-					<TableOfContent toc={toc} />
-					{/* <LikeButton /> */}
+			)}
+
+			<div className='layout mx-auto lg:mb-14 my-5 sm:px-2 xs:px-3 lg:px-5 text-slate-400'>
+				<div className='grid grid-cols-1 lg:grid-cols-12 gap-x-1 lg:gap-x-12'>
+					<div className='col-span-1 lg:col-span-10'>
+						<PostDetail post={data} content={mdxSource} />
+						<p className='border-b mb-4 align-middle text-center text-white'></p>
+						<MDXRemote {...mdxSource} components={{ ...components }} lazy />
+						<div className='mb-4 lg:mb-10 w-full lg:w-auto border-b border-neutral-800'>
+							<CategoryChip categories={data.tags} />
+						</div>
+						<SimiliarPosts tags={data?.tags} />
+					</div>
+					<div className='col-span-2 lg:col-span-2 justify-center items-center align-middle'>
+						<TableOfContent toc={toc} />
+						{/* <LikeButton /> */}
+					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 
