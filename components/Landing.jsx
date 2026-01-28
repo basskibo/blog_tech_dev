@@ -7,6 +7,7 @@ import { TypeAnimation } from 'react-type-animation'
 import { IoCloudDownloadOutline } from "react-icons/io5"
 import ParticlesBackground from './custom/ParticlesBackground'
 import AnchorLinkComponent from './custom/AnchorLink'
+import FeaturedProjectTeaser from './custom/FeaturedProjectTeaser'
 import { Button } from './ui/button'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
@@ -216,6 +217,23 @@ const Landing = () => {
 							<IoCloudDownloadOutline className='h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0 group-hover:scale-110 transition-transform' />
 							<span>Download CV</span>
 						</button>
+					</motion.div>
+
+					{/* Featured Project teaser with visual preview */}
+					<motion.div variants={itemVariants} className='mt-8 sm:mt-10 md:mt-12 w-full'>
+						<FeaturedProjectTeaser
+							label='Featured project'
+							title='Voyage Vault – interactive travel scratch map'
+							description={`Create a personalized scratch map of countries you've visited, track your journeys and share them with friends – all in the browser.`}
+							primaryHref='/routes/projects'
+							primaryText='View projects'
+							primaryInternal
+							secondaryHref='https://scratch-travel.vercel.app/'
+							secondaryText='Open Voyage Vault'
+							showPreview
+							previewImage='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1768492935/scratchTravel/pexels-miroalt-176400_fc5g7h.jpg'
+							previewAlt='Voyage Vault preview'
+						/>
 					</motion.div>
 				</motion.div>
 			</div>

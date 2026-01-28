@@ -147,7 +147,17 @@ const MdxComponents =  {
 		return <b className='font-bold text-white '>{children}</b>
 	},
 	code: ({ children, className }) => {
-		return (<CodeBlock code={children} className={className} />	)
+		const isInline = !className || !className.startsWith('language-')
+
+		if (isInline) {
+			return (
+				<code className='rounded-md bg-neutral-900/80 px-1.5 py-0.5 text-[0.9em] font-mono text-emerald-300 border border-neutral-700'>
+					{children}
+				</code>
+			)
+		}
+
+		return <CodeBlock code={children} className={className} />
 	},
 	a: ({ children, className, href }) => {
 		return (
@@ -172,6 +182,7 @@ const MdxComponents =  {
 	},
 	QouteComponent,
 
+	// simple blockquote wrapper
 	test: ({ children }) => {
 		return (
 			<blockquote className='mt-0 mb-4'>
@@ -199,6 +210,18 @@ const MdxComponents =  {
 		)
 	},
 	GithubCardRepository,
+
+	HighlightBox: ({ children }) => {
+		return (
+			<div className='mt-4 mb-6 rounded-xl border border-neutral-700 bg-neutral-900/70 px-4 py-3 shadow-lg shadow-black/40'>
+				<p className='mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400'>
+					Build output
+				</p>
+				<div className='space-y-1 text-sm text-slate-200'>{children}</div>
+			</div>
+		)
+	},
+
 	NewLine: () => {
 		return <div className='my-5'> </div>
 	},

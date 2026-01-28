@@ -4,7 +4,7 @@ import 'spotify-now-playing-card/dist/styles.css'
 
 const SpotifyCard = () => {
   return (
-    <div className='xs:w-full w-5/8 mx-5 my-2'>
+    <div className=''>
       <SpotifyNowPlayingCard
         apiUrl="/api/spotify"
         fallbackUrl="https://open.spotify.com/user/4g1ztvqi3z5mf0uqx87bz9exk"

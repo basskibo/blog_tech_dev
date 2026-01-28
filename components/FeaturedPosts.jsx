@@ -92,15 +92,30 @@ const FeaturedPosts = () => {
 
 				<div className='relative max-w-7xl mx-auto px-4 sm:px-6 my-8 sm:my-10 lg:px-0 sm:static'>
 					<ComponentHeader titlePrefix={'My Most Popular posts on '} title={'Dev.to'} text={devtotext} size={'md'} />
-				
+
 					{devToPosts.length > 0 ? (
 
-						<div className="flex flex-col md:flex-row gap-4 sm:gap-6 mt-10">
+						<div className='flex flex-col md:flex-row gap-4 sm:gap-6 mt-10'>
 							{devToPosts.slice(0, 3).map((post, i) => {
 								const rankColors = {
-									0: { border: "border-yellow-500/50", bg: "bg-yellow-500/10", text: "text-yellow-400", badge: "bg-yellow-500/20 text-yellow-400" },
-									1: { border: "border-gray-400/50", bg: "bg-gray-400/10", text: "text-gray-300", badge: "bg-gray-400/20 text-gray-300" },
-									2: { border: "border-orange-600/50", bg: "bg-orange-600/10", text: "text-orange-400", badge: "bg-orange-600/20 text-orange-400" }
+									0: {
+										border: 'border-amber-300',
+										bg: 'bg-gradient-to-br from-amber-200 via-amber-100 to-amber-300',
+										text: 'text-amber-700',
+										badge: 'bg-amber-100 text-amber-700'
+									},
+									1: {
+										border: 'border-slate-200',
+										bg: 'bg-gradient-to-br from-slate-200 via-slate-100 to-slate-300',
+										text: 'text-slate-700',
+										badge: 'bg-slate-100 text-slate-700'
+									},
+									2: {
+										border: 'border-orange-200',
+										bg: 'bg-gradient-to-br from-orange-200 via-orange-100 to-orange-300',
+										text: 'text-orange-700',
+										badge: 'bg-orange-100 text-orange-700'
+									}
 								};
 								const colors = rankColors[i] || rankColors[2];
 								const heights = i === 0 ? "min-h-[400px] md:min-h-[450px]" : i === 1 ? "min-h-[380px] md:min-h-[420px]" : "min-h-[360px] md:min-h-[400px]";
@@ -114,19 +129,19 @@ const FeaturedPosts = () => {
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										{/* Gradient Overlay */}
-										<div className={`absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10`}></div>
-										
+										{/* Gradient Overlay on hover (subtle for light theme) */}
+										<div className='absolute inset-0 bg-gradient-to-br from-black/10 via-black/5 to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10'></div>
+
 										{/* First Place - Crown Icon */}
 										{i === 0 && (
-											<div className="absolute top-3 right-3 z-20 h-16 w-16 flex justify-center items-center animate-pulse">
-												<FaCrown className="text-yellow-400 text-3xl drop-shadow-lg" />
+											<div className='absolute top-3 right-3 z-20 h-16 w-16 flex justify-center items-center animate-pulse'>
+												<FaCrown className='text-amber-400 text-3xl drop-shadow-lg' />
 											</div>
 										)}
 
 										<div className={`flex flex-col ${heights} p-5 sm:p-6 relative z-0`}>
 											{/* Rank Badge */}
-											<div className={`inline-flex items-center justify-center w-fit px-3 py-1.5 rounded-full ${colors.badge} text-xs sm:text-sm font-bold mb-4 backdrop-blur-sm`}>
+											<div className={`inline-flex items-center justify-center w-fit px-3 py-1.5 rounded-full ${colors.badge} text-xs sm:text-sm font-bold mb-4 backdrop-blur-sm shadow-sm`}>
 												Rank #{i + 1}
 											</div>
 
@@ -143,34 +158,34 @@ const FeaturedPosts = () => {
 														unoptimized={post.img?.includes('amazonaws.com')}
 													/>
 												) : (
-													<div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center text-gray-500">
-														<span className="text-sm">No Image</span>
+													<div className='w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-500'>
+														<span className='text-sm'>No Image</span>
 													</div>
 												)}
-												<div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+												<div className='absolute inset-0 bg-gradient-to-t from-black/20 to-transparent'></div>
 											</div>
 
 											{/* Content Section */}
 											<div className="flex flex-col flex-grow">
-												<h3 className="text-lg sm:text-xl font-bold text-white tracking-tight mb-3 line-clamp-2 group-hover:text-primary-400 transition-colors">
+												<h3 className={`text-lg sm:text-xl font-bold tracking-tight mb-3 line-clamp-2 group-hover:text-primary-600 transition-colors ${colors.text}`}>
 													{post.title || <Skeleton />}
 												</h3>
-												<p className="text-gray-400 text-sm sm:text-base mb-4 line-clamp-2 flex-grow">
+												<p className='text-slate-600 text-sm sm:text-base mb-4 line-clamp-2 flex-grow'>
 													{post.description}
 												</p>
 											</div>
 
 											{/* Stats Section */}
-											<div className="flex justify-between items-center pt-4 border-t border-gray-800/50 mt-auto">
-												<div className="flex items-center gap-2 text-gray-400">
-													<BsEye className="text-indigo-400 text-base sm:text-lg" />
-													<span className="text-xs sm:text-sm font-medium">
+											<div className='flex justify-between items-center pt-4 border-t border-slate-200 mt-auto'>
+												<div className='flex items-center gap-2 text-slate-500'>
+													<BsEye className='text-indigo-500 text-base sm:text-lg' />
+													<span className='text-xs sm:text-sm font-medium'>
 														<CountUp end={post.pageViews} /> views
 													</span>
 												</div>
-												<div className="flex items-center gap-2 text-gray-400">
-													<IoHeartOutline className="text-pink-400 text-base sm:text-lg" />
-													<span className="text-xs sm:text-sm font-medium">
+												<div className='flex items-center gap-2 text-slate-500'>
+													<IoHeartOutline className='text-pink-500 text-base sm:text-lg' />
+													<span className='text-xs sm:text-sm font-medium'>
 														<CountUp end={post.publicReactions} /> reactions
 													</span>
 												</div>
