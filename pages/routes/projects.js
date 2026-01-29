@@ -47,7 +47,7 @@ const projects = [
         repoUrl: null,
         status: 'In development',//'Live',
         year: '2026',
-        bgImage: 'https://images.pexels.com/photos/3564390/pexels-photo-3564390.jpeg'
+        bgImage: 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1769695596/igutech/post_data/Screenshot_from_2026-01-29_14-29-31_kfcgoe.png'
     },
 
     {
@@ -61,7 +61,7 @@ const projects = [
         repoUrl: null,
         status: 'Live',//'In development',
         year: '2025',
-        bgImage: 'https://images.pexels.com/photos/19837309/pexels-photo-19837309.jpeg'
+        bgImage: 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1769695596/igutech/post_data/Screenshot_from_2026-01-29_14-12-39_nablzm.png'
     }
 ]
 
