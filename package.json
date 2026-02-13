@@ -42,7 +42,7 @@
     "@svgr/webpack": "^6.2.1",
     "@vercel/analytics": "^0.1.5",
     "@vercel/speed-insights": "^1.0.12",
-    "axios": "^1.6.4",
+    "axios": "^1.13.5",
     "cheerio": "^1.0.0-rc.12",
     "class-variance-authority": "^0.7.1",
     "cloudinary-build-url": "^0.2.4",
