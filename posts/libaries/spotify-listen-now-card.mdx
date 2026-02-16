@@ -6,19 +6,24 @@ englishOnly: "true"
 technologies: ["SiReact", "SiNpm", "SiNextdotjs"]
 author: "Bojan Jagetic"
 inPreparation: false
-tags: [{ slug: "", name: "libary" }, {slug: "", name: "npm module"}]
+tags: [{ slug: "", name: "libary" }, {slug: "", name: "npm module"}, {slug: "js", name: "javascript"}]
 --- 
 
 ## Introduction
-In this blog post, we'll explore a code snippet that demonstrates how to create a <Link href="https://www.spotify.com/">Spotify</Link> API wrapper using Next.js and the popular HTTP client library, <Link href="https://axios-http.com/docs/intro">Axios</Link>. This code we will write, will allows you to fetch information about the currently playing track on your Spotify account and retrieve details such as the song title, artist, album, album cover image URL, and the Spotify song URL. Its up to you to show whatever you like, this is my example which I am currently using on my <Link href="https://jageticbojan.com">personal webiste</Link> so feel free to be creative as much as you like. So I will not bother anymore, let's dive into the code and understand how it works.
+In this post, we'll explore a code snippet that demonstrates how to create a <Link href="https://www.spotify.com/">Spotify</Link> API wrapper using Next.js and the popular HTTP client library, <Link href="https://axios-http.com/docs/intro">Axios</Link>.
+This code we will write, will allows you to fetch information about the currently playing track on your Spotify account and retrieve details such as the song title, artist, album, album cover image URL, and the Spotify song URL.
+Its up to you to show whatever you like, this is my example which I am currently using on my <Link href="https://jageticbojan.com">personal webiste</Link> so feel free to be creative as much as you like.
 
 ## Idea behind project
 
-Nothing special to be honest, as I mentioned already above I wanted to show which music I am currently listening on Spotify and who knows, maybe some uknown visitor likes the song so at least I can do in this case is recommend some good music :)
+Nothing special to be honest, as someone who cannot code or even a little bit of coding, without listening to music (mostly spotify), I wanted to show which music I am currently listening on Spotify and who knows, maybe some uknown visitor likes the song so at least I can do in this case is recommend some good music :)
+Idea is to fetch the currently playing track on Spotify and to update it acordingly to the song that is currently playing.
+This card can be embeded anywhere in your website or application and it will update the song that is currently playing without any manual effort.
+At first I wanted to use it on my personal webisite, but then I find it usefull on some other projects so I decided to make it a <Link href="https://www.npmjs.com/package/spotify-now-playing-card">npm package</Link> and make my life easier.
+<EmbeddedLink url="https://www.npmjs.com/package/spotify-now-playing-card" />
 
 ## Code Explanation
 The code begins with the requiring neccessarry modules for this project, querystring and axios, are imported. <Link href="https://www.npmjs.com/package/querystring">querystring</Link> is used to stringify the request parameters (you dont have to use it, I already had it in project so find a good use of it but its not necessarry), while <Link href="https://axios-http.com/docs/intro">axios</Link> is used to make HTTP requests to the Spotify API.
-
 The following code retrieves the required environment variables, which are named SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, and SPOTIFY_REFRESH_TOKEN, using destructuring assignment from the process.env object. These variables store sensitive information and should be kept secure so thats why it is strongly recommended to use environment variable. Be aware that you have to get your tokens from spotify developer portal.
 
 

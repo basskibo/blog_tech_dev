@@ -70,10 +70,10 @@ const Landing = () => {
 						<div className='text-base sm:text-lg md:text-xl lg:text-2xl font-semibold mb-3 sm:mb-4 text-muted-foreground'>
 							Hello there, 👋
 						</div>
-						<h1 className='text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] tracking-tight'>
-							My name is{' '}
+						<h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-[1.1] tracking-tight'>
+							<span className='block sm:inline'>My name is</span>{' '}
 							<Accent>
-								<span className='inline-block min-w-[1ch]'>
+								<span className='inline-block whitespace-nowrap min-w-[8ch] sm:min-w-[10ch] md:min-w-[12ch]'>
 									<TypeAnimation
 										sequence={[
 											700,
@@ -219,6 +219,11 @@ const Landing = () => {
 						</button>
 					</motion.div>
 
+					{/* Scroll down arrow */}
+					<motion.div variants={itemVariants} className='flex justify-center mt-6 sm:mt-8 md:mt-10'>
+						<AnchorLinkComponent/>
+					</motion.div>
+
 					{/* Featured Project teaser with visual preview */}
 					<motion.div variants={itemVariants} className='mt-8 sm:mt-10 md:mt-12 w-full'>
 						<FeaturedProjectTeaser
@@ -237,7 +242,6 @@ const Landing = () => {
 					</motion.div>
 				</motion.div>
 			</div>
-			<AnchorLinkComponent/>
 			<FeaturedPosts />
 			<NewsLetter />
 		</div>
