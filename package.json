@@ -110,7 +110,7 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "next-bundle-analyzer": "^0.6.5",
-    "next-mdx-remote": "^4.0.2",
+    "next-mdx-remote": "^6.0.0",
     "postcss": "^8.4.49",
     "prettier": "2.7.1",
     "prisma": "^6.3.1",
