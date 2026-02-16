@@ -20,7 +20,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "release": "standard-version",
-    "postinstall": "prisma generate || true"
+    "postinstall": "prisma generate || true",
+    "convert-to-devto": "node scripts/convert-to-devto.js"
   },
   "dependencies": {
     "@giscus/react": "^3.1.0",
