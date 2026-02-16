@@ -8,8 +8,7 @@ const AnchorLinkComponent = () => {
 			id='btn-anchor-linkg'
 			href='#featuredPostsSection'
 			aria-label='Scroll down'
-			className=' absolute hidden md:inline bottom-5 text-white left-1/2 -translate-x-1/2 md:bottom-5
-rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'>
+			className='hidden md:inline-block text-white rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'>
 			<svg
 				className='w-6 h-6'
 				fill='currentColor'

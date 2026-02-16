@@ -15,19 +15,26 @@ inPreparation: false
 
 ## Introduction
 
-Na mom blogu sam dugo imao mali **Spotify “Now Playing” widget** u footeru.
-Radio je posao, ali imao je dve mane:
+In my personal website I had a small **Spotify “Now Playing” widget** in the footer, I find it usefull to have it there so I can show which music I am currently listening on Spotify and who knows, maybe some uknown visitor likes the song so at least I can do in this case is recommend some good music :)
+It was working fine, but had two issues:
 
-- bio je čvrsto vezan za projekat (Next.js API + Tailwind klase)
-- nisam ga mogao jednostavno da podelim ili ponovo iskoristim
+<LgList>
+  <li>It was tightly coupled to the project (Next.js API + Tailwind classes)</li>
+  <li>I couldn't easily share or reuse it as I wanted to use it in my other projects, it was not really practical to copy and paste the code into each project especially when I wanted to make some changes. </li>
+</LgList>
 
-U ovom tekstu ću proći kroz ceo proces:
+So I came to the conclusion that I need to create a <Link href="https://www.npmjs.com/package/spotify-now-playing-card">npm package</Link> that I can use in my other projects and that I can easily share or reuse. Anyway maybe someone else would find it usefull so that was one more plus for this idea.
+In the worst case scenario I can use it without any effort in other projects and that's the main reason why I decided to create a npm package and make my life easierr.
 
-- kako sam izdvojio widget u **čistu React + TypeScript komponentu**
-- kako sam napravio **API sloj za Spotify** koji mogu da koristim u više projekata
-- kako sam sve to upakovao u **npm paket** sa boljim DX‑om (CSS, TypeScript tipovi, setup CLI)
+In this post I will go through the entire process:
 
-Cilj je da na kraju možete da instalirate paket i uradite:
+<LgList>
+<li>how I extracted the widget into a **pure React + TypeScript component** so its reusable</li>
+<li>how I created the **Spotify API layer** that I can use in multiple projects</li>
+<li>how I packaged everything into an **npm package** with better DX (CSS, TypeScript types, setup CLI)</li>
+</LgList>
+
+The goal is that by the end you can install the package with less code and less effort and do:
 
 import { SpotifyCard } from "spotify-now-playing-card"
 import "spotify-now-playing-card/dist/styles.css"
@@ -36,11 +43,13 @@ export default function Footer() {
   return <SpotifyCard apiUrl="/api/spotify" />
 }
 
-## API sloj – bez ovoga nema muzike 🎧
+## API layer – without it there is no music 🎧
 
-Prvi deo je standardni **Spotify API flow** sa refresh tokenom.
+The first part is the standard **Spotify API flow** with a refresh token.
+First and foremost we need to get the access token from Spotify, sou you should have a Spotify account and you should be able to get your credentials from Spotify developer portal.
+After that we have credentials we can start with the API layer. 
 
-Za Next.js App Router (`app/api/spotify/route.ts`) izgleda ovako:
+For Next.js App Router (`app/api/spotify/route.ts`) it looks like this:
 
 ```typescript   
 import { NextResponse } from "next/server"
@@ -85,9 +94,7 @@ async function getAccessToken(): Promise<string> {
 }
 ```
 
-
-
-Zatim vraćamo **format koji paket očekuje**:
+After that we need to return the format that the package expects:
 
 ```ts
 export async function GET() {
@@ -120,11 +127,11 @@ export async function GET() {
 }
 ```
 
-Ovaj API endpoint je jedina zavisnost koju paket ima od vašeg projekta.
+This API endpoint is the only dependency that the package has from your project.
 
-## React + TypeScript komponenta
+## React + TypeScript component
 
-U paketu komponenta izgleda uprošćeno ovako:
+In the package the component looks like this:
 
 ```ts
 export interface SpotifyCardProps {
@@ -172,32 +179,31 @@ const SpotifyCard: React.FC<SpotifyCardProps> = ({
     icon: "spotify-card-icon",
   }
 
-  const merged = { /* spajanje default + custom stilova */ }
+  const merged = { /* merging default + custom styles */ }
 
   const isPlaying = data?.isPlaying
   const titleClass = isPlaying ? "spotify-card-title-gradient" : ""
 
   return (
-    <div className={merged.container} {...props}>
-      {/* slika ili Spotify logo */}
-      {/* naslov, artist, album */}
-      {/* mali Spotify logo u ćošku kad svira */}
-    </div>
+    <div className={merged.container} {...props}>{/* ... image, title, album, icon, gradient title ... */}</div>
   )
 }
 ```
 
 Bitne odluke:
 
-- **SWR** za keširanje + polling
-- **TypeScript tipovi** (`SpotifyCardProps`, `SpotifyData`) izlaze u `dist/index.d.ts`
-- **props za stilove** da bi ljudi mogli da ga prilagode Tailwind‑om ili plain CSS‑om
+<LgList>
+  <li>**SWR** for caching + polling</li>
+  <li>**TypeScript types** (`SpotifyCardProps`, `SpotifyData`) are exported to `dist/index.d.ts`</li>
+  <li>**props for styles** so people can customize it with Tailwind or plain CSS</li>
+</LgList>
 
-## CSS koji radi svuda (bez Tailwinda)
+## CSS that works everywhere (without Tailwind)
 
-Originalni widget je bio čist Tailwind. Za npm paket to nije poželjno.
+The original widget was pure Tailwind and i find it not really practical as my other project were not using Tailwind so there were no benefits in using it. 
+For the npm package this is not desirable so I decided to use plain CSS as it can be used more easily in variety of projects.
 
-Rešenje: **mali CSS fajl u paketu**:
+So the solution was a **small CSS file in the package**:
 
 ```css
 .spotify-card-container {
@@ -207,21 +213,19 @@ Rešenje: **mali CSS fajl u paketu**:
   width: 100%;
   margin: 0.5rem 1.25rem;
 }
-
-/* ... image, title, album, icon, gradient naslov ... */
 ```
 
-U Rollup konfiguraciji samo kopiram `src/styles.css` u `dist/styles.css`, a korisniku kažem:
+In the Rollup configuration I just copy `src/styles.css` to `dist/styles.css` and the user can import it like this:
 
 ```ts
 import "spotify-now-playing-card/dist/styles.css"
 ```
 
-Ako želiš full Tailwind kontrolu – jednostavno proslediš svoje klase kroz `styles` prop.
+If you want full Tailwind control – simply pass your classes through the `styles` prop.
 
-## Pakovanje sa Rollup + TypeScript
+## Packaging with Rollup + TypeScript setup
 
-Kratko, `rollup.config`:
+Short, `rollup.config`:
 
 ```ts
 export default {
@@ -244,7 +248,7 @@ export default {
 }
 ```
 
-Ovo daje:
+This gives:
 
 <HighlightBox>
 - <Accent>dist/index.js</Accent> (CJS)
@@ -254,9 +258,9 @@ Ovo daje:
 </HighlightBox>
 
 
-## Mali CLI za lakši setup
+## Small CLI for easier setup
 
-Za bolji DX dodao sam **bin skriptu**:
+For better DX I added a **bin script**:
 
 ```json
   "bin": {
@@ -264,23 +268,23 @@ Za bolji DX dodao sam **bin skriptu**:
 }
 ```
 
-Korisnik onda može da pokrene:
+The user can then run:
 
 ```shell
 npx spotify-now-playing-card-setup
 ```
 
-Skripta:
+The script:
 
-- pita za `clientId`, `clientSecret`, `refreshToken`
-- kreira odgovarajući API endpoint (App router ili Pages router)
-- upisuje vrednosti u `.env.local`
+- asks for `clientId`, `clientSecret`, `refreshToken`
+- creates the corresponding API endpoint (App router or Pages router)
+- writes the values to `.env.local`
 
-Manje copy/paste‑ovanja, manje grešaka.
+Less copy/paste, less errors.
 
-## Korišćenje u aplikaciji
+## Usage in the application
 
-Minimalni primer u Next.js‑u:
+Minimal code example in Next.js app:
 
 ```ts
 import { SpotifyCard } from "spotify-now-playing-card"
@@ -291,11 +295,11 @@ export default function Footer() {
     <footer>
       <SpotifyCard apiUrl="/api/spotify" />
     </footer>
-  )
+  ) 
 }
 ```
 
-Sa prilagođenim stilovima:
+With custom styles:
 
 ```ts
 
@@ -313,7 +317,10 @@ Sa prilagođenim stilovima:
 
 ## Conclusion
 
-Ako imate neki **custom widget** u svom portfolio projektu, verovatno postoji još neko kome bi koristio.
-Sa malo dodatnog truda oko API‑ja, DX‑a i pakovanja, možete ga pretvoriti u pravi **npm paket** koji živi van jednog projekta.
-
-Kod mene je to bila Spotify kartica – kod vas može biti bilo šta: GitHub kartica, Dev.to feed, custom loader…
+If you have some **custom widget** in your project that you want to share with others, probably someone else would find it useful. 
+And if you don't want to share it, at least you can use it in your other projects without any effort I highly recommend you to do it.
+With a little extra effort around the API, DX and packaging, you can turn it into a real **npm package** that lives outside of one project.
+In my case it was the Spotify card – in your case it can be anything: GitHub card, Dev.to feed, custom loader…
+Please let me know if you have any questions or suggestions on how to improve the package or the code, as well as how to make it more usefull to the masses.
+Hope you enjoyed and plese check it out on npm :)
+ <EmbeddedLink url="https://www.npmjs.com/package/spotify-now-playing-card" /> 

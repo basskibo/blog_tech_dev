@@ -79,7 +79,8 @@ const components = {
 	Adjusted: MdxComponents.Adjusted,
 	QouteComponent: MdxComponents.QouteComponent,
 	GithubCardRepo: MdxComponents.GithubCardRepo,
-	GithubCardRepository: MdxComponents.GithubCardRepository
+	GithubCardRepository: MdxComponents.GithubCardRepository,
+	EmbeddedLink: MdxComponents.EmbeddedLink
 }
 
 const LibaryDetails = ({ data, mdxSource, toc }) => {
