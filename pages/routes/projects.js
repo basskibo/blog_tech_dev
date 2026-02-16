@@ -261,8 +261,7 @@ const Projects = () => {
                                                         Preview
                                                     </p>
                                                     <p className='text-sm text-foreground line-clamp-2'>
-                                                        Interactive world map where you scratch countries you&apos;ve visited and share your progress with
-                                                        friends.
+                                                       {project.description}
                                                     </p>
                                                 </div>
                                             </div>
