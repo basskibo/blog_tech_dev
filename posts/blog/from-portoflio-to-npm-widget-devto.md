@@ -1,0 +1,323 @@
+---
+title: From Portfolio Widget to npm Package: Building a Spotify Now Playing Card
+published: false
+tags: react, npm, typescript
+---
+
+
+## Introduction
+
+In my personal website I had a small **Spotify “Now Playing” widget** in the footer, I find it usefull to have it there so I can show which music I am currently listening on Spotify and who knows, maybe some uknown visitor likes the song so at least I can do in this case is recommend some good music :)
+It was working fine, but had two issues:
+
+<ul>
+  <li>It was tightly coupled to the project (Next.js API + Tailwind classes)</li>
+  <li>I couldn't easily share or reuse it as I wanted to use it in my other projects, it was not really practical to copy and paste the code into each project especially when I wanted to make some changes. </li>
+</ul>
+
+So I came to the conclusion that I need to create a [npm package](https://www.npmjs.com/package/spotify-now-playing-card) that I can use in my other projects and that I can easily share or reuse. Anyway maybe someone else would find it usefull so that was one more plus for this idea.
+In the worst case scenario I can use it without any effort in other projects and that's the main reason why I decided to create a npm package and make my life easierr.
+
+In this post I will go through the entire process:
+
+<ul>
+<li>how I extracted the widget into a **pure React + TypeScript component** so its reusable</li>
+<li>how I created the **Spotify API layer** that I can use in multiple projects</li>
+<li>how I packaged everything into an **npm package** with better DX (CSS, TypeScript types, setup CLI)</li>
+</ul>
+
+The goal is that by the end you can install the package with less code and less effort and do:
+
+import { SpotifyCard } from "spotify-now-playing-card"
+import "spotify-now-playing-card/dist/styles.css"
+
+export default function Footer() {
+  return <SpotifyCard apiUrl="/api/spotify" />
+}
+
+## API layer – without it there is no music 🎧
+
+The first part is the standard **Spotify API flow** with a refresh token.
+First and foremost we need to get the access token from Spotify, sou you should have a Spotify account and you should be able to get your credentials from Spotify developer portal.
+After that we have credentials we can start with the API layer. 
+
+For Next.js App Router (`app/api/spotify/route.ts`) it looks like this:
+
+```typescript   
+import { NextResponse } from "next/server"
+
+const SPOTIFY_CLIENT_ID = process.env.SPOTIFY_CLIENT_ID
+const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET
+const SPOTIFY_REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN
+
+let accessToken: string | null = null
+let tokenExpiry = 0
+
+async function getAccessToken(): Promise<string> {
+  if (accessToken && Date.now() < tokenExpiry) return accessToken
+
+  if (!SPOTIFY_CLIENT_ID || !SPOTIFY_CLIENT_SECRET || !SPOTIFY_REFRESH_TOKEN) {
+    throw new Error("Spotify credentials not configured")
+  }
+
+  const response = await fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization:
+        "Basic " +
+        Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString("base64"),
+    },
+    body: new URLSearchParams({
+      grant_type: "refresh_token",
+      refresh_token: SPOTIFY_REFRESH_TOKEN,
+    }),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to get access token: ${await response.text()}`)
+  }
+
+  const data = await response.json()
+  accessToken = data.access_token
+  tokenExpiry = Date.now() + 55 * 60 * 1000 // ~55 min
+
+  return accessToken!
+}
+```
+
+After that we need to return the format that the package expects:
+
+```ts
+export async function GET() {
+  try {
+    const token = await getAccessToken()
+
+    const response = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+
+    if (response.status === 204 || !response.ok) {
+      return NextResponse.json({ isPlaying: false })
+    }
+
+    const data = await response.json()
+    if (!data.item) return NextResponse.json({ isPlaying: false })
+
+    return NextResponse.json({
+      isPlaying: data.is_playing,
+      title: data.item.name,
+      artist: data.item.artists.map((a: any) => a.name).join(", "),
+      album: data.item.album.name,
+      albumImageUrl: data.item.album.images[0]?.url,
+      songUrl: data.item.external_urls.spotify,
+    })
+  } catch (error) {
+    console.error("Spotify API error:", error)
+    return NextResponse.json({ isPlaying: false })
+  }
+}
+```
+
+This API endpoint is the only dependency that the package has from your project.
+
+## React + TypeScript component
+
+In the package the component looks like this:
+
+```ts
+export interface SpotifyCardProps {
+  apiUrl?: string
+  fallbackUrl?: string
+  className?: string
+  styles?: {
+    container?: string
+    link?: string
+    image?: string
+    title?: string
+    artist?: string
+    album?: string
+    icon?: string
+  }
+  showAlbum?: boolean
+  notPlayingText?: string
+  refreshInterval?: number
+}
+```
+
+```ts
+const SpotifyCard: React.FC<SpotifyCardProps> = ({
+  apiUrl = "/api/spotify",
+  fallbackUrl = "https://open.spotify.com",
+  className = "",
+  styles = {},
+  showAlbum = true,
+  notPlayingText = "Currently not listening",
+  refreshInterval = 30000,
+  ...props
+}) => {
+  const { data, error } = useSWR<SpotifyData>(apiUrl, fetcher, {
+    refreshInterval,
+    revalidateOnFocus: true,
+  })
+
+  const defaultStyles = {
+    container: "spotify-card-container",
+    link: "spotify-card-link",
+    image: "spotify-card-image",
+    title: "spotify-card-title",
+    artist: "spotify-card-artist",
+    album: "spotify-card-album",
+    icon: "spotify-card-icon",
+  }
+
+  const merged = { /* merging default + custom styles */ }
+
+  const isPlaying = data?.isPlaying
+  const titleClass = isPlaying ? "spotify-card-title-gradient" : ""
+
+  return (
+    <div className={merged.container} {...props}>{/* ... image, title, album, icon, gradient title ... */}</div>
+  )
+}
+```
+
+Important decisions:
+
+<ul>
+  <li>**SWR** for caching + polling</li>
+  <li>**TypeScript types** (`SpotifyCardProps`, `SpotifyData`) are exported to `dist/index.d.ts`</li>
+  <li>**props for styles** so people can customize it with Tailwind or plain CSS</li>
+</ul>
+
+## CSS that works everywhere (without Tailwind)
+
+The original widget was pure Tailwind and i find it not really practical as my other project were not using Tailwind so there were no benefits in using it. 
+For the npm package this is not desirable so I decided to use plain CSS as it can be used more easily in variety of projects.
+
+So the solution was a **small CSS file in the package**:
+
+```css
+.spotify-card-container {
+  color: #94a3b8;
+  border: 1px solid #262626;
+  border-radius: 0.5rem;
+  width: 100%;
+  margin: 0.5rem 1.25rem;
+}
+```
+
+In the Rollup configuration I just copy `src/styles.css` to `dist/styles.css` and the user can import it like this:
+
+```ts
+import "spotify-now-playing-card/dist/styles.css"
+```
+
+If you want full Tailwind control – simply pass your classes through the `styles` prop.
+
+## Packaging with Rollup + TypeScript setup
+
+Short, `rollup.config`:
+
+```ts
+export default {
+  input: "src/index.ts",
+  output: [
+    { file: packageJson.main, format: "cjs", sourcemap: true, exports: "named" },
+    { file: packageJson.module, format: "esm", sourcemap: true },
+  ],
+  plugins: [
+    resolve({ browser: true }),
+    commonjs(),
+    typescript({
+      tsconfig: "./tsconfig.json",
+      declaration: true,
+      declarationDir: "./dist",
+    }),
+    copy({ targets: [{ src: "src/styles.css", dest: "dist" }] }),
+  ],
+  external: ["react", "react-dom", "react/jsx-runtime", "axios", "swr", "react-icons/si"],
+}
+```
+
+This gives:
+
+<div style="margin: 1rem 0; padding: 1rem; border: 1px solid #333; border-radius: 0.5rem; background: #1a1a1a;">
+- **dist/index.js** (CJS)
+- **dist/index.esm.js** (ESM)
+- **dist/index.d.ts** + **SpotifyCard.d.ts** (tipovi)
+- **dist/styles.css**
+</div>
+
+
+## Small CLI for easier setup
+
+For better DX I added a **bin script**:
+
+```json
+  "bin": {
+  "spotify-card-setup": "bin/setup.js"
+}
+```
+
+The user can then run:
+
+```shell
+npx spotify-now-playing-card-setup
+```
+
+The script:
+
+- asks for `clientId`, `clientSecret`, `refreshToken`
+- creates the corresponding API endpoint (App router or Pages router)
+- writes the values to `.env.local`
+
+Less copy/paste, less errors.
+
+## Usage in the application
+
+Minimal code example in Next.js app:
+
+```ts
+import { SpotifyCard } from "spotify-now-playing-card"
+import "spotify-now-playing-card/dist/styles.css"
+
+export default function Footer() {
+  return (
+    <footer>
+      <SpotifyCard apiUrl="/api/spotify" />
+    </footer>
+  ) 
+}
+```
+
+With custom styles:
+
+```ts
+
+<SpotifyCard
+  apiUrl="/api/spotify"
+  styles={{
+    container: "bg-gray-900/80 rounded-2xl border border-gray-700",
+    title: "text-white text-lg font-semibold",
+    artist: "text-gray-300",
+  }}
+  showAlbum
+  notPlayingText="Currently off Spotify"
+/>
+```
+
+## Conclusion
+
+If you have some **custom widget** in your project that you want to share with others, probably someone else would find it useful. 
+And if you don't want to share it, at least you can use it in your other projects without any effort I highly recommend you to do it.
+With a little extra effort around the API, DX and packaging, you can turn it into a real **npm package** that lives outside of one project.
+In my case it was the Spotify card – in your case it can be anything: GitHub card, Dev.to feed, custom loader…
+Please let me know if you have any questions or suggestions on how to improve the package or the code, as well as how to make it more usefull to the masses.
+Hope you enjoyed and plese check it out on npm :)
+ [https://www.npmjs.com/package/spotify-now-playing-card](https://www.npmjs.com/package/spotify-now-playing-card) 
+---
+
+**If you found this post useful, check out more articles on my [personal blog](https://www.jageticbojan.com/routes/blog) where I write about Nodejs, React, TypeScript, and web development in general!**
+
+You can also check out my [GitHub](https://github.com/basskibo) for more projects and open source contributions.
