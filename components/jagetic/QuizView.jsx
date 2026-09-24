@@ -1,8 +1,69 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { nodeQuestions, reactQuestions, mongodbQuestions } from 'src/quizQuestions'
+import { nodeQuestions, reactQuestions, mongodbQuestions, aiQuestions } from 'src/quizQuestions'
 
-const DECKS = [...nodeQuestions, ...reactQuestions, ...mongodbQuestions]
+const DECKS = [...nodeQuestions, ...reactQuestions, ...mongodbQuestions, ...aiQuestions]
+
+const GRADIENTS = {
+	Nodejs: 'linear-gradient(145deg, #6ee7a8, #14783c)',
+	React: 'linear-gradient(145deg, #9be7ff, #087ea4)',
+	MongoDB: 'linear-gradient(145deg, #6dffb0, #00684a)',
+	AI: 'linear-gradient(145deg, #ddd6fe, #38bdf8)'
+}
+
+function DeckCard ({ item, onStart }) {
+	const [tilt, setTilt] = useState(null)
+
+	const move = (event) => {
+		const rect = event.currentTarget.getBoundingClientRect()
+		setTilt({
+			x: (event.clientX - rect.left) / rect.width - 0.5,
+			y: (event.clientY - rect.top) / rect.height - 0.5
+		})
+	}
+
+	return (
+		<button
+			type="button"
+			onClick={onStart}
+			onPointerMove={move}
+			onPointerLeave={() => setTilt(null)}
+			className="bj-card"
+			style={{
+				textAlign: 'left',
+				padding: 32,
+				borderRadius: 34,
+				minHeight: 280,
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'space-between',
+				gap: 22,
+				background: 'var(--bg2)',
+				color: 'var(--ink)',
+				position: 'relative',
+				overflow: 'hidden',
+				transform: tilt ? `perspective(1200px) rotateX(${-tilt.y * 8}deg) rotateY(${tilt.x * 8}deg)` : 'none',
+				transition: 'transform .35s cubic-bezier(.2,.8,.2,1)'
+			}}
+		>
+			<span style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: tilt ? `radial-gradient(320px circle at ${(tilt.x + 0.5) * 100}% ${(tilt.y + 0.5) * 100}%, rgba(255,255,255,.18), transparent 60%)` : 'transparent' }} />
+			<span style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative' }}>
+				<span className="bj-mono" style={{ fontSize: 11, fontWeight: 600, padding: '7px 11px', borderRadius: 99, background: 'var(--acc)', color: '#0b0c10' }}>{item.level}</span>
+				<span className="bj-mono" style={{ fontSize: 12, color: 'var(--mut)' }}>{item.questions.length} QUESTIONS</span>
+			</span>
+			<span style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 16 }}>
+				<span style={{ width: 58, height: 58, flex: 'none', borderRadius: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', background: GRADIENTS[item.name] || GRADIENTS.AI, color: '#0b1220' }}>{item.icon}</span>
+				<span style={{ font: "800 42px/1 'Bricolage Grotesque',sans-serif", letterSpacing: '-.05em' }}>{item.name}</span>
+			</span>
+			<span style={{ display: 'flex', gap: 5, position: 'relative' }}>
+				{Array.from({ length: 5 }).map((_, i) => (
+					<span key={i} style={{ width: 34, height: 7, borderRadius: 4, background: i < item.difficulty ? 'var(--acc)' : 'var(--line)' }} />
+				))}
+			</span>
+			<span style={{ color: 'var(--accT)', fontWeight: 600, position: 'relative' }}>Start →</span>
+		</button>
+	)
+}
 
 export default function QuizView () {
 	const [deck, setDeck] = useState(null)
@@ -26,19 +87,7 @@ export default function QuizView () {
 				<h1 className="bj-display" style={{ fontSize: 'clamp(52px, 7vw, 100px)' }}>How well do you know <span className="bj-serif">it?</span></h1>
 				<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: 20, marginTop: 48 }}>
 					{DECKS.map((item) => (
-						<button key={item.id} type="button" onClick={() => start(item)} className="bj-card" style={{ textAlign: 'left', padding: 32, borderRadius: 34, minHeight: 280, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: 'var(--bg2)', color: 'var(--ink)' }}>
-							<span style={{ display: 'flex', justifyContent: 'space-between' }}>
-								<span className="bj-mono" style={{ fontSize: 11, fontWeight: 600, padding: '7px 11px', borderRadius: 99, background: 'var(--acc)', color: '#0b0c10' }}>{item.level}</span>
-								<span className="bj-mono" style={{ fontSize: 12, color: 'var(--mut)' }}>{item.questions.length} QUESTIONS</span>
-							</span>
-							<span style={{ font: "800 48px/1 'Bricolage Grotesque',sans-serif", letterSpacing: '-.05em' }}>{item.name}</span>
-							<span style={{ display: 'flex', gap: 5 }}>
-								{Array.from({ length: 5 }).map((_, i) => (
-									<span key={i} style={{ width: 34, height: 7, borderRadius: 4, background: i < item.difficulty ? 'var(--acc)' : 'var(--line)' }} />
-								))}
-							</span>
-							<span style={{ color: 'var(--accT)', fontWeight: 600 }}>Start →</span>
-						</button>
+						<DeckCard key={item.id} item={item} onStart={() => start(item)} />
 					))}
 				</div>
 			</div>

@@ -40,7 +40,6 @@ export default function AboutView () {
 					<p style={{ color: 'var(--mut)', fontSize: 17, lineHeight: 1.6, maxWidth: 440 }}>I&apos;m passionate about coding and constantly pushing myself to improve. Working with a wide range of technologies keeps me inspired and eager to take on the next big idea.</p>
 					<div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 26 }}>
 						<button type="button" onClick={download} style={{ height: 52, padding: '0 24px', borderRadius: 99, border: 'none', background: 'var(--acc)', color: '#0b0c10', fontWeight: 700 }}>↓ Download PDF</button>
-						<a href="mailto:jagetic.bojan@gmail.com" style={{ height: 52, padding: '0 24px', borderRadius: 99, border: '1px solid var(--line)', display: 'inline-flex', alignItems: 'center', fontWeight: 600 }}>Say hello</a>
 					</div>
 					<div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 22 }}>
 						{[['LinkedIn', 'https://linkedin.com/in/bojan-jagetic'], ['GitHub', 'https://github.com/basskibo'], ['Dev.to', 'https://dev.to/basskibo'], ['Medium', 'https://medium.com/@jagetic.bojan']].map(([label, href]) => (

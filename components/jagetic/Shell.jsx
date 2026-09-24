@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import { flushSync } from 'react-dom'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -93,10 +94,23 @@ export default function Shell ({ children }) {
 		router.push(href)
 	}
 
-	const toggleTheme = () => {
+	const toggleTheme = (event) => {
 		const next = theme === 'dark' ? 'light' : 'dark'
-		setTheme(next)
-		window.localStorage.setItem('bj-theme', next)
+		const rect = event.currentTarget.getBoundingClientRect()
+		document.documentElement.style.setProperty('--vx', `${rect.left + rect.width / 2}px`)
+		document.documentElement.style.setProperty('--vy', `${rect.top + rect.height / 2}px`)
+		const apply = () => {
+			setTheme(next)
+			window.localStorage.setItem('bj-theme', next)
+		}
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+		if (document.startViewTransition && !reduce) {
+			document.startViewTransition(() => {
+				flushSync(apply)
+			})
+		} else {
+			apply()
+		}
 	}
 
 	const mailto = `mailto:jagetic.bojan@gmail.com?subject=${encodeURIComponent('Hello from jageticbojan.com')}&body=${encodeURIComponent(msg)}`
@@ -120,7 +134,6 @@ export default function Shell ({ children }) {
 				<button type="button" aria-label="Toggle theme" onClick={toggleTheme} style={{ width: 40, height: 40, flex: 'none', borderRadius: '50%', border: '1px solid var(--line)', background: 'var(--card)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 					<span style={{ width: 16, height: 16, borderRadius: '50%', background: 'linear-gradient(90deg, var(--ink) 50%, transparent 50%)', border: '2px solid var(--ink)', boxSizing: 'border-box' }} />
 				</button>
-				<button type="button" onClick={() => { setSent(false); setSheet(true) }} style={{ height: 40, padding: '0 18px', borderRadius: 99, border: 'none', background: 'var(--acc)', color: '#0b0c10', font: "700 14px 'Bricolage Grotesque',sans-serif", flex: 'none' }}>Say hello</button>
 			</nav>
 
 			<main style={{ flex: 1 }}>{children}</main>
