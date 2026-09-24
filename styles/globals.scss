@@ -6,6 +6,15 @@
 	--grape: 114, 35, 204;
 	--radius: 0.5rem;
 	
+	/* Jagetić Design System Colors */
+	--jag-bg: #0b0c10;
+	--jag-accent: oklch(0.82 0.1 232);
+	--jag-accent-hsl: 197 71% 73%;
+	--jag-muted: #9698a6;
+	--jag-glass: rgba(20, 21, 27, 0.62);
+	--jag-glass-border: rgba(255, 255, 255, 0.08);
+	--jag-green: #4ade80;
+	
 	/* Light theme - svetla bela pozadina */
 	--background: 0 0% 100%;
 	--foreground: 222.2 84% 4.9%;
@@ -29,26 +38,26 @@
 }
 
 .dark {
-	/* Dark theme - tamna crna pozadina */
-	--background: 0 0% 3%;
+	/* Dark theme - Jagetić design inspired */
+	--background: 220 20% 4%;
 	--foreground: 210 40% 98%;
-	--card: 0 0% 6%;
+	--card: 220 15% 8%;
 	--card-foreground: 210 40% 98%;
-	--popover: 0 0% 6%;
+	--popover: 220 15% 8%;
 	--popover-foreground: 210 40% 98%;
-	--primary: 217 91% 60%;
-	--primary-foreground: 0 0% 3%;
+	--primary: 197 71% 73%;
+	--primary-foreground: 220 20% 4%;
 	--secondary: 217.2 32.6% 17.5%;
 	--secondary-foreground: 210 40% 98%;
-	--muted: 217.2 32.6% 17.5%;
-	--muted-foreground: 215 20.2% 65.1%;
+	--muted: 220 15% 15%;
+	--muted-foreground: 230 10% 64%;
 	--accent: 217.2 32.6% 17.5%;
 	--accent-foreground: 210 40% 98%;
 	--destructive: 0 62.8% 30.6%;
 	--destructive-foreground: 210 40% 98%;
-	--border: 217.2 32.6% 17.5%;
-	--input: 217.2 32.6% 17.5%;
-	--ring: 217 91% 60%;
+	--border: 220 15% 18%;
+	--input: 220 15% 18%;
+	--ring: 197 71% 73%;
 }
 html {
 	box-sizing: border-box;
@@ -508,3 +517,373 @@ a {
 		radial-gradient(ellipse 50% 50% at 80% 50%, rgba(6, 182, 212, 0.15), transparent),
 		radial-gradient(ellipse 50% 50% at 20% 80%, rgba(139, 92, 246, 0.15), transparent);
 }
+
+// ============================================
+// JAGETIĆ DESIGN SYSTEM
+// ============================================
+
+// Font families
+.font-bricolage {
+	font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+.font-instrument {
+	font-family: 'Instrument Serif', serif;
+}
+
+.font-jetbrains {
+	font-family: 'JetBrains Mono', monospace;
+}
+
+// Jagetić theme background
+.jag-bg {
+	background-color: var(--jag-bg);
+}
+
+// Accent color utilities
+.jag-accent {
+	color: var(--jag-accent);
+}
+
+.jag-accent-bg {
+	background-color: var(--jag-accent);
+}
+
+// Glass effect
+.jag-glass {
+	background: var(--jag-glass);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid var(--jag-glass-border);
+}
+
+// Grid pattern overlay
+.jag-grid-pattern {
+	position: absolute;
+	inset: 0;
+	background-image: 
+		linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+	background-size: 60px 60px;
+	mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+	-webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 20%, transparent 70%);
+	pointer-events: none;
+}
+
+// Floating orb animations
+@keyframes float-orb {
+	0%, 100% {
+		transform: translate(0, 0) scale(1);
+	}
+	25% {
+		transform: translate(30px, -20px) scale(1.05);
+	}
+	50% {
+		transform: translate(-20px, 30px) scale(0.95);
+	}
+	75% {
+		transform: translate(-30px, -10px) scale(1.02);
+	}
+}
+
+@keyframes float-orb-reverse {
+	0%, 100% {
+		transform: translate(0, 0) scale(1);
+	}
+	25% {
+		transform: translate(-25px, 25px) scale(0.98);
+	}
+	50% {
+		transform: translate(35px, -15px) scale(1.03);
+	}
+	75% {
+		transform: translate(15px, 20px) scale(0.97);
+	}
+}
+
+@keyframes float-orb-slow {
+	0%, 100% {
+		transform: translate(0, 0) scale(1);
+	}
+	33% {
+		transform: translate(40px, -30px) scale(1.04);
+	}
+	66% {
+		transform: translate(-35px, 15px) scale(0.96);
+	}
+}
+
+.jag-orb {
+	position: absolute;
+	border-radius: 50%;
+	filter: blur(80px);
+	opacity: 0.5;
+	will-change: transform;
+}
+
+.jag-orb-purple {
+	width: 600px;
+	height: 600px;
+	background: radial-gradient(circle, rgba(147, 51, 234, 0.6) 0%, transparent 70%);
+	animation: float-orb 20s ease-in-out infinite;
+}
+
+.jag-orb-cyan {
+	width: 500px;
+	height: 500px;
+	background: radial-gradient(circle, rgba(6, 182, 212, 0.5) 0%, transparent 70%);
+	animation: float-orb-reverse 25s ease-in-out infinite;
+}
+
+.jag-orb-fuchsia {
+	width: 450px;
+	height: 450px;
+	background: radial-gradient(circle, rgba(217, 70, 239, 0.5) 0%, transparent 70%);
+	animation: float-orb-slow 30s ease-in-out infinite;
+}
+
+// Mouse spotlight effect
+.jag-spotlight {
+	position: fixed;
+	width: 600px;
+	height: 600px;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(136, 196, 230, 0.08) 0%, transparent 60%);
+	pointer-events: none;
+	transform: translate(-50%, -50%);
+	z-index: 1;
+	transition: opacity 0.3s ease;
+}
+
+// Hero typography
+.jag-hero-name {
+	font-family: 'Bricolage Grotesque', sans-serif;
+	font-weight: 800;
+	letter-spacing: -0.06em;
+	line-height: 0.9;
+	font-size: clamp(84px, 18vw, 220px);
+}
+
+.jag-hero-surname {
+	font-family: 'Instrument Serif', serif;
+	font-style: italic;
+	font-weight: 400;
+	letter-spacing: -0.02em;
+	color: var(--jag-accent);
+}
+
+// Label badge styling
+.jag-label {
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.75rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+// Primary button with glow
+.jag-btn-primary {
+	background-color: var(--jag-accent);
+	color: var(--jag-bg);
+	font-weight: 600;
+	padding: 0.875rem 1.75rem;
+	border-radius: 9999px;
+	box-shadow: 
+		0 0 20px rgba(136, 196, 230, 0.4),
+		0 0 40px rgba(136, 196, 230, 0.2);
+	transition: all 0.3s ease;
+	
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: 
+			0 0 30px rgba(136, 196, 230, 0.5),
+			0 0 60px rgba(136, 196, 230, 0.3);
+	}
+}
+
+// Glass button
+.jag-btn-glass {
+	background: var(--jag-glass);
+	border: 1px solid var(--jag-glass-border);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	color: #fff;
+	font-weight: 500;
+	padding: 0.875rem 1.75rem;
+	border-radius: 9999px;
+	transition: all 0.3s ease;
+	
+	&:hover {
+		background: rgba(255, 255, 255, 0.1);
+		border-color: rgba(255, 255, 255, 0.15);
+	}
+}
+
+// Social pill buttons
+.jag-social-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	border-radius: 9999px;
+	background: var(--jag-glass);
+	border: 1px solid var(--jag-glass-border);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	color: var(--jag-muted);
+	font-size: 0.875rem;
+	transition: all 0.2s ease;
+	
+	&:hover {
+		color: #fff;
+		border-color: rgba(255, 255, 255, 0.2);
+		background: rgba(255, 255, 255, 0.08);
+	}
+}
+
+// Featured project card
+.jag-featured-card {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	background: var(--jag-glass);
+	border: 1px solid var(--jag-glass-border);
+	border-radius: 1.5rem;
+	overflow: hidden;
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	
+	@media (max-width: 768px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+// Blog card with 3D tilt
+.jag-blog-card {
+	position: relative;
+	background: var(--jag-glass);
+	border: 1px solid var(--jag-glass-border);
+	border-radius: 1rem;
+	overflow: hidden;
+	transform-style: preserve-3d;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	
+	&:hover {
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+	}
+}
+
+// Large faded number for blog cards
+.jag-card-number {
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-family: 'Bricolage Grotesque', sans-serif;
+	font-weight: 800;
+	font-size: 8rem;
+	line-height: 1;
+	color: rgba(255, 255, 255, 0.03);
+	pointer-events: none;
+	transform: translate(10%, -20%);
+}
+
+// Tag badge
+.jag-tag {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.25rem 0.75rem;
+	border-radius: 9999px;
+	background: rgba(136, 196, 230, 0.15);
+	color: var(--jag-accent);
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 0.7rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+// Newsletter CTA card
+.jag-cta-card {
+	background: linear-gradient(135deg, 
+		oklch(0.82 0.1 232 / 0.15) 0%, 
+		oklch(0.82 0.1 232 / 0.05) 100%
+	);
+	border: 1px solid oklch(0.82 0.1 232 / 0.3);
+	border-radius: 1.5rem;
+	padding: 2rem;
+}
+
+// Newsletter input
+.jag-newsletter-input {
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid var(--jag-glass-border);
+	border-radius: 0.75rem;
+	padding: 1rem 1.25rem;
+	color: #fff;
+	font-size: 1rem;
+	width: 100%;
+	transition: all 0.2s ease;
+	
+	&::placeholder {
+		color: var(--jag-muted);
+	}
+	
+	&:focus {
+		outline: none;
+		border-color: var(--jag-accent);
+		box-shadow: 0 0 0 3px rgba(136, 196, 230, 0.1);
+	}
+}
+
+// Platform grid cards
+.jag-platform-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	padding: 1.5rem;
+	background: var(--jag-glass);
+	border: 1px solid var(--jag-glass-border);
+	border-radius: 1rem;
+	transition: all 0.2s ease;
+	
+	&:hover {
+		border-color: rgba(255, 255, 255, 0.2);
+		background: rgba(255, 255, 255, 0.08);
+	}
+}
+
+// Footer outlined text
+.jag-footer-text {
+	font-family: 'Bricolage Grotesque', sans-serif;
+	font-weight: 800;
+	font-size: clamp(48px, 12vw, 160px);
+	letter-spacing: -0.04em;
+	-webkit-text-stroke: 2px var(--jag-muted);
+	color: transparent;
+	
+	.accent-dot {
+		-webkit-text-stroke: 2px var(--jag-accent);
+	}
+}
+
+// Scroll parallax container
+.jag-parallax {
+	will-change: transform;
+}
+
+// Green status dot
+.jag-status-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--jag-green);
+	box-shadow: 0 0 8px var(--jag-green);
+}
+
+// Animation delays for staggered effects
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-400 { animation-delay: 400ms; }
+.animate-delay-500 { animation-delay: 500ms; }
