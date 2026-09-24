@@ -41,10 +41,11 @@ export default function HeroSpotify () {
 	const [volume, setVolume] = useState(0.8)
 	const [menu, setMenu] = useState(false)
 	const [volOpen, setVolOpen] = useState(false)
-	const [cover, setCover] = useState(() => coverForHour(new Date().getHours()))
+	const [cover, setCover] = useState(COVERS[2])
 
 	useEffect(() => {
 		const tick = () => setCover(coverForHour(new Date().getHours()))
+		tick()
 		const timer = setInterval(tick, 60 * 1000)
 		return () => clearInterval(timer)
 	}, [])
