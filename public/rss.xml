@@ -9,9 +9,9 @@
             <link>https://jageticbojan.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 24 Sep 2026 12:20:04 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 24 Sep 2026 14:21:34 GMT</lastBuildDate>
         <atom:link href="https://jageticbojan.com/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 24 Sep 2026 12:20:04 GMT</pubDate>
+        <pubDate>Thu, 24 Sep 2026 14:21:34 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2026, © 2022 Bojan Jagetic]]></copyright>
         <item>
             <title><![CDATA[What is Microservices architecture and how to use it]]></title>
@@ -19,6 +19,13 @@
             <link>https://jageticbojan.com/post/all-you-need-to-know-about-microservices</link>
             <guid isPermaLink="false">https://jageticbojan.com/post/all-you-need-to-know-about-microservices</guid>
             <pubDate>Tue, 14 Jun 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Automating Content Publishing: Building an MDX to Dev.to Converter Script]]></title>
+            <description><![CDATA[Learn how I automated the process of converting MDX blog posts to dev.to format, saving hours of manual work and ensuring consistency across platforms.]]></description>
+            <link>https://jageticbojan.com/post/automating-content-publishing-mdx-to-devto</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/automating-content-publishing-mdx-to-devto</guid>
+            <pubDate>Mon, 16 Feb 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Building a Powerful Chatbot with OpenAI and LangChain]]></title>

@@ -3,22 +3,10 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { getLibaryFiles } from '../../services/indexv2'
-import PostListScreen from '../../components/shared/PostListScreen'
-import { libaryBio } from '@/components/config/bios'
+import LibrariesView from '../../components/jagetic/LibrariesView'
 
 const Libaries = ({ libaries }) => {
-	return (
-		<PostListScreen
-			posts={libaries}
-			type="libary"
-			titlePrefix="Created "
-			title="Libaries"
-			subtitle=""
-			description={libaryBio}
-			showSort={true}
-			sortOptions={['newest', 'oldest', 'title-asc', 'title-desc']}
-		/>
-	)
+	return <LibrariesView posts={libaries} />
 }
 export default Libaries
 
