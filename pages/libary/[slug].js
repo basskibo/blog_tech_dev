@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
-import dayjs from 'dayjs'
 import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
 import matter from 'gray-matter'
-// import ReactTooltip from 'react-tooltip'
 import MdxComponents from '../../components/custom/MdxComponents'
-import TableOfContent from '../../components/custom/TableOfContent'
-import ReadTime from '../../components/ReadTime'
-import SocialNetworkShare from '../../components/custom/SocialNetworkShare'
-import constants from '../../lib/constants'
-import axios from 'axios'
-import { BsEye } from 'react-icons/bs'
-import CountUp from 'react-countup'
+import PostView from '@/components/jagetic/PostView'
 
 function getTableOfContents(content) {
 	const reg = /^(### |## )(.*)\n/
@@ -83,99 +75,11 @@ const components = {
 	EmbeddedLink: MdxComponents.EmbeddedLink
 }
 
-const LibaryDetails = ({ data, mdxSource, toc }) => {
-	const [views, setviews] = useState(0)
-
-	useEffect(() => {
-		getViews(data)
-	}, [data])
-	
-	const getViews = async (data) => {
-		const url = '/api/views'
-		const result = await axios(url, {
-			method: 'POST',
-			params: { title: data.title, description: data.excerpt, slug: `libary/${data.slug}` },
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-
-		setviews(result.data.views)
-	}
-
+const LibaryDetails = ({ data, mdxSource }) => {
 	return (
-		<div className='layout mx-auto my-10 lg:my-20 sm:px-2 xs:px-3 lg:px-5  text-slate-400'>
-			<div className='grid grid-cols-1 lg:grid-cols-12 gap-x-12'>
-				<div className='col-span-1 lg:col-span-9'>
-					<div className=' mt-24 lg:my-10 '>
-						<h1 className='lg:text-4xl text-2xl lg:my-5 text-semibold text-white font-bold break-words'>
-							{' '}
-							{data.title}
-						</h1>
-						<div className='lg:px-0 prose'>
-							<div className=' text-slate-400  my-6 w-full mb-2 lg:ml-2 mr-8'>
-								<div className='flex-1  mb-2 w-full lg:w-auto '>
-									<p className='text-slate-400  lg:text-md sm:text-sm'>
-										Writen on{' '}
-										<span className='font-semibold hidden lg:inline'>
-											{dayjs(data.publishedAt).format(
-												'MMMM DD, YYYY'
-											)}
-										</span>{' '}
-										<span className='font-semibold lg:hidden inline'>
-											{dayjs(data.publishedAt).format('DD.MM.YYYY')}
-										</span>{' '}
-										by{' '}
-										<span className='font-semibold'>
-											{data.author}
-										</span>
-									</p>
-								</div>
-								<span className='flex mb-2'>
-									<ReadTime className=' w-28  flex-initial  lg:text-md sm:text-sm'>
-										{mdxSource.compiledSource}
-									</ReadTime>
-									<div
-										className='w-1 h-1 mt-3 mr-6 rounded-full flex-initial'
-										style={{ backgroundColor: '#FFF' }}></div>
-									<div className=' w-28  flex-initial   lg:text-md sm:text-sm'>
-										<p className="inline-flex mt-1">
-											<BsEye className='h-full mt-0.5 text-lg' />{' '}
-											<span className='ml-2 pb-1'><CountUp end={views} /> views</span>
-										</p>
-									</div>
-									<div
-										className='w-1 h-1 mt-3 mr-6 rounded-full flex-initial'
-										style={{ backgroundColor: '#FFF' }}></div>
-									{data.technologies.map((Tech, index) =>
-										constants.generateIcon(Tech)
-									)}
-								</span>
-
-								<blockquote className='mt-0 mb-4'>
-									<p className='text-slate-400 mt-0'>
-										{data.excerpt}
-									</p>
-								</blockquote>
-
-								<div className='flex flex-inline mb-2'>
-									{/* <span className='lg:text-lg sm:text-md mr-3 p-0'>Share: </span> */}
-									<span className='mr-2 text-white'>Share:</span>
-									<SocialNetworkShare post={data} type='libary' />
-								</div>
-							</div>
-						</div>
-					</div>
-					<p className='border-b  mb-4 align-middle text-center text-white'>
-						{' '}
-					</p>
-					<MDXRemote {...mdxSource} components={{ ...components }} lazy />
-				</div>
-				<div className='hidden lg:block col-span-1 lg:col-span-3 place-content-center'>
-					<TableOfContent toc={toc} />
-				</div>
-			</div>
-		</div>
+		<PostView data={data} backHref="/routes/libaries" backLabel="← ALL PROJECTS">
+			<MDXRemote {...mdxSource} components={{ ...components }} lazy />
+		</PostView>
 	)
 }
 

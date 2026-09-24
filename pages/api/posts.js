@@ -18,6 +18,18 @@ export default async function handler(req, res) {
 		return data
 	})
 
+	if (req.query.all === '1') {
+		const list = posts
+			.filter((post) => !post.inPreparation)
+			.map((post) => ({
+				title: post.title,
+				slug: post.slug,
+				excerpt: post.excerpt || '',
+				tag: post.tags?.[0]?.name || post.tags?.[0]?.slug || 'Post'
+			}))
+		return res.status(200).json({ posts: list })
+	}
+
 	const similiarPosts = selectRandomNumberOfPosts(posts, 3)
 	return res.status(200).send({ similiarPosts })
 }
