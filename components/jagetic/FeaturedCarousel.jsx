@@ -36,6 +36,54 @@ const PROJECTS = [
 	}
 ]
 
+function ProjectSlide ({ project }) {
+	const [tilt, setTilt] = useState(null)
+
+	const move = (event) => {
+		const rect = event.currentTarget.getBoundingClientRect()
+		setTilt({
+			x: (event.clientX - rect.left) / rect.width - 0.5,
+			y: (event.clientY - rect.top) / rect.height - 0.5
+		})
+	}
+
+	return (
+		<article
+			onPointerMove={move}
+			onPointerLeave={() => setTilt(null)}
+			style={{
+				flex: '0 0 100%',
+				scrollSnapAlign: 'start',
+				display: 'grid',
+				gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))',
+				borderRadius: 40,
+				overflow: 'hidden',
+				border: '1px solid var(--line)',
+				background: 'var(--bg2)',
+				position: 'relative',
+				transform: tilt ? `perspective(1200px) rotateX(${-tilt.y * 8}deg) rotateY(${tilt.x * 8}deg)` : 'none',
+				transition: 'transform .35s cubic-bezier(.2,.8,.2,1)'
+			}}
+		>
+			<div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 2, background: tilt ? `radial-gradient(420px circle at ${(tilt.x + 0.5) * 100}% ${(tilt.y + 0.5) * 100}%, rgba(255,255,255,.16), transparent 60%)` : 'transparent' }} />
+			<div style={{ position: 'relative', minHeight: 420, overflow: 'hidden' }}>
+				<img src={project.image} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+				<div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, transparent 50%, var(--bg2))' }} />
+				<span className="bj-mono" style={{ position: 'absolute', top: 22, left: 22, fontSize: 11, fontWeight: 600, letterSpacing: '.1em', padding: '8px 12px', borderRadius: 99, background: 'var(--glass)', backdropFilter: 'blur(14px)' }}>FEATURED PROJECT</span>
+			</div>
+			<div style={{ padding: 'clamp(28px, 4vw, 56px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+				<div style={{ font: "800 clamp(38px, 4.4vw, 60px)/.95 'Bricolage Grotesque', sans-serif", letterSpacing: '-.05em' }}>{project.title}</div>
+				<div className="bj-serif" style={{ fontSize: 'clamp(26px, 2.6vw, 36px)', lineHeight: 1.1, marginTop: 6 }}>{project.subtitle}</div>
+				<p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--mut)', margin: '20px 0 30px', maxWidth: 460 }}>{project.description}</p>
+				<div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+					<a href={project.href} target="_blank" rel="noreferrer" style={{ height: 52, padding: '0 24px', borderRadius: 99, background: 'var(--inv)', color: 'var(--invInk)', display: 'flex', alignItems: 'center', fontWeight: 700 }}>{project.cta} ↗</a>
+					<Link href="/routes/projects" style={{ height: 52, padding: '0 24px', borderRadius: 99, border: '1px solid var(--line)', display: 'flex', alignItems: 'center', fontWeight: 600 }}>View projects</Link>
+				</div>
+			</div>
+		</article>
+	)
+}
+
 export default function FeaturedCarousel () {
 	const scroller = useRef(null)
 	const [index, setIndex] = useState(0)
@@ -62,22 +110,7 @@ export default function FeaturedCarousel () {
 					style={{ display: 'flex', overflowX: 'auto', scrollSnapType: 'x mandatory', scrollbarWidth: 'none', borderRadius: 40 }}
 				>
 					{PROJECTS.map((project) => (
-						<article key={project.title} style={{ flex: '0 0 100%', scrollSnapAlign: 'start', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))', borderRadius: 40, overflow: 'hidden', border: '1px solid var(--line)', background: 'var(--bg2)' }}>
-							<div style={{ position: 'relative', minHeight: 420, overflow: 'hidden' }}>
-								<img src={project.image} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-								<div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, transparent 50%, var(--bg2))' }} />
-								<span className="bj-mono" style={{ position: 'absolute', top: 22, left: 22, fontSize: 11, fontWeight: 600, letterSpacing: '.1em', padding: '8px 12px', borderRadius: 99, background: 'var(--glass)', backdropFilter: 'blur(14px)' }}>FEATURED PROJECT</span>
-							</div>
-							<div style={{ padding: 'clamp(28px, 4vw, 56px)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-								<div style={{ font: "800 clamp(38px, 4.4vw, 60px)/.95 'Bricolage Grotesque', sans-serif", letterSpacing: '-.05em' }}>{project.title}</div>
-								<div className="bj-serif" style={{ fontSize: 'clamp(26px, 2.6vw, 36px)', lineHeight: 1.1, marginTop: 6 }}>{project.subtitle}</div>
-								<p style={{ fontSize: 17, lineHeight: 1.6, color: 'var(--mut)', margin: '20px 0 30px', maxWidth: 460 }}>{project.description}</p>
-								<div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-									<a href={project.href} target="_blank" rel="noreferrer" style={{ height: 52, padding: '0 24px', borderRadius: 99, background: 'var(--inv)', color: 'var(--invInk)', display: 'flex', alignItems: 'center', fontWeight: 700 }}>{project.cta} ↗</a>
-									<Link href="/routes/projects" style={{ height: 52, padding: '0 24px', borderRadius: 99, border: '1px solid var(--line)', display: 'flex', alignItems: 'center', fontWeight: 600 }}>View projects</Link>
-								</div>
-							</div>
-						</article>
+						<ProjectSlide key={project.title} project={project} />
 					))}
 				</div>
 				<button type="button" aria-label="Previous project" onClick={() => go(index - 1)} style={{ position: 'absolute', left: -8, top: '50%', transform: 'translateY(-50%)', width: 44, height: 44, borderRadius: '50%', border: '1px solid var(--line)', background: 'var(--glass)', color: 'var(--ink)', backdropFilter: 'blur(12px)' }}>←</button>

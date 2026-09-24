@@ -34,6 +34,21 @@
 [data-bjw] button { font: inherit; cursor: pointer; }
 [data-bjw] input, [data-bjw] textarea { font: inherit; }
 
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+::view-transition-new(root) {
+	animation: bjReveal .8s cubic-bezier(.65, 0, .25, 1);
+}
+
+@keyframes bjReveal {
+	from { clip-path: circle(0 at var(--vx, 50%) var(--vy, 50%)); }
+	to { clip-path: circle(160vmax at var(--vx, 50%) var(--vy, 50%)); }
+}
+
 @keyframes bjIn {
 	from { opacity: 0; transform: translateY(26px); filter: blur(10px); }
 	to { opacity: 1; transform: none; filter: blur(0); }
@@ -50,6 +65,10 @@
 @keyframes bjEq {
 	0%, 100% { transform: scaleY(0.25); }
 	50% { transform: scaleY(1); }
+}
+@keyframes bjLive {
+	from { transform: translateX(-100%); }
+	to { transform: translateX(350%); }
 }
 @keyframes bjFloatA {
 	0%, 100% { transform: translate(0, 0) scale(1); }

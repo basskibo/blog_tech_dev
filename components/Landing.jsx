@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { SiHashnode, SiDevdotto, SiMedium } from 'react-icons/si'
+import { SiHashnode, SiDevdotto, SiMedium, SiLinkedin, SiGithub, SiX } from 'react-icons/si'
 import { IoArrowForward, IoCloudDownloadOutline, IoMailOutline } from "react-icons/io5"
 import { motion } from 'framer-motion'
 import HeroSpotify from './jagetic/HeroSpotify'
@@ -12,16 +12,8 @@ const FeaturedPosts = dynamic(() => import('./').then(mod => mod.FeaturedPosts),
 })
 
 const Landing = () => {
-	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+	const [mousePosition, setMousePosition] = useState({ x: 50, y: 40 })
 	const heroRef = useRef(null)
-
-	useEffect(() => {
-		const handleMouseMove = (e) => {
-			setMousePosition({ x: e.clientX, y: e.clientY })
-		}
-		window.addEventListener('mousemove', handleMouseMove)
-		return () => window.removeEventListener('mousemove', handleMouseMove)
-	}, [])
 
 	const handleDownload = () => {
 		const link = document.createElement('a')
@@ -56,9 +48,9 @@ const Landing = () => {
 	}
 
 	const socialLinks = [
-		{ id: 'linkedin', href: 'https://linkedin.com/in/bojan-jagetic', label: 'LinkedIn · Bojan Jagetic' },
-		{ id: 'github', href: 'https://github.com/basskibo', label: 'GitHub · basskibo' },
-		{ id: 'twitter', href: 'https://twitter.com/basskibo1', label: 'Twitter · basskibo1' }
+		{ id: 'linkedin', href: 'https://linkedin.com/in/bojan-jagetic', name: 'Bojan Jagetic', label: 'LinkedIn · Bojan Jagetic', Icon: SiLinkedin },
+		{ id: 'github', href: 'https://github.com/basskibo', name: 'basskibo', label: 'GitHub · basskibo', Icon: SiGithub },
+		{ id: 'twitter', href: 'https://twitter.com/basskibo1', name: 'basskibo1', label: 'Twitter · basskibo1', Icon: SiX }
 	]
 	const marquee = ['Node.js', 'React', 'TypeScript', 'Docker', 'webOS', 'Tizen', 'NGINX', 'MongoDB', 'Redis', 'AWS', 'React Native']
 
@@ -92,9 +84,9 @@ const Landing = () => {
 						<div key={blob[2]} style={{ position: 'absolute', left: blob[2], top: blob[3], width: blob[1], height: blob[1], borderRadius: '50%', background: blob[0], filter: 'blur(90px)', opacity: 0.5, animation: blob[4] }} />
 					))}
 				</div>
-				<div className='absolute inset-0 pointer-events-none' style={{ background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, oklch(0.82 0.1 232 / .1), transparent 60%)` }} />
 				<div className='absolute inset-0' style={{ backgroundImage: 'linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px)', backgroundSize: '56px 56px', maskImage: 'radial-gradient(ellipse at 50% 40%, #000 20%, transparent 75%)', WebkitMaskImage: 'radial-gradient(ellipse at 50% 40%, #000 20%, transparent 75%)' }} />
-				<div className='absolute left-0 right-0 bottom-0' style={{ height: 260, background: 'linear-gradient(to bottom, transparent, var(--bg))' }} />
+				<div className='absolute left-0 right-0 bottom-0 pointer-events-none' style={{ height: 260, background: 'linear-gradient(to bottom, transparent, var(--bg))' }} />
+				<div className='absolute inset-0 pointer-events-none' style={{ zIndex: 2, background: `radial-gradient(600px circle at ${mousePosition.x}% ${mousePosition.y}%, oklch(0.82 0.1 232 / .22), transparent 60%)` }} />
 
 				<motion.div
 					variants={containerVariants}
@@ -109,9 +101,9 @@ const Landing = () => {
 							Hello there, 👋 my name is
 						</motion.div>
 
-						<motion.h1 variants={itemVariants} style={{ margin: '22px 0 0', display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', columnGap: '.18em', lineHeight: 0.86 }}>
-							<span style={{ font: "800 clamp(84px, 14vw, 220px)/.86 'Bricolage Grotesque', sans-serif", letterSpacing: '-.06em' }}>Bojan</span>
-							<span style={{ font: "italic 400 clamp(90px, 15vw, 236px)/.9 'Instrument Serif', serif", letterSpacing: '-.025em', color: 'var(--accT)' }}>Jagetić</span>
+						<motion.h1 variants={itemVariants} style={{ margin: '22px 0 0', paddingBottom: '0.18em', display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', columnGap: '0.16em', fontSize: 'clamp(72px, 12vw, 200px)', lineHeight: 1 }}>
+							<span style={{ font: "800 1em/1 'Bricolage Grotesque', sans-serif", letterSpacing: '-.06em' }}>Bojan</span>
+							<span style={{ font: "italic 400 1.07em/1 'Instrument Serif', serif", letterSpacing: '-.025em', color: 'var(--accT)' }}>Jagetić</span>
 						</motion.h1>
 
 						<div className='grid lg:grid-cols-[minmax(0,1fr)_minmax(280px,460px)] gap-10 items-end'>
@@ -152,9 +144,11 @@ const Landing = () => {
 									target="_blank"
 									rel="noopener noreferrer"
 									data-umami-event={`landing-lnk-${social.id}-button`}
+									aria-label={social.label}
 									className='jag-social-pill'
 								>
-									<span style={{ font: "500 12px 'JetBrains Mono', monospace" }}>{social.label}</span>
+									<social.Icon className='w-3.5 h-3.5' aria-hidden="true" />
+									<span style={{ font: "500 12px 'JetBrains Mono', monospace" }}>{social.name}</span>
 								</a>
 							))}
 							<button
@@ -179,7 +173,8 @@ const Landing = () => {
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ delay: 1.5, duration: 0.5 }}
-					className='absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block'
+					className='hidden md:flex justify-center'
+					style={{ marginTop: 36 }}
 				>
 					<div className='w-6 h-10 rounded-full border-2 border-[#9698a6]/30 flex justify-center pt-2'>
 						<motion.div 
