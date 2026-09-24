@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { flushSync } from 'react-dom'
+import Cursor from './Cursor'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Cursor from './Cursor'
 
 const NAV = [
 	{ href: '/', label: 'Home' },
@@ -117,6 +119,8 @@ export default function Shell ({ children }) {
 
 	return (
 		<div data-bjw="1" data-theme={theme}>
+			<Cursor />
+			<Cursor />
 			<div style={{ position: 'fixed', top: 0, left: 0, height: 2, width: `${progress * 100}%`, background: 'var(--acc)', boxShadow: '0 0 12px var(--acc)', zIndex: 100 }} />
 			<nav style={{ position: 'fixed', top: 16, left: '50%', transform: 'translateX(-50%)', zIndex: 90, width: 'min(1180px, calc(100% - 32px))', height: 60, borderRadius: 30, display: 'flex', alignItems: 'center', gap: 8, padding: '0 10px 0 12px', boxSizing: 'border-box', background: 'var(--glass)', backdropFilter: 'blur(24px) saturate(1.7)', border: '1px solid var(--line)' }}>
 				<Link href="/" style={{ width: 40, height: 40, borderRadius: 14, background: 'var(--inv)', color: 'var(--invInk)', display: 'flex', alignItems: 'center', justifyContent: 'center', font: "800 16px 'Bricolage Grotesque',sans-serif", letterSpacing: '-.05em', flex: 'none' }}>bj<span style={{ color: 'oklch(0.55 0.1 240)' }}>.</span></Link>
