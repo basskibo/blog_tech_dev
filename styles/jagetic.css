@@ -47,6 +47,22 @@
 	0%, 100% { transform: translateY(0); }
 	50% { transform: translateY(8px); }
 }
+@keyframes bjEq {
+	0%, 100% { transform: scaleY(0.25); }
+	50% { transform: scaleY(1); }
+}
+@keyframes bjFloatA {
+	0%, 100% { transform: translate(0, 0) scale(1); }
+	50% { transform: translate(120px, 80px) scale(1.2); }
+}
+@keyframes bjFloatB {
+	0%, 100% { transform: translate(0, 0) scale(1.1); }
+	50% { transform: translate(-140px, 90px) scale(0.9); }
+}
+@keyframes bjMarq {
+	from { transform: translateX(0); }
+	to { transform: translateX(-50%); }
+}
 
 .bj-in { animation: bjIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 .bj-fade { animation: bjFade 0.5s both; }
