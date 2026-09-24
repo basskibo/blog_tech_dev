@@ -158,10 +158,10 @@ export const getStaticProps = async ({ params: { slug } }) => {
 	}
 }
 export const getStaticPaths = async () => {
-	const files = fs.readdirSync(path.join('posts/blog'))
+	const files = fs.readdirSync(path.join('posts/blog')).filter((filename) => filename.endsWith('.mdx'))
 	const paths = files.map((filename) => ({
 		params: {
-			slug: filename.replace('.mdx', '')
+			slug: filename.replace(/\.mdx$/, '')
 		}
 	}))
 

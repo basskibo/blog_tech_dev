@@ -12,6 +12,7 @@
     "start_build": "next build && next start",
     "start": "next start",
     "lint": "next lint",
+    "validate:posts": "node scripts/validate-posts.js",
     "build_out": "next build && next export",
     "test": "$(npm bin)/cypress open",
     "prepare": "husky install",
