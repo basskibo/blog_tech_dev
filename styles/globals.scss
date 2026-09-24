@@ -322,6 +322,26 @@ a {
 	animation: pulse 1.5s infinite;
 }
 
+/* Wave animation for hand emoji */
+@keyframes wave {
+	0% { transform: rotate(0deg); }
+	10% { transform: rotate(14deg); }
+	20% { transform: rotate(-8deg); }
+	30% { transform: rotate(14deg); }
+	40% { transform: rotate(-4deg); }
+	50% { transform: rotate(10deg); }
+	60% { transform: rotate(0deg); }
+	100% { transform: rotate(0deg); }
+}
+
+.animate-wave {
+	animation: wave 2.5s ease-in-out infinite;
+}
+
+.group:hover .group-hover\:animate-wave {
+	animation: wave 1s ease-in-out;
+}
+
 .bg-gold {
 	border:1px solid #ffd700;
 }
