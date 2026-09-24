@@ -4,7 +4,7 @@ import { IoLogoReact } from "react-icons/io5";
 import { SiMongodb } from "react-icons/si";
 import { reactjs_1_questionList } from "./questions/reactjs_1";
 import { mongodb_1_questionList } from "./questions/mongodb_1";
-import { HiSparkles } from "react-icons/hi2";
+import { HiSparkles } from "react-icons/hi";
 import { ai_1_questionList } from "./questions/ai_1";
 
 export const nodeQuestions = [
