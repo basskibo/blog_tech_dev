@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { SiHashnode, SiDevdotto, SiMedium, SiLinkedin, SiGithub, SiX } from 'react-icons/si'
+import { SiHashnode, SiDevdotto, SiMedium, SiLinkedin, SiGithub } from 'react-icons/si'
 import { IoArrowForward, IoCloudDownloadOutline, IoMailOutline } from "react-icons/io5"
 import { motion } from 'framer-motion'
 import HeroSpotify from './jagetic/HeroSpotify'
@@ -10,6 +10,14 @@ import FeaturedCarousel from './jagetic/FeaturedCarousel'
 const FeaturedPosts = dynamic(() => import('./').then(mod => mod.FeaturedPosts), {
 	ssr: true
 })
+
+function XIcon ({ className }) {
+	return (
+		<svg className={className} viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+			<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.727-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+		</svg>
+	)
+}
 
 const Landing = () => {
 	const [mousePosition, setMousePosition] = useState({ x: 50, y: 40 })
@@ -50,7 +58,7 @@ const Landing = () => {
 	const socialLinks = [
 		{ id: 'linkedin', href: 'https://linkedin.com/in/bojan-jagetic', name: 'Bojan Jagetic', label: 'LinkedIn · Bojan Jagetic', Icon: SiLinkedin },
 		{ id: 'github', href: 'https://github.com/basskibo', name: 'basskibo', label: 'GitHub · basskibo', Icon: SiGithub },
-		{ id: 'twitter', href: 'https://twitter.com/basskibo1', name: 'basskibo1', label: 'Twitter · basskibo1', Icon: SiX }
+		{ id: 'twitter', href: 'https://twitter.com/basskibo1', name: 'basskibo1', label: 'Twitter · basskibo1', Icon: XIcon }
 	]
 	const marquee = ['Node.js', 'React', 'TypeScript', 'Docker', 'webOS', 'Tizen', 'NGINX', 'MongoDB', 'Redis', 'AWS', 'React Native']
 
