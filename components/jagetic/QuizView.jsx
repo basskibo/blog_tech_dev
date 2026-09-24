@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, cloneElement } from 'react'
 import Link from 'next/link'
 import { nodeQuestions, reactQuestions, mongodbQuestions, aiQuestions } from 'src/quizQuestions'
 
 const DECKS = [...nodeQuestions, ...reactQuestions, ...mongodbQuestions, ...aiQuestions]
 
-const GRADIENTS = {
-	Nodejs: 'linear-gradient(145deg, #6ee7a8, #14783c)',
-	React: 'linear-gradient(145deg, #9be7ff, #087ea4)',
-	MongoDB: 'linear-gradient(145deg, #6dffb0, #00684a)',
-	AI: 'linear-gradient(145deg, #ddd6fe, #38bdf8)'
+const WASH = {
+	Nodejs: '#3ddc84',
+	React: '#61dafb',
+	MongoDB: '#00ed64',
+	AI: '#a78bfa'
 }
 
 function DeckCard ({ item, onStart }) {
@@ -47,14 +47,14 @@ function DeckCard ({ item, onStart }) {
 			}}
 		>
 			<span style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: tilt ? `radial-gradient(320px circle at ${(tilt.x + 0.5) * 100}% ${(tilt.y + 0.5) * 100}%, rgba(255,255,255,.18), transparent 60%)` : 'transparent' }} />
+			<span aria-hidden="true" style={{ position: 'absolute', right: -36, bottom: -42, width: 210, height: 210, pointerEvents: 'none', background: `radial-gradient(circle at 62% 62%, ${WASH[item.name] || WASH.AI}66, transparent 68%)`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: WASH[item.name] || WASH.AI }}>
+				{cloneElement(item.icon, { size: '8.5rem' })}
+			</span>
 			<span style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative' }}>
 				<span className="bj-mono" style={{ fontSize: 11, fontWeight: 600, padding: '7px 11px', borderRadius: 99, background: 'var(--acc)', color: '#0b0c10' }}>{item.level}</span>
 				<span className="bj-mono" style={{ fontSize: 12, color: 'var(--mut)' }}>{item.questions.length} QUESTIONS</span>
 			</span>
-			<span style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 16 }}>
-				<span style={{ width: 58, height: 58, flex: 'none', borderRadius: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', background: GRADIENTS[item.name] || GRADIENTS.AI, color: '#0b1220' }}>{item.icon}</span>
-				<span style={{ font: "800 42px/1 'Bricolage Grotesque',sans-serif", letterSpacing: '-.05em' }}>{item.name}</span>
-			</span>
+			<span style={{ position: 'relative', font: "800 42px/1 'Bricolage Grotesque',sans-serif", letterSpacing: '-.05em', maxWidth: '70%' }}>{item.name}</span>
 			<span style={{ display: 'flex', gap: 5, position: 'relative' }}>
 				{Array.from({ length: 5 }).map((_, i) => (
 					<span key={i} style={{ width: 34, height: 7, borderRadius: 4, background: i < item.difficulty ? 'var(--acc)' : 'var(--line)' }} />

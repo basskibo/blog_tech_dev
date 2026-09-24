@@ -1,13 +1,19 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 export default function Cursor () {
 	const ringRef = useRef(null)
 	const dotRef = useRef(null)
+	const [mounted, setMounted] = useState(false)
 
 	useEffect(() => {
+		setMounted(true)
+	}, [])
+
+	useEffect(() => {
+		if (!mounted) return undefined
 		const fine = window.matchMedia('(pointer: fine)').matches
-		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-		if (!fine || reduce) return undefined
+		if (!fine) return undefined
 
 		const ring = ringRef.current
 		const dot = dotRef.current
@@ -50,12 +56,15 @@ export default function Cursor () {
 			document.removeEventListener('mouseover', over)
 			document.documentElement.classList.remove('bj-cursor')
 		}
-	}, [])
+	}, [mounted])
 
-	return (
+	if (!mounted) return null
+
+	return createPortal(
 		<>
 			<div ref={ringRef} className="bj-cursor-ring" />
 			<div ref={dotRef} className="bj-cursor-dot" />
-		</>
+		</>,
+		document.body
 	)
 }

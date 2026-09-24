@@ -67,9 +67,11 @@ html.bj-cursor * {
 	background: #fff;
 }
 
-@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+@media (pointer: coarse) {
 	.bj-cursor-ring,
 	.bj-cursor-dot { display: none; }
+	html.bj-cursor,
+	html.bj-cursor * { cursor: auto !important; }
 }
 
 [data-bjw] a { color: inherit; text-decoration: none; }
@@ -177,45 +179,3 @@ html.bj-cursor * {
 }
 .bj-nav-link.is-on { color: var(--ink); background: var(--card); font-weight: 700; }
 .bj-nav-link:hover { color: var(--ink); }
-
-.bj-cursor-ring,
-.bj-cursor-dot {
-	position: fixed;
-	top: 0;
-	left: 0;
-	border-radius: 50%;
-	pointer-events: none;
-	z-index: 99999;
-	mix-blend-mode: difference;
-	opacity: 0;
-}
-
-.bj-cursor-ring {
-	width: 40px;
-	height: 40px;
-	border: 1px solid rgba(255, 255, 255, 0.4);
-	transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), height 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s, background 0.35s, opacity 0.2s;
-}
-
-.bj-cursor-ring.is-hot {
-	width: 64px;
-	height: 64px;
-	background: rgba(255, 255, 255, 0.06);
-	border-color: rgba(255, 255, 255, 0.6);
-}
-
-.bj-cursor-dot {
-	width: 6px;
-	height: 6px;
-	background: #fff;
-}
-
-html.bj-cursor,
-html.bj-cursor * {
-	cursor: none !important;
-}
-
-@media (pointer: coarse) {
-	.bj-cursor-ring,
-	.bj-cursor-dot { display: none; }
-}
