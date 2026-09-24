@@ -125,7 +125,7 @@ export default function Shell ({ children }) {
 
 			<main style={{ flex: 1 }}>{children}</main>
 
-			<footer style={{ width: '100%', maxWidth: 1180, margin: '0 auto', padding: '130px 32px 40px', boxSizing: 'border-box', overflow: 'hidden' }}>
+			{router.pathname !== '/' && <footer style={{ width: '100%', maxWidth: 1180, margin: '0 auto', padding: '130px 32px 40px', boxSizing: 'border-box', overflow: 'hidden' }}>
 				<div style={{ font: "800 clamp(80px, 17vw, 250px)/.8 'Bricolage Grotesque',sans-serif", letterSpacing: '-.07em', color: 'transparent', WebkitTextStroke: '1px var(--line)', whiteSpace: 'nowrap' }}>
 					jagetić<span style={{ WebkitTextStroke: 0, color: 'var(--acc)' }}>.</span>
 				</div>
@@ -139,7 +139,7 @@ export default function Shell ({ children }) {
 						<a href="https://github.com/basskibo" target="_blank" rel="noreferrer">GitHub</a>
 					</span>
 				</div>
-			</footer>
+			</footer>}
 
 			{palette && (
 				<div onClick={() => setPalette(false)} style={{ position: 'fixed', inset: 0, zIndex: 120, background: 'rgba(6,6,9,.45)', backdropFilter: 'blur(14px)', animation: 'bjFade .25s both', display: 'flex', justifyContent: 'center', padding: '14vh 16px 0' }}>
