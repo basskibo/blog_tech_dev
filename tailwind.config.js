@@ -109,10 +109,81 @@ module.exports = {
 						transform: 'rotate(-0.5deg)',
 					},
 				},
+				aurora: {
+					'0%': { backgroundPosition: '50% 50%, 50% 50%' },
+					'100%': { backgroundPosition: '350% 50%, 350% 50%' },
+				},
+				'gradient-x': {
+					'0%, 100%': { backgroundPosition: '0% 50%' },
+					'50%': { backgroundPosition: '100% 50%' },
+				},
+				'gradient-y': {
+					'0%, 100%': { backgroundPosition: '50% 0%' },
+					'50%': { backgroundPosition: '50% 100%' },
+				},
+				'gradient-xy': {
+					'0%, 100%': { backgroundPosition: '0% 0%' },
+					'50%': { backgroundPosition: '100% 100%' },
+				},
+				shimmer: {
+					'0%': { backgroundPosition: '-200% 0' },
+					'100%': { backgroundPosition: '200% 0' },
+				},
+				float: {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-20px)' },
+				},
+				'float-slow': {
+					'0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+					'50%': { transform: 'translateY(-30px) rotate(5deg)' },
+				},
+				'spin-slow': {
+					'0%': { transform: 'rotate(0deg)' },
+					'100%': { transform: 'rotate(360deg)' },
+				},
+				'pulse-glow': {
+					'0%, 100%': { opacity: '1', transform: 'scale(1)' },
+					'50%': { opacity: '0.8', transform: 'scale(1.05)' },
+				},
+				'blob': {
+					'0%': { transform: 'translate(0px, 0px) scale(1)' },
+					'33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+					'66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+					'100%': { transform: 'translate(0px, 0px) scale(1)' },
+				},
+				'text-reveal': {
+					'0%': { opacity: '0', transform: 'translateY(100%)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' },
+				},
+				'slide-up': {
+					'0%': { opacity: '0', transform: 'translateY(40px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' },
+				},
+				'scale-in': {
+					'0%': { opacity: '0', transform: 'scale(0.9)' },
+					'100%': { opacity: '1', transform: 'scale(1)' },
+				},
+				'border-spin': {
+					'100%': { transform: 'rotate(-360deg)' },
+				},
 			},
 			animation: {
 				flicker: 'flicker 3s linear infinite',
 				tilt: 'tilt 10s infinite linear',
+				aurora: 'aurora 60s linear infinite',
+				'gradient-x': 'gradient-x 15s ease infinite',
+				'gradient-y': 'gradient-y 15s ease infinite',
+				'gradient-xy': 'gradient-xy 15s ease infinite',
+				shimmer: 'shimmer 2s linear infinite',
+				float: 'float 6s ease-in-out infinite',
+				'float-slow': 'float-slow 8s ease-in-out infinite',
+				'spin-slow': 'spin-slow 20s linear infinite',
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+				blob: 'blob 7s infinite',
+				'text-reveal': 'text-reveal 0.8s ease forwards',
+				'slide-up': 'slide-up 0.6s ease forwards',
+				'scale-in': 'scale-in 0.5s ease forwards',
+				'border-spin': 'border-spin 7s linear infinite',
 			},
 		}
 	},
