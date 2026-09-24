@@ -1,23 +1,39 @@
 import React from 'react'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
+import { cn } from '@/lib/utils'
 
 const AnchorLinkComponent = () => {
 	return (
 		<AnchorLink
-			data-umami-event="btn-anchor-linkg"
-			id='btn-anchor-linkg'
+			data-umami-event="btn-anchor-link"
+			id='btn-anchor-link'
 			href='#featuredPostsSection'
-			aria-label='Scroll down'
-			className='hidden md:inline-block text-white rounded-md transition-colors cursor-pointer hover:text-primary-300 focus-visible:text-primary-300 animate-bounce'>
+			aria-label='Scroll to featured posts section'
+			className={cn(
+				'group inline-flex flex-col items-center gap-2',
+				'text-muted-foreground hover:text-primary',
+				'transition-colors duration-200 cursor-pointer',
+				'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+				'rounded-lg p-2'
+			)}
+		>
+			<span className='text-xs font-medium uppercase tracking-wider opacity-60 group-hover:opacity-100 transition-opacity'>
+				Scroll
+			</span>
 			<svg
-				className='w-6 h-6'
-				fill='currentColor'
-				viewBox='0 0 20 20'
-				xmlns='http://www.w3.org/2000/svg'>
+				className='w-5 h-5 animate-bounce'
+				fill='none'
+				stroke='currentColor'
+				strokeWidth='2'
+				viewBox='0 0 24 24'
+				xmlns='http://www.w3.org/2000/svg'
+				aria-hidden="true"
+			>
 				<path
-					fillRule='evenodd'
-					d='M15.707 4.293a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 011.414-1.414L10 8.586l4.293-4.293a1 1 0 011.414 0zm0 6a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-5-5a1 1 0 111.414-1.414L10 14.586l4.293-4.293a1 1 0 011.414 0z'
-					clipRule='evenodd'></path>
+					strokeLinecap='round'
+					strokeLinejoin='round'
+					d='M19 14l-7 7m0 0l-7-7m7 7V3'
+				/>
 			</svg>
 		</AnchorLink>
 	)
