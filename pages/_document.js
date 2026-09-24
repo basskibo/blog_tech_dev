@@ -26,6 +26,11 @@ class MyDocument extends Document {
 						rel="stylesheet" 
 						href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" 
 					/>
+					{/* Jagetić Design Fonts - Bricolage Grotesque, Instrument Serif, JetBrains Mono */}
+					<link 
+						rel="stylesheet" 
+						href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" 
+					/>
 				</Head>
 				<body>
 					<div id={'globalLoader'} >
