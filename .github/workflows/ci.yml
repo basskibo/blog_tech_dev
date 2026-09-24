@@ -31,6 +31,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Validate posts
+        run: pnpm validate:posts
+
+      - name: Validate Prisma schema
+        run: pnpm exec prisma validate
+
       - name: Lint
         run: pnpm lint
 

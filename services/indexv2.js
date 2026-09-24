@@ -3,7 +3,7 @@ import path from 'path'
 import matter from 'gray-matter'
 
 export function getPostFiles () {
-	return fs.readdirSync(path.join('posts/blog'))
+	return fs.readdirSync(path.join('posts/blog')).filter((filename) => filename.endsWith('.mdx'))
 }
 
 export function getLibaryFiles () {
