@@ -125,18 +125,18 @@ const FeaturedPosts = () => {
 
 const BlogCard = ({ post, index, delay }) => {
 	const cardRef = useRef(null)
-	const [tilt, setTilt] = useState({ x: 0, y: 0 })
+	const [tilt, setTilt] = useState(null)
 
 	const handleMouseMove = (e) => {
 		if (!cardRef.current) return
 		const rect = cardRef.current.getBoundingClientRect()
 		const x = (e.clientX - rect.left) / rect.width - 0.5
 		const y = (e.clientY - rect.top) / rect.height - 0.5
-		setTilt({ x: y * 10, y: -x * 10 })
+		setTilt({ x, y })
 	}
 
 	const handleMouseLeave = () => {
-		setTilt({ x: 0, y: 0 })
+		setTilt(null)
 	}
 
 	const tags = ['Development', 'JavaScript', 'React', 'Node.js']
@@ -153,12 +153,13 @@ const BlogCard = ({ post, index, delay }) => {
 			transition={{ delay, duration: 0.5 }}
 			onMouseMove={handleMouseMove}
 			onMouseLeave={handleMouseLeave}
-			className='jag-blog-card block p-6 group'
+			className='jag-blog-card block p-6 group relative overflow-hidden'
 			style={{
-				transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-				transition: 'transform 0.15s ease-out, box-shadow 0.3s ease'
+				transform: tilt ? `perspective(1200px) rotateX(${-tilt.y * 12}deg) rotateY(${tilt.x * 12}deg)` : 'none',
+				transition: 'transform 0.35s cubic-bezier(.2,.8,.2,1)'
 			}}
 		>
+			<div className='absolute inset-0 pointer-events-none' style={{ background: tilt ? `radial-gradient(360px circle at ${(tilt.x + 0.5) * 100}% ${(tilt.y + 0.5) * 100}%, rgba(255,255,255,.18), transparent 60%)` : 'transparent' }} />
 			{/* Large Faded Number */}
 			<span className='jag-card-number'>0{index}</span>
 			
@@ -192,18 +193,18 @@ const BlogCard = ({ post, index, delay }) => {
 
 const DevToCard = ({ post, rank, delay }) => {
 	const cardRef = useRef(null)
-	const [tilt, setTilt] = useState({ x: 0, y: 0 })
+	const [tilt, setTilt] = useState(null)
 
 	const handleMouseMove = (e) => {
 		if (!cardRef.current) return
 		const rect = cardRef.current.getBoundingClientRect()
 		const x = (e.clientX - rect.left) / rect.width - 0.5
 		const y = (e.clientY - rect.top) / rect.height - 0.5
-		setTilt({ x: y * 8, y: -x * 8 })
+		setTilt({ x, y })
 	}
 
 	const handleMouseLeave = () => {
-		setTilt({ x: 0, y: 0 })
+		setTilt(null)
 	}
 
 	const rankColors = {
@@ -231,10 +232,12 @@ const DevToCard = ({ post, rank, delay }) => {
 				rankColors[rank] || rankColors[3]
 			)}
 			style={{
-				transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-				transition: 'transform 0.15s ease-out, box-shadow 0.3s ease'
+				transform: tilt ? `perspective(1200px) rotateX(${-tilt.y * 12}deg) rotateY(${tilt.x * 12}deg)` : 'none',
+				transition: 'transform 0.35s cubic-bezier(.2,.8,.2,1)',
+				position: 'relative'
 			}}
 		>
+			<div className='absolute inset-0 pointer-events-none z-10' style={{ background: tilt ? `radial-gradient(360px circle at ${(tilt.x + 0.5) * 100}% ${(tilt.y + 0.5) * 100}%, rgba(255,255,255,.18), transparent 60%)` : 'transparent' }} />
 			{/* Image */}
 			<div className="relative h-48 overflow-hidden">
 				{post.img ? (

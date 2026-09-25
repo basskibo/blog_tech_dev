@@ -1,20 +1,8 @@
 import React from 'react'
-import PostListScreen from './shared/PostListScreen'
-import { blogScreenBio } from './config/bios'
+import BlogView from './jagetic/BlogView'
 
 const BlogScreen = ({ posts }) => {
-	return (
-		<PostListScreen
-			posts={posts}
-			type="blog"
-			titlePrefix="The "
-			title="Blog"
-			subtitle=""
-			description={blogScreenBio}
-			showSort={true}
-			sortOptions={['newest', 'oldest', 'title-asc', 'title-desc']}
-		/>
-	)
+	return <BlogView posts={posts} />
 }
 
 export default BlogScreen

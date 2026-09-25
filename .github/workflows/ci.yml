@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint and build
+    runs-on: ubuntu-latest
+    env:
+      # prisma generate reads this during postbuild; it does not connect
+      DATABASE_URL: postgresql://ci:ci@localhost:26257/blog?sslmode=disable
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate posts
+        run: pnpm validate:posts
+
+      - name: Validate Prisma schema
+        run: pnpm exec prisma validate
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build
+        run: pnpm build
