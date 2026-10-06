@@ -10,6 +10,59 @@ import dayjs from 'dayjs'
 
 const projects = [
     {
+        name: 'Gameroom – browser games',
+        slug: 'gameroom',
+        description:
+            'A collection of browser games you can play right away: 3D tycoons, a world-conquest map, and surprise-toy collecting. No install.',
+        tech: ['HTML', 'JavaScript', 'Three.js', 'Vercel'],
+        role: 'Personal project – idea, design, and games',
+        liveUrl: 'https://gameroom-plum.vercel.app/',
+        repoUrl: 'https://github.com/basskibo/Gameroom',
+        status: 'Live',
+        year: '2026',
+        bgImage: 'https://gameroom-plum.vercel.app/games/osvoji-svet/hero.jpg'
+    },
+    {
+        name: 'GitHub Top Languages',
+        slug: 'github-top-languages',
+        description:
+            'SVG cards for a GitHub README: top languages and profile stats, with themes, generated on the fly.',
+        tech: ['TypeScript', 'Node.js', 'Vercel'],
+        role: 'Personal project – idea and backend',
+        liveUrl: 'https://github-top-languages-sepia.vercel.app/api/lang.html?username=basskibo',
+        repoUrl: 'https://github.com/basskibo/github-top-languages',
+        status: 'Live',
+        year: '2026',
+        bgImage: 'https://github-top-languages-sepia.vercel.app/api/lang?username=basskibo'
+    },
+    {
+        name: 'Map Tracker – destinations and routes',
+        slug: 'map-tracker',
+        description:
+            'A Leaflet map of pinned places, with a routing view, locate control, and street or satellite layers.',
+        tech: ['Next.js', 'React', 'TypeScript', 'Leaflet', 'Vercel'],
+        role: 'Personal project – idea, design, frontend & backend',
+        liveUrl: 'https://leaflet-destination-map.vercel.app/',
+        repoUrl: 'https://github.com/basskibo/leaflet-destination-map',
+        status: 'Live',
+        year: '2026',
+        bgImage: 'https://github.com/user-attachments/assets/bc77983f-bfd2-44cd-82ad-8e92adc33faf'
+    },
+    {
+        name: 'Spotify Now Playing Card',
+        slug: 'spotify-now-playing-card',
+        description:
+            'A React component that shows the track currently playing on Spotify. Published on npm and used in the footer of this site.',
+        tech: ['React', 'TypeScript', 'SWR', 'npm'],
+        role: 'Personal project – component and npm package',
+        liveUrl: 'https://www.npmjs.com/package/spotify-now-playing-card',
+        liveLabel: 'View on npm',
+        repoUrl: null,
+        status: 'Live',
+        year: '2023',
+        bgImage: 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1685725010/igutech/post_data/Screenshot_from_2023-06-02_23-56-13_agrotn.png'
+    },
+    {
         name: 'Game Deal Hub – Your game deals hub',
         slug: 'game-deal-hub',
         description:
@@ -65,6 +118,8 @@ const projects = [
     }
 ]
 
+const featured = projects.find((project) => project.slug === 'voyage-vault')
+
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -116,12 +171,12 @@ const Projects = () => {
                             label='Current focus'
                             title='Voyage Vault – interactive travel scratch map'
                             description={`A modern travel companion that lets you track visited countries on an interactive world map and share your progress with friends.`}
-                            primaryHref={projects[1].liveUrl}
+                            primaryHref={featured.liveUrl}
                             primaryText='Open live preview'
-                            secondaryHref={projects[1].repoUrl}
+                            secondaryHref={featured.repoUrl}
                             secondaryText='View source code'
                             showPreview
-                            previewImage={projects[1].bgImage}
+                            previewImage={featured.bgImage}
                             previewAlt='Voyage Vault preview'
                             className='mt-2'
                         />
@@ -204,7 +259,7 @@ const Projects = () => {
                                                         className='flex items-center gap-2'
                                                     >
                                                         <ExternalLink className='h-4 w-4' />
-                                                        <span>View live project</span>
+                                                        <span>{project.liveLabel || 'View live project'}</span>
                                                     </a>
                                                 </Button>
                                                 {project.repoUrl && (
