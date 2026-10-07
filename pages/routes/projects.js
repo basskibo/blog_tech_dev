@@ -10,6 +10,19 @@ import dayjs from 'dayjs'
 
 const projects = [
     {
+        name: 'Singularity – shared agent notebook',
+        slug: 'ai-nexus',
+        description:
+            'A shared notebook for Cursor, Claude Desktop, and other agents. Each chat stays separate, and the notes are shared through an MCP server that runs on your machine.',
+        tech: ['Next.js', 'TypeScript', 'MCP', 'Node.js'],
+        role: 'Personal project – idea, dashboard, and MCP service',
+        liveUrl: null,
+        repoUrl: null,
+        status: 'In development',
+        year: '2026',
+        bgImage: 'https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg'
+    },
+    {
         name: 'Gameroom – browser games',
         slug: 'gameroom',
         description:
@@ -240,6 +253,7 @@ const Projects = () => {
                                                 {project.role}
                                             </p>
                                             <div className='mt-2 flex flex-wrap items-center gap-3'>
+                                                {project.liveUrl && (
                                                 <Button
                                                     asChild
                                                     variant='outline'
@@ -262,6 +276,7 @@ const Projects = () => {
                                                         <span>{project.liveLabel || 'View live project'}</span>
                                                     </a>
                                                 </Button>
+                                                )}
                                                 {project.repoUrl && (
                                                     <Button
                                                         asChild
