@@ -9,7 +9,7 @@ const NAV = [
 	{ href: '/routes/blog', label: 'Blog' },
 	{ href: '/routes/libaries', label: 'Libraries' },
 	{ href: '/routes/aboutme', label: 'About' },
-	{ href: '/quiz', label: 'Quiz' }
+	{ href: '/routes/projects', label: 'Projects' }
 ]
 
 export default function Shell ({ children }) {
@@ -75,7 +75,7 @@ export default function Shell ({ children }) {
 			{ href: '/routes/blog', label: 'Blog', sub: 'Page' },
 			{ href: '/routes/libaries', label: 'Libraries', sub: 'Page' },
 			{ href: '/routes/aboutme', label: 'About', sub: 'Page' },
-			{ href: '/quiz', label: 'Quiz', sub: 'Page' }
+			{ href: '/routes/projects', label: 'Projects', sub: 'Page' }
 		]
 		const query = q.trim().toLowerCase()
 		const pageHits = pages.filter((p) => !query || p.label.toLowerCase().includes(query))
@@ -150,7 +150,7 @@ export default function Shell ({ children }) {
 						<Link href="/routes/blog">Blog</Link>
 						<Link href="/routes/libaries">Libraries</Link>
 						<Link href="/routes/aboutme">About</Link>
-						<Link href="/quiz">Quiz</Link>
+						<Link href="/routes/projects">Projects</Link>
 						<a href="https://github.com/basskibo" target="_blank" rel="noreferrer">GitHub</a>
 					</span>
 				</div>
