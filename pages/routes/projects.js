@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from 'react'
 import Head from 'next/head'
-import projects, { KINDS, countByKind, filterProjects, getFeaturedProjects } from '../../lib/projects'
+import projects, { KINDS, countByKind, filterProjects, getFeaturedProjects, getSpotlightProjects } from '../../lib/projects'
 import ProjectIndex from '../../components/projects/ProjectIndex'
-import Launcher from '../../components/home/Launcher'
+import Bento from '../../components/home/Bento'
 
 const featured = getFeaturedProjects()
+const tools = getSpotlightProjects()
 const counts = countByKind(projects)
 const rankOf = (project) => projects.indexOf(project) + 1
 
@@ -19,14 +20,14 @@ export default function Projects () {
 				<meta name="description" content={`${projects.length} things Bojan Jagetić has built: AI products, web apps, tools, libraries and games.`} />
 			</Head>
 			<div className="wrap">
-				<header className="page-head">
-					<h1 className="t-display">Projects</h1>
+				<header className="page-head bj-in">
+					<h1 className="t-display">Things I <span className="t-serif t-grad">ship</span></h1>
 					<p className="t-lead">{projects.length} things I have built, most interesting first. The top three are where my evenings go right now.</p>
 				</header>
 
-				<div style={{ marginTop: 40 }}>
-					<Launcher projects={featured} />
-				</div>
+			</div>
+			<Bento featured={featured} tools={tools} heading={false} />
+			<div className="wrap">
 
 				<section aria-labelledby="all-title">
 					<div className="page-tools" style={{ marginTop: 96 }}>

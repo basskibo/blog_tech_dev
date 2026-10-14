@@ -21,12 +21,14 @@ export default function AboutView () {
 	const [open, setOpen] = useState(0)
 	return (
 		<div className="wrap">
-			<div className="about page-head">
+			<div className="about page-head bj-in">
 				<div className="about-side">
 					<div className="about-photo">
-						<Image src={cvImage} alt="Bojan Jagetić" fill sizes="180px" style={{ objectFit: 'cover' }} priority />
+						<span style={{ position: 'relative', display: 'block', width: '100%', height: '100%', overflow: 'hidden' }}>
+							<Image src={cvImage} alt="Bojan Jagetić" fill sizes="200px" style={{ objectFit: 'cover' }} priority />
+						</span>
 					</div>
-					<h1 className="t-display" style={{ fontSize: 'clamp(40px, 5vw, 72px)', marginTop: 32 }}>About</h1>
+					<h1 className="t-display" style={{ fontSize: 'clamp(48px, 6vw, 88px)', marginTop: 32 }}>About <span className="t-serif t-grad">me</span></h1>
 					<p className="t-lead">Full-stack engineer since 2015. I like products I can own from the database to the last pixel, and I keep a few of my own running at all times.</p>
 					<div style={{ marginTop: 24 }}>
 						<a className="btn btn-solid" href="/Bojan_Jagetić.pdf" download>
@@ -41,7 +43,7 @@ export default function AboutView () {
 					</div>
 				</div>
 				<section aria-labelledby="work-history">
-					<h2 id="work-history" className="t-h2" style={{ marginBottom: 24 }}>Work</h2>
+					<h2 id="work-history" className="t-h2" style={{ marginBottom: 28, fontSize: 'clamp(36px, 4vw, 56px)' }}>Where I <span className="t-serif" style={{ color: 'var(--accT)' }}>worked</span></h2>
 					<ol className="jobs">
 						{JOBS.map((job, i) => {
 							const isOpen = open === i

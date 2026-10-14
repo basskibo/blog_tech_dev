@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen, within, fireEvent, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import projects, { countByKind, getFeaturedProjects } from '@/lib/projects'
+import projects, { countByKind, getFeaturedProjects, getSpotlightProjects } from '@/lib/projects'
 
 vi.mock('next/link', async () => (await import('../../helpers/next-mocks')).linkMock)
 vi.mock('next/image', async () => (await import('../../helpers/next-mocks')).imageMock)
@@ -148,17 +148,31 @@ describe('ProjectIndex', () => {
 describe('Projects page', () => {
 	const rows = () => screen.getAllByRole('button').filter((b) => b.hasAttribute('aria-expanded'))
 
-	it('shows the three featured projects in the launcher', () => {
+	it('shows the three featured projects and the two tools in the bento, without its own heading', () => {
 		render(<ProjectsPage />)
-		expect(screen.getByRole('heading', { level: 1, name: 'Projects' })).toBeInTheDocument()
+		const h1 = screen.getByRole('heading', { level: 1, name: 'Things I ship' })
+		expect(h1.querySelector('span')).toHaveTextContent('ship')
 		expect(screen.getByText(new RegExp(`^${projects.length} things I have built`))).toBeInTheDocument()
-		const tablist = screen.getByRole('tablist', { name: 'Featured projects' })
+
+		const bento = screen.getByRole('region', { name: 'Featured projects' })
+		expect(within(bento).getByRole('heading', { level: 2 })).toHaveClass('sr-only')
 		const featured = getFeaturedProjects()
-		const tabs = within(tablist).getAllByRole('tab')
-		expect(tabs.map((t) => t.querySelector('.tile-name').textContent)).toEqual(featured.map((p) => p.name))
-		expect(within(screen.getByRole('tabpanel')).getByRole('heading', { level: 2 })).toHaveTextContent(featured[0].name)
-		// The page has its own count in the header, so the launcher shows no "All projects" tile.
-		expect(screen.queryByRole('link', { name: /all projects/i })).toBeNull()
+		const tools = getSpotlightProjects()
+		const cards = within(bento).getAllByRole('article')
+		expect(cards.map((a) => within(a).getByRole('heading', { level: 3 }).textContent))
+			.toEqual([...featured, ...tools].map((p) => p.name))
+		expect(cards.map((a) => a.classList.contains('is-big'))).toEqual([true, false, false, false, false])
+		expect(cards.slice(3).every((a) => a.classList.contains('bento-tool') && a.querySelector('.term'))).toBe(true)
+		expect(cards.slice(0, 3).some((a) => a.querySelector('.term'))).toBe(false)
+		// The page has its own count in the header, so the bento shows no "All projects" link.
+		expect(screen.queryByRole('link', { name: /all \d+ projects/i })).toBeNull()
+	})
+
+	it('puts "Everything" after the featured bento', () => {
+		render(<ProjectsPage />)
+		const bento = screen.getByRole('region', { name: 'Featured projects' })
+		const everything = screen.getByRole('heading', { level: 2, name: 'Everything' })
+		expect(bento.compareDocumentPosition(everything) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
 	})
 
 	it('lists every project, ranked, under "Everything"', () => {

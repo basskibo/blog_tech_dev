@@ -3,7 +3,7 @@ import { flushSync } from 'react-dom'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Menu, Moon, Search, Sun, X } from 'lucide-react'
-import projects, { getFeaturedProjects } from '../../lib/projects'
+import projects from '../../lib/projects'
 
 export const NAV = [
 	{ href: '/', label: 'Home' },
@@ -19,8 +19,6 @@ const ELSEWHERE = [
 	{ href: 'https://twitter.com/basskibo1', label: 'X' },
 	{ href: 'https://dev.to/basskibo', label: 'Dev.to' }
 ]
-
-const STRIP = getFeaturedProjects().map((p) => p.color)
 
 export function isActive (href, path) {
 	const clean = (path || '/').split(/[?#]/)[0]
@@ -90,7 +88,7 @@ export default function Shell ({ children }) {
 
 	// The page background behind overscroll and the mobile browser bar follow the theme.
 	useEffect(() => {
-		const bg = theme === 'dark' ? '#16133a' : '#f2f0f8'
+		const bg = theme === 'dark' ? '#07070b' : '#f6f5fb'
 		document.body.style.backgroundColor = bg
 		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', bg)
 	}, [theme])
@@ -148,12 +146,10 @@ export default function Shell ({ children }) {
 	return (
 		<div data-bjw="1" data-theme={theme}>
 			<div ref={progressRef} className="progress" data-testid="scroll-progress" />
+			<div className={`aurora${router.pathname === '/' ? '' : ' aurora-soft'}`} aria-hidden="true"><span className="a1" /><span className="a2" /><span className="a3" /></div>
 			<header className={`top${scrolled ? ' is-scrolled' : ''}`}>
-				<div className="wrap top-in">
-					<Link href="/" className="wordmark" aria-label="Bojan Jagetić, home">
-						<span className="wordmark-dot" aria-hidden="true" />
-						Bojan Jagetić
-					</Link>
+				<div className="top-in">
+					<Link href="/" className="logo">bj<span>.</span><span className="sr-only"> Bojan Jagetić, home</span></Link>
 					<nav className="menu" aria-label="Main">
 						{NAV.map((item) => (
 							<Link key={item.href} href={item.href} aria-current={isActive(item.href, router.asPath) ? 'page' : undefined}>{item.label}</Link>
@@ -163,11 +159,12 @@ export default function Shell ({ children }) {
 						<button type="button" className="search-btn" aria-label="Search" onClick={() => setPalette(true)}>
 							<Search aria-hidden="true" />
 							<span className="label">Search</span>
-							<kbd>Ctrl K</kbd>
+							<kbd>⌘K</kbd>
 						</button>
 						<button type="button" className="icon-btn" aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'} onClick={toggleTheme}>
 							{theme === 'dark' ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
 						</button>
+						<a className="talk" href="mailto:jagetic.bojan@gmail.com" data-umami-event="nav-lets-talk">Let&apos;s talk</a>
 						<button type="button" className="icon-btn menu-btn" aria-label={sheet ? 'Close menu' : 'Open menu'} aria-expanded={sheet} onClick={() => setSheet((open) => !open)}>
 							{sheet ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
 						</button>
@@ -177,11 +174,9 @@ export default function Shell ({ children }) {
 
 			{sheet && (
 				<nav className="sheet" aria-label="Main">
-					<div className="wrap">
-						{NAV.map((item) => (
-							<Link key={item.href} href={item.href} aria-current={isActive(item.href, router.asPath) ? 'page' : undefined}>{item.label}</Link>
-						))}
-					</div>
+					{NAV.map((item) => (
+						<Link key={item.href} href={item.href} aria-current={isActive(item.href, router.asPath) ? 'page' : undefined}>{item.label}</Link>
+					))}
 				</nav>
 			)}
 
@@ -189,30 +184,14 @@ export default function Shell ({ children }) {
 
 			<footer className="foot">
 				<div className="wrap">
-					<div className="strip" aria-hidden="true">
-						{STRIP.map((color) => <span key={color} style={{ background: color }} />)}
+					<div className="foot-word" aria-hidden="true">jagetić<span>.</span></div>
+					<div className="foot-row">
+						<span>© {new Date().getFullYear()} Bojan Jagetić. Write to <a href="mailto:jagetic.bojan@gmail.com" style={{ color: 'var(--ink)', textDecoration: 'underline', textUnderlineOffset: 3 }}>jagetic.bojan@gmail.com</a></span>
+						<span className="foot-links">
+							{NAV.slice(1).map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
+							{ELSEWHERE.map((item) => <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>)}
+						</span>
 					</div>
-					<div className="foot-grid">
-						<div>
-							<p className="foot-word">Bojan Jagetić</p>
-							<p className="t-mut" style={{ margin: '12px 0 0', maxWidth: '30em' }}>
-								Full-stack engineer. Write to <a href="mailto:jagetic.bojan@gmail.com" style={{ color: 'var(--accT)', textDecoration: 'underline', textUnderlineOffset: 3 }}>jagetic.bojan@gmail.com</a>
-							</p>
-						</div>
-						<div>
-							<h2>On this site</h2>
-							<ul>
-								{NAV.map((item) => <li key={item.href}><Link href={item.href}>{item.label}</Link></li>)}
-							</ul>
-						</div>
-						<div>
-							<h2>Elsewhere</h2>
-							<ul>
-								{ELSEWHERE.map((item) => <li key={item.href}><a href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a></li>)}
-							</ul>
-						</div>
-					</div>
-					<p className="foot-note">© {new Date().getFullYear()} Bojan Jagetić</p>
 				</div>
 			</footer>
 

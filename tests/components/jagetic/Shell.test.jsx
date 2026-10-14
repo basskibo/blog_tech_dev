@@ -248,11 +248,61 @@ describe('Shell', () => {
 		fireEvent.click(screen.getByRole('button', { name: 'Switch to light theme' }))
 		expect(root).toHaveAttribute('data-theme', 'light')
 		expect(window.localStorage.getItem('bj-theme')).toBe('light')
-		expect(document.body.style.backgroundColor).toBe('rgb(242, 240, 248)')
+		expect(document.body.style.backgroundColor).toBe('rgb(246, 245, 251)')
 
 		fireEvent.click(screen.getByRole('button', { name: 'Switch to dark theme' }))
 		expect(root).toHaveAttribute('data-theme', 'dark')
 		expect(window.localStorage.getItem('bj-theme')).toBe('dark')
+		expect(document.body.style.backgroundColor).toBe('rgb(7, 7, 11)')
+	})
+
+	it('uses a view transition when supported and motion is allowed', () => {
+		const start = vi.fn((cb) => cb())
+		document.startViewTransition = start
+		try {
+			const { container } = renderShell()
+			fireEvent.click(screen.getByRole('button', { name: 'Switch to light theme' }))
+			expect(start).toHaveBeenCalledTimes(1)
+			expect(container.querySelector('[data-bjw]')).toHaveAttribute('data-theme', 'light')
+			expect(document.documentElement.style.getPropertyValue('--vx')).toMatch(/px$/)
+			expect(document.documentElement.style.getPropertyValue('--vy')).toMatch(/px$/)
+		} finally {
+			delete document.startViewTransition
+		}
+	})
+
+	it('renders the header: logo, search with shortcut, theme toggle and the talk link', () => {
+		const { container } = renderShell()
+		const logo = screen.getByRole('link', { name: /Bojan Jagetić, home/ })
+		expect(logo).toHaveAttribute('href', '/')
+		expect(logo).toHaveTextContent('bj.')
+		const search = screen.getByRole('button', { name: 'Search' })
+		expect(search.querySelector('kbd')).toHaveTextContent('⌘K')
+		expect(screen.getByRole('button', { name: 'Switch to light theme' })).toBeInTheDocument()
+		expect(screen.getByRole('link', { name: "Let's talk" })).toHaveAttribute('href', 'mailto:jagetic.bojan@gmail.com')
+		expect(container.querySelector('nav.menu')).toBe(mainNav())
+	})
+
+	it('shows the full aurora on home and a soft one elsewhere', () => {
+		const { container, unmount } = renderShell()
+		const aurora = container.querySelector('.aurora')
+		expect(aurora).toHaveAttribute('aria-hidden', 'true')
+		expect(aurora).not.toHaveClass('aurora-soft')
+		unmount()
+		route.asPath = '/routes/blog'
+		const second = renderShell()
+		expect(second.container.querySelector('.aurora')).toHaveClass('aurora-soft')
+	})
+
+	it('renders the footer word and the links row', () => {
+		renderShell()
+		const footer = screen.getByRole('contentinfo')
+		const word = footer.querySelector('.foot-word')
+		expect(word).toHaveAttribute('aria-hidden', 'true')
+		expect(word).toHaveTextContent('jagetić.')
+		const row = footer.querySelector('.foot-links')
+		expect(within(row).getAllByRole('link').map((a) => a.textContent)).toEqual(['Projects', 'Blog', 'Libraries', 'About', 'GitHub', 'LinkedIn', 'X', 'Dev.to'])
+		expect(footer).toHaveTextContent(`© ${new Date().getFullYear()} Bojan Jagetić`)
 	})
 
 	it('restores a saved theme and ignores invalid values', () => {

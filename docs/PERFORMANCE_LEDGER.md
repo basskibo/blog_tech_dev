@@ -19,11 +19,14 @@ Accessibility and Best Practices are the same on every page measured:
 
 | Page | Lighthouse perf before | Lighthouse perf after | LCP (Lighthouse) before → after | TBT before → after | CLS before → after |
 |---|---|---|---|---|---|
-| `/` | 32 | 85–93 | 14.1 s → 3.2–4.1 s | 3.7 s → 70–130 ms | 0.108 → 0 |
-| `/routes/projects` | 39 | 95–96 | 5.8 s → 2.6 s | 1.7 s → 100 ms | 0 → 0 |
-| `/routes/blog` | – | 79–86 | – → 3.5–4.2 s | – → 260–300 ms | – → 0 |
+| `/` | 32 | 81–84 | 14.1 s → 4.4–4.9 s | 3.7 s → 80–110 ms | 0.108 → 0 |
+| `/routes/projects` | 39 | 95 | 5.8 s → 2.7 s | 1.7 s → 90–100 ms | 0 → 0 |
+| `/routes/blog` | – | 95 | – → 2.6 s | – → 160 ms | – → 0 |
+| `/post/building-coinsel-ai-finance` | – | 88 | – → 3.0 s | – → 290 ms | – → 0 |
 | `/post/webos-project` | 39 | 74–77 | 24 s → 5.1 s | 3.1 s → 80–190 ms | 0 → 0 |
-| `/routes/aboutme` | – | 92 | – → 2.3 s | – → 280 ms | – → 0 |
+| `/routes/aboutme` | – | 94 | – → 3.0 s | – → 20 ms | – → 0 |
+
+Measured after the "aurora" redesign (Bricolage Grotesque + Instrument Serif, 3D project stack on the homepage); `/post/webos-project` is from the previous round. The home LCP is the front 3D screenshot.
 
 The "–" cells were not measured on `main`.
 
@@ -33,9 +36,9 @@ First-load JavaScript (from `next build`):
 
 | Route | `main` | Now |
 |---|---|---|
-| `/` | 176 kB | 116 kB |
-| `/routes/projects` | 161 kB | 109 kB |
-| `/routes/blog` | 103 kB | 104 kB |
+| `/` | 176 kB | 111 kB |
+| `/routes/projects` | 161 kB | 104 kB |
+| `/routes/blog` | 103 kB | 103 kB |
 | `/post/[slug]`, `/libary/[slug]` | 582 kB | 214 kB |
 
 ---
@@ -104,7 +107,7 @@ None of these are mentioned in the published posts.
 | # | What | Why it was slow or wrong | Change |
 |---|---|---|---|
 | F1 | `SplashScreen` wrapped the whole app | Server HTML was only a spinner until hydration. That hurt LCP and SEO. | Removed. |
-| F2 | Google Fonts `<link>`, then `next/font/google` | First render-blocking CSS from Google. Then the deploy broke, because the build downloaded fonts from Google. | Fonts are self-hosted in `public/fonts` and the two first-paint files are preloaded. Unbounded's extended-Latin file is cut to Central European letters (10 kB instead of 116 kB). |
+| F2 | Google Fonts `<link>`, then `next/font/google` | First render-blocking CSS from Google. Then the deploy broke, because the build downloaded fonts from Google. | Fonts are self-hosted in `public/fonts` and the two first-paint files are preloaded. Bricolage Grotesque and Instrument Serif italic, latin and latin-ext files only. |
 | F3 | Five analytics tools | Clarity cost ~400 ms of main-thread time and set third-party cookies. GA added a tag manager. | GA and Clarity removed. Umami kept. PostHog loads only with a key, after the page is idle, with replay off. |
 | F4 | Animated blur blobs and `setState` on mouse move in the hero | Constant GPU work and re-renders | Gone in the redesign. |
 | F5 | Entrance animations with `opacity: 0` and `filter: blur()` | Delayed LCP and caused full-screen blur rasterisation | Transform-only, or none. |
