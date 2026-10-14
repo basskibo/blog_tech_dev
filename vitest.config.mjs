@@ -9,8 +9,6 @@ export default defineConfig({
 	esbuild: { loader: 'jsx', include: /.*\.jsx?$/, exclude: [] },
 	resolve: {
 		alias: {
-			// The "fs" placeholder package in dependencies would shadow Node's fs.
-			fs: 'node:fs',
 			'@/components': path.join(root, 'components'),
 			'@/customs': path.join(root, 'components/custom'),
 			'@/lib': path.join(root, 'lib'),
