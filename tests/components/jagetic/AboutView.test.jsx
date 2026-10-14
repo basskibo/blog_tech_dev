@@ -8,9 +8,12 @@ const job = (name) => screen.getByRole('button', { name })
 describe('AboutView', () => {
 	it('renders the header, avatar and social links', () => {
 		render(<AboutView />)
-		expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('About')
-		expect(screen.getByRole('heading', { level: 2, name: 'Work' })).toBeInTheDocument()
-		expect(screen.getByAltText('Bojan Jagetić')).toBeInTheDocument()
+		const h1 = screen.getByRole('heading', { level: 1, name: 'About me' })
+		expect(h1.querySelector('span')).toHaveTextContent('me')
+		expect(screen.getByRole('heading', { level: 2, name: 'Where I worked' })).toBeInTheDocument()
+		const photo = screen.getByAltText('Bojan Jagetić')
+		expect(photo.parentElement.tagName).toBe('SPAN')
+		expect(photo.closest('.about-photo')).not.toBeNull()
 		for (const label of ['LinkedIn', 'GitHub', 'Dev.to', 'Medium']) {
 			const a = screen.getByRole('link', { name: label })
 			expect(a.getAttribute('href')).toMatch(/^https:\/\//)
@@ -28,7 +31,7 @@ describe('AboutView', () => {
 
 	it('lists every job as a button, with only the first expanded', () => {
 		render(<AboutView />)
-		const buttons = within(screen.getByRole('region', { name: 'Work' })).getAllByRole('button')
+		const buttons = within(screen.getByRole('region', { name: 'Where I worked' })).getAllByRole('button')
 		expect(buttons).toHaveLength(5)
 		expect(buttons.map((b) => b.getAttribute('aria-expanded'))).toEqual(['true', 'false', 'false', 'false', 'false'])
 		expect(buttons[0]).toHaveTextContent('October 2022 to Present')

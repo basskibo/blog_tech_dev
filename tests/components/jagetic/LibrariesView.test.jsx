@@ -10,7 +10,8 @@ const links = () => screen.queryAllByRole('link').filter((a) => a.getAttribute('
 describe('LibrariesView', () => {
 	it('renders the heading and a lead that mentions the count', () => {
 		render(<LibrariesView posts={[lib('a', '2020-01-01'), lib('b', '2023-01-01')]} />)
-		expect(screen.getByRole('heading', { level: 1, name: 'Libraries' })).toBeInTheDocument()
+		const h1 = screen.getByRole('heading', { level: 1, name: 'Open source' })
+		expect(h1.querySelector('span')).toHaveTextContent('source')
 		expect(screen.getByText(/2 write-ups/)).toBeInTheDocument()
 	})
 

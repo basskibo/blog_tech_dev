@@ -1,9 +1,7 @@
 import React, { useMemo, useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
 import { Search } from 'lucide-react'
-import { GuideRow, canOptimize } from '../home/LatestPosts'
-import { estimateRead, formatDate, sortByDate, tagName } from './format'
+import { PostCard } from '../home/LatestPosts'
+import { estimateRead, sortByDate } from './format'
 
 export default function BlogView ({ posts }) {
 	const items = useMemo(() => sortByDate(posts.map((p) => p.data || p.props?.data || p).filter((p) => p && !p.inPreparation)), [posts])
@@ -32,8 +30,8 @@ export default function BlogView ({ posts }) {
 
 	return (
 		<div className="wrap">
-			<header className="page-head">
-				<h1 className="t-display">Blog</h1>
+			<header className="page-head bj-in">
+				<h1 className="t-display">The <span className="t-serif t-grad">blog</span></h1>
 				<p className="t-lead">{items.length} posts on Node.js, React, tooling, and how my own projects are built.</p>
 			</header>
 			<div className="page-tools">
@@ -51,26 +49,10 @@ export default function BlogView ({ posts }) {
 				</label>
 			</div>
 			{featured && (
-				<Link href={`/post/${featured.slug}`} className="lead-post">
-					<span className="lead-post-img">
-						{featured.featuredImage && (canOptimize(featured.featuredImage)
-							? <Image src={featured.featuredImage} alt="" fill priority sizes="(max-width: 960px) 100vw, 640px" style={{ objectFit: 'cover' }} />
-							: <img src={featured.featuredImage} alt="" />)}
-					</span>
-					<span className="lead-post-body">
-						<span className="tag">{tagName(featured)}</span>
-						<span className="lead-post-title">{featured.title}</span>
-						{featured.excerpt && <span className="t-mut">{featured.excerpt}</span>}
-						<span className="t-mut t-small">
-							<time dateTime={featured.publishedAt}>{formatDate(featured.publishedAt)}</time>, {estimateRead(featured)}
-						</span>
-					</span>
-				</Link>
-			)}
-			{rest.length > 0 && (
-				<ol className="guide">
-					{rest.map((post) => <GuideRow key={post.slug} post={{ ...post, read: estimateRead(post) }} />)}
-				</ol>
+				<div className="post-grid">
+					<PostCard post={{ ...featured, read: estimateRead(featured) }} big />
+					{rest.map((post) => <PostCard key={post.slug} post={{ ...post, read: estimateRead(post) }} />)}
+				</div>
 			)}
 			{filtered.length === 0 && (
 				<div className="empty">

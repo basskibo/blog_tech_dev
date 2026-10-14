@@ -3,6 +3,7 @@ import BlogView from '@/components/jagetic/BlogView'
 
 vi.mock('next/router', async () => (await import('../../helpers/next-mocks')).routerMock)
 vi.mock('next/link', async () => (await import('../../helpers/next-mocks')).linkMock)
+vi.mock('next/image', async () => (await import('../../helpers/next-mocks')).imageMock)
 
 const post = (slug, publishedAt, tags = [], extra = {}) => ({
 	props: { data: { slug, title: `Title ${slug}`, excerpt: `Excerpt about ${slug}`, publishedAt, tags, ...extra } }
@@ -21,23 +22,32 @@ const POSTS = [
 const links = () => screen.queryAllByRole('link').map((a) => a.getAttribute('href'))
 const search = () => screen.getByRole('textbox', { name: 'Search posts' })
 const tab = (name) => within(screen.getByRole('group', { name: /filter posts by tag/i })).getByRole('button', { name: new RegExp(`^${name}`) })
-const leadPost = (container) => container.querySelector('a.lead-post')
+const leadPost = (container) => container.querySelector('.post-grid > a.post-card.is-big')
+const cards = (container) => [...container.querySelectorAll('.post-grid > a.post-card')]
 
 describe('BlogView', () => {
 	it('lists published posts newest first, lead = newest, drafts hidden', () => {
 		const { container } = render(<BlogView posts={POSTS} />)
 		expect(links()).toEqual(['/post/newest-docker', '/post/mid-js', '/post/old-js'])
 		expect(screen.queryByText('Title draft')).toBeNull()
-		expect(screen.getByRole('heading', { level: 1, name: 'Blog' })).toBeInTheDocument()
+		const h1 = screen.getByRole('heading', { level: 1, name: 'The blog' })
+		expect(h1.querySelector('span')).toHaveTextContent('blog')
 		expect(screen.getByText(/^3 posts on/)).toBeInTheDocument()
 
+		const all = cards(container)
+		expect(all.map((a) => a.getAttribute('href'))).toEqual(['/post/newest-docker', '/post/mid-js', '/post/old-js'])
+		expect(all.map((a) => a.classList.contains('is-big'))).toEqual([true, false, false])
+
 		const lead = leadPost(container)
-		expect(lead).toHaveAttribute('href', '/post/newest-docker')
+		expect(lead).toBe(all[0])
 		expect(within(lead).getByText('Title newest-docker')).toBeInTheDocument()
+		expect(within(lead).getByText('Excerpt about newest-docker')).toBeInTheDocument()
+		expect(within(lead).getByText('docker')).toHaveClass('post-card-tag')
 		expect(lead.querySelector('img')).toHaveAttribute('src', 'https://img/x.jpg')
 
-		const rows = within(container.querySelector('ol.guide')).getAllByRole('listitem')
-		expect(rows.map((r) => within(r).getByRole('link').getAttribute('href'))).toEqual(['/post/mid-js', '/post/old-js'])
+		// Only the big card shows its excerpt.
+		expect(within(all[1]).queryByText('Excerpt about mid-js')).toBeNull()
+		expect(within(all[1]).getByText('javascript')).toBeInTheDocument()
 	})
 
 	it('accepts the raw `data` shape and plain post objects too', () => {
@@ -79,7 +89,7 @@ describe('BlogView', () => {
 		const { container } = render(<BlogView posts={POSTS} />)
 		fireEvent.change(search(), { target: { value: 'newest' } })
 		expect(leadPost(container)).toHaveAttribute('href', '/post/newest-docker')
-		expect(container.querySelector('ol.guide')).toBeNull()
+		expect(cards(container)).toHaveLength(1)
 	})
 
 	it('combines tag and query filters, and "Show all posts" resets both', () => {
@@ -115,13 +125,15 @@ describe('BlogView', () => {
 		const time = container.querySelector('time')
 		expect(time).toHaveAttribute('dateTime', '2023-02-01')
 		expect(time).toHaveTextContent('Feb 1, 2023')
-		expect(time.parentElement).toHaveTextContent('Feb 1, 2023, 3 min')
+		expect(time.parentElement).toHaveClass('post-card-meta')
+		expect(within(time.parentElement).getByText('3 min')).toBeInTheDocument()
 	})
 
-	it('shows an estimated read time on list rows too', () => {
+	it('shows an estimated read time on every card', () => {
 		const { container } = render(<BlogView posts={POSTS} />)
-		const rows = container.querySelectorAll('ol.guide li')
-		for (const row of rows) expect(row).toHaveTextContent('3 min')
+		const all = cards(container)
+		expect(all).toHaveLength(3)
+		for (const card of all) expect(card.querySelector('.post-card-meta')).toHaveTextContent('3 min')
 	})
 
 	it('caps the tag list at 8 tags + All', () => {

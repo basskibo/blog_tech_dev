@@ -4,8 +4,8 @@ import React from 'react'
 const GuestBook = () => {
 	return (
 		<div className="wrap">
-			<header className="page-head">
-				<h1 className="t-display">Guestbook</h1>
+			<header className="page-head bj-in">
+				<h1 className="t-display">Guest <span className="t-serif t-grad">book</span></h1>
 				<p className="t-lead">Leave a message, a question or a suggestion. You sign in with GitHub to comment.</p>
 			</header>
 			<div className="guestbook">

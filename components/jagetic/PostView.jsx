@@ -23,7 +23,7 @@ export default function PostView ({ data, nextPost, backHref = '/routes/blog', b
 
 	return (
 		<div className="wrap">
-			<header className="post-head">
+			<header className="post-head bj-in">
 				<Link href={backHref} className="post-back"><ArrowLeft aria-hidden="true" /> {backLabel}</Link>
 				<h1 className="post-title">{data.title}</h1>
 				<div className="post-meta">

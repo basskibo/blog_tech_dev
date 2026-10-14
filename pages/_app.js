@@ -110,7 +110,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				<meta name="twitter:description" content={description} />
 				<meta name="twitter:image" content={ogUrl} />
 				{/* Performance and SEO meta tags */}
-				<meta name="theme-color" content="#16133a" />
+				<meta name="theme-color" content="#07070b" />
 				<meta name="format-detection" content="telephone=no" />
 				<link rel="canonical" href={`https://jageticbojan.com${router.asPath}`} />
 				<script

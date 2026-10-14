@@ -2,8 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import Hero from './home/Hero'
-import Launcher from './home/Launcher'
-import Spotlight from './home/Spotlight'
+import Marquee from './home/Marquee'
+import Bento from './home/Bento'
 import LatestPosts from './home/LatestPosts'
 import Contact from './home/Contact'
 import ProjectIndex from './projects/ProjectIndex'
@@ -18,15 +18,15 @@ const rankOf = (project) => allProjects.indexOf(project) + 1
 const Landing = ({ posts = [] }) => (
 	<div className="home">
 		<div className="wrap">
-			<Hero />
-			<Launcher projects={featured} total={allProjects.length} />
+			<Hero featured={featured} />
 		</div>
-		<Spotlight projects={spotlight} />
+		<Marquee />
+		<Bento featured={featured} tools={spotlight} total={allProjects.length} />
 		<section className="sec" aria-labelledby="more-title">
 			<div className="wrap">
 				<div className="sec-head">
-					<h2 id="more-title" className="t-h2">More projects</h2>
-					<p className="t-mut">Ranked by how much fun they were to build.</p>
+					<h2 id="more-title" className="t-h2">More <span className="t-serif" style={{ color: 'var(--pink)' }}>projects</span></h2>
+					<p className="t-mut" style={{ margin: 0 }}>Ranked by how much fun they were to build.</p>
 				</div>
 				<ProjectIndex projects={more} rankOf={rankOf} />
 				<Link href="/routes/projects" className="more-link" data-umami-event="landing-all-projects-list">All {allProjects.length} projects <ArrowRight aria-hidden="true" /></Link>

@@ -5,8 +5,8 @@ import { dailyItems } from './data/daily_use'
 export default function DailyUses () {
 	return (
 		<div className="wrap">
-			<header className="page-head">
-				<h1 className="t-display">Uses</h1>
+			<header className="page-head bj-in">
+				<h1 className="t-display">Daily <span className="t-serif t-grad">uses</span></h1>
 				<p className="t-lead">The hardware and software I work with every day.</p>
 			</header>
 			{dailyItems.map((section) => (
