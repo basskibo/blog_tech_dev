@@ -12,29 +12,14 @@ class MyDocument extends Document {
 			<Html lang="en" suppressHydrationWarning>
 				<Head>
 					{/* Preconnect to external domains for better performance */}
-					<link rel="preconnect" href="https://fonts.googleapis.com" />
-					<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 					<link rel="preconnect" href="https://www.googletagmanager.com" />
 					<link rel="preconnect" href="https://cloud.umami.is" />
 					<link rel="preconnect" href="https://www.clarity.ms" />
 					<link rel="dns-prefetch" href="https://res.cloudinary.com" />
 					<link rel="dns-prefetch" href="https://images.unsplash.com" />
 					<link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
-					
-					{/* Optimized font loading with display=swap */}
-					<link 
-						rel="stylesheet" 
-						href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" 
-					/>
-					{/* Jagetić Design Fonts - Bricolage Grotesque, Instrument Serif, JetBrains Mono */}
-					<link 
-						rel="stylesheet" 
-						href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" 
-					/>
 				</Head>
 				<body>
-					<div id={'globalLoader'} >
-					</div>
 					<Main />
 					<NextScript />
 				</body>

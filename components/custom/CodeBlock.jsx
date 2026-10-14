@@ -1,10 +1,50 @@
 import React, { useState } from 'react'
-import SyntaxHighlighter from 'react-syntax-highlighter'
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/light'
+import javascript from 'react-syntax-highlighter/dist/cjs/languages/hljs/javascript'
+import typescript from 'react-syntax-highlighter/dist/cjs/languages/hljs/typescript'
+import bash from 'react-syntax-highlighter/dist/cjs/languages/hljs/bash'
+import shell from 'react-syntax-highlighter/dist/cjs/languages/hljs/shell'
+import python from 'react-syntax-highlighter/dist/cjs/languages/hljs/python'
+import json from 'react-syntax-highlighter/dist/cjs/languages/hljs/json'
+import xml from 'react-syntax-highlighter/dist/cjs/languages/hljs/xml'
+import css from 'react-syntax-highlighter/dist/cjs/languages/hljs/css'
+import yaml from 'react-syntax-highlighter/dist/cjs/languages/hljs/yaml'
+import dockerfile from 'react-syntax-highlighter/dist/cjs/languages/hljs/dockerfile'
+import nginx from 'react-syntax-highlighter/dist/cjs/languages/hljs/nginx'
+import sql from 'react-syntax-highlighter/dist/cjs/languages/hljs/sql'
+import ini from 'react-syntax-highlighter/dist/cjs/languages/hljs/ini'
+import plaintext from 'react-syntax-highlighter/dist/cjs/languages/hljs/plaintext'
 import { IoIosCopy, IoIosCheckmarkCircleOutline } from 'react-icons/io'
 import { vs2015 } from 'react-syntax-highlighter/dist/cjs/styles/hljs'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+
+// Only the languages the posts use: the full highlight.js build is ~10x larger.
+const LANGUAGES = {
+  javascript, js: javascript, jsx: javascript, function: javascript, regularFunction: javascript, const: javascript,
+  typescript, ts: typescript, tsx: typescript,
+  bash, sh: bash, shell, curl: bash,
+  python, py: python,
+  json,
+  xml, html: xml,
+  css,
+  yaml, yml: yaml,
+  dockerfile, docker: dockerfile,
+  nginx,
+  sql,
+  ini, dotenv: ini, env: ini,
+  text: plaintext, plaintext
+}
+Object.entries(LANGUAGES).forEach(([name, grammar]) => SyntaxHighlighter.registerLanguage(name, grammar))
+
+export function parseLanguageByClass (className) {
+  if (!className) return 'javascript'
+  const lang = className.replace(/^language-/, '').split(/\s+/)[0]
+  if (LANGUAGES[lang]) return lang
+  const lower = lang.toLowerCase()
+  return LANGUAGES[lower] ? lower : 'plaintext'
+}
 
 const CodeBlock = ({ code, className }) => {
   const [copied, setCopied] = useState(false)
@@ -25,10 +65,6 @@ const CodeBlock = ({ code, className }) => {
     setTimeout(() => {
       setCopied(false)
     }, 5000)
-  }
-
-  const parseLanguageByClass = (className) => {
-    return className ? className.split('-')[1] : 'javascript'
   }
 
   return (

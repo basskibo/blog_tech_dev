@@ -57,7 +57,7 @@ export default function AboutView () {
 								<button type="button" onClick={() => setOpen(isOpen ? -1 : i)} style={{ width: '100%', textAlign: 'left', padding: 24, borderRadius: 26, border: '1px solid var(--line)', background: isOpen ? 'var(--bg2)' : 'transparent', color: 'var(--ink)' }}>
 									<span className="bj-mono" style={{ fontSize: 12, color: 'var(--mut)' }}>{job.period}</span>
 									<span style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginTop: 8 }}>
-										<span style={{ font: "700 24px/1.15 'Bricolage Grotesque',sans-serif" }}>{job.company}</span>
+										<span style={{ font: "700 24px/1.15 var(--f-sans)" }}>{job.company}</span>
 										<span style={{ fontSize: 22, color: 'var(--mut)', transform: isOpen ? 'rotate(45deg)' : 'none', transition: 'transform .3s' }}>+</span>
 									</span>
 									<span style={{ display: 'block', marginTop: 8, color: 'var(--accT)', fontWeight: 500 }}>{job.role}</span>

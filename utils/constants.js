@@ -21,7 +21,6 @@ import {
 	SiUbuntu,
 	SiAnsible,
 	SiRabbitmq,
-	SiMaterialui,
 	SiGnubash,
 	SiNodemon,
 	SiCss3,
@@ -144,8 +143,7 @@ export default {
 		{ name: 'React Native', desc: 'test', icon: SiReact },
 		// { name: "siIonic", desc: "test", icon: SiIonic },
 		{ name: 'Markdown', desc: 'test', icon: SiMarkdown },
-		{ name: 'Tailwind', desc: 'test', icon: SiTailwindcss },
-		{ name: 'SiMaterialui', desc: 'test', icon: SiMaterialui }
+		{ name: 'Tailwind', desc: 'test', icon: SiTailwindcss }
 		// { name: "SWR by Vercel", desc: "test", icon: SiVercel },
 	],
 

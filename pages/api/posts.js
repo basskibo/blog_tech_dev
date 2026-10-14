@@ -54,13 +54,15 @@ function findProjectRoot(currentDir) {
 
 
 function selectRandomNumberOfPosts(array, count) {
+	// Drafts are excluded up front so `count` can never exceed what is available
+	// (otherwise the loop below would never terminate).
+	const pool = array.filter((post) => !post.inPreparation)
 	const result = []
-	const totalElements = array.length
-	count = Math.min(count, totalElements)
+	count = Math.min(count, pool.length)
 	while (result.length < count) {
-		const randomIndex = Math.floor(Math.random() * totalElements)
-		const randomElement = array[randomIndex]
-		if (!result.includes(randomElement) && !randomElement.inPreparation) {
+		const randomIndex = Math.floor(Math.random() * pool.length)
+		const randomElement = pool[randomIndex]
+		if (!result.includes(randomElement)) {
 			result.push(randomElement)
 		}
 	}

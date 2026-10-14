@@ -9,9 +9,6 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import generateRSSFeed from 'utils/generateRSSFeed'
 
 const blog = ({ posts }) => {
-	if (typeof window !== 'undefined' && posts.length > 0) {
-		localStorage.setItem('posts', JSON.stringify(posts))
-	}
 	return <BlogScreen posts={posts} />
 }
 
@@ -37,7 +34,7 @@ export const getStaticProps = async () => {
 			}
 		}
 	})
-	await generateRSSFeed(posts)
+	await generateRSSFeed(posts.filter((post) => !post.props.data.inPreparation))
 
 	return {
 		props: {

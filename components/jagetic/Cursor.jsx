@@ -26,19 +26,21 @@ export default function Cursor () {
 		let frame = 0
 		document.documentElement.classList.add('bj-cursor')
 
-		const move = (event) => {
-			x = event.clientX
-			y = event.clientY
-			dot.style.opacity = '1'
-			ring.style.opacity = '1'
-		}
-
+		// The loop only runs while the ring is catching up, then sleeps until the next move.
 		const loop = () => {
 			rx += (x - rx) * 0.18
 			ry += (y - ry) * 0.18
 			dot.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`
 			ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`
-			frame = requestAnimationFrame(loop)
+			frame = Math.abs(x - rx) + Math.abs(y - ry) > 0.2 ? requestAnimationFrame(loop) : 0
+		}
+
+		const move = (event) => {
+			x = event.clientX
+			y = event.clientY
+			dot.style.opacity = '1'
+			ring.style.opacity = '1'
+			if (!frame) frame = requestAnimationFrame(loop)
 		}
 
 		const over = (event) => {
@@ -46,9 +48,8 @@ export default function Cursor () {
 			ring.classList.toggle('is-hot', Boolean(hot))
 		}
 
-		window.addEventListener('mousemove', move)
-		document.addEventListener('mouseover', over)
-		frame = requestAnimationFrame(loop)
+		window.addEventListener('mousemove', move, { passive: true })
+		document.addEventListener('mouseover', over, { passive: true })
 
 		return () => {
 			cancelAnimationFrame(frame)

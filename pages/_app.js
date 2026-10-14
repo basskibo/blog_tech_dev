@@ -1,17 +1,25 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import Layout from '../components/layout/Layout'
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.scss'
 import '../styles/jagetic.css'
+import '../styles/site.css'
 import * as ga from '../lib/analytics'
-import SplashScreen from '../components/custom/SplashScreen'
 import NextHead from 'next/head'
 import { Analytics } from '@vercel/analytics/react'
 import { ThemeProvider } from 'next-themes'
 import dynamic from 'next/dynamic'
+import { Bricolage_Grotesque, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
+
+// Self-hosted by next/font: no render-blocking request to Google Fonts and
+// metric-matched fallbacks, so text does not shift when the font arrives.
+const sans = Bricolage_Grotesque({ subsets: ['latin', 'latin-ext'], display: 'swap' })
+const serif = Instrument_Serif({ subsets: ['latin', 'latin-ext'], weight: '400', style: 'italic', display: 'swap' })
+// Mono is only used for small labels, so it is not preloaded.
+const mono = JetBrains_Mono({ subsets: ['latin', 'latin-ext'], display: 'swap', preload: false })
 
 const SpeedInsights = dynamic(
 	() => import('@vercel/speed-insights/next').then((mod) => mod.SpeedInsights),
@@ -50,7 +58,6 @@ const handleTitle = (router) => {
 }
 
 function IguanaDevelopmentTech({ Component, pageProps }) {
-	const [pageLoaded, setPageLoaded] = useState(false)
 	const router = useRouter()
 	let defaultTitle
 	if (!pageProps.data) {
@@ -75,11 +82,6 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 	const description = postDescription()
 
 	useEffect(() => {
-		if (typeof window !== 'undefined') {
-			const loader = document.getElementById('globalLoader')
-			// if (loader) setTimeout(() => setPageLoaded(true), 1500)
-			if (loader) setPageLoaded(true)
-		}
 		const handleRouteChange = (url) => {
 			ga.pageview(url)
 		}
@@ -180,17 +182,17 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				enableSystem
 				disableTransitionOnChange
 			>
-				<SplashScreen loaded={pageLoaded}>
-					<Layout>
-						<Component {...pageProps} />
-						{typeof window !== 'undefined' && (
-							<>
-								<SpeedInsights />
-								<Analytics />
-							</>
-						)}
-					</Layout>
-				</SplashScreen>
+				<style
+					// eslint-disable-next-line react/no-danger
+					dangerouslySetInnerHTML={{
+						__html: `:root{--f-sans:${sans.style.fontFamily};--f-serif:${serif.style.fontFamily};--f-mono:${mono.style.fontFamily}}`
+					}}
+				/>
+				<Layout>
+					<Component {...pageProps} />
+					<SpeedInsights />
+					<Analytics />
+				</Layout>
 			</ThemeProvider>
 		</>
 	)

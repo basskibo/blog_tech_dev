@@ -32,7 +32,10 @@ function getTableOfContents(content) {
 				subheading: [],
 				link: `#${headingLink}`
 			}
-			if (headingType === 'h3') {
+			if (headingType === 'h3' && tableOfContents.length === 0) {
+				// h3 before any h2: nothing to nest under, keep it top-level
+				tableOfContents.push(head)
+			} else if (headingType === 'h3') {
 				// let lastEl = tableOfContents.at(-1) // vercel does not support .at method currently
 				const lastEl = tableOfContents[tableOfContents.length - 1]
 				if (lastElType === 'h2') {
@@ -96,7 +99,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 	data = { ...data, slug }
 	const toc = getTableOfContents(content)
 	// console.log(process.env.ENVIRONMENT)
-	const mdxSource = await serialize(content)
+	const mdxSource = await serialize(content, { blockJS: false })
 
 	// }
 	// data = { ...data, views }

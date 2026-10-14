@@ -9,8 +9,8 @@ export const generateRandomQuestionList = (questions) => {
 		return array
 	}
 
-	// Generate an array of indices from 0 to 49
-	const indices = Array.from({ length: 50 }, (_, index) => index)
+	// Generate an array of indices for every question
+	const indices = Array.from({ length: questions.length }, (_, index) => index)
 
 	// Shuffle the indices
 	const shuffledIndices = shuffle(indices)
@@ -27,7 +27,7 @@ export const generateRandomQuestionList = (questions) => {
 
 
 export const getRandomQuestions = (questions, numberOfQuestions) => {
-	const shuffled = questions.sort(() => 0.5 - Math.random());
+	const shuffled = [...questions].sort(() => 0.5 - Math.random());
 	
 	// Return a slice with the specified number of questions
 	return shuffled.slice(0, numberOfQuestions);

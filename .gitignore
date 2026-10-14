@@ -22,6 +22,8 @@ public/rss.xml
 /public/images/*
 !/public/images/lofi/
 !/public/images/lofi/**
+!/public/images/projects/
+!/public/images/projects/**
 # production
 /build
 

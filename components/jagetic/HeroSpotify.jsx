@@ -80,6 +80,9 @@ export default function HeroSpotify () {
 	const playStation = (next) => {
 		const audio = audioRef.current
 		if (!audio) return
+		// Browsers don't always fire `error` after the stop in toggle(), so clear the
+		// flag here or the next real stream error would be ignored.
+		stopping.current = false
 		setFailed(false)
 		audio.src = next.src
 		audio.volume = volume
@@ -112,7 +115,7 @@ export default function HeroSpotify () {
 
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', gap: 14, maxWidth: 460, width: '100%', justifySelf: 'end' }}>
-			<p style={{ font: "italic 400 clamp(22px, 2vw, 28px)/1.25 'Instrument Serif', serif", margin: 0 }}>
+			<p style={{ font: "italic 400 clamp(22px, 2vw, 28px)/1.25 var(--f-serif)", margin: 0 }}>
 				“Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away.”
 			</p>
 			<div style={{ padding: 14, borderRadius: 26, background: 'var(--glass)', backdropFilter: 'blur(22px) saturate(1.6)', border: '1px solid var(--line)', boxShadow: '0 30px 60px -30px rgba(0,0,0,.6)' }}>
@@ -122,9 +125,9 @@ export default function HeroSpotify () {
 						<img src={cover.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
 					</a>
 					<div style={{ flex: 1, minWidth: 0 }}>
-						<div style={{ font: "600 10px 'JetBrains Mono', monospace", letterSpacing: '.12em', color: 'var(--accT)' }}>{playing ? 'LIVE · LOFI' : 'LOFI'}</div>
-						<div style={{ font: "600 17px/1.2 'Bricolage Grotesque', sans-serif", marginTop: 4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{failed ? 'Stream unavailable' : station.name}</div>
-						<div style={{ font: "400 13px 'Bricolage Grotesque', sans-serif", color: 'var(--mut)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{station.detail}</div>
+						<div style={{ font: "600 10px var(--f-mono)", letterSpacing: '.12em', color: 'var(--accT)' }}>{playing ? 'LIVE · LOFI' : 'LOFI'}</div>
+						<div style={{ font: "600 17px/1.2 var(--f-sans)", marginTop: 4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{failed ? 'Stream unavailable' : station.name}</div>
+						<div style={{ font: "400 13px var(--f-sans)", color: 'var(--mut)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{station.detail}</div>
 					</div>
 					<div style={{ display: 'flex', alignItems: 'flex-end', gap: 3, height: 22, flex: 'none' }}>
 						{[0, 1, 2, 3].map((bar) => (
@@ -140,7 +143,7 @@ export default function HeroSpotify () {
 				</div>
 				<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, marginTop: 12 }}>
 					<div ref={menuRef} style={{ position: 'relative' }}>
-						<button type="button" aria-expanded={menu} aria-haspopup="listbox" onClick={() => setMenu((open) => !open)} style={{ height: 32, padding: '0 12px', borderRadius: 99, border: '1px solid var(--line)', background: 'var(--card)', color: 'var(--ink)', display: 'flex', alignItems: 'center', gap: 8, font: "600 12px 'Bricolage Grotesque', sans-serif" }}>
+						<button type="button" aria-expanded={menu} aria-haspopup="listbox" onClick={() => setMenu((open) => !open)} style={{ height: 32, padding: '0 12px', borderRadius: 99, border: '1px solid var(--line)', background: 'var(--card)', color: 'var(--ink)', display: 'flex', alignItems: 'center', gap: 8, font: "600 12px var(--f-sans)" }}>
 							{station.name}
 							<span style={{ fontSize: 9, opacity: 0.7, transform: menu ? 'rotate(180deg)' : 'none', transition: 'transform .25s' }}>▼</span>
 						</button>
@@ -150,8 +153,8 @@ export default function HeroSpotify () {
 									const on = item.id === station.id
 									return (
 										<button key={item.id} type="button" role="option" aria-selected={on} onClick={() => pickStation(item)} style={{ width: '100%', textAlign: 'left', padding: '8px 10px', borderRadius: 12, border: 'none', background: on ? 'var(--card)' : 'transparent', color: 'var(--ink)' }}>
-											<div style={{ font: "600 13px 'Bricolage Grotesque', sans-serif" }}>{item.name}</div>
-											<div style={{ font: "500 10px 'JetBrains Mono', monospace", color: 'var(--mut)', marginTop: 2 }}>{item.detail}</div>
+											<div style={{ font: "600 13px var(--f-sans)" }}>{item.name}</div>
+											<div style={{ font: "500 10px var(--f-mono)", color: 'var(--mut)', marginTop: 2 }}>{item.detail}</div>
 										</button>
 									)
 								})}

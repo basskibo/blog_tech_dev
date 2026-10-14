@@ -18,7 +18,6 @@ jobs:
       DATABASE_URL: postgresql://ci:ci@localhost:26257/blog?sslmode=disable
     steps:
       - uses: actions/checkout@v4
-k
       - uses: pnpm/action-setup@v4
         with:
           version: 10
@@ -39,6 +38,9 @@ k
 
       - name: Lint
         run: pnpm lint
+
+      - name: Test
+        run: pnpm test
 
       - name: Build
         run: pnpm build

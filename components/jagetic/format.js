@@ -19,10 +19,12 @@ export function estimateRead (post) {
 	return `${mins} min`
 }
 
+function timeOf (post) {
+	const time = new Date(post.publishedAt || post.date || 0).getTime()
+	// Unparseable dates sort as oldest instead of poisoning the comparator with NaN.
+	return Number.isNaN(time) ? 0 : time
+}
+
 export function sortByDate (posts) {
-	return [...posts].sort((a, b) => {
-		const da = new Date(a.publishedAt || a.date || 0).getTime()
-		const db = new Date(b.publishedAt || b.date || 0).getTime()
-		return db - da
-	})
+	return [...posts].sort((a, b) => timeOf(b) - timeOf(a))
 }

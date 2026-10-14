@@ -54,7 +54,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 	let { content, data } = matter(markdownWithMeta)
 
 	data = { ...data, slug, read: readingTime(content).text }
-	const mdxSource = await serialize(content)
+	const mdxSource = await serialize(content, { blockJS: false })
 
 	const files = fs.readdirSync(path.join('posts/blog')).filter((filename) => filename.endsWith('.mdx'))
 	const siblings = files.map((filename) => {
