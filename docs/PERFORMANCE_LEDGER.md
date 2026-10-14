@@ -33,10 +33,11 @@ First-load JavaScript (from `next build`):
 
 ## Open: need a decision
 
-### P1. Five analytics tools on every page `OPEN` · impact: high
-Google Analytics (when `NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID` is set), Umami, Microsoft Clarity, Vercel Analytics and Vercel Speed Insights all load on every page.
-- Clarity alone blocks the main thread for about 370–450 ms on a mid-range phone. It also sets third-party cookies (CLID, MUID, SM via `c.bing.com`), and that cookie use is the only reason Best Practices is 75 instead of 100.
-- **Recommendation:** keep Umami (already used for click events via `data-umami-event`) and Vercel Speed Insights. Drop Clarity and GA. If session replay matters, load Clarity only after the first user interaction.
+### P1. Five analytics tools on every page `FIXED` (October 2026)
+Google Analytics and Microsoft Clarity have been removed, which also removes Clarity's third-party cookies and roughly 400 ms of main-thread work.
+- Umami is kept for page views and `data-umami-event` clicks.
+- PostHog was added, loaded from `lib/analytics.js` only when `NEXT_PUBLIC_POSTHOG_KEY` is set, and only after the page is idle (`requestIdleCallback`). Session replay is off unless `NEXT_PUBLIC_POSTHOG_REPLAY=1`.
+- Vercel Analytics and Speed Insights are still loaded. Vercel Analytics overlaps with Umami, so it could be dropped later.
 
 ### P2. Lofi radio starts playing on page load `OPEN` · impact: medium
 `components/jagetic/HeroSpotify.jsx` calls `audio.play()` on mount. When the browser allows it, a 128 kbps MP3 stream starts downloading and decoding right away, which costs data and battery on phones. When the browser blocks it, the call is wasted.
@@ -46,9 +47,10 @@ Google Analytics (when `NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID` is set), Umami, Mic
 Most of the remaining Total Blocking Time is `framework.js`: React 18 hydrating the whole page in one go, about 250–550 ms in tasks on a throttled CPU.
 - **Recommendation:** upgrade to Next 14/15. That also fixes P4 and P11. After that, either move to the App Router with server components (the homepage and projects page are almost static, so they would ship very little JS), or keep the Pages Router and lazy-hydrate below-the-fold sections.
 
-### P4. Next.js 13.5 / next/font has no fallback metrics for our fonts `OPEN` · impact: low
-The build logs `Failed to find font override values` for Bricolage Grotesque and Instrument Serif. Without an adjusted fallback font, text can shift slightly when the web font arrives (measured CLS is still 0–0.001).
-- **Recommendation:** fixed by the Next upgrade in P3, or set `adjustFontFallback`/`fallback` by hand.
+### P4. Fonts have no metric-matched fallback or preload `OPEN` · impact: low
+`next/font/google` downloaded the fonts from Google during `next build`, and that download failed on Vercel and broke the deploy. The fonts now come from fontsource packages bundled with the app, so the build needs no network.
+- The trade-off: there is no automatic size-adjusted fallback and no `<link rel="preload">`. Text can shift slightly when the web font arrives, and fonts start downloading a little later.
+- **Recommendation:** after the Next upgrade (P3), switch to `next/font/local` pointing at the same woff2 files. That brings back preload and fallback metrics without any network access at build time.
 
 ### P5. Two theme systems `OPEN` · impact: medium
 `next-themes` (`ThemeProvider` in `_app.js`, class on `<html>`) and `Shell.jsx` (its own `data-theme` state, saved as `bj-theme` in localStorage) both run. Shell always renders dark on the server and switches after hydration, so light-mode visitors see a dark flash and the whole tree renders twice.

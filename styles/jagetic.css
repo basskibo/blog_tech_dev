@@ -1,3 +1,9 @@
+:root {
+	--f-sans: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+	--f-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+	--f-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, monospace;
+}
+
 [data-bjw] {
 	--bg: #0b0c10;
 	--bg2: #15161c;
