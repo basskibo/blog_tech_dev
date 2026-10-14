@@ -54,7 +54,7 @@ function DeckCard ({ item, onStart }) {
 				<span className="bj-mono" style={{ fontSize: 11, fontWeight: 600, padding: '7px 11px', borderRadius: 99, background: 'var(--acc)', color: '#0b0c10' }}>{item.level}</span>
 				<span className="bj-mono" style={{ fontSize: 12, color: 'var(--mut)' }}>{item.questions.length} QUESTIONS</span>
 			</span>
-			<span style={{ position: 'relative', font: "800 42px/1 'Bricolage Grotesque',sans-serif", letterSpacing: '-.05em', maxWidth: '70%' }}>{item.name}</span>
+			<span style={{ position: 'relative', font: "800 42px/1 var(--f-sans)", letterSpacing: '-.05em', maxWidth: '70%' }}>{item.name}</span>
 			<span style={{ display: 'flex', gap: 5, position: 'relative' }}>
 				{Array.from({ length: 5 }).map((_, i) => (
 					<span key={i} style={{ width: 34, height: 7, borderRadius: 4, background: i < item.difficulty ? 'var(--acc)' : 'var(--line)' }} />
@@ -102,7 +102,7 @@ export default function QuizView () {
 				<div style={{ marginTop: 48, display: 'flex', alignItems: 'center', gap: 48, flexWrap: 'wrap', padding: 'clamp(28px, 4vw, 56px)', borderRadius: 40, border: '1px solid var(--line)', background: 'var(--bg2)' }}>
 					<div style={{ width: 220, height: 220, borderRadius: '50%', background: `conic-gradient(var(--acc) ${(score / questions.length) * 360}deg, var(--line) 0)`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 						<div style={{ width: 184, height: 184, borderRadius: '50%', background: 'var(--bg2)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-							<span style={{ font: "800 64px/1 'Bricolage Grotesque',sans-serif" }}>{score}<span style={{ fontSize: 26, color: 'var(--mut)' }}>/{questions.length}</span></span>
+							<span style={{ font: "800 64px/1 var(--f-sans)" }}>{score}<span style={{ fontSize: 26, color: 'var(--mut)' }}>/{questions.length}</span></span>
 							<span className="bj-mono" style={{ fontSize: 11, color: 'var(--mut)', marginTop: 6 }}>CORRECT</span>
 						</div>
 					</div>
@@ -136,7 +136,7 @@ export default function QuizView () {
 					{questions.map((q, i) => <span key={q.id} style={{ flex: 1, height: 6, borderRadius: 3, background: i <= index ? 'var(--acc)' : 'var(--line)' }} />)}
 				</div>
 				<div className="bj-mono" style={{ fontSize: 12, letterSpacing: '.12em', color: 'var(--mut)' }}>{String(index + 1).padStart(2, '0')} / {String(questions.length).padStart(2, '0')}</div>
-				<div style={{ font: "700 clamp(28px, 3vw, 42px)/1.1 'Bricolage Grotesque',sans-serif", letterSpacing: '-.035em', margin: '14px 0 30px' }}>{question.question}</div>
+				<div style={{ font: "700 clamp(28px, 3vw, 42px)/1.1 var(--f-sans)", letterSpacing: '-.035em', margin: '14px 0 30px' }}>{question.question}</div>
 				<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 12 }}>
 					{question.answers.map((answer, i) => {
 						const chosen = picked === answer

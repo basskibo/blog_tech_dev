@@ -2,7 +2,7 @@ export const getCategories = (posts) => {
 	try {
 		const categories = []
 		posts.forEach((post) => {
-			const postCategory = post.props.data.tags
+			const postCategory = post.props.data.tags || []
 			categories.push(postCategory)
 		})
 		const flatenedArr = categories.flat()

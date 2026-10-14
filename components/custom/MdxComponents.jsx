@@ -235,7 +235,7 @@ const MdxComponents =  {
 				sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts'></iframe>
 		)
 	},
-	table: ({ header, content, genericData }) => {
+	table: ({ header = [], content = [] }) => {
 		return (
 			<table className="table-auto  w-full xl:w-3/4 border border-neutral-700 ">
 				<thead className='bg-neutral-800 '>

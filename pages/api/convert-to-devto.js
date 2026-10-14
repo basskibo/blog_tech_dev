@@ -14,8 +14,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'postPath is required' });
     }
 
-    // Construct full path
-    const fullPath = path.join(process.cwd(), postPath);
+    // Construct full path and keep it inside <cwd>/posts
+    const postsRoot = path.resolve(process.cwd(), 'posts');
+    const fullPath = path.resolve(process.cwd(), postPath);
+    if (!fullPath.startsWith(postsRoot + path.sep)) {
+      return res.status(400).json({ error: 'postPath must be inside posts/' });
+    }
 
     // Check if file exists
     if (!fs.existsSync(fullPath)) {

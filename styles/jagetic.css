@@ -14,7 +14,7 @@
 	--err: oklch(0.72 0.12 22);
 	background: var(--bg);
 	color: var(--ink);
-	font-family: 'Bricolage Grotesque', sans-serif;
+	font-family: var(--f-sans);
 	min-height: 100vh;
 }
 [data-bjw][data-theme='light'] {
@@ -74,8 +74,8 @@ html.bj-cursor * {
 	html.bj-cursor * { cursor: auto !important; }
 }
 
-[data-bjw] a { color: inherit; text-decoration: none; }
-[data-bjw] button { font: inherit; cursor: pointer; }
+:where([data-bjw]) a { color: inherit; text-decoration: none; }
+:where([data-bjw]) button { font: inherit; cursor: pointer; }
 [data-bjw] input, [data-bjw] textarea { font: inherit; }
 
 ::view-transition-old(root),
@@ -93,9 +93,11 @@ html.bj-cursor * {
 	to { clip-path: circle(160vmax at var(--vx, 50%) var(--vy, 50%)); }
 }
 
+/* Transform-only entrance: content is visible (and counted for LCP) from the
+   first frame, and no full-screen blur filter has to be rasterised. */
 @keyframes bjIn {
-	from { opacity: 0; transform: translateY(26px); filter: blur(10px); }
-	to { opacity: 1; transform: none; filter: blur(0); }
+	from { transform: translateY(20px); }
+	to { transform: none; }
 }
 @keyframes bjDrop {
 	from { opacity: 0; transform: translateY(-14px) scale(0.97); }
@@ -130,14 +132,14 @@ html.bj-cursor * {
 .bj-in { animation: bjIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 .bj-fade { animation: bjFade 0.5s both; }
 .bj-screen { max-width: 1180px; margin: 0 auto; padding: 150px 32px 0; box-sizing: border-box; }
-.bj-kicker { font: 500 12px 'JetBrains Mono', monospace; letter-spacing: 0.14em; color: var(--mut); text-transform: uppercase; }
+.bj-kicker { font: 500 12px var(--f-mono); letter-spacing: 0.14em; color: var(--mut); text-transform: uppercase; }
 .bj-display {
-	font: 800 clamp(56px, 8vw, 120px) / 0.9 'Bricolage Grotesque', sans-serif;
+	font: 800 clamp(56px, 8vw, 120px) / 0.9 var(--f-sans);
 	letter-spacing: -0.06em;
 	margin: 16px 0 0;
 }
-.bj-serif { font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; color: var(--accT); }
-.bj-mono { font-family: 'JetBrains Mono', monospace; }
+.bj-serif { font-family: var(--f-serif); font-weight: 400; font-style: italic; color: var(--accT); }
+.bj-mono { font-family: var(--f-mono); }
 .bj-card {
 	border: 1px solid var(--line);
 	background: var(--bg2);
@@ -152,18 +154,18 @@ html.bj-cursor * {
 	border: 1px solid var(--line);
 	background: transparent;
 	color: var(--ink);
-	font: 500 14px 'Bricolage Grotesque', sans-serif;
+	font: 500 14px var(--f-sans);
 	transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .bj-pill.is-on { background: var(--inv); color: var(--invInk); border-color: transparent; }
 .bj-prose { color: var(--ink); }
-.bj-prose h2 { font: 700 30px/1.15 'Bricolage Grotesque', sans-serif; letter-spacing: -0.035em; margin: 44px 0 12px; }
-.bj-prose h3 { font: 700 22px/1.2 'Bricolage Grotesque', sans-serif; margin: 32px 0 10px; }
-.bj-prose p { font: 400 18px/1.7 'Bricolage Grotesque', sans-serif; margin: 16px 0; opacity: 0.88; }
+.bj-prose h2 { font: 700 30px/1.15 var(--f-sans); letter-spacing: -0.035em; margin: 44px 0 12px; }
+.bj-prose h3 { font: 700 22px/1.2 var(--f-sans); margin: 32px 0 10px; }
+.bj-prose p { font: 400 18px/1.7 var(--f-sans); margin: 16px 0; opacity: 0.88; }
 .bj-prose a { color: var(--accT); }
 .bj-prose ul, .bj-prose ol { margin: 16px 0; padding-left: 1.2em; }
-.bj-prose li { font: 400 17px/1.55 'Bricolage Grotesque', sans-serif; margin: 8px 0; }
-.bj-prose pre, .bj-prose code { font-family: 'JetBrains Mono', monospace; }
+.bj-prose li { font: 400 17px/1.55 var(--f-sans); margin: 8px 0; }
+.bj-prose pre, .bj-prose code { font-family: var(--f-mono); }
 .bj-prose pre { border-radius: 22px; overflow: auto; }
 .bj-prose img { border-radius: 22px; max-width: 100%; height: auto; }
 .bj-nav-link {
@@ -172,7 +174,7 @@ html.bj-cursor * {
 	border-radius: 99px;
 	display: flex;
 	align-items: center;
-	font: 500 14px 'Bricolage Grotesque', sans-serif;
+	font: 500 14px var(--f-sans);
 	color: var(--mut);
 	white-space: nowrap;
 	transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);

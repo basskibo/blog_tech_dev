@@ -23,6 +23,12 @@ export default function PostView ({ data, nextPost, backHref = '/routes/blog', b
 	}, [])
 
 	useEffect(() => {
+		if (!toast) return undefined
+		const timer = setTimeout(() => setToast(''), 2400)
+		return () => clearTimeout(timer)
+	}, [toast])
+
+	useEffect(() => {
 		setSaved(window.localStorage.getItem(`bj-save-${data.slug}`) === '1')
 		setClaps(Number(window.localStorage.getItem(`bj-clap-${data.slug}`) || 0))
 	}, [data.slug])
@@ -39,7 +45,7 @@ export default function PostView ({ data, nextPost, backHref = '/routes/blog', b
 					<div style={{ marginTop: 26 }}>
 						<span className="bj-mono" style={{ fontSize: 11, fontWeight: 600, padding: '7px 11px', borderRadius: 99, background: 'var(--acc)', color: '#0b0c10' }}>{tagName(data)}</span>
 					</div>
-					<h1 style={{ font: "800 clamp(40px, 5.6vw, 76px)/1 'Bricolage Grotesque',sans-serif", letterSpacing: '-.05em', margin: '22px 0 0' }}>{data.title}</h1>
+					<h1 style={{ font: "800 clamp(40px, 5.6vw, 76px)/1 var(--f-sans)", letterSpacing: '-.05em', margin: '22px 0 0' }}>{data.title}</h1>
 					<div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 30 }}>
 						<div style={{ width: 42, height: 42, borderRadius: '50%', background: 'var(--inv)', color: 'var(--invInk)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>BJ</div>
 						<div>
@@ -58,7 +64,7 @@ export default function PostView ({ data, nextPost, backHref = '/routes/blog', b
 							<div className="bj-kicker" style={{ marginTop: 56 }}>Up next</div>
 							<Link href={`/post/${nextPost.slug}`} className="bj-card" style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 12, padding: 28, borderRadius: 30, background: nextPost.featuredImage ? `linear-gradient(to top, var(--bg2), transparent), center/cover url(${nextPost.featuredImage})` : 'var(--bg2)' }}>
 								<span className="bj-mono" style={{ fontSize: 12, color: 'var(--mut)' }}>{tagName(nextPost)}</span>
-								<span style={{ font: "700 28px/1.1 'Bricolage Grotesque',sans-serif" }}>{nextPost.title}</span>
+								<span style={{ font: "700 28px/1.1 var(--f-sans)" }}>{nextPost.title}</span>
 								<span style={{ color: 'var(--accT)', fontWeight: 600 }}>Read next →</span>
 							</Link>
 						</>

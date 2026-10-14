@@ -55,7 +55,7 @@ export default function BlogView ({ posts }) {
 							<span className="bj-mono" style={{ fontSize: 11, fontWeight: 600, padding: '7px 11px', borderRadius: 99, background: 'var(--acc)', color: '#0b0c10' }}>{tagName(featured)}</span>
 							<span className="bj-mono" style={{ fontSize: 11, color: 'var(--mut)' }}>LATEST</span>
 						</div>
-						<div style={{ font: "800 clamp(32px, 3.6vw, 50px)/1 'Bricolage Grotesque',sans-serif", letterSpacing: '-.045em' }}>{featured.title}</div>
+						<div style={{ font: "800 clamp(32px, 3.6vw, 50px)/1 var(--f-sans)", letterSpacing: '-.045em' }}>{featured.title}</div>
 						<p className="bj-serif" style={{ fontSize: 24, lineHeight: 1.3, margin: 0, color: 'var(--ink)' }}>{featured.excerpt}</p>
 						<div style={{ display: 'flex', justifyContent: 'space-between' }} className="bj-mono">
 							<span style={{ fontSize: 12, color: 'var(--mut)' }}>{formatDate(featured.publishedAt)} · {estimateRead(featured)}</span>
@@ -74,7 +74,7 @@ export default function BlogView ({ posts }) {
 								<span className="bj-mono" style={{ fontSize: 11, color: 'var(--mut)' }}>{String(i + 2).padStart(2, '0')}</span>
 							</div>
 							<div>
-								<div style={{ font: "700 22px/1.12 'Bricolage Grotesque',sans-serif", letterSpacing: '-.03em' }}>{post.title}</div>
+								<div style={{ font: "700 22px/1.12 var(--f-sans)", letterSpacing: '-.03em' }}>{post.title}</div>
 								<div style={{ color: 'var(--mut)', marginTop: 10, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{post.excerpt}</div>
 								<div className="bj-mono" style={{ fontSize: 11, color: 'var(--mut)', marginTop: 16 }}>{formatDate(post.publishedAt)} · {estimateRead(post)}</div>
 							</div>

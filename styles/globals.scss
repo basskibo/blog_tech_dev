@@ -525,15 +525,15 @@ a {
 
 // Font families
 .font-bricolage {
-	font-family: 'Bricolage Grotesque', sans-serif;
+	font-family: var(--f-sans);
 }
 
 .font-instrument {
-	font-family: 'Instrument Serif', serif;
+	font-family: var(--f-serif);
 }
 
 .font-jetbrains {
-	font-family: 'JetBrains Mono', monospace;
+	font-family: var(--f-mono);
 }
 
 // Jagetić theme background
@@ -658,7 +658,7 @@ a {
 
 // Hero typography
 .jag-hero-name {
-	font-family: 'Bricolage Grotesque', sans-serif;
+	font-family: var(--f-sans);
 	font-weight: 800;
 	letter-spacing: -0.06em;
 	line-height: 0.9;
@@ -666,7 +666,7 @@ a {
 }
 
 .jag-hero-surname {
-	font-family: 'Instrument Serif', serif;
+	font-family: var(--f-serif);
 	font-style: italic;
 	font-weight: 400;
 	letter-spacing: -0.02em;
@@ -675,7 +675,7 @@ a {
 
 // Label badge styling
 .jag-label {
-	font-family: 'JetBrains Mono', monospace;
+	font-family: var(--f-mono);
 	font-size: 0.75rem;
 	font-weight: 500;
 	text-transform: uppercase;
@@ -778,7 +778,7 @@ a {
 	position: absolute;
 	top: 0;
 	right: 0;
-	font-family: 'Bricolage Grotesque', sans-serif;
+	font-family: var(--f-sans);
 	font-weight: 800;
 	font-size: 8rem;
 	line-height: 1;
@@ -795,7 +795,7 @@ a {
 	border-radius: 9999px;
 	background: rgba(136, 196, 230, 0.15);
 	color: var(--jag-accent);
-	font-family: 'JetBrains Mono', monospace;
+	font-family: var(--f-mono);
 	font-size: 0.7rem;
 	font-weight: 500;
 	text-transform: uppercase;
@@ -856,7 +856,7 @@ a {
 
 // Footer outlined text
 .jag-footer-text {
-	font-family: 'Bricolage Grotesque', sans-serif;
+	font-family: var(--f-sans);
 	font-weight: 800;
 	font-size: clamp(48px, 12vw, 160px);
 	letter-spacing: -0.04em;

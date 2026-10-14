@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import cheerio from 'cheerio';
 
 const EmbeddedLink = ({ url }) => {
 
@@ -20,11 +19,12 @@ const EmbeddedLink = ({ url }) => {
 				});
 				const html = response.data;
 
-				// Parse HTML content using Cheerio
-				const $ = cheerio.load(html);
-				const ogImage = $('meta[property="og:image"]').attr('content');
-				const ogTitle = $('meta[property="og:title"]').attr('content');
-				const ogDesc = $('meta[property="og:description"]').attr('content');
+				// The browser's own parser: keeps cheerio out of the client bundle.
+				const doc = new DOMParser().parseFromString(html, 'text/html');
+				const meta = (property) => doc.querySelector(`meta[property="${property}"]`)?.getAttribute('content');
+				const ogImage = meta('og:image');
+				const ogTitle = meta('og:title');
+				const ogDesc = meta('og:description');
 
 
 				setImageUrl(ogImage || '');
