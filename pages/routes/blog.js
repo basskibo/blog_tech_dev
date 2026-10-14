@@ -5,7 +5,6 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 
-import 'react-loading-skeleton/dist/skeleton.css'
 import generateRSSFeed from 'utils/generateRSSFeed'
 
 const blog = ({ posts }) => {
