@@ -3,23 +3,21 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import Layout from '../components/layout/Layout'
+// Fonts ship with the app (no request to Google at build or run time). Each
+// file covers one unicode range, so browsers only download what a page uses.
+import '@fontsource-variable/bricolage-grotesque/wght.css'
+import '@fontsource/instrument-serif/latin-400-italic.css'
+import '@fontsource/instrument-serif/latin-ext-400-italic.css'
+import '@fontsource-variable/jetbrains-mono/wght.css'
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.scss'
 import '../styles/jagetic.css'
 import '../styles/site.css'
-import * as ga from '../lib/analytics'
+import { initAnalytics, pageview } from '../lib/analytics'
 import NextHead from 'next/head'
 import { Analytics } from '@vercel/analytics/react'
 import { ThemeProvider } from 'next-themes'
 import dynamic from 'next/dynamic'
-import { Bricolage_Grotesque, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
-
-// Self-hosted by next/font: no render-blocking request to Google Fonts and
-// metric-matched fallbacks, so text does not shift when the font arrives.
-const sans = Bricolage_Grotesque({ subsets: ['latin', 'latin-ext'], display: 'swap' })
-const serif = Instrument_Serif({ subsets: ['latin', 'latin-ext'], weight: '400', style: 'italic', display: 'swap' })
-// Mono is only used for small labels, so it is not preloaded.
-const mono = JetBrains_Mono({ subsets: ['latin', 'latin-ext'], display: 'swap', preload: false })
 
 const SpeedInsights = dynamic(
 	() => import('@vercel/speed-insights/next').then((mod) => mod.SpeedInsights),
@@ -82,8 +80,12 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 	const description = postDescription()
 
 	useEffect(() => {
+		initAnalytics()
+	}, [])
+
+	useEffect(() => {
 		const handleRouteChange = (url) => {
-			ga.pageview(url)
+			pageview(url)
 		}
 		router.events.on('routeChangeComplete', handleRouteChange)
 		return () => {
@@ -132,48 +134,10 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				/>
 			</NextHead>
 			
-			{/* Optimized third-party scripts using next/script */}
-			{process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID && (
-				<>
-					<Script
-						strategy="afterInteractive"
-						src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID}`}
-					/>
-					<Script
-						id="google-analytics"
-						strategy="afterInteractive"
-						dangerouslySetInnerHTML={{
-							__html: `
-								window.dataLayer = window.dataLayer || [];
-								function gtag(){dataLayer.push(arguments);}
-								gtag('js', new Date());
-								gtag('config', '${process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID}', {
-									page_path: window.location.pathname,
-								});
-							`,
-						}}
-					/>
-				</>
-			)}
-			
 			<Script
 				strategy="lazyOnload"
 				src="https://cloud.umami.is/script.js"
 				data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"
-			/>
-			
-			<Script
-				id="microsoft-clarity"
-				strategy="lazyOnload"
-				dangerouslySetInnerHTML={{
-					__html: `
-						(function(c,l,a,r,i,t,y){
-							c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-							t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-							y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-						})(window, document, "clarity", "script", "v2x468vj4f");
-					`,
-				}}
 			/>
 			
 			<ThemeProvider
@@ -182,12 +146,6 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				enableSystem
 				disableTransitionOnChange
 			>
-				<style
-					// eslint-disable-next-line react/no-danger
-					dangerouslySetInnerHTML={{
-						__html: `:root{--f-sans:${sans.style.fontFamily};--f-serif:${serif.style.fontFamily};--f-mono:${mono.style.fontFamily}}`
-					}}
-				/>
 				<Layout>
 					<Component {...pageProps} />
 					<SpeedInsights />

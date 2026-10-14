@@ -12,9 +12,7 @@ class MyDocument extends Document {
 			<Html lang="en" suppressHydrationWarning>
 				<Head>
 					{/* Preconnect to external domains for better performance */}
-					<link rel="preconnect" href="https://www.googletagmanager.com" />
 					<link rel="preconnect" href="https://cloud.umami.is" />
-					<link rel="preconnect" href="https://www.clarity.ms" />
 					<link rel="dns-prefetch" href="https://res.cloudinary.com" />
 					<link rel="dns-prefetch" href="https://images.unsplash.com" />
 					<link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />

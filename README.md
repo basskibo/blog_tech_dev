@@ -67,3 +67,22 @@ fix: profile form fix
 feat: implement profile form
 feat: implement blog form
 ```
+## Analytics
+
+- **Umami** loads on every page (page views, and clicks on elements with `data-umami-event`).
+- **PostHog** is optional. It loads only when these env vars are set, and only once the page is idle:
+
+| Variable | Meaning |
+|---|---|
+| `NEXT_PUBLIC_POSTHOG_KEY` | Project API key (`phc_…`). Without it PostHog never loads. |
+| `NEXT_PUBLIC_POSTHOG_HOST` | Defaults to `https://eu.i.posthog.com`. |
+| `NEXT_PUBLIC_POSTHOG_REPLAY` | Set to `1` to turn on session replay (off by default because it costs main-thread time). |
+
+## Tests
+
+```bash
+pnpm test           # Vitest
+pnpm test:coverage
+```
+
+Performance measurements and open decisions are tracked in [docs/PERFORMANCE_LEDGER.md](docs/PERFORMANCE_LEDGER.md).
