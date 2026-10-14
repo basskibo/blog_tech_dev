@@ -42,9 +42,8 @@ First-load JavaScript (from `next build`):
 
 ## Open: decisions for the owner
 
-### D1. The lofi radio starts playing on page load `OPEN`
-`components/jagetic/HeroSpotify.jsx` calls `audio.play()` on mount. When the browser allows it, a 128 kbps stream starts downloading and decoding right away, which costs data and battery on phones. Lighthouse does not see it, because headless Chrome blocks autoplay.
-- **Recommendation:** start the stream on the first click on play.
+### D1. The lofi radio started playing on page load `FIXED`
+The stream now starts only when the visitor presses play, so no audio is downloaded on page load.
 
 ### D2. "Most viewed" and "Top on Dev.to" are no longer on the homepage `OPEN`
 The old homepage fetched both in the browser on every visit, which also opened a Prisma connection.

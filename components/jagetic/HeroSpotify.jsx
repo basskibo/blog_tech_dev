@@ -50,19 +50,7 @@ export default function HeroSpotify () {
 		return () => clearInterval(timer)
 	}, [])
 
-	useEffect(() => {
-		const audio = audioRef.current
-		if (!audio) return undefined
-		audio.src = STATIONS[0].src
-		audio.volume = 0.8
-		let gone = false
-		audio.play().then(() => {
-			if (!gone) setPlaying(true)
-		}).catch((error) => {
-			if (!gone && error?.name !== 'NotAllowedError') setFailed(true)
-		})
-		return () => { gone = true }
-	}, [])
+	// Nothing plays until the visitor presses play: no stream download on page load.
 
 	useEffect(() => {
 		if (audioRef.current) audioRef.current.volume = volume
