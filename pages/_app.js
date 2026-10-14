@@ -3,11 +3,8 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import Layout from '../components/layout/Layout'
-// Fonts ship with the app (no request to Google at build or run time). Each
-// file covers one unicode range, so browsers only download what a page uses.
-import '@fontsource-variable/bricolage-grotesque/wght.css'
-import '@fontsource/instrument-serif/latin-400-italic.css'
-import '@fontsource/instrument-serif/latin-ext-400-italic.css'
+// Unbounded and Atkinson are declared in styles/jagetic.css from public/fonts.
+// JetBrains Mono is only used in code blocks, so it comes from its package.
 import '@fontsource-variable/jetbrains-mono/wght.css'
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.scss'
@@ -16,7 +13,6 @@ import '../styles/site.css'
 import { initAnalytics, pageview } from '../lib/analytics'
 import NextHead from 'next/head'
 import { Analytics } from '@vercel/analytics/react'
-import { ThemeProvider } from 'next-themes'
 import dynamic from 'next/dynamic'
 
 const SpeedInsights = dynamic(
@@ -114,7 +110,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				<meta name="twitter:description" content={description} />
 				<meta name="twitter:image" content={ogUrl} />
 				{/* Performance and SEO meta tags */}
-				<meta name="theme-color" content="#000000" />
+				<meta name="theme-color" content="#16133a" />
 				<meta name="format-detection" content="telephone=no" />
 				<link rel="canonical" href={`https://jageticbojan.com${router.asPath}`} />
 				<script
@@ -140,18 +136,11 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"
 			/>
 			
-			<ThemeProvider
-				attribute="class"
-				defaultTheme="dark"
-				enableSystem
-				disableTransitionOnChange
-			>
-				<Layout>
-					<Component {...pageProps} />
-					<SpeedInsights />
-					<Analytics />
-				</Layout>
-			</ThemeProvider>
+			<Layout>
+				<Component {...pageProps} />
+				<SpeedInsights />
+				<Analytics />
+			</Layout>
 		</>
 	)
 }

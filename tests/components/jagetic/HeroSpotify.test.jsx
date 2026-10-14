@@ -37,14 +37,14 @@ describe('HeroSpotify playback', () => {
 		expect(audio.src).toBe(CHILLHOP)
 		expect(audio.volume).toBe(0.8)
 		expect(screen.getByRole('button', { name: 'Pause' })).toBeInTheDocument()
-		expect(screen.getByText('LIVE · LOFI')).toBeInTheDocument()
+		expect(screen.getByText('Playing now')).toBeInTheDocument()
 	})
 
 	it('stays idle (not failed) when the browser blocks autoplay', async () => {
 		play.mockRejectedValueOnce(domError('NotAllowedError'))
 		await mount()
 		expect(screen.getByRole('button', { name: 'Play' })).toBeInTheDocument()
-		expect(screen.getByText('LOFI')).toBeInTheDocument()
+		expect(screen.getByText('Music for reading')).toBeInTheDocument()
 		expect(screen.queryByText('Stream unavailable')).toBeNull()
 		expect(screen.getAllByText('Chillhop').length).toBeGreaterThan(0)
 	})

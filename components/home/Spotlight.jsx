@@ -40,14 +40,14 @@ export default function Spotlight ({ projects }) {
 		<section className="sec" aria-labelledby="spot-title">
 			<div className="wrap">
 				<div className="sec-head">
-					<h2 id="spot-title" className="sec-title">From the workshop</h2>
-					<p className="sec-sub">Tools I built for myself first. No landing page, just a terminal.</p>
+					<h2 id="spot-title" className="t-h2">Workshop</h2>
+					<p className="t-mut">Tools I built for myself first. No landing page, just a terminal.</p>
 				</div>
 				<div ref={ref} className={`spot-grid${seen ? ' is-seen' : ''}`}>
 					{projects.map((project) => (
 						<article key={project.slug} className="spot" style={{ '--p': project.color }} aria-labelledby={`spot-${project.slug}`}>
 							<Terminal lines={project.terminal} />
-							<h3 id={`spot-${project.slug}`} className="spot-name">{project.name}</h3>
+							<h3 id={`spot-${project.slug}`} className="t-h3 spot-name">{project.name}</h3>
 							<p className="spot-tag">{project.tagline}</p>
 							<p className="spot-desc">{project.description}</p>
 							<div className="stack">

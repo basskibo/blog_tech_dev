@@ -24,6 +24,8 @@ public/rss.xml
 !/public/images/lofi/**
 !/public/images/projects/
 !/public/images/projects/**
+!/public/fonts/
+!/public/fonts/**
 # production
 /build
 

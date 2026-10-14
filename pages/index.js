@@ -27,5 +27,5 @@ export default function Home ({ posts }) {
 }
 
 export async function getStaticProps () {
-	return { props: { posts: getLatestPosts(3) } }
+	return { props: { posts: getLatestPosts(5) } }
 }

@@ -1,6 +1,5 @@
-import React, { useRef } from 'react'
-import Link from 'next/link'
-import { ArrowRight, Download } from 'lucide-react'
+import React from 'react'
+import { Download } from 'lucide-react'
 import { SiGithub, SiLinkedin } from 'react-icons/si'
 import HeroSpotify from '../jagetic/HeroSpotify'
 
@@ -18,69 +17,27 @@ const SOCIAL = [
 	{ id: 'twitter', href: 'https://twitter.com/basskibo1', label: 'X', Icon: XIcon }
 ]
 
-export default function Hero ({ featured }) {
-	const ref = useRef(null)
-	const frame = useRef(0)
+export const INTRO = 'Full-stack engineer. I build products end to end, from the database to the last pixel. Right now that means an AI money app, an AI chef and a scratch-off travel map.'
 
-	// Writes the pointer position into CSS variables once per frame; React never re-renders.
-	const onPointerMove = (event) => {
-		const el = ref.current
-		if (!el || frame.current) return
-		const { clientX, clientY } = event
-		frame.current = requestAnimationFrame(() => {
-			frame.current = 0
-			const rect = el.getBoundingClientRect()
-			el.style.setProperty('--mx', `${((clientX - rect.left) / rect.width) * 100}%`)
-			el.style.setProperty('--my', `${((clientY - rect.top) / rect.height) * 100}%`)
-		})
-	}
-
+export default function Hero () {
 	return (
-		<section ref={ref} className="hero" aria-label="Introduction" onPointerMove={onPointerMove}>
-			<div className="hero-light" />
-			<div className="hero-grid" />
-			<div className="hero-spot" />
-			<div className="wrap" style={{ width: '100%' }}>
-				<h1 className="hero-name">
-					<span className="first">Bojan</span>{' '}
-					<span className="last">Jagetić</span>
-				</h1>
-				<div className="hero-body">
-					<div className="hero-fade" style={{ '--d': '.1s' }}>
-						<p className="hero-lead">
-							Full-stack engineer from Serbia. By day, smart-TV apps and Node platforms. By night, <strong>AI products, tools and the odd browser game</strong>.
-						</p>
-						<div className="hero-actions">
-							<a href="#work" className="btn btn-solid" data-umami-event="landing-see-work">See the work <ArrowRight aria-hidden="true" /></a>
-							<Link href="/routes/blog" className="btn btn-ghost" data-umami-event="landing-read-blog">Read the blog</Link>
-						</div>
-						<div className="hero-social">
-							{SOCIAL.map(({ id, href, label, Icon }) => (
-								<a key={id} className="chip" href={href} target="_blank" rel="noopener noreferrer" data-umami-event={`landing-lnk-${id}-button`}>
-									<Icon aria-hidden="true" /> {label}
-								</a>
-							))}
-							<a className="chip" href="/Bojan_Jagetić.pdf" download data-umami-event="landing-download-cv-button">
-								<Download aria-hidden="true" /> CV
-							</a>
-						</div>
-					</div>
-					<div className="hero-fade" style={{ '--d': '.2s', justifySelf: 'end', width: '100%', maxWidth: 440 }}>
-						<HeroSpotify />
-					</div>
+		<section className="intro" aria-label="Introduction">
+			<div className="intro-main">
+				<h1 className="t-display intro-name">Bojan Jagetić</h1>
+				<p className="t-lead intro-lead">{INTRO}</p>
+				<div className="intro-links">
+					{SOCIAL.map(({ id, href, label, Icon }) => (
+						<a key={id} className="chip" href={href} target="_blank" rel="noopener noreferrer" data-umami-event={`landing-lnk-${id}-button`}>
+							<Icon aria-hidden="true" /> {label}
+						</a>
+					))}
+					<a className="chip" href="/Bojan_Jagetić.pdf" download data-umami-event="landing-download-cv-button">
+						<Download aria-hidden="true" /> CV
+					</a>
 				</div>
-				{featured?.length > 0 && (
-					<nav className="shipping hero-fade" style={{ '--d': '.3s' }} aria-label="Featured projects">
-						<span className="shipping-title">Now shipping</span>
-						{featured.map((project) => (
-							<a key={project.slug} href={`#work-${project.slug}`} style={{ '--p': project.color }}>
-								<span className="dot" aria-hidden="true" />
-								<span>{project.name}</span>
-								<span>{project.tagline.toLowerCase()}</span>
-							</a>
-						))}
-					</nav>
-				)}
+			</div>
+			<div className="intro-side">
+				<HeroSpotify />
 			</div>
 		</section>
 	)
