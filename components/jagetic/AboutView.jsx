@@ -19,61 +19,55 @@ const JOBS = [
 
 export default function AboutView () {
 	const [open, setOpen] = useState(0)
-	const download = () => {
-		const link = document.createElement('a')
-		link.href = '/Bojan_Jagetić.pdf'
-		link.download = 'Bojan_Jagetić.pdf'
-		document.body.appendChild(link)
-		link.click()
-		link.remove()
-	}
 	return (
-		<div className="bj-screen bj-in">
-			<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))', gap: 56, alignItems: 'start' }}>
-				<div style={{ position: 'sticky', top: 120 }}>
-					<div style={{ width: 220, height: 220, borderRadius: '50%', padding: 7, background: 'conic-gradient(var(--acc), var(--line), var(--acc))' }}>
-						<div style={{ width: '100%', height: '100%', borderRadius: '50%', overflow: 'hidden', border: '5px solid var(--bg)', position: 'relative' }}>
-							<Image src={cvImage} alt="Bojan Jagetić" fill style={{ objectFit: 'cover' }} />
-						</div>
+		<div className="wrap">
+			<div className="about page-head">
+				<div className="about-side">
+					<div className="about-photo">
+						<Image src={cvImage} alt="Bojan Jagetić" fill sizes="180px" style={{ objectFit: 'cover' }} priority />
 					</div>
-					<h1 className="bj-display" style={{ fontSize: 'clamp(48px, 5.6vw, 80px)' }}>Curriculum <span className="bj-serif">Vitae</span></h1>
-					<p style={{ color: 'var(--mut)', fontSize: 17, lineHeight: 1.6, maxWidth: 440 }}>I&apos;m passionate about coding and constantly pushing myself to improve. Working with a wide range of technologies keeps me inspired and eager to take on the next big idea.</p>
-					<div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 26 }}>
-						<button type="button" onClick={download} style={{ height: 52, padding: '0 24px', borderRadius: 99, border: 'none', background: 'var(--acc)', color: '#0b0c10', fontWeight: 700 }}>↓ Download PDF</button>
+					<h1 className="t-display" style={{ fontSize: 'clamp(40px, 5vw, 72px)', marginTop: 32 }}>About</h1>
+					<p className="t-lead">Full-stack engineer since 2015. I like products I can own from the database to the last pixel, and I keep a few of my own running at all times.</p>
+					<div style={{ marginTop: 24 }}>
+						<a className="btn btn-solid" href="/Bojan_Jagetić.pdf" download>
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
+							Download CV
+						</a>
 					</div>
-					<div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 22 }}>
+					<div className="about-links">
 						{[['LinkedIn', 'https://linkedin.com/in/bojan-jagetic'], ['GitHub', 'https://github.com/basskibo'], ['Dev.to', 'https://dev.to/basskibo'], ['Medium', 'https://medium.com/@jagetic.bojan']].map(([label, href]) => (
-							<a key={label} href={href} target="_blank" rel="noreferrer" className="bj-mono" style={{ fontSize: 12, color: 'var(--mut)', padding: '8px 12px', borderRadius: 99, border: '1px solid var(--line)' }}>{label} ↗</a>
+							<a key={label} href={href} target="_blank" rel="noreferrer" className="chip">{label}</a>
 						))}
 					</div>
 				</div>
-				<div style={{ position: 'relative', paddingLeft: 28 }}>
-					<div style={{ position: 'absolute', left: 6, top: 10, bottom: 10, width: 2, background: 'linear-gradient(var(--acc), var(--line))' }} />
-					{JOBS.map((job, i) => {
-						const isOpen = open === i
-						return (
-							<div key={job.company} style={{ position: 'relative', marginBottom: 14 }}>
-								<div style={{ position: 'absolute', left: -29, top: 28, width: 12, height: 12, borderRadius: '50%', background: isOpen ? 'var(--acc)' : 'var(--line)', border: '3px solid var(--bg)' }} />
-								<button type="button" onClick={() => setOpen(isOpen ? -1 : i)} style={{ width: '100%', textAlign: 'left', padding: 24, borderRadius: 26, border: '1px solid var(--line)', background: isOpen ? 'var(--bg2)' : 'transparent', color: 'var(--ink)' }}>
-									<span className="bj-mono" style={{ fontSize: 12, color: 'var(--mut)' }}>{job.period}</span>
-									<span style={{ display: 'flex', justifyContent: 'space-between', gap: 12, marginTop: 8 }}>
-										<span style={{ font: "700 24px/1.15 var(--f-sans)" }}>{job.company}</span>
-										<span style={{ fontSize: 22, color: 'var(--mut)', transform: isOpen ? 'rotate(45deg)' : 'none', transition: 'transform .3s' }}>+</span>
-									</span>
-									<span style={{ display: 'block', marginTop: 8, color: 'var(--accT)', fontWeight: 500 }}>{job.role}</span>
-									{isOpen && (
-										<span style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 14, animation: 'bjIn .4s both' }}>
-											{job.desc.map((line) => <span key={line} style={{ color: 'var(--mut)', lineHeight: 1.55 }}>— {line}</span>)}
-											<span style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-												{job.tech.map((id) => <span key={id} className="bj-mono" style={{ fontSize: 11, padding: '5px 9px', borderRadius: 99, border: '1px solid var(--line)' }}>{TECH[id] || id}</span>)}
-											</span>
+				<section aria-labelledby="work-history">
+					<h2 id="work-history" className="t-h2" style={{ marginBottom: 24 }}>Work</h2>
+					<ol className="jobs">
+						{JOBS.map((job, i) => {
+							const isOpen = open === i
+							return (
+								<li key={job.company} className={`job${isOpen ? ' is-open' : ''}`}>
+									<button type="button" className="job-head" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? -1 : i)}>
+										<span className="job-period">{job.period.replace(' ~ ', ' to ')}</span>
+										<span className="job-company">{job.company}</span>
+										<span className="job-role">{job.role}</span>
+										<span className="row-plus" aria-hidden="true">
+											<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
 										</span>
+									</button>
+									{isOpen && (
+										<div className="job-body bj-in">
+											<ul>{job.desc.map((line) => <li key={line}>{line}</li>)}</ul>
+											<div className="stack">
+												{job.tech.map((id) => <span key={id}>{TECH[id] || id}</span>)}
+											</div>
+										</div>
 									)}
-								</button>
-							</div>
-						)
-					})}
-				</div>
+								</li>
+							)
+						})}
+					</ol>
+				</section>
 			</div>
 		</div>
 	)

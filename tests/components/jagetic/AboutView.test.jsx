@@ -1,18 +1,37 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import AboutView from '@/components/jagetic/AboutView'
 
 vi.mock('next/image', async () => (await import('../../helpers/next-mocks')).imageMock)
 
+const job = (name) => screen.getByRole('button', { name })
+
 describe('AboutView', () => {
 	it('renders the header, avatar and social links', () => {
 		render(<AboutView />)
-		expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Curriculum Vitae')
+		expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('About')
+		expect(screen.getByRole('heading', { level: 2, name: 'Work' })).toBeInTheDocument()
 		expect(screen.getByAltText('Bojan Jagetić')).toBeInTheDocument()
 		for (const label of ['LinkedIn', 'GitHub', 'Dev.to', 'Medium']) {
-			const a = screen.getByText(`${label} ↗`)
+			const a = screen.getByRole('link', { name: label })
 			expect(a.getAttribute('href')).toMatch(/^https:\/\//)
 			expect(a).toHaveAttribute('target', '_blank')
+			expect(a).toHaveAttribute('rel', 'noreferrer')
 		}
+	})
+
+	it('offers the CV as a plain download link', () => {
+		render(<AboutView />)
+		const cv = screen.getByRole('link', { name: /download cv/i })
+		expect(cv).toHaveAttribute('href', '/Bojan_Jagetić.pdf')
+		expect(cv).toHaveAttribute('download')
+	})
+
+	it('lists every job as a button, with only the first expanded', () => {
+		render(<AboutView />)
+		const buttons = within(screen.getByRole('region', { name: 'Work' })).getAllByRole('button')
+		expect(buttons).toHaveLength(5)
+		expect(buttons.map((b) => b.getAttribute('aria-expanded'))).toEqual(['true', 'false', 'false', 'false', 'false'])
+		expect(buttons[0]).toHaveTextContent('October 2022 to Present')
 	})
 
 	it('opens the first job by default and shows its tech with friendly names', () => {
@@ -25,24 +44,14 @@ describe('AboutView', () => {
 
 	it('accordion: opening another job closes the first; clicking again collapses it', () => {
 		render(<AboutView />)
-		const oblo = screen.getByRole('button', { name: /OBLO Living/ })
-		fireEvent.click(oblo)
+		fireEvent.click(job(/OBLO Living/))
+		expect(job(/OBLO Living/)).toHaveAttribute('aria-expanded', 'true')
+		expect(job(/CodeMeUp/)).toHaveAttribute('aria-expanded', 'false')
 		expect(screen.getByText(/Cloud IoT platform/)).toBeInTheDocument()
 		expect(screen.queryByText(/Smart TV apps on Tizen/)).toBeNull()
-		fireEvent.click(oblo)
+		fireEvent.click(job(/OBLO Living/))
+		expect(job(/OBLO Living/)).toHaveAttribute('aria-expanded', 'false')
 		expect(screen.queryByText(/Cloud IoT platform/)).toBeNull()
-	})
-
-	it('downloads the CV PDF through a temporary anchor', () => {
-		const click = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(function () {
-			expect(this.getAttribute('href')).toBe('/Bojan_Jagetić.pdf')
-			expect(this.download).toBe('Bojan_Jagetić.pdf')
-			expect(document.body.contains(this)).toBe(true)
-		})
-		render(<AboutView />)
-		fireEvent.click(screen.getByRole('button', { name: /Download PDF/ }))
-		expect(click).toHaveBeenCalledTimes(1)
-		expect(document.querySelector('a[download]')).toBeNull()
-		click.mockRestore()
+		expect(screen.queryByText(/Smart TV apps on Tizen/)).toBeNull()
 	})
 })

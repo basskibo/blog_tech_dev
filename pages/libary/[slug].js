@@ -80,7 +80,7 @@ const components = {
 
 const LibaryDetails = ({ data, mdxSource }) => {
 	return (
-		<PostView data={data} backHref="/routes/libaries" backLabel="← ALL PROJECTS">
+		<PostView data={data} backHref="/routes/libaries" backLabel="All libraries">
 			<MDXRemote {...mdxSource} components={{ ...components }} lazy />
 		</PostView>
 	)

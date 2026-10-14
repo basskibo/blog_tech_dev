@@ -134,14 +134,6 @@ const NextConfiguration = {
 				]
 			}
 		]
-	},
-	async rewrites () {
-		return [
-			{
-				source: '/api/views',
-				destination: 'http://localhost:3000'
-			}
-		]
 	}
 }
 

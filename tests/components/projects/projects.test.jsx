@@ -146,30 +146,49 @@ describe('ProjectIndex', () => {
 })
 
 describe('Projects page', () => {
-	it('lists every project, ranked, with the three featured on top', () => {
+	const rows = () => screen.getAllByRole('button').filter((b) => b.hasAttribute('aria-expanded'))
+
+	it('shows the three featured projects in the launcher', () => {
 		render(<ProjectsPage />)
 		expect(screen.getByRole('heading', { level: 1, name: 'Projects' })).toBeInTheDocument()
-		const featured = screen.getByRole('region', { name: /featured projects/i })
-		expect(within(featured).getAllByRole('heading', { level: 2 }).map((h) => h.textContent)).toEqual(getFeaturedProjects().map((p) => p.name))
-		const rows = screen.getAllByRole('button', { expanded: false })
-		expect(rows).toHaveLength(projects.length)
+		expect(screen.getByText(new RegExp(`^${projects.length} things I have built`))).toBeInTheDocument()
+		const tablist = screen.getByRole('tablist', { name: 'Featured projects' })
+		const featured = getFeaturedProjects()
+		const tabs = within(tablist).getAllByRole('tab')
+		expect(tabs.map((t) => t.querySelector('.tile-name').textContent)).toEqual(featured.map((p) => p.name))
+		expect(within(screen.getByRole('tabpanel')).getByRole('heading', { level: 2 })).toHaveTextContent(featured[0].name)
+		// The page has its own count in the header, so the launcher shows no "All projects" tile.
+		expect(screen.queryByRole('link', { name: /all projects/i })).toBeNull()
+	})
+
+	it('lists every project, ranked, under "Everything"', () => {
+		render(<ProjectsPage />)
+		expect(screen.getByRole('heading', { level: 2, name: 'Everything' })).toBeInTheDocument()
+		expect(rows()).toHaveLength(projects.length)
+		expect(rows().every((b) => b.getAttribute('aria-expanded') === 'false')).toBe(true)
+		expect(rows().map((b) => b.querySelector('.row-rank').textContent))
+			.toEqual(projects.map((_, i) => String(i + 1).padStart(2, '0')))
 	})
 
 	it('filters by kind and shows counts', async () => {
 		render(<ProjectsPage />)
 		const counts = countByKind(projects)
-		const ai = screen.getByRole('button', { name: new RegExp(`^AI ${counts.AI}$`) })
+		const filters = screen.getByRole('group', { name: /filter projects by kind/i })
+		const all = within(filters).getByRole('button', { name: new RegExp(`^All ${projects.length}$`) })
+		expect(all).toHaveAttribute('aria-pressed', 'true')
+		const ai = within(filters).getByRole('button', { name: new RegExp(`^AI ${counts.AI}$`) })
 		await userEvent.click(ai)
 		expect(ai).toHaveAttribute('aria-pressed', 'true')
-		expect(screen.getAllByRole('button', { expanded: false })).toHaveLength(counts.AI)
-		await userEvent.click(screen.getByRole('button', { name: new RegExp(`^All ${projects.length}$`) }))
-		expect(screen.getAllByRole('button', { expanded: false })).toHaveLength(projects.length)
+		expect(all).toHaveAttribute('aria-pressed', 'false')
+		expect(rows()).toHaveLength(counts.AI)
+		await userEvent.click(all)
+		expect(rows()).toHaveLength(projects.length)
 	})
 
 	it('keeps the global rank when filtered', async () => {
 		render(<ProjectsPage />)
 		await userEvent.click(screen.getByRole('button', { name: /^Game \d+$/ }))
 		const rank = projects.findIndex((p) => p.kind === 'Game') + 1
-		expect(screen.getAllByRole('button', { expanded: false })[0]).toHaveTextContent(String(rank).padStart(2, '0'))
+		expect(rows()[0]).toHaveTextContent(String(rank).padStart(2, '0'))
 	})
 })

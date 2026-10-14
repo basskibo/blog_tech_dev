@@ -114,71 +114,62 @@ export default function HeroSpotify () {
 	}
 
 	return (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: 14, maxWidth: 460, width: '100%', justifySelf: 'end' }}>
-			<p style={{ font: "italic 400 clamp(22px, 2vw, 28px)/1.25 var(--f-serif)", margin: 0 }}>
-				“Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away.”
-			</p>
-			<div style={{ padding: 14, borderRadius: 26, background: 'var(--glass)', backdropFilter: 'blur(22px) saturate(1.6)', border: '1px solid var(--line)', boxShadow: '0 30px 60px -30px rgba(0,0,0,.6)' }}>
-				<audio ref={audioRef} preload="none" onError={() => { if (stopping.current) { stopping.current = false; return } setPlaying(false); setFailed(true) }} />
-				<div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
-					<a href={station.href} target="_blank" rel="noreferrer" aria-label={cover.label} style={{ width: 60, height: 60, flex: 'none', borderRadius: 16, overflow: 'hidden', background: 'linear-gradient(135deg, oklch(0.7 0.09 262), oklch(0.7 0.09 205))' }}>
-						<img src={cover.src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-					</a>
-					<div style={{ flex: 1, minWidth: 0 }}>
-						<div style={{ font: "600 10px var(--f-mono)", letterSpacing: '.12em', color: 'var(--accT)' }}>{playing ? 'LIVE · LOFI' : 'LOFI'}</div>
-						<div style={{ font: "600 17px/1.2 var(--f-sans)", marginTop: 4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{failed ? 'Stream unavailable' : station.name}</div>
-						<div style={{ font: "400 13px var(--f-sans)", color: 'var(--mut)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{station.detail}</div>
-					</div>
-					<div style={{ display: 'flex', alignItems: 'flex-end', gap: 3, height: 22, flex: 'none' }}>
-						{[0, 1, 2, 3].map((bar) => (
-							<span key={bar} style={{ width: 3, height: 18, borderRadius: 2, background: 'var(--acc)', transformOrigin: 'bottom', animation: playing ? `bjEq 0.9s ${bar * 0.12}s ease-in-out infinite` : 'none', transform: playing ? undefined : 'scaleY(0.3)' }} />
-						))}
-					</div>
-					<button type="button" aria-label={playing ? 'Pause' : 'Play'} onClick={toggle} style={{ width: 46, height: 46, flex: 'none', borderRadius: '50%', border: 'none', background: 'var(--inv)', color: 'var(--invInk)', fontWeight: 700 }}>
-						{playing ? '❚❚' : '▶'}
+		<div className="onair">
+			<audio ref={audioRef} preload="none" onError={() => { if (stopping.current) { stopping.current = false; return } setPlaying(false); setFailed(true) }} />
+			<div className="onair-row">
+				<a href={station.href} target="_blank" rel="noreferrer" aria-label={cover.label} className="onair-cover">
+					<img src={cover.src} alt="" />
+				</a>
+				<div className="onair-text">
+					<div className="onair-state">{playing ? 'Playing now' : 'Music for reading'}</div>
+					<div className="onair-name">{failed ? 'Stream unavailable' : station.name}</div>
+					<div className="onair-detail">{station.detail}</div>
+				</div>
+				<div className={`onair-eq${playing ? ' is-on' : ''}`} aria-hidden="true">
+					{[0, 1, 2, 3].map((bar) => <span key={bar} style={{ animationDelay: `${bar * 0.12}s` }} />)}
+				</div>
+				<button type="button" className="onair-play" aria-label={playing ? 'Pause' : 'Play'} onClick={toggle}>
+					{playing
+						? <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" /><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" /></svg>
+						: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>}
+				</button>
+			</div>
+			<div className="onair-foot">
+				<div ref={menuRef} style={{ position: 'relative' }}>
+					<button type="button" className="onair-pick" aria-expanded={menu} aria-haspopup="listbox" onClick={() => setMenu((open) => !open)}>
+						{station.name}
+						<svg viewBox="0 0 24 24" aria-hidden="true" style={{ transform: menu ? 'rotate(180deg)' : 'none' }}><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" /></svg>
 					</button>
-				</div>
-				<div style={{ height: 3, borderRadius: 3, background: 'var(--line)', marginTop: 12, overflow: 'hidden' }}>
-					<div style={{ height: '100%', width: '28%', background: 'var(--acc)', animation: playing ? 'bjLive 1.6s linear infinite' : 'none', transform: playing ? undefined : 'translateX(-100%)' }} />
-				</div>
-				<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, marginTop: 12 }}>
-					<div ref={menuRef} style={{ position: 'relative' }}>
-						<button type="button" aria-expanded={menu} aria-haspopup="listbox" onClick={() => setMenu((open) => !open)} style={{ height: 32, padding: '0 12px', borderRadius: 99, border: '1px solid var(--line)', background: 'var(--card)', color: 'var(--ink)', display: 'flex', alignItems: 'center', gap: 8, font: "600 12px var(--f-sans)" }}>
-							{station.name}
-							<span style={{ fontSize: 9, opacity: 0.7, transform: menu ? 'rotate(180deg)' : 'none', transition: 'transform .25s' }}>▼</span>
-						</button>
-						{menu && (
-							<div role="listbox" style={{ position: 'absolute', left: 0, bottom: 'calc(100% + 8px)', minWidth: 168, padding: 6, borderRadius: 18, background: 'var(--bg2)', border: '1px solid var(--line)', boxShadow: '0 18px 40px -18px rgba(0,0,0,.65)', animation: 'bjDrop .28s cubic-bezier(.2,.9,.3,1.2) both', zIndex: 4 }}>
-								{STATIONS.map((item) => {
-									const on = item.id === station.id
-									return (
-										<button key={item.id} type="button" role="option" aria-selected={on} onClick={() => pickStation(item)} style={{ width: '100%', textAlign: 'left', padding: '8px 10px', borderRadius: 12, border: 'none', background: on ? 'var(--card)' : 'transparent', color: 'var(--ink)' }}>
-											<div style={{ font: "600 13px var(--f-sans)" }}>{item.name}</div>
-											<div style={{ font: "500 10px var(--f-mono)", color: 'var(--mut)', marginTop: 2 }}>{item.detail}</div>
-										</button>
-									)
-								})}
-							</div>
-						)}
-					</div>
-					<div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-						<div style={{ width: volOpen ? 84 : 0, opacity: volOpen ? 1 : 0, overflow: 'hidden', transition: 'width .32s cubic-bezier(.2,.8,.2,1), opacity .22s' }}>
-							<input
-								aria-label="Volume"
-								type="range"
-								min="0"
-								max="1"
-								step="0.05"
-								value={volume}
-								tabIndex={volOpen ? 0 : -1}
-								onChange={(event) => setVolume(Number(event.target.value))}
-								style={{ width: 76, accentColor: 'var(--acc)', cursor: 'pointer' }}
-							/>
+					{menu && (
+						<div role="listbox" className="onair-menu">
+							{STATIONS.map((item) => {
+								const on = item.id === station.id
+								return (
+									<button key={item.id} type="button" role="option" aria-selected={on} className="onair-option" onClick={() => pickStation(item)}>
+										<b>{item.name}</b>
+										<span>{item.detail}</span>
+									</button>
+								)
+							})}
 						</div>
-						<button type="button" aria-label="Volume" aria-pressed={volOpen} onClick={() => setVolOpen((open) => !open)} style={{ width: 32, height: 32, flex: 'none', borderRadius: '50%', border: '1px solid var(--line)', background: volOpen ? 'var(--inv)' : 'var(--card)', color: volOpen ? 'var(--invInk)' : 'var(--ink)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-							<SpeakerIcon muted={volume === 0} />
-						</button>
+					)}
+				</div>
+				<div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+					<div className="onair-vol" style={{ width: volOpen ? 84 : 0, opacity: volOpen ? 1 : 0 }}>
+						<input
+							aria-label="Volume"
+							type="range"
+							min="0"
+							max="1"
+							step="0.05"
+							value={volume}
+							tabIndex={volOpen ? 0 : -1}
+							onChange={(event) => setVolume(Number(event.target.value))}
+						/>
 					</div>
+					<button type="button" className="icon-btn" style={{ width: 34, height: 34 }} aria-label="Volume" aria-pressed={volOpen} onClick={() => setVolOpen((open) => !open)}>
+						<SpeakerIcon muted={volume === 0} />
+					</button>
 				</div>
 			</div>
 		</div>

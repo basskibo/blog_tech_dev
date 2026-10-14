@@ -3,15 +3,9 @@ import React from 'react'
 
 const Accent = ({ children, className }) => {
 	return (
-		<span
-			className={cn(
-				'text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary/80 to-primary',
-				'font-bold',
-				className
-			)}
-		>
+		<strong className={cn('font-bold', className)} style={{ color: 'var(--accT)' }}>
 			{children}
-		</span>
+		</strong>
 	)
 }
 

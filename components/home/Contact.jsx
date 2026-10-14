@@ -10,29 +10,30 @@ const PLATFORMS = [
 
 export default function Contact () {
 	return (
-		<section className="sec" aria-label="Contact">
-			<div className="wrap contact">
-				<div className="contact-main">
-					<h2>Have an idea?</h2>
-					<p>I am always up for talking about new projects, odd ideas, or a chance to be part of something good.</p>
-					<a className="btn btn-solid" href="mailto:jagetic.bojan@gmail.com" data-umami-event="say-hello-click">
-						<Mail aria-hidden="true" /> Say hello
-					</a>
-				</div>
-				<div className="contact-side">
-					<h3>Get new posts by email</h3>
-					<p>One email when something new is published. No spam.</p>
+		<section className="sec" aria-labelledby="contact-title">
+			<div className="wrap">
+				<div className="contact">
 					<div>
-						<a className="btn btn-sm btn-ghost" href="https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist" target="_blank" rel="noopener noreferrer" data-umami-event="newsletter-subscribe-click">
-							<SiSubstack aria-hidden="true" /> Subscribe on Substack
-						</a>
-					</div>
-					<div className="platforms">
-						{PLATFORMS.map(({ name, Icon, href }) => (
-							<a key={name} className="chip" href={href} target="_blank" rel="noopener noreferrer" data-umami-event={`newsletter-${name.toLowerCase()}-click`}>
-								<Icon aria-hidden="true" /> {name}
+						<h2 id="contact-title" className="t-h2">Have an idea?</h2>
+						<p className="t-lead" style={{ marginTop: 14 }}>I am always up for talking about new projects, odd ideas, or a chance to be part of something good.</p>
+						<div className="contact-actions">
+							<a className="btn btn-solid" href="mailto:jagetic.bojan@gmail.com" data-umami-event="say-hello-click">
+								<Mail aria-hidden="true" /> Say hello
 							</a>
-						))}
+							<a className="btn btn-ghost" href="https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist" target="_blank" rel="noopener noreferrer" data-umami-event="newsletter-subscribe-click">
+								<SiSubstack aria-hidden="true" /> Subscribe on Substack
+							</a>
+						</div>
+					</div>
+					<div className="contact-side">
+						<p className="t-mut">New posts also go to</p>
+						<div className="contact-platforms">
+							{PLATFORMS.map(({ name, Icon, href }) => (
+								<a key={name} className="chip" href={href} target="_blank" rel="noopener noreferrer" data-umami-event={`newsletter-${name.toLowerCase()}-click`}>
+									<Icon aria-hidden="true" /> {name}
+								</a>
+							))}
+						</div>
 					</div>
 				</div>
 			</div>

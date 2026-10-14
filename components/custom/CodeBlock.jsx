@@ -46,6 +46,15 @@ export function parseLanguageByClass (className) {
   return LANGUAGES[lower] ? lower : 'plaintext'
 }
 
+// vs2015 on our indigo background, with the dim colours lifted to pass WCAG AA contrast.
+const theme = {
+  ...vs2015,
+  'hljs-comment': { ...vs2015['hljs-comment'], color: '#8fb98a' },
+  'hljs-quote': { ...vs2015['hljs-quote'], color: '#8fb98a' },
+  'hljs-regexp': { ...vs2015['hljs-regexp'], color: '#e0a07a' },
+  'hljs-template-tag': { ...vs2015['hljs-template-tag'], color: '#e0a07a' }
+}
+
 const CodeBlock = ({ code, className }) => {
   const [copied, setCopied] = useState(false)
   const notify = () => {
@@ -86,7 +95,8 @@ const CodeBlock = ({ code, className }) => {
       <SyntaxHighlighter
         className=''
         language={parseLanguageByClass(className)}
-        style={vs2015}
+        style={theme}
+        customStyle={{ background: '#0e0c28', padding: '18px 20px', borderRadius: 16, margin: '24px 0', fontSize: 15, lineHeight: 1.6 }}
         wrapLines={true}
         wrapLongLines={true}
         showLineNumbers={false}

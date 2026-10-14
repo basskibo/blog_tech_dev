@@ -1,13 +1,12 @@
 import React from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { formatDate, tagName } from '../jagetic/format'
+import dayjs from 'dayjs'
+import { tagName } from '../jagetic/format'
 
 const IMAGE_HOSTS = ['res.cloudinary.com', 'images.unsplash.com', 'images.pexels.com', 'avatars.githubusercontent.com']
 
-// next/image only optimises hosts listed in next.config.js; anything else
-// is rendered as a plain lazy image.
+// next/image only optimises hosts listed in next.config.js.
 export function canOptimize (src) {
 	if (!src) return false
 	if (src.startsWith('/')) return true
@@ -19,12 +18,28 @@ export function canOptimize (src) {
 	}
 }
 
-function Cover ({ src }) {
-	if (!src) return null
-	if (canOptimize(src)) {
-		return <Image src={src} alt="" fill sizes="(max-width: 1023px) 100vw, 400px" />
-	}
-	return <img src={src} alt="" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+// A dated list: the date column carries the order, so there are no cards.
+export function GuideRow ({ post }) {
+	const date = post.publishedAt ? dayjs(post.publishedAt) : null
+	return (
+		<li className="guide-row">
+			<Link href={`/post/${post.slug}`} className="guide-link" data-umami-event={`landing-ftr-post-${post.slug}`}>
+				<span className="guide-date">
+					{date && date.isValid()
+						? <time dateTime={date.format('YYYY-MM-DD')}><b>{date.format('MMM D')}</b><span>{date.format('YYYY')}</span></time>
+						: <span>Undated</span>}
+				</span>
+				<span className="guide-main">
+					<span className="guide-title">{post.title}</span>
+					{post.excerpt && <span className="guide-excerpt">{post.excerpt}</span>}
+				</span>
+				<span className="guide-meta">
+					<span className="tag">{tagName(post)}</span>
+					{post.read && <span className="t-mut t-small">{post.read}</span>}
+				</span>
+			</Link>
+		</li>
+	)
 }
 
 export default function LatestPosts ({ posts }) {
@@ -33,22 +48,12 @@ export default function LatestPosts ({ posts }) {
 		<section className="sec" aria-labelledby="posts-title">
 			<div className="wrap">
 				<div className="sec-head">
-					<h2 id="posts-title" className="sec-title">Writing</h2>
-					<p className="sec-sub">Notes from building these, and everything in between.</p>
+					<h2 id="posts-title" className="t-h2">Writing</h2>
+					<p className="t-mut">Notes from building these, and everything in between.</p>
 				</div>
-				<div className="posts">
-					{posts.map((post) => (
-						<Link key={post.slug} href={`/post/${post.slug}`} className="post-card" data-umami-event={`landing-ftr-post-${post.slug}`}>
-							<div className="post-img"><Cover src={post.featuredImage} /></div>
-							<div className="post-body">
-								<span className="post-tag">{tagName(post)}</span>
-								<h3 className="post-title">{post.title}</h3>
-								<p className="post-excerpt">{post.excerpt}</p>
-								<span className="post-meta">{formatDate(post.publishedAt)}{post.read ? ` · ${post.read}` : ''}</span>
-							</div>
-						</Link>
-					))}
-				</div>
+				<ol className="guide">
+					{posts.map((post) => <GuideRow key={post.slug} post={post} />)}
+				</ol>
 				<Link href="/routes/blog" className="more-link">All posts <ArrowRight aria-hidden="true" /></Link>
 			</div>
 		</section>

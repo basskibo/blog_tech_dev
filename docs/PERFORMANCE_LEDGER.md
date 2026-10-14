@@ -1,123 +1,97 @@
 # Performance & decisions ledger
 
-Things that cost speed (or correctness) and need a decision from the owner.
-Each open item has a recommendation; nothing here has been changed yet.
-Fixed items are kept at the bottom, with numbers, so we know what each change bought.
+Things that cost speed (or correctness), and decisions that belong to the owner.
+Open items come first, each with a recommendation. Fixed items are at the bottom, with the numbers each change bought.
 
-Status: `OPEN` needs a decision · `FIXED` done in the redesign (October 2026)
+Status: `OPEN` needs a decision or work · `FIXED` done (October 2026)
 
 ## How it was measured
 
-- Production build (`next build && next start`) on localhost, same machine for `main` and the redesign.
-- **Lighthouse 12, mobile preset** (simulated slow 4G + 4× CPU). Scores on this machine move ±10 between runs, so treat them as a range.
-- **Real-browser check:** Chromium with 4× CPU throttling and no network throttling, reading `largest-contentful-paint` and `longtask` entries directly. These numbers are stable between runs.
+- Production build (`next build && next start`) on localhost. `main` before the redesign was measured on the same machine.
+- **Lighthouse 12, mobile preset** (simulated slow 4G + 4× CPU). Scores move about ±10 between runs on this machine, so read them as a range.
+- **Real-browser check:** Chromium with 4× CPU throttling and no network throttling, reading `largest-contentful-paint` entries directly. These are stable between runs.
 
-| Page | `main` Lighthouse perf | Redesign Lighthouse perf | `main` real LCP | Redesign real LCP |
-|---|---|---|---|---|
-| `/` | 32 (LCP 14.1 s, TBT 3.7 s, CLS 0.108) | 48–55 (LCP 5.3–5.8 s, TBT 0.8–1.5 s, CLS 0) | 3.7 s (FCP 2.4 s) | **0.41 s** (FCP 0.41 s) |
-| `/routes/projects` | 39 (TBT 1.7 s) | 46–62 (CLS 0) | – | – |
-| `/post/webos-project` | 39 (LCP 24 s, TBT 3.1 s) | 47–49 (TBT 1.4–1.8 s) | 2.7 s (FCP 1.9 s) | **1.1 s** (FCP 0.7 s) |
+### Before and after
 
-Accessibility went from 92–93 to 100 on `/` and `/routes/projects`.
-In real browsers the page now paints its main content on the first frame. Lighthouse's simulated score is held back by the items below, mostly JavaScript work and third-party scripts.
+Accessibility and Best Practices are the same on every page measured:
+- **Accessibility:** 100 on every page after (was 92–100).
+- **Best Practices:** 96 on every page after (was 75–96). The remaining 4 points are the two Vercel scripts that only 404 on localhost.
+
+| Page | Lighthouse perf before | Lighthouse perf after | LCP (Lighthouse) before → after | TBT before → after | CLS before → after |
+|---|---|---|---|---|---|
+| `/` | 32 | 85–93 | 14.1 s → 3.2–4.1 s | 3.7 s → 70–130 ms | 0.108 → 0 |
+| `/routes/projects` | 39 | 95–96 | 5.8 s → 2.6 s | 1.7 s → 100 ms | 0 → 0 |
+| `/routes/blog` | – | 79–86 | – → 3.5–4.2 s | – → 260–300 ms | – → 0 |
+| `/post/webos-project` | 39 | 74–77 | 24 s → 5.1 s | 3.1 s → 80–190 ms | 0 → 0 |
+| `/routes/aboutme` | – | 92 | – → 2.3 s | – → 280 ms | – → 0 |
+
+The "–" cells were not measured on `main`.
+
+Real-browser LCP on `/` went from 3.7 s on `main` to 0.26 s. On a post page it went from 2.7 s to 1.1 s.
 
 First-load JavaScript (from `next build`):
 
-| Route | `main` | Redesign |
+| Route | `main` | Now |
 |---|---|---|
-| `/` | 176 kB | 121 kB |
-| `/routes/projects` | 161 kB | 112 kB |
-| `/post/[slug]`, `/libary/[slug]` | 582 kB | 218 kB |
+| `/` | 176 kB | 116 kB |
+| `/routes/projects` | 161 kB | 109 kB |
+| `/routes/blog` | 103 kB | 104 kB |
+| `/post/[slug]`, `/libary/[slug]` | 582 kB | 214 kB |
 
 ---
 
-## Open: need a decision
+## Open: decisions for the owner
 
-### P1. Five analytics tools on every page `FIXED` (October 2026)
-Google Analytics and Microsoft Clarity have been removed, which also removes Clarity's third-party cookies and roughly 400 ms of main-thread work.
-- Umami is kept for page views and `data-umami-event` clicks.
-- PostHog was added, loaded from `lib/analytics.js` only when `NEXT_PUBLIC_POSTHOG_KEY` is set, and only after the page is idle (`requestIdleCallback`). Session replay is off unless `NEXT_PUBLIC_POSTHOG_REPLAY=1`.
-- Vercel Analytics and Speed Insights are still loaded. Vercel Analytics overlaps with Umami, so it could be dropped later.
+### D1. The lofi radio starts playing on page load `OPEN`
+`components/jagetic/HeroSpotify.jsx` calls `audio.play()` on mount. When the browser allows it, a 128 kbps stream starts downloading and decoding right away, which costs data and battery on phones. Lighthouse does not see it, because headless Chrome blocks autoplay.
+- **Recommendation:** start the stream on the first click on play.
 
-### P2. Lofi radio starts playing on page load `OPEN` · impact: medium
-`components/jagetic/HeroSpotify.jsx` calls `audio.play()` on mount. When the browser allows it, a 128 kbps MP3 stream starts downloading and decoding right away, which costs data and battery on phones. When the browser blocks it, the call is wasted.
-- **Recommendation:** start the stream only on the first click on ▶ and keep the rest of the player as is.
+### D2. "Most viewed" and "Top on Dev.to" are no longer on the homepage `OPEN`
+The old homepage fetched both in the browser on every visit, which also opened a Prisma connection.
+- **Decision needed:** should they come back? If yes, fetch them in `getStaticProps` with `revalidate`, not in the browser.
 
-### P3. React hydration is the biggest remaining cost `OPEN` · impact: high
-Most of the remaining Total Blocking Time is `framework.js`: React 18 hydrating the whole page in one go, about 250–550 ms in tasks on a throttled CPU.
-- **Recommendation:** upgrade to Next 14/15. That also fixes P4 and P11. After that, either move to the App Router with server components (the homepage and projects page are almost static, so they would ship very little JS), or keep the Pages Router and lazy-hydrate below-the-fold sections.
+### D3. Vercel Analytics overlaps with Umami `OPEN`
+Both count page views.
+- **Recommendation:** keep Umami and Vercel Speed Insights (Core Web Vitals from real visitors), and drop Vercel Analytics.
 
-### P4. Fonts have no metric-matched fallback or preload `OPEN` · impact: low
-`next/font/google` downloaded the fonts from Google during `next build`, and that download failed on Vercel and broke the deploy. The fonts now come from fontsource packages bundled with the app, so the build needs no network.
-- The trade-off: there is no automatic size-adjusted fallback and no `<link rel="preload">`. Text can shift slightly when the web font arrives, and fonts start downloading a little later.
-- **Recommendation:** after the Next upgrade (P3), switch to `next/font/local` pointing at the same woff2 files. That brings back preload and fallback metrics without any network access at build time.
+## Open: work left
 
-### P5. Two theme systems `OPEN` · impact: medium
-`next-themes` (`ThemeProvider` in `_app.js`, class on `<html>`) and `Shell.jsx` (its own `data-theme` state, saved as `bj-theme` in localStorage) both run. Shell always renders dark on the server and switches after hydration, so light-mode visitors see a dark flash and the whole tree renders twice.
-- **Recommendation:** keep one. Use next-themes with `attribute="data-theme"`, or add a tiny inline script that sets the theme before first paint.
-
-### P6. Post pages still ship 218 kB of JS `OPEN` · impact: medium
+### W1. Post pages ship 214 kB of JavaScript `OPEN` · impact: medium
 `MdxComponents.jsx` imports every MDX component up front, even for posts that don't use them: react-modal-image, react-toastify plus its CSS, react-copy-to-clipboard, github-user-repo-card, @headlessui Disclosure, cloudinary-build-url and slugify.
-- **Recommendation:** load each one with `next/dynamic` so a post only downloads what it renders. Replace react-toastify with the small toast the Shell already has.
+- **Recommendation:** load each one with `next/dynamic`, and replace react-toastify with the small toast the post page already has.
 
-### P7. Legacy CSS and dead components `OPEN` · impact: medium
-Every page loads 21 kB of CSS: Tailwind, an 890-line `globals.scss` (mostly `jag-*` classes from the old landing page), `jagetic.css` and `site.css`. Many components are no longer rendered:
-- `layout/Header.jsx`, `layout/Footer.jsx`
-- `FeatureLanding`, `FeaturedProject`, `custom/FeaturedProjectTeaser`, `FeaturedPosts`, `HighlightPost`
-- `PostBody`, `PostDetail`, `shared/PostListScreen` (and `custom/Masonary`, which only it uses), `QuizComponent`
-- `custom/SplashScreen`, `custom/ParticlesBackground`, `custom/TechnologyStack`, `SupportMe`, `CV`
+### W2. No metric-matched fallback fonts `OPEN` · impact: low
+The fonts are self-hosted and preloaded, and measured CLS is 0. Visitors on slow connections can still see a small reflow when Unbounded replaces the fallback in long headlines.
+- **Recommendation:** add `size-adjust` / `ascent-override` fallback faces, or move to `next/font/local` pointing at `public/fonts`.
 
-Nothing imports these, apart from the barrel file `components/index.js` and each other.
-- **Recommendation:** delete the dead components, then let Tailwind purge and remove the unused `jag-*` rules. I did not delete them because some might be wanted back.
+### W3. Next 15/16 and the App Router `OPEN` · impact: medium
+The site is on Next 14.2, the last release line that needs no code changes for the Pages Router. React hydration is now the largest remaining main-thread cost.
+- **Recommendation:** move the mostly static pages (home, projects, blog list) to server components so they ship less JavaScript.
 
-### P8. Unused or duplicate dependencies `OPEN` · impact: low at runtime, high for installs and CI
-- **Not imported anywhere:** `react-window`, `@radix-ui/themes`, `react-type-animation`, `querystring`, `@splitbee/web`.
-- **Only imported by the dead components in P7:** `react-tsparticles`, `tsparticles-slim`, `react-google-charts`, `react-responsive-virtual-grid`, `react-countup`.
-- **`fs`:** an npm placeholder package that shadows Node's `fs` in tools like Vitest. The test config works around it with an alias.
-- **Three lockfiles:** `package-lock.json`, `yarn.lock` and `pnpm-lock.yaml`. CI uses pnpm.
-- **Recommendation:** remove these packages, keep only `pnpm-lock.yaml`, and run `pnpm dedupe`.
+### W4. Covers are optimised on first request `OPEN` · impact: low on Vercel
+Post covers come from Unsplash and Cloudinary through `next/image`. On localhost the first request converts the full-size photo, which is why post LCP measures 4.7–5.1 s here. On Vercel the result is cached at the CDN.
+- **Recommendation:** nothing, unless field data (Speed Insights) shows slow LCP on posts.
 
-### P9. External post images skip optimisation `OPEN` · impact: low
-Featured images from hosts that are not in `images.remotePatterns` (for example `coinsel.jageticbojan.com/opengraph-image`) are served full size as plain `<img loading="lazy">`.
-- **Recommendation:** add `*.jageticbojan.com` and `*.vercel.app` to `remotePatterns`, or download those covers into `public/images`.
+## Open: bugs
 
-### P10. `sharp` is broken in local installs `OPEN` · impact: low (Vercel uses its own)
-`sharp-linux-x64.node` is missing after `pnpm install`, because pnpm ignores build scripts (`pnpm approve-builds`). Locally, `next start` then falls back to a much slower image optimiser.
-- **Recommendation:** `pnpm approve-builds` (allow sharp, prisma, esbuild), or upgrade to sharp 0.33+, which ships prebuilt binaries.
-
-### P11. React warning: `fetchPriority` `OPEN` · impact: none (dev noise)
-Next 13.5 with React 18.3 warns about the `fetchPriority` prop on prioritised images. Fixed by the upgrade in P3.
-
-### P12. `next.config.js` rewrites `/api/views` to `http://localhost:3000` `OPEN` · impact: correctness
-In production this sends the view counter to localhost.
-- **Recommendation:** remove the rewrite. The route itself is now a 405-guarded no-op, and `/api/views/featured` is where views are really stored.
-
-### P13. Homepage no longer calls `/api/views/featured` or `/api/devto` `OPEN` · decision
-The old homepage fetched "most viewed" posts from Postgres (Prisma) and "Top on Dev.to" on every visit, which meant two client-side requests plus a database connection on page load. The redesign shows the three newest posts, rendered at build time.
-- **Decision needed:** should "most viewed" and "Top on Dev.to" come back? If yes, fetch them in `getStaticProps` with `revalidate`, not in the browser.
-
----
-
-## Open: bugs left for the owner
-
-Each of these has a test marked `it.fails`, so the suite tells you when it gets fixed.
+Each of these has a test marked `it.fails`, so the suite reports when one gets fixed.
 
 - **B1:** `scripts/convert-to-devto.js` writes frontmatter values unquoted, so a title containing `: ` produces invalid YAML. This already happened in `posts/blog/automating-content-publishing-mdx-to-devto-devto.md`. Fix with `matter.stringify`.
 - **B2:** `pages/api/analytics.js`, `comments.js`, `og.jsx` and `subscribers.js` are entirely commented out. They ship as public routes that return 500. Delete them or restore them.
 - **B3:** `pages/api/views/featured.js`: GET increments a view counter and POST reads the top three. Crawlers and link prefetches count as views. Swap the methods and update the callers.
 - **B4:** 11 library posts have tags with an empty `slug` (`{ slug: "", name: "project" }`).
 
-## Dead project deployments (found while collecting projects)
+## Dead project deployments
 
-These live URLs return 404. Their projects are shown as "archived" or "in development" without a live link:
+These live URLs return 404, so their projects are shown without a live link:
 - `gamedealhub.vercel.app`
 - `pallete-generator.vercel.app`
 - `leaflet-destination-map.vercel.app`
 - `pirate-hunter-two.vercel.app`
 
-`githubcard.bojanjagetic.com` does not resolve. `buddy-bill-eight.vercel.app` (the old Coinsel) is still up.
+`githubcard.bojanjagetic.com` does not resolve.
 
-## Security notes from other repos (found while writing the project posts)
+## Security notes from other repos
 
 None of these are mentioned in the published posts.
 - **Voyage Vault:** the Gumroad webhook skips the HMAC check when no signature header is sent.
@@ -126,24 +100,27 @@ None of these are mentioned in the published posts.
 
 ---
 
-## Fixed in the redesign
+## Fixed
 
 | # | What | Why it was slow or wrong | Change |
 |---|---|---|---|
-| F1 | `SplashScreen` wrapped the whole app | Server HTML contained only a Pac-Man spinner. No content was painted until React hydrated, which hurt LCP and SEO. | Removed. Pages render on the server again. |
-| F2 | Google Fonts `<link>` (4 families, one unused: Montserrat) | Render-blocking CSS from a third-party origin | `next/font` self-hosts the fonts. Only the italic Instrument Serif is loaded, and JetBrains Mono is not preloaded. |
-| F3 | Hero blobs: three 420–600 px `filter: blur(90px)` layers, animated forever | Constant GPU and paint work | Static gradients. |
-| F4 | Hero `onMouseMove` → `setState` | Re-rendered the whole hero on every mouse move | CSS variables written once per frame. |
-| F5 | Hero text started hidden (opacity 0 and blur, or letters clipped) | Chrome could not use the headline as LCP until the animation ended | Text is visible on the first frame. The effect is now a light beam across the name and a short slide-up. |
-| F6 | `bjIn` page entrance used `opacity: 0` and `filter: blur(10px)` on whole screens | Full-screen blur rasterisation, and LCP was delayed on every page | Transform-only. |
-| F7 | Featured carousel tilt: `setState` on every pointer move | Re-renders | Replaced by the scroll showcase, which uses an IntersectionObserver and CSS transitions. |
-| F8 | Homepage featured posts fetched in the browser (axios, framer-motion, react-countup, Prisma) | Two requests plus a DB connection on every visit, and a skeleton flash | Built at build time from `getStaticProps`. |
-| F9 | Shell scroll progress: `setState` on every scroll event | Re-rendered the shell on every scroll | A ref and a transform, at most once per frame. |
-| F10 | Custom cursor `requestAnimationFrame` loop | Ran 60 times a second even when the mouse was still | The loop stops once the ring catches up. |
-| F11 | `react-syntax-highlighter` default build | Every highlight.js language bundled into every post | Light build with the 14 languages the posts use. Post first-load JS went from 582 kB to 218 kB. |
-| F12 | `cheerio` in the browser bundle (EmbeddedLink) | Large parser shipped to every post | Uses the browser's `DOMParser`. |
-| F13 | framer-motion on the homepage and projects page | Animation runtime in the critical bundle | CSS only. `/` went from 176 kB to 121 kB, `/routes/projects` from 161 kB to 112 kB. |
-| F14 | Project images | Third-party stock photos, some from dead URLs | Real screenshots as WebP (30–100 kB) through `next/image` with `sizes`. |
-| F15 | `/routes/blog` wrote every post to `localStorage` on every render | Synchronous storage write that nothing read | Removed. |
-| F16 | Build crashed on `/post/webos-project` | next-mdx-remote v6 strips JS props (`blockJS`), so `<Table header={...}>` got `undefined` | `serialize(..., { blockJS: false })` for local posts, and Table props have defaults. |
-| F17 | CI workflow had a stray `k` line | Invalid YAML; CI could not run | Removed. CI now also runs `pnpm test`. |
+| F1 | `SplashScreen` wrapped the whole app | Server HTML was only a spinner until hydration. That hurt LCP and SEO. | Removed. |
+| F2 | Google Fonts `<link>`, then `next/font/google` | First render-blocking CSS from Google. Then the deploy broke, because the build downloaded fonts from Google. | Fonts are self-hosted in `public/fonts` and the two first-paint files are preloaded. Unbounded's extended-Latin file is cut to Central European letters (10 kB instead of 116 kB). |
+| F3 | Five analytics tools | Clarity cost ~400 ms of main-thread time and set third-party cookies. GA added a tag manager. | GA and Clarity removed. Umami kept. PostHog loads only with a key, after the page is idle, with replay off. |
+| F4 | Animated blur blobs and `setState` on mouse move in the hero | Constant GPU work and re-renders | Gone in the redesign. |
+| F5 | Entrance animations with `opacity: 0` and `filter: blur()` | Delayed LCP and caused full-screen blur rasterisation | Transform-only, or none. |
+| F6 | Custom cursor | `requestAnimationFrame` loop on every page, and the owner disliked it | Removed. The system pointer is back. |
+| F7 | Homepage posts fetched in the browser (axios, framer-motion, react-countup, Prisma) | Two requests plus a DB connection per visit | Built at build time. |
+| F8 | Shell scroll progress via `setState` | Re-rendered the page on every scroll event | A ref and a transform, at most once per frame. |
+| F9 | Full highlight.js build in every post | Every language in the bundle | Light build with the 14 languages the posts use: 582 kB → 214 kB. |
+| F10 | `cheerio` in the browser bundle | Large parser on every post | Uses the browser's `DOMParser`. |
+| F11 | framer-motion, next-themes, Radix, particles and 30+ other packages | Bundle weight and install time | Removed, along with more than 60 files nothing imported. |
+| F12 | Two theme systems (next-themes and the Shell's own) | Double render and a dark flash for light-mode visitors | One system: `data-theme` on the shell, saved in localStorage. |
+| F13 | Next 13.5 and sharp 0.32 | sharp needed a native build that pnpm skipped. React printed `fetchPriority` warnings. | Next 14.2.35 and sharp 0.34 (prebuilt binaries). |
+| F14 | Three lockfiles | CI, Vercel and local installs could resolve different versions | Only `pnpm-lock.yaml`, with `packageManager` pinned. |
+| F15 | `/api/views` rewrite to `http://localhost:3000` | Broken in production | Removed. |
+| F16 | Post covers as full-size `<img>` and CSS backgrounds | 1600 px photos on phones, and text over images | `next/image` with `sizes` and priority. The title is never placed over the photo. |
+| F17 | Long URLs, tables and code without a language | Horizontal scrolling on phones | Text wraps; tables and code scroll inside the column. |
+| F18 | Low-contrast colours (code comments, tab counts, links not underlined in text) | Accessibility 92–96 | Accessibility 100 on every page. |
+| F19 | Build crash on `/post/webos-project` | next-mdx-remote v6 strips JS props | `serialize(..., { blockJS: false })` for local posts. |
+| F20 | CI workflow had an invalid line | CI could not run | Fixed. CI also runs the tests. |

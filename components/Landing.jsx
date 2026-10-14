@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import Hero from './home/Hero'
-import FeaturedWork from './home/FeaturedWork'
+import Launcher from './home/Launcher'
 import Spotlight from './home/Spotlight'
 import LatestPosts from './home/LatestPosts'
 import Contact from './home/Contact'
@@ -16,18 +16,20 @@ const more = allProjects.filter((project) => !shown.has(project.slug)).slice(0, 
 const rankOf = (project) => allProjects.indexOf(project) + 1
 
 const Landing = ({ posts = [] }) => (
-	<div style={{ overflowX: 'clip' }}>
-		<Hero featured={featured} />
-		<FeaturedWork projects={featured} />
+	<div className="home">
+		<div className="wrap">
+			<Hero />
+			<Launcher projects={featured} total={allProjects.length} />
+		</div>
 		<Spotlight projects={spotlight} />
 		<section className="sec" aria-labelledby="more-title">
 			<div className="wrap">
 				<div className="sec-head">
-					<h2 id="more-title" className="sec-title">And more</h2>
-					<p className="sec-sub">{allProjects.length} projects in total, ranked by how much fun they were.</p>
+					<h2 id="more-title" className="t-h2">More projects</h2>
+					<p className="t-mut">Ranked by how much fun they were to build.</p>
 				</div>
 				<ProjectIndex projects={more} rankOf={rankOf} />
-				<Link href="/routes/projects" className="more-link" data-umami-event="landing-all-projects">All {allProjects.length} projects <ArrowRight aria-hidden="true" /></Link>
+				<Link href="/routes/projects" className="more-link" data-umami-event="landing-all-projects-list">All {allProjects.length} projects <ArrowRight aria-hidden="true" /></Link>
 			</div>
 		</section>
 		<LatestPosts posts={posts} />
