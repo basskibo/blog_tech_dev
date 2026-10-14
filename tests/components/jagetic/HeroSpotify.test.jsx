@@ -25,14 +25,28 @@ afterEach(() => {
 
 async function mount () {
 	const utils = render(<HeroSpotify />)
-	// flush the autoplay promise
 	await act(async () => {})
 	return { ...utils, audio: utils.container.querySelector('audio') }
 }
 
+async function mountPlaying () {
+	const utils = await mount()
+	await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Play' })) })
+	return utils
+}
+
 describe('HeroSpotify playback', () => {
-	it('autoplays the first station', async () => {
+	it('does not start the stream on page load', async () => {
 		const { audio } = await mount()
+		expect(play).not.toHaveBeenCalled()
+		expect(audio.hasAttribute('src')).toBe(false)
+		expect(screen.getByRole('button', { name: 'Play' })).toBeInTheDocument()
+		expect(screen.getByText('Music for reading')).toBeInTheDocument()
+		expect(screen.queryByText('Stream unavailable')).toBeNull()
+	})
+
+	it('starts the selected station on the first click', async () => {
+		const { audio } = await mountPlaying()
 		expect(play).toHaveBeenCalledTimes(1)
 		expect(audio.src).toBe(CHILLHOP)
 		expect(audio.volume).toBe(0.8)
@@ -40,24 +54,8 @@ describe('HeroSpotify playback', () => {
 		expect(screen.getByText('Playing now')).toBeInTheDocument()
 	})
 
-	it('stays idle (not failed) when the browser blocks autoplay', async () => {
-		play.mockRejectedValueOnce(domError('NotAllowedError'))
-		await mount()
-		expect(screen.getByRole('button', { name: 'Play' })).toBeInTheDocument()
-		expect(screen.getByText('Music for reading')).toBeInTheDocument()
-		expect(screen.queryByText('Stream unavailable')).toBeNull()
-		expect(screen.getAllByText('Chillhop').length).toBeGreaterThan(0)
-	})
-
-	it('shows "Stream unavailable" when autoplay fails for another reason', async () => {
-		play.mockRejectedValueOnce(domError('NotSupportedError'))
-		await mount()
-		expect(screen.getByText('Stream unavailable')).toBeInTheDocument()
-		expect(screen.getByRole('button', { name: 'Play' })).toBeInTheDocument()
-	})
-
 	it('pause stops the stream, drops the src and does not report the resulting error', async () => {
-		const { audio } = await mount()
+		const { audio } = await mountPlaying()
 		fireEvent.click(screen.getByRole('button', { name: 'Pause' }))
 		expect(pause).toHaveBeenCalled()
 		expect(load).toHaveBeenCalled()
@@ -68,41 +66,35 @@ describe('HeroSpotify playback', () => {
 		expect(screen.getByRole('button', { name: 'Play' })).toBeInTheDocument()
 	})
 
-	it('play resumes the selected station', async () => {
-		play.mockRejectedValueOnce(domError('NotAllowedError'))
-		const { audio } = await mount()
+	it('play after pause resumes the selected station', async () => {
+		const { audio } = await mountPlaying()
+		fireEvent.click(screen.getByRole('button', { name: 'Pause' }))
 		await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Play' })) })
 		expect(play).toHaveBeenCalledTimes(2)
 		expect(audio.src).toBe(CHILLHOP)
 		expect(screen.getByRole('button', { name: 'Pause' })).toBeInTheDocument()
 	})
 
-	it('a manual play that fails shows the failed state', async () => {
-		play.mockRejectedValueOnce(domError('NotAllowedError'))
-		await mount()
+	it('a play that fails shows the failed state', async () => {
 		play.mockRejectedValueOnce(domError('NetworkError'))
-		await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Play' })) })
+		await mountPlaying()
 		expect(screen.getByText('Stream unavailable')).toBeInTheDocument()
 		expect(screen.getByRole('button', { name: 'Play' })).toBeInTheDocument()
 	})
 
 	it('a stream error while playing switches to the failed state', async () => {
-		const { audio } = await mount()
+		const { audio } = await mountPlaying()
 		fireEvent.error(audio)
 		expect(screen.getByText('Stream unavailable')).toBeInTheDocument()
 		expect(screen.getByRole('button', { name: 'Play' })).toBeInTheDocument()
 	})
 
-	// Regression test — fixed bug (components/jagetic/HeroSpotify.jsx toggle/playStation): `stopping` is
-	// only reset inside onError. Chrome/Firefox do NOT fire `error` for
-	// removeAttribute('src') + load() (the resource selection algorithm just
-	// aborts with NETWORK_EMPTY), so the flag stays true and the NEXT real stream
-	// error after pause → play is swallowed: the UI keeps showing "LIVE" over
-	// silence. Fix: set `stopping.current = false` at the start of playStation().
+	// Regression: `stopping` used to be reset only inside onError, and browsers
+	// don't fire `error` after removeAttribute('src') + load(), so the next real
+	// stream error after pause → play was swallowed.
 	it('reports a real stream error after a pause/play cycle', async () => {
-		const { audio } = await mount()
+		const { audio } = await mountPlaying()
 		fireEvent.click(screen.getByRole('button', { name: 'Pause' }))
-		// (no synthetic error here — real browsers don't emit one)
 		await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Play' })) })
 		fireEvent.error(audio)
 		expect(screen.getByText('Stream unavailable')).toBeInTheDocument()
@@ -121,7 +113,7 @@ describe('HeroSpotify station menu', () => {
 	})
 
 	it('picking a station while playing switches the stream and closes the menu', async () => {
-		const { audio } = await mount()
+		const { audio } = await mountPlaying()
 		fireEvent.click(screen.getByRole('button', { name: /Chillhop/, expanded: false }))
 		await act(async () => { fireEvent.click(screen.getByRole('option', { name: /Lofi radio/ })) })
 		expect(screen.queryByRole('listbox')).toBeNull()
@@ -131,17 +123,16 @@ describe('HeroSpotify station menu', () => {
 	})
 
 	it('picking a station while stopped does not start playback', async () => {
-		play.mockRejectedValueOnce(domError('NotAllowedError'))
 		await mount()
 		fireEvent.click(screen.getByRole('button', { name: /Chillhop/, expanded: false }))
 		fireEvent.click(screen.getByRole('option', { name: /Downtempo/ }))
-		expect(play).toHaveBeenCalledTimes(1)
+		expect(play).not.toHaveBeenCalled()
 		expect(screen.getByText('Downtempo')).toBeInTheDocument()
 	})
 
 	it('picking a station clears a previous failure', async () => {
 		play.mockRejectedValueOnce(domError('NotSupportedError'))
-		await mount()
+		await mountPlaying()
 		expect(screen.getByText('Stream unavailable')).toBeInTheDocument()
 		fireEvent.click(screen.getByRole('button', { name: /Chillhop/, expanded: false }))
 		fireEvent.click(screen.getByRole('option', { name: /Lofi radio/ }))
