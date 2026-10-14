@@ -1,0 +1,156 @@
+---
+title: "Singularity: One Shared MCP Notebook for Cursor, Claude Desktop and Every Other Agent"
+publishedAt: "2026-09-17"
+excerpt: "My AI tools kept forgetting each other's decisions, so I built Singularity: a self-hosted MCP server with five tools, a JSON file for storage, and a dashboard, that lets Cursor, Claude Desktop, Claude Code and teammates share one notebook."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "September 17, 2026"
+featuredImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop"
+author: "Bojan Jagetic"
+tags: [{ slug: "ai", name: "ai" }, { slug: "mcp", name: "mcp" }, { slug: "nextjs", name: "nextjs" }, { slug: "agents", name: "agents" }]
+inPreparation: false
+---
+
+## Introduction
+
+On a normal day I use at least three AI tools: Cursor for the code, Claude Desktop for thinking things through, and Claude Code in the terminal for bigger refactors. Each of them is great. None of them knows what I told the other two.
+
+The pattern was always the same. In Claude Desktop I'd spend twenty minutes deciding that a project uses Drizzle instead of Prisma and that dates are always stored in the Belgrade timezone. Then I'd open Cursor, ask for a new feature, and it would happily reach for Prisma and UTC. Every chat app is its own memory silo, and adding one more chat app just adds one more silo.
+
+So I built **Singularity**: a small self-hosted server that speaks the Model Context Protocol (MCP) and acts as a shared notebook. Every agent I use points at the same endpoint. Chat histories stay separate, but decisions, facts and preferences are shared. It's been running on my machine for a few weeks now, and it changed how I work with agents more than any model upgrade did.
+
+## The idea in one paragraph
+
+MCP lets an AI client discover and call tools on a server. If several clients connect to the same server, and that server stores notes, they share those notes. That's it. No vector database, no fine-tuning, no clever sync between chat apps. One endpoint, five tools, one file on disk, and a dashboard for humans.
+
+## The stack
+
+<LgList>
+  <li><Adjusted>Next.js 16</Adjusted> with React 19 serving the MCP endpoint, a small REST API and the dashboard from one process</li>
+  <li>Vercel's `mcp-handler` adapter on top of the official MCP TypeScript server SDK</li>
+  <li>zod for both MCP input schemas and REST validation</li>
+  <li>Tailwind CSS 4 and shadcn components for the dashboard</li>
+  <li>a systemd user service (plus a small GNOME tray indicator) to keep it running on Linux</li>
+</LgList>
+
+There is no database, no embedding model and no LLM dependency. I'll come back to why.
+
+## Five tools, carefully worded
+
+The whole MCP surface is five tools:
+
+<LgList>
+  <li>`brain_search`: find notes by query, optionally filtered by kind and project</li>
+  <li>`brain_get`: fetch one note by ID</li>
+  <li>`brain_remember`: store a fact, decision, preference or project note</li>
+  <li>`brain_list`: list recent notes, one line each</li>
+  <li>`brain_forget`: delete a note</li>
+</LgList>
+
+The code for each tool is tiny. What took the longest was the **wording** of the descriptions, because for an agent, the tool description is the documentation, the onboarding and the product manager all in one. Here is `brain_remember`:
+
+```typescript
+server.registerTool(
+  "brain_remember",
+  {
+    title: "Remember in Shared Brain",
+    description:
+      "Store a fact, decision, preference, or project note so any Cursor model and Claude Desktop both see it. " +
+      "Use after the user makes a durable choice. Connecting to MCP does not copy chat history. " +
+      "Put the user's real project name in `project` (a label like shop-api), not a file path.",
+    inputSchema: z.object({
+      kind: memoryKindSchema.describe("fact, decision, preference, or project"),
+      title: z.string().describe("Short title another agent can scan"),
+      body: z.string().describe("The full memory. Write it so another agent can act on it."),
+      tags: z.array(z.string()).optional().describe("Optional short tags"),
+      project: z.string().optional().describe("Optional project name this memory belongs to"),
+    }),
+  },
+  async (input) => {
+    const memory = await createMemory(input);
+    return { content: [{ type: "text", text: `Stored ${memory.kind} ${memory.id}\n\n${format(memory)}` }] };
+  },
+);
+```
+
+Every sentence there is a scar. "Connecting to MCP does not copy chat history" is there because agents kept assuming the other agent already knew everything from its own chat. "Write it so another agent can act on it" fixed notes like "use the thing we discussed". And the `project` instruction is repeated everywhere (tool description, server instructions, README) because models *love* putting absolute file paths in a field called "project". The project is a label for the real codebase, like `shop-api`, so that notes stay meaningful on a teammate's machine with different paths.
+
+The server also sends **instructions** to every client on connect. Mine are only a few sentences: this is a shared notebook, search it before answering questions about prior decisions, store durable choices with `brain_remember`, and don't assume chat history is shared. Clients that respect server instructions start searching the notebook on their own, which is exactly the behavior I wanted.
+
+`brain_search` has a small nudge built in too: when nothing matches, it doesn't just return an empty list, it says "No matching memories. If this is a new decision or fact, store it with brain_remember." Empty results are a great moment to teach the agent what to do next.
+
+## Storage: a JSON file, on purpose
+
+Notes are stored in a single `brain.json` file. Before you close the tab: I know. But think about the scale. A personal or small-team notebook has hundreds of notes, maybe a couple of thousand. A JSON file of that size is read and parsed in a millisecond, it is trivially backed up, diffable, and portable through the dashboard's export and import.
+
+The two things you must get right with a file store are concurrent writes and crash safety. Both fit in a few lines:
+
+```typescript
+let queue: Promise<unknown> = Promise.resolve();
+
+function locked<T>(fn: () => Promise<T>): Promise<T> {
+  const run = queue.then(fn, fn);
+  queue = run.then(() => undefined, () => undefined);
+  return run;
+}
+
+async function writeStore(store: BrainStoreFile) {
+  await fs.mkdir(DATA_DIR, { recursive: true });
+  const tmp = `${STORE_PATH}.tmp`;
+  await fs.writeFile(tmp, `${JSON.stringify(store, null, 2)}\n`, "utf8");
+  await fs.rename(tmp, STORE_PATH);
+}
+```
+
+`locked` is a promise-chain mutex: every operation waits for the previous one, and a failure doesn't break the chain. Writes go to a temporary file and are then renamed over the real one, which is atomic on the same filesystem, so a crash in the middle of a write can never leave a half-written notebook. This only protects a single process, which is fine, because there is exactly one.
+
+## Search without embeddings
+
+The obvious move for an "AI memory" is embeddings and a vector search. I deliberately didn't do it, at least not yet. Search is a lowercase substring match across title, body, kind, project and tags, where **every** query term must match, sorted by most recently updated.
+
+That sounds primitive, but it has properties I really like. It is predictable: if a note isn't found, I know exactly why. It needs no model, no API key and no re-indexing. And the callers are LLMs, which are actually very good at trying a second query with different keywords when the first one finds nothing. The dashboard imports the exact same search function, so what I see in the UI is exactly what agents see over MCP.
+
+If the notebook grows to a size where keyword guessing stops working, embeddings are an easy addition behind the same tool. I'd rather add them when I feel the pain than carry the complexity from day one.
+
+## Knowing who wrote what
+
+One feature that turned out to be surprisingly useful is **provenance**. Every note records which agent wrote it: Cursor, Claude Desktop, Claude Code, Codex, VS Code, Gemini CLI and so on. The MCP route infers the product from the `initialize` handshake (client name) and the User-Agent, and the dashboard shows a small icon on each note card.
+
+The interesting bit is how that value reaches the store without passing it through every tool callback. The route wraps the MCP handler in Node's `AsyncLocalStorage`, and `createMemory` simply reads the current source from it:
+
+```typescript
+let source: MemorySource = "other";
+try {
+  source = await recordMcpRequest(request.clone());
+} catch {
+  // Tracking must never break the MCP handler.
+}
+
+const response = await runWithMemorySource(source, () => handler(request));
+```
+
+`recordMcpRequest` also powers a "Connected agents" panel. Streamable HTTP doesn't keep long-lived connections, so "online" simply means "made a request in the last two minutes". It's an inference, not a real presence system, but it answers the question I actually have: did the config I just pasted into this tool work?
+
+## Connecting every client
+
+The server only speaks **Streamable HTTP** on a single `/mcp` endpoint. Most clients support it directly. Claude Desktop on Linux only speaks stdio, so it connects through `mcp-remote`, a small bridge that runs locally and forwards to the HTTP endpoint.
+
+Every client has its own config format (JSON in one place, TOML in another, a CLI command for Claude Code, a different key name for Gemini), so the dashboard has a "Connect tools" dialog: pick the agent and get a ready-to-paste snippet with the URL and token filled in. This was the single biggest improvement for getting teammates on board.
+
+One fun bug: `mcp-remote` treats a 401 response as a hint to start OAuth discovery and requests `/.well-known/...` URLs. My auth middleware redirected those to the HTML login page, and `mcp-remote` crashed trying to parse HTML as JSON. The fix is a few lines that always answer `/.well-known/*` with a JSON 404.
+
+## Auth and sharing with a team
+
+Auth is deliberately minimal: an optional shared bearer token. Teammates on the same network get the LAN URL and the token, and the dashboard handles the rest. There are no users or roles. Everyone can read and delete every note, which is fine for a small team that trusts each other and terrible for anything else.
+
+<HighlightBox>
+- **Rules vs notes.** Long-lived project rules still belong in `AGENTS.md` / `CLAUDE.md` files in the repo. Singularity is for living notes: decisions in progress, preferences, facts that don't belong in the codebase.
+- **No update tool yet.** Agents can only forget and re-remember; editing is a dashboard feature for now.
+- **Single process, single file.** Perfect for one machine, not designed for a cluster.
+</HighlightBox>
+
+## What's next
+
+The roadmap is short: an update tool for agents, a soft-delete trash so `brain_forget` can be undone, per-person identity for teams, and optional semantic search when the notebook gets big enough to need it.
+
+The biggest lesson from this project is how little it takes. Five tools, one file and some very carefully written descriptions turned three forgetful assistants into something that feels like one team that remembers. If you want to see what else I'm building, take a look at my <Link href="https://github.com/basskibo">GitHub</Link>.
