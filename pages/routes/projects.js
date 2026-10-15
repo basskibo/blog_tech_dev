@@ -1,282 +1,75 @@
-import React from 'react'
-import Accent from '../../components/custom/Accent'
-import FeaturedProjectTeaser from '../../components/custom/FeaturedProjectTeaser'
-import { Card } from '../../components/ui/card'
-import { Button } from '../../components/ui/button'
-import { cn } from '@/lib/utils'
-import { motion } from 'framer-motion'
-import { ExternalLink, Github, Loader2 } from 'lucide-react'
-import dayjs from 'dayjs'
+import React, { useMemo, useState } from 'react'
+import Head from 'next/head'
+import { Search, X } from 'lucide-react'
+import projects, { KINDS, countByKind, filterProjects, getFeaturedProjects, getSpotlightProjects, matchesQuery } from '../../lib/projects'
+import ProjectCard from '../../components/projects/ProjectCard'
+import Bento from '../../components/home/Bento'
 
-const projects = [
-    {
-        name: 'Game Deal Hub – Your game deals hub',
-        slug: 'game-deal-hub',
-        description:
-            'Your game deals hub, find the best deals on games.',
-        tech: ['Python', 'Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vercel', 'Railway'],
-        role: 'Personal project – idea, design, frontend & backend',
-        liveUrl: 'https://gamedealhub.vercel.app/',
-        repoUrl: null,
-        status: 'In development',//'Live',
-        year: '2026',
-        bgImage: 'https://images.pexels.com/photos/2708981/pexels-photo-2708981.jpeg'
-    },
-    {
-        name: 'Voyage Vault – Interactive Travel Scratch Map',
-        slug: 'voyage-vault',
-        description:
-            'Create a personalized scratch travel map, track visited countries and share your adventures with friends – no sign-up required.',
-        tech: ['Next.js', 'React', 'TypeScript', 'Leaflet', 'Framer Motion', 'Vercel'],
-        role: 'Personal project – idea, design, frontend & backend',
-        liveUrl: 'https://scratch-travel.vercel.app/',
-        repoUrl: 'https://github.com/basskibo/scratch-travel',
-        status: 'In development',//'Live',
-        year: '2026',
-        bgImage:
-            'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1768492935/scratchTravel/pexels-miroalt-176400_fc5g7h.jpg'
-    },
-    {
-        name: 'Buddy Bill – Your money managment buddy',
-        slug: 'buddy-bill',
-        description:
-            'Your money managment buddy, track your expenses and income, and get insights into your spending habits.',
-        tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel'],
-        role: 'Personal project – idea, design, frontend & backend',
-        liveUrl: 'https://buddy-bill-eight.vercel.app/',
-        repoUrl: null,
-        status: 'In development',//'Live',
-        year: '2026',
-        bgImage: 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1769695596/igutech/post_data/Screenshot_from_2026-01-29_14-29-31_kfcgoe.png'
-    },
+const featured = getFeaturedProjects()
+const tools = getSpotlightProjects()
+const counts = countByKind(projects)
+const live = projects.filter((p) => p.status === 'live').length
+const rankOf = (project) => projects.indexOf(project) + 1
 
-    {
-        name: 'Remix Pallete Generator',
-        slug: 'remix-pallete-generator',
-        description:
-            'A modern pallete generator that lets you generate a pallete of colors based on a primary color.',
-        tech: ['Remix', 'React', 'TypeScript', 'Tailwind CSS', 'Vercel'],
-        role: 'Personal project – idea, design, frontend & backend',
-        liveUrl: 'https://pallete-generator.vercel.app/',
-        repoUrl: null,
-        status: 'Live',//'In development',
-        year: '2025',
-        bgImage: 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1769695596/igutech/post_data/Screenshot_from_2026-01-29_14-12-39_nablzm.png'
-    }
-]
+export default function Projects () {
+	const [kind, setKind] = useState('All')
+	const [query, setQuery] = useState('')
+	const list = useMemo(() => filterProjects(projects, kind).filter((p) => matchesQuery(p, query)), [kind, query])
+	const reset = () => { setKind('All'); setQuery('') }
 
-const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: { staggerChildren: 0.15, delayChildren: 0.05 },
-        year: '2026',
-        bgImage: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg'
-    }
+	return (
+		<>
+			<Head>
+				<title>Projects — Bojan Jagetić</title>
+				<meta name="description" content={`${projects.length} things Bojan Jagetić has built: AI products, web apps, tools, libraries and games.`} />
+			</Head>
+			<div className="wrap">
+				<header className="blog-head bj-in">
+					<div>
+						<h1 className="t-display">Things I <span className="t-serif t-grad">ship</span></h1>
+						<p className="t-lead">{projects.length} things I have built, most interesting first. The top three are where my evenings go right now.</p>
+					</div>
+					<dl className="blog-stats">
+						<div><dt>Projects</dt><dd>{projects.length}</dd></div>
+						<div><dt>Live</dt><dd>{live}</dd></div>
+					</dl>
+				</header>
+			</div>
+
+			<Bento featured={featured} tools={tools} heading={false} />
+
+			<div className="wrap">
+				<section className="sec" aria-labelledby="all-title">
+					<h2 id="all-title" className="t-h2">Every<span className="t-serif" style={{ color: 'var(--accT)' }}>thing</span></h2>
+					<div className="blog-bar">
+						<div className="tabs blog-tabs" role="group" aria-label="Filter projects by kind">
+							{['All', ...KINDS].filter((k) => counts[k] > 0).map((k) => (
+								<button key={k} type="button" className="tab" aria-pressed={kind === k} onClick={() => setKind(k)}>
+									{k} <span className="count">{counts[k]}</span>
+								</button>
+							))}
+						</div>
+						<label className="field blog-search">
+							<Search aria-hidden="true" />
+							<span className="sr-only">Search projects</span>
+							<input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search name or tech" />
+							{query && <button type="button" className="blog-clear" aria-label="Clear search" onClick={() => setQuery('')}><X aria-hidden="true" /></button>}
+						</label>
+					</div>
+					{list.length > 0
+						? (
+							<div className="pgrid">
+								{list.map((project) => <ProjectCard key={project.slug} project={project} rank={rankOf(project)} />)}
+							</div>
+						)
+						: (
+							<div className="empty">
+								<p>No projects match &ldquo;{query}&rdquo;{kind !== 'All' ? ` in ${kind}` : ''}.</p>
+								<button type="button" className="btn btn-ghost" onClick={reset}>Show all projects</button>
+							</div>
+						)}
+				</section>
+			</div>
+		</>
+	)
 }
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5, ease: 'easeOut' }
-    }
-}
-
-const Projects = () => {
-
-
-    return (
-        <div className='bg-gradient-to-b from-background via-background/95 to-background/90 min-h-screen'>
-            <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 md:py-16 lg:py-20'>
-                <motion.div
-                    variants={containerVariants}
-                    initial='hidden'
-                    animate='visible'
-                    className='space-y-10 sm:space-y-12 md:space-y-16'
-                >
-                    {/* Header */}
-                    <motion.div variants={itemVariants} className='max-w-3xl space-y-4'>
-                        <p className='text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground'>
-                            Selected projects
-                        </p>
-                        <h1 className='text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground'>
-                            <Accent>Web applications</Accent> I&apos;ve built
-                        </h1>
-                        <p className='text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed'>
-                            These are some of my favorite side‑projects – real, deployed apps that I
-                            use to experiment with modern UI, performance and product ideas.
-                        </p>
-                    </motion.div>
-
-                    {/* Reusable teaser */}
-                    <motion.div variants={itemVariants}>
-                        <FeaturedProjectTeaser
-                            label='Current focus'
-                            title='Voyage Vault – interactive travel scratch map'
-                            description={`A modern travel companion that lets you track visited countries on an interactive world map and share your progress with friends.`}
-                            primaryHref={projects[1].liveUrl}
-                            primaryText='Open live preview'
-                            secondaryHref={projects[1].repoUrl}
-                            secondaryText='View source code'
-                            showPreview
-                            previewImage={projects[1].bgImage}
-                            previewAlt='Voyage Vault preview'
-                            className='mt-2'
-                        />
-                    </motion.div>
-
-                    {/* Projects grid */}
-                    <div className='grid gap-6 md:gap-8 md:grid-cols-1'>
-                        {projects.map((project) => (
-                            <motion.div key={project.slug} variants={itemVariants}>
-                                <Card
-                                    className={cn(
-                                        'relative overflow-hidden border-border bg-card/80 backdrop-blur-sm',
-                                        'hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300'
-                                    )}
-                                >
-                                    <div className='grid md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] gap-6 md:gap-8'>
-                                        {/* Left: content */}
-                                        <div className='p-5 sm:p-6 md:p-8 flex flex-col gap-4'>
-                                            <div className='flex items-center gap-3 flex-wrap'>
-                                                <span
-                                                    className={cn(
-                                                        'inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ring-1',
-                                                        project.status !== 'In development'
-                                                            ? 'bg-emerald-500/10 text-emerald-300 ring-emerald-500/40'
-                                                            : 'bg-amber-500/10 text-amber-300 ring-amber-500/40'
-                                                    )}
-                                                >
-                                                    {project.status}
-                                                    {project.status !== 'In development' && (
-                                                        <span className='mx-1'>• {project.year}</span>
-                                                    )}
-                                                    {project.status === 'In development' && (
-                                                        <Loader2 className='ml-2 h-3.5 w-3.5 animate-spin' />
-                                                    )}
-                                                </span>
-                                            </div>
-                                            <div className='space-y-2'>
-                                                <h2 className='text-xl sm:text-2xl md:text-3xl font-bold text-foreground'>
-                                                    {project.name}
-                                                </h2>
-                                                <p className='text-sm sm:text-base text-muted-foreground leading-relaxed'>
-                                                    {project.description}
-                                                </p>
-                                            </div>
-                                            <div className='space-y-1'>
-                                                <p className='text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground'>
-                                                    Tech stack
-                                                </p>
-                                                <div className='flex flex-wrap gap-2'>
-                                                    {project.tech.map((t) => (
-                                                        <span
-                                                            key={t}
-                                                            className='rounded-full border border-border bg-background/60 px-2.5 py-1 text-xs text-muted-foreground'
-                                                        >
-                                                            {t}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                            <p className='text-xs sm:text-sm text-muted-foreground/80'>
-                                                {project.role}
-                                            </p>
-                                            <div className='mt-2 flex flex-wrap items-center gap-3'>
-                                                <Button
-                                                    asChild
-                                                    variant='outline'
-                                                    size='sm'
-                                                    className={cn(
-                                                        'border-cyan-400/70 bg-black/70 text-cyan-200',
-                                                        'shadow-[0_0_18px_rgba(34,211,238,0.45)]',
-                                                        'hover:bg-cyan-500/10 hover:border-cyan-300 hover:text-cyan-50',
-                                                        'transition-all duration-300 hover:shadow-[0_0_28px_rgba(34,211,238,0.7)]',
-                                                        'rounded-full px-4'
-                                                    )}
-                                                >
-                                                    <a
-                                                        href={project.liveUrl}
-                                                        target='_blank'
-                                                        rel='noopener noreferrer'
-                                                        className='flex items-center gap-2'
-                                                    >
-                                                        <ExternalLink className='h-4 w-4' />
-                                                        <span>View live project</span>
-                                                    </a>
-                                                </Button>
-                                                {project.repoUrl && (
-                                                    <Button
-                                                        asChild
-                                                        variant='outline'
-                                                        size='sm'
-                                                        className={cn(
-                                                            'border-border bg-black/60 text-muted-foreground',
-                                                            'hover:bg-muted/40 hover:text-foreground',
-                                                            'rounded-full px-4 transition-colors duration-200'
-                                                        )}
-                                                    >
-                                                        <a
-                                                            href={project.repoUrl}
-                                                            target='_blank'
-                                                            rel='noopener noreferrer'
-                                                            className='flex items-center gap-2'
-                                                        >
-                                                            <Github className='h-4 w-4' />
-                                                            <span>View source</span>
-                                                        </a>
-                                                    </Button>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        {/* Right: image preview */}
-                                        <div className='relative overflow-hidden'>
-                                            <div className='absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-emerald-400/10 pointer-events-none' />
-                                            <div className='relative h-full min-h-[220px]'>
-                                                {(() => {
-                                                    // Ako nema bgImage, pokušaj da iskoristiš OG/preview iz liveUrl (npr. /og-image.png)
-                                                    const live = project.liveUrl?.replace(/\/$/, '') || ''
-                                                    const ogFallback = live ? `${live}/og-image.png` : ''
-
-                                                    const bg = project.bgImage || ogFallback
-
-                                                    const backgroundImage = bg
-                                                        ? `url(${bg})`
-                                                        : 'radial-gradient(circle at top, rgba(56,189,248,0.25), transparent 60%), radial-gradient(circle at bottom, rgba(16,185,129,0.25), transparent 60%)'
-
-                                                    return (
-                                                        <div
-                                                            className='h-full w-full bg-cover bg-center'
-                                                            style={{ backgroundImage }}
-                                                        />
-                                                    )
-                                                })()}
-
-                                                <div className='pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent' />
-                                                <div className='pointer-events-none absolute inset-x-4 bottom-4 rounded-xl border border-border/80 bg-background/85 px-4 py-3 shadow-lg'>
-                                                    <p className='text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground mb-1'>
-                                                        Preview
-                                                    </p>
-                                                    <p className='text-sm text-foreground line-clamp-2'>
-                                                       {project.description}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Card>
-                            </motion.div>
-                        ))}
-                    </div>
-                </motion.div>
-            </div>
-        </div>
-    )
-}
-
-export default Projects
-
-

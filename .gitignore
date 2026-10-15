@@ -17,8 +17,15 @@ public/rss.xml
 .next/
 /out/
 
-public
-/public
+/public/*
+!/public/images/
+/public/images/*
+!/public/images/lofi/
+!/public/images/lofi/**
+!/public/images/projects/
+!/public/images/projects/**
+!/public/fonts/
+!/public/fonts/**
 # production
 /build
 

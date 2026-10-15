@@ -9,16 +9,16 @@
             <link>https://jageticbojan.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Thu, 24 Sep 2026 12:20:04 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 15 Oct 2026 21:59:39 GMT</lastBuildDate>
         <atom:link href="https://jageticbojan.com/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 24 Sep 2026 12:20:04 GMT</pubDate>
+        <pubDate>Thu, 15 Oct 2026 21:59:39 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2026, © 2022 Bojan Jagetic]]></copyright>
         <item>
-            <title><![CDATA[What is Microservices architecture and how to use it]]></title>
-            <description><![CDATA[This is just a multifaceted knowledge in order to help someone looking for conceptual things in one place.]]></description>
-            <link>https://jageticbojan.com/post/all-you-need-to-know-about-microservices</link>
-            <guid isPermaLink="false">https://jageticbojan.com/post/all-you-need-to-know-about-microservices</guid>
-            <pubDate>Tue, 14 Jun 2022 00:00:00 GMT</pubDate>
+            <title><![CDATA[Automating Content Publishing: Building an MDX to Dev.to Converter Script]]></title>
+            <description><![CDATA[Learn how I automated the process of converting MDX blog posts to dev.to format, saving hours of manual work and ensuring consistency across platforms.]]></description>
+            <link>https://jageticbojan.com/post/automating-content-publishing-mdx-to-devto</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/automating-content-publishing-mdx-to-devto</guid>
+            <pubDate>Mon, 16 Feb 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Building a Powerful Chatbot with OpenAI and LangChain]]></title>
@@ -35,11 +35,25 @@
             <pubDate>Tue, 21 Feb 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[Building Coinsel: Two-Second Expense Logging, Fiscal Receipt QR Codes and Bank SMS Sync]]></title>
+            <description><![CDATA[How I replaced my personal finance spreadsheet with Coinsel: a regex-first quick-add parser, decoding Serbian fiscal receipt QR codes byte by byte, turning bank SMS into expenses, and using Gemini / Claude Haiku only where rules run out.]]></description>
+            <link>https://jageticbojan.com/post/building-coinsel-ai-finance</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/building-coinsel-ai-finance</guid>
+            <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[Building a resilient Node.js application | Part 1]]></title>
             <description><![CDATA[Are you a developer looking to create a blog or personal website that is both easy to maintain, blazing fast and visually appealing? Look no further]]></description>
             <link>https://jageticbojan.com/post/builld-resilient-nodejs-part-1</link>
             <guid isPermaLink="false">https://jageticbojan.com/post/builld-resilient-nodejs-part-1</guid>
             <pubDate>Mon, 09 Jan 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Captain Cook: Streaming AI Recipes One JSON Object at a Time]]></title>
+            <description><![CDATA[How I built Captain Cook, an AI chef that reads a photo of your fridge, streams recipes to the screen as soon as each one is ready, and respects your allergies and taste profile, all without a single AI SDK.]]></description>
+            <link>https://jageticbojan.com/post/captain-cook-ai-chef</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/captain-cook-ai-chef</guid>
+            <pubDate>Thu, 20 Aug 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Mastering JavaScript Design Patterns: A Comprehensive Guide]]></title>
@@ -224,13 +238,6 @@
             <pubDate>Sat, 24 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Basic programming concepts everyone should know about]]></title>
-            <description><![CDATA[This is just a multifaceted knowledge in order to help someone looking for conceptual things in one place.]]></description>
-            <link>https://jageticbojan.com/post/programming-concepts</link>
-            <guid isPermaLink="false">https://jageticbojan.com/post/programming-concepts</guid>
-            <pubDate>Thu, 02 Sep 2021 00:00:00 GMT</pubDate>
-        </item>
-        <item>
             <title><![CDATA[The Power of Python Data Structures: Lists, Dictionaries, Sets and Tuples]]></title>
             <description><![CDATA[Python is known for its powerful and versatile data structures that can help you organize and manipulate data with ease.]]></description>
             <link>https://jageticbojan.com/post/python-list-dict-tuple</link>
@@ -287,6 +294,13 @@
             <pubDate>Tue, 15 Nov 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[Giving an Old iOS 12 iPad a Second Life: On-the-Fly HLS Transcoding with ffmpeg]]></title>
+            <description><![CDATA[How I turned an iPad stuck on iOS 12 into a perfectly good anime screen again: a zero-dependency Node server that transcodes Real-Debrid streams to HLS with ffmpeg while you watch, a custom Safari player, seeking past the encoded part, and cleaning up anime subtitles.]]></description>
+            <link>https://jageticbojan.com/post/realdebrid-hls-old-ipad</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/realdebrid-hls-old-ipad</guid>
+            <pubDate>Mon, 12 Oct 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[Regular vs Arrow functions: A Comparison]]></title>
             <description><![CDATA[npm and Yarn are both popular package managers for JavaScript projects, but they have some key differences that you should be aware of when deciding which one to use.]]></description>
             <link>https://jageticbojan.com/post/regular-vs-arrow-fn</link>
@@ -306,6 +320,13 @@
             <link>https://jageticbojan.com/post/shallow-vs-deep-copy</link>
             <guid isPermaLink="false">https://jageticbojan.com/post/shallow-vs-deep-copy</guid>
             <pubDate>Mon, 17 Feb 2025 05:35:07 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Singularity: One Shared MCP Notebook for Cursor, Claude Desktop and Every Other Agent]]></title>
+            <description><![CDATA[My AI tools kept forgetting each other's decisions, so I built Singularity: a self-hosted MCP server with five tools, a JSON file for storage, and a dashboard, that lets Cursor, Claude Desktop, Claude Code and teammates share one notebook.]]></description>
+            <link>https://jageticbojan.com/post/singularity-shared-mcp-notebook</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/singularity-shared-mcp-notebook</guid>
+            <pubDate>Thu, 17 Sep 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[What is SWR and How Can It Improve Your React Apps]]></title>
@@ -329,13 +350,6 @@
             <pubDate>Mon, 26 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Develop Samsung application with Tizen]]></title>
-            <description><![CDATA[Git is software for tracking changes in any set of files, usually used for coordinating work among programmers collaboratively developing source code during  software development. ]]></description>
-            <link>https://jageticbojan.com/post/tizen-overview</link>
-            <guid isPermaLink="false">https://jageticbojan.com/post/tizen-overview</guid>
-            <pubDate>Tue, 15 Nov 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
             <title><![CDATA[Top 10 Interview Questions for JavaScript Full Stack Developers]]></title>
             <description><![CDATA[JavaScript is a powerful and versatile programming language that is widely used in web development, and being a full stack developer proficient in JavaScript can open up numerous career opportunities.]]></description>
             <link>https://jageticbojan.com/post/top-10-fullstack-questions</link>
@@ -350,13 +364,6 @@
             <pubDate>Tue, 16 Apr 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Top 10 common Software Architecture patterns ]]></title>
-            <description><![CDATA[This is just a multifaceted knowledge in order to help someone looking for conceptual things in one place.]]></description>
-            <link>https://jageticbojan.com/post/top10-software-architectures</link>
-            <guid isPermaLink="false">https://jageticbojan.com/post/top10-software-architectures</guid>
-            <pubDate>Thu, 02 Sep 2021 00:00:00 GMT</pubDate>
-        </item>
-        <item>
             <title><![CDATA[What is Typescript]]></title>
             <description><![CDATA[TypeScript is a superset of JavaScript that adds optional static typing to the language. This means that you can add type annotations to your code]]></description>
             <link>https://jageticbojan.com/post/typescript-basic</link>
@@ -369,6 +376,13 @@
             <link>https://jageticbojan.com/post/umami</link>
             <guid isPermaLink="false">https://jageticbojan.com/post/umami</guid>
             <pubDate>Thu, 11 Apr 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Voyage Vault: Building a Digital Scratch-Off Travel Map with Leaflet and Next.js]]></title>
+            <description><![CDATA[The story behind Voyage Vault, my scratch-off travel map: rendering 255 countries as SVG with react-leaflet, faking a satisfying scratch effect with CSS, guest mode that migrates to an account, share cards, and the 21 MB GeoJSON mistake I'm still paying for.]]></description>
+            <link>https://jageticbojan.com/post/voyage-vault-scratch-map</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/voyage-vault-scratch-map</guid>
+            <pubDate>Fri, 12 Jun 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Running webOS project]]></title>

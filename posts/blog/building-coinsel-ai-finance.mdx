@@ -1,0 +1,181 @@
+---
+title: "Building Coinsel: Two-Second Expense Logging, Fiscal Receipt QR Codes and Bank SMS Sync"
+publishedAt: "2026-10-01"
+excerpt: "How I replaced my personal finance spreadsheet with Coinsel: a regex-first quick-add parser, decoding Serbian fiscal receipt QR codes byte by byte, turning bank SMS into expenses, and using Gemini / Claude Haiku only where rules run out."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+date: "October 1, 2026"
+featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1600&auto=format&fit=crop"
+author: "Bojan Jagetic"
+tags: [{ slug: "nextjs", name: "nextjs" }, { slug: "ai", name: "ai" }, { slug: "postgres", name: "postgres" }, { slug: "typescript", name: "typescript" }]
+inPreparation: false
+---
+
+## Introduction
+
+For years my personal finances lived in one big spreadsheet: months in columns, bills in rows, and a sad little "everyday" row where I was supposed to type in every coffee and pack of cigarettes. Spoiler, I never did. The spreadsheet was great for bills and loans, and useless for everything that happens at a shop counter, because opening a spreadsheet on a phone to type "250" is just too much friction.
+
+So I built <Link href="https://coinsel.jageticbojan.com">Coinsel</Link>. The idea is simple: logging an expense should take two seconds, bills and loans should take care of themselves, and an AI analyst should answer questions like "how much did I spend on cigarettes this year?" based on my own data.
+
+In this post I want to go through the parts that turned out to be the most interesting to build:
+
+<LgList>
+  <li>a **quick-add parser** that understands "coffee 250, groceries 1,800 fuel 5k" without calling any AI</li>
+  <li>decoding **Serbian fiscal receipt QR codes** directly from the binary payload</li>
+  <li>turning **bank SMS messages** into expenses automatically, without duplicates</li>
+  <li>a small **AI provider layer** (Gemini or Claude Haiku) used only where rules run out</li>
+  <li>a database setup that is **real Postgres everywhere**, even locally without Docker</li>
+</LgList>
+
+## The stack
+
+Coinsel is a <Adjusted>Next.js 16</Adjusted> app with React 19, Tailwind CSS 4 and <Adjusted>Drizzle ORM</Adjusted> on top of Postgres (Neon in production), deployed on Vercel. It is installable as a PWA, and there is also an Android build via Capacitor, which matters later for the bank notification part. Auth is my own (scrypt password hashing plus a signed httpOnly cookie), with passkeys for Face ID / fingerprint unlock and a PIN app lock on top.
+
+I deliberately kept the dependency list short. There is no AI SDK, no auth library, no state management library. Most of the interesting logic lives in plain TypeScript modules under `src/lib`, which are pure functions and therefore very easy to unit test with Vitest.
+
+## Quick add: rules first, AI second
+
+The core interaction is a single input. You type something like a chat message and press Enter:
+
+```text
+coffee 250, groceries 1,800 fuel 5k
+yesterday rent 333€
+cigare 400, juče
+2 coffees 500
+```
+
+My first instinct was to throw this at an LLM. It would work, but it would also be slow (a second or two per entry), cost money, and not work offline. And 95% of what I type follows a few very predictable patterns. So the parser in `src/lib/quick-parse.ts` is a small tokenizer with zero AI involved.
+
+Every whitespace-separated chunk becomes one of three tokens: a word, an amount, or a currency unit. Relative days ("yesterday", "juče") and dates like "4.10." just set the date for the whole entry. The amount regex is where most of the edge cases hide, because "1,800", "1.800", "1.5k", "333€" and "€333" all need to mean something sensible:
+
+```typescript
+const AMOUNT_RE = /^(€)?(\d{1,3}(?:\.\d{3})+|\d{1,3}(?:,\d{3})+|\d+)(?:[.,](\d{1,2}))?(k|hilj|din|rsd|e|eur|€)?$/i;
+
+function parseAmount(raw: string) {
+  const m = AMOUNT_RE.exec(raw);
+  if (!m) return null;
+  const [, euroPrefix, intPart, dec, suffix] = m;
+  let value = Number(intPart.replace(/[.,]/g, "")) + (dec ? Number(`0.${dec}`) : 0);
+  let currency = euroPrefix ? "EUR" : null;
+  const sfx = suffix?.toLowerCase();
+  if (sfx === "k" || sfx === "hilj") value *= 1000;
+  else if (sfx && UNIT_EUR.has(sfx)) currency = "EUR";
+  else if (sfx && UNIT_RSD.has(sfx)) currency = "RSD";
+  if (!Number.isFinite(value) || value <= 0) return null;
+  return { value: Math.round(value * 100) / 100, currency };
+}
+```
+
+The part I like the most is the **quantity heuristic**. In "2 coffees 500" the "2" is technically an amount token, but nobody spends 2 dinars on anything. So a small integer (20 or less), without a currency, followed by a word, with another amount later in the same segment, gets demoted back to a word. The result is a single item called "2 coffees" for 500 RSD.
+
+The parser also figures out the order. If a segment starts with an amount ("400 cigarettes") the words after it belong to it; otherwise words before an amount belong to it. Filler words in English and Serbian ("spent", "at", "za", "platio") are trimmed from both ends of the note.
+
+Only when the parser returns leftovers it can't make sense of ("half a grand at the market") does Coinsel offer to send the sentence to the AI, which returns the same item structure as JSON. So the common case stays instant and offline, and AI is the fallback, not the foundation.
+
+### Categories that learn
+
+Once an item is parsed it needs a category. `guessCategory` first checks what the user taught it: if I ever moved "Rosetto" to Restaurants, the normalized note is stored as a learned mapping and wins next time. Then it tries the first word alone, and only then falls back to keyword matching against each category's keyword list. Short keywords like "dm" or "a1" must match exactly, longer ones match as prefixes in both directions, so "cigar" catches "cigare" and "cigarettes". Corrections are cheap and the app gets better every week without any model training.
+
+## Fiscal receipt QR codes, decoded by hand
+
+Every fiscal receipt in Serbia has a QR code that points to the tax office (`suf.purs.gov.rs/v/?vl=...`). Most apps that support it open that URL and scrape the page. I wanted scanning to work instantly, even offline, so I looked at what is actually inside the `vl` parameter.
+
+It turns out it is a base64-encoded binary structure with fixed offsets: version, the IDs of who requested and signed the invoice, counters, the total amount as a little-endian 64-bit integer multiplied by 10,000, the timestamp in milliseconds as big-endian, the transaction type (sale or refund), and an MD5 checksum over everything at the end. That means the amount and date can be read without any network call:
+
+```typescript
+const bytes = Buffer.from(vl, "base64");
+if (bytes.length < 572 || bytes.length > 848) return null;
+
+const body = bytes.subarray(0, -16);
+const md5 = createHash("md5").update(body).digest("hex");
+if (md5 !== bytes.subarray(-16).toString("hex")) return null;
+
+const amount = Number(bytes.readBigUInt64LE(25)) / 10_000;
+const ms = Number(bytes.readBigUInt64BE(33));
+const requestedBy = bytes.subarray(1, 9).toString("latin1");
+const counter = bytes.readUInt32LE(17);
+
+return {
+  amount,
+  date: belgrade.format(new Date(ms)),
+  refund: bytes[42] === 1,
+  id: `fiscal:${requestedBy}:${counter}`,
+};
+```
+
+Two small gotchas: the `+` in that payload is part of base64, so I can't use `URLSearchParams` (it would turn `+` into a space), and the date has to be formatted in the `Europe/Belgrade` timezone or receipts scanned just after midnight end up on the wrong day.
+
+The only thing the binary payload doesn't contain is the store name. For that there is a best-effort fetch to the tax office with a 4 second timeout, asking for JSON, and taking the location name. If it fails, you still get the correct amount and date, just with a generic "Receipt" instead of a nice merchant name. The `id` built from the requester and counter is unique per receipt, so scanning the same receipt twice is a no-op. And because the same purchase often also arrives as a bank SMS (more on that below), a scan is also refused if there is already an SMS-sourced expense on the same day within half a dinar of the same amount.
+
+QR detection itself runs in the browser. It uses the native `BarcodeDetector` where the browser has one and falls back to `zxing-wasm` everywhere else. I started with jsQR, but fiscal QR codes are dense (around 120 modules per side) and jsQR simply missed them on crumpled thermal paper. The scanner crops each frame to the aiming box at full resolution, so the decoder gets as many pixels per module as possible.
+
+## Bank SMS: the expense that logs itself
+
+The feature that changed how I use the app is bank SMS sync. My bank texts me after every card or Apple Pay payment, something like:
+
+```text
+04.10.2026. koristili ste karticu 4322******8632, na mestu ApplePay ROSETTO NS NOVI,
+u iznosu 1.895,00 RSD. Sada imate raspolozivo 209.475,82 RSD.
+```
+
+Everything I need is in there: date, merchant, amount, currency, and even the balance after the payment. On iPhone an iOS Shortcuts automation forwards incoming bank messages to a private webhook URL with a personal token; on Android the Capacitor app reads payment notifications from bank apps directly. Tokens are stored only as SHA-256 hashes, so the database never contains a usable token.
+
+The parser in `src/lib/bank-sms.ts` has a precise regex for my bank's format and generic fallbacks for the "Iznos: ... / Mesto: ..." style other Serbian banks use. The tricky part is that many messages contain *two* amounts, the payment and the available balance, and taking the wrong one would be a disaster. So when falling back to "first amount in the message", any amount preceded by words like "raspoloživo", "stanje" or "balance" is skipped.
+
+Merchant names are also messy. "ApplePay ROSETTO NS NOVI" should become "Rosetto", and "BOX 16 MAXIM CO DOO NONovi" should become "Box 16 Maxim Co". `cleanMerchant` strips the wallet prefix, stops at city names and legal-form words (DOO, AD, SZR), un-glues cities stuck to the previous word, and title-cases the rest with a Unicode-aware regex because `\b` doesn't treat letters like "Č" as word characters.
+
+Ingestion is idempotent by design. Each SMS gets an ID from a hash of its normalized text, and the insert uses a unique constraint on `(userId, externalId)`:
+
+```typescript
+const res = await db
+  .insert(schema.transactions)
+  .values({
+    userId,
+    kind: p.kind,
+    amount: p.amount,
+    currency: p.currency,
+    amountRsd,
+    note: p.merchant,
+    categoryId: guessed.get(p.merchant) ?? null,
+    occurredOn: date,
+    source: "sms",
+    externalId: smsId(p.raw),
+  })
+  .onConflictDoNothing({ target: [schema.transactions.userId, schema.transactions.externalId] })
+  .returning({ id: schema.transactions.id });
+```
+
+So a Shortcut that fires twice, or me pasting last week's messages again, never creates duplicates. Merchants that the learned rules and keywords don't recognize are batched into **one** small AI call for categorization, instead of one call per message.
+
+## A tiny AI provider layer
+
+Coinsel uses AI for a handful of things: free-text entries the parser can't handle, reading photos of receipts and utility bills, filling in a loan from a bank's repayment plan (PDF, photo or Excel), the daily insight on the dashboard, and the "Ask Coinsel" chat which streams answers and can propose actions like logging an expense (which you confirm).
+
+Instead of an SDK, there is one module with a common `TextRequest` shape (system prompt, messages with text or image parts, an optional JSON mode) and three implementations: Gemini, Anthropic (Claude Haiku) and a `mock` provider for local development without keys. The provider is picked from `AI_PROVIDER`, or whichever key is present. Both real providers are called with plain `fetch` and server-sent events, parsed by a small async generator.
+
+The Gemini path has a few layers of resilience that saved me more than once. It tries a primary model and then a lighter fallback model. If a model rejects the thinking configuration with a 400, it retries the same model without it. A 500 or 504 gets one retry after a short pause, while 503 (overloaded), 429 (quota) or 404 (model retired) jump straight to the fallback model.
+
+The chat doesn't use RAG or tool calling yet. It gets a compact plain-text summary of my finances: twelve months of aggregates, budgets, commitments with payoff progress, goals and the last 90 days of transactions. For one person's data that is a few thousand tokens and works surprisingly well. When the model wants to do something, like log an expense, it emits a small fenced JSON "action" block, and the UI renders it as a card I have to confirm. Every AI route also goes through a guard that checks the session, that AI is configured, and a per-user daily limit (100 requests by default), so a bug in a loop can't burn through the API quota.
+
+## Real Postgres everywhere, even without Docker
+
+One decision I'm really happy with: the app always talks to Postgres, but you don't need to run Postgres to develop it. If no database URL is set, `src/db/index.ts` uses <Adjusted>PGlite</Adjusted>, which is Postgres compiled to WASM, running in-process and persisting to `.data/pglite`. `npm install && npm run dev` and you have a working app with real SQL semantics, the same migrations and the same Drizzle queries as production.
+
+In production it connects with `postgres.js` to Neon. Vercel's Neon integration sets several environment variables with different names, so the code walks through them by priority and deduplicates them by host (ignoring the `-pooler` suffix). Migrations prefer the direct, non-pooled connection, and are guarded by a Postgres advisory lock, so if several serverless instances start at the same time they wait for each other instead of racing on DDL. Migrations also run during the build, but the runtime check means the app still works if the database was unreachable at build time.
+
+## Trade-offs and what I learned
+
+<HighlightBox>
+- **Rules before models.** The regex parser handles almost everything instantly and offline. AI is the fallback for the weird 5%, and the costs reflect that.
+- **Parsing local formats is a moat and a maintenance burden.** Bank SMS formats change without notice. Every format I've seen is in the test suite now.
+- **Idempotency everywhere.** Receipts, SMS and imports all have stable external IDs, so "did this get added twice?" is never a question.
+- **Own auth is more code,** but it let me add passkeys, PIN lock and lockouts exactly the way I wanted.
+</HighlightBox>
+
+The biggest lesson is that the "AI finance app" part is honestly the smaller part of the work. The thing that makes Coinsel useful every day is that data gets in without effort: a two-second quick add, a QR scan, or a bank SMS that I don't even see. Once the data is there, the AI analyst becomes genuinely useful, because it is answering questions about complete data instead of a half-empty spreadsheet.
+
+## What's next
+
+Next on my list is supporting more banks' SMS and notification formats (if yours is not supported, I'd love a sample with the numbers changed), smarter subscription detection, and better forecasting of the "until payday" number using longer history.
+
+You can try it at <Link href="https://coinsel.jageticbojan.com">coinsel.jageticbojan.com</Link>. If you are in Serbia, scan a fiscal receipt and watch it fill in the amount before the network request even finishes.

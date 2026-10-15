@@ -4,14 +4,11 @@ import { getPostFiles } from '../../services/indexv2'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import readingTime from 'reading-time'
 
-import 'react-loading-skeleton/dist/skeleton.css'
 import generateRSSFeed from 'utils/generateRSSFeed'
 
 const blog = ({ posts }) => {
-	if (typeof window !== 'undefined' && posts.length > 0) {
-		localStorage.setItem('posts', JSON.stringify(posts))
-	}
 	return <BlogScreen posts={posts} />
 }
 
@@ -26,9 +23,9 @@ export const getStaticProps = async () => {
 			'utf-8'
 		)
 
-		let { data } = matter(markdownWithMeta)
-		data = {
-			...data, slug: filename.split('.')[0]
+		const parsed = matter(markdownWithMeta)
+		const data = {
+			...parsed.data, slug: filename.split('.')[0], read: readingTime(parsed.content).text
 		}
 		// const mdxSource = await serialize(content);
 		return {
@@ -37,7 +34,7 @@ export const getStaticProps = async () => {
 			}
 		}
 	})
-	await generateRSSFeed(posts)
+	await generateRSSFeed(posts.filter((post) => !post.props.data.inPreparation))
 
 	return {
 		props: {

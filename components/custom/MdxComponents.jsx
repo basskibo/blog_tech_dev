@@ -127,13 +127,7 @@ const MdxComponents =  {
 		return <Accent>{children}</Accent>
 	},
 	Adjusted: ({ children }) => {
-		return (
-			<code
-				className='bg-neutral-800 text-bolder border-rounder-lg px-1  mr-1  font-mono
-         hover:underline decoration-indigo-500 border border-neutral-700 rounded-md'>
-				<Accent> `{children}`</Accent>
-			</code>
-		)
+		return <code>{children}</code>
 	},
 	img: CloudinaryContextImage,
 	CloudinaryContext: CloudinaryContextImage,
@@ -147,7 +141,9 @@ const MdxComponents =  {
 		return <b className='font-bold text-white '>{children}</b>
 	},
 	code: ({ children, className }) => {
-		const isInline = !className || !className.startsWith('language-')
+		// Fences without a language arrive with no className; multi-line ones are still blocks.
+		const multiline = typeof children === 'string' && children.trim().includes('\n')
+		const isInline = (!className || !className.startsWith('language-')) && !multiline
 
 		if (isInline) {
 			return (
@@ -157,7 +153,7 @@ const MdxComponents =  {
 			)
 		}
 
-		return <CodeBlock code={children} className={className} />
+		return <CodeBlock code={typeof children === 'string' ? children.replace(/\n$/, '') : children} className={className || 'language-text'} />
 	},
 	a: ({ children, className, href }) => {
 		return (
@@ -235,7 +231,7 @@ const MdxComponents =  {
 				sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts'></iframe>
 		)
 	},
-	table: ({ header, content, genericData }) => {
+	table: ({ header = [], content = [] }) => {
 		return (
 			<table className="table-auto  w-full xl:w-3/4 border border-neutral-700 ">
 				<thead className='bg-neutral-800 '>
