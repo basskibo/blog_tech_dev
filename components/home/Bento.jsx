@@ -32,8 +32,11 @@ function Featured ({ project, big }) {
 					{project.post && <Link className="btn btn-sm btn-ghost" href={`/post/${project.post}`} data-umami-event={`featured-story-${project.slug}`}>How I built it</Link>}
 				</div>
 			</div>
-			<div className="bento-shot">
-				<Image src={project.image} alt={`${project.name} screenshot`} fill sizes={big ? '(max-width: 960px) 100vw, 760px' : '(max-width: 960px) 100vw, 380px'} style={{ objectFit: 'cover', objectPosition: 'left top' }} />
+			<div className="bento-frame">
+				<span className="bento-bar" aria-hidden="true"><i /><i /><i /><span>{(project.liveUrl || '').replace(/^https?:\/\//, '').replace(/\/.*$/, '')}</span></span>
+				<span className="bento-shot">
+					<Image src={project.image} alt={`${project.name} screenshot`} fill sizes={big ? '(max-width: 1080px) 100vw, 760px' : '(max-width: 1080px) 100vw, 380px'} style={{ objectFit: 'cover', objectPosition: 'top' }} />
+				</span>
 			</div>
 		</article>
 	)

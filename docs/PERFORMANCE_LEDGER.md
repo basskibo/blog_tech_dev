@@ -28,6 +28,12 @@ Accessibility and Best Practices are the same on every page measured:
 
 Measured after the "aurora" redesign (Bricolage Grotesque + Instrument Serif, 3D project stack on the homepage); `/post/webos-project` is from the previous round. The home LCP is the front 3D screenshot.
 
+October 15: the homepage hero became a stacked project deck (no 3D tilt, no scattered screens), and the tech strip and project list left the homepage. Lighthouse could not be re-run cleanly because another project's Playwright suite was loading the machine (load average 13). An A/B run under that same load, Chromium with 4× CPU throttling, three runs each, gave:
+- **Blocking time:** about 1.1 s against 2.4 s for the previous commit.
+- **LCP:** 0.6–2.3 s against 2.1–5.2 s for the previous commit.
+
+The cards behind the front one are dimmed with an overlay instead of `filter: brightness()`, which is cheaper to animate.
+
 The "–" cells were not measured on `main`.
 
 Real-browser LCP on `/` went from 3.7 s on `main` to 0.26 s. On a post page it went from 2.7 s to 1.1 s.

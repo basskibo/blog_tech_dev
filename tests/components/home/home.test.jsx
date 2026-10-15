@@ -7,7 +7,7 @@ vi.mock('next/image', async () => (await import('../../helpers/next-mocks')).ima
 vi.mock('next/router', async () => (await import('../../helpers/next-mocks')).routerMock)
 vi.mock('../../../components/jagetic/HeroSpotify', () => ({ default: () => <div data-testid="player" /> }))
 
-const { default: Hero, INTRO } = await import('../../../components/home/Hero')
+const { default: Hero, INTRO, AUTO_MS } = await import('../../../components/home/Hero')
 const { default: Bento } = await import('../../../components/home/Bento')
 const { default: Marquee } = await import('../../../components/home/Marquee')
 const { default: LatestPosts, PostCard, canOptimize } = await import('../../../components/home/LatestPosts')
@@ -68,79 +68,100 @@ describe('Hero', () => {
 		expect(screen.getByTestId('player')).toBeInTheDocument()
 	})
 
-	it('stacks three screens in a hidden 3D stage: front, right and left', () => {
-		const { container } = render(<Hero featured={featured} />)
-		// Only the decorative 3D stack is hidden; the radio next to it stays reachable.
-		expect(container.querySelector('.hero-3d')).toHaveAttribute('aria-hidden', 'true')
-		expect(container.querySelector('.hero-stage')).not.toHaveAttribute('aria-hidden')
-		const color = (cls) => container.querySelector(`.screen3d.${cls}`).style.getPropertyValue('--c')
-		expect(color('s-front')).toBe(featured[0].color)
-		expect(color('s-right')).toBe(featured[1].color)
-		expect(color('s-left')).toBe(featured[2].color)
-		expect(container.querySelector('.s-front img')).toHaveAttribute('src', featured[0].image)
-		expect(container.querySelector('.s-right img')).toHaveAttribute('src', featured[1].image)
-		expect(container.querySelector('.s-left img')).toHaveAttribute('src', featured[2].image)
-		expect(container.querySelector('.s-front .screen3d-bar span')).toHaveTextContent(featured[0].liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, ''))
-	})
+	describe('project deck', () => {
+		const cards = (container) => [...container.querySelectorAll('.deck-card')]
+		const posOf = (container) => cards(container).map((c) => c.dataset.pos)
+		const deck = () => screen.getByRole('region', { name: 'Featured projects' })
 
-	it('shows float chips for the front and right projects', () => {
-		const { container } = render(<Hero featured={featured} />)
-		const chips = [...container.querySelectorAll('.float-chip small')].map((s) => s.textContent)
-		expect(chips).toEqual([`${featured[0].label}, live`, `${featured[1].label}, live`])
+		afterEach(() => vi.useRealTimers())
+
+		it('stacks the featured projects in order, front one first and focusable', () => {
+			const { container } = render(<Hero featured={featured} />)
+			expect(posOf(container)).toEqual(['0', '1', '2'])
+			const [front, second] = cards(container)
+			expect(front).toHaveAttribute('href', featured[0].liveUrl)
+			expect(front).toHaveAttribute('tabindex', '0')
+			expect(front).toHaveAttribute('aria-hidden', 'false')
+			expect(second).toHaveAttribute('tabindex', '-1')
+			expect(second).toHaveAttribute('aria-hidden', 'true')
+			expect(front.querySelector('img')).toHaveAttribute('src', featured[0].image)
+			expect(front.querySelector('.deck-bar span')).toHaveTextContent(new URL(featured[0].liveUrl).host)
+			expect(container.querySelector('.deck-caption')).toHaveTextContent(featured[0].name)
+		})
+
+		it('moves forward and back with the arrows and wraps around', () => {
+			const { container } = render(<Hero featured={featured} />)
+			fireEvent.click(screen.getByRole('button', { name: 'Next project' }))
+			expect(posOf(container)).toEqual(['2', '0', '1'])
+			expect(container.querySelector('.deck-caption')).toHaveTextContent(featured[1].name)
+			fireEvent.click(screen.getByRole('button', { name: 'Previous project' }))
+			fireEvent.click(screen.getByRole('button', { name: 'Previous project' }))
+			expect(posOf(container)).toEqual(['1', '2', '0'])
+		})
+
+		it('jumps to a project from its tab and marks it selected', () => {
+			const { container } = render(<Hero featured={featured} />)
+			const tab = screen.getByRole('tab', { name: featured[2].name })
+			fireEvent.click(tab)
+			expect(tab).toHaveAttribute('aria-selected', 'true')
+			expect(posOf(container)[2]).toBe('0')
+			expect(tab.querySelector('.deck-tab-fill')).not.toBeNull()
+			expect(screen.getByRole('tab', { name: featured[0].name }).querySelector('.deck-tab-fill')).toBeNull()
+		})
+
+		it('follows the arrow keys', () => {
+			const { container } = render(<Hero featured={featured} />)
+			fireEvent.keyDown(deck(), { key: 'ArrowRight' })
+			expect(posOf(container)[1]).toBe('0')
+			fireEvent.keyDown(deck(), { key: 'ArrowLeft' })
+			expect(posOf(container)[0]).toBe('0')
+		})
+
+		it('advances on its own and pauses while hovered', () => {
+			vi.useFakeTimers()
+			const { container } = render(<Hero featured={featured} />)
+			act(() => { vi.advanceTimersByTime(AUTO_MS) })
+			expect(posOf(container)[1]).toBe('0')
+			fireEvent.mouseEnter(deck())
+			act(() => { vi.advanceTimersByTime(AUTO_MS * 3) })
+			expect(posOf(container)[1]).toBe('0')
+			fireEvent.mouseLeave(deck())
+			act(() => { vi.advanceTimersByTime(AUTO_MS) })
+			expect(posOf(container)[2]).toBe('0')
+		})
+
+		it('does not advance on its own when reduced motion is preferred', () => {
+			vi.useFakeTimers()
+			const mm = vi.spyOn(window, 'matchMedia').mockImplementation((q) => ({ matches: q.includes('reduce'), media: q, addEventListener () {}, removeEventListener () {} }))
+			const { container } = render(<Hero featured={featured} />)
+			act(() => { vi.advanceTimersByTime(AUTO_MS * 2) })
+			expect(posOf(container)[0]).toBe('0')
+			mm.mockRestore()
+		})
+
+		it('swipes, and a swipe does not open the link', () => {
+			const { container } = render(<Hero featured={featured} />)
+			const stack = container.querySelector('.deck-stack')
+			fireEvent.pointerDown(stack, { clientX: 300 })
+			fireEvent.pointerUp(stack, { clientX: 200 })
+			expect(posOf(container)[1]).toBe('0')
+			const click = new MouseEvent('click', { bubbles: true, cancelable: true })
+			cards(container)[1].dispatchEvent(click)
+			expect(click.defaultPrevented).toBe(true)
+			// A tap without movement is a normal click.
+			fireEvent.pointerDown(stack, { clientX: 200 })
+			fireEvent.pointerUp(stack, { clientX: 205 })
+			const tap = new MouseEvent('click', { bubbles: true, cancelable: true })
+			cards(container)[1].dispatchEvent(tap)
+			expect(tap.defaultPrevented).toBe(false)
+		})
 	})
 
 	it('renders without featured projects', () => {
 		const { container } = render(<Hero />)
-		expect(container.querySelector('.screen3d')).toBeNull()
+		expect(container.querySelector('.deck')).toBeNull()
 		expect(screen.queryByRole('link', { name: /android app/i })).toBeNull()
 		expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
-	})
-
-	describe('tilt', () => {
-		let raf
-
-		beforeEach(() => {
-			raf = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => { cb(0); return 0 })
-		})
-
-		afterEach(() => {
-			raf.mockRestore()
-		})
-
-		const setup = () => {
-			const { container } = render(<Hero featured={featured} />)
-			const section = intro()
-			section.getBoundingClientRect = () => ({ left: 0, top: 0, width: 200, height: 100, right: 200, bottom: 100, x: 0, y: 0 })
-			return { section, stage: container.querySelector('.hero-3d') }
-		}
-
-		it('tilts towards a mouse pointer via CSS variables', () => {
-			const { section, stage } = setup()
-			fireEvent.pointerMove(section, { pointerType: 'mouse', clientX: 150, clientY: 25 })
-			expect(raf).toHaveBeenCalledTimes(1)
-			expect(stage.style.getPropertyValue('--ry')).toBe('3.50deg')
-			expect(stage.style.getPropertyValue('--rx')).toBe('2.50deg')
-
-			fireEvent.pointerMove(section, { pointerType: 'mouse', clientX: 0, clientY: 100 })
-			expect(stage.style.getPropertyValue('--ry')).toBe('-7.00deg')
-			expect(stage.style.getPropertyValue('--rx')).toBe('-5.00deg')
-		})
-
-		it('ignores touch pointers', () => {
-			const { section, stage } = setup()
-			fireEvent.pointerMove(section, { pointerType: 'touch', clientX: 150, clientY: 25 })
-			expect(raf).not.toHaveBeenCalled()
-			expect(stage.style.getPropertyValue('--ry')).toBe('')
-			expect(stage.style.getPropertyValue('--rx')).toBe('')
-		})
-
-		it('resets the tilt when the pointer leaves', () => {
-			const { section, stage } = setup()
-			fireEvent.pointerMove(section, { pointerType: 'mouse', clientX: 150, clientY: 25 })
-			fireEvent.pointerLeave(section)
-			expect(stage.style.getPropertyValue('--ry')).toBe('0deg')
-			expect(stage.style.getPropertyValue('--rx')).toBe('0deg')
-		})
 	})
 })
 
@@ -345,31 +366,17 @@ describe('Contact', () => {
 })
 
 describe('Landing', () => {
-	it('orders intro, marquee, work, more projects, posts and contact', () => {
+	it('orders intro, work, posts and contact, without the tech strip or the project list', () => {
 		const posts = [{ slug: 'p', title: 'A post', publishedAt: '2026-01-01', tags: [] }]
 		const { container } = render(<Landing posts={posts} />)
-		const blocks = [...container.querySelectorAll('section, .marquee')]
-			.filter((s) => !s.closest('li'))
+		const blocks = [...container.querySelectorAll('.home > section, .home > .wrap > section')]
 			.map((s) => s.id === 'work' ? '#work' : s.getAttribute('aria-label') || s.getAttribute('aria-labelledby'))
-		expect(blocks).toEqual(['Introduction', 'Tools I work with', '#work', 'more-title', 'posts-title', 'contact-title'])
+		expect(blocks).toEqual(['Introduction', '#work', 'posts-title', 'contact-title'])
+		expect(container.querySelector('.marquee')).toBeNull()
+		expect(container.querySelector('.rows')).toBeNull()
 		expect(screen.getByRole('link', { name: `New ${featured[0].name} now has an Android app` })).toBeInTheDocument()
 		expect(screen.getAllByRole('article')).toHaveLength(featured.length + tools.length)
-	})
-
-	it('previews the next five projects not shown above and links to all of them', () => {
-		const { container } = render(<Landing posts={[]} />)
-		const shown = new Set([...featured, ...tools].map((p) => p.slug))
-		const expected = projects.filter((p) => !shown.has(p.slug)).slice(0, 5)
-		const rows = container.querySelectorAll('.rows .row')
-		expect(rows).toHaveLength(5)
-		expect([...rows].map((r) => r.querySelector('.row-name').textContent)).toEqual(expected.map((p) => p.name))
-		expect([...rows].map((r) => r.querySelector('.row-rank').textContent))
-			.toEqual(expected.map((p) => String(projects.indexOf(p) + 1).padStart(2, '0')))
-		// One link in the bento header, one under the list.
-		const all = screen.getAllByRole('link', { name: `All ${projects.length} projects` })
-		expect(all).toHaveLength(2)
-		for (const a of all) expect(a).toHaveAttribute('href', '/routes/projects')
-		expect(container.querySelector('.more-link')).toBe(all[1])
+		expect(screen.getByRole('link', { name: `All ${projects.length} projects` })).toHaveAttribute('href', '/routes/projects')
 	})
 
 	it('hides the posts section when there are no posts', () => {
