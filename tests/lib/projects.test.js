@@ -1,4 +1,4 @@
-import projects, { KINDS, countByKind, filterProjects, getFeaturedProjects, getSpotlightProjects, hostOf, primaryLink } from '@/lib/projects'
+import projects, { KINDS, countByKind, filterProjects, getFeaturedProjects, getSpotlightProjects, hostOf, matchesQuery, primaryLink } from '@/lib/projects'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -117,5 +117,20 @@ describe('hostOf', () => {
 	it('is empty for missing or invalid urls', () => {
 		expect(hostOf(null)).toBe('')
 		expect(hostOf('not a url')).toBe('')
+	})
+})
+
+describe('matchesQuery', () => {
+	const p = { name: 'Coinsel', tagline: 'Money', description: 'Bank SMS', tech: ['Drizzle', 'Postgres'] }
+	it('matches name, tagline, description and tech, case-insensitively', () => {
+		for (const q of ['coin', 'MONEY', 'sms', 'drizzle']) expect(matchesQuery(p, q)).toBe(true)
+	})
+	it('matches everything for an empty or blank query', () => {
+		expect(matchesQuery(p, '')).toBe(true)
+		expect(matchesQuery(p, '   ')).toBe(true)
+		expect(matchesQuery(p, undefined)).toBe(true)
+	})
+	it('rejects what is not there', () => {
+		expect(matchesQuery(p, 'react')).toBe(false)
 	})
 })
