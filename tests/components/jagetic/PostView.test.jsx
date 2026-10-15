@@ -53,10 +53,13 @@ describe('PostView', () => {
 
 	it('links back to the blog by default and to a custom target when given', () => {
 		const { unmount } = render(<PostView data={data} />)
-		expect(screen.getByRole('link', { name: 'All posts' })).toHaveAttribute('href', '/routes/blog')
+		// One back link above the title, one at the end of the post.
+		const back = screen.getAllByRole('link', { name: 'All posts' })
+		expect(back).toHaveLength(2)
+		for (const a of back) expect(a).toHaveAttribute('href', '/routes/blog')
 		unmount()
 		render(<PostView data={data} backHref="/routes/libaries" backLabel="All libraries" />)
-		expect(screen.getByRole('link', { name: 'All libraries' })).toHaveAttribute('href', '/routes/libaries')
+		for (const a of screen.getAllByRole('link', { name: 'All libraries' })) expect(a).toHaveAttribute('href', '/routes/libaries')
 	})
 
 	it('renders the "Read next" link only when nextPost is given', () => {
@@ -98,5 +101,42 @@ describe('PostView', () => {
 	it('estimates read time when data.read is missing', () => {
 		render(<PostView data={{ ...data, read: undefined }} />)
 		expect(screen.getByText('3 min')).toBeInTheDocument()
+	})
+
+	it('builds the table of contents from the h2 headings and marks the one in view', () => {
+		render(
+			<PostView data={data}>
+				<h2 id="intro">Intro</h2><p>a</p><h2 id="setup">Setup</h2><h3 id="sub">Sub</h3>
+			</PostView>
+		)
+		const toc = screen.getByRole('navigation', { name: 'Table of contents' })
+		const links = [...toc.querySelectorAll('a')]
+		expect(links.map((a) => [a.textContent, a.getAttribute('href')])).toEqual([['Intro', '#intro'], ['Setup', '#setup']])
+		const observer = IntersectionObserver.instances[IntersectionObserver.instances.length - 1]
+		act(() => observer.callback([{ isIntersecting: true, target: document.getElementById('setup') }]))
+		expect(links[1]).toHaveAttribute('aria-current', 'location')
+		expect(links[0]).not.toHaveAttribute('aria-current')
+	})
+
+	it('hides the table of contents when the post has no h2', () => {
+		render(<PostView data={data}><p>Body</p></PostView>)
+		expect(screen.queryByRole('navigation', { name: 'Table of contents' })).toBeNull()
+	})
+
+	it('shares on X and LinkedIn with the page url and title', () => {
+		render(<PostView data={data} />)
+		const url = encodeURIComponent(window.location.href)
+		expect(screen.getByRole('link', { name: 'Share on X' })).toHaveAttribute('href', `https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent('Hello World')}`)
+		expect(screen.getByRole('link', { name: 'Share on LinkedIn' })).toHaveAttribute('href', `https://www.linkedin.com/sharing/share-offsite/?url=${url}`)
+	})
+
+	it('shows how much of the article has been read', () => {
+		const raf = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => { cb(0); return 1 })
+		const { container } = render(<PostView data={data}><p>Body</p></PostView>)
+		const article = container.querySelector('#jag-article')
+		article.getBoundingClientRect = () => ({ top: -500, height: 1000 + window.innerHeight })
+		act(() => { window.dispatchEvent(new Event('scroll')) })
+		expect(container.querySelector('.post-progress')).toHaveTextContent('50% read')
+		raf.mockRestore()
 	})
 })
