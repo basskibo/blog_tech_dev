@@ -294,6 +294,21 @@
 .talk { height: 40px; padding: 0 18px; border-radius: 99px; background: var(--grad); color: #fff; display: flex; align-items: center; font: 700 14px var(--f-sans); box-shadow: 0 6px 24px -6px rgba(124, 92, 255, .8); white-space: nowrap; }
 .menu-btn { display: none; }
 
+/* Lofi radio in the top bar: play pill + a dropdown with the full player. */
+.np { position: relative; display: flex; align-items: center; height: 40px; border-radius: 99px; border: 1px solid var(--line); background: var(--card); }
+.np-pill { height: 38px; padding: 0 10px 0 6px; border: 0; border-radius: 99px; background: transparent; display: flex; align-items: center; gap: 8px; color: var(--ink); }
+.np-icon { width: 28px; height: 28px; border-radius: 50%; background: var(--inv); color: var(--invInk); display: grid; place-items: center; transition: background-color .25s; }
+.np-pill.is-on .np-icon { background: var(--grad); color: #fff; }
+.np-icon svg { width: 13px; height: 13px; }
+.np-pill .onair-eq { height: 14px; }
+.np-pill .onair-eq span { height: 12px; }
+.np-more { height: 38px; padding: 0 12px 0 8px; border: 0; border-left: 1px solid var(--line); border-radius: 0 99px 99px 0; background: transparent; display: flex; align-items: center; gap: 6px; font: 500 13px var(--f-sans); color: var(--mut); }
+.np-more:hover { color: var(--ink); }
+.np-more svg { width: 14px; height: 14px; transition: transform .2s; }
+.np-panel { position: absolute; left: 0; top: calc(100% + 12px); width: 340px; z-index: 5; animation: bjDrop .25s var(--ease) both; }
+.np-panel .onair { background: var(--bg2); }
+.np-panel .onair-menu { bottom: auto; top: calc(100% + 8px); }
+
 .sheet { position: fixed; inset: 88px 12px auto; z-index: 89; padding: 10px; border-radius: 26px; background: var(--glass); backdrop-filter: blur(24px) saturate(1.8); -webkit-backdrop-filter: blur(24px) saturate(1.8); border: 1px solid var(--line); box-shadow: var(--shadow); animation: bjDrop .25s var(--ease) both; }
 .sheet a { display: block; padding: 14px 16px; border-radius: 16px; font: 700 22px var(--f-sans); letter-spacing: -.03em; }
 .sheet a[aria-current='page'] { background: var(--card); }
@@ -354,7 +369,8 @@
 /* Responsive ----------------------------------------------------------- */
 
 @media (max-width: 900px) {
-	.menu, .search-btn .label, .search-btn kbd, .talk { display: none; }
+	.menu, .search-btn .label, .search-btn kbd, .talk, .np-label { display: none; }
+	.np-panel { position: fixed; left: 12px; right: 12px; top: 88px; width: auto; }
 	.search-btn { width: 40px; padding: 0; justify-content: center; }
 	.menu-btn { display: grid; background: var(--inv); color: var(--invInk); border-color: transparent; }
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
-import HeroSpotify from '../jagetic/HeroSpotify'
 
 export const INTRO = 'Full-stack engineer. I build products end to end, from the database to the last pixel.'
 
@@ -12,7 +11,7 @@ const LINKS = [
 	{ id: 'twitter', href: 'https://twitter.com/basskibo1', label: 'X' }
 ]
 
-export const AUTO_MS = 5000
+export const AUTO_MS = 3500
 
 const host = (url) => (url || '').replace(/^https?:\/\//, '').replace(/\/.*$/, '')
 
@@ -83,7 +82,6 @@ export default function Hero ({ featured = [] }) {
 					))}
 					<a href="/Bojan_Jagetić.pdf" download data-umami-event="landing-download-cv-button">Download CV</a>
 				</div>
-				<div className="hero-radio"><HeroSpotify /></div>
 			</div>
 
 			{current && (

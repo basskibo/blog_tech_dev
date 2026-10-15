@@ -60,12 +60,12 @@ describe('Hero', () => {
 		}
 	})
 
-	it('offers the CV as a download and renders the Spotify player', () => {
+	it('offers the CV as a download; the radio lives in the top bar, not the hero', () => {
 		render(<Hero featured={featured} />)
 		const cv = screen.getByRole('link', { name: 'Download CV' })
 		expect(cv).toHaveAttribute('download')
 		expect(cv).toHaveAttribute('href', '/Bojan_Jagetić.pdf')
-		expect(screen.getByTestId('player')).toBeInTheDocument()
+		expect(screen.queryByTestId('player')).toBeNull()
 	})
 
 	describe('project deck', () => {

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Menu, Moon, Search, Sun, X } from 'lucide-react'
 import projects from '../../lib/projects'
+import HeroSpotify from './HeroSpotify'
 
 export const NAV = [
 	{ href: '/', label: 'Home' },
@@ -156,6 +157,7 @@ export default function Shell ({ children }) {
 						))}
 					</nav>
 					<div className="top-actions">
+						<HeroSpotify compact />
 						<button type="button" className="search-btn" aria-label="Search" onClick={() => setPalette(true)}>
 							<Search aria-hidden="true" />
 							<span className="label">Search</span>
