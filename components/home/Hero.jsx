@@ -1,7 +1,7 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
 import HeroSpotify from '../jagetic/HeroSpotify'
 
 export const INTRO = 'Full-stack engineer. I build products end to end, from the database to the last pixel.'
@@ -12,38 +12,58 @@ const LINKS = [
 	{ id: 'twitter', href: 'https://twitter.com/basskibo1', label: 'X' }
 ]
 
-// Three featured projects float as 3D screens. On fine pointers the stack
-// tilts towards the cursor; the angle is written to CSS variables once per
-// frame, so moving the mouse never re-renders React.
-export default function Hero ({ featured = [] }) {
-	const stage = useRef(null)
-	const frame = useRef(0)
-	const [front, right, left] = featured
+export const AUTO_MS = 5000
 
-	const onPointerMove = (event) => {
-		if (event.pointerType !== 'mouse' || frame.current) return
-		const { clientX, clientY, currentTarget } = event
-		frame.current = requestAnimationFrame(() => {
-			frame.current = 0
-			const rect = currentTarget.getBoundingClientRect()
-			const x = (clientX - rect.left) / rect.width - 0.5
-			const y = (clientY - rect.top) / rect.height - 0.5
-			stage.current?.style.setProperty('--ry', `${(x * 14).toFixed(2)}deg`)
-			stage.current?.style.setProperty('--rx', `${(-y * 10).toFixed(2)}deg`)
-		})
+const host = (url) => (url || '').replace(/^https?:\/\//, '').replace(/\/.*$/, '')
+
+// The featured projects as a stacked deck of browser windows: the front one
+// is fully visible, the others peek out behind it. It advances on its own
+// (paused while hovered or focused), and with the arrows, the tabs, the
+// arrow keys or a swipe.
+export default function Hero ({ featured = [] }) {
+	const [index, setIndex] = useState(0)
+	const [paused, setPaused] = useState(false)
+	const swipe = useRef(null)
+	const swiped = useRef(false)
+	const count = featured.length
+	const current = featured[index]
+
+	const go = (step) => setIndex((i) => (i + step + count) % count)
+
+	useEffect(() => {
+		if (paused || count < 2) return undefined
+		if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined
+		const timer = setInterval(() => setIndex((i) => (i + 1) % count), AUTO_MS)
+		return () => clearInterval(timer)
+	}, [paused, count])
+
+	const onKeyDown = (event) => {
+		if (event.key === 'ArrowRight') { event.preventDefault(); go(1) }
+		if (event.key === 'ArrowLeft') { event.preventDefault(); go(-1) }
 	}
 
-	const onPointerLeave = () => {
-		stage.current?.style.setProperty('--ry', '0deg')
-		stage.current?.style.setProperty('--rx', '0deg')
+	const onPointerDown = (event) => { swipe.current = event.clientX }
+	const onPointerUp = (event) => {
+		if (swipe.current === null) return
+		const dx = event.clientX - swipe.current
+		swipe.current = null
+		swiped.current = Math.abs(dx) > 40
+		if (swiped.current) go(dx < 0 ? 1 : -1)
+	}
+
+	// A swipe ends with a click on the card; that click must not open the link.
+	const onClickCapture = (event) => {
+		if (!swiped.current) return
+		swiped.current = false
+		event.preventDefault()
 	}
 
 	return (
-		<section className="hero" aria-label="Introduction" onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
+		<section className="hero" aria-label="Introduction">
 			<div className="hero-copy">
-				{front && (
-					<a className="hero-news" href={front.liveUrl} target="_blank" rel="noopener noreferrer" style={{ '--c': front.color }}>
-						<span>New</span> {front.name} now has an Android app
+				{featured[0] && (
+					<a className="hero-news" href={featured[0].liveUrl} target="_blank" rel="noopener noreferrer" style={{ '--c': featured[0].color }}>
+						<span>New</span> {featured[0].name} now has an Android app
 					</a>
 				)}
 				<h1 className="hero-name">
@@ -63,41 +83,78 @@ export default function Hero ({ featured = [] }) {
 					))}
 					<a href="/Bojan_Jagetić.pdf" download data-umami-event="landing-download-cv-button">Download CV</a>
 				</div>
-			</div>
-
-			<div className="hero-stage">
-				<div className="hero-3d" ref={stage} aria-hidden="true">
-					{left && (
-						<div className="screen3d s-left" style={{ '--c': left.color }}>
-							<div className="screen3d-bar"><i /><i /><i /></div>
-							<div className="screen3d-img"><Image src={left.image} alt="" fill sizes="470px" style={{ objectFit: 'cover', objectPosition: 'top' }} /></div>
-						</div>
-					)}
-					{right && (
-						<div className="screen3d s-right" style={{ '--c': right.color }}>
-							<div className="screen3d-bar"><i /><i /><i /></div>
-							<div className="screen3d-img"><Image src={right.image} alt="" fill sizes="470px" style={{ objectFit: 'cover', objectPosition: 'top' }} /></div>
-						</div>
-					)}
-					{front && (
-						<div className="screen3d s-front" style={{ '--c': front.color }}>
-							<div className="screen3d-bar"><i /><i /><i /><span>{front.liveUrl?.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span></div>
-							<div className="screen3d-img"><Image src={front.image} alt="" fill priority sizes="(max-width: 960px) 80vw, 540px" style={{ objectFit: 'cover', objectPosition: 'top' }} /></div>
-						</div>
-					)}
-					{front && (
-						<span className="float-chip f1" style={{ '--c': front.color }}>
-							<i>{front.name.slice(0, 1)}</i><span><b>{front.name}</b><small>{front.label}, live</small></span>
-						</span>
-					)}
-					{right && (
-						<span className="float-chip f2" style={{ '--c': right.color }}>
-							<i>{right.name.split(' ').map((w) => w[0]).join('')}</i><span><b>{right.name}</b><small>{right.label}, live</small></span>
-						</span>
-					)}
-				</div>
 				<div className="hero-radio"><HeroSpotify /></div>
 			</div>
+
+			{current && (
+				<div
+					className="deck"
+					role="region"
+					aria-roledescription="carousel"
+					aria-label="Featured projects"
+					onMouseEnter={() => setPaused(true)}
+					onMouseLeave={() => setPaused(false)}
+					onFocus={() => setPaused(true)}
+					onBlur={() => setPaused(false)}
+					onKeyDown={onKeyDown}
+				>
+					<div className="deck-stack" onPointerDown={onPointerDown} onPointerUp={onPointerUp} onClickCapture={onClickCapture}>
+						{featured.map((project, i) => {
+							const pos = (i - index + count) % count
+							return (
+								<a
+									key={project.slug}
+									href={project.liveUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="deck-card"
+									data-pos={pos}
+									style={{ '--c': project.color, zIndex: count - pos }}
+									aria-hidden={pos !== 0}
+									tabIndex={pos === 0 ? 0 : -1}
+									draggable={false}
+								>
+									<span className="sr-only">Open {project.name}: </span>
+									<span className="deck-bar"><i /><i /><i /><span>{host(project.liveUrl)}</span></span>
+									<span className="deck-img">
+										<Image src={project.image} alt="" fill priority={i === 0} sizes="(max-width: 1080px) 92vw, 620px" style={{ objectFit: 'cover', objectPosition: 'top' }} draggable={false} />
+									</span>
+								</a>
+							)
+						})}
+					</div>
+					<div className="deck-foot">
+						<div className="deck-caption" key={current.slug} aria-live="polite">
+							<span className="deck-dot" style={{ '--c': current.color }} aria-hidden="true" />
+							<span>
+								<b>{current.name}</b>
+								<small>{current.tagline}</small>
+							</span>
+							<a className="deck-open" href={current.liveUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${current.name}`}><ArrowUpRight aria-hidden="true" /></a>
+						</div>
+						<div className="deck-nav">
+							<button type="button" className="icon-btn" aria-label="Previous project" onClick={() => go(-1)}><ArrowLeft aria-hidden="true" /></button>
+							<div className="deck-tabs" role="tablist" aria-label="Choose a project">
+								{featured.map((project, i) => (
+									<button
+										key={project.slug}
+										type="button"
+										role="tab"
+										aria-selected={i === index}
+										aria-label={project.name}
+										className="deck-tab"
+										style={{ '--c': project.color }}
+										onClick={() => setIndex(i)}
+									>
+										{i === index && <span className="deck-tab-fill" style={{ animationDuration: `${AUTO_MS}ms`, animationPlayState: paused ? 'paused' : 'running' }} />}
+									</button>
+								))}
+							</div>
+							<button type="button" className="icon-btn" aria-label="Next project" onClick={() => go(1)}><ArrowRight aria-hidden="true" /></button>
+						</div>
+					</div>
+				</div>
+			)}
 		</section>
 	)
 }

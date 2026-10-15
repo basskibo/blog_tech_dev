@@ -38,10 +38,12 @@ describe('AboutView', () => {
 	})
 
 	it('opens the first job by default and shows its tech with friendly names', () => {
-		render(<AboutView />)
+		const { container } = render(<AboutView />)
 		expect(screen.getByText(/Smart TV apps on Tizen/)).toBeInTheDocument()
-		expect(screen.getByText('Node.js')).toBeInTheDocument()
-		expect(screen.getByText('TypeScript')).toBeInTheDocument()
+		// Scoped to the open job: the "Tools I use" strip lists the same names.
+		const body = within(container.querySelector('.job-body'))
+		expect(body.getByText('Node.js')).toBeInTheDocument()
+		expect(body.getByText('TypeScript')).toBeInTheDocument()
 		expect(screen.queryByText(/Cloud IoT platform/)).toBeNull()
 	})
 

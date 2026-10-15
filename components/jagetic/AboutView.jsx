@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import cvImage from '../../public/images/cv.jpg'
+import Marquee from '../home/Marquee'
 
 const TECH = {
 	SiNodedotjs: 'Node.js', SiExpress: 'Express', SiReact: 'React', SiTypescript: 'TypeScript',
@@ -71,6 +72,10 @@ export default function AboutView () {
 					</ol>
 				</section>
 			</div>
+			<section className="sec" aria-labelledby="tools-title">
+				<h2 id="tools-title" className="t-h2" style={{ fontSize: 'clamp(36px, 4vw, 56px)', marginBottom: 28 }}>Tools I <span className="t-serif" style={{ color: 'var(--cyan)' }}>use</span></h2>
+				<Marquee />
+			</section>
 		</div>
 	)
 }
