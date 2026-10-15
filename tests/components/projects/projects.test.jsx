@@ -1,14 +1,12 @@
 import React from 'react'
-import { render, screen, within, fireEvent, act } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { render, screen, within, fireEvent } from '@testing-library/react'
 import projects, { countByKind, getFeaturedProjects, getSpotlightProjects } from '@/lib/projects'
 
 vi.mock('next/link', async () => (await import('../../helpers/next-mocks')).linkMock)
 vi.mock('next/image', async () => (await import('../../helpers/next-mocks')).imageMock)
 vi.mock('next/head', () => ({ default: ({ children }) => <>{children}</> }))
 
-const { default: ProjectRow, StatusBadge } = await import('../../../components/projects/ProjectRow')
-const { default: ProjectIndex } = await import('../../../components/projects/ProjectIndex')
+const { default: ProjectCard, StatusBadge } = await import('../../../components/projects/ProjectCard')
 const { default: ProjectVisual } = await import('../../../components/projects/ProjectVisual')
 const { default: ProjectsPage } = await import('../../../pages/routes/projects')
 
@@ -20,11 +18,14 @@ describe('ProjectVisual', () => {
 		expect(screen.getByRole('img', { name: 'Coinsel screenshot' })).toHaveAttribute('src', '/images/projects/coinsel.webp')
 	})
 
-	it('draws a coloured cover when there is no screenshot', () => {
-		render(<ProjectVisual project={bySlug('singularity')} />)
+	it('draws a quiet cover with initials when there is no screenshot', () => {
+		render(<ProjectVisual project={bySlug('github-top-languages')} />)
 		const cover = screen.getByTestId('project-cover')
-		expect(cover).toHaveTextContent('Singularity')
-		expect(cover.style.getPropertyValue('--p')).toBe(bySlug('singularity').color)
+		// The name is right below the cover in the card, so the cover only carries initials.
+		expect(cover).not.toHaveTextContent('GitHub Top Languages')
+		expect(cover.querySelector('.cover-mark')).toHaveTextContent('GT')
+		expect(cover.querySelector('.cover-mark')).toHaveAttribute('aria-hidden', 'true')
+		expect(cover.style.getPropertyValue('--p')).toBe(bySlug('github-top-languages').color)
 	})
 })
 
@@ -39,170 +40,115 @@ describe('StatusBadge', () => {
 	})
 })
 
-describe('ProjectRow', () => {
-	const renderRow = (project, props = {}) => render(
-		<ul><ProjectRow project={project} rank={4} open={false} onToggle={vi.fn()} {...props} /></ul>
-	)
-
-	it('shows the zero-padded rank, name, tagline and year', () => {
-		renderRow(bySlug('gameroom'))
-		const button = screen.getByRole('button')
-		expect(button).toHaveTextContent('04')
-		expect(button).toHaveTextContent('Gameroom')
-		expect(button).toHaveTextContent('Browser games, nothing to install')
-		expect(button).toHaveTextContent('2026')
-		expect(button).toHaveAttribute('aria-expanded', 'false')
+describe('ProjectCard', () => {
+	it('shows rank, status, kind, year, name, tagline and description', () => {
+		const p = bySlug('gameroom')
+		render(<ProjectCard project={p} rank={6} />)
+		const card = screen.getByRole('article', { name: p.name })
+		expect(card).toHaveTextContent('#06')
+		expect(card).toHaveTextContent('Live')
+		expect(card).toHaveTextContent(p.kind)
+		expect(card).toHaveTextContent(String(p.year))
+		expect(card).toHaveTextContent(p.tagline)
+		expect(card).toHaveTextContent(p.description)
 	})
 
-	it('keeps closed details out of the tab order and the accessibility tree', () => {
-		const { container } = renderRow(bySlug('gameroom'))
-		const body = container.querySelector('.row-body')
-		expect(body).toHaveAttribute('inert')
-		expect(body).toHaveAttribute('aria-hidden', 'true')
-		expect(screen.getByRole('button')).toHaveAttribute('aria-controls', body.id)
+	it('links the name to the live app and adds a separate code link', () => {
+		const p = bySlug('gameroom')
+		render(<ProjectCard project={p} />)
+		const name = screen.getByRole('link', { name: p.name })
+		expect(name).toHaveAttribute('href', p.liveUrl)
+		expect(name).toHaveAttribute('target', '_blank')
+		expect(name.getAttribute('rel')).toContain('noopener')
+		expect(screen.getByRole('link', { name: `${p.name} source code on GitHub` })).toHaveAttribute('href', p.repoUrl)
+		expect(screen.getByText('Open app')).toBeInTheDocument()
 	})
 
-	it('calls onToggle with the slug', async () => {
-		const onToggle = vi.fn()
-		renderRow(bySlug('gameroom'), { onToggle })
-		await userEvent.click(screen.getByRole('button'))
-		expect(onToggle).toHaveBeenCalledWith('gameroom')
+	it('links to the code when there is no live app, without a duplicate code button', () => {
+		const p = bySlug('network-arp-scanner')
+		render(<ProjectCard project={p} />)
+		expect(screen.getByRole('link', { name: p.name })).toHaveAttribute('href', p.repoUrl)
+		expect(screen.getByText('View code')).toBeInTheDocument()
+		expect(screen.queryByRole('link', { name: /source code on GitHub/ })).toBeNull()
 	})
 
-	it('shows live and code links when open', () => {
-		renderRow(bySlug('gameroom'), { open: true })
-		expect(screen.getByRole('link', { name: /open app/i })).toHaveAttribute('href', bySlug('gameroom').liveUrl)
-		expect(screen.getByRole('link', { name: /code/i })).toHaveAttribute('href', bySlug('gameroom').repoUrl)
+	it('uses the npm label for packages', () => {
+		render(<ProjectCard project={bySlug('spotify-now-playing-card')} />)
+		expect(screen.getByText('npm')).toBeInTheDocument()
 	})
 
-	it('uses the custom live label for npm packages', () => {
-		renderRow(bySlug('spotify-now-playing-card'), { open: true })
-		expect(screen.getByRole('link', { name: /^npm/i })).toBeInTheDocument()
-	})
-
-	it('says the project is private when there is nothing public to link', () => {
-		renderRow(bySlug('singularity'), { open: true })
+	it('says the project is private when there is nothing public to open', () => {
+		const p = bySlug('singularity')
+		render(<ProjectCard project={p} />)
 		expect(screen.queryByRole('link')).toBeNull()
-		expect(screen.getByText(/private for now/i)).toBeInTheDocument()
+		expect(screen.getByRole('heading', { name: p.name })).toBeInTheDocument()
+		expect(screen.getByText(/Private for now/)).toBeInTheDocument()
 	})
 
-	it('only mounts the preview image while open', () => {
-		const { rerender } = renderRow(bySlug('coinsel'))
-		expect(screen.queryByRole('img', { hidden: true })).toBeNull()
-		rerender(<ul><ProjectRow project={bySlug('coinsel')} rank={1} open onToggle={vi.fn()} /></ul>)
-		expect(screen.getByRole('img', { name: /coinsel screenshot/i })).toBeInTheDocument()
+	it('shows at most three technologies and how many more there are', () => {
+		const p = bySlug('coinsel')
+		render(<ProjectCard project={p} />)
+		const tech = within(screen.getByRole('list', { name: 'Built with' })).getAllByRole('listitem').map((li) => li.textContent)
+		expect(tech).toEqual([...p.tech.slice(0, 3), `+${p.tech.length - 3}`])
 	})
 
-	it('reports hover for the cursor preview', () => {
-		const onPeek = vi.fn()
-		const { container } = renderRow(bySlug('gameroom'), { onPeek })
-		fireEvent.pointerEnter(container.querySelector('li'))
-		expect(onPeek).toHaveBeenLastCalledWith(bySlug('gameroom'))
-		fireEvent.pointerLeave(container.querySelector('li'))
-		expect(onPeek).toHaveBeenLastCalledWith(null)
-	})
-})
-
-describe('ProjectIndex', () => {
-	const list = projects.slice(0, 4)
-
-	it('opens one row at a time and closes it on a second click', async () => {
-		render(<ProjectIndex projects={list} />)
-		const [first, second] = screen.getAllByRole('button')
-		await userEvent.click(first)
-		expect(first).toHaveAttribute('aria-expanded', 'true')
-		await userEvent.click(second)
-		expect(first).toHaveAttribute('aria-expanded', 'false')
-		expect(second).toHaveAttribute('aria-expanded', 'true')
-		await userEvent.click(second)
-		expect(second).toHaveAttribute('aria-expanded', 'false')
-	})
-
-	it('uses rankOf for the numbers', () => {
-		render(<ProjectIndex projects={list.slice(2)} rankOf={(p) => projects.indexOf(p) + 1} />)
-		expect(screen.getAllByRole('button')[0]).toHaveTextContent('03')
-	})
-
-	it('moves the preview with the pointer and hides it for the open row', async () => {
-		const raf = vi.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => { cb(0); return 1 })
-		const { container } = render(<ProjectIndex projects={list} />)
-		const peek = container.querySelector('.peek')
-		const row = container.querySelectorAll('li')[0]
-		fireEvent.pointerEnter(row)
-		expect(peek).toHaveClass('is-on')
-		act(() => { window.dispatchEvent(new MouseEvent('pointermove', { clientX: 100, clientY: 300 })) })
-		expect(peek.style.transform).toBe('translate(128px, 200px) rotate(-2deg)')
-		await userEvent.click(screen.getAllByRole('button')[0])
-		expect(peek).not.toHaveClass('is-on')
-		fireEvent.pointerLeave(row)
-		expect(peek).not.toHaveClass('is-on')
-		raf.mockRestore()
-	})
-
-	it('can turn the preview off', () => {
-		const { container } = render(<ProjectIndex projects={list} peek={false} />)
-		expect(container.querySelector('.peek')).toBeNull()
+	it('omits the rank when none is given', () => {
+		const { container } = render(<ProjectCard project={bySlug('gameroom')} />)
+		expect(container.querySelector('.pcard-rank')).toBeNull()
 	})
 })
 
 describe('Projects page', () => {
-	const rows = () => screen.getAllByRole('button').filter((b) => b.hasAttribute('aria-expanded'))
+	const cards = () => within(screen.getByRole('region', { name: 'Everything' })).queryAllByRole('article')
+	const search = () => screen.getByRole('textbox', { name: 'Search projects' })
 
-	it('shows the three featured projects and the two tools in the bento, without its own heading', () => {
+	it('shows the title, the project and live counts, and the featured bento', () => {
 		render(<ProjectsPage />)
-		const h1 = screen.getByRole('heading', { level: 1, name: 'Things I ship' })
-		expect(h1.querySelector('span')).toHaveTextContent('ship')
-		expect(screen.getByText(new RegExp(`^${projects.length} things I have built`))).toBeInTheDocument()
+		expect(screen.getByRole('heading', { level: 1, name: 'Things I ship' })).toBeInTheDocument()
+		const stats = screen.getByText('Projects', { selector: 'dt' }).closest('dl')
+		expect(within(stats).getByText(String(projects.length))).toBeInTheDocument()
+		expect(within(stats).getByText(String(projects.filter((p) => p.status === 'live').length))).toBeInTheDocument()
 
 		const bento = screen.getByRole('region', { name: 'Featured projects' })
 		expect(within(bento).getByRole('heading', { level: 2 })).toHaveClass('sr-only')
-		const featured = getFeaturedProjects()
-		const tools = getSpotlightProjects()
-		const cards = within(bento).getAllByRole('article')
-		expect(cards.map((a) => within(a).getByRole('heading', { level: 3 }).textContent))
-			.toEqual([...featured, ...tools].map((p) => p.name))
-		expect(cards.map((a) => a.classList.contains('is-big'))).toEqual([true, false, false, false, false])
-		expect(cards.slice(3).every((a) => a.classList.contains('bento-tool') && a.querySelector('.term'))).toBe(true)
-		expect(cards.slice(0, 3).some((a) => a.querySelector('.term'))).toBe(false)
-		// The page has its own count in the header, so the bento shows no "All projects" link.
-		expect(screen.queryByRole('link', { name: /all \d+ projects/i })).toBeNull()
+		const names = within(bento).getAllByRole('article').map((a) => within(a).getByRole('heading', { level: 3 }).textContent)
+		expect(names).toEqual([...getFeaturedProjects(), ...getSpotlightProjects()].map((p) => p.name))
 	})
 
-	it('puts "Everything" after the featured bento', () => {
+	it('lists every project as a card in rank order', () => {
 		render(<ProjectsPage />)
-		const bento = screen.getByRole('region', { name: 'Featured projects' })
-		const everything = screen.getByRole('heading', { level: 2, name: 'Everything' })
-		expect(bento.compareDocumentPosition(everything) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+		expect(cards().map((c) => c.querySelector('.pcard-name').textContent)).toEqual(projects.map((p) => p.name))
+		expect(cards()[0]).toHaveTextContent('#01')
 	})
 
-	it('lists every project, ranked, under "Everything"', () => {
-		render(<ProjectsPage />)
-		expect(screen.getByRole('heading', { level: 2, name: 'Everything' })).toBeInTheDocument()
-		expect(rows()).toHaveLength(projects.length)
-		expect(rows().every((b) => b.getAttribute('aria-expanded') === 'false')).toBe(true)
-		expect(rows().map((b) => b.querySelector('.row-rank').textContent))
-			.toEqual(projects.map((_, i) => String(i + 1).padStart(2, '0')))
-	})
-
-	it('filters by kind and shows counts', async () => {
+	it('filters by kind with counts and keeps the global rank', () => {
 		render(<ProjectsPage />)
 		const counts = countByKind(projects)
-		const filters = screen.getByRole('group', { name: /filter projects by kind/i })
-		const all = within(filters).getByRole('button', { name: new RegExp(`^All ${projects.length}$`) })
-		expect(all).toHaveAttribute('aria-pressed', 'true')
-		const ai = within(filters).getByRole('button', { name: new RegExp(`^AI ${counts.AI}$`) })
-		await userEvent.click(ai)
-		expect(ai).toHaveAttribute('aria-pressed', 'true')
-		expect(all).toHaveAttribute('aria-pressed', 'false')
-		expect(rows()).toHaveLength(counts.AI)
-		await userEvent.click(all)
-		expect(rows()).toHaveLength(projects.length)
+		const game = screen.getByRole('button', { name: new RegExp(`^Game\\s*${counts.Game}$`) })
+		fireEvent.click(game)
+		expect(game).toHaveAttribute('aria-pressed', 'true')
+		expect(cards()).toHaveLength(counts.Game)
+		const rank = projects.findIndex((p) => p.kind === 'Game') + 1
+		expect(cards()[0]).toHaveTextContent(`#${String(rank).padStart(2, '0')}`)
 	})
 
-	it('keeps the global rank when filtered', async () => {
+	it('searches name, tagline, description and tech, combined with the kind filter', () => {
 		render(<ProjectsPage />)
-		await userEvent.click(screen.getByRole('button', { name: /^Game \d+$/ }))
-		const rank = projects.findIndex((p) => p.kind === 'Game') + 1
-		expect(rows()[0]).toHaveTextContent(String(rank).padStart(2, '0'))
+		fireEvent.change(search(), { target: { value: 'ffmpeg' } })
+		expect(cards().map((c) => c.querySelector('.pcard-name').textContent)).toEqual(projects.filter((p) => p.tech.includes('ffmpeg')).map((p) => p.name))
+		fireEvent.click(screen.getByRole('button', { name: /^Library/ }))
+		expect(cards()).toHaveLength(0)
+		expect(screen.getByText(/No projects match/)).toHaveTextContent('No projects match “ffmpeg” in Library.')
+	})
+
+	it('clears the search, and the empty state resets everything', () => {
+		render(<ProjectsPage />)
+		fireEvent.change(search(), { target: { value: 'zzz-nothing' } })
+		fireEvent.click(screen.getByRole('button', { name: 'Show all projects' }))
+		expect(search()).toHaveValue('')
+		expect(cards()).toHaveLength(projects.length)
+		fireEvent.change(search(), { target: { value: 'map' } })
+		fireEvent.click(screen.getByRole('button', { name: 'Clear search' }))
+		expect(search()).toHaveValue('')
 	})
 })
