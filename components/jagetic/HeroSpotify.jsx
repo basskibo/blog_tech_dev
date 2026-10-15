@@ -31,7 +31,8 @@ function SpeakerIcon ({ muted }) {
 	)
 }
 
-export default function HeroSpotify () {
+// `compact`: a small pill for the top bar; the full player opens as a dropdown.
+export default function HeroSpotify ({ compact = false }) {
 	const audioRef = useRef(null)
 	const menuRef = useRef(null)
 	const stopping = useRef(false)
@@ -42,6 +43,8 @@ export default function HeroSpotify () {
 	const [menu, setMenu] = useState(false)
 	const [volOpen, setVolOpen] = useState(false)
 	const [cover, setCover] = useState(COVERS[2])
+	const [panel, setPanel] = useState(false)
+	const panelRef = useRef(null)
 
 	useEffect(() => {
 		const tick = () => setCover(coverForHour(new Date().getHours()))
@@ -64,6 +67,20 @@ export default function HeroSpotify () {
 		window.addEventListener('pointerdown', close)
 		return () => window.removeEventListener('pointerdown', close)
 	}, [menu])
+
+	useEffect(() => {
+		if (!panel) return undefined
+		const close = (event) => {
+			if (!panelRef.current?.contains(event.target)) setPanel(false)
+		}
+		const onKey = (event) => { if (event.key === 'Escape') setPanel(false) }
+		window.addEventListener('pointerdown', close)
+		window.addEventListener('keydown', onKey)
+		return () => {
+			window.removeEventListener('pointerdown', close)
+			window.removeEventListener('keydown', onKey)
+		}
+	}, [panel])
 
 	const playStation = (next) => {
 		const audio = audioRef.current
@@ -101,9 +118,13 @@ export default function HeroSpotify () {
 		if (playing) playStation(next)
 	}
 
-	return (
+	const audio = <audio ref={audioRef} preload="none" onError={() => { if (stopping.current) { stopping.current = false; return } setPlaying(false); setFailed(true) }} />
+	const playIcon = playing
+		? <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" /><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" /></svg>
+		: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
+
+	const card = (
 		<div className="onair">
-			<audio ref={audioRef} preload="none" onError={() => { if (stopping.current) { stopping.current = false; return } setPlaying(false); setFailed(true) }} />
 			<div className="onair-row">
 				<a href={station.href} target="_blank" rel="noreferrer" aria-label={cover.label} className="onair-cover">
 					<img src={cover.src} alt="" />
@@ -117,9 +138,7 @@ export default function HeroSpotify () {
 					{[0, 1, 2, 3].map((bar) => <span key={bar} style={{ animationDelay: `${bar * 0.12}s` }} />)}
 				</div>
 				<button type="button" className="onair-play" aria-label={playing ? 'Pause' : 'Play'} onClick={toggle}>
-					{playing
-						? <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" /><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" /></svg>
-						: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>}
+					{playIcon}
 				</button>
 			</div>
 			<div className="onair-foot">
@@ -160,6 +179,25 @@ export default function HeroSpotify () {
 					</button>
 				</div>
 			</div>
+		</div>
+	)
+
+	if (!compact) return <>{audio}{card}</>
+
+	return (
+		<div className="np" ref={panelRef}>
+			{audio}
+			<button type="button" className={`np-pill${playing ? ' is-on' : ''}`} aria-label={playing ? 'Pause music' : 'Play music'} onClick={toggle}>
+				<span className="np-icon">{playIcon}</span>
+				<span className={`onair-eq${playing ? ' is-on' : ''}`} aria-hidden="true">
+					{[0, 1, 2].map((bar) => <span key={bar} style={{ animationDelay: `${bar * 0.12}s` }} />)}
+				</span>
+			</button>
+			<button type="button" className="np-more" aria-label="Music player" aria-expanded={panel} onClick={() => setPanel((open) => !open)}>
+				<span className="np-label">{failed ? 'Offline' : station.name}</span>
+				<svg viewBox="0 0 24 24" aria-hidden="true" style={{ transform: panel ? 'rotate(180deg)' : 'none' }}><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" /></svg>
+			</button>
+			{panel && <div className="np-panel">{card}</div>}
 		</div>
 	)
 }

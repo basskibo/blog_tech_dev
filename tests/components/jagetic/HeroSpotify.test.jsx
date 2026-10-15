@@ -233,3 +233,41 @@ describe('HeroSpotify cover art by hour', () => {
 		expect(link).toHaveAttribute('target', '_blank')
 	})
 })
+
+describe('HeroSpotify compact (top bar)', () => {
+	it('plays from the pill and opens the full player as a dropdown', async () => {
+		const { container } = render(<HeroSpotify compact />)
+		expect(container.querySelectorAll('audio')).toHaveLength(1)
+		expect(container.querySelector('.np-panel')).toBeNull()
+		await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Play music' })) })
+		expect(play).toHaveBeenCalledTimes(1)
+		expect(screen.getByRole('button', { name: 'Pause music' })).toBeInTheDocument()
+
+		const more = screen.getByRole('button', { name: 'Music player' })
+		fireEvent.click(more)
+		expect(more).toHaveAttribute('aria-expanded', 'true')
+		expect(container.querySelector('.np-panel .onair')).not.toBeNull()
+		// Still one audio element: the dropdown reuses the same stream.
+		expect(container.querySelectorAll('audio')).toHaveLength(1)
+	})
+
+	it('closes the dropdown on Escape and on a click outside, but not inside', () => {
+		const { container } = render(<HeroSpotify compact />)
+		const more = screen.getByRole('button', { name: 'Music player' })
+		fireEvent.click(more)
+		fireEvent.pointerDown(container.querySelector('.np-panel'))
+		expect(container.querySelector('.np-panel')).not.toBeNull()
+		fireEvent.keyDown(window, { key: 'Escape' })
+		expect(container.querySelector('.np-panel')).toBeNull()
+		fireEvent.click(more)
+		fireEvent.pointerDown(document.body)
+		expect(container.querySelector('.np-panel')).toBeNull()
+	})
+
+	it('shows "Offline" when the stream fails', async () => {
+		play.mockRejectedValueOnce(domError('NetworkError'))
+		render(<HeroSpotify compact />)
+		await act(async () => { fireEvent.click(screen.getByRole('button', { name: 'Play music' })) })
+		expect(screen.getByRole('button', { name: 'Music player' })).toHaveTextContent('Offline')
+	})
+})
