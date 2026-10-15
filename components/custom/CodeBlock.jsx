@@ -96,7 +96,7 @@ const CodeBlock = ({ code, className }) => {
         className=''
         language={parseLanguageByClass(className)}
         style={theme}
-        customStyle={{ background: '#0e0c28', padding: '18px 20px', borderRadius: 16, margin: '24px 0', fontSize: 15, lineHeight: 1.6 }}
+        customStyle={{ background: '#0e0c28', padding: '44px 20px 18px', borderRadius: 16, margin: '24px 0', fontSize: 15, lineHeight: 1.6 }}
         wrapLines={true}
         wrapLongLines={true}
         showLineNumbers={false}
