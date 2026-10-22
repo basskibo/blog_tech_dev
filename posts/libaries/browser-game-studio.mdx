@@ -65,7 +65,33 @@ If Chrome lives somewhere unusual, set `CHROME=/path/to/chrome`.
 
 ## How to use it
 
-You do not call the skill by name. Ask for a game the way you normally would and the agent picks it up:
+There are two ways to start it.
+
+### Slash command
+
+In Claude Code every installed skill is also a command named after its folder. Type the command and what you want after it:
+
+```bash
+/browser-game-studio new 2D endless runner for phones
+/browser-game-studio audit games/tower-defense
+/browser-game-studio fps games/my-idle-game
+/browser-game-studio balance games/my-idle-game
+/browser-game-studio ship games/my-idle-game
+```
+
+The first word picks the job:
+
+- **new** (or just describe the idea): the full workflow, from design to measured build
+- **audit**: measure an existing game, file bugs by severity, fix only the critical ones
+- **fps** or **perf**: audit and benchmark, apply the performance fixes, measure again
+- **balance**: run the game's bot, tune the economy, report the progression curve
+- **ship**: link previews, store art and the portal checklist
+
+With no argument the agent asks what to build. While you type the command, Claude Code shows the hint `[new <game idea> | audit <path> | fps <path> | balance <path> | ship <path>]`. If you unzipped the skill under another folder name, the command uses that name. Other agents (Codex CLI, Cursor, Gemini CLI) have their own syntax for calling a skill. The text after it works the same.
+
+### Just ask
+
+You can also skip the command and ask the way you normally would. The agent loads the skill when the request matches it:
 
 ```bash
 Make me a small 3D browser game where you collect coins against the clock.
