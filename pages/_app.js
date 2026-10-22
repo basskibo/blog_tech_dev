@@ -1,15 +1,18 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import Layout from '../components/layout/Layout'
+// Unbounded and Atkinson are declared in styles/jagetic.css from public/fonts.
+// JetBrains Mono is only used in code blocks, so it comes from its package.
+import '@fontsource-variable/jetbrains-mono/wght.css'
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.scss'
-import * as ga from '../lib/analytics'
-import SplashScreen from '../components/custom/SplashScreen'
+import '../styles/jagetic.css'
+import '../styles/site.css'
+import { initAnalytics, pageview } from '../lib/analytics'
 import NextHead from 'next/head'
 import { Analytics } from '@vercel/analytics/react'
-import { ThemeProvider } from 'next-themes'
 import dynamic from 'next/dynamic'
 
 const SpeedInsights = dynamic(
@@ -49,7 +52,6 @@ const handleTitle = (router) => {
 }
 
 function IguanaDevelopmentTech({ Component, pageProps }) {
-	const [pageLoaded, setPageLoaded] = useState(false)
 	const router = useRouter()
 	let defaultTitle
 	if (!pageProps.data) {
@@ -74,13 +76,12 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 	const description = postDescription()
 
 	useEffect(() => {
-		if (typeof window !== 'undefined') {
-			const loader = document.getElementById('globalLoader')
-			// if (loader) setTimeout(() => setPageLoaded(true), 1500)
-			if (loader) setPageLoaded(true)
-		}
+		initAnalytics()
+	}, [])
+
+	useEffect(() => {
 		const handleRouteChange = (url) => {
-			ga.pageview(url)
+			pageview(url)
 		}
 		router.events.on('routeChangeComplete', handleRouteChange)
 		return () => {
@@ -109,7 +110,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				<meta name="twitter:description" content={description} />
 				<meta name="twitter:image" content={ogUrl} />
 				{/* Performance and SEO meta tags */}
-				<meta name="theme-color" content="#000000" />
+				<meta name="theme-color" content="#07070b" />
 				<meta name="format-detection" content="telephone=no" />
 				<link rel="canonical" href={`https://jageticbojan.com${router.asPath}`} />
 				<script
@@ -129,68 +130,17 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				/>
 			</NextHead>
 			
-			{/* Optimized third-party scripts using next/script */}
-			{process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID && (
-				<>
-					<Script
-						strategy="afterInteractive"
-						src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID}`}
-					/>
-					<Script
-						id="google-analytics"
-						strategy="afterInteractive"
-						dangerouslySetInnerHTML={{
-							__html: `
-								window.dataLayer = window.dataLayer || [];
-								function gtag(){dataLayer.push(arguments);}
-								gtag('js', new Date());
-								gtag('config', '${process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID}', {
-									page_path: window.location.pathname,
-								});
-							`,
-						}}
-					/>
-				</>
-			)}
-			
 			<Script
 				strategy="lazyOnload"
 				src="https://cloud.umami.is/script.js"
 				data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"
 			/>
 			
-			<Script
-				id="microsoft-clarity"
-				strategy="lazyOnload"
-				dangerouslySetInnerHTML={{
-					__html: `
-						(function(c,l,a,r,i,t,y){
-							c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-							t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-							y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-						})(window, document, "clarity", "script", "v2x468vj4f");
-					`,
-				}}
-			/>
-			
-			<ThemeProvider
-				attribute="class"
-				defaultTheme="dark"
-				enableSystem
-				disableTransitionOnChange
-			>
-				<SplashScreen loaded={pageLoaded}>
-					<Layout>
-						<Component {...pageProps} />
-						{typeof window !== 'undefined' && (
-							<>
-								<SpeedInsights />
-								<Analytics />
-							</>
-						)}
-					</Layout>
-				</SplashScreen>
-			</ThemeProvider>
+			<Layout>
+				<Component {...pageProps} />
+				<SpeedInsights />
+				<Analytics />
+			</Layout>
 		</>
 	)
 }

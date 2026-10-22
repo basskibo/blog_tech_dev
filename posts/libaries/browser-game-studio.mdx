@@ -1,0 +1,267 @@
+---
+title: "Browser Game Studio: an agent skill for shipping web games"
+publishedAt: "2026-10-22"
+excerpt: "Documentation for the Browser Game Studio skill: a working Three.js starter game, an ad and analytics adapter for game portals, and Playwright scripts that measure load time, draw calls, real FPS and game balance."
+englishOnly: "true"
+technologies: ["SiJavascript", "SiThreedotjs", "SiNodedotjs"]
+author: "Bojan Jagetic"
+inPreparation: false
+tags: [{ slug: "", name: "skill" }, { slug: "", name: "game development" }, { slug: "js", name: "javascript" }]
+---
+
+## What it is
+
+**Browser Game Studio** is a skill for AI coding agents (Claude Code, Codex CLI, Cursor, Gemini CLI and anything else that reads `SKILL.md`). It teaches the agent how to build, polish, measure and ship browser games: single-file HTML, Three.js or 2D canvas, no build step.
+
+It comes out of a real collection of games I build and host myself (3D tycoons, a shooter, a strategy map, a card table, a kids' collection game). Most rules in it exist because a shipped game once broke that way: a 24-second load on 4G, a shop panel that lost 7 of 12 clicks, a bloom pass that turned half the screen black.
+
+The skill gives your agent four things:
+
+- a **starter game** that already has everything a web game needs before it can be published,
+- an **ad and analytics adapter** for CrazyGames, Poki and AdMob,
+- **four Node scripts** that measure the game the way a player and a portal see it,
+- **five reference documents** that the agent opens only when it needs them.
+
+## Install
+
+Unzip the skill so that `SKILL.md` ends up in the agent's skills folder:
+
+```bash
+# Claude Code, for every project
+unzip browser-game-studio.zip -d ~/.claude/skills/
+
+# or only for one project
+unzip browser-game-studio.zip -d .claude/skills/
+```
+
+Other agents load it from their own skills folder. The layout is the same:
+
+```bash
+browser-game-studio/
+  SKILL.md                         # workflow, rules, lessons; the agent reads this first
+  assets/starter.html              # playable starter game
+  assets/game-sdk.js               # ads + analytics adapter
+  scripts/audit.mjs                # load, MB, draw calls, heap, errors, screenshots
+  scripts/bench.mjs                # real FPS on the GPU
+  scripts/sim.mjs                  # balance by bot simulation
+  scripts/shot.mjs                 # screenshots, covers, link previews
+  scripts/_lib.mjs                 # shared helpers (server, Chrome, actions)
+  references/quality-bar.md        # budgets and the "feels expensive" checklist
+  references/threejs-performance.md
+  references/monetization.md
+  references/audit.md
+  references/3d-tycoon.md
+```
+
+**Requirements for the scripts:** Node.js 18 or newer, `playwright-core` and an installed Google Chrome or Chromium. The scripts use your Chrome, so nothing else is downloaded.
+
+```bash
+npm i -D playwright-core
+# or, without touching package.json
+npx -y -p playwright-core node scripts/audit.mjs game/
+```
+
+If Chrome lives somewhere unusual, set `CHROME=/path/to/chrome`.
+
+## How to use it
+
+There are two ways to start it.
+
+### Slash command
+
+In Claude Code every installed skill is also a command named after its folder. Type the command and what you want after it:
+
+```bash
+/browser-game-studio new 2D endless runner for phones
+/browser-game-studio audit games/tower-defense
+/browser-game-studio fps games/my-idle-game
+/browser-game-studio balance games/my-idle-game
+/browser-game-studio ship games/my-idle-game
+```
+
+The first word picks the job:
+
+- **new** (or just describe the idea): the full workflow, from design to measured build
+- **audit**: measure an existing game, file bugs by severity, fix only the critical ones
+- **fps** or **perf**: audit and benchmark, apply the performance fixes, measure again
+- **balance**: run the game's bot, tune the economy, report the progression curve
+- **ship**: link previews, store art and the portal checklist
+
+With no argument the agent asks what to build. While you type the command, Claude Code shows the hint `[new <game idea> | audit <path> | fps <path> | balance <path> | ship <path>]`. If you unzipped the skill under another folder name, the command uses that name. Other agents (Codex CLI, Cursor, Gemini CLI) have their own syntax for calling a skill. The text after it works the same.
+
+### Just ask
+
+You can also skip the command and ask the way you normally would. The agent loads the skill when the request matches it:
+
+```bash
+Make me a small 3D browser game where you collect coins against the clock.
+It has to work on phones and I want a rewarded ad for CrazyGames later.
+```
+
+```bash
+My Three.js game drops to 30 FPS once the map fills up. Find out why and fix it.
+```
+
+```bash
+Audit games/tower-defense: measure it, file the bugs by severity and fix only the critical ones.
+```
+
+```bash
+Balance the economy of my idle game. Everything should be maxed in about 45 minutes.
+```
+
+The workflow the agent follows:
+
+1. **Pin the design.** Core verb, core loop, the first 30 seconds, where the rewarded ad goes, one palette.
+2. **Start from the starter.** Copy it, rename it, replace the game section, keep the rest.
+3. **Small verified steps.** After every visual change it takes a phone and a desktop screenshot and looks at both.
+4. **Juice pass.** Every action answers in under 100 ms with sound, a pop, particles or a flying number.
+5. **Balance by simulation.** The game's bot plays the real logic, and several runs show the spread.
+6. **Measure against budgets.** It does not say "done" until load, draw calls, FPS and errors are inside the limits.
+7. **Ship.** Relative paths, meta tags, link preview image, portal checklist.
+
+## The starter game
+
+`assets/starter.html` is a small playable game (a coin-collect round) built so you can delete the game part and keep everything else. It already has:
+
+- a boot overlay that stays until the first real frame, so nobody taps a half-built scene,
+- a start screen with one big PLAY button that also unlocks audio on iOS,
+- a ⚙ menu with resume, sound and language, and pause on `P`, `Esc` and tab switch,
+- two languages through a small dictionary and `tr(key, vars)`, with `?lang=xx` to force one,
+- a versioned save under a game prefix, where a corrupt save falls back to a fresh one,
+- fixed-step game logic separate from per-frame visuals,
+- drag-anywhere touch control plus WASD and arrows, DPR capped at 2, a portrait camera that crops instead of zooming out,
+- juice: a count-up score, coins that grow in with an overshoot, screen shake, haptics and a compressed audio bus,
+- a rewarded-ad offer ("watch an ad: double this score") and a capped midgame ad on "play again".
+
+Measured with the skill's own scripts, the starter loads in 1.7 s on Fast 4G, draws 5 calls per frame, runs at 60 FPS (1% low 59.5 on an Intel Iris Xe) and logs 0 console errors.
+
+### Debug hooks
+
+Every game built with the skill exposes the same small contract. Tests, benchmarks and the balance bot all depend on it:
+
+```js
+window.__debug()           // plain object with the game state
+window.__start()           // same as pressing PLAY
+window.__step(n, dt)       // run n logic steps without waiting for frames
+window.__cheat(what, n)    // jump ahead: money, levels, time
+```
+
+URL switches:
+
+```bash
+?auto              # start at once
+?auto&sim=600      # a bot plays 600 seconds headless and writes window.simInfo and window.simLog
+?lang=sr           # force a language
+?ads=test          # fake ad overlay, to check the reward flow in a normal browser
+?ads=none          # no ads at all; the game must behave exactly the same
+```
+
+## Ads and analytics: game-sdk.js
+
+The game never calls a portal SDK directly. It talks to one global, `GameSDK`, and the adapter is picked at runtime: `?ads=` wins, then a Capacitor app gets AdMob, then CrazyGames or Poki by host, otherwise nothing (no ads, no errors).
+
+```js
+GameSDK.init({ game: 'my-game', version: '1.0', kids: false })
+GameSDK.gameplayStart()                 // real play starts (after PLAY, resume, an ad)
+GameSDK.gameplayStop()                  // pause, menu, game over
+GameSDK.rewardedAvailable('revive')     // show the offer only when this is true
+await GameSDK.showRewarded('revive')    // true only when the player watched it to the end
+await GameSDK.showMidgame('level_end')  // full-screen ad at a natural pause, capped by the SDK
+GameSDK.track('level_end', { level: 3 })
+GameSDK.on('adStart', muteAudio)        // and 'adEnd'
+```
+
+Optional config before the script:
+
+```js
+window.GAMESDK_CONFIG = {
+  midgameGap: 240,     // seconds between two full-screen ads
+  midgameGrace: 180,   // no full-screen ad in the first minutes of a session
+  analytics: { posthog: { host: 'https://eu.i.posthog.com', key: 'phc_...' } },
+}
+```
+
+The rules the skill enforces, because portals reject games that break them:
+
+- Never interrupt play with an ad. Full-screen ads only between rounds, after a loss or on "play again".
+- Rewarded ads are always the player's choice, and the reward is paid only after a finished ad.
+- The game works the same with the ad blocked, failed or missing.
+- Kids' games: `kids: true`, no personalized ads, no personal data, and never random content for real money.
+
+## The scripts
+
+Every script takes an `.html` file, a folder or a URL. Local files are served over http from `--root` (the current folder by default), so importmaps and `../shared/` imports work the way they do in production.
+
+### audit.mjs
+
+Load time on a normal connection and on Fast 4G, MB downloaded, draw calls and triangles per frame (early and late game), JS heap, console errors, and six screenshots (desktop, phone portrait and phone landscape, each at the start and during play).
+
+```bash
+node scripts/audit.mjs game/ --late "window.__cheat('all', 99)"
+# --out .cache/audit/game   --query '?nointro'   --no-throttle   --root .
+```
+
+It runs headless with software WebGL, so draw calls, bytes and load times are real, but FPS is not.
+
+### bench.mjs
+
+Real FPS in a headed Chrome on your GPU: average, 1% low, p50/p95/p99 frame time, frames over 20 and 50 ms, heap.
+
+```bash
+node scripts/bench.mjs game/ --seconds 8
+node scripts/bench.mjs game/ --mobile --actions "eval:window.__cheat('all');wait:2000"
+```
+
+The output says `mode` (headed or headless) and `gpu`. A headless number is not a player's FPS. A busy machine shows up as hitches too, so measure a known game next to yours when the numbers look odd.
+
+### sim.mjs
+
+Opens the game with `?auto&sim=SECONDS` several times and prints `simInfo` and `simLog` for each run. Read the spread, not a single run.
+
+```bash
+node scripts/sim.mjs game/ 1800 --runs 4 --extra '&smart'
+```
+
+### shot.mjs
+
+A screenshot after scripted actions, with UI hidden. Use it to check visual changes, or to make store art and link previews.
+
+```bash
+node scripts/shot.mjs game/ --size phone --actions 'click:#startBtn;wait:2000' --out phone.png
+node scripts/shot.mjs game/ --size 1200x630 --query '?auto' --actions 'wait:4000' \
+  --hide '#hud,#toast' --out game/og.jpg
+```
+
+Actions are separated by `;`: `click:<css>`, `key:<Key>:<ms>`, `wait:<ms>`, `eval:<js>`, `tap:<x>,<y>`. Size presets are `desktop`, `phone` and `landscape`, or any `WIDTHxHEIGHT`. Common art sizes: cover 1200x900, hero 1600x700, link preview 1200x630, itch.io 630x500.
+
+## Budgets
+
+The skill treats these as the definition of "fast enough":
+
+- **Time to playable on Fast 4G:** under 3 s on desktop, under 4 s on a mid-range phone
+- **Download before play:** under 5 MB
+- **FPS:** 60 average on desktop, 50 or more on a phone
+- **1% low:** 45 or more on desktop, 30 or more on a phone
+- **Frames over 50 ms in 8 seconds:** none on desktop, at most 2 on a phone
+- **Draw calls per frame:** under 500 on desktop, under 300 on a phone
+- **JS heap:** under 150 MB on desktop, under 120 MB on a phone
+- **Console errors:** none
+
+When a budget fails, `references/threejs-performance.md` lists the fixes in order of payoff: merge static geometry by material, `InstancedMesh` for repeated objects, zero allocations in the frame loop, adaptive pixel ratio, compressed GLB, and shadows that only update when something changes.
+
+## Reference documents
+
+- **quality-bar.md:** the budgets plus a checklist for motion, look, UI, sound and reliability, and a 1–5 scoring sheet for audits.
+- **threejs-performance.md:** draw calls, instancing, merging, GC-free loops, adaptive DPR, GLB compression, loading Three.js without a bundler.
+- **monetization.md:** the adapter API, ad placement rules, good rewarded placements, a portal checklist (CrazyGames, Poki, itch.io) and the analytics events worth having.
+- **audit.md:** a step-by-step audit of an existing game, bug severity S1–S4, ID scheme, Playwright test minimum, and a notes template.
+- **3d-tycoon.md:** a playbook for 3D idle and tycoon games: free camera with grab-pan and pinch, vehicles on real roads with queues, physics-lite piles, upgrade pads in the world, pacing targets.
+
+## Troubleshooting
+
+- **"Playwright not found":** install `playwright-core` in the project, or prefix the command with `npx -y -p playwright-core`.
+- **Chrome is not found:** set `CHROME=/path/to/chrome`. The scripts look in the usual Linux, macOS and Windows locations first.
+- **The FPS looks terrible:** check `mode` in the output. Headless means software WebGL. On Linux, headed mode needs `DISPLAY` or `WAYLAND_DISPLAY`.
+- **The game works on a server but not from a file:** that is expected. Importmaps and module imports do not work from `file://`, which is why every script serves the folder over http.
+- **MB looks too small:** resources from other origins (for example Three.js from jsDelivr) may report 0 bytes in Resource Timing. Same-origin files are counted exactly.
