@@ -19,7 +19,13 @@ So I built it: **Dynamic Island for GNOME**, a GNOME Shell extension that puts a
 
 It's published on the official extensions site, so you can install it with one click: [Dynamic Island on extensions.gnome.org](https://extensions.gnome.org/extension/11268/dynamic-island/). The code is on [GitHub](https://github.com/basskibo/linux_dynamic_island).
 
+![The compact island showing the current track with an animated equalizer](/images/projects/dynamic-island/compact.webp)
+
 ## What it does
+
+Hover over it and it springs open with the cover, artist and controls:
+
+![The expanded island with cover art, artist and playback controls](/images/projects/dynamic-island/expanded.webp)
 
 <LgList>
   <li><Adjusted>Now playing</Adjusted>: Spotify, YouTube in Firefox or Chrome, or any other MPRIS player, with cover art, title, artist and a small animated equalizer</li>
@@ -110,6 +116,12 @@ The rest follow the same pattern, each a few dozen lines:
 </LgList>
 
 Using the Unity LauncherEntry API for progress was the nicest surprise. I expected to hook into every app separately, and instead there is one signal that half the desktop already sends.
+
+This is what a Bluetooth toast and the charger toast look like:
+
+![A toast saying the HD 350BT headphones connected](/images/projects/dynamic-island/bluetooth.webp)
+
+![The charging toast with a level bar at 99%](/images/projects/dynamic-island/charging.webp)
 
 ## Making it feel like the real thing
 
