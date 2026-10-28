@@ -20,6 +20,49 @@ const SpeedInsights = dynamic(
 	{ ssr: false }
 )
 
+const SITE_URL = 'https://www.jageticbojan.com'
+const PERSON_ID = `${SITE_URL}/#person`
+
+const PERSON = {
+	'@type': 'Person',
+	'@id': PERSON_ID,
+	name: 'Bojan Jagetić',
+	url: `${SITE_URL}/`,
+	jobTitle: 'Full-stack engineer',
+	sameAs: [
+		'https://github.com/basskibo',
+		'https://x.com/basskibo1',
+		'https://dev.to/basskibo',
+		'https://medium.com/@jagetic.bojan'
+	]
+}
+
+const WEBSITE = {
+	'@type': 'WebSite',
+	'@id': `${SITE_URL}/#website`,
+	url: `${SITE_URL}/`,
+	name: 'Bojan Jagetić',
+	publisher: { '@id': PERSON_ID }
+}
+
+// Post and library pages pass frontmatter as pageProps.data; everything else is site-wide only.
+const jsonLd = (data, url) => ({
+	'@context': 'https://schema.org',
+	'@graph': data
+		? [PERSON, WEBSITE, {
+			'@type': 'BlogPosting',
+			headline: data.title,
+			description: data.excerpt || data.description,
+			datePublished: data.publishedAt,
+			image: data.featuredImage,
+			author: !data.author || data.author === 'Bojan Jagetic' ? { '@id': PERSON_ID } : { '@type': 'Person', name: data.author },
+			publisher: { '@id': PERSON_ID },
+			mainEntityOfPage: url,
+			keywords: (data.tags || []).map((tag) => tag.name).filter(Boolean)
+		}]
+		: [PERSON, WEBSITE]
+})
+
 const handleTitle = (router) => {
 	let title = 'Bojan Jagetic'
 	try {
@@ -74,6 +117,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 		return 'Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away'
 	}
 	const description = postDescription()
+	const canonical = `${SITE_URL}${router.asPath.split(/[?#]/)[0]}`
 
 	useEffect(() => {
 		initAnalytics()
@@ -100,33 +144,22 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 					content={description}
 				/>
 				<meta name='description' content={description} />
-				<meta property='og:url' content='https://jageticbojan.com/' />
-				<meta property='og:type' content='website' />
-				<meta property='og:title' content='Bojan Jagetic Blog' />
-				<meta property="og:site_name" content="Blogtech" />
+				<meta property='og:url' content={canonical} key='og:url' />
+				<meta property='og:type' content={pageProps.data ? 'article' : 'website'} />
+				<meta property='og:title' content={title} key='og:title' />
+				<meta property="og:site_name" content="Bojan Jagetić" />
 				<meta property="og:locale" content="en_US" />
 				<meta name="twitter:card" content="summary_large_image" />
-				<meta name="twitter:title" content="Bojan Jagetic" />
+				<meta name="twitter:title" content={title} />
 				<meta name="twitter:description" content={description} />
 				<meta name="twitter:image" content={ogUrl} />
 				{/* Performance and SEO meta tags */}
 				<meta name="theme-color" content="#07070b" />
 				<meta name="format-detection" content="telephone=no" />
-				<link rel="canonical" href={`https://jageticbojan.com${router.asPath}`} />
+				<link rel="canonical" href={canonical} />
 				<script
 					type="application/ld+json"
-					dangerouslySetInnerHTML={{
-						__html: JSON.stringify({
-							"@context": "https://schema.org",
-							"@type": "Organization",
-							"url": "https://jageticbojan.com",
-							"name": "Bojan Jagetic",
-							"sameAs": [
-								"https://github.com/basskibo",
-								"https://x.com/basskibo1"
-							],
-						}),
-					}}
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(pageProps.data, canonical)).replace(/</g, '\\u003c') }}
 				/>
 			</NextHead>
 			

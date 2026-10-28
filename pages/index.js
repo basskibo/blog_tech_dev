@@ -12,8 +12,8 @@ export default function Home ({ posts }) {
 				<title>Bojan Jagetić — projects and writing</title>
 				<meta name="description" content={DESCRIPTION} />
 				<meta property="og:description" content={DESCRIPTION} />
-				<meta property="og:url" content="https://jageticbojan.com/" />
-				<meta property="og:title" content="Bojan Jagetić" />
+				<meta property="og:url" content="https://www.jageticbojan.com/" key="og:url" />
+				<meta property="og:title" content="Bojan Jagetić" key="og:title" />
 				<meta property="fb:app_id" content="3881343925425006" />
 				<link rel="icon" href="/favicon.ico" />
 				<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

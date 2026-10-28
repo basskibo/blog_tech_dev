@@ -3,7 +3,7 @@ import fs from 'fs'
 
 export default async function generateRSSFeed(allPosts) {
 	// Use environment variable if available, otherwise use the correct domain
-	const site_url = process.env.BASE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://jageticbojan.com'
+	const site_url = process.env.BASE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jageticbojan.com'
 
 	const feedOptions = {
 		title: 'Bojanjagetic Blog Post | RSS Feed',

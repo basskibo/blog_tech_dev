@@ -17,7 +17,7 @@
     "test": "vitest run",
     "prepare": "husky install",
     "precommit": "",
-    "postbuild": "npx prisma generate && next-sitemap",
+    "postbuild": "npx prisma generate && next-sitemap && node scripts/generate-llms.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "release": "standard-version",

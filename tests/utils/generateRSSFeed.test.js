@@ -36,8 +36,8 @@ describe('generateRSSFeed', () => {
 		])
 		const out = xml()
 		expect(out.match(/<item>/g)).toHaveLength(2)
-		expect(out).toContain('https://jageticbojan.com/post/hello')
-		expect(out).toContain('<guid isPermaLink="false">https://jageticbojan.com/post/second</guid>')
+		expect(out).toContain('https://www.jageticbojan.com/post/hello')
+		expect(out).toContain('<guid isPermaLink="false">https://www.jageticbojan.com/post/second</guid>')
 		expect(out).toContain('First post')
 		expect(out).toContain('Mon, 26 Dec 2022')
 		// Titles are CDATA-wrapped so special chars survive.
