@@ -1,0 +1,172 @@
+---
+title: "Captain Cook: Streaming AI Recipes One JSON Object at a Time"
+publishedAt: "2026-08-20"
+excerpt: "How I built Captain Cook, an AI chef that reads a photo of your fridge, streams recipes to the screen as soon as each one is ready, and respects your allergies and taste profile, all without a single AI SDK."
+featuredImage: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=1600&auto=format&fit=crop"
+tags: [{ slug: "nextjs", name: "nextjs" }, { slug: "ai", name: "ai" }, { slug: "streaming", name: "streaming" }, { slug: "typescript", name: "typescript" }]
+inPreparation: false
+---
+
+## Introduction
+
+Every evening the same question: "What should we cook tonight?" The fridge is full of random things, half an onion, two eggs, some cheese, a zucchini that is about to give up, and still there is "nothing to eat". So I built <Link href="https://captain-cook.jageticbojan.com">Captain Cook</Link>, a small AI chef that you can show your fridge to and get a few realistic recipes back, made from what you actually have.
+
+The app is in Serbian (my family is the main user base, and they are tough critics), but the interesting parts are language-agnostic. In this post I'll go through:
+
+<LgList>
+  <li>turning a **photo of the fridge** into a list of ingredients</li>
+  <li>**streaming recipes** to the UI one by one, instead of waiting for the whole answer</li>
+  <li>a **taste profile** that the model must respect (allergies, diet, kitchen equipment)</li>
+  <li>a **provider layer** for Gemini and Claude written with plain `fetch`</li>
+  <li>sync between devices with a tiny Redis client</li>
+</LgList>
+
+The code is public on <Link href="https://github.com/basskibo/Captain-Cook">GitHub</Link>.
+
+## The stack
+
+Captain Cook is a <Adjusted>Next.js 16</Adjusted> App Router app with React 19, Tailwind CSS 4 and `motion` for animations, deployed on Vercel. Data lives in Upstash Redis, password reset emails go through Resend, and dish photos come from Pexels. It is a PWA with a small service worker so it opens instantly from the home screen.
+
+What is *not* in `package.json` is just as important: there is no AI SDK, no Redis SDK and no auth library. Every external service is a hand-written `fetch` call. That sounds masochistic, but each of those integrations ended up being 30 to 150 lines, and I know exactly what each one does when something breaks at dinner time.
+
+## From fridge photo to ingredients
+
+The flow starts in the browser. Phone cameras produce 4000-pixel photos, and nobody needs that many pixels to recognize a carton of milk, so the client first downscales the image on a canvas to a maximum of 1280 pixels and encodes it as JPEG at 0.8 quality. That alone takes the upload from several megabytes to a couple hundred kilobytes, which matters a lot on mobile data.
+
+The server validates the payload with zod (JPEG, PNG or WebP, capped size) and sends it to a vision model together with a list of about 80 ingredient names the app already knows. The prompt asks the model to return JSON in the shape of an `items` array and to use names *exactly* as they appear in the known list when something matches.
+
+Why give the model a list? Because the UI has ingredient chips, and "pavlaka", "kisela pavlaka" and "sour cream" should all light up the same chip. After the response comes back, names are normalized (lowercase, diacritics stripped, "đ" turned into "dj") and split into two groups: `known` IDs that select existing chips, and `extra` items that are added as custom ingredients.
+
+A nice side effect: voice input reuses the exact same route. Instead of an image, the Web Speech API transcript is sent as text, and the same prompt handles it. The model deals with Serbian grammatical cases ("imam dva jajeta i malo sira") much better than any rules I would write.
+
+## Streaming recipes, one object at a time
+
+The first version waited for the whole response: three or four recipes, each with ingredients and steps, as one JSON document. That meant 8 to 12 seconds of a spinner. Technically fine, emotionally terrible when you are hungry.
+
+The model streams tokens anyway, so the question was how to show a recipe as soon as *it* is complete, not when the entire array is. Parsing partial JSON is annoying, but in this case I only need to detect when an object closes. So I wrote a tiny incremental extractor that tracks brace depth, ignores braces inside strings, and tries to parse every complete object:
+
+```typescript
+class ObjectExtractor {
+  private buf = "";
+  private pos = 0;
+  private starts: number[] = [];
+  private inString = false;
+  private escape = false;
+
+  push(chunk: string): unknown[] {
+    this.buf += chunk;
+    const out: unknown[] = [];
+    for (; this.pos < this.buf.length; this.pos++) {
+      const c = this.buf[this.pos];
+      if (this.inString) {
+        if (this.escape) this.escape = false;
+        else if (c === "\\") this.escape = true;
+        else if (c === '"') this.inString = false;
+        continue;
+      }
+      if (c === '"') this.inString = true;
+      else if (c === "{") this.starts.push(this.pos);
+      else if (c === "}") {
+        const start = this.starts.pop();
+        if (start === undefined) continue;
+        try {
+          out.push(JSON.parse(this.buf.slice(start, this.pos + 1)));
+        } catch {}
+      }
+    }
+    return out;
+  }
+}
+```
+
+It emits *every* closed object, including nested ones like an ingredient entry, so the next step filters for things that look like a recipe (have a name, ingredients and steps) and validates them with a deliberately lenient zod schema. Lenient means `.catch()` defaults everywhere: if the model writes a difficulty I don't recognize, it becomes "medium" instead of throwing away a perfectly good recipe. Numbers go through `z.coerce.number()` because models love writing `"20"` instead of `20`.
+
+For each valid recipe the server looks up a dish photo on Pexels using an English `imageQuery` the model provides, then pushes the recipe to the client. The response itself is **NDJSON**, one event per line:
+
+```typescript
+const encoder = new TextEncoder();
+const body = new ReadableStream({
+  async start(controller) {
+    const send = (event: object) =>
+      controller.enqueue(encoder.encode(JSON.stringify(event) + "\n"));
+    try {
+      for await (const recipe of streamRecipes(parsed.data)) send({ type: "recipe", recipe });
+      send({ type: "done" });
+    } catch (err) {
+      send({ type: "error", error: "The chef got confused. Try again in a moment." });
+    } finally {
+      controller.close();
+    }
+  },
+});
+
+return new Response(body, {
+  headers: { "Content-Type": "application/x-ndjson; charset=utf-8", "Cache-Control": "no-store" },
+});
+```
+
+On the client, a small `readNdjson()` helper reads the stream, splits on newlines and appends each recipe to state as it arrives. The first recipe shows up in around two seconds, and the rest slide in while you are already reading. If the stream fails halfway, the recipes that already arrived stay on screen and the error is hidden, because two good recipes are better than a red error box.
+
+The "More ideas" button sends the names of recipes already shown as an `exclude` list, so the model doesn't suggest the same omelette three times.
+
+### Why not structured output?
+
+Both Gemini and Claude can enforce a JSON schema, and I did consider it. In the end I went with a JSON response MIME type for Gemini (and an explicit "answer only with valid JSON" instruction for Claude) plus validation on my side. The schema lives in the prompt as prose, and zod is the source of truth. It is less strict, but it streams naturally, works the same on both providers, and the lenient parsing means a slightly odd recipe is repaired instead of rejected. If zero recipes survive validation, only then does the request fail.
+
+## The taste profile
+
+A recipe generator that ignores allergies is worse than useless. The "My taste" screen stores a small profile: diet, allergies, dislikes, favorite cuisines, kitchen equipment and spice level (mild, medium, hot). It is sent with every recipe request and turned into explicit, prioritized prompt lines:
+
+```typescript
+function profileLines(p: GenerateRequest["profile"]) {
+  if (!p) return [];
+  return [
+    p.diet ? `Diet: ${p.diet}. STRICTLY respect it.` : "",
+    p.allergies.length
+      ? `ALLERGIES (never use, not even in traces or as a substitute): ${p.allergies.join(", ")}.`
+      : "",
+    p.dislikes.length ? `Dislikes (avoid): ${p.dislikes.join(", ")}.` : "",
+    p.spice === "mild" ? "No heat." : p.spice === "hot" ? "Loves spicy food." : "",
+    p.cuisines.length ? `Favorite cuisines (prefer them): ${p.cuisines.join(", ")}.` : "",
+    p.equipment.length
+      ? `Equipment available: stove, ${p.equipment.join(", ")}. Do not use other equipment.`
+      : "",
+  ];
+}
+```
+
+(The real prompt is in Serbian; I translated it here.) The wording matters more than I expected. "Avoid nuts" got me recipes with "a handful of walnuts, optional". "Never use, not even in traces or as a substitute" did not. The equipment line exists for the same reason: without it, the model happily suggests an air fryer or an oven to someone who has neither.
+
+The same profile is compressed into a one-line summary for the chef chat, where you can ask follow-up questions about a recipe ("can I use yogurt instead of sour cream?"). The chat gets the recipe, ingredients, steps and that profile note in its first message, and streams plain text back.
+
+## A provider layer in plain fetch
+
+Captain Cook can run on Gemini (the default, because the free tier is generous) or Claude Haiku, selected with an environment variable. There is also a `mock` provider that streams canned text in small chunks, so I can work on the UI on a train without any API key.
+
+Both real providers are called through their streaming REST endpoints, and a small async generator parses the server-sent events. For Gemini there is a fallback chain I'm quite happy with:
+
+<HighlightBox>
+- Try the primary model with a low "thinking" level, which makes responses much faster and is more than enough for recipes.
+- If the model rejects the thinking config (400), retry the same model without it.
+- On 500 or 504, wait 800 ms and retry once.
+- On 503 (overloaded), 429 (quota) or 404 (model retired), jump straight to the lighter fallback model.
+- Filter out "thought" parts so only the real answer reaches the user.
+</HighlightBox>
+
+This module is shared, almost line by line, with my finance app Coinsel (its copy still has a comment about recipes in it). Writing it by hand once paid off twice.
+
+## Accounts and sync without an SDK
+
+Guests can use everything with `localStorage`. Accounts exist so the shopping list from the laptop shows up on the phone in the store. Users are stored as JSON in Upstash Redis, passwords are hashed with scrypt, and sessions are stateless HMAC-signed cookies that become invalid when the password changes. Logging in with an unknown email still runs a dummy hash, so response timing doesn't reveal which emails have accounts.
+
+Sync is intentionally simple: each synced key (saved recipes, selected ingredients, shopping list, taste profile) is stored in one Redis hash per user with a timestamp, and conflicts are last-write-wins. Pushes are debounced by 800 ms, and the app refetches when it becomes visible again. The one subtle part is the *first* sync on a device: instead of overwriting, arrays are merged by ID, so the recipes you saved as a guest are not lost when you log in.
+
+Every AI route goes through the same pipeline: session check, zod validation of the body, a per-user daily AI limit (an `INCR` plus `EXPIRE` on a key with today's date in the Belgrade timezone), and only then the model call.
+
+## Trade-offs and what's next
+
+There are things I would do differently. The Pexels lookup is awaited before each recipe is sent, which can delay a recipe by up to four seconds; firing it in parallel and patching the image in later would feel snappier. The taste profile is trusted from the client, which is fine for a family app but not for anything bigger. And there are no tests yet, which I feel slightly guilty about every time I touch the extractor.
+
+Next on the list: a weekly meal plan that reuses leftovers across days, and using the shopping list to suggest recipes *before* you go to the store.
+
+If you want to try it, it is live at <Link href="https://captain-cook.jageticbojan.com">captain-cook.jageticbojan.com</Link>, and the source is on <Link href="https://github.com/basskibo/Captain-Cook">GitHub</Link>. Take a photo of your fridge tonight and let me know if the Captain does better than you expected.

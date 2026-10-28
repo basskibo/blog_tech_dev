@@ -1,0 +1,32 @@
+---
+title: "Network ARP scanner"
+publishedAt: "2026-02-20"
+excerpt: "Python script that scans the local network and lists devices with a readable name, vendor, and open services."
+technologies: ["SiPython"]
+inPreparation: false
+tags: [{ slug: "", name: "script" }]
+---
+
+## What it does
+
+A small Python scanner for the network you are already on. It finds devices, then prints a readable row for each one: IP, hostname, MAC address, vendor, a guessed device type, and open services.
+
+Run it with the wrapper so the virtualenv is picked up for you:
+
+```bash
+./scan
+```
+
+Pass a subnet when you do not want the default route, skip port checks when you only need who is online, or print JSON when another script should read the result:
+
+```bash
+./scan --network 192.168.1.0/24
+./scan --no-ports
+./scan --json
+```
+
+By default it walks the whole subnet. It tries `arp-scan` first, then falls back to ping. The local ARP table is optional, because that table only contains hosts this machine has already talked to.
+
+## Repository
+
+<GithubCardRepository>basskibo/network-arp-scanner</GithubCardRepository>

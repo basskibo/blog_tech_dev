@@ -1,15 +1,8 @@
 import React from 'react'
-import Header from './Header'
-import Footer from './Footer'
+import Shell from '../jagetic/Shell'
 
 const Layout = ({ children }) => (
-   <>
-      <Header />
-      <main className="min-h-screen pt-16 lg:pt-20">
-         {children}
-      </main>
-      <Footer />
-   </>
+	<Shell>{children}</Shell>
 )
 
 export default Layout

@@ -1,21 +1,89 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
 import Layout from '../components/layout/Layout'
+// Unbounded and Atkinson are declared in styles/jagetic.css from public/fonts.
+// JetBrains Mono is only used in code blocks, so it comes from its package.
+import '@fontsource-variable/jetbrains-mono/wght.css'
 import 'tailwindcss/tailwind.css'
 import '../styles/globals.scss'
-import * as ga from '../lib/analytics'
-import SplashScreen from '../components/custom/SplashScreen'
+import '../styles/jagetic.css'
+import '../styles/site.css'
+import { initAnalytics, pageview } from '../lib/analytics'
 import NextHead from 'next/head'
 import { Analytics } from '@vercel/analytics/react'
-import { ThemeProvider } from 'next-themes'
 import dynamic from 'next/dynamic'
 
 const SpeedInsights = dynamic(
 	() => import('@vercel/speed-insights/next').then((mod) => mod.SpeedInsights),
 	{ ssr: false }
 )
+
+const SITE_URL = 'https://www.jageticbojan.com'
+const PERSON_ID = `${SITE_URL}/#person`
+
+const PERSON = {
+	'@type': 'Person',
+	'@id': PERSON_ID,
+	name: 'Bojan Jagetić',
+	url: `${SITE_URL}/`,
+	jobTitle: 'Full-stack engineer',
+	sameAs: [
+		'https://github.com/basskibo',
+		'https://x.com/basskibo1',
+		'https://dev.to/basskibo',
+		'https://medium.com/@jagetic.bojan'
+	]
+}
+
+const WEBSITE = {
+	'@type': 'WebSite',
+	'@id': `${SITE_URL}/#website`,
+	url: `${SITE_URL}/`,
+	name: 'Bojan Jagetić',
+	publisher: { '@id': PERSON_ID }
+}
+
+const DEFAULT_DESCRIPTION = 'Bojan Jagetić, full-stack engineer. Projects he builds and runs, plus writing on Node.js, React, Next.js, Docker and AI.'
+const ROUTE_DESCRIPTIONS = {
+	'/routes/aboutme': 'About Bojan Jagetić: full-stack engineer since 2015, the stack he works with, his experience and CV.',
+	'/routes/blog': 'Blog posts by Bojan Jagetić on Node.js, React, Next.js, Docker, AI tooling and how his own products are built.',
+	'/routes/libaries': 'Open source by Bojan Jagetić: npm modules, boilerplates, scripts and agent skills, with write-ups on how to use them.',
+	'/routes/projects': 'Projects by Bojan Jagetić: Coinsel, Captain Cook, Voyage Vault and other products he builds and runs.',
+	'/routes/uses': 'The hardware, software and tools Bojan Jagetić uses every day for development.',
+	'/quiz': 'Quizzes on Node.js, React, MongoDB and AI to test how well you know them.',
+	'/guestbook': 'Guest book on jageticbojan.com: leave a note for Bojan Jagetić.'
+}
+
+const PROFILE_ROUTES = ['/', '/routes/aboutme']
+const COLLECTION_ROUTES = ['/routes/blog', '/routes/libaries', '/routes/projects', '/routes/uses']
+
+// Post and library pages pass frontmatter as pageProps.data and get a BlogPosting; other routes get a WebPage subtype.
+const pageNode = (data, route, url) => data
+	? {
+		'@type': 'BlogPosting',
+		headline: data.title,
+		description: data.excerpt,
+		datePublished: data.publishedAt,
+		dateModified: data.updatedAt || data.publishedAt,
+		image: data.featuredImage,
+		author: { '@id': PERSON_ID },
+		publisher: { '@id': PERSON_ID },
+		mainEntityOfPage: url,
+		keywords: (data.tags || []).map((tag) => tag.name).filter(Boolean)
+	}
+	: {
+		'@type': PROFILE_ROUTES.includes(route) ? 'ProfilePage' : COLLECTION_ROUTES.includes(route) ? 'CollectionPage' : 'WebPage',
+		url,
+		isPartOf: { '@id': `${SITE_URL}/#website` },
+		...(PROFILE_ROUTES.includes(route) && { mainEntity: { '@id': PERSON_ID } })
+	}
+
+const jsonLd = (data, route, url) => ({
+	'@context': 'https://schema.org',
+	'@graph': [PERSON, WEBSITE, pageNode(data, route, url)]
+})
 
 const handleTitle = (router) => {
 	let title = 'Bojan Jagetic'
@@ -49,7 +117,6 @@ const handleTitle = (router) => {
 }
 
 function IguanaDevelopmentTech({ Component, pageProps }) {
-	const [pageLoaded, setPageLoaded] = useState(false)
 	const router = useRouter()
 	let defaultTitle
 	if (!pageProps.data) {
@@ -60,27 +127,16 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 		? pageProps.data.featuredImage
 		: 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127896/igutech/undersstanding_mnfh3n.jpg'
 
-	const postDescription = () => {
-		if (pageProps.data) {
-			const props = pageProps.data
-			if (props.excerpt) {
-				return props.excerpt
-			} else if (props.description) {
-				return props.description
-			}
-		}
-		return 'Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away'
-	}
-	const description = postDescription()
+	const description = pageProps.data?.excerpt || ROUTE_DESCRIPTIONS[router.route] || DEFAULT_DESCRIPTION
+	const canonical = `${SITE_URL}${router.asPath.split(/[?#]/)[0]}`
 
 	useEffect(() => {
-		if (typeof window !== 'undefined') {
-			const loader = document.getElementById('globalLoader')
-			// if (loader) setTimeout(() => setPageLoaded(true), 1500)
-			if (loader) setPageLoaded(true)
-		}
+		initAnalytics()
+	}, [])
+
+	useEffect(() => {
 		const handleRouteChange = (url) => {
-			ga.pageview(url)
+			pageview(url)
 		}
 		router.events.on('routeChangeComplete', handleRouteChange)
 		return () => {
@@ -99,59 +155,26 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 					content={description}
 				/>
 				<meta name='description' content={description} />
-				<meta property='og:url' content='https://jageticbojan.com/' />
-				<meta property='og:type' content='website' />
-				<meta property='og:title' content='Bojan Jagetic Blog' />
-				<meta property="og:site_name" content="Blogtech" />
+				<meta name='author' content='Bojan Jagetić' />
+				{pageProps.data?.inPreparation && <meta name='robots' content='noindex' />}
+				<meta property='og:url' content={canonical} key='og:url' />
+				<meta property='og:type' content={pageProps.data ? 'article' : 'website'} />
+				<meta property='og:title' content={title} key='og:title' />
+				<meta property="og:site_name" content="Bojan Jagetić" />
 				<meta property="og:locale" content="en_US" />
 				<meta name="twitter:card" content="summary_large_image" />
-				<meta name="twitter:title" content="Bojan Jagetic" />
+				<meta name="twitter:title" content={title} />
 				<meta name="twitter:description" content={description} />
 				<meta name="twitter:image" content={ogUrl} />
 				{/* Performance and SEO meta tags */}
-				<meta name="theme-color" content="#000000" />
+				<meta name="theme-color" content="#07070b" />
 				<meta name="format-detection" content="telephone=no" />
-				<link rel="canonical" href={`https://jageticbojan.com${router.asPath}`} />
+				<link rel="canonical" href={canonical} />
 				<script
 					type="application/ld+json"
-					dangerouslySetInnerHTML={{
-						__html: JSON.stringify({
-							"@context": "https://schema.org",
-							"@type": "Organization",
-							"url": "https://jageticbojan.com",
-							"name": "Bojan Jagetic",
-							"sameAs": [
-								"https://github.com/basskibo",
-								"https://x.com/basskibo1"
-							],
-						}),
-					}}
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(pageProps.data, router.route, canonical)).replace(/</g, '\\u003c') }}
 				/>
 			</NextHead>
-			
-			{/* Optimized third-party scripts using next/script */}
-			{process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID && (
-				<>
-					<Script
-						strategy="afterInteractive"
-						src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID}`}
-					/>
-					<Script
-						id="google-analytics"
-						strategy="afterInteractive"
-						dangerouslySetInnerHTML={{
-							__html: `
-								window.dataLayer = window.dataLayer || [];
-								function gtag(){dataLayer.push(arguments);}
-								gtag('js', new Date());
-								gtag('config', '${process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID}', {
-									page_path: window.location.pathname,
-								});
-							`,
-						}}
-					/>
-				</>
-			)}
 			
 			<Script
 				strategy="lazyOnload"
@@ -159,38 +182,11 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"
 			/>
 			
-			<Script
-				id="microsoft-clarity"
-				strategy="lazyOnload"
-				dangerouslySetInnerHTML={{
-					__html: `
-						(function(c,l,a,r,i,t,y){
-							c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-							t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-							y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-						})(window, document, "clarity", "script", "v2x468vj4f");
-					`,
-				}}
-			/>
-			
-			<ThemeProvider
-				attribute="class"
-				defaultTheme="dark"
-				enableSystem
-				disableTransitionOnChange
-			>
-				<SplashScreen loaded={pageLoaded}>
-					<Layout>
-						<Component {...pageProps} />
-						{typeof window !== 'undefined' && (
-							<>
-								<SpeedInsights />
-								<Analytics />
-							</>
-						)}
-					</Layout>
-				</SplashScreen>
-			</ThemeProvider>
+			<Layout>
+				<Component {...pageProps} />
+				<SpeedInsights />
+				<Analytics />
+			</Layout>
 		</>
 	)
 }

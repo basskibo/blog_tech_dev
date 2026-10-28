@@ -1,0 +1,153 @@
+---
+title: "Voyage Vault: Building a Digital Scratch-Off Travel Map with Leaflet and Next.js"
+publishedAt: "2026-06-12"
+excerpt: "The story behind Voyage Vault, my scratch-off travel map: rendering 255 countries as SVG with react-leaflet, faking a satisfying scratch effect with CSS, guest mode that migrates to an account, share cards, and the 21 MB GeoJSON mistake I'm still paying for."
+featuredImage: "https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1600&auto=format&fit=crop"
+tags: [{ slug: "nextjs", name: "nextjs" }, { slug: "react", name: "react" }, { slug: "leaflet", name: "leaflet" }, { slug: "maps", name: "maps" }]
+inPreparation: false
+---
+
+## Introduction
+
+You have probably seen those physical scratch-off world maps: a gold foil poster where you scratch away every country you visited and the colorful map appears underneath. I love the idea, but I don't love scraping foil with a coin, getting gold dust all over the floor, and then realizing I scratched Belgium instead of the Netherlands.
+
+So I built a digital version, <Link href="https://scratch-travel.vercel.app">Voyage Vault</Link>. Tap a country, it "scratches", and your map slowly fills up. You can also mark places you want to visit (a bucket list) and the country you live in, look at stats per continent, and export a share card for social media.
+
+This project has a long history. I started it in mid-2023 from Steven Tey's Precedent Next.js starter, and it went through several iterations until a bigger redesign this year. In this post I'll go through how the map is rendered, how the scratch effect works (spoiler: it is not what you think), how data is stored for guests and signed-in users, and the performance mistake that I'm still fixing.
+
+## The stack
+
+<LgList>
+  <li><Adjusted>Next.js 13</Adjusted> App Router, React 18 and TypeScript</li>
+  <li><Adjusted>Leaflet</Adjusted> with `react-leaflet` for the map</li>
+  <li>NextAuth (Google and GitHub) with the Prisma adapter, on PostgreSQL</li>
+  <li>`@vercel/og` on the edge runtime for share images</li>
+  <li>`next-intl` for five languages: English, Serbian, Spanish, German and Japanese</li>
+  <li>Tailwind CSS with a custom design token palette, deployed on Vercel</li>
+</LgList>
+
+## Rendering the world
+
+My first instinct was D3 with a fancy projection. In the end I went with Leaflet, because I wanted panning, zooming and touch gestures to just work on phones, and Leaflet has been doing that reliably for over a decade.
+
+The map is a single `GeoJSON` layer with 255 country features. One important detail: I set `preferCanvas` to false, so Leaflet renders every country as an **SVG path** instead of drawing on a canvas. That makes each country a real DOM element that I can animate with CSS, which the scratch effect depends on.
+
+Base map tiles are **off by default**. The "map" is just colored country shapes on a transparent background, which looks much more like a poster than a navigation app. There is a "Show terrain" toggle that adds OpenStreetMap tiles under the shapes, and in dark mode those tiles get a CSS filter (invert plus hue-rotate) instead of a separate dark tile provider. Most free dark tile styles I used to rely on now require API keys, so a filter turned out to be the most robust option.
+
+```tsx
+<MapContainer
+  center={[20, 0]}
+  zoom={showFullWorld ? 1 : 2.5}
+  maxZoom={6}
+  preferCanvas={false}
+  maxBounds={[[-85, -180], [85, 180]]}
+  maxBoundsViscosity={1}
+>
+  <FitWorldBounds fitMode={fitMode} />
+  {showTerrain && mapLayerUrl && <TileLayer url={mapLayerUrl} keepBuffer={4} />}
+  <GeoJSON
+    data={countryData as GeoJsonObject}
+    style={countryStyle}
+    onEachFeature={(feature, layer) => layer.on("click", handleCountryClick)}
+  />
+</MapContainer>
+```
+
+The `maxBounds` with viscosity 1 stops people from panning into the void past the poles, and `FitWorldBounds` is a tiny child component that uses `useMap()` and a `ResizeObserver` to call `fitBounds` whenever the container changes size. Instead of hardcoding zoom levels per breakpoint, the map always fits its box, whether that is a full screen, a hero section on the landing page, or a 4:5 share card. It has a few modes, and in the share mode it locks the zoom so the card always looks the same.
+
+Since Leaflet needs `window`, every map screen is loaded with `next/dynamic` and `ssr: false`, with a skeleton while it loads.
+
+## The scratch effect (that isn't really scratching)
+
+I spent an embarrassing amount of time trying to build a real scratch-off effect: a canvas with a foil texture on top of the map, erased where your finger moves. It looked cool in a demo and was terrible in practice. On a world map, countries like Luxembourg are a few pixels wide, you can't "scratch" them precisely with a finger, and the canvas fought with Leaflet's own pan and zoom gestures.
+
+So the "scratch" became a metaphor, built from three cheap layers:
+
+**1. A color swap.** Leaflet's `style` function decides each country's fill. Unvisited countries are "foil" (a muted gold in light mode, a deep purple in dark mode), visited ones become the bright color underneath. The bucket list and share views have their own palettes. A global CSS transition on fill smooths the change.
+
+**2. A pop.** The clicked SVG path gets a CSS class with a keyframe animation that scales it up to 1.3 and back. The trick is `transform-box: fill-box`, which makes the path scale around its own center instead of the SVG origin, otherwise countries fly off toward the top left corner.
+
+**3. A gold ripple.** A temporary div is placed at the projected center of the country and expands while fading out, like a bit of foil dust.
+
+```typescript
+export function playScratchPop(layer: any) {
+  const el = layer?.getElement?.();
+  if (!el) return;
+  el.classList.remove("vv-scratch-pop");
+  void el.offsetWidth; // force reflow so the animation restarts on rapid re-clicks
+  el.classList.add("vv-scratch-pop");
+}
+
+export function spawnScratchRipple(layer: any, map: LeafletMap | null) {
+  if (!map || typeof layer?.getBounds !== "function") return;
+  const center = layer.getBounds().getCenter();
+  const point = map.latLngToContainerPoint(center);
+  const ripple = document.createElement("div");
+  ripple.className = "vv-scratch-ripple";
+  ripple.style.left = `${point.x}px`;
+  ripple.style.top = `${point.y}px`;
+  map.getContainer().appendChild(ripple);
+  ripple.addEventListener("animationend", () => ripple.remove());
+}
+```
+
+The `void el.offsetWidth` line is the classic trick to restart a CSS animation: removing and re-adding the class in the same frame does nothing, but reading a layout property in between forces the browser to apply the removal first.
+
+Together with a small toast ("France scratched, 3.1% of the world"), this feels surprisingly satisfying, and it works perfectly with a mouse, a finger or a keyboard. On the main travels screen a tap opens a detail sheet first (with "Scratch", "Want" and "Live here" buttons, plus capital, population and currency from the REST Countries API), because accidentally scratching Belgium is still a thing on a phone.
+
+## Guests first, accounts later
+
+I really didn't want a sign-up wall in front of a toy like this. So guests can scratch immediately, and their countries live in `localStorage`. When you sign in, the guest countries are posted to the API one by one, conflicts are resolved by a simple type priority, and local storage is cleared.
+
+All of this lives in a single `CountriesProvider` React context, shared by the landing page demo and every map screen. Writes are optimistic: the UI updates immediately, the request is sent, the full list is re-fetched, and if anything fails the previous state is restored.
+
+```tsx
+const updated = existingCountry
+  ? selected.map((c) =>
+      c.ADMIN === admin || (!!isoA3 && c.ISO_A3 === isoA3)
+        ? { ...c, type, visitedDate: visitedDate ?? c.visitedDate }
+        : c
+    )
+  : [...selected, { ADMIN: admin, ISO_A3: isoA3, flag, type, visitedDate }];
+
+persist(updated); // state + localStorage for guests
+
+if (isAuthenticated) {
+  try {
+    await fetch("/api/countries/visited", { method: "POST", body: JSON.stringify(payload) });
+    // re-fetch the canonical list
+  } catch {
+    persist(selected); // roll back the optimistic update
+  }
+}
+```
+
+Countries are matched by name **or** ISO code. That sounds redundant until you discover that 17 features in the popular world GeoJSON datasets have the ISO code `-99`: Kosovo, Northern Cyprus, Somaliland and a few others. Matching only by ISO code would make all of them the same country, which is a political statement I'd rather not make by accident.
+
+## Stats and share cards
+
+The stats screen shows the percentage of the world you have seen, a grid of 195 dots (one per country, filled as you travel), and per-continent progress. There are also achievements at 5, 10, 25, 50 and 100 countries, plus one for a long bucket list.
+
+For sharing, there are two paths. The share screen renders a non-interactive version of the map inside a 4:5 poster card, and "Download PNG" lazy-loads `html2canvas` only when you click it and rasterizes the card, Leaflet SVG included, at up to 3x pixel density. For links, edge routes built with `@vercel/og` generate images in several sizes: a regular 1200x630 Open Graph image, a square Instagram post, a 9:16 story, and Twitter and LinkedIn variants. They render stats and branding, not the map itself, because drawing 255 complex country shapes in an edge function is not something I wanted to wait for.
+
+## The mistake: a 21 MB GeoJSON
+
+Now the honest part. The world GeoJSON I used is very detailed: about 548,000 coordinate points, **21 MB minified**, around 7 MB gzipped. And I imported it statically in several components, so it ended up bundled in the JavaScript of multiple chunks, including the landing page demo.
+
+On a fast connection you barely notice. On a phone on 4G in a hotel lobby, which is exactly where people use a travel app, you very much do.
+
+A second, sneakier problem: the `key` of the GeoJSON layer was derived from the whole list of selected countries. Every scratch therefore unmounted and rebuilt all 255 SVG paths. It worked, and the pop animation hid it reasonably well, but the smooth fill transition never really had a chance to run, because the element it was transitioning on had just been replaced.
+
+<HighlightBox>
+- **Simplify the geometry.** A Natural Earth 50m or 110m dataset, or TopoJSON, is a fraction of the size and looks identical at world zoom.
+- **Fetch it, don't import it.** Serve one copy from `/public` with long cache headers, shared by every screen.
+- **Restyle, don't remount.** Call `setStyle` on the existing layers when a country changes instead of rebuilding the whole layer.
+</HighlightBox>
+
+These three changes are at the top of my list, together with making the "percent of the world" denominator consistent everywhere (195 UN countries versus 255 map features, including territories, is a surprisingly philosophical question).
+
+## What's next
+
+Besides the performance work above, I want to finish the travel journal (photos and notes per country, the data model is already there) and the friends feature, which currently runs on mock data behind a feature flag. Comparing maps with friends is the feature people ask about most, so it deserves to be done properly.
+
+You can scratch your own map at <Link href="https://scratch-travel.vercel.app">scratch-travel.vercel.app</Link>, no account needed. I'm curious how many of you will scratch Belgium by accident.

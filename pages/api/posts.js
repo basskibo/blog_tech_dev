@@ -6,8 +6,6 @@ import path from 'path'
 export default async function handler(req, res) {
 	const files = getPostFiles()
 	const projectRoot = findProjectRoot(process.cwd())
-	console.log('project >>>> ', process.cwd())
-	console.log('Project root:', projectRoot)
 	const posts = files.map((filename) => {
 		const markdownWithMeta = fs.readFileSync(
 			path.join(`${process.cwd()}/posts/blog`, filename),
@@ -17,6 +15,18 @@ export default async function handler(req, res) {
 		data = { ...data, slug: filename.split('.')[0] }
 		return data
 	})
+
+	if (req.query.all === '1') {
+		const list = posts
+			.filter((post) => !post.inPreparation)
+			.map((post) => ({
+				title: post.title,
+				slug: post.slug,
+				excerpt: post.excerpt || '',
+				tag: post.tags?.[0]?.name || post.tags?.[0]?.slug || 'Post'
+			}))
+		return res.status(200).json({ posts: list })
+	}
 
 	const similiarPosts = selectRandomNumberOfPosts(posts, 3)
 	return res.status(200).send({ similiarPosts })
@@ -42,13 +52,15 @@ function findProjectRoot(currentDir) {
 
 
 function selectRandomNumberOfPosts(array, count) {
+	// Drafts are excluded up front so `count` can never exceed what is available
+	// (otherwise the loop below would never terminate).
+	const pool = array.filter((post) => !post.inPreparation)
 	const result = []
-	const totalElements = array.length
-	count = Math.min(count, totalElements)
+	count = Math.min(count, pool.length)
 	while (result.length < count) {
-		const randomIndex = Math.floor(Math.random() * totalElements)
-		const randomElement = array[randomIndex]
-		if (!result.includes(randomElement) && !randomElement.inPreparation) {
+		const randomIndex = Math.floor(Math.random() * pool.length)
+		const randomElement = pool[randomIndex]
+		if (!result.includes(randomElement)) {
 			result.push(randomElement)
 		}
 	}

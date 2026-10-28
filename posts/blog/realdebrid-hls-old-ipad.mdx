@@ -1,0 +1,166 @@
+---
+title: "Giving an Old iOS 12 iPad a Second Life: On-the-Fly HLS Transcoding with ffmpeg"
+publishedAt: "2026-10-12"
+excerpt: "How I turned an iPad stuck on iOS 12 into a perfectly good anime screen again: a zero-dependency Node server that transcodes Real-Debrid streams to HLS with ffmpeg while you watch, a custom Safari player, seeking past the encoded part, and cleaning up anime subtitles."
+featuredImage: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?q=80&w=1600&auto=format&fit=crop"
+tags: [{ slug: "nodejs", name: "nodejs" }, { slug: "ffmpeg", name: "ffmpeg" }, { slug: "hls", name: "hls" }, { slug: "ios", name: "ios" }]
+inPreparation: false
+---
+
+## Introduction
+
+We have an old iPad at home. The hardware is fine, the screen is fine, the battery still lasts a long evening. The problem is software: it is stuck on **iOS 12**, which means most modern streaming apps have dropped it, and the ones that still install refuse to play anything that isn't plain H.264.
+
+At the same time, I use Stremio with Real-Debrid on the TV and laptop. Real-Debrid gives you fast direct HTTP links to video files, but those files are usually MKV with HEVC, 10-bit video, multiple audio tracks and ASS subtitles. Old Safari looks at that and politely shows a crossed-out play button.
+
+So I built a small home server that sits between the two: you pick an episode, it pulls the file from Real-Debrid, transcodes it **on the fly** to HLS with ffmpeg, and the iPad plays it in Safari like any other web video, while the server is still encoding the rest. It started as a Stremio addon and turned into something slightly different, and the way it got there taught me a lot about HLS.
+
+## What iOS 12 Safari actually wants
+
+Before writing any code it helps to be clear about the target. iOS 12 Safari plays HLS natively, and it is happy with:
+
+<LgList>
+  <li>H.264 video, 8-bit `yuv420p`, High profile up to level 4.1 or 4.2 at 1080p</li>
+  <li>AAC audio, stereo is the safest choice</li>
+  <li>MPEG-TS segments with an m3u8 playlist</li>
+</LgList>
+
+Everything else (HEVC, 10-bit, Opus or AC-3 audio, embedded ASS subtitles) has to be converted or handled separately. Also important: the page itself runs in a 2018-era JavaScript engine. No optional chaining, no nullish coalescing, no Pointer Events. The player code is written in plain ES5 with touch and mouse events, which felt like time travel.
+
+## Version 1: a Stremio addon, and why it wasn't enough
+
+The first version was a classic Stremio addon with Express and the addon SDK. It talked to the Real-Debrid REST API directly (unrestricting links, adding magnets, polling torrent status) and fell back to WebTorrent piping data into ffmpeg's stdin when a file wasn't cached on Real-Debrid yet.
+
+It was also very defensive, because everything kept breaking:
+
+<HighlightBox>
+- Always transcode to H.264 **Baseline 3.1**, capped at 720p, with `-tune fastdecode`, a forced 23.976 fps and a fixed keyframe interval.
+- A master playlist with multiple audio groups and WebVTT subtitle renditions, which looked perfect on paper and broke Stremio's player in practice.
+- fMP4 segments plus subtitles from a stdin pipe occasionally crashed ffmpeg with a segfault.
+- WebTorrent stalls hit ffmpeg's read timeout after ten minutes, and HEVC transcoding from a slow torrent took minutes before the first segment existed.
+</HighlightBox>
+
+My commit history from that period is basically a diary: "fix ffmpeg config", "returning to initial ffmpeg config", "hls playlist changed to event". At some point I accepted that I was fighting two things at once, the source (torrents) and the player (Stremio on iOS), and decided to remove both.
+
+## Version 2: a tiny server and my own player
+
+The current version is a single `server.js` of around 800 lines that uses **only Node built-ins**: `node:http`, `fs`, `child_process` and `crypto`. No Express, no SDK. It serves a small web UI for browsing shows, a custom HLS player page, and an API that starts and monitors ffmpeg jobs. It runs on a machine at home and the iPad uses it over the LAN, added to the home screen as a web app.
+
+For finding sources it asks Torrentio with the Real-Debrid option enabled, filters out 4K, HDR, remux and anything over 1 GB (pointless on an iPad, and far too heavy to transcode in real time), and sorts sources that are already cached on Real-Debrid to the top. When you press play, the server follows Torrentio's resolve redirect to get the actual Real-Debrid download URL:
+
+```javascript
+async function resolveDirectUrl(url) {
+  if (!url.startsWith(TORRENTIO)) return url;
+  const res = await fetch(url, { redirect: 'manual' });
+  const loc = res.headers.get('location');
+  if (!loc) throw new Error(`Torrentio resolve: HTTP ${res.status}`);
+  // If RD is still downloading, the redirect points to a placeholder video instead.
+  if (/\/videos\/|torrentio/.test(loc) && !/real-debrid/.test(loc)) {
+    const what = (loc.match(/videos\/([a-z_]+)/) || [])[1] || loc;
+    throw new Error(what.startsWith('downloading')
+      ? 'Real-Debrid is still downloading this one, pick a cached source.'
+      : `Real-Debrid/Torrentio error: ${what}`);
+  }
+  return loc;
+}
+```
+
+The Real-Debrid token never leaves the server. The browser only ever sees a short hash key for each source, and the token is masked in error logs.
+
+The Stremio addon still exists, but it's now tiny: it only returns stream entries whose `externalUrl` opens my player page in Safari. Stremio is the remote control; Safari is the screen.
+
+## The ffmpeg pipeline
+
+When a job starts, the server first runs `ffprobe` on the remote URL and picks the tracks: Japanese audio first (this is mostly used for anime), up to twelve text subtitle tracks to extract, and, only if there is no English text subtitle at all, a bitmap subtitle track to burn into the video.
+
+Then comes the most important decision: **copy or transcode the video?** Copying is basically free, transcoding 1080p on a CPU is not.
+
+```javascript
+const copyVideo =
+  !t.burnSub &&
+  v.codec_name === 'h264' &&
+  v.pix_fmt === 'yuv420p' &&
+  (!v.level || v.level <= 42) &&
+  (v.height || 0) <= MAX_HEIGHT;
+
+if (copyVideo) {
+  args.push('-c:v', 'copy');
+} else {
+  args.push(
+    '-c:v', 'libx264', '-preset', X264_PRESET, '-crf', '21',
+    '-profile:v', 'high', '-level', '4.1', '-maxrate', '8M', '-bufsize', '16M',
+    '-force_key_frames', `expr:gte(t,n_forced*${SEG_SEC})`
+  );
+}
+if (t.audio) args.push('-map', `0:${t.audio.index}`, '-c:a', 'aac', '-b:a', '160k', '-ac', '2');
+args.push(
+  '-f', 'hls', '-hls_time', String(SEG_SEC), '-hls_list_size', '0',
+  '-hls_playlist_type', 'event', '-hls_flags', 'independent_segments+temp_file',
+  '-hls_segment_filename', path.join(j.dir, 'seg_%05d.ts'),
+  path.join(j.dir, 'stream.m3u8')
+);
+```
+
+A few details that took me a while to get right:
+
+<LgList>
+  <li>**Keyframes on segment boundaries.** `-force_key_frames` with an expression places a keyframe exactly every 4 seconds, so every segment starts with one. My earlier fixed GOP setting didn't line up with the segment length and produced frozen pictures with audio still playing.</li>
+  <li>**Audio is always re-encoded** to stereo AAC. It is cheap, and it avoids every surround and codec problem in one go.</li>
+  <li>**High 4.1 instead of Baseline 3.1.** After all the paranoia in version 1, it turned out the iPad decodes High profile 1080p just fine. Much better quality per bit.</li>
+  <li>**Reconnect flags on the input** (`-reconnect`, `-reconnect_streamed`, `-reconnect_on_network_error`) so a hiccup on the Real-Debrid connection doesn't kill a 25-minute encode.</li>
+  <li>**No hardware acceleration.** `libx264` on `veryfast` keeps up comfortably for one viewer, and that's all I need.</li>
+</LgList>
+
+The same ffmpeg process also writes each subtitle track to its own `.ass` file as an extra output, so subtitles grow on disk alongside the video.
+
+## Playing a video that doesn't exist yet
+
+The trick that makes this feel instant is the **event** playlist type. With `-hls_playlist_type event` and an unlimited list size, ffmpeg keeps appending segments to the playlist as they are encoded, and `temp_file` makes sure a segment only appears in the playlist once it is completely written.
+
+The player polls a status endpoint every 1.5 seconds. The server counts `#EXTINF` lines in the playlist to report how many seconds are encoded, and the video starts as soon as there are two segments. One more detail: Safari treats an event playlist a bit like a live stream and wants to jump to the "live edge". So when serving the playlist, the server injects a tag telling it to start at the beginning:
+
+```text
+#EXT-X-START:TIME-OFFSET=0,PRECISE=YES
+```
+
+### Seeking past the encoded part
+
+The fun problem is seeking. Inside the part that is already encoded, seeking is just setting `currentTime`. But what if you want to jump to minute 20 and only five minutes are done? The player throws away the current stream and asks the server to start a **new** ffmpeg job from that point:
+
+```javascript
+function seekAbs(t) {
+  t = Math.max(0, Math.min(t, (st.duration || t) - 1));
+  if (st.playlist && t >= st.origin && t <= st.encodedEnd - 2) {
+    v.currentTime = t - st.origin;
+    return;
+  }
+  // Outside the encoded part: start a new conversion from here.
+  st.playlist = '';
+  v.removeAttribute('src');
+  v.load();
+  st.origin = t;
+  start(t, st.audioIndex);
+}
+```
+
+The seek bar shows the encoded range, so you can see what is instant and what will trigger a new conversion. There is a subtle catch with stream copy: when you seek with `-ss` and copy the video, ffmpeg can only start at the previous keyframe, which may be several seconds before the time you asked for. To know where the stream *really* starts, the server runs `ffprobe` on the first segment and computes the actual origin. With `-copyts` keeping the original timestamps, subtitles stay in sync no matter where you start.
+
+There is only ever one job at a time (this is a home server, not Netflix). Starting a new video kills the old ffmpeg process and deletes its folder, and the whole `hls/` directory is wiped on startup.
+
+## Subtitles: less is more
+
+Anime subtitles in ASS format are a world of their own: karaoke effects for the opening song, positioned signs translating text on screen, drawings, multiple layers. Rendering all of that in old Safari is hopeless, and I mostly just want the dialogue.
+
+So subtitles are not shown as native text tracks at all. The server parses them into simple cues (start, end, text) and the player draws them in an overlay div, using a binary search over cues every 150 ms. That also means subtitles work in fullscreen and I can adjust their size and timing offset.
+
+The ASS parser is aggressive about what it throws away: drawings, anything positioned on screen, lines whose style name looks like a sign, song, karaoke, opening or ending, and single-character karaoke fragments. Override tags in curly braces are stripped, `\N` becomes a newline, and duplicate or adjacent identical lines are merged.
+
+Track selection has its own heuristics. English tracks are preferred, "Full" or "Dialogue" tracks get a bonus, "Signs and Songs" tracks get a big penalty. And my favorite: the server counts Cyrillic versus Latin characters in the first 80 cues, because more than one release had Russian subtitles labeled as English. When the file has no usable English subtitles, the player pulls them from the OpenSubtitles addon instead.
+
+## Trade-offs and what's next
+
+This is very much a personal tool, and it shows. There is no idle timeout, so an abandoned job keeps encoding until it finishes. The source keys live in memory, so a restart invalidates links. Seeking beyond the encoded part always restarts the encode instead of reusing segments from earlier jobs. And `package.json` still lists the dependencies of version 1, even though the new server doesn't use any of them.
+
+Next on my list: an idle timeout, reusing segments when you seek back into a range that was already encoded, and hardware encoding on a small machine with Intel Quick Sync so it can run on something quieter than my desktop.
+
+The biggest lesson? Stop fighting two problems at once. The moment I dropped the unreliable source and the unreliable player, the remaining problem (turning one file into HLS fast enough) turned out to be very solvable with a few well-chosen ffmpeg flags. The repo is private for now, but you can follow my other projects on <Link href="https://github.com/basskibo">GitHub</Link>.
