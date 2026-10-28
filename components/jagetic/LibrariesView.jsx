@@ -9,7 +9,7 @@ export default function LibrariesView ({ posts }) {
 		<div className="wrap">
 			<header className="page-head bj-in">
 				<h1 className="t-display">Open <span className="t-serif t-grad">source</span></h1>
-				<p className="t-lead">npm modules, boilerplates and scripts. {items.length} write-ups, all open source and used in my own projects first.</p>
+				<p className="t-lead">npm modules, boilerplates, scripts and agent skills I published as open source. {items.length} write-ups, each one used in my own projects first, covering what it does and how to use it.</p>
 				<a className="btn btn-ghost" style={{ marginTop: 24 }} href="https://github.com/basskibo" target="_blank" rel="noreferrer">
 					Everything on GitHub <ArrowUpRight aria-hidden="true" />
 				</a>

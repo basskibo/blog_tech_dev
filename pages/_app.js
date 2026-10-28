@@ -45,22 +45,44 @@ const WEBSITE = {
 	publisher: { '@id': PERSON_ID }
 }
 
-// Post and library pages pass frontmatter as pageProps.data; everything else is site-wide only.
-const jsonLd = (data, url) => ({
+const DEFAULT_DESCRIPTION = 'Bojan Jagetić, full-stack engineer. Projects he builds and runs, plus writing on Node.js, React, Next.js, Docker and AI.'
+const ROUTE_DESCRIPTIONS = {
+	'/routes/aboutme': 'About Bojan Jagetić: full-stack engineer since 2015, the stack he works with, his experience and CV.',
+	'/routes/blog': 'Blog posts by Bojan Jagetić on Node.js, React, Next.js, Docker, AI tooling and how his own products are built.',
+	'/routes/libaries': 'Open source by Bojan Jagetić: npm modules, boilerplates, scripts and agent skills, with write-ups on how to use them.',
+	'/routes/projects': 'Projects by Bojan Jagetić: Coinsel, Captain Cook, Voyage Vault and other products he builds and runs.',
+	'/routes/uses': 'The hardware, software and tools Bojan Jagetić uses every day for development.',
+	'/quiz': 'Quizzes on Node.js, React, MongoDB and AI to test how well you know them.',
+	'/guestbook': 'Guest book on jageticbojan.com: leave a note for Bojan Jagetić.'
+}
+
+const PROFILE_ROUTES = ['/', '/routes/aboutme']
+const COLLECTION_ROUTES = ['/routes/blog', '/routes/libaries', '/routes/projects', '/routes/uses']
+
+// Post and library pages pass frontmatter as pageProps.data and get a BlogPosting; other routes get a WebPage subtype.
+const pageNode = (data, route, url) => data
+	? {
+		'@type': 'BlogPosting',
+		headline: data.title,
+		description: data.excerpt,
+		datePublished: data.publishedAt,
+		dateModified: data.updatedAt || data.publishedAt,
+		image: data.featuredImage,
+		author: { '@id': PERSON_ID },
+		publisher: { '@id': PERSON_ID },
+		mainEntityOfPage: url,
+		keywords: (data.tags || []).map((tag) => tag.name).filter(Boolean)
+	}
+	: {
+		'@type': PROFILE_ROUTES.includes(route) ? 'ProfilePage' : COLLECTION_ROUTES.includes(route) ? 'CollectionPage' : 'WebPage',
+		url,
+		isPartOf: { '@id': `${SITE_URL}/#website` },
+		...(PROFILE_ROUTES.includes(route) && { mainEntity: { '@id': PERSON_ID } })
+	}
+
+const jsonLd = (data, route, url) => ({
 	'@context': 'https://schema.org',
-	'@graph': data
-		? [PERSON, WEBSITE, {
-			'@type': 'BlogPosting',
-			headline: data.title,
-			description: data.excerpt || data.description,
-			datePublished: data.publishedAt,
-			image: data.featuredImage,
-			author: !data.author || data.author === 'Bojan Jagetic' ? { '@id': PERSON_ID } : { '@type': 'Person', name: data.author },
-			publisher: { '@id': PERSON_ID },
-			mainEntityOfPage: url,
-			keywords: (data.tags || []).map((tag) => tag.name).filter(Boolean)
-		}]
-		: [PERSON, WEBSITE]
+	'@graph': [PERSON, WEBSITE, pageNode(data, route, url)]
 })
 
 const handleTitle = (router) => {
@@ -105,18 +127,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 		? pageProps.data.featuredImage
 		: 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127896/igutech/undersstanding_mnfh3n.jpg'
 
-	const postDescription = () => {
-		if (pageProps.data) {
-			const props = pageProps.data
-			if (props.excerpt) {
-				return props.excerpt
-			} else if (props.description) {
-				return props.description
-			}
-		}
-		return 'Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away'
-	}
-	const description = postDescription()
+	const description = pageProps.data?.excerpt || ROUTE_DESCRIPTIONS[router.route] || DEFAULT_DESCRIPTION
 	const canonical = `${SITE_URL}${router.asPath.split(/[?#]/)[0]}`
 
 	useEffect(() => {
@@ -144,6 +155,8 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 					content={description}
 				/>
 				<meta name='description' content={description} />
+				<meta name='author' content='Bojan Jagetić' />
+				{pageProps.data?.inPreparation && <meta name='robots' content='noindex' />}
 				<meta property='og:url' content={canonical} key='og:url' />
 				<meta property='og:type' content={pageProps.data ? 'article' : 'website'} />
 				<meta property='og:title' content={title} key='og:title' />
@@ -159,7 +172,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				<link rel="canonical" href={canonical} />
 				<script
 					type="application/ld+json"
-					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(pageProps.data, canonical)).replace(/</g, '\\u003c') }}
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(pageProps.data, router.route, canonical)).replace(/</g, '\\u003c') }}
 				/>
 			</NextHead>
 			

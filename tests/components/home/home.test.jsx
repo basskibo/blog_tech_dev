@@ -325,7 +325,7 @@ describe('LatestPosts', () => {
 	it('renders up to three cards and an "All posts" link', () => {
 		const { container } = render(<LatestPosts posts={posts} />)
 		expect(screen.getByRole('region', { name: 'Fresh writing' })).toBeInTheDocument()
-		const cards = [...container.querySelectorAll('.post-grid > a.post-card')]
+		const cards = [...container.querySelectorAll('.post-grid > li > a.post-card')]
 		expect(cards.map((a) => a.getAttribute('href'))).toEqual(['/post/a', '/post/b', '/post/c'])
 		expect(cards.some((a) => a.classList.contains('is-big'))).toBe(false)
 		expect(screen.getByRole('link', { name: 'All posts' })).toHaveAttribute('href', '/routes/blog')

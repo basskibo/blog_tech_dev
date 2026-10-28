@@ -90,6 +90,7 @@ export default function PostView ({ data, nextPost, backHref = '/routes/blog', b
 				<div className="post-chips">
 					<span className="tag">{tagName(data)}</span>
 					{data.publishedAt && <time className="post-chip" dateTime={data.publishedAt}>{formatDate(data.publishedAt)}</time>}
+					{data.updatedAt && <time className="post-chip" dateTime={data.updatedAt}>Updated {formatDate(data.updatedAt)}</time>}
 					<span className="post-chip">{read}</span>
 				</div>
 				<h1 className="post-title">{data.title}</h1>

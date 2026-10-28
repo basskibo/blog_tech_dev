@@ -223,7 +223,8 @@
 
 /* Post cards ------------------------------------------------------------- */
 
-.post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.post-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; list-style: none; margin: 0; padding: 0; }
+.post-grid > li { display: grid; }
 .post-card { position: relative; display: flex; flex-direction: column; padding: 10px; border-radius: 26px; background: var(--card); border: 1px solid var(--line); transition: transform .45s var(--ease), border-color .3s, box-shadow .45s; }
 .post-card:hover { transform: translateY(-6px); border-color: var(--line2); box-shadow: 0 30px 60px -32px rgba(124, 92, 255, .5); }
 .post-card-img { position: relative; display: block; aspect-ratio: 16 / 10; border-radius: 18px; background: linear-gradient(135deg, #2a1f5c, #0d3b4f); overflow: hidden; }

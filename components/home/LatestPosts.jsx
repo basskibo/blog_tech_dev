@@ -55,9 +55,9 @@ export default function LatestPosts ({ posts }) {
 					<h2 id="posts-title" className="t-h2">Fresh <span className="t-serif" style={{ color: 'var(--cyan)' }}>writing</span></h2>
 					<Link href="/routes/blog" className="btn btn-ghost">All posts <ArrowRight aria-hidden="true" /></Link>
 				</div>
-				<div className="post-grid">
-					{posts.slice(0, 3).map((post) => <PostCard key={post.slug} post={post} />)}
-				</div>
+				<ul className="post-grid">
+					{posts.slice(0, 3).map((post) => <li key={post.slug}><PostCard post={post} /></li>)}
+				</ul>
 			</div>
 		</section>
 	)

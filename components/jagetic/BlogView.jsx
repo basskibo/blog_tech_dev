@@ -45,7 +45,7 @@ export default function BlogView ({ posts }) {
 			<header className="blog-head bj-in">
 				<div>
 					<h1 className="t-display">The <span className="t-serif t-grad">blog</span></h1>
-					<p className="t-lead">Notes on Node.js, React and tooling, and how my own products are built.</p>
+					<p className="t-lead">{items.length} posts on Node.js, React, Next.js, Docker and AI tooling, written by a full-stack engineer working since 2015. Most of them come out of building and running my own products.</p>
 				</div>
 				<dl className="blog-stats">
 					<div><dt>Posts</dt><dd>{items.length}</dd></div>
@@ -84,9 +84,9 @@ export default function BlogView ({ posts }) {
 			{visible.length > 0 && (
 				<section aria-label={filtering ? 'Results' : 'More posts'}>
 					{!filtering && <h2 className="blog-sub">More posts</h2>}
-					<div className="post-grid">
-						{visible.map((post) => <PostCard key={post.slug} post={post} />)}
-					</div>
+					<ul className="post-grid">
+						{visible.map((post) => <li key={post.slug}><PostCard post={post} /></li>)}
+					</ul>
 					{rest.length > shown && (
 						<div className="blog-more">
 							<button type="button" className="btn btn-ghost" onClick={() => setShown((n) => n + PAGE_SIZE)}>
