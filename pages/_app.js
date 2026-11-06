@@ -180,6 +180,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 				strategy="lazyOnload"
 				src="https://cloud.umami.is/script.js"
 				data-website-id="52df9c02-9c0f-4478-bee5-c45836c20341"
+				data-domains="jageticbojan.com,www.jageticbojan.com"
 			/>
 			
 			<Layout>

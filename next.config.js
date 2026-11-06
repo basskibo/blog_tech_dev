@@ -134,6 +134,13 @@ const NextConfiguration = {
 				]
 			}
 		]
+	},
+	// Short URLs people (and bots) guess
+	async redirects() {
+		return [
+			{ source: '/blog', destination: '/routes/blog', permanent: true },
+			{ source: '/projects', destination: '/routes/projects', permanent: true }
+		]
 	}
 }
 
