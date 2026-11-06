@@ -7,20 +7,39 @@ import matter from 'gray-matter'
 
 import 'react-loading-skeleton/dist/skeleton.css'
 import generateRSSFeed from 'utils/generateRSSFeed'
+import type { GetStaticProps, InferGetStaticPropsType } from 'next'
 
-const blog = ({ posts }) => {
+type PostFrontmatter = {
+	title?: string
+	excerpt?: string
+	slug?: string
+	featuredImage?: string
+	[key: string]: unknown
+}
+
+type BlogPostProps = {
+	props: {
+		data: PostFrontmatter
+	}
+}
+
+type BlogPageProps = {
+	posts: BlogPostProps[]
+}
+
+const Blog: React.FC<BlogPageProps> = ({ posts }) => {
 	if (typeof window !== 'undefined' && posts.length > 0) {
 		localStorage.setItem('posts', JSON.stringify(posts))
 	}
-	return <BlogScreen posts={posts} />
+	return <BlogScreen posts={posts as any} />
 }
 
-export default blog
+export default Blog
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps<BlogPageProps> = async () => {
 	const files = getPostFiles()
 
-	const posts = files.map((filename) => {
+	const posts: BlogPostProps[] = files.map((filename) => {
 		const markdownWithMeta = fs.readFileSync(
 			path.join('posts/blog', filename),
 			'utf-8'
@@ -28,16 +47,18 @@ export const getStaticProps = async () => {
 
 		let { data } = matter(markdownWithMeta)
 		data = {
-			...data, slug: filename.split('.')[0]
+			...data,
+			slug: filename.split('.')[0]
 		}
-		// const mdxSource = await serialize(content);
+
 		return {
 			props: {
-				data
+				data: data as PostFrontmatter
 			}
 		}
 	})
-	await generateRSSFeed(posts)
+
+	await generateRSSFeed(posts as any)
 
 	return {
 		props: {
@@ -45,3 +66,5 @@ export const getStaticProps = async () => {
 		}
 	}
 }
+
+

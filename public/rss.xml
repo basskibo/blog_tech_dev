@@ -9,9 +9,9 @@
             <link>https://jageticbojan.com</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 28 Jan 2026 14:08:10 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 06 Nov 2026 13:44:18 GMT</lastBuildDate>
         <atom:link href="https://jageticbojan.com/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Wed, 28 Jan 2026 14:08:10 GMT</pubDate>
+        <pubDate>Fri, 06 Nov 2026 13:44:18 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2026, © 2022 Bojan Jagetic]]></copyright>
         <item>
             <title><![CDATA[What is Microservices architecture and how to use it]]></title>
@@ -35,11 +35,53 @@
             <pubDate>Tue, 21 Feb 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[Building Gameroom, Part 1: Eight Browser Games and No Build Step]]></title>
+            <description><![CDATA[How I ended up with a collection of eight Three.js browser games that ship as plain HTML files, and the small shared layer that keeps them from turning into eight separate messes.]]></description>
+            <link>https://jageticbojan.com/post/building-gameroom-part-1</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/building-gameroom-part-1</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Building Gameroom, Part 2: Making Three.js Run on a Budget Phone]]></title>
+            <description><![CDATA[Draw calls, an adaptive quality ladder, a LITE mode for weak GPUs, Playwright tests driven by debug hooks and a one-command Google Play release. What it took to get Sawmill Tycoon playable on a Redmi 12C.]]></description>
+            <link>https://jageticbojan.com/post/building-gameroom-part-2</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/building-gameroom-part-2</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[Building a resilient Node.js application | Part 1]]></title>
             <description><![CDATA[Are you a developer looking to create a blog or personal website that is both easy to maintain, blazing fast and visually appealing? Look no further]]></description>
             <link>https://jageticbojan.com/post/builld-resilient-nodejs-part-1</link>
             <guid isPermaLink="false">https://jageticbojan.com/post/builld-resilient-nodejs-part-1</guid>
             <pubDate>Mon, 09 Jan 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Captain Cook: An AI Cook That Starts From What's Already in Your Fridge]]></title>
+            <description><![CDATA[A Next.js 16 app where you mark what you have in the kitchen (or just photograph the fridge) and get three streamed recipes, a hands-free cooking mode and timers that come straight out of the recipe text.]]></description>
+            <link>https://jageticbojan.com/post/captain-cook-ai-kitchen</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/captain-cook-ai-kitchen</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Building Coinsel, Part 1: From a Spreadsheet to a Finance App]]></title>
+            <description><![CDATA[Why I replaced my Google Sheets budget with my own app, and how quick add, smart categories, bills and 'until payday' turned Buddy Bill into Coinsel.]]></description>
+            <link>https://jageticbojan.com/post/coinsel-part-1-from-buddy-bill</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/coinsel-part-1-from-buddy-bill</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Building Coinsel, Part 2: Architecture, Offline and Native Apps]]></title>
+            <description><![CDATA[One Next.js 16 app that is the website, the PWA and the Android, iOS and desktop apps: Drizzle on Neon, PGlite locally, an offline queue, passkeys, push, encrypted backups and a test setup that keeps it all honest.]]></description>
+            <link>https://jageticbojan.com/post/coinsel-part-2-architecture</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/coinsel-part-2-architecture</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Building Coinsel, Part 3: The AI Analyst and Serbian Superpowers]]></title>
+            <description><![CDATA[How Coinsel's AI analyst looks up your data with tools instead of guessing, how it reads Serbian payment slips, fiscal receipts and bank SMS, and what I learned building it.]]></description>
+            <link>https://jageticbojan.com/post/coinsel-part-3-ai-and-serbia</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/coinsel-part-3-ai-and-serbia</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Mastering JavaScript Design Patterns: A Comprehensive Guide]]></title>
@@ -89,6 +131,13 @@
             <link>https://jageticbojan.com/post/docker-compose</link>
             <guid isPermaLink="false">https://jageticbojan.com/post/docker-compose</guid>
             <pubDate>Tue, 31 Oct 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Building a Dynamic Island for GNOME Shell]]></title>
+            <description><![CDATA[How I built an iOS-style live island for the GNOME top bar that shows what's playing from any MPRIS player, springs open on hover and can even wrap around the clock like a notch.]]></description>
+            <link>https://jageticbojan.com/post/dynamic-island-for-gnome</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/dynamic-island-for-gnome</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Everything you need to know about Git]]></title>
@@ -147,6 +196,20 @@
             <pubDate>Sat, 12 Oct 2024 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[Last Minute: Scraping Eight Travel Sources Into One Search]]></title>
+            <description><![CDATA[How I built Poslednji Trenutak, a last-minute accommodation aggregator with no database: cheerio for simple sites, headless Chromium for Booking and Airbnb, per-source timeouts, a Redis cache and live progress over SSE.]]></description>
+            <link>https://jageticbojan.com/post/last-minute-scraping-aggregator</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/last-minute-scraping-aggregator</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[A macOS Tahoe Look on Ubuntu in One Command]]></title>
+            <description><![CDATA[A small script that installs vinceliuice's MacTahoe theme on Ubuntu, layers my own tweaks on top and adds Dynamic Island, so a fresh machine looks like macOS Tahoe in one go.]]></description>
+            <link>https://jageticbojan.com/post/mactahoe-setup-for-ubuntu</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/mactahoe-setup-for-ubuntu</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[Making Color Palette Generator in React/Remix]]></title>
             <description><![CDATA[We will walk through the process of building a Color Palette Generator using React.]]></description>
             <link>https://jageticbojan.com/post/making-pallete-generator</link>
@@ -154,11 +217,25 @@
             <pubDate>Thu, 22 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[Minim: Building an Ad-Free Android Launcher with Jetpack Compose]]></title>
+            <description><![CDATA[Why I wrote my own iOS-inspired Android launcher in Kotlin and Jetpack Compose, with no INTERNET permission at all, an App Library and a Live Island built on notification access.]]></description>
+            <link>https://jageticbojan.com/post/minim-android-launcher</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/minim-android-launcher</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[Creating a Modern Landing Page with Particles and React]]></title>
             <description><![CDATA[Make better first impression with modern landing page and usage of particles to make it look cool]]></description>
             <link>https://jageticbojan.com/post/modern-landing-with-particles</link>
             <guid isPermaLink="false">https://jageticbojan.com/post/modern-landing-with-particles</guid>
             <pubDate>Tue, 12 Mar 2024 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Nautag: Finder-Style Colour Tags for Nautilus]]></title>
+            <description><![CDATA[I missed macOS Finder tags on Ubuntu, so I built Nautag, a nautilus-python extension that stores colour tags in the file's xattrs and shows them as dots and sidebar entries in GNOME Files.]]></description>
+            <link>https://jageticbojan.com/post/nautag-finder-tags-for-nautilus</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/nautag-finder-tags-for-nautilus</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Blogging with Next.js and MDX: The ultimate combination for dynamic content]]></title>
@@ -294,6 +371,20 @@
             <pubDate>Sat, 24 Dec 2022 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[Scranton Branch, Part 1: A 3D Office Where My Agents Work]]></title>
+            <description><![CDATA[Why I built a low-poly three.js office where Claude agents write from my own files, and where every live Claude Code session gets its own desk.]]></description>
+            <link>https://jageticbojan.com/post/scranton-branch-part-1-an-office-for-your-agents</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/scranton-branch-part-1-an-office-for-your-agents</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Scranton Branch, Part 2: Under the Hood]]></title>
+            <description><![CDATA[How Scranton Branch reads Claude Code session files, watches Cursor, Codex, Gemini and OpenCode, streams Claude's text onto 3D monitors and checks every amount before a draft reaches the Outbox.]]></description>
+            <link>https://jageticbojan.com/post/scranton-branch-part-2-under-the-hood</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/scranton-branch-part-2-under-the-hood</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[Sending Emails Using Node.js]]></title>
             <description><![CDATA[With Node.js, developers have a powerful tool at their disposal for automating tasks, including sending emails.]]></description>
             <link>https://jageticbojan.com/post/sending-email-with-node</link>
@@ -306,6 +397,13 @@
             <link>https://jageticbojan.com/post/shallow-vs-deep-copy</link>
             <guid isPermaLink="false">https://jageticbojan.com/post/shallow-vs-deep-copy</guid>
             <pubDate>Mon, 17 Feb 2025 05:35:07 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Switchboard: All My Mail and Chats in One Window]]></title>
+            <description><![CDATA[How I built a small Electron app that keeps Gmail, Slack, Teams, WhatsApp and friends in one window, with real notifications, sleeping tabs, a calendar and LAN sync with a 6-digit pairing code.]]></description>
+            <link>https://jageticbojan.com/post/switchboard-all-your-mail-and-chats-in-one-window</link>
+            <guid isPermaLink="false">https://jageticbojan.com/post/switchboard-all-your-mail-and-chats-in-one-window</guid>
+            <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[What is SWR and How Can It Improve Your React Apps]]></title>

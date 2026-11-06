@@ -1,0 +1,176 @@
+---
+title: "Building Coinsel, Part 2: Architecture, Offline and Native Apps"
+publishedAt: "2026-11-06"
+excerpt: "One Next.js 16 app that is the website, the PWA and the Android, iOS and desktop apps: Drizzle on Neon, PGlite locally, an offline queue, passkeys, push, encrypted backups and a test setup that keeps it all honest."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1673448129/igutech/blogs/dayne-topkin-Sk-C-om9Jz8-unsplash_cb6hhc.jpg"
+imageCreditUser: "Dayne Topkin"
+imageCreditUsername: "dtopkin1"
+author: "Bojan Jagetic"
+tags: [{ slug: "nextjs", name: "nextjs" }, { slug: "project", name: "project" }]
+project: "coinsel"
+series: "coinsel"
+seriesTitle: "Building Coinsel"
+seriesPart: 2
+inPreparation: false
+---
+
+## Introduction
+
+In [Part 1](/post/coinsel-part-1-from-buddy-bill) I wrote about why Coinsel exists and what it does. This part is about how it's built. The short version of the stack:
+
+**Next.js 16 (App Router, Server Components, Server Actions) · React 19 · TypeScript · Tailwind CSS 4 · Drizzle ORM · Postgres on Neon (PGlite locally) · Vitest + Playwright · Vercel.**
+
+The more interesting part is the shape: **one Next.js app** is the website, the installable PWA and, loaded by thin native shells, the Android and iOS apps (Capacitor) and the Linux and Windows apps (Electron).
+
+## One app, no client cache
+
+The whole data flow fits in a small diagram:
+
+```
+Browser (React 19, client components)
+   │  navigation / forms                  │  fetch (stream, uploads, webhooks)
+   ▼                                      ▼
+Server Components (app/(app)/*)      Route Handlers (app/api/*)
+   │  read data                           │
+   ▼                                      ▼
+server/overview.ts → server/queries.ts → Drizzle ORM → Postgres (Neon) | PGlite (local)
+   ▲
+Server Actions (server/actions/*) ← mutations from the client, then refresh()
+```
+
+Pages are Server Components that read data on the server. There is **no client-side cache** at all. If you read Part 1, you know the first version used RTK Query with tags and optimistic updates. This time every mutation is a Server Action, and after it writes, it calls `refresh()` so the current route re-renders with fresh data. One round trip, no API layer for CRUD, no cache invalidation bugs.
+
+Every action has the same shape: check the user, validate with zod, check ownership of any id that came from the client, write, refresh. To keep that consistent there's a small `action()` wrapper that also turns exceptions into a friendly message (and never leaks database details to the UI):
+
+```ts
+export type ActionResult<T = undefined> = { ok: true; data: T } | { ok: false; error: string };
+
+export const deleteTransactions = action(
+  z.object({ ids: z.array(z.string().uuid()).min(1).max(500) }),
+  async ({ ids }) => {
+    const user = await assertUser();
+    const db = await getDb();
+    // ...delete only rows where userId = user.id
+    refresh();
+    return ok();
+  },
+  (i) => ["expense_deleted", { count: i.ids.length }],
+);
+```
+
+The third argument is the product analytics event, sent from the server only when the action succeeded. Properties come from a whitelist, so amounts, notes or names never go to analytics.
+
+## Drizzle, Neon and PGlite
+
+The first version used Prisma. This one uses **Drizzle with postgres.js**, and the reasons were practical: no generated client or binary engines, a fast cold start on Vercel, plain SQL migrations committed in the repo, and the same code for Neon, Supabase or a local Postgres.
+
+The part I like the most is local development. Without a `DATABASE_URL`, the app uses **PGlite**, which is real Postgres compiled to WASM, running in-process with its data in a folder under `.data/`. So `npm run dev` works without Docker and without a database account, and it runs the same migrations as production.
+
+On a real database, migrations run at build time **and** on the first connection, guarded by a Postgres advisory lock so parallel serverless instances wait for each other:
+
+```ts
+// One connection: an advisory lock holds per session, so parallel instances wait for each other.
+const client = postgres(migrationUrl(url), { prepare: false, max: 1, connect_timeout: 15 });
+try {
+  await client`select pg_advisory_lock(${LOCK_ID})`;
+  await migrate(drizzle(client), { migrationsFolder: MIGRATIONS() });
+  await client`select pg_advisory_unlock(${LOCK_ID})`;
+} finally {
+  await client.end({ timeout: 5 });
+}
+```
+
+PGlite did bite me once, though. It ended up bundled into the Vercel functions, and together with `sharp` every function was around 117 MB and filled the function storage. That's now one of the rows in the bug ledger, with an integration test on the Next config so it doesn't come back.
+
+## Offline quick add
+
+Quick add has to work in a basement shop with no signal. The local parser from Part 1 already runs without network, so the remaining problem was saving.
+
+Entries saved while offline wait in **IndexedDB** and sync later. The trick that makes this safe is idempotency: every quick add gets an id when the sheet opens, and every item gets an `externalId` derived from it. The server skips a known `externalId` (unique per user), so a retry from Next, the queue sending again or a double tap never creates the same expense twice. Entries also belong to the user who made them: if a different account signs in on the device, the queue drops them instead of sending them.
+
+The service worker is deliberately boring. It caches only build assets and icons; pages and data always come from the server.
+
+## Native apps as thin shells
+
+I didn't want to maintain several apps, so the native apps are thin shells around the production site. That has one huge benefit: **web changes reach every app without a new build**. A native release is only needed for native things: icons, plugins, permissions.
+
+- **Android and iPhone** share one **Capacitor** project. Native extras include local bill reminders planned on the phone (they work offline) with the unpaid count on the app icon, Face ID or fingerprint, haptics, app-icon shortcuts, the share sheet and a theme-aware status bar.
+- **Android only:** the app can turn payment notifications from bank apps into expenses (more in Part 3) and has a home-screen widget with this month's spending, what's safe per day until payday, and a **+** for quick add.
+- **iPhone:** I don't have a paid Apple developer account, so the workflow builds an unsigned `.ipa` that I install with SideStore or AltStore.
+- **Linux and Windows:** an Electron window, packaged as `.deb`, AppImage, snap and an NSIS installer, plus a signed apt repository. Electron has no Web Push service, so every push message is also stored in an `inbox` table that the desktop app polls.
+
+There is also a **native Android prototype** in Kotlin and Jetpack Compose: overview and quick add are native, the rest opens the web app in a web view.
+
+One gotcha with "the shell loads production": after a deploy, an open tab can call a Server Action from the _previous_ build and get a 409. Coinsel detects that and reloads once with a short note, and there's a regression test for it.
+
+## Security: passkeys and a server-side PIN
+
+I wrote my own authentication instead of using NextAuth this time: scrypt password hashes, a signed httpOnly session cookie, a lockout after 5 wrong attempts, and a `sessionVersion` on the user so "sign out everywhere" is one increment. Google and Microsoft sign-in and passkeys were added on top.
+
+For a finance app on a phone, an app lock matters, so there's a **PIN lock**, and the important design decision is that it's **enforced on the server**. Without the signed unlock cookie, every page redirects to `/lock` and every action or API call is refused. A cookie written by the client may only ever make the app _more_ locked, never less.
+
+```ts
+export async function isLocked(user: { id: string; pinHash: string | null; settings: { lockAfter?: number } }) {
+  if (!user.pinHash) return false;
+  if (!(await isUnlocked(user.id))) return true;
+  return hiddenTooLong(Number((await cookies()).get(HIDDEN_COOKIE)?.value), user.settings.lockAfter);
+}
+```
+
+Five wrong PINs sign you out. Next to the PIN, **passkeys** (WebAuthn, via SimpleWebAuthn) unlock with Face ID, Touch ID or a fingerprint. A passkey can only be added while the PIN lock is on, so the PIN always stays as the fallback.
+
+Every query is also scoped to the `userId` from the session, never from the client.
+
+## Notifications
+
+Bill reminders are Web Push, sent by a daily Vercel Cron. One detail I enjoyed: the VAPID key pair isn't an environment variable. The app creates it on first use and stores it in the database, so there's nothing to set up.
+
+## Backups
+
+For an app that holds my money history, backups are not optional. There are three layers:
+
+1. A **nightly encrypted backup** (Vercel Cron): every table as SQL, gzipped, encrypted with AES-256 and uploaded to Google Drive. The Drive access is `drive.file`, so the app only sees the files it created. Old backups are deleted after 90 days, but the newest 7 always stay.
+2. **Neon point-in-time restore** for undoing a mistake from the last few hours.
+3. A **personal backup** in Settings: one JSON file with everything, which can be restored into the same or a new account without creating duplicates.
+
+The Drive backup exists because the first version ran on GitHub Actions, and in October 2026 the Actions minutes ran out, so backups (and CI) silently stopped. Now `/api/health` turns red after 26 hours without a good backup, so an uptime monitor notices. There's also a restore drill script that downloads the newest backup, restores it into a throwaway Postgres container and prints the rows per table.
+
+## Testing
+
+Tests are split into three segments:
+
+- **Unit** tests sit next to the code in `src/lib`: parsers, money and dates, forecasts, QR decoding.
+- **Integration** tests run Server Actions and route handlers against an in-memory PGlite with every migration applied, with cookies in memory and **the network off**, so anything that talks to the outside world has to mock `fetch`.
+- **Browser** tests with Playwright, around 200 of them, with a small `@smoke` set (sign-in, quick add, paying a bill, the PIN lock, CSP) for every UI change. There's also an axe accessibility pass.
+
+The rule I'm most happy with: **every bug fix ships with a regression test that fails without the fix, and a row in the bug ledger** in `docs/TESTING.md`. That ledger is now a nice history of everything that went wrong, from "the same SMS counted twice" to "the reopened app showed the dashboard for a second before the PIN screen".
+
+### A performance budget for weak phones
+
+Weak Android phones are an explicit target, so there's a JS budget. Next 16 no longer prints per-route sizes, so a small script reads the build manifests and computes the gzipped first-load JS per route. CI fails if a watched route grows by more than 10%:
+
+```json
+{
+  "note": "First-load JS per route, gzip KB. CI fails above +10 %.",
+  "routes": {
+    "/dashboard": 231,
+    "/expenses": 221.9,
+    "/bills": 229,
+    "/login": 165.7
+  }
+}
+```
+
+The first measurement found easy wins: animations loading after the first paint, the login page no longer pulling the whole app shell just for the logo, and the quick-add sheet loading on idle. `/login` went from 240.2 KB to 165.3 KB.
+
+## What's next
+
+In the last part we get to the fun stuff: the AI analyst you can ask "how much did I spend on cigarettes this year?", and the features that only make sense in Serbia: reading the NBS IPS QR code on payment slips, decoding fiscal receipt QR codes, and turning bank SMS messages into expenses automatically.
+
+## In this series
+
+- [Part 1: From a Spreadsheet to a Finance App](/post/coinsel-part-1-from-buddy-bill)
+- [Part 2: Architecture, Offline and Native Apps](/post/coinsel-part-2-architecture)
+- [Part 3: The AI Analyst and Serbian Superpowers](/post/coinsel-part-3-ai-and-serbia)

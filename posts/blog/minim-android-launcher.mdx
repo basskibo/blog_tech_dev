@@ -1,0 +1,155 @@
+---
+title: "Minim: Building an Ad-Free Android Launcher with Jetpack Compose"
+publishedAt: "2026-11-06"
+excerpt: "Why I wrote my own iOS-inspired Android launcher in Kotlin and Jetpack Compose, with no INTERNET permission at all, an App Library and a Live Island built on notification access."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1673448129/igutech/blogs/dayne-topkin-Sk-C-om9Jz8-unsplash_cb6hhc.jpg"
+imageCreditUser: "Dayne Topkin"
+imageCreditUsername: "dtopkin1"
+author: "Bojan Jagetic"
+tags: [{ slug: "linux", name: "linux" }, { slug: "project", name: "project" }]
+project: "minim-launcher"
+inPreparation: false
+---
+
+## Introduction
+
+The launcher is the app you look at more than any other on your phone, and a surprising number of them come with ads, trackers, or "recommended apps" you never asked for. I wanted something clean, in the spirit of iOS, that I could fully trust.
+
+So I wrote **Minim**, a modern Android launcher with one hard rule: **no INTERNET permission**. Nothing leaves the phone, and that is not a promise in a privacy policy, it is simply something the app cannot do.
+
+It is written in **Kotlin + Jetpack Compose**, targets Android 10 and up (minSdk 29), and is a single activity. The repo is not public yet, so this post is more of a tour of the ideas and the code behind it.
+
+## The no-internet rule
+
+This one is easy to explain and easy to verify, because it lives in the manifest. Here are all the permissions Minim asks for:
+
+```xml
+<!-- No INTERNET permission on purpose: no ads, no tracking, nothing leaves the phone. -->
+<uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+<uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+<!-- optional, asked only when "Next event" is turned on -->
+<uses-permission android:name="android.permission.READ_CALENDAR" />
+```
+
+Everything "smart" in the launcher had to work with that constraint. Search, for example, can hand a query off to your browser, but it never fetches anything itself. The more powerful features (badges, Live Island, double-tap to lock) are all opt-in services that the user has to enable in system settings.
+
+## What it does
+
+- **Home Screen**: pages of icons, all in one squircle shape, a frosted dock, a clock widget on the first page, page dots and wallpaper parallax.
+- **Edit like iOS**: long-press an icon for its menu, move your finger and the icons jiggle. Drag anywhere, into the dock, across pages. Tap "−" to remove from Home; the app stays in the App Library.
+- **App Library**: swipe up. Apps sorted into folders like Suggestions, Recently Added, Social, Games and Productivity, search on top, and the wallpaper blurs behind it on Android 12+ phones that support blur.
+- **Live Island**: a black capsule under the status bar for music, timers, calls, navigation and downloads.
+- **Folders**: drop an icon on another, and the folder is named after the app's category.
+- **Search**: apps, a calculator, system settings and the web, plus an A–Z list with a Niagara-style letter rail.
+- **StandBy**: tap the clock for a full-screen big clock, which also works as the system screen saver.
+- Icons in **Dark** (no white plates), **Tinted** (accent monochrome) or **Classic** style, dark theme by default, Material You accent.
+
+## The home layout is just data
+
+The part I am happiest with architecturally is that the whole home screen is a **pure Kotlin data class**. No Android types, no Compose, just pages, a dock and folders:
+
+```kotlin
+sealed interface Slot {
+    data class Page(val page: Int, val index: Int) : Slot
+    data class Dock(val index: Int) : Slot
+}
+
+data class HomeLayout(
+    val pages: List<List<String>>,
+    val dock: List<String>,
+    val folders: Map<String, Folder> = emptyMap(),
+) {
+    fun move(key: String, to: Slot) = without(key).insert(key, to)
+    // merge, dissolveFolder, renameFolder, retain, fit, toJson...
+}
+```
+
+Pages are lists of keys in reading order, with no gaps, just like iOS. A key is either an app or `folder:id`. Every operation returns a **new** layout, so the drag-and-drop UI only has to say "move this key to this slot" and then render whatever comes out.
+
+The interesting function is `fit`. When a page is full, its last icons spill to the start of the next page; the dock keeps at most its maximum and the rest goes to the last page; empty pages are dropped, except while you are dragging, so page numbers do not shift under your finger.
+
+Folders follow iOS rules too: dropping an app onto another creates a folder in its place, folders cannot go into folders, and a folder left with one app dissolves back into that app.
+
+Because it is plain data, all of this has **unit tests** that run on the JVM in milliseconds, and saving the layout is just a small JSON round trip.
+
+## Search that finds the app you mean
+
+Serbian has plenty of accented letters, so search had to be **accent-insensitive**: typing "citac" should find "Čitač". Matches are ranked so the app you mean comes first:
+
+```kotlin
+/**
+ * Rank of [label] for [query], lower is better, null = no match:
+ * 0 starts with it · 1 a word starts with it ("maps" → Google Maps) ·
+ * 2 initials ("gm" → Google Maps) · 3 contains it · 4 letters in order ("stg" → Settings).
+ */
+fun score(label: String, query: String): Int? {
+    val q = normalize(query).trim()
+    if (q.isEmpty()) return 0
+    val l = normalize(label)
+    if (l.startsWith(q)) return 0
+    // word starts, initials, contains, subsequence...
+}
+```
+
+`normalize` lowercases the text, decomposes it with `Normalizer.Form.NFD` and strips the combining marks, with a few manual cases like "đ" to "d" and "ß" to "ss". Word boundaries include camelCase, so "app" finds WhatsApp.
+
+The same search box also works as a **calculator**. A tiny recursive-descent parser handles things like "12*7", "(3+4)x2" or "2^10", with a dot or a comma as the decimal separator, and returns nothing for anything that does not look like math, so normal searches stay normal.
+
+## Live Island: Live Activities from notifications
+
+Android does not have iOS Live Activities, but it has something close: **ongoing notifications**. A running timer, a call, navigation or a download all post one. So the Live Island is driven by a `NotificationListenerService`, enabled only if you grant notification access.
+
+Each ongoing notification is classified into a kind:
+
+```kotlin
+enum class ActivityKind { Call, Timer, Navigation, Stopwatch, Progress }
+
+val kind = when {
+    timerLike && n.`when` > System.currentTimeMillis() -> ActivityKind.Timer
+    stopwatchLike -> ActivityKind.Stopwatch
+    n.category == Notification.CATEGORY_CALL -> ActivityKind.Call
+    n.category == Notification.CATEGORY_NAVIGATION -> ActivityKind.Navigation
+    chrono && down -> ActivityKind.Timer
+    n.category == "stopwatch" || chrono -> ActivityKind.Stopwatch
+    max > 0 && !indeterminate -> ActivityKind.Progress
+    else -> return null
+}
+```
+
+The messy part is that clock apps do not all use a chronometer. Newer ones use other styles, so I also look at the channel id and title for words like "timer" or "stopwatch" (including the Serbian ones), and use the notification's `when` as the timer's end or the stopwatch's start. Android 16's new `MetricStyle`, which the new Clock app uses, gets its own parser.
+
+Music comes from the active `MediaSession`: cover art, a scrolling title and an equaliser in the capsule. Tap the island for a card with controls and the notification's **own buttons** (Pause, +1 min, Hang up), long-press to open the app. If two things are going on, the second one shows as a bubble beside it. New notifications, charger, low battery, silent/vibrate and headphones pop in briefly, and the same listener powers the red badges on icons.
+
+## Crisp icons on a budget
+
+Icons are the thing you notice immediately if they are blurry. Every icon is rendered once into a **squircle**, off the main thread, and kept in an `LruCache` of 24 MB:
+
+```kotlin
+private val icons = object : LruCache<String, Bitmap>(24 * 1024 * 1024) {
+    override fun sizeOf(key: String, value: Bitmap) = value.byteCount
+}
+```
+
+My first version cached one bitmap per app at whatever size was drawn first. If that happened to be the tiny grid in the App Library, Home icons were upscaled from it and looked soft. The fix was to keep **one bitmap per app at the largest size**, rendered from xxxhdpi artwork with high-quality downscaling for the smaller places.
+
+The Dark icon style also had to deal with apps that ship white backgrounds: it takes only the adaptive foreground (or the old-style icon), cuts away the white around it and puts it on a dark tile. Tinted uses Android 13 monochrome layers when an app has one.
+
+The app list itself comes from `LauncherApps`, kept in memory and reloaded on package callbacks, which also drop that package's cached icons since an update may change them.
+
+## How it grew
+
+Looking at the git history, Minim went through a few clear steps:
+
+- **First commit**: a minimal, ad-free launcher.
+- **0.2**: a real launcher, with icon pages, the dock, iOS-style editing, App Library and the first Live Island.
+- **0.3**: dark icons without white plates, dark theme by default, a big modern clock, StandBy and the screen saver.
+- Then the crisp icons fix.
+- **0.5**: folders, Live Island live activities (timers, calls, navigation, downloads), the A–Z rail, calculator and settings in search, and "at a glance" with the next calendar event.
+
+The release build goes through R8 and comes out at about 2.5 MB. For now it is signed with my local debug key, because I only sideload it.
+
+## Conclusion
+
+Minim started from a simple frustration and turned into a full launcher. The constraints shaped it the most: no internet meant every feature had to work locally, and notification access turned out to be enough to build something that feels a lot like iOS Live Activities. Keeping the home layout as pure, tested data made the most fiddly part, iOS-style drag and drop, much easier to get right.

@@ -7,7 +7,7 @@ import { TypeAnimation } from 'react-type-animation'
 import { IoCloudDownloadOutline } from "react-icons/io5"
 import ParticlesBackground from './custom/ParticlesBackground'
 import AnchorLinkComponent from './custom/AnchorLink'
-import FeaturedProjectTeaser from './custom/FeaturedProjectTeaser'
+import LandingProjects from './projects/LandingProjects'
 import { Button } from './ui/button'
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
@@ -99,15 +99,13 @@ const Landing = () => {
 					{/* Description */}
 					<motion.div variants={itemVariants} className='mb-8 sm:mb-10 md:mb-12 max-w-3xl'>
 						<p className='font-normal text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-muted-foreground'>
-							Writing code is my obsession as well as constant self-improvement. 
-							I have developed many web applications and platforms from scratch 
-							in my spare time. Accustomed to using extensive tech stack because 
-							I love challenging and complex projects.
+							I build and ship my own products: web and mobile apps, npm
+							libraries, Linux desktop tools and browser games. Most of them
+							started because I needed them myself.
 						</p>
 						<p className='font-normal text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-muted-foreground mt-4 hidden lg:block'>
-							I&apos;m passionate about coding and constantly pushing myself to improve. 
-							Working with a wide range of technologies keeps me inspired and eager 
-							to take on the next big idea.
+							This site is where I show them, and where I write about how
+							they were made.
 						</p>
 					</motion.div>
 
@@ -117,8 +115,8 @@ const Landing = () => {
 							asChild={true}
 							variant="default"
 							size="lg"
-							id='blog_post_button'
-							data-umami-event="landing-read-blog"
+							id='projects_button'
+							data-umami-event="landing-see-projects"
 							className={cn(
 								"w-full sm:w-auto bg-gradient-to-r from-primary-600 to-primary-400",
 								"hover:from-primary-500 hover:to-primary-300",
@@ -128,16 +126,16 @@ const Landing = () => {
 								"border-0"
 							)}
 						>
-							<Link href='/routes/blog'>
-								Read blog
+							<Link href='/routes/projects'>
+								See my projects
 							</Link>
 						</Button>
 						<Button
 							asChild={true}
 							variant="outline"
 							size="lg"
-							id='aboutme_button'
-							data-umami-event="landing-see-bio"
+							id='libraries_button'
+							data-umami-event="landing-see-libraries"
 							className={cn(
 								"w-full sm:w-auto border-2 border-primary-400/50",
 								"bg-black/30 backdrop-blur-sm text-white",
@@ -146,8 +144,8 @@ const Landing = () => {
 								"transition-all duration-300 hover:scale-105"
 							)}
 						>
-							<Link href='/routes/aboutme'>
-								See my bio
+							<Link href='/routes/libaries'>
+								Libraries
 							</Link>
 						</Button>
 					</motion.div>
@@ -219,25 +217,10 @@ const Landing = () => {
 						</button>
 					</motion.div>
 
-					{/* Featured Project teaser with visual preview */}
-					<motion.div variants={itemVariants} className='mt-8 sm:mt-10 md:mt-12 w-full'>
-						<FeaturedProjectTeaser
-							label='Featured project'
-							title='Voyage Vault – interactive travel scratch map'
-							description={`Create a personalized scratch map of countries you've visited, track your journeys and share them with friends – all in the browser.`}
-							primaryHref='/routes/projects'
-							primaryText='View projects'
-							primaryInternal
-							secondaryHref='https://scratch-travel.vercel.app/'
-							secondaryText='Open Voyage Vault'
-							showPreview
-							previewImage='https://res.cloudinary.com/dr1sm5gnj/image/upload/v1768492935/scratchTravel/pexels-miroalt-176400_fc5g7h.jpg'
-							previewAlt='Voyage Vault preview'
-						/>
-					</motion.div>
 				</motion.div>
 			</div>
 			<AnchorLinkComponent/>
+			<LandingProjects />
 			<FeaturedPosts />
 			<NewsLetter />
 		</div>

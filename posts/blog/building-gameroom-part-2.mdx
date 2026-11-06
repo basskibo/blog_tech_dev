@@ -1,0 +1,149 @@
+---
+title: "Building Gameroom, Part 2: Making Three.js Run on a Budget Phone"
+publishedAt: "2026-11-06"
+excerpt: "Draw calls, an adaptive quality ladder, a LITE mode for weak GPUs, Playwright tests driven by debug hooks and a one-command Google Play release. What it took to get Sawmill Tycoon playable on a Redmi 12C."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+featuredImage: "https://gameroom.jageticbojan.com/og.jpg"
+imageCreditUser: "Bojan Jagetic"
+imageCreditUsername: "basskibo"
+author: "Bojan Jagetic"
+tags: [{ slug: "nextjs", name: "nextjs" }, { slug: "project", name: "project" }]
+project: "gameroom"
+series: "gameroom"
+seriesTitle: "Building Gameroom"
+seriesPart: 2
+inPreparation: false
+---
+
+## Introduction
+
+In [part 1](/post/building-gameroom-part-1) I described how Gameroom works: eight browser games, plain HTML, Three.js through an import map and a small `shared/` folder. This part is about what happened when the biggest game, **Sawmill Tycoon** (Pilana Tajkun in Serbian), had to run well on a real, cheap Android phone.
+
+Sawmill Tycoon is a 3D idle tycoon. Lumberjacks cut trees, forklifts move logs, saws cut boards, trucks and customers drive around, there is a day/night cycle, bloom, shadows. On my laptop it looked great. On a phone, not so much.
+
+## Measure first
+
+The first rule I wrote into the project docs was: **measure before changing anything, and always measure the same scene**. Headless Chrome with SwiftShader gives you fake FPS, so there are two different tools:
+
+- a benchmark that runs headed Chrome on the real GPU and records average FPS, 1% low and frames over 50 ms
+- an audit script that counts `drawElements` / `drawArrays` calls per frame, which does not depend on the GPU, so it works in tests too
+
+Every game has a quality bar written down: 60 FPS average on a desktop iGPU and at least 50 on a mid-range phone, 1% low at least 30 on the phone, under 300 draw calls on the phone, under 5 MB downloaded before you can play. Having actual numbers to hit made a huge difference, because "it feels slow" is not something you can fix.
+
+## Draw calls were the real problem
+
+Sawmill Tycoon was built from a lot of small meshes. Every `new THREE.Mesh` is at least one draw call, plus another one in the shadow pass. The first audit showed about **644 draw calls at the start and 2,096 in the late game**.
+
+The fix lives in `shared/gameroom-three.js` and is called `bakeStatic`. It walks a group, finds meshes that never move relative to it, and merges them into one mesh per material:
+
+```js
+export function bakeStatic(root, keep, opts = {}) {
+  root.updateMatrixWorld(true);
+  bakeInv.copy(root.matrixWorld).invert();
+  const buckets = new Map();
+  root.traverse(o => {
+    if (o === root || !o.isMesh || o.isInstancedMesh || o.isSkinnedMesh) return;
+    for (let p = o; p && p !== root; p = p.parent) if (!p.visible || keep?.has(p)) return;
+    const key = `${o.material.uuid}|${o.castShadow}|${o.receiveShadow}|${o.renderOrder}`;
+    (buckets.get(key) ?? buckets.set(key, []).get(key)).push(o);
+  });
+  for (const list of buckets.values()) {
+    if (list.length < 2) continue;
+    const geos = list.map(o => floatGeo(o.geometry)
+      .applyMatrix4(bakeM.multiplyMatrices(bakeInv, o.matrixWorld)));
+    const m = new THREE.Mesh(mergeGeometries(geos, false), list[0].material);
+    root.add(m);
+    for (const o of list) o.removeFromParent();
+  }
+}
+```
+
+(Condensed, the real one also handles quantized GLB attributes and stops tiny parts from casting shadows.) The `keep` set is important: anything the game still animates, moves or toggles stays a separate object. A building made of 40 little parts becomes 3 to 5 meshes. Repeated things like fence posts, pallets and logs went to `InstancedMesh`.
+
+After that pass the same camera shot went from 644 to about 240 draw calls early, and from 2,096 to 835 late, and the late game with the camera zoomed out went from around 40 to around 59 FPS on desktop.
+
+## An adaptive quality ladder
+
+Next was resolution. `createQuality` in the same file gives every game an Auto / High / Low setting. In Auto it watches a smoothed frame time and steps the pixel ratio down a rung when frames keep running long, and climbs back when they are short again:
+
+```js
+q.tick = (ms) => {
+  if (q.mode !== 'auto' || ms > 250) return; // a long gap is a tab switch, not the GPU
+  q.avg += (Math.min(ms, 100) - q.avg) * 0.05;
+  q.slow = q.avg > 22 ? q.slow + ms / 1000 : 0;
+  q.fast = q.avg < 17.6 ? q.fast + ms / 1000 : 0;
+  if (q.slow > 2 && q.step < steps.length - 1) { q.step++; q.apply(); }
+  else if (q.fast > 8 && q.hold <= 0 && q.step > 0) { q.step--; q.apply(); }
+};
+```
+
+A game can pass its own `ladder`, so Sawmill Tycoon drops effects (bloom, shadows) before it touches sharpness, and an `onFloor` callback fires when even the lowest rung is still too slow.
+
+## The Redmi 12C reality check
+
+Then I tested on a real phone: a Redmi 12C with a Mali-G52 GPU and Android 14, running a debug build of the app. Early game on Auto: **20.7 FPS**. Late game with the camera far away: **14.5 FPS**. The Auto ladder had pushed the resolution down to 270×600 and it was still slow.
+
+So I ran a few experiments directly on the phone:
+
+- an empty scene ran at 52 FPS, so game logic and UI were not the problem
+- removing 73,000 or 86,000 triangles changed almost nothing
+- replacing every material with the simplest `MeshBasicMaterial` jumped to **35 FPS**
+
+The conclusion was clear: on this GPU, **material shading** was the cost, not geometry, not JavaScript.
+
+### LITE mode
+
+That became LITE mode. Weak GPUs get Lambert materials instead of PBR, no environment reflections, no bloom, no sun shadows, and a sharp 1x picture:
+
+```js
+const LITE = !qs.has('nolite') && (qs.has('lite') || wantsLite(storedGet(GFX_KEY)));
+class LiteMat extends THREE.MeshLambertMaterial { /* ... */ }
+const StdMat = LITE ? LiteMat : THREE.MeshStandardMaterial;
+renderer.setPixelRatio(LITE ? 1 : Math.min(devicePixelRatio || 1, 1.5));
+renderer.shadowMap.enabled = !LITE;
+```
+
+It turns on when you pick Low, when Auto sees a GPU from a known weak list, or when Auto hit the bottom of the ladder on the previous launch and was still slow (that is the `onFloor` callback saving a flag). Materials are chosen before the scene is built, because swapping them later would recompile every shader in the middle of play.
+
+Same phone, same scenes, after LITE: early game 20.7 to **34.5 FPS**, late game close up 19.2 to **30.4**, late game far 14.5 to **22.7**, and memory dropped from 515/579 MB to 373/463 MB, while the picture actually got sharper (360×825 instead of 270×600).
+
+One dead end worth mentioning: I tried capping the game at 30 FPS, thinking a stable 30 beats a wobbly 33. It was worse (25.8 FPS and a lower 1% low), because a frame that is slightly late waits for the next screen refresh. So there is no cap.
+
+## Tests that drive the real game
+
+All games have Playwright end-to-end tests that open the real game in Chrome and control it through debug hooks on `window`. Sawmill Tycoon has hooks like `__cheat`, `__run` and `__step`, so a test can give itself money, fast-forward the simulation and assert on state instead of clicking around for minutes. Before the Play release those hooks were locked so they only exist with `?debug` or `?sim`.
+
+A rule I like: every S1 bug gets a regression test that **fails on the old code**. And when the save format moved to v3 with step-by-step migration, the tests load real saves from three old builds (exported with `git archive`) and check that money and levels survive.
+
+The same simulation hooks turned into a balancing tool. Instead of guessing, I ran 300 seconds of game time at 25/50/75/100% of upgrades and measured how long trucks wait for forklifts, how often saws run out of logs and earnings per minute. Some results from the project ledger:
+
+- trucks overlapping each other: 201 frames to 0
+- time a parked truck waits for a forklift: roughly 24 to 30% down to 13 to 24% after forklifts fetch a load ahead
+- saws without logs at the end of the game: 16% to 0 after lumberjacks carry 2, then 3 logs per trip
+
+## Shipping to Google Play
+
+Since the games are plain files, the Android app is just a Capacitor wrapper. A `pack.mjs` script copies `games/<slug>/` and `shared/` into `www/`, and the SDK automatically switches to the AdMob adapter inside the app, so the game itself knows nothing about AdMob.
+
+Releasing is one command:
+
+```bash
+node mobile/release.mjs                      # menu: pick a game
+node mobile/release.mjs cargo-hub minor      # bump patch/minor/major
+node mobile/release.mjs cargo-hub --upload   # build + upload to the internal track
+```
+
+It builds a signed `.aab` and `.apk` with an auto-bumped version and can upload through the Google Play Developer API. There is also a manual GitHub Actions workflow that does the same thing in CI, and every game card on the landing page has an Android download button.
+
+## Docs as part of the code
+
+Last thing, and maybe the most useful one. With files this big, a lot of the work was done together with AI agents (Claude Code and Cursor), so the repo has an `AGENTS.md`, engineering docs (quality bar, Three.js performance techniques, testing) and per-game docs: a tracker, bugs with S1 to S4 severity, tech debt, improvements and a **ledger** with before and after numbers for every change. All the numbers in this post come straight from those files. Writing things down that way kept me honest, because a change without a measurement simply did not go into the ledger.
+
+## Conclusion
+
+Gameroom showed me that "plain HTML and no build step" scales further than I expected, as long as you put the discipline somewhere else: shared code instead of copy paste, real measurements instead of feelings, and tests that drive the actual game. The biggest lesson from the Redmi phone was not a clever trick, it was running the boring experiment of swapping all the materials and letting the numbers tell me what to fix.
+
+You can play all the games at [gameroom.jageticbojan.com](https://gameroom.jageticbojan.com/).
+
+🍻🍻 Happy coding!

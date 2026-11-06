@@ -16,9 +16,9 @@ import {
 
 const navigation = [
 	{ name: 'Home', href: '/' },
+	{ name: 'Projects', href: '/routes/projects' },
+	{ name: 'Libraries', href: '/routes/libaries' },
 	{ name: 'Blog', href: '/routes/blog' },
-	{ name: 'My Projects', href: '/routes/projects' },
-	{ name: 'Libary', href: '/routes/libaries' },
 	{ name: 'About', href: '/routes/aboutme' }
 ]
 

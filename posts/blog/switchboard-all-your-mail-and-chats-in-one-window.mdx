@@ -1,0 +1,163 @@
+---
+title: "Switchboard: All My Mail and Chats in One Window"
+publishedAt: "2026-11-06"
+excerpt: "How I built a small Electron app that keeps Gmail, Slack, Teams, WhatsApp and friends in one window, with real notifications, sleeping tabs, a calendar and LAN sync with a 6-digit pairing code."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1673448129/igutech/blogs/dayne-topkin-Sk-C-om9Jz8-unsplash_cb6hhc.jpg"
+imageCreditUser: "Dayne Topkin"
+imageCreditUsername: "dtopkin1"
+author: "Bojan Jagetic"
+tags: [{ slug: "javascript", name: "javascript" }, { slug: "project", name: "project" }]
+project: "switchboard"
+inPreparation: false
+---
+
+## Introduction
+
+My browser had become a messaging app. Two Gmail accounts, Slack, Teams, WhatsApp, Telegram, a calendar, and somewhere between them the tabs I actually opened the browser for. Notifications came from everywhere or from nowhere, depending on which tab Chrome had decided to put to sleep.
+
+There are apps for this (Ferdium is the one I knew best), but I wanted something small that I fully understand, tuned to how I work on Linux. So I built **Switchboard**:
+
+```json
+"description": "All your mail and chats in one window"
+```
+
+It is an Electron app (Electron 45) with exactly one runtime dependency, `ical.js`, for the calendar. Everything else is Node built-ins. In this post I'll go through the decisions that turned out to matter.
+
+## The shape of the app
+
+The window has a narrow rail on the left (76 px) with your services, and the active service fills the rest. Each service is a `WebContentsView` that loads the real web app: Gmail, Slack, Teams, WhatsApp Web and so on. There is a home screen with a feed of recent notifications, an "add" screen with presets, and screens for the calendar and sync.
+
+`lib.js` has more than 50 presets, grouped into Mail, Chat, Work, Development, Analytics and AI: Gmail, Outlook, Proton Mail, Slack, Teams, WhatsApp, Telegram, Discord, GitHub, Linear, Notion, Claude, ChatGPT and more. Any other https address works too.
+
+Services can be put into groups (Work and Personal by default), reordered, muted, and switched with `Ctrl+1` to `Ctrl+9`. `Ctrl+Shift+R` reloads the current one.
+
+## One session per service
+
+The first real decision: every service gets its own persistent partition.
+
+```js
+const partition = `persist:${cfg.id}`; // own cookies per service, so several Gmail accounts stay logged in side by side
+const view = new WebContentsView({
+  webPreferences: { partition, preload: path.join(__dirname, 'service-preload.js'), backgroundThrottling: false },
+});
+```
+
+That is the whole trick behind "two Gmail accounts side by side". Each one has its own cookies, so there is no account switching. To tell them apart on the rail, Switchboard reads the account address from the Gmail title (titles end with "... - address - Gmail") and gives each account a colour.
+
+Links are the other half. Logins (Google, Microsoft, Apple, GitHub's login pages) and links on the service's own host stay in the app, because they need its cookies. Everything else goes to the real browser:
+
+```js
+function staysInApp(url, serviceUrl) {
+  if (url === 'about:blank') return true;
+  const { hostname, pathname } = new URL(url);
+  if (hostname === 'github.com' && /^\/(login|sessions)(\/|$)/.test(pathname)) return true;
+  return AUTH_HOSTS.has(hostname) || hostname === new URL(serviceUrl).hostname;
+}
+```
+
+### Sites don't like Electron
+
+Two small fixes made logins work. Many sites block user agents that advertise Electron, so the app strips it from the default:
+
+```js
+app.userAgentFallback = app.userAgentFallback.replace(/ (Electron|switchboard)\/\S+/gi, '');
+```
+
+And Google refuses sign-in from embedded browsers it can fingerprint, so only on `accounts.google.com` the Chrome version is removed from the user agent. That is the same workaround Ferdium uses. It is only changed after navigation, because changing it mid-navigation cancels the redirects.
+
+## Notifications that actually work
+
+This was the main reason I built the app, so it got the most care.
+
+Each service page runs a preload script that replaces `window.Notification` (and the service worker's `showNotification`) with its own class. Every notification goes to the main process, which shows a native one, adds it to the home feed, and on click brings up the right service and then calls the page's own click handler, so you land in the right chat.
+
+But not every site calls `Notification`. Gmail's is off by default. So there is a backstop: the unread count from the page title.
+
+```js
+function parseUnread(title, url) {
+  const leading = /^\((\d{1,4})\+?\)/.exec(title);
+  if (leading) return Number(leading[1]);
+  const site = presetFor(url)?.id;
+  if (site === 'gmail') return Number(/^[^()]*\((\d{1,4})\+?\) - /.exec(title)?.[1] ?? 0);
+  return site === 'slack' && title.startsWith('!') ? 1 : 0;
+}
+```
+
+Teams, WhatsApp and Discord lead with "(3) ...". Gmail has "Inbox (3) - ...", and Slack's "!" means a mention. If the count rises and the page didn't send a real notification within a few seconds, Switchboard shows "Unread: N" itself. A 30-second quiet period after each load stops the flood of "new" mail that was already unread.
+
+<HighlightBox>
+Closing the window hides it to the tray instead of quitting, because a closed window means no notifications. The tray icon switches to an "unread" version, and the app holds a single-instance lock so a second launch just brings the window back.
+</HighlightBox>
+
+## Sleeping services
+
+Every loaded web app costs memory. A comment in `main.js` says a site's page is about 85% of what the app costs, so the one real saving is not keeping a page loaded.
+
+A service can be set to **sleep**. Once a minute the app checks, and a sleeping service that hasn't been looked at for 15 minutes is unloaded to `about:blank`. Clicking it loads it again. A page with an unsaved draft can refuse to unload, and then it simply stays open and gets retried on the next check.
+
+## Saved logins
+
+Some webmail (cPanel, Roundcube) keeps you logged in with session cookies, which disappear when the app quits. An app like this quits far more often than a browser, so those cookies get a real 30-day expiry. A server-side logout still removes them.
+
+For passwords, Switchboard has a small credential store. The preload looks for a login form (exactly one visible password field, because sign-up forms have two), and only asks to save once the form is gone, so a mistyped password is never offered. Passwords are encrypted with Electron's `safeStorage`, which uses the system keyring. If the keyring backend is `basic_text`, Chromium's fallback with a hardcoded key, saving is turned off, because that is effectively plaintext.
+
+## The calendar
+
+The calendar screen merges calendars from two sources:
+
+- an **iCal address** (the secret address a calendar gives you)
+- a **Google account already signed in** inside Switchboard
+
+The second one is my favourite. It fetches Google's calendar export zip through that account's own session, so there is no secret address that could leak. The zip has one `.ics` per calendar, and `calendar.js` reads it with a tiny zip reader built on `node:zlib`. Recurring events are expanded with `ical.js`, capped at 20,000 iterations so a never-ending event can't hang the app.
+
+A big calendar takes seconds to parse, which would freeze the window and notifications if it ran in the main process. So it runs in a worker thread:
+
+```js
+const { parentPort, workerData } = require('node:worker_threads');
+const { parseIcs, parseIcsZip } = require('./calendar');
+
+const { text, zip, fromMs, toMs } = workerData;
+parentPort.postMessage(zip ? parseIcsZip(Buffer.from(zip), fromMs, toMs) : parseIcs(text, fromMs, toMs));
+```
+
+Events stay in memory only, and a network hiccup keeps the old events instead of emptying the calendar.
+
+## Sync over the LAN with a 6-digit code
+
+I use Switchboard on more than one computer, so the setup (services, groups, calendars, saved logins) needs to follow me. The first version synced through a shared folder. The latest big commit replaced that with direct sync between paired computers: no folder and no server.
+
+The flow:
+
+1. One computer shows a 6-digit code.
+2. The other types it in.
+3. The code pairs them through **SPAKE2**, so the code can't be guessed offline from what crosses the network.
+4. After that they share a random 32-byte group key.
+
+SPAKE2 is implemented in `lan.js` with `BigInt` in the 2048-bit MODP group. Each side blinds its share with a constant derived from the code, and only the right code unblinds the other side's:
+
+```js
+function spakeStart(role, code) {
+  const secret = randomScalar();
+  const w = codeScalar(code);
+  const share = (modPow(2n, secret, P) * modPow(role === 'host' ? M : N, w, P)) % P;
+  return { secret, w, share: toHex(share) };
+}
+```
+
+A code lives for 10 minutes and allows 3 tries, so one guess per attempt, 3 in a million.
+
+After pairing, computers find each other with UDP broadcast and transfer over TCP. Every 30 seconds each one says hello. The whole setup is sealed with AES-256-GCM under the group key, so a wrong key or any tampering fails to decrypt. The receiving side still checks the shape of everything (ids, URLs, https-only login origins) because service ids become session names and URLs get loaded. The last change wins, and a computer that just joined only takes data, so a fresh install can't push an empty list over your real one.
+
+## Installing on Ubuntu
+
+`install.sh` installs dependencies, adds a launcher entry, and on Ubuntu 24.04+ adds the AppArmor profile Electron's sandbox needs. The script says it plainly: don't replace this with `--no-sandbox`, the app loads remote sites. The app also calls `app.enableSandbox()`.
+
+## Testing without Electron
+
+Everything that can be pure lives outside `main.js`: `lib.js`, `sync.js`, `lan.js`, `calendar.js` and `credentials.js`. Each has a `.test.js` next to it and runs with plain `node --test`. The credential store takes `encrypt` and `decrypt` as functions, so tests don't need a keyring.
+
+## Wrapping up
+
+Switchboard is a small app with a lot of tiny decisions in it: a partition per service, a title-based unread backstop, sleeping pages, a calendar that reads through your own login, and LAN sync that pairs with a short code but doesn't trust it more than it should. It replaced a pile of browser tabs for me, and because it is just a few files, I can fix it myself whenever some web app changes its title format again.

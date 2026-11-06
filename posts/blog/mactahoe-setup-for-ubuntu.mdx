@@ -1,0 +1,113 @@
+---
+title: "A macOS Tahoe Look on Ubuntu in One Command"
+publishedAt: "2026-11-06"
+excerpt: "A small script that installs vinceliuice's MacTahoe theme on Ubuntu, layers my own tweaks on top and adds Dynamic Island, so a fresh machine looks like macOS Tahoe in one go."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1671038241/igutech/blogs/benjamin-lehman-GNyjCePVRs8-unsplash_ukdos5.jpg"
+imageCreditUser: "Tobias Fischer"
+imageCreditUsername: "tofi"
+author: "Bojan Jagetic"
+tags: [{ slug: "linux", name: "linux" }, { slug: "project", name: "project" }]
+project: "mactahoe-setup"
+inPreparation: false
+---
+
+## Introduction
+
+I like the look of macOS Tahoe, but I work on Ubuntu (GNOME 46, Wayland). Getting a convincing macOS look on GNOME is absolutely possible, but every time I set up a new machine it was the same half hour of cloning themes, running installers with the right flags, fixing CSS, and clicking through settings.
+
+So I put all of it into one script: **MacTahoe setup**.
+
+<GithubCardRepo>basskibo/ubuntu_mactahoe_theme</GithubCardRepo>
+
+## Credit where it is due
+
+The heavy lifting here is **not mine**. The theme itself is [MacTahoe](https://github.com/vinceliuice/MacTahoe-gtk-theme) by **vinceliuice**, together with his MacTahoe icon theme. He did the GTK, GNOME Shell, icons, Firefox theme and wallpapers. If you like how this looks, go star his repos.
+
+What my repo adds is the glue: an installer that pulls his themes and runs them with the variants I want, a couple of CSS override files for the things I wanted closer to Tahoe, the settings, blur configuration, and my own [Dynamic Island](https://extensions.gnome.org/extension/11268/dynamic-island/) extension.
+
+## What gets installed
+
+- **Theme**: MacTahoe Dark, opaque for GTK3 apps and translucent (with blur) for GNOME / GTK4 apps.
+- **Top bar**: MacTahoe Dark with the Apple logo at 45% opacity.
+- **Icons**: MacTahoe dark.
+- **Firefox**: the MacTahoe theme, only if Firefox is closed.
+- **Font**: Inter Variable with grayscale antialiasing, like macOS.
+- **Windows**: buttons on the left (close, minimize, maximize).
+- **Wallpapers**: MacTahoe day and night, added to the picker but not applied.
+- **Blur**: translucent sidebars in Files, Settings and a few other apps, a lighter dock, a sharper lock screen wallpaper.
+- **Dynamic Island** from extensions.gnome.org.
+- **Login screen**: MacTahoe, via a separate `gdm.sh` script because it needs sudo.
+
+## How the installer works
+
+The script clones (or updates) vinceliuice's repos into a temp folder and runs his installer **twice**, with two different variants:
+
+```bash
+# Opaque variant for GTK3 apps (window blur only works for the whitelisted GTK4 apps)
+./install.sh -c dark -o solid --round < /dev/null
+# Translucent variant for the shell and libadwaita apps, with the Apple logo and a 45% panel
+./install.sh -c dark -o normal -l --round --shell -i apple -p 45 < /dev/null
+```
+
+Why two? Blur only works for a handful of GTK4 apps through Blur my Shell. A translucent theme on a GTK3 app without blur just looks like a broken, see-through window. So GTK3 apps get the solid variant and the shell plus libadwaita apps get the translucent one.
+
+The `< /dev/null` is there so the upstream installer never sits waiting for input, and I also export `TERM` because its progress animation fails without it.
+
+### My overrides
+
+After the themes are installed, two files from my repo get **appended** to the theme files:
+
+- `gtk4-overrides.css` for Files and other GTK4 apps: flat toolbar buttons instead of glassy rims.
+- `shell-overrides.css` for the top bar, quick settings and lock screen.
+
+For example, the lock screen gets a big bold clock like Tahoe:
+
+```css
+.unlock-dialog-clock-time {
+  font-size: 96pt;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+}
+```
+
+And quick settings get a solid frosted-dark surface and smaller tiles, closer to the macOS Control Center. Menus have no blur behind them, so a translucent menu was simply unreadable.
+
+Because the overrides are appended on every run, and every run reinstalls the theme first, re-running the script is **safe**. The rule is: edit my override files and re-run, never edit files in `~/.themes` directly.
+
+### Blur, settings and Dynamic Island
+
+If Blur my Shell is installed, the script configures it through its own schema directory. Application blur is limited to a whitelist (Nautilus, Settings, Text Editor, Extensions, Calculator, Software), with opacity 255 so only the translucent sidebars show the blur and the rest of the window stays solid. The lock screen blur is turned down so the wallpaper looks almost sharp, like on Tahoe.
+
+For Dynamic Island I did not want to bundle a copy of the extension. Instead the script asks GNOME Shell itself to install it from extensions.gnome.org over D-Bus:
+
+```bash
+gdbus call --session --timeout 300 --dest org.gnome.Shell.Extensions \
+    --object-path /org/gnome/Shell/Extensions \
+    --method org.gnome.Shell.Extensions.InstallRemoteExtension dynamic-island@bjagetic
+```
+
+GNOME shows its usual confirmation dialog, downloads the version that matches your GNOME release and enables it, without a re-login.
+
+## The login screen, carefully
+
+Theming GDM means replacing Ubuntu's `gnome-shell-theme.gresource` as root. Get it wrong and you have no login screen. So `gdm.sh` is paranoid:
+
+- If the upstream installer fails, it **restores the original** right away.
+- After installing, it checks that the new gresource contains one of the stylesheets Ubuntu's login screen loads. If they are missing, it reverts.
+- `gdm.sh revert` reinstalls the `yaru-theme-gnome-shell` package instead of trusting a backup file, because a `.bak` can be stale after a Yaru update.
+
+I also hit a quirk in the upstream argument parser: the GDM sub-options have to come directly after `-g`, so the script runs `tweaks.sh -g -i apple` in exactly that order.
+
+## Known limitations
+
+- Apple's SF Pro may only be used on Apple devices, so Inter stands in for it.
+- When Ubuntu updates `yaru-theme-gnome-shell`, the login screen goes back to the Ubuntu look. Re-run `gdm.sh`.
+- MacTahoe's "blur" variant makes menus almost fully transparent, because Blur my Shell cannot blur popup menus, so I do not use it.
+- On the lock screen the date sits below the clock, while macOS has it above. A theme cannot change that.
+
+## Conclusion
+
+This repo is small, and that is the point. vinceliuice's MacTahoe does the real design work; my part is making it reproducible: one script, a few overrides, sensible blur settings, a careful login screen installer and Dynamic Island on top. Now a new Ubuntu machine goes from stock to Tahoe-ish with a single command and a log out.

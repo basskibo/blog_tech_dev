@@ -1,0 +1,148 @@
+---
+title: "Captain Cook: An AI Cook That Starts From What's Already in Your Fridge"
+publishedAt: "2026-11-06"
+excerpt: "A Next.js 16 app where you mark what you have in the kitchen (or just photograph the fridge) and get three streamed recipes, a hands-free cooking mode and timers that come straight out of the recipe text."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1672243509/igutech/blogs/andrew-neel-9moikpaufvg-unsplash_bqyfdg.jpg"
+imageCreditUser: "Andrew Neel"
+imageCreditUsername: "andrewtneel"
+author: "Bojan Jagetic"
+tags: [{ slug: "nextjs", name: "nextjs" }, { slug: "project", name: "project" }]
+project: "captain-cook"
+inPreparation: false
+---
+
+## Introduction
+
+"What are we cooking today?" is a question that gets asked way too often in our house, and the answer usually depends on what is left in the fridge. Recipe sites go the other way around: they give you a recipe and then you notice you are missing half of it.
+
+So I built **Captain Cook**, a personal AI cook in your pocket. You mark what you have in the kitchen, and it suggests three dishes with step-by-step recipes. You can try it at [captain-cook.vercel.app](https://captain-cook.vercel.app) and the code is public:
+
+<GithubCardRepo>basskibo/Captain-Cook</GithubCardRepo>
+
+The stack is Next.js 16, React 19, Tailwind CSS 4 and Motion, with Gemini (or Claude Haiku) as the AI, Upstash Redis for accounts and sync, and everything deployed on Vercel. The UI is in Serbian, because the first users are my family and friends.
+
+## What it does
+
+The short version:
+
+- **Pantry** - around 80 predefined ingredients in 7 categories, plus your own
+- **Scan your fridge** - take a photo and Gemini vision recognizes the ingredients
+- **Voice input** - say "I have two eggs, some cheese and an onion" and they get checked
+- **My taste** - a permanent profile with diet, allergies (never in a recipe), dislikes, spice level, cuisines and equipment like an airfryer
+- **Streaming recipes** - recipes appear one by one, as soon as the AI finishes each of them
+- **Cooking mode** - full screen, step by step, screen stays awake, durations in the text become timers
+- **Shopping list**, **ask the chef** chat inside a recipe, servings scaling, offline support and sync between devices
+
+Most of it was built in one long day on October 9th, and then accounts, desktop layout and password reset came a few days later. Let me go through the parts that were actually interesting to build.
+
+## One AI layer, three providers
+
+I did not want the app to depend on one provider, mostly because the free Gemini tier likes to return `503 high demand` or `429` at the worst possible moment. So there is a small provider layer in `lib/ai/provider.ts` that exposes one function, `streamText`, and three implementations behind it: Gemini, Anthropic and a **mock**.
+
+```ts
+export function streamText(req: TextRequest): AsyncGenerator<string> {
+  const p = provider();
+  if (p === "mock") return streamMock(req);
+  return p === "gemini" ? streamGemini(req) : streamAnthropic(req);
+}
+```
+
+Both real providers are called with plain `fetch` and server-sent events, no SDK. The Gemini one has a little fallback logic that I am quite happy with:
+
+```ts
+for (const model of models) { // main model, then a lighter fallback
+  let thinking = true;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const res = await fetch(`.../models/${model}:streamGenerateContent?alt=sse`, { /* ... */ });
+    if (res.ok) { /* yield text parts, skip "thought" parts */ return; }
+    if (res.status === 400 && thinking) { thinking = false; continue; } // model has no thinkingConfig
+    if ((res.status === 500 || res.status === 504) && attempt === 0) { await sleep(800); continue; }
+    break; // 503, 429, 404 -> next model right away
+  }
+}
+```
+
+Thinking level is set to low by default, because for recipes a lot of "thinking" only means a slower answer. And the mock provider returns fake recipes chunk by chunk with a small delay, so I could work on the whole UI without an API key and without burning quota. Setting `AI_PROVIDER=mock` is honestly one of the best decisions in the project.
+
+## Streaming recipes one by one
+
+The first version waited for the whole response, and three full recipes take a while. Now the first recipe shows up in about two seconds and the others follow.
+
+The trick is that the model returns one big JSON (`{"recipes": [...]}`), but I do not want to wait for it to close. So there is a tiny `ObjectExtractor` that walks the incoming text character by character, tracks whether it is inside a string, and keeps a stack of positions where a `{` started. Every time a `}` closes an object, it tries to parse that slice:
+
+```ts
+push(chunk: string): unknown[] {
+  this.buf += chunk;
+  const out: unknown[] = [];
+  for (; this.pos < this.buf.length; this.pos++) {
+    const c = this.buf[this.pos];
+    if (this.inString) { /* handle escapes and the closing quote */ continue; }
+    if (c === '"') this.inString = true;
+    else if (c === "{") this.starts.push(this.pos);
+    else if (c === "}") {
+      const start = this.starts.pop();
+      if (start === undefined) continue;
+      try { out.push(JSON.parse(this.buf.slice(start, this.pos + 1))); } catch {}
+    }
+  }
+  return out;
+}
+```
+
+Nested objects (like ingredients) get parsed too, so I just check if the object looks like a recipe (has `name`, `steps` and `ingredients`) and validate it with zod before sending it on. Each recipe also gets a real photo from Pexels: the AI gives an English dish name just for the image search, and if there is no key, an emoji is shown instead.
+
+The API route sends the result as **NDJSON**, one JSON event per line:
+
+```ts
+const send = (event: object) => controller.enqueue(encoder.encode(JSON.stringify(event) + "\n"));
+for await (const recipe of streamRecipes(parsed.data)) send({ type: "recipe", recipe });
+send({ type: "done" });
+```
+
+On the client, `readNdjson` reads the response body line by line as an async generator, and every recipe card shows up as soon as it arrives. While waiting, your own ingredients jump out of a pan over a flame, which is the most fun piece of UI in the app.
+
+## Scanning the fridge
+
+Fridge scanning goes through the same provider layer, but with an image part. Before upload, the photo is resized in the browser to max 1280px and JPEG quality 0.8 with a canvas, because phone photos are huge and there is no reason to send all of that.
+
+On the server, the prompt includes the list of known ingredients and asks the model to reuse **exactly** those names when it sees them, and to list only what it clearly sees. Temperature is 0.2 here, I want boring and precise, not creative. Then the answer is matched against the known list with a normalized comparison (lowercase, no diacritics, `đ` to `dj`), so "Crni luk" from the model checks the right box, and anything unknown comes back as a new ingredient you can add.
+
+Voice input reuses the same endpoint with text instead of an image. The Web Speech API is set to `sr-RS`, and the AI handles the hard part, which is Serbian grammar cases. "Imam dva jajeta" has to become "Jaja", and that is much easier for a model than for a regex.
+
+## Cooking mode and timers from text
+
+Cooking mode is full screen, you swipe between steps and the Wake Lock API keeps the screen on. The nice part is timers. Recipes say things like "kuvaj 10-12 minuta" (cook for 10 to 12 minutes) or "pola sata" (half an hour), so `findDurations` pulls those out of each step:
+
+```ts
+const re = /(\d+(?:[.,]\d+)?)(?:\s*(?:-|–|do)\s*(\d+(?:[.,]\d+)?))?\s*(sat[ai]?|h\b|minut[aei]?|min\b|sekund[aei]?|sek\b|s\b)/g;
+for (const m of t.matchAll(re)) {
+  const a = parseFloat(m[1].replace(",", "."));
+  const factor = m[3].startsWith("sat") || m[3] === "h" ? 60 : m[3].startsWith("s") ? 1 / 60 : 1;
+  const minutes = a * factor; // lower bound, better to check early
+  // ...
+}
+```
+
+Each found duration becomes a button. Timers live in a small global store read with `useSyncExternalStore`, so they keep running even when you close cooking mode, and when they finish you get a beep generated with the Web Audio API, vibration and a notification if the tab is hidden.
+
+There is also a "on the phone" button that starts the **system timer**, which works even when the screen is locked. On Android that is an intent URL. On iPhone Safari can not start a Clock timer, so it goes through a Shortcut called "Captain Tajmer" that you create once, and the app opens `shortcuts://run-shortcut` with the number of seconds.
+
+## Scaling servings without the AI
+
+Changing the number of servings does not call the AI again. `scaleAmount` finds numbers in strings like "200 g", "1/2" or "½", multiplies them, and formats them back in a human way: grams get rounded to nice steps of 5 or 10, and leftovers become ¼, ⅓, ½, ⅔ or ¾ instead of 0.333. "1 ½ cup" times 1.5 should not become "2.25 cup".
+
+## Accounts, limits and sync
+
+The first version used a simple PIN to protect the AI endpoints. On October 12th that became real accounts: email and password hashed with scrypt, a signed httpOnly cookie, password reset through Resend. Login locks for 15 minutes after 10 wrong passwords, there are at most 5 new accounts per hour per IP, and every account has a daily AI limit (30 calls by default) that resets at midnight Belgrade time.
+
+Guests can still pick ingredients and keep a shopping list locally. Logged in users get their pantry, saved recipes, list and taste profile synced through Upstash Redis, where the newer change wins and whatever a guest did before logging in gets merged into the account. Add a service worker on top and saved recipes, the shopping list and timers work offline too.
+
+## Conclusion
+
+Captain Cook is one of those projects that I actually use. The most valuable lessons were not about AI at all: a mock provider made UI work fast and free, streaming made the app feel twice as fast without being faster, and small boring helpers like the duration regex and the servings formatter are what make it feel like a real cooking tool.
+
+Give it a try at [captain-cook.vercel.app](https://captain-cook.vercel.app) and let me know what you cooked.
+
+🍻🍻 Happy coding!

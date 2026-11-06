@@ -5,11 +5,31 @@ import matter from 'gray-matter'
 import { getLibaryFiles } from '../../services/indexv2'
 import PostListScreen from '../../components/shared/PostListScreen'
 import { libaryBio } from '@/components/config/bios'
+import type { GetStaticProps } from 'next'
 
-const Libaries = ({ libaries }) => {
+type LibaryFrontmatter = {
+	title?: string
+	slug?: string
+	excerpt?: string
+	description?: string
+	[key: string]: unknown
+}
+
+type LibaryItem = {
+	props: {
+		data: LibaryFrontmatter
+		content: string
+	}
+}
+
+type LibariesPageProps = {
+	libaries: LibaryItem[]
+}
+
+const Libaries: React.FC<LibariesPageProps> = ({ libaries }) => {
 	return (
 		<PostListScreen
-			posts={libaries}
+			posts={libaries as any}
 			type="libary"
 			titlePrefix="Created "
 			title="Libaries"
@@ -22,9 +42,9 @@ const Libaries = ({ libaries }) => {
 }
 export default Libaries
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps<LibariesPageProps> = async () => {
 	const files = getLibaryFiles()
-	const libaries = files.map((filename) => {
+	const libaries: LibaryItem[] = files.map((filename) => {
 		const markdownWithMeta = fs.readFileSync(
 			path.join('posts/libaries', filename),
 			'utf-8'
@@ -33,7 +53,7 @@ export const getStaticProps = async () => {
 		data = { ...data, slug: filename.split('.')[0] }
 		return {
 			props: {
-				data,
+				data: data as LibaryFrontmatter,
 				content
 			}
 		}
@@ -44,3 +64,5 @@ export const getStaticProps = async () => {
 		}
 	}
 }
+
+

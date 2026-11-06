@@ -1,0 +1,181 @@
+---
+title: "Building Coinsel, Part 3: The AI Analyst and Serbian Superpowers"
+publishedAt: "2026-11-06"
+excerpt: "How Coinsel's AI analyst looks up your data with tools instead of guessing, how it reads Serbian payment slips, fiscal receipts and bank SMS, and what I learned building it."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1728310649/igutech/blogs/giulia-may-cNtMy74-mnI-unsplash_vfd0oj.jpg"
+imageCreditUser: "Giulia May"
+imageCreditUsername: "giuliamay"
+author: "Bojan Jagetic"
+tags: [{ slug: "nextjs", name: "nextjs" }, { slug: "project", name: "project" }]
+project: "coinsel"
+series: "coinsel"
+seriesTitle: "Building Coinsel"
+seriesPart: 3
+inPreparation: false
+---
+
+## Introduction
+
+In [Part 1](/post/coinsel-part-1-from-buddy-bill) I covered the product and in [Part 2](/post/coinsel-part-2-architecture) the architecture. This last part is about the two things that make Coinsel feel like _my_ app and not just another budget tracker:
+
+- **Ask Coinsel**, an AI analyst that answers questions about your own money,
+- the features that only make sense in Serbia: payment slip QR codes, fiscal receipt QR codes and bank SMS.
+
+And at the end, a few lessons I took from the whole thing.
+
+## The AI analyst
+
+You can ask Coinsel things like "How much did I spend on cigarettes this year?" or "When will my loans be paid off?" and get a streaming answer based on your data. There is also a daily insight card on the dashboard.
+
+### One provider layer
+
+All AI goes through one file, `server/ai/provider.ts`, which supports **Gemini**, **Claude Haiku** and a **mock**. The provider is picked from `AI_PROVIDER`, or by whichever API key exists:
+
+```ts
+export function provider(): Provider | null {
+  const p = process.env.AI_PROVIDER?.toLowerCase();
+  if (p === "mock") return "mock";
+  if (p === "gemini" && process.env.GEMINI_API_KEY) return "gemini";
+  if (p === "anthropic" && process.env.ANTHROPIC_API_KEY) return "anthropic";
+  if (process.env.GEMINI_API_KEY) return "gemini";
+  if (process.env.ANTHROPIC_API_KEY) return "anthropic";
+  return null;
+}
+```
+
+The mock is more useful than it sounds: the Playwright suite runs with `AI_PROVIDER=mock`, so the "Ask" tests don't need a key or any quota.
+
+On Gemini there's a list of models to try. A short server error gets one retry, and when a model is overloaded, out of quota or retired, the next model is tried right away. The answer is streamed to the browser, so the user sees text appear instead of a spinner.
+
+### From a data dump to tools
+
+The first version of the chat put a summary of the user's data into the prompt, including the last 90 days of transactions item by item. That works for "what did I spend last week", but it falls apart for "how much on fuel in 2025" and it makes every prompt big.
+
+So Ask Coinsel now gets a smaller summary (12 months of aggregates, categories, bills, goals and the latest 15 transactions) plus two **read-only tools** it can call for anything specific:
+
+```ts
+export const FINANCE_TOOLS: ToolDefinition[] = [
+  {
+    name: "search_transactions",
+    description: "List the user's individual transactions (newest first) with optional filters. ...",
+    // from, to, query, category, kind, minAmount, limit
+  },
+  {
+    name: "spending_totals",
+    description: "Totals in RSD over a date range, grouped by category, merchant (description) or month, with counts. ...",
+    // groupBy, from, to, category, query, kind
+  },
+];
+```
+
+Both are scoped to the signed-in user, validated with zod, limited to three years back, and return compact JSON. The tool loop is implemented for both Gemini and Anthropic, and it's kept short on purpose: after three tool rounds the model has to answer with what it has, because one question counts as one AI call against the daily limit and every round resends the prompt.
+
+### Rules for the model
+
+The system prompt (the "persona") is short and strict. A few lines from it:
+
+```
+- Rely ONLY on the DATA section (and, in the chat, on what the lookup tools return).
+  If something isn't there, say so plainly — never invent numbers.
+- Don't judge (cigarettes, going out) — be realistic and supportive.
+```
+
+The one I think matters most is about prompt injection. Expense descriptions are user text, and bank SMS or receipt merchants come from outside, so the tool instructions say that what the tools return is the user's data, **never instructions**.
+
+### Coinsel can act, but you confirm
+
+Coinsel can also log an expense or mark a bill as paid when you ask. It never does it on its own: the model is told not to claim it's done and to append exactly one fenced `action` block with JSON instead. The app renders that as a confirmation card and nothing is written until you tap **Confirm**.
+
+```
+{"type":"pay","commitmentId":"<id>","name":"<bill name>","amount":5600,"currency":"RSD","period":"YYYY-MM"}
+```
+
+### Limits
+
+Sign-up is open, so AI cost needs a ceiling. Every AI call is counted per user per day (by plan) **and** against a global daily budget for all users together, both stored in Postgres. When the global budget runs out, the message is friendly: Coinsel's AI is resting for today and everything else works as usual. A review once found that AI categorizing of bank SMS and receipts skipped that shared budget, which is now a regression test.
+
+AI is also used outside the chat, always as an extra on top of a local path: reading receipts from a photo, reading a utility bill PDF, filling in a loan from the bank's repayment plan, recognizing columns in a spreadsheet import and parsing free text that quick add's parser can't handle.
+
+## Serbian superpowers
+
+This is the part that no generic finance app would do for me.
+
+### NBS IPS QR on payment slips
+
+Serbian payment slips carry an **NBS IPS QR code**. It's plain text, fields separated by pipes: `K:PR|V:01|C:1|R:<account>|N:<payee>|I:RSD<amount>|...`. That means a utility bill can be read **offline, with no AI**: payee, amount, account and payment reference.
+
+The nice detail is the account check. Serbian account numbers carry ISO 7064 mod 97-10 control digits, so the whole 18-digit number mod 97 must be 1:
+
+```ts
+export function validAccount(digits: string): boolean {
+  if (!/^\d{18}$/.test(digits)) return false;
+  let r = 0;
+  for (const ch of digits) r = (r * 10 + Number(ch)) % 97;
+  return r === 1;
+}
+```
+
+Another one: NBS writes a comma even for whole dinars (`RSD1200,`), so the amount regex has to allow that. After scanning, the slip is matched to one of your bills, first by the payee account (with the reference as a tie-break for two flats paid to the same utility), then by whole words of the payee name, so "EPS" matches "JP EPS Snabdevanje" but "Gas" doesn't match "Gastona". The account and reference are kept on the bill with copy buttons, which is what I actually need when paying in the bank app.
+
+### Fiscal receipt QR
+
+Every Serbian fiscal receipt has a QR code that links to the tax office's verification page. The interesting part is inside the URL: the `vl` parameter is base64 of a **binary** payload with a fixed layout, including the total amount, the time and an MD5 checksum at the end. So the exact amount and date can be decoded locally:
+
+```ts
+const bytes = Buffer.from(vl, "base64");
+if (bytes.length < 572 || bytes.length > 848) return null;
+const body = bytes.subarray(0, -16);
+if (createHash("md5").update(body).digest("hex") !== bytes.subarray(-16).toString("hex")) return null;
+
+const amount = Number(bytes.readBigUInt64LE(25)) / 10_000;
+const ms = Number(bytes.readBigUInt64BE(33));
+```
+
+Yes, the amount is little-endian and the timestamp is big-endian. The layout follows the SUF documentation. One detail: `+` is part of base64 here, so the query is read by hand instead of with `URLSearchParams`.
+
+The store name isn't in the payload, so the server asks the tax office for it (best effort, 4-second timeout) and cleans it up, so "1234567-MAXI 123" becomes "Maxi". A receipt has a stable id built from the payload, and before saving, Coinsel refuses a receipt that's already logged, either by the same QR or as a bank SMS with the same amount that day.
+
+Reading the QR itself was harder than decoding it. A long fiscal receipt's QR has around 120 modules per side, and the first scanner missed it. Now the browser's own `BarcodeDetector` goes first where it exists, with **ZXing compiled to WebAssembly** as the fallback. The scanner also has to skip the shop's own QR codes printed on the same receipt.
+
+### Bank SMS and notifications
+
+Serbian banks send an SMS for every card payment, something like this (made-up numbers):
+
+```
+04.10.2026. koristili ste karticu ************1234, na mestu ApplePay CAFFE CENTRAL NS NOVI,
+u iznosu 450,00 RSD. Sada imate raspolozivo 50.000,00 RSD.
+```
+
+`parseBankSms` turns that into an expense: date, merchant, amount, currency. It was built for one bank's format first, with fallbacks for the common "Iznos: ... / Mesto: ..." style of other banks. Merchant names get cleaned up ("ApplePay CAFFE CENTRAL NS NOVI" becomes "Caffe Central") by dropping wallet prefixes, city names and legal forms like DOO. Unknown stores get categorized with AI.
+
+A few rules came straight from bugs:
+
+- The available balance ("raspoloživo") is **never** the amount. It was once, so now there's a test. Instead, it's saved as the real account balance, which the "until payday" chart follows.
+- The same SMS is never stored twice.
+- An ATM withdrawal isn't spending, so it goes to the Cash account instead. An ATM fee still is spending.
+
+Getting the SMS into the app works differently per phone. On iPhone, a Shortcuts automation triggers on messages containing "koristili ste karticu" and posts the text to a personal ingest link. The token is shown once and only its hash is stored. On Android, the app can read payment notifications from bank apps (after you allow notification access). Only text with an amount in RSD or EUR **and** a payment word leaves the phone, chat apps are skipped, and offline messages wait in a queue. You can also just paste an SMS into quick add.
+
+Euros are converted at the **National Bank of Serbia middle rate** for that day, and the original amount is kept.
+
+## Lessons learned
+
+**Local first, AI second.** The parser, the IPS QR reader and the fiscal receipt decoder are instant, free, work offline and are covered by unit tests. AI handles what's left. That split is why the app still feels fast and why the AI budget stays small.
+
+**Every bug gets a test and a line in the ledger.** It felt slow at first. Now the bug ledger in `docs/TESTING.md` is the most honest document in the repo, and the same bug doesn't come back twice.
+
+**I built this with AI coding agents, and the repo is shaped for that.** The commits are co-authored with Claude, and the project has an `AGENTS.md` with the rules (where code goes, how mutations look, the money and date rules, what "done" means). Before merging anything non-trivial, a separate reviewer agent reads the diff, and many of the commits are literally titled "review fixes". Writing down the rules turned out to be good for me as well.
+
+**Don't depend on things you don't watch.** Backups and CI on GitHub Actions stopped when the minutes ran out. Now the backup runs on Vercel Cron and the health check turns red if there's no good backup in 26 hours.
+
+**Build for where you are.** Coinsel exists because generic apps don't know what a Serbian payment slip, a fiscal receipt QR or a bank SMS in Serbian looks like. Those were the most fun features to build and the ones I use every day.
+
+That's the series. If you want to see the result, try it at [buddy-bill-eight.vercel.app](https://buddy-bill-eight.vercel.app). Thanks for reading!
+
+## In this series
+
+- [Part 1: From a Spreadsheet to a Finance App](/post/coinsel-part-1-from-buddy-bill)
+- [Part 2: Architecture, Offline and Native Apps](/post/coinsel-part-2-architecture)
+- [Part 3: The AI Analyst and Serbian Superpowers](/post/coinsel-part-3-ai-and-serbia)

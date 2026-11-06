@@ -13,6 +13,8 @@ import TableOfContent from '../../components/custom/TableOfContent'
 import SimiliarPosts from '@/components/SimiliarPosts'
 import EmbeddedLink from '@/components/custom/EmbededLInk'
 import LikeButton from '../../components/custom/LikeButton'
+import SeriesNav from '../../components/SeriesNav'
+import { getSeriesPosts } from '../../services/projectPosts'
 
 function getTableOfContents(content) {
 	// eslint-disable-next-line prefer-regex-literals
@@ -85,7 +87,7 @@ const components = {
 	HighlightBox: MdxComponents.HighlightBox
 }
 
-const PostDetails = ({ data, mdxSource, toc }) => {
+const PostDetails = ({ data, mdxSource, toc, seriesPosts = [] }) => {
 	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
@@ -118,7 +120,9 @@ const PostDetails = ({ data, mdxSource, toc }) => {
 					<div className='col-span-1 lg:col-span-10'>
 						<PostDetail post={data} content={mdxSource} />
 						<p className='border-b mb-4 align-middle text-center text-white'></p>
+						<SeriesNav position='top' currentSlug={data.slug} seriesTitle={data.seriesTitle} seriesPosts={seriesPosts} projectSlug={data.project} />
 						<MDXRemote {...mdxSource} components={{ ...components }} lazy />
+						<SeriesNav position='bottom' currentSlug={data.slug} seriesTitle={data.seriesTitle} seriesPosts={seriesPosts} projectSlug={data.project} />
 						<div className='mb-4 lg:mb-10 w-full lg:w-auto border-b border-neutral-800'>
 							<CategoryChip categories={data.tags} />
 						</div>
@@ -148,12 +152,14 @@ export const getStaticProps = async ({ params: { slug } }) => {
 	const toc = getTableOfContents(content)
 
 	const mdxSource = await serialize(content)
+	const seriesPosts = getSeriesPosts(data.series).map(({ slug, title, seriesPart }) => ({ slug, title, seriesPart }))
 
 	return {
 		props: {
 			data,
 			mdxSource,
-			toc
+			toc,
+			seriesPosts
 		}
 	}
 }

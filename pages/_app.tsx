@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import type { AppProps } from 'next/app'
+import { useRouter, type NextRouter } from 'next/router'
 import Script from 'next/script'
 import Layout from '../components/layout/Layout'
 import 'tailwindcss/tailwind.css'
@@ -17,29 +17,29 @@ const SpeedInsights = dynamic(
 	{ ssr: false }
 )
 
-const handleTitle = (router) => {
+const handleTitle = (router: NextRouter): string => {
 	let title = 'Bojan Jagetic'
 	try {
 		const splittedTitle = router.route.split('/')
 		if (splittedTitle[2]) {
 			switch (splittedTitle[2]) {
-				case 'libaries':
-					title = 'Bojan Jagetic | Libary'
-					break
-				case 'blog':
-					title = 'Bojan Jagetic | Blog'
-					break
-				case 'aboutme':
-					title = 'Bojan Jagetic | About Me'
-					break
-				case 'uses':
-					title = 'Bojan Jagetic | Everyday use'
-					break
-				case 'projects':
-					title = 'Bojan Jagetic | Projects'
-					break
-				default:
-					break
+			case 'libaries':
+				title = 'Bojan Jagetic | Libary'
+				break
+			case 'blog':
+				title = 'Bojan Jagetic | Blog'
+				break
+			case 'aboutme':
+				title = 'Bojan Jagetic | About Me'
+				break
+			case 'uses':
+				title = 'Bojan Jagetic | Everyday use'
+				break
+			case 'projects':
+				title = 'Bojan Jagetic | Projects'
+				break
+			default:
+				break
 			}
 		}
 		return title
@@ -48,19 +48,33 @@ const handleTitle = (router) => {
 	}
 }
 
-function IguanaDevelopmentTech({ Component, pageProps }) {
+type PagePropsWithData = {
+	data?: {
+		title?: string
+		featuredImage?: string
+		excerpt?: string
+		description?: string
+		[key: string]: unknown
+	}
+	[key: string]: unknown
+}
+
+function IguanaDevelopmentTech({ Component, pageProps }: AppProps<PagePropsWithData>) {
 	const [pageLoaded, setPageLoaded] = useState(false)
 	const router = useRouter()
-	let defaultTitle
+
+	let defaultTitle: string | undefined
 	if (!pageProps.data) {
 		defaultTitle = handleTitle(router)
 	}
-	const title = pageProps.data ? `${pageProps.data.title}` : defaultTitle
-	const ogUrl = pageProps.data
+
+	const title = pageProps.data?.title ?? defaultTitle ?? 'Bojan Jagetic'
+
+	const ogUrl = pageProps.data?.featuredImage
 		? pageProps.data.featuredImage
 		: 'https://res.cloudinary.com/dr1sm5gnj/image/upload/v1645127896/igutech/undersstanding_mnfh3n.jpg'
 
-	const postDescription = () => {
+	const postDescription = (): string => {
 		if (pageProps.data) {
 			const props = pageProps.data
 			if (props.excerpt) {
@@ -79,7 +93,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 			// if (loader) setTimeout(() => setPageLoaded(true), 1500)
 			if (loader) setPageLoaded(true)
 		}
-		const handleRouteChange = (url) => {
+		const handleRouteChange = (url: string) => {
 			ga.pageview(url)
 		}
 		router.events.on('routeChangeComplete', handleRouteChange)
@@ -116,15 +130,15 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{
 						__html: JSON.stringify({
-							"@context": "https://schema.org",
-							"@type": "Organization",
-							"url": "https://jageticbojan.com",
-							"name": "Bojan Jagetic",
-							"sameAs": [
-								"https://github.com/basskibo",
-								"https://x.com/basskibo1"
-							],
-						}),
+							'@context': 'https://schema.org',
+							'@type': 'Organization',
+							'url': 'https://jageticbojan.com',
+							'name': 'Bojan Jagetic',
+							'sameAs': [
+								'https://github.com/basskibo',
+								'https://x.com/basskibo1'
+							]
+						})
 					}}
 				/>
 			</NextHead>
@@ -147,7 +161,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 								gtag('config', '${process.env.NEXT_GOOGLE_ANALYTIC_MEASUREMENT_ID}', {
 									page_path: window.location.pathname,
 								});
-							`,
+							`
 						}}
 					/>
 				</>
@@ -169,7 +183,7 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 							t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
 							y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 						})(window, document, "clarity", "script", "v2x468vj4f");
-					`,
+					`
 				}}
 			/>
 			
@@ -196,3 +210,5 @@ function IguanaDevelopmentTech({ Component, pageProps }) {
 }
 
 export default IguanaDevelopmentTech
+
+

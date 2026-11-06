@@ -1,0 +1,190 @@
+---
+title: "Building a Dynamic Island for GNOME Shell"
+publishedAt: "2026-11-06"
+excerpt: "How I built an iOS-style live island for the GNOME top bar that shows what's playing from any MPRIS player, springs open on hover and can even wrap around the clock like a notch."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+featuredImage: "https://github.com/user-attachments/assets/39bb63b9-f8fb-444c-bd9d-0f3f877631af"
+imageCreditUser: "Bojan Jagetic"
+imageCreditUsername: "basskibo"
+author: "Bojan Jagetic"
+tags: [{ slug: "linux", name: "linux" }, { slug: "project", name: "project" }]
+project: "dynamic-island"
+inPreparation: false
+---
+
+## Introduction
+
+I spend most of my day on Ubuntu with GNOME, and there is one thing from the iPhone I kept missing on the desktop: the **Dynamic Island**. That small black capsule that quietly tells you what is playing, and grows into a little player when you need it.
+
+GNOME has a media widget in the notification panel, but you have to open the panel to see it. I wanted something that is just _there_, in the top bar, and that feels alive. So I wrote a GNOME Shell extension for it.
+
+![Dynamic Island in the GNOME top bar](https://github.com/user-attachments/assets/39bb63b9-f8fb-444c-bd9d-0f3f877631af)
+
+The result is **Dynamic Island for GNOME**: an iOS-style live island that shows what is playing in Spotify, YouTube in a browser, or any other MPRIS player. Hover to expand it with controls, click to open the player. It supports GNOME Shell 46–48 and it is published on [extensions.gnome.org](https://extensions.gnome.org/extension/11268/dynamic-island/).
+
+<GithubCardRepo>basskibo/linux_dynamic_island</GithubCardRepo>
+
+## What it does
+
+- Shows the currently playing track (cover art, title, a small visualizer) from **any MPRIS player**.
+- **Hover or click** to expand it into a mini player with previous / play-pause / next.
+- Can live **floating at a screen edge** or **inside the top bar**: after Activities, left or right of the clock, before the system menu, or wrapped around the clock like the iPhone notch.
+- Visualizer shape (bars, spectrum, segments, solid, wave, ribbon) and accent colour are configurable.
+- Besides music, it can briefly show **volume and brightness**, charger state, screen recording, Bluetooth devices and download progress.
+
+![Dynamic Island showing the current track](https://github.com/user-attachments/assets/10144d60-060b-4ad1-964d-82738655068a)
+
+## Finding out what is playing
+
+On Linux, almost every media player speaks **MPRIS** over D-Bus: Spotify, Firefox and Chrome tabs, VLC, you name it. Each one registers a bus name starting with `org.mpris.MediaPlayer2.`, so the job is just to watch the session bus for those names.
+
+GNOME Shell already ships an `MprisPlayer` class (it is what the built-in media widget uses), so I reuse it instead of writing my own D-Bus proxies. The media source lists the existing players once, then subscribes to `NameOwnerChanged` for new ones:
+
+```javascript
+const MPRIS_PREFIX = 'org.mpris.MediaPlayer2.';
+
+Gio.DBus.session.call('org.freedesktop.DBus', '/org/freedesktop/DBus', 'org.freedesktop.DBus',
+    'ListNames', null, null, Gio.DBusCallFlags.NONE, -1, null, (connection, res) => {
+        const [names] = connection.call_finish(res).deepUnpack();
+        names.filter(n => n.startsWith(MPRIS_PREFIX)).forEach(n => this._addPlayer(n));
+    });
+
+// arg0 namespace match must not end with '.'
+this._nameOwnerSub = Gio.DBus.session.signal_subscribe('org.freedesktop.DBus', 'org.freedesktop.DBus',
+    'NameOwnerChanged', '/org/freedesktop/DBus', 'org.mpris.MediaPlayer2',
+    Gio.DBusSignalFlags.MATCH_ARG0_NAMESPACE, (...args) => { /* add new players */ });
+```
+
+That comment about the trailing dot is there because I lost some time on it: the namespace match silently does nothing if you pass `org.mpris.MediaPlayer2.` with the dot.
+
+The rule for which player owns the island is simple: **a player that starts playing takes over**. When the current one closes, the island falls back to another one that is playing, or to whatever is left.
+
+One small annoyance: browsers do not report a desktop entry, so the island would just say "Firefox" even when you are watching YouTube. I look at the track URL from the metadata and recognise YouTube from that:
+
+```javascript
+const url = player._playerProxy?.Metadata?.['xesam:url']?.deepUnpack() ?? '';
+return {
+    name: /youtube\.com|youtu\.be/.test(url) ? 'YouTube' : app?.get_name() ?? identity,
+    icon: app?.get_icon() ?? 'audio-x-generic-symbolic',
+};
+```
+
+## Making it feel like an island
+
+Showing a label in the top bar is easy. Making it feel like the iPhone is the hard part. The default `ease()` animations in GNOME Shell felt stiff, so the island morphs with a **damped spring** instead. Response 0.45 s, damping 0.78, which gives roughly 2% overshoot:
+
+```javascript
+const OMEGA = 2 * Math.PI / 0.45;
+const ZETA = 0.78;
+const OMEGA_D = OMEGA * Math.sqrt(1 - ZETA * ZETA);
+const spring = t => 1 - Math.exp(-ZETA * OMEGA * t) *
+    (Math.cos(OMEGA_D * t) + ZETA * OMEGA / OMEGA_D * Math.sin(OMEGA_D * t));
+```
+
+On every frame of a `Clutter.Timeline` I interpolate width, height, corner radius, padding, spacing and cover size with that curve. Everything is **rounded to whole pixels**, otherwise text and icons look blurry while the island is moving.
+
+Two more details made a big difference:
+
+- **Hover intent delay**: the island waits 90 ms before expanding and 220 ms before collapsing, so moving the mouse across the top bar does not make it jump.
+- **Vinyl spin**: if you enable it, the cover art rotates while playing. I use a plain `Clutter.PropertyTransition` for that and not `ease()`, because `ease()` keeps the shell in "busy" mode for as long as it runs, and an infinite animation would do that forever.
+
+To be honest about the visualizer: it is not reading real audio. Extensions do not get audio data, so the levels animate toward random targets while the player is playing and settle to zero when paused. I also skip repaints once a paused visualizer has settled, so it does not waste frames.
+
+![Another Dynamic Island look](https://github.com/user-attachments/assets/9b18daea-04c7-4418-a638-b9b4c3043667)
+
+## Positions and the notch mode
+
+My favourite position is **notch mode**. The island sits behind the clock in the centre of the top bar, the clock shows through a gap in it, and when you hover, it hangs down from the top edge like the macOS notch: square top, round bottom.
+
+Internally every top bar position is just a slot in one of the panel boxes, plus which way the expanded island grows:
+
+```javascript
+// [panel box, index in box, which way the expanded island grows (0 right, 1 left)]
+const PANEL_SLOTS = {
+    'panel-notch': ['_centerBox', 0, null],
+    'panel-left': ['_leftBox', -1, 0],
+    'panel-center-left': ['_centerBox', 0, 1],
+    'panel-center-right': ['_centerBox', -1, 0],
+    'panel-right': ['_rightBox', 0, 1],
+};
+```
+
+So an island left of the system menu grows to the left, one after Activities grows to the right, and nothing pushes the rest of the top bar around.
+
+## Getting through the extensions.gnome.org review
+
+The first version did a lot more: a calendar, notifications, a timer, mic and camera indicators. It was also one big `extension.js`. When I submitted it to extensions.gnome.org I decided to trim it and clean it up:
+
+- I **dropped** the calendar, notifications, timer and mic/camera indicators.
+- The island UI became a GObject `St.BoxLayout` subclass that **owns its children, signals and timeouts**, so `disable()` only has to destroy one widget.
+- The reviewer asked for **no GI version in imports** and a **small entry point**, so the widget moved to `island.js` and every data source got its own module under `sources/`.
+
+Now `extension.js` is basically just this:
+
+```javascript
+const SOURCES = [MediaSource, OsdSource, BatterySource, RecordingSource, BluetoothSource, ProgressSource];
+
+export default class DynamicIslandExtension extends Extension {
+    enable() {
+        this._settings = this.getSettings();
+        this._island = new Island(this._settings);
+        this._sources = SOURCES.map(Source => new Source(this._island, this._settings));
+    }
+
+    disable() {
+        this._sources.forEach(source => source.destroy());
+        this._island.destroy();
+        this._sources = this._island = this._settings = null;
+    }
+}
+```
+
+That structure made adding features later much less scary, because each source only knows how to call the island and how to clean up after itself.
+
+One thing that surprised me: `gnome-extensions pack` only picks up `extension.js` and `prefs.js` by default, so the zip was missing all my modules. The `pack.sh` script lists them explicitly with `--extra-source=island.js --extra-source=sources --extra-source=icons`.
+
+## Patching the shell OSD safely
+
+The volume and brightness feature replaces the shell's OSD pop-up with a toast on the island. That means monkey-patching `Main.osdWindowManager.show`, which is exactly the kind of thing that can take the whole shell down.
+
+And it did: I got a report of a crash on the brightness slider with GNOME 49. So in release 3.4 the OSD integration became defensive. It is only patched while "Volume and brightness" is enabled, and if anything unexpected comes in, it falls back to the shell's own OSD:
+
+```javascript
+osd.show = (...args) => {
+    try {
+        const [, icon, label, level] = args;
+        if (typeof icon !== 'string' && !(icon instanceof Gio.Icon))
+            throw new Error(`unexpected icon ${icon}`);
+        const hasLevel = Number.isFinite(level);
+        this._island.toast(icon, hasLevel ? '' : String(label ?? ''), {level: hasLevel ? level : null, duration: 1500});
+    } catch (e) {
+        console.warn(`Dynamic Island: OSD integration failed, using the shell OSD: ${e}`);
+        originalShow.apply(osd, args);
+    }
+};
+```
+
+If the signature of `show()` ever changes, the worst case is that you see the normal GNOME OSD again. That is a trade I am happy with.
+
+The same release added a bunch of cover art settings: size, expanded size, shape, frame, whether to show it when resting, and the vinyl spin.
+
+![Dynamic Island on the GNOME desktop](https://github.com/user-attachments/assets/8ea98f0d-ac8b-4940-aafc-eaeee3c50711)
+
+## Installing it
+
+The easiest way is from [extensions.gnome.org](https://extensions.gnome.org/extension/11268/dynamic-island/). If you want to install the zip manually:
+
+```bash
+gnome-extensions install --force dynamic-island@bjagetic.shell-extension.zip
+# log out and back in (required on Wayland), then
+gnome-extensions enable dynamic-island@bjagetic
+```
+
+Settings are in the Extensions app, or via `gnome-extensions prefs dynamic-island@bjagetic`.
+
+## Conclusion
+
+This started as "I want the iPhone thing on my laptop" and turned into a nice deep dive into GNOME Shell internals: D-Bus and MPRIS, Clutter timelines, panel boxes and the rules of the extensions review. The biggest lessons for me were to keep `disable()` trivial by letting one widget own everything, and to treat every monkey-patch of the shell as something that will eventually break.
+
+If you are on GNOME, give it a try, and if something does not look right on your setup, open an issue on GitHub.

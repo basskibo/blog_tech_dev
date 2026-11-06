@@ -2,20 +2,19 @@ import React from 'react'
 import Head from 'next/head'
 import Landing from '../components/Landing'
 
-export default function Home() {
-
+const Home: React.FC = () => {
 	return (
 		<div>
 			<Head>
 				<meta property='og:url' content='https://jageticbojan.com/' />
 				<meta property='og:type' content='website' />
-				<meta property='og:title' content='Bojan Jagetic Blog' />
+				<meta property='og:title' content='Bojan Jagetic · Projects, libraries and write-ups' />
 				<meta property="og:site_name" content="Blogtech" />
 				<meta property="og:locale" content="en_US" />
 
 				<meta
 					property='og:description'
-					content='Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away.'
+					content='Apps, npm libraries, Linux desktop tools and browser games built by Bojan Jagetic, with write-ups on how each one was made.'
 				/>
 				<meta
 					property='og:image'
@@ -37,3 +36,5 @@ export default function Home() {
 		</div>
 	)
 }
+
+export default Home

@@ -1,0 +1,169 @@
+---
+title: "Scranton Branch, Part 1: A 3D Office Where My Agents Work"
+publishedAt: "2026-11-06"
+excerpt: "Why I built a low-poly three.js office where Claude agents write from my own files, and where every live Claude Code session gets its own desk."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1672243509/igutech/blogs/andrew-neel-9moikpaufvg-unsplash_bqyfdg.jpg"
+imageCreditUser: "Andrew Neel"
+imageCreditUsername: "andrewtneel"
+author: "Bojan Jagetic"
+tags: [{ slug: "javascript", name: "javascript" }, { slug: "project", name: "project" }]
+project: "scranton-branch"
+series: "scranton-branch"
+seriesTitle: "Building Scranton Branch"
+seriesPart: 1
+inPreparation: false
+---
+
+## Introduction
+
+At some point this year I noticed I always had three or four Claude Code sessions running at once. One fixing tests in one repo, one refactoring something in another, one I had honestly forgotten about. My terminal tabs were the only "dashboard" I had, and I kept clicking through them just to see who was waiting for me.
+
+At the same time I was playing with a Claude skill for the boring part of freelance work: proposals, client replies and "hey, just checking in on that invoice" emails. Things that should be written from my own data (customers, projects, price list), not from whatever the model feels like inventing.
+
+So I put both ideas in one place, and because I can't build anything normal, that place became a **low-poly 3D office** in the browser. It is called **Scranton Branch**. Yes, the name is exactly what you think it is, and the writing skill inside it is called **That's What She Wrote**.
+
+In this first part I'll walk through the idea and what you actually see and do in the office. In Part 2 I'll go under the hood.
+
+## What it is in one sentence
+
+The package description says it best:
+
+```json
+"description": "A low-poly 3D office where Claude agents write from your own data, and your live Claude Code sessions get a desk"
+```
+
+It is a small Node server (`server.mjs`) plus one HTML page with three.js. You run it locally:
+
+```bash
+npm install
+npm start
+# open http://localhost:4530
+```
+
+You need Node 20+ and Claude Code installed and logged in. The writing runs on your own Claude account through the `claude` CLI, nothing extra. To be clear, I'm just a user of Claude Code here, this is my own side project.
+
+## The floor plan
+
+I wanted it to feel like a real mid-size branch office, so the layout follows one:
+
+- the **bullpen** in the middle is the Claude Code office, pairs of facing desks for your live sessions
+- a **reception** counter by the elevator
+- the manager's **glass office** in the back corner, whose whiteboard is the live board
+- a glass **conference room** at the front
+- the **writing office**, a smaller room on the left
+- the **break room and kitchen** on the right, with vending machines and round tables
+- and the **Annex**, where other coding agents sit
+
+You move around with the room buttons, the arrow keys, or by clicking another room's floor. Keys `1`, `2` and `4` jump straight to the Claude Code office, the writing office and the Annex, and `Esc` closes a detail view.
+
+## Your Claude Code sessions get a desk
+
+This is the part I use every day. The office reads Claude Code's own session transcripts from `~/.claude/projects`, read-only, and seats the recent sessions in the bullpen. Nothing leaves the machine.
+
+Each session is a little person at a desk. Above them is a speech bubble with what they are doing right now: the tool and its target, like `Bash Run tests` or `Edit index.html`, plus how many seconds it has been running once it gets long. When the session writes text, the bubble shows its last sentence. When it finishes its turn, the person stops typing.
+
+Click a session (the card in the panel or the person in the office) and you get the details:
+
+- folder, git branch and model
+- **changed files**, every file it edited
+- **tokens**: written, read and read from cache
+- your last message and its latest replies
+- a timeline of every tool call
+- a **Copy resume command** button that gives you `claude --resume <id>` to continue it in a terminal
+
+There is also a **bell** in the top bar. Turn it on and you get a system notification plus a small chime when a session finishes its turn, and the tab title shows how many sessions are working. That one feature alone killed most of my tab-clicking.
+
+If you don't want any of this, it is one switch: `"sessions": false` in `agency-kit.json` or `KIT_SESSIONS=0`.
+
+### The Annex: other agents are welcome too
+
+I don't only use Claude Code, so other coding agents walk into the **Annex**, right of the lounge. Up to four desks, and the monitor and mug take the colour of the tool. Supported right now:
+
+- **Cursor** (reads its local chat database, needs Node 22.5+ for `node:sqlite`)
+- **Codex CLI**
+- **Gemini CLI**
+- **OpenCode**
+- **Antigravity**
+
+They also show in the Sessions tab under "Annex · other agents". Same rules: read-only, and you steer them in their own tool.
+
+## The writing office
+
+The other half of the app is the writing office, where the agents do actual work from your files. The cast:
+
+- **Piper** writes proposals
+- **Remy** writes replies and chasers
+- **Vera** checks that every amount in a draft is really in your data
+- **Otto** writes a weekly update, as an example of a job desk you add yourself
+
+Your data is a folder of plain Markdown files: `agency.md`, `offers.md` (your price list, the only source of prices), `customers.md`, `projects.md`, `numbers.md`, `style.md` and `inbox.md`.
+
+From the panel you pick a job:
+
+- **Proposals**: projects in stage `proposal` get a "Write proposal" button
+- **Inbox**: emails get "Draft reply", and "+ Paste an email" adds a client email straight into `inbox.md`
+- **Chase**: projects whose next-step date has passed get "Write chaser"
+
+You can add an optional note for that one job ("keep it short") and press "Start writing".
+
+<HighlightBox>
+The main rule of the skill: prices and figures come only from your files. If something is missing, the draft says "(to confirm)" instead of guessing. Vera then checks every amount against your data.
+</HighlightBox>
+
+### What happens on screen
+
+This is where the 3D part earns its place. When you start a job, the **receptionist** walks the task over to the agent's desk first, and only then the agent starts typing. While it writes, the text streams onto its monitor and into its speech bubble, live.
+
+When the draft is done, the agent carries the page to Vera. Vera checks it and walks it over to the **Outbox**, a little stack of paper by the wall with a counter on it.
+
+And then there is the stuff that doesn't need to be there but makes me smile:
+
+- idle agents (and idle Claude sessions) go for **coffee runs** to the kitchen
+- when you paste an email, a **visitor** comes up the elevator with it
+- marking a project "Won" throws **confetti**
+- the light follows the time of day
+
+### The Outbox
+
+Everything written is saved as Markdown in `outputs/`, which is git-ignored. Open a draft and you can:
+
+- **Open in Gmail / Mail app**: a new email with the client's address, subject and text filled in, you press Send
+- **PDF**: print view, then "Save as PDF"
+- **Mark sent / Won / Lost / Answered / Mark chased**: this updates `projects.md` or `inbox.md` for you
+
+For example "Won" moves the project to `in progress` and sets the value to the offer price, and "Answered" moves the email to `inbox-archive.md`. Every change the UI makes keeps the previous file as a `.md.bak`, because I don't trust any UI with my only copy of anything.
+
+## It starts on made-up data
+
+On first start the app copies a fictional example agency, "Kodlab Studio", with invented customers, projects, offers and emails, into `./data/`. While that is the data, the UI shows "EXAMPLE DATA" and every draft starts with "Draft from example data". When you want to use it for real you copy the blank templates, fill them in, and point the app at them:
+
+```json
+{ "data": "~/agency-data" }
+```
+
+That goes in `agency-kit.json` next to `server.mjs`, or you use `AGENCY_DATA=~/agency-data npm start`. There is also an "Import CSV / Sheet" option to pull rows in from a CSV or a Google Sheet shared with "Anyone with the link can view".
+
+## Adding your own desk
+
+Any Claude skill folder can become a desk. You add an entry to `jobs.json`:
+
+```json
+{ "id": "social", "agent": "Sol", "role": "Social posts", "color": "#c76bd8",
+  "skill": "skills/social-posts", "title": "Social posts",
+  "placeholder": "What should we post about?", "button": "Write" }
+```
+
+The desk gets a text box, the same data folder, streaming, the Outbox, the amount check and the Gmail/PDF buttons. Otto's weekly update desk is built exactly like this.
+
+## Wrapping up
+
+Scranton Branch started as "I want to see my sessions" and turned into a small office where a few agents write real drafts from my own files and every coding agent on my machine gets a desk. It is silly on purpose, but the silly parts (people walking pages around, the receptionist, the outbox) make it really easy to see at a glance who is working and what is done.
+
+In Part 2 I'll show how it works: reading the session `.jsonl` files, the readers for the other agents, the server, how job desks turn a skill folder into a prompt, the streaming text, and the checking and outbox flow.
+
+## In this series
+
+- [Part 1: A 3D Office Where My Agents Work](/post/scranton-branch-part-1-an-office-for-your-agents)
+- [Part 2: Under the Hood](/post/scranton-branch-part-2-under-the-hood)

@@ -1,0 +1,165 @@
+---
+title: "Building Coinsel, Part 1: From a Spreadsheet to a Finance App"
+publishedAt: "2026-11-06"
+excerpt: "Why I replaced my Google Sheets budget with my own app, and how quick add, smart categories, bills and 'until payday' turned Buddy Bill into Coinsel."
+englishOnly: "true"
+banner: "bernd-dittrich-W1NsOMhU8hI-unsplash_ugoyld"
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1674115391/igutech/blogs/janina-bachmann-NJ5fdBxFR4k-unsplash_um6an6.jpg"
+imageCreditUser: "Janina Bachmann"
+imageCreditUsername: "jabasunshine"
+author: "Bojan Jagetic"
+tags: [{ slug: "nextjs", name: "nextjs" }, { slug: "project", name: "project" }]
+project: "coinsel"
+series: "coinsel"
+seriesTitle: "Building Coinsel"
+seriesPart: 1
+inPreparation: false
+---
+
+## Introduction
+
+For a long time my personal finances lived in a Google Sheets table. Months in columns, bills in rows, a few formulas for totals and a lot of manual typing. It worked, kind of, but every coffee and every pack of cigarettes meant opening a spreadsheet on the phone, finding the right cell and hoping I didn't break a formula.
+
+So I did what every developer does when a spreadsheet annoys them: I started building an app. This is a three-part series about that app, **Coinsel** (you can try it at [buddy-bill-eight.vercel.app](https://buddy-bill-eight.vercel.app)).
+
+- **Part 1 (this one):** the idea and the product: quick add, smart categories, bills and "until payday".
+- **Part 2:** the architecture: Next.js, Drizzle, Postgres and PGlite, offline mode, native apps, security, backups and tests.
+- **Part 3:** the AI analyst, the Serbia-specific features (payment slip QR, fiscal receipts, bank SMS) and what I learned.
+
+## Buddy Bill, the first attempt
+
+The project didn't start as Coinsel. The first commit, back in October 2025, was called **Buddy Bill**. It was a fairly typical stack for that time: Prisma, Supabase Postgres, NextAuth, RTK Query for client-side caching, Radix and Sonner for UI. I built bills, expenses, categories and a dashboard with charts in about a week, and then the project went quiet for a long time.
+
+When I came back to it, the login didn't even work anymore: the old Supabase database was gone, and NextAuth v4 with the Prisma adapter was giving me trouble on Vercel. Instead of patching it, I rewrote the whole thing. The commit message for v2 (in Serbian, originally) says it plainly: a completely rewritten app instead of the Google Sheets table. New infrastructure, quick entry, obligations, loans and an AI analyst called "Buddy".
+
+Two days and a lot of commits later, the app got its new name: **Coinsel**. The rename touched everything users see (web, PWA, desktop and phone apps, docs), and the AI advisor got the same name. A few things were kept on purpose, so nobody would notice the rename the bad way: cookie names (nobody gets signed out), the Keychain key, the snap name and the iOS bundle id, so updates keep working, and old backups still restore.
+
+## The core idea: one ledger
+
+The biggest lesson from the spreadsheet was that it mixed two different things: **what is due** and **what was paid**. In Coinsel those are split very strictly. Every dinar that comes in or goes out is one row in a single `transactions` table, and a bill (or a loan, subscription, debt...) is only a _schedule_.
+
+That one decision made a lot of things simple:
+
+- analytics is one `GROUP BY` over transactions,
+- "is this bill paid for October" means "is there a transaction with this `commitmentId` and `period = 2026-10`",
+- loan progress is what was paid before tracking started plus the sum of payments,
+- a September bill paid in October has `period = 2026-09` and `occurredOn = 2026-10-03`, so the yearly table shows it in September while cash flow shows it in October.
+
+Money gets the same treatment. Every row keeps the original `amount` and `currency` **and** `amountRsd` at the National Bank of Serbia rate of that day, so reports don't change when the euro rate does.
+
+## Quick add: type it like a message
+
+The feature I cared about most was logging an expense in about two seconds. No forms, no dropdowns. You type something like a chat message:
+
+```
+coffee 250, groceries 1,800 fuel 5k
+```
+
+and you get three items, each in its category. Enter, done, and a toast with **Undo** in case you typed something wrong. The shortcut is **N**.
+
+The important part is that this is **not** AI. It's a small local parser, `parseQuick()`, that runs on the client with no network, so it is instant, works offline and doesn't cost any quota. The doc comment at the top is basically its spec:
+
+```ts
+/**
+ * Quick entry from free text, no AI (instant, works offline). English and Serbian:
+ *
+ *   "coffee 250, groceries 1252"   → 2 items
+ *   "cigare 400 radnja 1252"       → 2 items
+ *   "400 cigarettes"               → amount first
+ *   "2 coffees 500"                → "2 coffees" 500 (small number before a word is a quantity)
+ *   "fuel 5,000", "1.5k market"    → thousands
+ *   "yesterday rent 333€"          → date + euros
+ */
+```
+
+Serbian was a requirement from day one, because that's how I actually type. So the parser knows `juče` and `prekjuče` next to `yesterday`, it knows that `din`, `dinara` and `rsd` mean dinars and that `evra` or `€` mean euros, and it throws away filler words like `za`, `kod` or `platio` next to `for`, `at` or `paid`:
+
+```ts
+const RELATIVE_DAYS: Record<string, number> = {
+  today: 0,
+  yesterday: -1,
+  danas: 0,
+  juce: -1,
+  jucer: -1,
+  prekjuce: -2,
+  prekjucer: -2,
+};
+```
+
+The tricky parts were all about numbers. Is `1,252` one thousand two hundred fifty-two or a decimal? Is the comma in `coffee 250, groceries` a separator between items or part of an amount? The rule I ended up with is that a comma splits items only when it's not followed by a digit. And "2 coffees 500" should be two coffees for 500, not two separate amounts, so a small number before a word, with another amount after it, is treated as a quantity.
+
+Every one of those edge cases has a unit test next to the parser, and a few of them were real bugs from using the app, like "Lidl, 200" losing its description, or dictation adding a period at the end of a sentence ("coffee 250.").
+
+When the parser can't make sense of the text ("half a grand at the market"), AI can turn the sentence into items. But that's the exception, not the main path. More on AI in Part 3.
+
+## Smart categories
+
+Typing "coffee 250" is only useful if it ends up in the right category without me picking it. `guessCategory()` tries three things, in order:
+
+1. **Your rules.** "Description contains WOLT → Eating out". First match wins, and you can apply a rule to past expenses too.
+2. **Learned categories.** Every time you change a category, Coinsel remembers it for that description (and for its first word).
+3. **Keywords.** Each category has keywords: supermarket → Groceries, fuel → Transport.
+
+The keyword matching has one small detail I like. Short keywords must match exactly, longer ones match as a prefix in both directions, so "cigar" finds "cigare" but "dm" doesn't match every word starting with "dm":
+
+```ts
+// short words (a1, dm, lm) must match exactly; longer ones as a prefix both ways ("cigar" ~ "cigare")
+const hit = kw.length <= 3 ? w === kw : w.startsWith(kw) || (kw.startsWith(w) && w.length >= 4);
+if (hit) {
+  const score = kw.length + (w === kw ? 2 : 0);
+  if (!best || score > best.score) best = { id: cat.id, score };
+}
+```
+
+And if the guess is still wrong, one tap on the expense's icon changes the category, and that correction is what feeds step 2 next time.
+
+## Bills, loans and debts
+
+The second half of my old spreadsheet was obligations. In Coinsel they are all "commitments", with a type: `bill`, `subscription`, `loan`, `installment`, `debt` (money I owe) and `receivable` (money I lent). Each one has an amount (or empty, when it varies, like electricity), a currency, a frequency, a due day and optionally a start, an end and a total.
+
+From there the product grew in a very practical way, mostly from me using it every day:
+
+- **One-tap payments.** A fixed amount is just "Pay". A variable bill asks for the amount. Partial payments, paying last month's bill and undo all work.
+- **Year.** A page that looks like my old spreadsheet: months × bills, everyday spending and totals with a heat map. Click a cell to pay.
+- **Loans.** Payoff progress, installments left, a projected end date, a payoff simulator ("what if I pay 5,000 more a month?") and a snowball or avalanche plan across all loans.
+- **Reminders.** Push notifications the day before and on the day something is due.
+- **Subscriptions and price alerts.** If a fixed-price bill gets paid 5% or more above its old price, you get one notification about it ("Internet went up 12%").
+
+## Until payday
+
+This is the feature that changed how I actually use the app. A monthly budget is nice, but the real question in the middle of the month is: **how much can I spend today so the money lasts until the next salary?**
+
+So you set your payday, and the pay cycle runs from the last payday to the next one (clamped for short months), instead of the calendar month:
+
+```ts
+export function payCycle(today: string, payday: number | null | undefined): { start: string; next: string } {
+  const month = monthOf(today);
+  if (!payday) return { start: `${month}-01`, next: `${addMonths(month, 1)}-01` };
+  const thisMonth = dayInMonth(month, payday);
+  if (today >= thisMonth) return { start: thisMonth, next: dayInMonth(addMonths(month, 1), payday) };
+  return { start: dayInMonth(addMonths(month, -1), payday), next: thisMonth };
+}
+```
+
+The forecast is pure math in `src/lib/forecast.ts`. It takes the money for this cycle, what was spent per day so far, the unpaid bills and planned expenses before the next payday, and your usual spending per weekday (learned from the last 8 weeks). Out of that the dashboard shows:
+
+- what you can spend per day until payday, with bills already set aside,
+- what's **left today**, also shown after every quick add and on the Android widget,
+- where your usual pace ends up on payday, with a likely range,
+- a chart of the money through the cycle, with weekends and bills marked.
+
+Later, once bank SMS sync existed (Part 3), the chart also started following the real bank balance, because an estimate that ignores what the bank says is not very useful. That one even has a regression test in the bug ledger: the line showed "income minus spent" while the bank was reporting a different number.
+
+<HighlightBox>
+The pattern behind all of this: start from the thing I do every day (log a coffee, pay a bill, check if I can afford dinner) and make that one action as fast as possible. Everything else is built around it.
+</HighlightBox>
+
+## What's next
+
+That's the product side. In the next part I'll go through how it's built: one Next.js app that is also the PWA and the Android, iOS and desktop apps, Drizzle on Neon with PGlite locally, an offline queue for quick add, passkeys and a server-enforced PIN lock, push notifications, encrypted backups and a test setup with Playwright and a performance budget for weak Android phones.
+
+## In this series
+
+- [Part 1: From a Spreadsheet to a Finance App](/post/coinsel-part-1-from-buddy-bill)
+- [Part 2: Architecture, Offline and Native Apps](/post/coinsel-part-2-architecture)
+- [Part 3: The AI Analyst and Serbian Superpowers](/post/coinsel-part-3-ai-and-serbia)

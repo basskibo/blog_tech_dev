@@ -10,7 +10,7 @@ import { aboutMeBio } from '@/components/config/bios'
 import { cn } from '@/lib/utils'
 import { Card } from '@/components/ui/card'
 
-const Bio = () => {
+const Bio: React.FC = () => {
 	const containerVariants = {
 		hidden: { opacity: 0 },
 		visible: {
@@ -29,16 +29,16 @@ const Bio = () => {
 			y: 0,
 			transition: {
 				duration: 0.5,
-				ease: "easeOut"
+				ease: 'easeOut'
 			}
 		}
 	}
 
 	return (
 		<div className={cn(
-			"min-h-screen bg-background",
-			"px-4 sm:px-6 md:px-8 lg:px-10",
-			"py-8 sm:py-12 md:py-16 lg:py-20"
+			'min-h-screen bg-background',
+			'px-4 sm:px-6 md:px-8 lg:px-10',
+			'py-8 sm:py-12 md:py-16 lg:py-20'
 		)}>
 			<div className="max-w-6xl mx-auto">
 				<motion.div
@@ -61,9 +61,9 @@ const Bio = () => {
 					<motion.div
 						variants={itemVariants}
 						className={cn(
-							"space-y-8 sm:space-y-10",
-							"pb-8 sm:pb-10 md:pb-12",
-							"border-b border-border"
+							'space-y-8 sm:space-y-10',
+							'pb-8 sm:pb-10 md:pb-12',
+							'border-b border-border'
 						)}
 					>
 						<SupportMe />
@@ -86,3 +86,5 @@ const Bio = () => {
 }
 
 export default Bio
+
+
