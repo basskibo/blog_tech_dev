@@ -1,0 +1,149 @@
+---
+title: "Last Minute: Scraping Eight Travel Sources Into One Search"
+publishedAt: "2026-11-06"
+excerpt: "How I built Poslednji Trenutak, a last-minute accommodation aggregator with no database: cheerio for simple sites, headless Chromium for Booking and Airbnb, per-source timeouts, a Redis cache and live progress over SSE."
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1674222182/igutech/blogs/sandra-tan-k9WWliLDUgc-unsplash_yzuojy.jpg"
+tags: [{ slug: "nextjs", name: "nextjs" }, { slug: "project", name: "project" }]
+inPreparation: false
+---
+
+## Introduction
+
+If you ever tried to find a last-minute summer deal in Serbia, you know the drill. Ten tabs open, every agency has its own site, half of them have a "last minute" page with a different layout, and then you also check Booking and Airbnb just in case. I wanted one search box: destination, a flexible month, number of adults and children, and all offers in one list sorted by price or discount.
+
+That is **Poslednji Trenutak** (Serbian for "last minute"). It is live at [lastminutefinder.vercel.app](https://lastminutefinder.vercel.app) and the code is on GitHub:
+
+<GithubCardRepo>basskibo/last_minute</GithubCardRepo>
+
+It is a Next.js 16 app with Tailwind 4 and Radix Themes, but the interesting part is all on the server.
+
+## No database, on purpose
+
+The first decision was to **not have a database**. Offers change daily, prices change, things sell out. Storing them would mean a cron job, a schema, cleanup, and stale data anyway. Instead, every search scrapes the sources live, and an optional Upstash Redis cache keeps results for three hours so the sources are not hammered and repeated searches are fast.
+
+The cache has one small trick. Scraping depends only on the destination, the month and number of people are applied afterwards on already fetched offers. So the cache key ignores everything except the destination:
+
+```ts
+export function buildCacheKey(params: SearchParams): string {
+  // scraping depends only on the destination, month and people are applied later
+  const dest = params.destination.trim().toLowerCase();
+  return `search:${dest}`;
+}
+```
+
+And the cache is strictly best-effort. Without Redis credentials the app works normally, and if Redis throws, the search still goes on:
+
+```ts
+export async function setCached<T>(key: string, value: T, ttlSeconds = TTL_SECONDS) {
+  if (!redis) return;
+  try {
+    await redis.set(key, value, { ex: ttlSeconds });
+  } catch {
+    // cache must never take the search down
+  }
+}
+```
+
+## One interface for every source
+
+Every source is a `Provider`, which is basically one function:
+
+```ts
+export interface Provider {
+  id: string;
+  label: string;
+  /** short explanation if the source currently returns nothing (e.g. blocked scraping) */
+  note?: string;
+  /** headless browser sources are slower than a plain fetch (default 8000) */
+  timeoutMs?: number;
+  search(params: SearchParams): Promise<Offer[]>;
+}
+```
+
+All of them return the same `Offer` shape: title, location, agency, price per person (and old price, if there is a discount), nights, date range, transport (plane, bus, own), accommodation type, image and a link back to the source. Adding a new source is literally creating a file in `lib/providers/`, implementing `search`, and adding it to the array in `index.ts`. Caching, sorting and the UI pick it up automatically.
+
+Right now there are eight of them: lastminuteponude.com (which itself aggregates dozens of Serbian agencies), Oktopod, Argus, Travelland, Grand Tours, Filip Travel, Booking and Airbnb.
+
+## Two kinds of scraping
+
+### The easy ones: fetch + cheerio
+
+Most agency sites render plain HTML, so a `fetch` with a normal browser user agent and `Accept-Language: sr-RS`, a 9 second `AbortSignal.timeout`, and cheerio to read the DOM is enough. The hard part there is not the code, it is figuring out what the site actually means.
+
+For example, lastminuteponude.com has "from" and "to" date fields, but I could not figure out their real matching logic. A wide, valid date range returned zero results even though existing offers clearly fell inside it. So the provider just does not send them and returns all current last-minute offers for the country, and the date is visible on the card so you can judge yourself. That comment is in the code, because future me will definitely wonder why.
+
+Oktopod was interesting in a different way. It has a real price table by property, date and room type, but only for Greece, other campaigns are PDFs and announcements with nothing to parse. When a source does give room types, the app picks the cheapest room whose capacity fits your group. Labels like "1/2 STD" mean 2 people and "1/2+1 STD" means 2 plus an extra bed, so:
+
+```ts
+export function parseRoomCapacity(label: string): number | null {
+  const match = label.match(/1\/(\d+)(?:\+(\d+))?/);
+  if (!match) return null;
+  return parseInt(match[1], 10) + (match[2] ? parseInt(match[2], 10) : 0);
+}
+```
+
+If nothing fits, it falls back to the biggest room and marks it as not fitting, instead of silently hiding the offer.
+
+### The hard ones: Playwright
+
+Booking and Airbnb do not work with plain HTTP. Booking immediately answers with an AWS WAF JavaScript challenge, and Airbnb renders everything on the client. Filip Travel often sits behind a Cloudflare check too. For those, there is a real headless Chromium:
+
+```ts
+export async function launchBrowser(): Promise<Browser> {
+  const { chromium } = await import("playwright-core");
+  if (isServerless) {
+    const sparticuzChromium = (await import("@sparticuz/chromium")).default;
+    return chromium.launch({
+      args: sparticuzChromium.args,
+      executablePath: await sparticuzChromium.executablePath(),
+      headless: true,
+    });
+  }
+  return chromium.launch({ headless: true });
+}
+```
+
+Locally it uses the Chromium installed with `npx playwright install chromium`, on Vercel it uses `@sparticuz/chromium`, a slim Chromium build made for serverless. Both `playwright-core` and `@sparticuz/chromium` are listed in `serverExternalPackages` in `next.config.ts`, otherwise bundling mangles their native binaries.
+
+The Booking provider opens the search URL, waits for `[data-testid="property-card"]` and reads title, address, price, link, image and review score from each card. Since my search only has a flexible month and Booking needs exact dates, `pickStayDates` picks a reasonable 3-night window: the middle of the chosen month, or about two weeks ahead if no month is chosen (or the middle of the month is already in the past). Booking also prices per unit, not per person like package deals, so the per-person price there is an approximation, total divided by the number of people.
+
+It works, but it is slower (a few seconds per search) and more fragile than plain HTML. Every provider file has comments noting which selector was found where, so when a source stops returning results, the first thing to check is whether its DOM changed.
+
+## One slow source must not block the rest
+
+With eight sources, something is always slow or broken. So every provider runs in parallel with its own timeout, 8 seconds by default, 20 for Grand Tours, 30 for Booking and Airbnb, 45 for Filip Travel:
+
+```ts
+await Promise.all(
+  providers.map((provider, index) =>
+    withTimeout(provider.search(params), provider.timeoutMs ?? 8000)
+      .then((offers) => {
+        perProviderResults[index] = offers;
+        emit({ type: "provider", completedProviders: ++completed, offersSoFar, provider: status });
+      })
+      .catch((reason) => {
+        perProviderResults[index] = [];
+        errors.push({ provider: provider.id, message: String(reason?.message ?? reason) });
+        emit({ type: "provider", provider: { ...status, failed: true } });
+      })
+  )
+);
+```
+
+Each promise catches its own error, so this is effectively `Promise.allSettled` with a progress event on top: if Booking times out, you still get everything else. Inside providers that fetch many detail pages (Oktopod cover images, Argus, Grand Tours) I use `Promise.allSettled` directly, so one broken page does not kill the whole source.
+
+After that, results are merged and deduplicated by `id`, not by URL, because on Oktopod the same property legitimately has several offers for different departure dates. Then they are sorted by price or discount, offers without a price go to the end, and offers whose date mentions the selected month get pushed to the top. I first tried strict date filtering, but the sources' date formats are so inconsistent that it easily wiped out every result, so now it only reorders.
+
+## Live progress over SSE
+
+Headless searches can take a while, and staring at a spinner for 20 seconds is not fun. So there is a streaming endpoint, `/api/search/stream`, that sends server-sent events: `start` with the number of providers, one `provider` event as each source finishes (with its count, or `failed`), and `complete` with the final result. On the client it is a plain `EventSource`, and the UI shows which sources are done and how many offers were found so far.
+
+Even cached results go through the same events, replayed from the stored provider status, so the UI does not need a separate code path. Both search routes have `maxDuration = 60`, which is the maximum on the Vercel Hobby plan.
+
+## Conclusion
+
+The biggest lesson from this project is that scraping code is mostly about **failure handling and honesty**. Sources will block you, change their HTML or return nonsense, so every source needs its own timeout, its own error, and a note in the UI when it is known to be flaky. And approximations, like price per person on Booking or a 3-night window, should be visible to the user and not hidden.
+
+Try it at [lastminutefinder.vercel.app](https://lastminutefinder.vercel.app) next time you are looking for a quick summer escape.
+
+🍻🍻 Happy coding!

@@ -1,0 +1,167 @@
+---
+title: "Scranton Branch, Part 2: Under the Hood"
+publishedAt: "2026-11-06"
+excerpt: "How Scranton Branch reads Claude Code session files, watches Cursor, Codex, Gemini and OpenCode, streams Claude's text onto 3D monitors and checks every amount before a draft reaches the Outbox."
+featuredImage: "https://res.cloudinary.com/dr1sm5gnj/image/upload/v1665055007/igutech/sam-mgrdichian-MiyP6ezrPfw-unsplash_xxszws.jpg"
+tags: [{ slug: "javascript", name: "javascript" }, { slug: "project", name: "project" }]
+inPreparation: false
+---
+
+## Introduction
+
+In [Part 1](/post/scranton-branch-part-1-an-office-for-your-agents) I showed what Scranton Branch looks like: a low-poly office where Claude Code sessions sit at desks and a few writing agents produce proposals and emails from my own files. Now let's open it up.
+
+The whole thing is surprisingly small. The only runtime dependency is `three`. The rest is plain Node:
+
+- `server.mjs`: HTTP server, runs the writing jobs, pushes live updates
+- `lib/sessions.mjs`: watches Claude Code transcripts
+- `lib/agents.mjs`: watches Cursor, Codex CLI, Gemini CLI, OpenCode and Antigravity
+- `lib/edit.mjs`: safe edits to the Markdown data files
+- `office/index.html`: the three.js office and the side panel
+
+## Reading Claude Code sessions
+
+Claude Code writes every session as a JSONL file under `~/.claude/projects/<project>/<session>.jsonl`. One JSON object per line: user messages, assistant messages with tool calls, tool results, titles and so on. Scranton Branch only ever reads these files.
+
+The watcher scans every 1.5 seconds. A session counts as present if its file changed in the last 30 minutes. The important trick is that it never re-reads a whole file. It remembers an offset per file and only reads what was appended since the last scan:
+
+```js
+if (st.size > e.offset) {
+  const fd = fs.openSync(p, 'r'), buf = Buffer.alloc(Math.min(st.size - e.offset, 20e6));
+  fs.readSync(fd, buf, 0, buf.length, e.offset); fs.closeSync(fd); e.offset += buf.length;
+  const lines = (e.rest + buf.toString('utf8')).split('\n'); e.rest = lines.pop();
+  for (const l of lines) { try { apply(e.s, JSON.parse(l)); } catch {} }
+}
+```
+
+`e.rest` keeps the half-written last line for the next round, and if a file got smaller it was rewritten, so the offset goes back to zero.
+
+### One line, one state change
+
+Each line goes through `apply()`, which turns it into a small live state: status, what it is doing, the last sentence, files, tokens. Condensed:
+
+```js
+if (b.type === 'tool_use') {
+  s.pending[b.id] = t; s.status = 'working';
+  s.doing = { tool: toolName(b.name), target: target(b.name, b.input), since: t };
+}
+// ...
+if (j.message.stop_reason === 'end_turn' && !j.isSidechain) {
+  s.status = 'idle'; s.doing = null; s.pending = {};
+}
+```
+
+`target()` makes the bubble readable: for `Edit` it is the file name, for `Bash` the command's description, for a web fetch the host. Edits to files are counted per path, which is where "changed files" in the detail view comes from.
+
+Two details that took me a bit to get right:
+
+- **Tokens counted once.** One API message is written as several lines with the same `usage`, so the watcher keeps a set of seen message ids and counts each one only once.
+- **Subagents.** Lines with `isSidechain` are helper agents. Their tool calls go into the log (and a helper counter), but their text doesn't replace the main session's last sentence and their `end_turn` doesn't mark the session idle.
+
+There is also a safety net: a session still "working" with no file change for 10 minutes is treated as closed mid-turn and goes idle.
+
+<HighlightBox>
+An honest limitation, written right in the source: the transcript has no record of a permission prompt, so the watcher can't tell "waiting for your OK" from "a long command is running". It never claims either. The bubble just shows the tool and how many seconds it has been going.
+</HighlightBox>
+
+None of this is a public API. The comment at the top of the file says so, and if Claude Code changes the format, `apply()` is the one place to fix. There is a `selftest()` with fake transcript lines so I notice quickly.
+
+## The other agents: one reader per tool
+
+`lib/agents.mjs` reports Cursor, Codex CLI, Gemini CLI, OpenCode and Antigravity in exactly the same shape as Claude sessions, so the office doesn't care where a session came from. Each tool stores its history differently, so each gets its own short reader:
+
+- **Codex CLI**: JSONL files in `~/.codex/sessions/YYYY/MM/DD/`. Only the newest two day folders are scanned, which is enough for a 30-minute window, and it uses the same append-only `tail()` as above.
+- **Gemini CLI**: one JSON file per chat that gets rewritten as it grows, so the state is rebuilt from the whole document each time.
+- **OpenCode**: its storage folder of session and message files.
+- **Cursor**: a SQLite database. It is opened read-only through `node:sqlite`, which is why Cursor needs Node 22.5+. Without it, Cursor is simply not shown.
+- **Antigravity**: its log files.
+
+Every tool names its tools differently, so a mapper turns them into the names the office already knows:
+
+```js
+export function toolLabel(name) {
+  const n = String(name || '').toLowerCase();
+  if (/shell|terminal|exec_command|bash|run_command/.test(n)) return 'Shell';
+  if (/apply_patch|edit|write|replace|create_file|patch/.test(n)) return 'Edit';
+  if (/read|view|open_file/.test(n)) return 'Read';
+  // ...
+}
+```
+
+Codex even gets a working resume command, `codex resume <id>`, from its `session_meta` line. The rule for the whole file is the same as for Claude: each reader is small on purpose, so when a tool update breaks one, I fix that one function.
+
+## The server and live updates
+
+`server.mjs` is a plain `node:http` server bound to `127.0.0.1` on port 4530. Live data goes to the browser over **server-sent events** on `/api/events`. Whenever a watcher sees a change, it broadcasts the session list plus a combined activity feed:
+
+```js
+const broadcast = o => {
+  const m = `data: ${JSON.stringify(o)}\n\n`;
+  for (const c of clients) c.write(m);
+};
+```
+
+A ping every 25 seconds keeps the connection alive. I picked SSE over WebSockets because the data only flows one way, and the browser's `EventSource` reconnects on its own.
+
+## Running the writing jobs
+
+The writing doesn't use an SDK. It spawns the `claude` CLI in print mode, with streaming JSON, no session persistence, my own system prompt, and all file and shell tools disallowed:
+
+```js
+const args = ['-p', user, '--output-format', 'stream-json', '--verbose',
+  '--include-partial-messages', '--no-session-persistence',
+  '--system-prompt', system, '--model', MODEL,
+  '--disallowedTools', 'Bash,Edit,Write,Read,Glob,Grep,Agent,NotebookEdit,Task,WebFetch,WebSearch'];
+const env = { ...process.env }; delete env.CLAUDECODE;
+```
+
+The model is `sonnet` by default (`KIT_MODEL` or `"model"` in `agency-kit.json` to change it). That `delete env.CLAUDECODE` line is there because the CLI refuses to nest inside another Claude Code session, and I usually start the server from one.
+
+Since the agent can't read files, the server pastes the data in. The system prompt is the skill itself: `SKILL.md`, the reference guides and the templates joined together. The user message is today's date, every data file as a Markdown section, and the task, like "Write the proposal for project p01...". Any note you typed is added as "Extra instruction from the owner". There is a 240-second timeout, and a `busy` set makes sure one desk runs one job at a time.
+
+### Streaming text onto a monitor
+
+With `--include-partial-messages` the CLI emits `content_block_delta` events. The server collects the text and broadcasts the last 400 characters to the desk, throttled to roughly every 120 ms:
+
+```js
+const text = await claude(system, user, t => {
+  if (Date.now() - last > 120) {
+    last = Date.now();
+    broadcast({ type: 'stream', desk, text: t.slice(-400), chars: t.length });
+  }
+});
+```
+
+The page draws that onto the desk's monitor canvas and into the person's speech bubble, which is why you watch the proposal appear while the agent "types".
+
+## jobs.json and skill desks
+
+The custom desks from Part 1 are just as simple. On start, the server reads `jobs.json`, checks each id against a strict pattern and resolves the skill folder. When you run a job, `skillPrompt()` turns the folder into a system prompt: `SKILL.md` plus every Markdown file under `references/` and `templates/`, capped at 60,000 characters. Your text box becomes the task. Everything else, the data folder, streaming, the Outbox and the amount check, is shared with the built-in desks.
+
+## Checking and the Outbox
+
+When the text is done, the server splits it at the first `---`. The skill always returns the document, then `---`, then a Check section, so only the document part is checked. The checker lives in the skill's own `kit.mjs`, which also works on its own from the command line.
+
+The idea of `checkDraft()`: collect every amount from offers, projects and numbers, then accept an amount in the draft only if it is one of those, a small multiple of one (think "3 × €290"), or a sum of two such terms. Anything else is reported as unknown:
+
+```js
+const base = [...new Set([...data.offers, ...data.projects, ...data.numbers]
+  .flatMap(r => amounts(Object.values(r).join(' ')).map(a => a.value)))];
+const terms = new Set(base.flatMap(b =>
+  Array.from({ length: 36 }, (_, k) => Math.round(b * (k + 1) * 100))));
+```
+
+It also counts every "(to confirm)". In the self-test, a made-up "Rush fee €999" is the one amount that gets flagged.
+
+The draft is saved to `outputs/` with a timestamped name, and the result goes back to the page. That is the moment the office plays the hand-off: the writer carries the page to Vera, Vera walks it to the Outbox, and the counter on the Outbox goes up. Every Outbox card shows the check result as chips.
+
+The buttons on a draft call `/api/mark`, which edits the Markdown tables through `lib/edit.mjs`. `writeSafe()` keeps the previous file as `.md.bak` before every write. "Won", for example, sets the stage to `in progress`, sets the start date and, if the value was still "to quote", fills in the offer price.
+
+## Wrapping up
+
+Looking back, the most useful decisions were the boring ones: read-only everywhere, append-only reading of transcripts, one tiny reader per tool, and the CLI instead of an SDK so the writing runs on the login I already have. The 3D office is the fun layer on top, but underneath it is a few hundred lines of Node that I can actually keep working when tools change their file formats.
+
+## In this series
+
+- [Part 1: A 3D Office Where My Agents Work](/post/scranton-branch-part-1-an-office-for-your-agents)
+- [Part 2: Under the Hood](/post/scranton-branch-part-2-under-the-hood)
