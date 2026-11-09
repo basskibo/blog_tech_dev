@@ -19,6 +19,7 @@ class MyDocument extends Document {
 					<link rel="dns-prefetch" href="https://res.cloudinary.com" />
 					<link rel="dns-prefetch" href="https://images.unsplash.com" />
 					<link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
+					<script src="https://analytics.ahrefs.com/analytics.js" data-key="VUedDoqJkqtkWoE6YRvO5Q" async></script>
 				</Head>
 				<body>
 					<Main />
