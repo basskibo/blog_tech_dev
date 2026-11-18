@@ -123,16 +123,9 @@ const NextConfiguration = {
 						value: 'public, max-age=31536000, immutable'
 					}
 				]
-			},
-			{
-				source: '/_next/static/:path*',
-				headers: [
-					{
-						key: 'Cache-Control',
-						value: 'public, max-age=31536000, immutable'
-					}
-				]
 			}
+			// No rule for /_next/static: Next already sends immutable there in production,
+			// and in dev the chunk names are not hashed, so caching them breaks HMR.
 		]
 	},
 	// Short URLs people (and bots) guess
