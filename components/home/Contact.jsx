@@ -1,12 +1,6 @@
 import React from 'react'
 import { Mail } from 'lucide-react'
-import { SiDevdotto, SiHashnode, SiMedium, SiSubstack } from 'react-icons/si'
-
-const PLATFORMS = [
-	{ name: 'Dev.to', Icon: SiDevdotto, href: 'https://dev.to/basskibo' },
-	{ name: 'Medium', Icon: SiMedium, href: 'https://medium.com/@jagetic.bojan' },
-	{ name: 'Hashnode', Icon: SiHashnode, href: 'https://hashnode.jageticbojan.com/' }
-]
+import { SiDevdotto } from 'react-icons/si'
 
 export default function Contact () {
 	return (
@@ -19,16 +13,9 @@ export default function Contact () {
 						<a className="btn btn-solid" href="mailto:jagetic.bojan@gmail.com" data-umami-event="say-hello-click">
 							<Mail aria-hidden="true" /> jagetic.bojan@gmail.com
 						</a>
-						<a className="btn btn-ghost" href="https://bojanjagetic.substack.com/?r=3kcln5&utm_campaign=pub-share-checklist" target="_blank" rel="noopener noreferrer" data-umami-event="newsletter-subscribe-click">
-							<SiSubstack aria-hidden="true" /> Get new posts by email
+						<a className="btn btn-ghost" href="https://dev.to/basskibo" target="_blank" rel="noopener noreferrer" data-umami-event="newsletter-dev.to-click">
+							<SiDevdotto aria-hidden="true" /> Dev.to
 						</a>
-					</div>
-					<div className="contact-platforms">
-						{PLATFORMS.map(({ name, Icon, href }) => (
-							<a key={name} className="chip" href={href} target="_blank" rel="noopener noreferrer" data-umami-event={`newsletter-${name.toLowerCase()}-click`}>
-								<Icon aria-hidden="true" /> {name}
-							</a>
-						))}
 					</div>
 				</div>
 			</div>

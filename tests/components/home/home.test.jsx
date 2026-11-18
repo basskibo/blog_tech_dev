@@ -348,19 +348,15 @@ describe('LatestPosts', () => {
 })
 
 describe('Contact', () => {
-	it('has a mail button, the newsletter and the platforms, without a fake email field', () => {
+	it('has only the mail button and Dev.to, without a fake email field', () => {
 		render(<Contact />)
 		expect(screen.getByRole('heading', { level: 2, name: 'Have an idea?' })).toBeInTheDocument()
 		expect(screen.getByRole('link', { name: 'jagetic.bojan@gmail.com' })).toHaveAttribute('href', 'mailto:jagetic.bojan@gmail.com')
-		const substack = screen.getByRole('link', { name: 'Get new posts by email' })
-		expect(substack.getAttribute('href')).toMatch(/^https:\/\/bojanjagetic\.substack\.com/)
-		expect(substack).toHaveAttribute('target', '_blank')
-		for (const name of ['Dev.to', 'Medium', 'Hashnode']) {
-			const chip = screen.getByRole('link', { name })
-			expect(chip).toHaveClass('chip')
-			expect(chip).toHaveAttribute('target', '_blank')
-			expect(chip.getAttribute('rel')).toContain('noopener')
-		}
+		const devto = screen.getByRole('link', { name: 'Dev.to' })
+		expect(devto).toHaveAttribute('href', 'https://dev.to/basskibo')
+		expect(devto).toHaveAttribute('target', '_blank')
+		expect(devto.getAttribute('rel')).toContain('noopener')
+		expect(screen.getAllByRole('link')).toHaveLength(2)
 		expect(screen.queryByRole('textbox')).toBeNull()
 	})
 })
